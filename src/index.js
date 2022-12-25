@@ -1,16 +1,22 @@
-const fs = require("fs")
-const rough = require("roughjs")
+// const fs = require("fs")
+import fs from "fs"
+import rough from "roughjs/bundled/rough.esm.js"
 
 const { DOMImplementation, XMLSerializer } = require("@xmldom/xmldom")
 
 class MemoryModel {
     constructor(options) {
         options = options || {}
-        this.document = new DOMImplementation().createDocument(
-            "http://www.w3.org/1999/xhtml",
-            "html",
-            null
-        )
+        if (options.browser) {
+            this.document = document
+        } else {
+            this.document = new DOMImplementation().createDocument(
+                "http://www.w3.org/1999/xhtml",
+                "html",
+                null
+            )
+        }
+
         this.svg = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
             "svg"
@@ -40,6 +46,17 @@ class MemoryModel {
                 }
             })
         }
+    }
+
+    /**
+     * Render the image SVG to a given canvas object.
+     */
+    render(canvas) {
+        const ctx = canvas.getContext("2d")
+        var image = new Image()
+        var data = "data:image/svg+xml;base64," + window.btoa(this.svg)
+        image.src = data
+        ctx.drawImage(image, 0, 0)
     }
 
     /**
@@ -493,7 +510,7 @@ class MemoryModel {
     }
 }
 
-config = {
+const config = {
     rect_style: { stroke: "rgb(0, 0, 0)" },
     text_color: "rgb(0, 0, 0)", // Default text color
     value_color: "rgb(27, 14, 139)", // Text color for primitive values
@@ -508,10 +525,11 @@ config = {
     double_rect_sep: 6, // Separation between double boxes around immutable objects
     list_index_sep: 20, // Vertical offset for list index labels
     font_size: 20, // Font size, in px
+    browser: false, // Whether this library is being used in a browser context
 }
 
 // Built-in data types
 const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]
 const collections = ["list", "set", "tuple", "dict"]
 
-module.exports = { MemoryModel, config }
+export default { MemoryModel, config }

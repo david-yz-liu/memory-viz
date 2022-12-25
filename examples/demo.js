@@ -1,4 +1,4 @@
-const { MemoryModel } = require("memory-models-rough")
+const { MemoryModel } = require("../dist/memory_models_rough.node")
 
 const m = new MemoryModel({ width: 1300, height: 1100 })
 

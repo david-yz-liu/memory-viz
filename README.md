@@ -14,7 +14,7 @@ This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the
     $ npm install git+https://github.com/david-yz-liu/memory-models-rough.git -g
     ```
 
-    *Note*: omit the `-g` flag if you want to install the package into just the current working directory.
+    _Note_: omit the `-g` flag if you want to install the package into just the current working directory.
 
 ## Example usage
 

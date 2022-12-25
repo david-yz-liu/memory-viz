@@ -1,21 +1,54 @@
 const path = require("path")
 
-module.exports = {
-    entry: path.resolve(__dirname, "src/index.js"),
-    output: {
-        path: path.resolve(__dirname, "dist"),
-        filename: "index_bundle.js",
-        library: "hi",
-        libraryTarget: "umd",
-    },
-    module: {
-        rules: [
-            {
-                test: /\.(js)$/,
-                exclude: /node_modules/,
-                use: "babel-loader",
+const module_config = {
+    rules: [
+        {
+            test: /\.(js)$/,
+            exclude: /node_modules/,
+            use: {
+                loader: "babel-loader",
+                options: {
+                    presets: ["@babel/preset-env"],
+                },
             },
-        ],
-    },
-    mode: "development",
+        },
+    ],
 }
+
+module.exports = [
+    {
+        target: "web",
+        entry: path.resolve(__dirname, "src/index.js"),
+        output: {
+            path: path.resolve(__dirname, "dist"),
+            filename: "memory_models_rough.js",
+            library: {
+                name: "MemoryModelsRough",
+                type: "umd",
+                export: "default",
+            },
+        },
+        module: module_config,
+        mode: "development",
+        resolve: {
+            fallback: {
+                fs: false,
+            },
+        },
+    },
+    {
+        target: "node",
+        entry: path.resolve(__dirname, "src/index.js"),
+        output: {
+            path: path.resolve(__dirname, "dist"),
+            filename: "memory_models_rough.node.js",
+            library: {
+                name: "MemoryModelsRough",
+                type: "umd",
+                export: "default",
+            },
+        },
+        module: module_config,
+        mode: "development",
+    },
+]

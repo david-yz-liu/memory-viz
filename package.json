@@ -2,7 +2,7 @@
     "name": "memory-models-rough",
     "version": "0.1.0",
     "description": "Library for creating Python memory model diagrams that look hand-drawn.",
-    "main": "index.js",
+    "main": "dist/memory_models_rough.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -11,13 +11,20 @@
         "diagrams"
     ],
     "author": "David Liu",
-    "contributors": ["Shannon Komguem"],
+    "contributors": [
+        "Shannon Komguem"
+    ],
     "license": "MIT",
     "dependencies": {
-        "roughjs": "^4.5.0",
-        "@xmldom/xmldom": "^0.8.6"
+        "@xmldom/xmldom": "^0.8.6",
+        "roughjs": "^4.5.0"
     },
     "devDependencies": {
-        "prettier": "2.8.1"
+        "@babel/core": "^7.20.7",
+        "@babel/preset-env": "^7.20.2",
+        "babel-loader": "^9.1.0",
+        "prettier": "2.8.1",
+        "webpack": "^5.75.0",
+        "webpack-cli": "^5.0.1"
     }
 }
