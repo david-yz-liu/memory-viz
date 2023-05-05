@@ -5,7 +5,7 @@ This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the
 
 **Note**: this project is currently experimental, and may undergo significant changes before stabilizing.
 
-## Installation
+## Installation (users)
 
 1. Install [Node.js](https://nodejs.org/en/).
 2. Install the `memory-models-rough` package from GitHub (it is currently not on npm):
@@ -15,6 +15,19 @@ This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the
     ```
 
     _Note_: omit the `-g` flag if you want to install the package into just the current working directory.
+
+## Installation (developers)
+
+1. First, clone this repository.
+2. Install [Node.js](https://nodejs.org/en/).
+3. Open a terminal in your local code of the repository, and then run:
+
+    ```console
+    $ npm install
+    ```
+
+That's it!
+You should then be able to try out the demo in the [Example usage](#example-usage) section below.
 
 ## Example usage
 
