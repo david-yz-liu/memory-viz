@@ -30,6 +30,7 @@ module.exports = [
         },
         module: module_config,
         mode: "development",
+        devtool: 'inline-source-map',
         resolve: {
             fallback: {
                 fs: false,
@@ -50,5 +51,6 @@ module.exports = [
         },
         module: module_config,
         mode: "development",
+        devtool: 'inline-source-map',
     },
 ]

@@ -26,8 +26,26 @@ This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the
     $ npm install
     ```
 
+4. Compile the Javascript assets using [webpack](https://webpack.js.org/guides/getting-started/):
+
+    ```console
+    $ npm run build
+    ```
+
 That's it!
 You should then be able to try out the demo in the [Example usage](#example-usage) section below.
+
+### Automatic Javascript compilation
+
+Rather than running `npm run build` to recompile your Javascript bundle every time you make a change, you can instead run the following command:
+
+```console
+$ npm run watch
+```
+
+This will use `webpack` to watch for changes to the Javascript source files and recompile them automatically.
+
+*Note*: this command will keep running until you manually terminate it (Ctrl + C), and so you'll need to open a new terminal window to enter new terminal commands like running the demo below.
 
 ## Example usage
 

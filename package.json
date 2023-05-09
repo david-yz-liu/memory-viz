@@ -4,7 +4,9 @@
     "description": "Library for creating Python memory model diagrams that look hand-drawn.",
     "main": "dist/memory_models_rough.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "watch": "webpack --watch",
+        "build": "webpack"
     },
     "keywords": [
         "education",
