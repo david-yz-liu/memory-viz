@@ -16,7 +16,10 @@ class MemoryModel {
      *                                "RoughSVG provides the main interface to work with this library".
      *
      * NOTE: Other properties of this class are a consequence of the constant 'config' object in the bottom of this file.
-     *       These include 'id_colour', 'obj_min_width', and 'font_size'.
+     *       These include 'id_colour', 'obj_min_width', and 'font_size'. The 'config' constant also contains default
+     *       values for these properties.
+     *       Moreover, the user can optionally set custom width and height for the canvas by passing them as attributes
+     *       to the 'options' argument. To see this in practice, see ./examples/demo.js.
      *
      */
     constructor(options)    {
@@ -35,11 +38,19 @@ class MemoryModel {
             "http://www.w3.org/2000/svg",
             "svg"
         )
+
+        // Defining 'this.width', 'this.height', and 'this.rough_svg'.
         this.svg.setAttribute("width", options.width || 800)
         this.svg.setAttribute("height", options.height || 800)
         this.rough_svg = rough.svg(this.svg)
 
-        // Leave comment here
+        // 'config' is a constant object holding configuration information, defined in the bottom of this file.
+        // In particular, 'config' contains all properties that a 'MemoryModel' object must have, ---as well as their
+        // corresponding default values---. However, with the 'options' parameter, the user has the ability to override
+        // these default values by passing in a custom object with the desired attribute values.
+        // For instance, if the user runs
+        //                      m = new MemoryModel({font_size: 17}),
+        // then the default 'font_size' value of 20 will be overridden and 'm.font_size' will evaluate to 17.
         for (const key in config) {
             this[key] = options.hasOwnProperty(key) ? options[key] : config[key]
         }
@@ -79,8 +90,8 @@ class MemoryModel {
 
     /**
      * Distribute the object drawing depending on type
-     * @param x: optional value for x coordinate of top left corner
-     * @param y: optional value for y coordinate of top left corner
+     * @param x: value for x coordinate of top left corner
+     * @param y: value for y coordinate of top left corner
      * @param type: the data type (e.g. list, int) of the object we want draw
      * @param id: the hypothetical memory address number
      * @param value: can be passed as a list if type is a collection type
@@ -102,14 +113,14 @@ class MemoryModel {
 
     /**
      * Draw a primitive object.
-     * @param {number} x: optional value for x coordinate of top left corner
-     * @param {number} y: optional value for y coordinate of top left corner
+     * @param {number} x: value for x coordinate of top left corner
+     * @param {number} y: value for y coordinate of top left corner
      * @param {string} type: the primitive data type (e.g. boolean, int) of the object we want draw
      * @param {number} id: the hypothetical memory address number
      * @param {*} value: the value of the primitive object
      */
     drawPrimitive(x, y, type, id, value) {
-        // Adjust and draw object box (see config object for the information on the attributes)
+        // Adjust and draw object box (see 'config' object for the information on the attributes)
         let box_width = Math.max(
             this.obj_min_width,
             this.getTextLength(String(value)) + this.obj_x_padding
@@ -117,7 +128,7 @@ class MemoryModel {
         this.drawRect(x, y, box_width, this.obj_min_height)
 
         // For immutable types we need a double box, so we add another box that will contain the one we created.
-        // Coordinate-wise, we utilize the 'double_rec_sep' property from the 'config' constant.
+        // Coordinate-wise, we utilize 'this.double_rec_sep' (see 'config' for more information).
         // It represents the space to leave between the inner box and the outer box.
         if (immutable.includes(type)) {
             this.drawRect(
@@ -155,19 +166,19 @@ class MemoryModel {
      * Draw the id and type properties of an object with a given type and id.
      * @param {number} id: the hypothetical memory address number
      * @param {string} type: the data type of the given object
-     * @param {number} x: optional value for x coordinate of top left corner
-     * @param {number} y: optional value for y coordinate of top left corner
+     * @param {number} x: value for x coordinate of top left corner
+     * @param {number} y: value for y coordinate of top left corner
      * @param {number} width: The width of the given box (rectangle)
      */
     drawProperties(id, type, x, y, width) {
 
-        // Adjust the id box regarding the min width requirements of property boxes defined at config
+        // Adjust the id box by taking into account 'this.min_width'.
         let id_box = Math.max(
             this.prop_min_width,
             this.getTextLength(`id${id}`) + 10
         )
 
-        // Adjust type box regarding the min width requirements of property boxes defined at config
+        // Adjust the id box by taking into account 'this.prop_min_width'.
         let type_box = Math.max(
             this.prop_min_width,
             this.getTextLength(type) + 10
@@ -196,8 +207,8 @@ class MemoryModel {
 
     /**
      * Draw a sequence object (must be either a list or a tuple).
-     * @param {number} x: optional value for x coordinate of top left corner
-     * @param {number} y: optional value for y coordinate of top left corner
+     * @param {number} x: value for x coordinate of top left corner
+     * @param {number} y: value for y coordinate of top left corner
      * @param {string} type: the data type of the given object (tuple or list)
      * @param {number} id: the hypothetical memory address number
      * @param {number[]} values: the list of id's corresponding to the values stored in this set.
@@ -226,8 +237,7 @@ class MemoryModel {
             )
         })
 
-        // Final 'box_width' adjustment; ensuring the box is at least as wide as required by the 'obj_min_width'
-        // Constant from the 'config' object
+        // Final 'box_width' adjustment; ensuring the box is at least as wide as required by 'this.obj_min_width'.
         box_width = Math.max(this.obj_min_width, box_width)
 
         // Box height
@@ -292,8 +302,8 @@ class MemoryModel {
 
     /**
      * Draw a set object.
-     * @param {number} x: optional value for x coordinate of top left corner
-     * @param {number} y: optional value for y coordinate of top left corner
+     * @param {number} x: value for x coordinate of top left corner
+     * @param {number} y: value for y coordinate of top left corner
      * @param {number} id: the hypothetical memory address number
      * @param {number[]} values: the list of id's corresponding to the values stored in this set.
      *      NOTE:
@@ -377,8 +387,8 @@ class MemoryModel {
 
     /**
      * Draw a dictionary object
-     * @param {number} x: optional value for x coordinate of top left corner
-     * @param {number} y: optional value for y coordinate of top left corner
+     * @param {number} x: value for x coordinate of top left corner
+     * @param {number} y: value for y coordinate of top left corner
      * @param {number} id: the hypothetical memory address number
      * @param {object} obj: the object that will be drawn
      */
@@ -476,8 +486,8 @@ class MemoryModel {
 
     /**
      * Draw a custom class.
-     * @param  {number} x: optional value for x coordinate of top left corner
-     * @param {number} y: optional value for y coordinate of top left corner
+     * @param  {number} x: value for x coordinate of top left corner
+     * @param {number} y: value for y coordinate of top left corner
      * @param {string} name: the name of the class
      * @param {number} id: the hypothetical memory address number
      * @param {object} attributes: the attributes of the given class
@@ -561,8 +571,8 @@ class MemoryModel {
 
     /**
      * Draw a rectangle that will be used to represent the objects.
-     * @param {number} x: optional value for x coordinate of top left corner
-     * @param {number} y: optional value for y coordinate of top left corner
+     * @param {number} x: value for x coordinate of top left corner
+     * @param {number} y: value for y coordinate of top left corner
      * @param {number} width: the width of the rectangle
      * @param {number} height: the height of the rectangle
      * @param {object | undefined} style: if specified an object with style properties for a Rough.js object, as per the
@@ -580,8 +590,8 @@ class MemoryModel {
     /**
      * Draw given text
      * @param {string} text: The text message that will be displayed
-     * @param {number} x: optional value for x coordinate of top left corner
-     * @param {number} y: optional value for y coordinate of top left corner
+     * @param {number} x: value for x coordinate of top left corner
+     * @param {number} y: value for y coordinate of top left corner
      * @param {string} colour: The colour of the text that will be displayed. Must be in the form "rgb(..., ..., ...)".
      * @param {string} align: The text anchor; one of "start", "middle" or "end".
      *                        (As per the SVG documentation from developer.mozilla.org)
