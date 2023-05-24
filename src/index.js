@@ -1,6 +1,6 @@
-// a library allowing interaction with the file system (e.g. creating new files)
+// A library allowing interaction with the file system (e.g. creating new files)
 import fs from "fs"
-// the library allowing for the production of sketches that appear to be hand-drawn
+// The library allowing for the production of sketches that appear to be hand-drawn
 import rough from "roughjs/bundled/rough.esm.js"
 
 const { DOMImplementation, XMLSerializer } = require("@xmldom/xmldom")
@@ -86,15 +86,15 @@ class MemoryModel {
      * @param show_indexes: whether to show list indices
      */
     drawObject(x, y, type, id, value, show_indexes) {
-        if (collections.includes(type)) {  // if the given object is a collection
+        if (collections.includes(type)) {  // If the given object is a collection
             if (type === "dict") {
                 this.drawDict(x, y, id, value)
             } else if (type === "set") {
                 this.drawSet(x, y, id, value)
             } else if (type === "list" || type === "tuple") {
-                this.drawList(x, y, type, id, value, show_indexes)
+                this.drawSequence(x, y, type, id, value, show_indexes)
             }
-        } else {  // if the given object is a primitive data type
+        } else {  // If the given object is a primitive data type
             this.drawPrimitive(x, y, type, id, value)
         }
     }
@@ -115,9 +115,9 @@ class MemoryModel {
         )
         this.drawRect(x, y, box_width, this.obj_min_height)
 
-        // For immutable types we need a double box, so we add another box that will contain the one we just
-        // created. Coordinate-wise, we utilize the 'double_rec_sep' property from the 'config' constant, which represents
-        // the space to leave between the inner box and the outer box.
+        // For immutable types we need a double box, so we add another box that will contain the one we created.
+        // Coordinate-wise, we utilize the 'double_rec_sep' property from the 'config' constant.
+        // It represents the space to leave between the inner box and the outer box.
         if (immutable.includes(type)) {
             this.drawRect(
                 x - this.double_rect_sep,
@@ -159,26 +159,28 @@ class MemoryModel {
      * @param {number} width: The width of the given box (rectangle)
      */
     drawProperties(id, type, x, y, width) {
-        // adjust the id box regarding the min width requirements of property boxes defined at config
+
+        // Adjust the id box regarding the min width requirements of property boxes defined at config
         let id_box = Math.max(
             this.prop_min_width,
             this.getTextLength(`id${id}`) + 10
         )
 
-        // adjust type box regarding the min width requirements of property boxes defined at config
+        // Adjust type box regarding the min width requirements of property boxes defined at config
         let type_box = Math.max(
             this.prop_min_width,
             this.getTextLength(type) + 10
         )
 
-        // draw the text inside the id box (insert the id of the given object to the id box)
+        // Draw the text inside the id box (insert the id of the given object to the id box)
         this.drawText(
             id === null ? "" : `id${id}`,
             x + id_box / 2,
             y + this.font_size * 1.5,
             this.id_color
         )
-        // draw the text inside the type box (insert the data type of the given object to the id box)
+
+        // Draw the text inside the type box (insert the data type of the given object to the id box)
         this.drawText(
             type,
             x + width - type_box / 2,
@@ -192,8 +194,7 @@ class MemoryModel {
     }
 
     /**
-     * Draw a list object.
-     * This method is both used for drawing a tuple object, and a list object.
+     * Draw a sequence object (must be either a list or a tuple).
      * @param {number} x: optional value for x coordinate of top left corner
      * @param {number} y: optional value for y coordinate of top left corner
      * @param {string} type: the data type of the given object (tuple or list)
@@ -211,8 +212,8 @@ class MemoryModel {
      * Moreover, note that this program does not force that for every id in the values argument there is
      * a corresponding object (and its memory box) in our canvas.
      */
-    drawList(x, y, type, id, values, show_idx) {
-
+    drawSequence(x, y, type, id, values, show_idx) {
+      
         // Object width
         let box_width = this.obj_x_padding * 2
 
@@ -225,7 +226,7 @@ class MemoryModel {
         })
 
         // Final 'box_width' adjustment; ensuring the box is at least as wide as required by the 'obj_min_width'
-        // constant from the 'config' object
+        // Constant from the 'config' object
         box_width = Math.max(this.obj_min_width, box_width)
 
         // Box height
@@ -255,7 +256,7 @@ class MemoryModel {
             (this.obj_min_height -
                 this.prop_min_height -
                 this.item_min_height) /
-            2 // y coordinate of list items
+            2  // y coordinate of list items
         if (show_idx) {
             item_y += this.list_index_sep
         }
@@ -399,14 +400,15 @@ class MemoryModel {
                 this.getTextLength(idv + 5)
             )
 
-            // draw the rectangles representing the keys
+            // Draw the rectangles representing the keys
             this.drawRect(
                 x + this.obj_x_padding,
                 curr_y,
                 key_box,
                 this.item_min_height
             )
-            // draw the text inside the keys
+
+            // Draw the text inside the keys
             this.drawText(
                 idk,
                 x + this.item_min_width + 2,
@@ -444,14 +446,16 @@ class MemoryModel {
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 this.value_color
             )
-            // draw the rectangle for values
+
+            // Draw the rectangle for values
             this.drawRect(
                 x + box_width / 2 + this.font_size,
                 curr_y,
                 value_box,
                 this.item_min_height
             )
-            // draw the text for the values
+
+            // Draw the text for the values
             this.drawText(
                 idv,
                 x + box_width / 2 + this.font_size + value_box / 2,
@@ -609,7 +613,8 @@ class MemoryModel {
     }
 }
 
-// default configurations we are using
+
+// Default configurations we are using
 const config = {
     rect_style: {stroke: "rgb(0, 0, 0)"},
     text_color: "rgb(0, 0, 0)", // Default text color
