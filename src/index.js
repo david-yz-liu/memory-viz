@@ -159,6 +159,7 @@ class MemoryModel {
      * @param {number} width: The width of the given box (rectangle)
      */
     drawProperties(id, type, x, y, width) {
+
         // Adjust the id box regarding the min width requirements of property boxes defined at config
         let id_box = Math.max(
             this.prop_min_width,
@@ -178,6 +179,7 @@ class MemoryModel {
             y + this.font_size * 1.5,
             this.id_color
         )
+
         // Draw the text inside the type box (insert the data type of the given object to the id box)
         this.drawText(
             type,
@@ -192,8 +194,7 @@ class MemoryModel {
     }
 
     /**
-     * Draw a sequence object (a list or a tuple).
-     * This method is both used for drawing a tuple object, and a list object.
+     * Draw a sequence object (must be either a list or a tuple).
      * @param {number} x: optional value for x coordinate of top left corner
      * @param {number} y: optional value for y coordinate of top left corner
      * @param {string} type: the data type of the given object (tuple or list)
@@ -212,7 +213,7 @@ class MemoryModel {
      * a corresponding object (and its memory box) in our canvas.
      */
     drawSequence(x, y, type, id, values, show_idx) {
-
+      
         // Object width
         let box_width = this.obj_x_padding * 2
 
@@ -406,6 +407,7 @@ class MemoryModel {
                 key_box,
                 this.item_min_height
             )
+
             // Draw the text inside the keys
             this.drawText(
                 idk,
@@ -444,6 +446,7 @@ class MemoryModel {
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 this.value_color
             )
+
             // Draw the rectangle for values
             this.drawRect(
                 x + box_width / 2 + this.font_size,
@@ -451,6 +454,7 @@ class MemoryModel {
                 value_box,
                 this.item_min_height
             )
+
             // Draw the text for the values
             this.drawText(
                 idv,
@@ -608,6 +612,7 @@ class MemoryModel {
         return s.length * 12
     }
 }
+
 
 // Default configurations we are using
 const config = {
