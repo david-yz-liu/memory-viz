@@ -39,6 +39,7 @@ class MemoryModel {
         this.svg.setAttribute("height", options.height || 800)
         this.rough_svg = rough.svg(this.svg)
 
+        // Leave comment here
         for (const key in config) {
             this[key] = options.hasOwnProperty(key) ? options[key] : config[key]
         }
@@ -108,7 +109,7 @@ class MemoryModel {
      * @param {*} value: the value of the primitive object
      */
     drawPrimitive(x, y, type, id, value) {
-        // Adjust and draw object box regarding the requirements specified in the config
+        // Adjust and draw object box (see config object for the information on the attributes)
         let box_width = Math.max(
             this.obj_min_width,
             this.getTextLength(String(value)) + this.obj_x_padding
@@ -476,7 +477,7 @@ class MemoryModel {
      * @param {string} name: the name of the class
      * @param {number} id: the hypothetical memory address number
      * @param {object} attributes: the attributes of the given class
-     * @param stack_frame: set to true if you are drawing a stack frame
+     * @param {boolean} stack_frame: set to true if you are drawing a stack frame
      */
     drawClass(x, y, name, id, attributes, stack_frame) {
         // Get object's width
