@@ -211,26 +211,26 @@ class MemoryModel {
      * @param {number} y: value for y coordinate of top left corner
      * @param {string} type: the data type of the given object (tuple or list)
      * @param {number} id: the hypothetical memory address number
-     * @param {number[]} values: the list of id's corresponding to the values stored in this set.
+     * @param {number[]} element_ids: the list of id's corresponding to the values stored in this set.
      *      NOTE:
      *          1. This argument MUST be an array, since the built-in 'forEach' method works only for
      *             (finite) ordered collections (i.e. with indexing). Sets are a type of unordered collection.
-     *          2. The 'values' argument must store the id's and not the actual value of the list elements.
+     *          2. The 'element_ids' argument must store the id's and not the actual value of the list elements.
      *             If the instructor wishes to showcase the corresponding values, it is their responsibility to create
-     *             memory boxes for all elements (with id's that match the id's held in 'values').
+     *             memory boxes for all elements (with id's that match the id's held in 'element_ids').
      *
      * @param {boolean} show_idx: whether to show the indexes of each list element
      *
-     * Moreover, note that this program does not force that for every id in the values argument there is
+     * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
      */
-    drawSequence(x, y, type, id, values, show_idx) {
+    drawSequence(x, y, type, id, element_ids, show_idx) {
       
         // Object width
         let box_width = this.obj_x_padding * 2
 
-        // For each element of 'values', we increase 'box_width' as required, to make space for all values.
-        values.forEach((v) => {  // v represents one single value
+        // For each element of 'element_ids', we increase 'box_width' as required, to make space for all values.
+        element_ids.forEach((v) => {  // v represents one single value
             box_width += Math.max(
                 this.item_min_width,
                 this.getTextLength(v === null ? "" : `id${v}`) + 10
@@ -271,7 +271,7 @@ class MemoryModel {
         if (show_idx) {
             item_y += this.list_index_sep
         }
-        values.forEach((v, i) => {
+        element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`
             const item_length = Math.max(
                 this.item_min_width,
@@ -305,29 +305,29 @@ class MemoryModel {
      * @param {number} x: value for x coordinate of top left corner
      * @param {number} y: value for y coordinate of top left corner
      * @param {number} id: the hypothetical memory address number
-     * @param {number[]} values: the list of id's corresponding to the values stored in this set.
+     * @param {number[]} element_ids: the list of id's corresponding to the values stored in this set.
      *      NOTE:
      *          1. This argument MUST be an array, since the built-in 'forEach' method works only for
      *             (finite) ordered collections (i.e. with indexing). Sets are a type of unordered collection.
-     *          2. The 'values' argument must store the id's and not the actual value of the list elements.
+     *          2. The 'element_ids' argument must store the id's and not the actual value of the list elements.
      *             If the instructor wishes to showcase the corresponding values, it is their responsibility to create
-     *             memory boxes for all elements (with id's that match the id's held in 'values').
+     *             memory boxes for all elements (with id's that match the id's held in 'element_ids').
      *
-     * Moreover, note that this program does not force that for every id in the values argument there is
+     * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
      */
-    drawSet(x, y, id, values) {
+    drawSet(x, y, id, element_ids) {
 
         // Adjust the object width (the width of the box)
         let box_width = this.obj_x_padding * 2
-        values.forEach((v) => { // v represents each value in this collection
+        element_ids.forEach((v) => { // v represents each value in this collection
             box_width += Math.max(
                 this.item_min_width,
                 this.getTextLength(v === null ? "" : `id${v}`) + 10
             )
         })
         box_width = Math.max(this.obj_min_width, box_width)
-        box_width += ((values.length - 1) * this.item_min_width) / 4 // Space for separators
+        box_width += ((element_ids.length - 1) * this.item_min_width) / 4 // Space for separators
 
         // Draw box which represents the set object
         this.drawRect(x, y, box_width, this.obj_min_height)
@@ -343,7 +343,7 @@ class MemoryModel {
             2 // y coordinate of list items
         let item_text_y = item_y + this.item_min_height / 2 + this.font_size / 4
 
-        values.forEach((v, i) => {
+        element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`
             const item_length = Math.max(
                 this.item_min_width,
