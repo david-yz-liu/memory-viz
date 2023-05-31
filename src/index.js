@@ -622,6 +622,75 @@ class MemoryModel {
     getTextLength(s) {
         return s.length * 12
     }
+
+
+    /**
+     * Create a MemoryModel given a list of JS objects.
+     *
+     * @param {object[]} objects: the list of objects (including stackframes) to be drawn.
+     * Each object in 'objects' must include  the following structure:
+     * @param {boolean} objects[*].isClass: Whether we want to draw a user-defined class or a built-in object. Pass 'true' to
+     *                                  draw a class or a stack-frame, and 'false' to draw any of the types found in the
+     *                                  'immutable' and 'collections' constants.
+     * @param {number} objects[*].x: Value for x coordinate of top left corner
+     * @param {number} objects[*].y: Value for y coordinate of top left corner
+     * @param {string} objects[*].name: The type of the object to draw (if isClass===true, then this is the name of the
+     *                                  corresdponding class or stackframe).
+     * @param {number} objects[*].id: The id value of this object. If we are to draw a StackFrame, then this MUST be 'null'.
+     * @param {*} objects[*].value: The value of the object. This could be anything, from an empty string to a JS object,
+     *                          which would be passed for the purpose of drawing a user-defined class object, a
+     *                          stackframe, or a dictionary. Note that in such cases where we want do draw a 'container'
+     *                          object (an object that contains other objects), we pass a JS object where the keys are the
+     *                          attributes/variables and the values are the id's of the corresopnding objects (not the
+     *                          objects themselves).
+     * @param {boolean=} [objects[*].stack_frame = null]: whether we want to draw a stack_frame or not. NOTE that this is only
+     *                                            applicable is the object's 'isClass' attribute is true (since the
+     *                                            'MemoryModel.drawClass' covers both classes and stackframs). By default,
+     *                                            'stack_frame' is set to null.
+     * @param {boolean=} [objects[*].show_indexes = false]: APPLICABLE ONLY FOR 'drawSequence'!!!
+     *                                                     Whether memory box of the underlying sequence will include
+     *                                                     indices or not. This has a default value of false, and it shall
+     *                                                     be manually set only if the object corresponds to a sequence
+     *                                                     (list or tuple).
+     *
+     *
+     *
+     * Preconditions:
+     *      - 'objects' is a valid object with the correct properties, as outlined above.
+     *
+     * @returns MemoryModel
+     */
+    createFromObjects(objects) {
+        for (let i = 0; i < objects.length; i++) { // traversing the objects list
+
+            let obj = objects[i]; // obj refers to the i'th element of the list
+
+            if (obj.isClass === true) { // we want to draw a class (or stack-frame)
+                this.drawClass(obj.x, obj.y, obj.name, obj.id, obj.value, obj.stack_frame)
+            }
+            else { // we want to draw an object of a built-in type
+                this.drawObject(obj.x, obj.y, obj.name, obj.id, obj.value, obj.show_indexes)
+            }
+        }
+
+    }
+
+    /**
+     * Create a MemoryModel given the path to a JSON file.
+     * The JSON file must contain a list of objects, exactly like the input to the function 'createFromObjects' (see
+     * the dosctring of 'createFromObjects' for detailed information on the requured format of this list of objects).
+     *
+     * @param {string} path - the path to the JSON file
+     *
+     * @return MemoryModel
+     */
+    createFromJSON(path) {
+        // this automatically converts the JSON file into the corresponding JavaScript data structure,
+        // this case a list of objects, and assigns it to the constant 'listOfObjs'.
+        const listOfObjs = require(path);
+
+        this.createFromObjects(listOfObjs); // reusing the 'createFromObjects' function
+    }
 }
 
 
