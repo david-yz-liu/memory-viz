@@ -1,24 +1,21 @@
 const { MemoryModel } = require("../dist/memory_models_rough.node")
 
-const m = new MemoryModel({ width: 1300, height: 1100 })
+const m1 = new MemoryModel({ width: 1300, height: 1100 })
+const m2 = new MemoryModel({ width: 1300, height: 1100 })
 
-m.drawClass(10, 10, "emphasize", null, { lst: 4 }, true)
-m.drawClass(10, 160, "__main__", null, { sentence: 2, hi: null }, true)
-m.drawObject(510, 10, "list", 2, [10, 11, 12], true)
-m.drawObject(770, 10, "list", 3, [10, 11, 12], false)
-m.drawObject(510, 200, "str", 10, "winter")
-m.drawObject(760, 200, "int", 11, 999)
-m.drawObject(1010, 200, "bool", 12, true)
-m.drawObject(510, 400, "set", 4, [10, 11, 12, 23, 24])
-m.drawObject(510, 600, "dict", 100, { 2: 3, 10: 20, hi: "bye" })
+// A sample list of objects to be used as an argument for the 'createFromObjects' function.
+const objs = [
+    {isClass: true, x: 10, y:10, name: "Person", id: 99, value: {age: 12234, name: 17}, stack_frame: false},
+    {isClass: true, x: 10, y:350, name: "__main__", id: 82, value: {a: 31, b: 27}, stack_frame: true},
+    {isClass: false, x: 10, y: 600, name: "list", id: 82, value: [19, 43, 28, 49]},
+    {isClass: false, x: 350, y: 10, name: "list", id: 82, value: [32, 10, 90, 57], show_indexes: true}
 
-m.drawClass(
-    800,
-    600,
-    "HockeyTeam",
-    26,
-    { name: 21, games_played: 5, wins: 11 },
-    false
-)
+]
 
-m.save("test.svg")
+// console.log(file.createFromObjects)
+m1.createFromObjects(objs);
+m1.save("../docs/images/test2.svg")
+
+// // creating a MemoryModel by calling the 'createFromJSON' with the 'sample_json.json' file.
+m2.createFromJSON("../docs/sample_json.json");
+m2.save("../docs/images/test3.svg"); // saving the resulting MemoryModel object as an svg.
