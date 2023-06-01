@@ -17,5 +17,8 @@ m1.createFromObjects(objs);
 m1.save("../docs/images/test2.svg")
 
 // // creating a MemoryModel by calling the 'createFromJSON' with the 'sample_json.json' file.
-m2.createFromJSON("../docs/sample_json.json");
-m2.save("../docs/images/test3.svg"); // saving the resulting MemoryModel object as an svg.
+// m2.createFromJSON("../docs/sample_json.json");
+m2.createFromJSON("./test.svg");
+// m2.createFromJSON("/Users/mimischly/Desktop/UOFT/Y1/Summer\ 2023/memory-models-liu/memory-models-rough/docs" +
+  //  "/sample_json.json")
+// m2.save("../docs/images/test3.svg"); // saving the resulting MemoryModel object as an svg.

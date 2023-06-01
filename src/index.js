@@ -685,6 +685,8 @@ class MemoryModel {
      * @return MemoryModel
      */
     createFromJSON(path) {
+        console.log('*****************************************************-')
+        console.log(process.cwd());
         // this automatically converts the JSON file into the corresponding JavaScript data structure,
         // this case a list of objects, and assigns it to the constant 'listOfObjs'.
         const listOfObjs = require(path);
