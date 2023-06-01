@@ -680,17 +680,19 @@ class MemoryModel {
      * The JSON file must contain a list of objects, exactly like the input to the function 'createFromObjects' (see
      * the dosctring of 'createFromObjects' for detailed information on the requured format of this list of objects).
      *
-     * @param {string} path - the path to the JSON file
+     * @param {string} path - the path to the JSON file.
      *
-     * @return MemoryModel
      */
     createFromJSON(path) {
-        console.log('*****************************************************-')
-        console.log(process.cwd());
-        // this automatically converts the JSON file into the corresponding JavaScript data structure,
-        // this case a list of objects, and assigns it to the constant 'listOfObjs'.
-        const listOfObjs = require(path);
+        // Use of fs.readFileSync(<path>, <options>) which synchronously reads and returns a string of the data stored
+        // in the file that corresponds to path. It blocks execution of any other code until the file is read.
+        const json_string = fs.readFileSync(path, "utf-8");
 
+        // Since fs.readFileSync returns a string, we then use JSON.parse in order to convert the return JSON string
+        // into a valid JavaScript object (we assume that 'path' is the path to a valid JSON file).
+        const listOfObjs = JSON.parse(json_string);
+
+        // Since we now have our list of objects, we simply reuse the previously created 'createFromObjects' method.
         this.createFromObjects(listOfObjs); // reusing the 'createFromObjects' function
     }
 }
