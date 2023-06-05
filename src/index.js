@@ -89,13 +89,58 @@ class MemoryModel {
     }
 
     /**
+     * Draw all the objects and/or classes in the given collection.
+     * @param {object[]} items: A list of items (objects, classes and/or stack-frames) that will be drawn.
+     *
+     * Each object in 'items' must include  the following structure:
+     *
+     * @param {boolean} items[*].isClass:   Whether a user-defined class (or a stack-frame) or a built-in
+     *                                      object will be drawn. Pass true to draw a class or a stack-frame,
+     *                                      and false to draw any of the types found in the 'immutable'
+     *                                      and 'collections' constants.
+     * @param {number} items[*].x:  Value for x coordinate of top left corner.
+     * @param {number} items[*].y:  Value for y coordinate of top left corner.
+     * @param {string} items[*].name:   The data type of the object to draw. (if isClass===true, it represents
+     *                                  the user-defined name of the corresponding class or stack frame).
+     * @param {number} items[*].id: The id value of this object. If drawClass method will be used (to draw
+     *                              a stack frame and/or a user-defined class), null must be passed.
+     * @param {*} items[*].value:   The value of the object. Note that in such cases when it is required (when a
+     *                              user defined class or a stack frame will be drawn)to draw a 'container' object
+     *                              (an object that contains other objects), we pass a JS object where the keys are
+     *                              the attributes/variables and the values are the id's of the corresponding objects
+     *                              (not the objects themselves).
+     * @param {boolean=} [items[*].stackFrame = null]:  Whether a stack frame will be drawn or not. NOTE that this is
+     *                                                  only applicable is the item's isClass attribute is true
+     *                                                  (since the MemoryModel.drawClass covers both classes and
+     *                                                  stack frames). By default, stackFrame is set to null.
+     * @param {boolean=} [items[*].showIndexes = false]:    Applicable for drawing tuples or lists (when drawSequence
+     *                                                      method will be used.) Whether memory box of the underlying
+     *                                                      sequence will include indices (for sequences) or not. This
+     *                                                      has a default value of false, and it shall be manually set
+     *                                                      only if the object corresponds to a sequence (list or
+     *                                                      tuple).
+     *
+     */
+    drawAll(items) {
+        for (const i in items) {
+            let item = items[i];  // Variable 'item' represents a single object in items.
+            if (item.isClass) {  // In this case, drawClass method will be used.
+                this.drawClass(item.x, item.y, item.name, item.id, item.value, item.stackFrame);
+            } else {  // If item.isClass is false, drawObject method will be used.
+                this.drawObject(item.x, item.y, item.type, item.id, item.value, item.showIndexes);
+            }
+
+        }
+    }
+
+    /**
      * Distribute the object drawing depending on type
-     * @param x: value for x coordinate of top left corner
-     * @param y: value for y coordinate of top left corner
-     * @param type: the data type (e.g. list, int) of the object we want draw
-     * @param id: the hypothetical memory address number
-     * @param value: can be passed as a list if type is a collection type
-     * @param show_indexes: whether to show list indices
+     * @param {number} x: value for x coordinate of top left corner
+     * @param {number} y: value for y coordinate of top left corner
+     * @param {string} type: the data type (e.g. list, int) of the object we want draw
+     * @param {number} id: the hypothetical memory address number
+     * @param {*} value: can be passed as a list if type is a collection type
+     * @param {boolean} show_indexes: whether to show list indices
      */
     drawObject(x, y, type, id, value, show_indexes) {
         if (collections.includes(type)) {  // If the given object is a collection
@@ -110,6 +155,7 @@ class MemoryModel {
             this.drawPrimitive(x, y, type, id, value)
         }
     }
+
 
     /**
      * Draw a primitive object.
@@ -211,26 +257,26 @@ class MemoryModel {
      * @param {number} y: value for y coordinate of top left corner
      * @param {string} type: the data type of the given object (tuple or list)
      * @param {number} id: the hypothetical memory address number
-     * @param {number[]} values: the list of id's corresponding to the values stored in this set.
+     * @param {number[]} element_ids: the list of id's corresponding to the values stored in this set.
      *      NOTE:
      *          1. This argument MUST be an array, since the built-in 'forEach' method works only for
      *             (finite) ordered collections (i.e. with indexing). Sets are a type of unordered collection.
-     *          2. The 'values' argument must store the id's and not the actual value of the list elements.
+     *          2. The 'element_ids' argument must store the id's and not the actual value of the list elements.
      *             If the instructor wishes to showcase the corresponding values, it is their responsibility to create
-     *             memory boxes for all elements (with id's that match the id's held in 'values').
+     *             memory boxes for all elements (with id's that match the id's held in 'element_ids').
      *
      * @param {boolean} show_idx: whether to show the indexes of each list element
      *
-     * Moreover, note that this program does not force that for every id in the values argument there is
+     * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
      */
-    drawSequence(x, y, type, id, values, show_idx) {
+    drawSequence(x, y, type, id, element_ids, show_idx) {
       
         // Object width
         let box_width = this.obj_x_padding * 2
 
-        // For each element of 'values', we increase 'box_width' as required, to make space for all values.
-        values.forEach((v) => {  // v represents one single value
+        // For each element of 'element_ids', we increase 'box_width' as required, to make space for all values.
+        element_ids.forEach((v) => {  // v represents one single value
             box_width += Math.max(
                 this.item_min_width,
                 this.getTextLength(v === null ? "" : `id${v}`) + 10
@@ -271,7 +317,7 @@ class MemoryModel {
         if (show_idx) {
             item_y += this.list_index_sep
         }
-        values.forEach((v, i) => {
+        element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`
             const item_length = Math.max(
                 this.item_min_width,
@@ -305,29 +351,29 @@ class MemoryModel {
      * @param {number} x: value for x coordinate of top left corner
      * @param {number} y: value for y coordinate of top left corner
      * @param {number} id: the hypothetical memory address number
-     * @param {number[]} values: the list of id's corresponding to the values stored in this set.
+     * @param {number[]} element_ids: the list of id's corresponding to the values stored in this set.
      *      NOTE:
      *          1. This argument MUST be an array, since the built-in 'forEach' method works only for
      *             (finite) ordered collections (i.e. with indexing). Sets are a type of unordered collection.
-     *          2. The 'values' argument must store the id's and not the actual value of the list elements.
+     *          2. The 'element_ids' argument must store the id's and not the actual value of the list elements.
      *             If the instructor wishes to showcase the corresponding values, it is their responsibility to create
-     *             memory boxes for all elements (with id's that match the id's held in 'values').
+     *             memory boxes for all elements (with id's that match the id's held in 'element_ids').
      *
-     * Moreover, note that this program does not force that for every id in the values argument there is
+     * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
      */
-    drawSet(x, y, id, values) {
+    drawSet(x, y, id, element_ids) {
 
         // Adjust the object width (the width of the box)
         let box_width = this.obj_x_padding * 2
-        values.forEach((v) => { // v represents each value in this collection
+        element_ids.forEach((v) => { // v represents each value in this collection
             box_width += Math.max(
                 this.item_min_width,
                 this.getTextLength(v === null ? "" : `id${v}`) + 10
             )
         })
         box_width = Math.max(this.obj_min_width, box_width)
-        box_width += ((values.length - 1) * this.item_min_width) / 4 // Space for separators
+        box_width += ((element_ids.length - 1) * this.item_min_width) / 4 // Space for separators
 
         // Draw box which represents the set object
         this.drawRect(x, y, box_width, this.obj_min_height)
@@ -343,7 +389,7 @@ class MemoryModel {
             2 // y coordinate of list items
         let item_text_y = item_y + this.item_min_height / 2 + this.font_size / 4
 
-        values.forEach((v, i) => {
+        element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`
             const item_length = Math.max(
                 this.item_min_width,
