@@ -122,8 +122,11 @@ class MemoryModel {
      *
      */
     drawAll(items) {
-        for (const i in items) {
-            let item = items[i];  // Variable 'item' represents a single object in items.
+        for (const item of items) {
+            // showIndexes and stackFrame have default values as pointed out.
+            item.showIndexes = item.showIndexes || false  // showIndexes has a false default value.
+            item.stackFrame = item.stackFrame || null  // stackFrame has a null default value
+
             if (item.isClass) {  // In this case, drawClass method will be used.
                 this.drawClass(item.x, item.y, item.name, item.id, item.value, item.stackFrame);
             } else {  // If item.isClass is false, drawObject method will be used.
