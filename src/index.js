@@ -298,7 +298,14 @@ class MemoryModel {
         })
 
         // Draw type and id boxes
-        this.drawProperties(id, "list", x, y, box_width)
+        if (type === "list") {
+            this.drawProperties(id, "list", x, y, box_width);
+        }
+        else {
+            this.drawProperties(id, "tuple", x, y, box_width);
+        }
+
+
     }
 
     /**
