@@ -5,10 +5,10 @@ const m2 = new MemoryModel({ width: 1300, height: 1100 })
 
 // A sample list of objects to be used as an argument for the 'drawAll' function.
 const objs = [
-    {isClass: true, x: 25, y:200, name: "__main__", id: 82, value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11}, stack_frame: true},
-    {isClass: true, x: 350, y:10, name: "Person", id: 99, value: {age: 12, name: 17}, stack_frame: false},
+    {isClass: true, x: 25, y:200, name: "__main__", id: 82, value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11}, stackFrame: true},
+    {isClass: true, x: 350, y:10, name: "Person", id: 99, value: {age: 12, name: 17}, stackFrame: false},
     {isClass: false, x: 350, y: 350, name: "list", id: 82, value: [19, 43, 28, 49]},
-    {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], show_indexes: true},
+    {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], showIndexes: true},
     {isClass: false, x: 750, y: 10, name: "int", id: 19, value: 1969},
     {isClass: false, x: 750, y: 250, name: "bool", id: 32, value: true}, // as per the implementation of drawPrimitive
     {isClass: false, x: 750, y: 500, name: "str", id: 43, value: "David is cool"},

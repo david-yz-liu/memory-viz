@@ -89,6 +89,74 @@ class MemoryModel {
     }
 
     /**
+     * Create a Memory Model given the path to a JSON file.
+     * The JSON file must contain a list of objects, exactly like the input to the function 'drawAll' (see
+     * the docstring of 'drawAll' for detailed information on the required format of this list of objects).
+     * @param {string} path - the path to the JSON file.
+     *
+     */
+    createFromJSON(path) {
+        // Use of fs.readFileSync(<path>, <options>) which synchronously reads and returns a string of the data stored
+        // in the file that corresponds to path. It blocks execution of any other code until the file is read.
+        const json_string = fs.readFileSync(path, "utf-8");
+
+        // Since fs.readFileSync returns a string, we then use JSON.parse in order to convert the return JSON string
+        // into a valid JavaScript object (we assume that 'path' is the path to a valid JSON file).
+        const listOfObjs = JSON.parse(json_string);
+
+        // Since we now have our list of objects, we simply reuse the previously created 'drawAll' method.
+        this.drawAll(listOfObjs); // reusing the 'drawAll' function
+    }
+
+
+    /**
+     * Draw all the objects and/or classes in the given collection.
+     * @param {object[]} items: A list of items (objects, classes and/or stack-frames) that will be drawn.
+     *
+     * Each object in 'items' must include  the following structure:
+     *
+     * @param {boolean} items[*].isClass:   Whether a user-defined class (or a stack-frame) or a built-in
+     *                                      object will be drawn. Pass true to draw a class or a stack-frame,
+     *                                      and false to draw any of the types found in the 'immutable'
+     *                                      and 'collections' constants.
+     * @param {number} items[*].x:  Value for x coordinate of top left corner.
+     * @param {number} items[*].y:  Value for y coordinate of top left corner.
+     * @param {string} items[*].name:   The data type of the object to draw. (if isClass===true, it represents
+     *                                  the user-defined name of the corresponding class or stack frame).
+     * @param {number} items[*].id: The id value of this object. If drawClass method will be used (to draw
+     *                              a stack frame and/or a user-defined class), null must be passed.
+     * @param {*} items[*].value:   The value of the object. Note that in such cases when it is required (when a
+     *                              user defined class or a stack frame will be drawn)to draw a 'container' object
+     *                              (an object that contains other objects), we pass a JS object where the keys are
+     *                              the attributes/variables and the values are the id's of the corresponding objects
+     *                              (not the objects themselves).
+     * @param {boolean=} [items[*].stackFrame = null]:  Whether a stack frame will be drawn or not. NOTE that this is
+     *                                                  only applicable is the item's isClass attribute is true
+     *                                                  (since the MemoryModel.drawClass covers both classes and
+     *                                                  stack frames). By default, stackFrame is set to null.
+     * @param {boolean=} [items[*].showIndexes = false]:    Applicable for drawing tuples or lists (when drawSequence
+     *                                                      method will be used.) Whether memory box of the underlying
+     *                                                      sequence will include indices (for sequences) or not. This
+     *                                                      has a default value of false, and it shall be manually set
+     *                                                      only if the object corresponds to a sequence (list or
+     *                                                      tuple).
+     *
+     */
+    drawAll(items) {
+        for (const item of items) {
+            // showIndexes and stackFrame have default values as pointed out.
+            item.showIndexes = item.showIndexes || false  // showIndexes has a false default value.
+            item.stackFrame = item.stackFrame || null  // stackFrame has a null default value
+            if (item.isClass) {  // In this case, drawClass method will be used.
+                this.drawClass(item.x, item.y, item.name, item.id, item.value, item.stackFrame);
+            } else {  // If item.isClass is false, drawObject method will be used.
+                this.drawObject(item.x, item.y, item.name, item.id, item.value, item.showIndexes);
+            }
+
+        }
+    }
+
+    /**
      * Distribute the object drawing depending on type
      * @param {number} x: value for x coordinate of top left corner
      * @param {number} y: value for y coordinate of top left corner
@@ -497,7 +565,7 @@ class MemoryModel {
      * @param  {number} x: value for x coordinate of top left corner
      * @param {number} y: value for y coordinate of top left corner
      * @param {string} name: the name of the class
-     * @param {number} id: the hypothetical memory address number
+     * @param {string} id: the hypothetical memory address number
      * @param {object} attributes: the attributes of the given class
      * @param {boolean} stack_frame: set to true if you are drawing a stack frame
      */
