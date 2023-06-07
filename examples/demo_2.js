@@ -21,9 +21,9 @@ const objs = [
 
 // -----------------------Demonstration of the 'MemoryModel.drawAll' method-----------------------
 m1.drawAll(objs);
-m1.save("../docs/images/demo_2C.svg")
+m1.save("../docs/images/demo_2A.svg")
 
 // -----------------------Demonstration of the 'MemoryModel.createFromJSON' method-----------------------
 // creating a MemoryModel by calling the 'createFromJSON' with the 'sample_json.json' file.
 m2.createFromJSON("../docs/sample_json.json");
-m2.save("../docs/images/demo_2D.svg"); // saving the resulting MemoryModel object as an svg.
+m2.save("../docs/images/demo_2B.svg"); // saving the resulting MemoryModel object as an svg.
