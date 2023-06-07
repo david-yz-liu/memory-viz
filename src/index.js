@@ -89,6 +89,27 @@ class MemoryModel {
     }
 
     /**
+     * Create a Memory Model given the path to a JSON file.
+     * The JSON file must contain a list of objects, exactly like the input to the function 'drawAll' (see
+     * the docstring of 'drawAll' for detailed information on the required format of this list of objects).
+     * @param {string} path - the path to the JSON file.
+     *
+     */
+    createFromJSON(path) {
+        // Use of fs.readFileSync(<path>, <options>) which synchronously reads and returns a string of the data stored
+        // in the file that corresponds to path. It blocks execution of any other code until the file is read.
+        const json_string = fs.readFileSync(path, "utf-8");
+
+        // Since fs.readFileSync returns a string, we then use JSON.parse in order to convert the return JSON string
+        // into a valid JavaScript object (we assume that 'path' is the path to a valid JSON file).
+        const listOfObjs = JSON.parse(json_string);
+
+        // Since we now have our list of objects, we simply reuse the previously created 'drawAll' method.
+        this.drawAll(listOfObjs); // reusing the 'drawAll' function
+    }
+
+
+    /**
      * Draw all the objects and/or classes in the given collection.
      * @param {object[]} items: A list of items (objects, classes and/or stack-frames) that will be drawn.
      *
@@ -126,11 +147,10 @@ class MemoryModel {
             // showIndexes and stackFrame have default values as pointed out.
             item.showIndexes = item.showIndexes || false  // showIndexes has a false default value.
             item.stackFrame = item.stackFrame || null  // stackFrame has a null default value
-
             if (item.isClass) {  // In this case, drawClass method will be used.
                 this.drawClass(item.x, item.y, item.name, item.id, item.value, item.stackFrame);
             } else {  // If item.isClass is false, drawObject method will be used.
-                this.drawObject(item.x, item.y, item.type, item.id, item.value, item.showIndexes);
+                this.drawObject(item.x, item.y, item.name, item.id, item.value, item.showIndexes);
             }
 
         }
