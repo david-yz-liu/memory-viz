@@ -323,6 +323,8 @@ class MemoryModel {
      *
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
+     *
+     * @returns {number[]} the top-left coordinates, width, and height of the outermost box
      */
     drawSet(x, y, id, element_ids) {
 
@@ -339,6 +341,9 @@ class MemoryModel {
 
         // Draw box which represents the set object
         this.drawRect(x, y, box_width, this.obj_min_height)
+
+        // the value to be returned in the end of this function -- this is required information for automating the layout
+        const SIZE = [x, y, box_width, this.obj_min_height]
 
         // Draw element boxes for each value in this collection
         let curr_x = x + this.item_min_width / 2
@@ -391,6 +396,8 @@ class MemoryModel {
             item_text_y,
             this.text_color
         )
+
+        return SIZE;
     }
 
     /**
@@ -399,6 +406,8 @@ class MemoryModel {
      * @param {number} y: value for y coordinate of top left corner
      * @param {number} id: the hypothetical memory address number
      * @param {object} obj: the object that will be drawn
+     *
+     * @returns {number[]} the top-left coordinates, width, and height of the outermost box
      */
     drawDict(x, y, id, obj) {
         let box_width = this.obj_min_width
@@ -487,9 +496,13 @@ class MemoryModel {
 
         // Draw outer box
         this.drawRect(x, y, box_width, box_height)
+        // the value to be returned in the end of this function -- this is required information for automating the layout
+        const SIZE = [x, y, box_width, box_height]
 
         // Draw type and id boxes
-        this.drawProperties(id, "dict", x, y, box_width)
+        this.drawProperties(id, "dict", x, y, box_width);
+
+        return SIZE;
     }
 
     /**
@@ -500,6 +513,8 @@ class MemoryModel {
      * @param {number} id: the hypothetical memory address number
      * @param {object} attributes: the attributes of the given class
      * @param {boolean} stack_frame: set to true if you are drawing a stack frame
+     *
+     * @returns {number[]} the top-left coordinates, width, and height of the outermost box
      */
     drawClass(x, y, name, id, attributes, stack_frame) {
         // Get object's width
@@ -529,6 +544,8 @@ class MemoryModel {
             box_height = this.obj_min_height
         }
         this.drawRect(x, y, box_width, box_height)
+        // the value to be returned in the end of this function -- this is required information for automating the layout
+        const SIZE = [x, y, box_width, box_height]
 
         // Draw element boxes
         let curr_y = y + this.prop_min_height + this.item_min_height / 2 // y coordinate of list items
@@ -575,6 +592,8 @@ class MemoryModel {
         } else {
             this.drawProperties(id, name, x, y, box_width)
         }
+
+        return SIZE;
     }
 
     /**
