@@ -231,7 +231,7 @@ class MemoryModel {
         this.drawRect(x, y, box_width, this.obj_min_height)
 
         // The value that refers to the size and coordinates of the box, it will be used for automating the layout.
-        const size = {width: box_width, height: this.obj_min_heigth, coordinates: [x, y]};
+        let size = {width: box_width, height: this.obj_min_heigth, x_coordinate: x, y_coordinate: y};
 
         // For immutable types we need a double box, so we add another box that will contain the one we created.
         // Coordinate-wise, we utilize 'this.double_rec_sep' (see 'config' for more information).
@@ -243,6 +243,11 @@ class MemoryModel {
                 box_width + 2 * this.double_rect_sep,
                 this.obj_min_height + 2 * this.double_rect_sep
             )
+            // The rectangle whose size will be recorded should be outer one.
+            size = {width: box_width + 2 * this.double_rect_sep,
+                height: this.obj_min_height + 2 * this.double_rect_sep,
+                x_coordinate: x - this.double_rect_sep,
+                y_coordinate: y - this.double_rect_sep};
         }
 
         // Initializing the text that will be displayed, using the 'type' and 'value' arguments.
