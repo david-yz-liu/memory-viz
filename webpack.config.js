@@ -39,7 +39,17 @@ module.exports = [
     },
     {
         target: "node",
+        // entry: {
+        //     index: path.resolve(__dirname, "src/index.js"),
+        //     automated: path.resolve(__dirname, "src/automate.js")
+        // },
+        // entry: [
+        //     path.resolve(__dirname, "src/index.js"),
+        //     path.resolve(__dirname, "src/automate.js")
+        // ],
         entry: path.resolve(__dirname, "src/index.js"),
+        // entry: path.resolve(__dirname, "src/automate.js"),
+
         output: {
             path: path.resolve(__dirname, "dist"),
             filename: "memory_models_rough.node.js",
