@@ -702,16 +702,20 @@ export class MemoryModel {
      *      - 'objects' is a valid object with the correct properties, as outlined above.
      */
     drawAll(objects) {
-
+        // console.log("OBJECTS: ")
+        // console.log(objects)
         const sizes_arr = [];
 
-        for (const i in objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list
-            let item = objects[i];  // Variable 'item' represents a single object in 'objects'.
-            if (item.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
-                sizes_arr.push(this.drawClass(item.x, item.y, item.name, item.id, item.value, item.stack_frame));
+        for (const obj of objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list
+            if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
+                // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
+                // line both mutates 'this', and assigns the returned value to the variable 'size'.
+                const size = this.drawClass(obj.x, obj.y, obj.name, obj.id, obj.value, obj.stack_frame);
+                sizes_arr.push(size);
             }
             else {  // The 'drawObject' method will be used to draw an object of a built-in type.
-                sizes_arr.push(this.drawObject(item.x, item.y, item.name, item.id, item.value, item.show_indexes));
+                const size = this.drawObject(obj.x, obj.y, obj.name, obj.id, obj.value, obj.show_indexes);
+                sizes_arr.push(size);
             }
         }
 
@@ -741,7 +745,7 @@ export class MemoryModel {
 }
 
 // Default configurations we are using
-const config = {
+export const config = {
     rect_style: {stroke: "rgb(0, 0, 0)"},
     text_color: "rgb(0, 0, 0)", // Default text color
     value_color: "rgb(27, 14, 139)", // Text color for primitive values
