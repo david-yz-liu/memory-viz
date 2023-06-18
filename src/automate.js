@@ -175,7 +175,7 @@ function getSize(obj) {
     obj.y = 10;
 
     // Initializing a MemoryModel object
-    const m = new MemoryModel()
+    const m = new MemoryModel();
 
     // By definition, MemoryModel.drawAll accepts a list of objects. However, this functions accepts a single object.
     // So to use 'MemoryModel.drawAll', we pass a list with a single object. Since 'MemoryModel.drawAll' returns
