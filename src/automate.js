@@ -1,30 +1,38 @@
-// A library allowing interaction with the file system (e.g. creating new files
-// const { MemoryModel } = require("./index.js")
-//  import {MemoryModel} from "./index.js"
-// const { MemoryModel } = require("../dist/memory_models_rough.node")
 const {MemoryModel, config} = require("./index.js");
 
 function drawAutomated(path, width) {
     // Separating the objects given in the JSON file into two categories: stack frames, and everything else.
     const {stack_frames, other_items} = separateJSON(path);
 
-    // Two separate canvas
-    const stackframes_canvas_width = width / 5
-    const otheritems_canvas_width = width - (width / 5)
+    const stack_frames_canvas_width = width / 5
 
-    // Call our helper functions
-    drawAutomatedStackFrames(stack_frames, stackframes_canvas_width)
-    drawAutomatedOtherItems(other_items, otheritems_canvas_width)
+    // Call helper functions
+    drawAutomatedStackFrames(stack_frames, stack_frames_canvas_width)
+    drawAutomatedOtherItems(other_items, width)
 }
 
-function drawAutomatedOtherItems(objs, other_items_width) {
+
+/**
+ * Automatic generation of coordinates for passed objects.
+ *
+ * Given a list of objects in the format described in MemoryModel.drawAll --but WITHOUT SPECIFIED COORDINATES-- and a
+ * desired canvas width, this function mutates the passed list to equip each object with coordinates (corresponding to
+ * the top-left corner of the object's box in the canvas).
+ *
+ * @param {[object]} objs list of objects in the format described in MemoryModel.drawAll
+ * @param {number} canvas_width the desired width of the canvas
+ *
+ * @returns {object} the mutates list of objects (where each object is now equipped with x-y coordinates) and the
+ * dynamically determined height the canvas will need to be.
+ */
+function drawAutomatedOtherItems(objs, canvas_width) {
     console.log("config: " + config.obj_x_padding);
     // This will be used both as horizontal and as vertical padding for in-between the drawn boxes.
     const PADDING = config.obj_x_padding;
 
     // Since the stack-frames and objects ("other_items") share the width of the canvas 20-80, the objects will start
     // at 0.2 times the width of the canvas, plus some padding to be safe.
-    const START_X = other_items_width * 0.2 + PADDING;
+    const START_X = canvas_width * 0.2 + PADDING;
 
 
     // Running getSize() for every object, and adding the returned width and height as additional properties to
@@ -50,6 +58,7 @@ function drawAutomatedOtherItems(objs, other_items_width) {
         return -(a.height - b.height) // or b.height - a.height
     }
 
+    // Sorting 'objs' by descending height of the contained objects.
     objs.sort(compareByHeight)
 
     // -------------------------------------------------------------------------------------------------------------
@@ -58,7 +67,7 @@ function drawAutomatedOtherItems(objs, other_items_width) {
     let x_coord = START_X;
     let y_coord = PADDING;
 
-    // Thinking: Every time we need to move to a new row, we choose the height of that new row to be the height of the
+    // EXPLANATION: Every time we need to move to a new row, we choose the height of that new row to be the height of the
     // tallest object in the array that has not yet been "drawn" (in this loop, nothing actually gets drawn, but rather
     // each object gets equipped with coordinates), plus the usual padding. The tallest object amongst the remaining ones
     // in actually the first remaining object in the array --due to the sorting that has taken place above-- hence we
@@ -69,30 +78,46 @@ function drawAutomatedOtherItems(objs, other_items_width) {
     // increase the canvas' height, as the need appears to move to a new "row".
     let canvas_height = row_height;
 
-    
+    // THE MAIN LOOP
     for (const item of objs) {
-        let hor_bound = x_coord + item.width + PADDING
-        if (hor_bound < other_items_width) {
+        // 'hor_reach' represents the x-coordinate that would be reached by the right edge (plus padding) of 'item'
+        // if it were drawn on this row.
+        // Alternatively, it is the location of the top-left corner of the next object if it this object (and the next)
+        // were to be drawn.
+        let hor_reach = x_coord + item.width + PADDING
+
+        // In this case, we can fit this object in the current row.
+        if (hor_reach < canvas_width) {
+            // equipping this object with x and y coordinates
             item.x = x_coord;
             item.y = y_coord;
-            x_coord = hor_bound;
         }
+        // In this case, we canNOT fit this object in the current row, and must move to a new row
         else {
-            x_coord = START_X;
-            y_coord = y_coord + row_height;
-            row_height = item.height + PADDING;
+            x_coord = START_X; // x_coord resets to where it was in the beggining
+            y_coord = y_coord + row_height; // y_coord moves down by the height of the current row (the one we are leaving)
 
+            // The 'row_height' accumulator is updated to hold the height of the new row (the one we are moving in now).
+            // Due to the sorting above, this 'item' is tallest amongst all remaining ones, hence the choice.
+            row_height = item.height + PADDING;
+            canvas_height += row_height; // Updating 'canvas_height' to include the height of the new row
+
+            // Equipping this object with x and y coordinates
             item.x = x_coord;
             item.y = y_coord;
 
-            x_coord = x_coord + item.width + PADDING;
-
-            ///////
-            canvas_height += row_height;
+            // Updating 'hor_reach', as 'x_coord' is now different.
+            hor_reach = x_coord + item.width + PADDING
         }
+
+        // Updating 'x_coord'. Intuitively, the left edge of the next object will be at the right edge of the current
+        // object plus the padding.
+        x_coord = hor_reach;
 
     }
-    
+
+    canvas_height += 50; // safety precaution
+
     return {objs, canvas_height};
 }
 
@@ -101,15 +126,16 @@ function drawAutomatedStackFrames(other_items, other_items_width) {
 
 }
 
+
 /**
  * Separates the items that were given in the JSON file into two categories as stack frames
  * and objects. The returned object has two attributes as 'stack_frames' and 'other_items'.
  * Each of these attributes are a list of objects that were originally given in the JSON file.
  *
  * @param {string} path - the path to the JSON file.
+ * @returns {object} an object separating between stackframes and the rest of the items.
  */
 function separateJSON(path) {
-
     // Use of fs.readFileSync(<path>, <options>) which synchronously reads and returns a string of the data stored
     // in the file that corresponds to path. It blocks execution of any other code until the file is read.
     const json_string = fs.readFileSync(path, "utf-8");
@@ -132,23 +158,17 @@ function separateJSON(path) {
     }
 
     return {stack_frames: stackFrames, other_items: otherItems};
-
 }
 
-// console.log("&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&")
-// console.log(MemoryModel);
-// console.log(__dirname);
-// console.log("&*&*&*&*&*&*&*&**&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&")
 
 /**
  * Return the dimensions that the passed object will have if drawn on a canvas (in the context of the MemoryModel class).
  * This function can be used to determine how much space an object box will take on canvas (like a dry-run), given the
  * implementations of the 'draw' methods in MemoryModel.
-@param {object} obj - an object as specified in MemoryModel.drawAll, except that it is unnecessary to provide coordinates.
- @returns {object} the width and the height the drawn object would have.
+ * @param {object} obj - an object as specified in MemoryModel.drawAll, except that it is unnecessary to provide coordinates.
+ * @returns {object} the width and the height the drawn object would have.
  */
 function getSize(obj) {
-
     // The value of the x and y properties here is irrelevant; we just need to equip 'obj' with x and y properties so
     // it can be processed by the MemoryModel.drawAll function (which required the passed objects to be in a certain format).
     obj.x = 10;
@@ -156,8 +176,6 @@ function getSize(obj) {
 
     // Initializing a MemoryModel object
     const m = new MemoryModel()
-
-    //////// console.log("************ " + m + " **********")
 
     // By definition, MemoryModel.drawAll accepts a list of objects. However, this functions accepts a single object.
     // So to use 'MemoryModel.drawAll', we pass a list with a single object. Since 'MemoryModel.drawAll' returns
@@ -167,4 +185,13 @@ function getSize(obj) {
 
     return {height: size.height, width: size.width};
 }
+
+function vert_beautif(objs) {
+
+}
+
+function horiz_beautif(objs) {
+
+}
+
 export default { drawAutomated, drawAutomatedOtherItems, drawAutomatedStackFrames, separateJSON, getSize}

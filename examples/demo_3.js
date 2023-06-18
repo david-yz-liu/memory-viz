@@ -1,12 +1,16 @@
 const { drawAutomated, separateJSON, getSize, drawAutomatedOtherItems} = require("../dist/automate.js")
 const { MemoryModel } = require("../dist/index.js")
 
+const fs = require("fs");
+console.log("1098301980912318209: " + fs)
 // console.log(drawAutomated)
 //
 // console.log("))))))))))))))))(((((((((((((((()))))))))))))))))(((((((((((((((((((()))))))))))))))))")
 // console.log(getSize({"isClass": true, "name": "Person", "id": 99,
 //     "value": {"age": 12, "name": 17}, "stack_frame": false}))
 
+
+const WIDTH = 1300;
 
 const {objs, canvas_height} = drawAutomatedOtherItems(
     [
@@ -21,13 +25,21 @@ const {objs, canvas_height} = drawAutomatedOtherItems(
         {"isClass": false, "name": "dict", "id": 10, "value": {"x": 81, "y": 100, "z": 121}},
         {"isClass": false, "name": "None", "id": 13, "value": "None"}
     ],
-    1300
+    WIDTH
 )
 
-// console.log(other_items)
+// console.log(objs)
 
-const m = new MemoryModel({width: 1300, height: canvas_height + 50}); ///// + 50 fix!!!
+const m = new MemoryModel({width: WIDTH, height: canvas_height}); ///// + 50 fix!!!
 
 console.log(objs, canvas_height)
 m.drawAll(objs)
 m.save("../docs/images/demo_3.svg")
+
+const stringified_objs = JSON.stringify(objs)
+
+fs.writeFileSync("../docs/automated_model.json", stringified_objs)
+
+const m2 = new MemoryModel({width: WIDTH, height: canvas_height});
+m2.createFromJSON("../docs/automated_model.json");
+m2.save("../docs/images/demo_3B.svg")
