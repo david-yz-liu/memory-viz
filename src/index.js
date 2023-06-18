@@ -89,31 +89,6 @@ class MemoryModel {
     }
 
     /**
-     *
-     *
-     */
-    drawAutomated(path, width){
-        // Separating the objects given in the JSON file into two categories: stack frames, and everything else.
-        const {stack_frames, other_items} = this.seperateJSON(path);
-
-        // Two separate canvas
-        const stackframes_canvas_width = width / 5
-        const otheritems_canvas_width = width - (width / 5)
-
-        // Call our helper functions
-        this.drawAutomatedStackFrames(stack_frames, stackframes_canvas_width)
-        this.drawAutomatedOtherItems(other_items, otheritems_canvas_width)
-    }
-
-    drawAutomatedOtherItems(other_items, other_items_width) {
-
-    }
-
-    drawAutomatedStackFrames(other_items, other_items_width) {
-
-    }
-
-    /**
      * Separates the items that were given in the JSON file into two categories as stack frames
      * and objects. The returned object has two attributes as 'stack_frames' and 'other_items'.
      * Each of these attributes are a list of objects that were originally given in the JSON file.
@@ -616,7 +591,8 @@ class MemoryModel {
             box_height = this.obj_min_height
         }
         this.drawRect(x, y, box_width, box_height)
-        // the value to be returned in the end of this function -- this is required information for automating the layout
+
+        // the value to be returned in the end of this function, this is required information for automating the layout
         const SIZE = {x, y, width: box_width, height: box_height}
 
         // Draw element boxes
@@ -726,7 +702,7 @@ class MemoryModel {
     /**
      * Create a MemoryModel given a list of JS objects.
      *
-     * @param {object[]} objects: the list of objects (including stackframes) to be drawn.
+     * @param {object[]} objects: the list of objects (including stack-frames) to be drawn.
      * Each object in 'objects' must include  the following structure:
      * @param {boolean} objects[*].isClass: Whether a user-defined class (or a stack-frame) or a built-in
      *                                      object will be drawn. Pass true to draw a class or a stack-frame,
@@ -735,17 +711,17 @@ class MemoryModel {
      * @param {number} objects[*].x: Value for x coordinate of top left corner
      * @param {number} objects[*].y: Value for y coordinate of top left corner
      * @param {string} objects[*].name: The type of the object to draw (if isClass===true, then this is the name of the
-     *                                  corresdponding class or stackframe).
+     *                                  corresponding class or stackframe).
      * @param {number} objects[*].id: The id value of this object. If we are to draw a StackFrame, then this MUST be 'null'.
      * @param {*} objects[*].value: The value of the object. This could be anything, from an empty string to a JS object,
      *                          which would be passed for the purpose of drawing a user-defined class object, a
-     *                          stackframe, or a dictionary. Note that in such cases where we want do draw a 'container'
+     *                          stackframe, or a dictionary. Note that in such cases where we want to do draw a 'container'
      *                          object (an object that contains other objects), we pass a JS object where the keys are the
-     *                          attributes/variables and the values are the id's of the corresopnding objects (not the
+     *                          attributes/variables and the values are the id's of the corresponding objects (not the
      *                          objects themselves).
      * @param {boolean=} [objects[*].stack_frame = null]: Whether a stack frame will be drawn or not. NOTE that this is only
      *                                            applicable if the object's 'isClass' attribute is true (since the
-     *                                            'MemoryModel.drawClass' covers both classes and stackframes). By default,
+     *                                            'MemoryModel.drawClass' covers both classes and stack-frames). By default,
      *                                            'stack_frame' is set to null.
      * @param {boolean=} [objects[*].show_indexes = false]:Applicable only for drawing tuples or lists (when drawSequence
      *                                                     method will be used).
@@ -775,7 +751,7 @@ class MemoryModel {
     /**
      * Create a MemoryModel given the path to a JSON file.
      * The JSON file must contain a list of objects, exactly like the input to the function 'drawAll' (see
-     * the dosctring of 'drawAll' for detailed information on the requured format of this list of objects).
+     * the string of 'drawAll' for detailed information on the required format of this list of objects).
      *
      * @param {string} path - the path to the JSON file.
      *
