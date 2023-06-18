@@ -1,0 +1,4 @@
+Changes in this branch:
+
+- Having made all "draw" functions return the dimensions and location of the drawn box, we also need to update to the implementation of the drawAll function, to return a list of the SIZE's (locations and dimensions) of the produced boxes. The returned list will be parallel to the inputted list; that is, the first element of the inputted list will be an object, and the first element of the returned list will by the SIZE of that (drawn) object.
+	(to do this, I also added return statements to the drawObject method, which was required 	but we forgot to do)
