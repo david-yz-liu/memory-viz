@@ -15,8 +15,7 @@ const {StackFrames, requiredHeight} = drawAutomatedStackFrames(
     WIDTH * 0.2
 )
 
-const m = new MemoryModel({width: WIDTH, height: requiredHeight + 100}); ///// + 50 fix!!!
+const m = new MemoryModel({width: WIDTH, height: requiredHeight + 100});
 
-console.log(StackFrames, requiredHeight)
 m.drawAll(StackFrames)
 m.save("../docs/images/demo_5.svg")

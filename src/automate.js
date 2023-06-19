@@ -1,6 +1,14 @@
 const {MemoryModel, config} = require("./index.js");
 const fs = require("fs");
 
+/**
+ * Draws the objects given in the path in an automated fashion.
+ * 
+ * @param {string} path - The path to the JSON file that includes the objects that will be drawn
+ * @param {number} width - User-defined width of the canvas
+ * @returns {MemoryModel} - The memory model that is created according to the objects given in the path (the JSON
+ * file)
+ */
 function drawAutomated(path, width) {
     // Separating the objects given in the JSON file into two categories: stack frames, and everything else.
     const {stack_frames, other_items} = separateJSON(path);
@@ -11,6 +19,7 @@ function drawAutomated(path, width) {
     const {StackFrames, requiredHeight} = drawAutomatedStackFrames(stack_frames, stack_frames_canvas_width);
     const {objs, canvas_height} = drawAutomatedOtherItems(other_items, width);
 
+    // The required height for the canvas
     const final_height = Math.max(canvas_height, requiredHeight) + 100;
 
     // initializing a MemoryModel object
@@ -229,12 +238,5 @@ function getSize(obj) {
     return {height: size.height, width: size.width};
 }
 
-function vert_beautif(objs) {
-
-}
-
-function horiz_beautif(objs) {
-
-}
 
 export default { drawAutomated, drawAutomatedOtherItems, drawAutomatedStackFrames, separateJSON, getSize}
