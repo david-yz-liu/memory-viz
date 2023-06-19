@@ -1,5 +1,5 @@
 const {MemoryModel, config} = require("./index.js");
-
+const fs = require("fs");
 
 function drawAutomated(path, width) {
     // Separating the objects given in the JSON file into two categories: stack frames, and everything else.
@@ -8,8 +8,18 @@ function drawAutomated(path, width) {
     const stack_frames_canvas_width = width / 5
 
     // Call helper functions
-    drawAutomatedStackFrames(stack_frames, stack_frames_canvas_width)
-    drawAutomatedOtherItems(other_items, width)
+    const {StackFrames, requiredHeight} = drawAutomatedStackFrames(stack_frames, stack_frames_canvas_width);
+    const {objs, canvas_height} = drawAutomatedOtherItems(other_items, width);
+
+    const final_height = Math.max(canvas_height, requiredHeight) + 100;
+
+    // initializing a MemoryModel object
+    const m = new MemoryModel({width: width, height: final_height});
+
+    m.drawAll(StackFrames);
+    m.drawAll(objs);
+
+    return m;
 }
 
 /**
@@ -31,9 +41,8 @@ function drawAutomatedStackFrames(stack_frames, stack_frames_width) {
     let prev_required_height = 10;
 
     // Loop through all the stack-frames to determine their individual box height
-    for (const i in stack_frames){
+    for (const stack_frame of stack_frames){
 
-        let stack_frame = stack_frames[i];
         // Get object's width
         let box_width = config.obj_min_width;
         let longest = 0;
@@ -49,11 +58,14 @@ function drawAutomatedStackFrames(stack_frames, stack_frames_width) {
             config.prop_min_width + (stack_frame.name.length * 12) + 10
         )
         if (box_width > stack_frames_width){
+            console.log("098346720894762394023749-82374-9")
             throw "Increase the width of the canvas.";
         } else {
+            console.log("((((((((((((((((((((((098346720894762394023749))))))))))))))))))))))-82374-9")
             // Get object's height
             let box_height = 0
             if (Object.keys(stack_frame.value).length > 0){
+                console.log("AAAAAAAAAAA")
                 box_height =
                     ((config.item_min_width * 3) / 2) *
                     Object.keys(stack_frame.value).length +
@@ -61,15 +73,16 @@ function drawAutomatedStackFrames(stack_frames, stack_frames_width) {
                     config.prop_min_height
             } else {
                 box_height = config.obj_min_height
-
-                // Mutate the stack_frame object
-                stack_frame.x = Math.round((stack_frames_width - box_width) / 2);
-                stack_frame.y = prev_required_height + 10;
-
-                // Mutate the accumulators
-                min_required_height += box_height;
-                prev_required_height = box_height;
             }
+
+            // Mutate the stack_frame object
+            stack_frame.x = Math.round((stack_frames_width - box_width) / 2);
+            stack_frame.y = prev_required_height + 10;
+            console.log(stack_frame)
+
+            // Mutate the accumulators
+            min_required_height += box_height;
+            prev_required_height = box_height;
         }
 
 
