@@ -2,13 +2,6 @@ const { drawAutomated, separateJSON, getSize, drawAutomatedOtherItems, vert_beau
 const { MemoryModel } = require("../dist/index.js");
 
 const fs = require("fs");
-console.log("1098301980912318209: " + fs)
-// console.log(drawAutomated)
-//
-// console.log("))))))))))))))))(((((((((((((((()))))))))))))))))(((((((((((((((((((()))))))))))))))))")
-// console.log(getSize({"isClass": true, "name": "Person", "id": 99,
-//     "value": {"age": 12, "name": 17}, "stack_frame": false}))
-
 
 const WIDTH = 1300;
 
@@ -30,7 +23,7 @@ const {objs, canvas_height} = drawAutomatedOtherItems(
 
 // console.log(objs)
 
-const m = new MemoryModel({width: WIDTH, height: canvas_height}); ///// + 50 fix!!!
+const m = new MemoryModel({width: WIDTH, height: canvas_height});
 
 console.log(objs, canvas_height)
 m.drawAll(objs)
