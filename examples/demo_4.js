@@ -9,6 +9,14 @@ const m = drawAutomated(
     WIDTH
 )
 
-console.log(m);
-
 m.save("../docs/images/demo_4.svg")
+
+
+
+// With beautified function
+const m2 = drawAutomated(
+    "../docs/beautified_model.json",
+    WIDTH
+)
+
+m2.save("../docs/images/demo_4_BEAUT.svg")
