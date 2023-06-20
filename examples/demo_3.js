@@ -1,5 +1,5 @@
-const { drawAutomated, separateJSON, getSize, drawAutomatedOtherItems} = require("../dist/automate.js")
-const { MemoryModel } = require("../dist/index.js")
+const { drawAutomated, separateJSON, getSize, drawAutomatedOtherItems, vert_beautify} = require("../dist/automate.js");
+const { MemoryModel } = require("../dist/index.js");
 
 const fs = require("fs");
 console.log("1098301980912318209: " + fs)
@@ -36,6 +36,7 @@ console.log(objs, canvas_height)
 m.drawAll(objs)
 m.save("../docs/images/demo_3.svg")
 
+
 const stringified_objs = JSON.stringify(objs)
 
 fs.writeFileSync("../docs/automated_model.json", stringified_objs)
@@ -43,3 +44,7 @@ fs.writeFileSync("../docs/automated_model.json", stringified_objs)
 const m2 = new MemoryModel({width: WIDTH, height: canvas_height});
 m2.createFromJSON("../docs/automated_model.json");
 m2.save("../docs/images/demo_3B.svg")
+
+const m_beaut = new MemoryModel({width: WIDTH, height: canvas_height});
+m_beaut.drawAll(vert_beautify(objs))
+m_beaut.save("../docs/images/demo_3_Beaut.svg")
