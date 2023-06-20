@@ -1,6 +1,14 @@
 const {MemoryModel, config} = require("./index.js");
 const fs = require("fs");
 
+/**
+ * Draws the objects given in the path in an automated fashion.
+ * 
+ * @param {string} path - The path to the JSON file that includes the objects that will be drawn
+ * @param {number} width - User-defined width of the canvas
+ * @returns {MemoryModel} - The memory model that is created according to the objects given in the path (the JSON
+ * file)
+ */
 function drawAutomated(path, width) {
     // Separating the objects given in the JSON file into two categories: stack frames, and everything else.
     const {stack_frames, other_items} = separateJSON(path);
@@ -11,6 +19,7 @@ function drawAutomated(path, width) {
     const {StackFrames, requiredHeight} = drawAutomatedStackFrames(stack_frames, stack_frames_canvas_width);
     const {objs, canvas_height} = drawAutomatedOtherItems(other_items, width);
 
+    // The required height for the canvas
     const final_height = Math.max(canvas_height, requiredHeight) + 100;
 
     // initializing a MemoryModel object
@@ -43,52 +52,21 @@ function drawAutomatedStackFrames(stack_frames, stack_frames_width) {
     // Loop through all the stack-frames to determine their individual box height
     for (const stack_frame of stack_frames){
 
-        // Get object's width
-        let box_width = config.obj_min_width;
-        let longest = 0;
-        for (const attribute in stack_frame.value) {
-            longest = Math.max(longest, attribute.length * 12)
-        }
-        if (longest > 0) {
-            box_width = longest + config.item_min_width * 3
-        }
-        // Adjust for the class name
-        box_width = Math.max(
-            box_width,
-            config.prop_min_width + (stack_frame.name.length * 12) + 10
-        )
-        if (box_width > stack_frames_width){
-            console.log("098346720894762394023749-82374-9")
-            throw "Increase the width of the canvas.";
-        } else {
-            console.log("((((((((((((((((((((((098346720894762394023749))))))))))))))))))))))-82374-9")
-            // Get object's height
-            let box_height = 0
-            if (Object.keys(stack_frame.value).length > 0){
-                console.log("AAAAAAAAAAA")
-                box_height =
-                    ((config.item_min_width * 3) / 2) *
-                    Object.keys(stack_frame.value).length +
-                    config.item_min_width / 2 +
-                    config.prop_min_height
-            } else {
-                box_height = config.obj_min_height
-            }
+        // get the width and height of each box
+        const {height, width} = getSize(stack_frame)
 
-            // Mutate the stack_frame object
-            stack_frame.x = Math.round((stack_frames_width - box_width) / 2);
-            stack_frame.y = prev_required_height + 10;
-            console.log(stack_frame)
+        // Mutate the stack_frame object
+        stack_frame.x = Math.round((stack_frames_width - width) / 2);
+        stack_frame.y = prev_required_height;
 
-            // Mutate the accumulators
-            min_required_height += box_height;
-            prev_required_height = box_height;
-        }
-
+        // Mutate the accumulators
+        min_required_height = (height + min_required_height);
+        prev_required_height = (min_required_height + 10);
 
     }
-    return {StackFrames: stack_frames, requiredHeight: min_required_height}
-}
+
+    return {StackFrames: stack_frames, requiredHeight: min_required_height};
+    }
 
 
 /**
@@ -239,7 +217,7 @@ function separateJSON(path) {
  * Return the dimensions that the passed object will have if drawn on a canvas (in the context of the MemoryModel class).
  * This function can be used to determine how much space an object box will take on canvas (like a dry-run), given the
  * implementations of the 'draw' methods in MemoryModel.
- * @param {object} obj - an object as specified in MemoryModel.drawAll, except that it is unnecessary to provide coordinates.
+ * @param {object} obj - an object as specified in MemoryModel.drawAll, except that coordinates are missing.
  * @returns {object} the width and the height the drawn object would have.
  */
 function getSize(obj) {
@@ -260,12 +238,5 @@ function getSize(obj) {
     return {height: size.height, width: size.width};
 }
 
-function vert_beautif(objs) {
-
-}
-
-function horiz_beautif(objs) {
-
-}
 
 export default { drawAutomated, drawAutomatedOtherItems, drawAutomatedStackFrames, separateJSON, getSize}
