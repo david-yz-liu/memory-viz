@@ -667,6 +667,9 @@ export class MemoryModel {
     /**
      * Create a MemoryModel given a list of JS objects.
      *
+     * @param {boolean} automated: Whether the given list of objects will be drawn automated or not. If set to false,
+     * top-left coordinates of each object that will be drawn have to be specified. Otherwise, it is redundant to
+     * specify top-left coordinates.
      * @param {object[]} objects: the list of objects (including stack-frames) to be drawn.
      * Each object in 'objects' must include  the following structure:
      * @param {boolean} objects[*].isClass: Whether a user-defined class (or a stack-frame) or a built-in
@@ -701,11 +704,8 @@ export class MemoryModel {
      * Preconditions:
      *      - 'objects' is a valid object with the correct properties, as outlined above.
      */
-    drawAll(objects) {
-        // console.log("OBJECTS: ")
-        // console.log(objects)
+    drawAll(automated, objects) {
         const sizes_arr = [];
-
         for (const obj of objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list
             if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
                 // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
@@ -718,7 +718,6 @@ export class MemoryModel {
                 sizes_arr.push(size);
             }
         }
-
         return sizes_arr;
     }
 

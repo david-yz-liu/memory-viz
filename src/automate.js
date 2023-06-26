@@ -4,14 +4,14 @@ const fs = require("fs");
 /**
  * Draws the objects given in the path in an automated fashion.
  * 
- * @param {string} path - The path to the JSON file that includes the objects that will be drawn
- * @param {number} width - User-defined width of the canvas
+ * @param {object[]} objects - The list of objects that will be drawn on the canvas.
+ * @param {number} width - User-defined width of the canvas.
  * @returns {MemoryModel} - The memory model that is created according to the objects given in the path (the JSON
  * file)
  */
-function drawAutomated(path, width) {
+function drawAutomated(objects, width) {
     // Separating the objects given in the JSON file into two categories: stack frames, and everything else.
-    const {stack_frames, other_items} = separateJSON(path);
+    const {stack_frames, other_items} = separateObjects(objects);
 
     const stack_frames_canvas_width = width / 5
 
@@ -48,7 +48,7 @@ function drawAutomatedStackFrames(stack_frames) {
 
     // The height of the previous drawn stack-frame, determining the y-coordinate of the new-drawn stackframe
     let prev_required_height = 0;
-    
+
     // The width required for drawing stack-frames (corresponding to the maximum width among all the stack-frames)
     let required_width = 0;
 
@@ -189,29 +189,23 @@ function drawAutomatedOtherItems(objs, canvas_width) {
 
 
 /**
- * Separates the items that were given in the JSON file into two categories as stack frames
- * and objects. The returned object has two attributes as 'stack_frames' and 'other_items'.
- * Each of these attributes are a list of objects that were originally given in the JSON file.
+ * Separates the items that were given into two categories as stack frames and objects.
+ * The returned object has two attributes as 'stack_frames' and 'other_items'.
+ * Each of these attributes are a list of objects that were originally given by the user.
  *
- * @param {string} path - the path to the JSON file.
- * @returns {object} an object separating between stackframes and the rest of the items.
+ * @param {object[]} objects - The list of objects, including stack-frames (if any) and other items, that
+ * will be drawn
+ * @returns {object} an object separating between stack-frames and the rest of the items.
  */
-function separateJSON(path) {
-    // Use of fs.readFileSync(<path>, <options>) which synchronously reads and returns a string of the data stored
-    // in the file that corresponds to path. It blocks execution of any other code until the file is read.
-    const json_string = fs.readFileSync(path, "utf-8");
-
-    // Since fs.readFileSync returns a string, we then use JSON.parse in order to convert the return JSON string
-    // into a valid JavaScript object (we assume that 'path' is the path to a valid JSON file).
-    const listOfObjs = JSON.parse(json_string);
+function separateObjects(objects) {
 
     // The accumulator that stores the stack frames (and classes) that will be drawn.
     let stackFrames = [];
     // The accumulator that stores all the other items (objects) that will be drawn.
     let otherItems = [];
 
-    for (const item of listOfObjs) {
-        if (item.isClass) {  // Whether a stack frame will be drawn.
+    for (const item of objects) {
+        if (item.stack_frame) {  // Whether a stack frame will be drawn.
             stackFrames.push(item);
         } else {
             otherItems.push(item);
@@ -286,10 +280,6 @@ export function vert_beautify(objs) {
     }
 
     return objs;
-}
-
-function horiz_beautif(objs) {
-
 }
 
 export default { vert_beautify, drawAutomated, drawAutomatedOtherItems, drawAutomatedStackFrames, separateJSON, getSize}
