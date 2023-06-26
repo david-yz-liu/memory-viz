@@ -204,7 +204,7 @@ function separateJSON(path) {
     let otherItems = [];
 
     for (const item of listOfObjs) {
-        if (item.isClass) {  // Whether a stack frame will be drawn.
+        if (item.stack_frame) {  // Whether a stack frame will be drawn.
             stackFrames.push(item);
         } else {
             otherItems.push(item);
