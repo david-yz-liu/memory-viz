@@ -38,16 +38,19 @@ function drawAutomated(path, width) {
  *
  * @param {Object[]} stack_frames - The list of stack-frames that will be drawn
  * (without the specified x and y coordinates)
- * @param {number} stack_frames_width - The pre-decided canvas width.
  *
+ * @returns {Object} -
  */
-function drawAutomatedStackFrames(stack_frames, stack_frames_width) {
+function drawAutomatedStackFrames(stack_frames) {
 
-    // Determine the required min height to draw all the stack-frames
+    // Determine the required minimum height to draw all the stack-frames (initialized as 0)
     let min_required_height = 0;
 
-    // The height of the previous drawn stack-frame (0 if there are no previous drawings)
-    let prev_required_height = 10;
+    // The height of the previous drawn stack-frame, determining the y-coordinate of the new-drawn stackframe
+    let prev_required_height = 0;
+    
+    // The width required for drawing stack-frames (corresponding to the maximum width among all the stack-frames)
+    let required_width = 0;
 
     // Loop through all the stack-frames to determine their individual box height
     for (const stack_frame of stack_frames){
@@ -55,8 +58,11 @@ function drawAutomatedStackFrames(stack_frames, stack_frames_width) {
         // get the width and height of each box
         const {height, width} = getSize(stack_frame)
 
+        if (width > required_width){
+            required_width = width;
+        }
+
         // Mutate the stack_frame object
-        stack_frame.x = Math.round((stack_frames_width - width) / 2);
         stack_frame.y = prev_required_height;
 
         // Mutate the accumulators
@@ -65,7 +71,8 @@ function drawAutomatedStackFrames(stack_frames, stack_frames_width) {
 
     }
 
-    return {StackFrames: stack_frames, requiredHeight: min_required_height};
+
+    return {StackFrames: stack_frames, requiredHeight: min_required_height, requiredWidth: required_width};
     }
 
 
