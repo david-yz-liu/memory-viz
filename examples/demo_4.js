@@ -1,6 +1,4 @@
-const { drawAutomated, separateJSON, getSize, drawAutomatedOtherItems} = require("../dist/automate.js")
-const { MemoryModel } = require("../dist/index.js")
-const fs = require("fs");
+const {drawAutomated} = require("../dist/memory_models_rough.node.js");
 
 const WIDTH = 1300;
 
@@ -10,13 +8,3 @@ const m = drawAutomated(
 )
 
 m.save("../docs/images/demo_4.svg")
-
-
-
-// With beautified function
-const m2 = drawAutomated(
-    "../docs/beautified_model.json",
-    WIDTH
-)
-
-m2.save("../docs/images/demo_4_BEAUT.svg")
