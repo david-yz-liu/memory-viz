@@ -41,7 +41,6 @@ module.exports = [
         target: "node",
         entry: {
             'index': path.resolve(__dirname, "src/index.js"),
-            'automate': path.resolve(__dirname, "src/automate.js")
             // automate: {import: path.resolve(__dirname, "src/automate.js"), dependOn: 'index'}
         },
         // entry: [
@@ -54,7 +53,7 @@ module.exports = [
         output: {
             path: path.resolve(__dirname, "dist"),
             // filename: "memory_models_rough.node.js",
-            filename: "[name].js",
+            filename: "memory_models_rough.node.js",
             library: {
                 name: "MemoryModelsRough",
                 type: "umd",
