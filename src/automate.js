@@ -4,20 +4,23 @@ const fs = require("fs");
 /**
  * Draws the objects given in the path in an automated fashion.
  * 
- * @param {string} path - The path to the JSON file that includes the objects that will be drawn
- * @param {number} width - User-defined width of the canvas
+ * @param {object[]} objects - The list of objects that will be drawn on the canvas.
+ * @param {Object} configuration - The configuration settings defined by the user.
+ * @param {number} width - User-defined width of the canvas.
  * @returns {MemoryModel} - The memory model that is created according to the objects given in the path (the JSON
  * file)
  */
-function drawAutomated(path, width) {
+function drawAutomated(objects, width, configuration) {
     // Separating the objects given in the JSON file into two categories: stack frames, and everything else.
-    const {stack_frames, other_items} = separateJSON(path);
+    const {stack_frames, other_items} = separateObjects(objects);
 
     const stack_frames_canvas_width = width / 5
 
     // Call helper functions
-    const {StackFrames, requiredHeight} = drawAutomatedStackFrames(stack_frames, stack_frames_canvas_width);
-    const {objs, canvas_height} = drawAutomatedOtherItems(other_items, width);
+    const {StackFrames, requiredHeight, requiredWidth} =
+        drawAutomatedStackFrames(stack_frames, configuration);
+    const {objs, canvas_height} = drawAutomatedOtherItems(other_items,
+        width, null, configuration, requiredWidth);
 
     // The required height for the canvas
     const final_height = Math.max(canvas_height, requiredHeight) + 100;
@@ -36,18 +39,26 @@ function drawAutomated(path, width) {
  * height for drawing the stack-frames. The returned collection of stack-frames is the augmented version
  * of the input such that the x and y coordinates of the stack-frames are determined automatically.
  *
+ * @param {Object} configuration - The configuration set by the user.
  * @param {Object[]} stack_frames - The list of stack-frames that will be drawn
  * (without the specified x and y coordinates)
- * @param {number} stack_frames_width - The pre-decided canvas width.
  *
+ * @returns {Object} -
  */
-function drawAutomatedStackFrames(stack_frames, stack_frames_width) {
+function drawAutomatedStackFrames(stack_frames, configuration) {
 
-    // Determine the required min height to draw all the stack-frames
-    let min_required_height = 0;
+    // Ensuring that not configuration options remain undefined.
+    for (const req_prop of ["padding", "top_margin", "left_margin", "bottom_margin", "right_margin"]) {
+        if (!configuration.hasOwnProperty(req_prop)) {
+            configuration[req_prop] = config.obj_x_padding;
+        }
+    }
 
-    // The height of the previous drawn stack-frame (0 if there are no previous drawings)
-    let prev_required_height = 10;
+    // Determine the required minimum height to draw all the stack-frames (initialized as the top margin)
+    let min_required_height = configuration.top_margin;
+
+    // The width required for drawing stack-frames (corresponding to the maximum width among all the stack-frames)
+    let required_width = 0;
 
     // Loop through all the stack-frames to determine their individual box height
     for (const stack_frame of stack_frames){
@@ -55,17 +66,22 @@ function drawAutomatedStackFrames(stack_frames, stack_frames_width) {
         // get the width and height of each box
         const {height, width} = getSize(stack_frame)
 
+        if (width > required_width){
+            required_width = width;
+        }
+
         // Mutate the stack_frame object
-        stack_frame.x = Math.round((stack_frames_width - width) / 2);
-        stack_frame.y = prev_required_height;
+        stack_frame.x = configuration.left_margin;
+        stack_frame.y = min_required_height;
 
         // Mutate the accumulators
         min_required_height = (height + min_required_height);
-        prev_required_height = (min_required_height + 10);
 
     }
 
-    return {StackFrames: stack_frames, requiredHeight: min_required_height};
+    required_width += configuration.padding;
+
+    return {StackFrames: stack_frames, requiredHeight: min_required_height, requiredWidth: required_width};
     }
 
 
@@ -101,15 +117,15 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     // The object space begins where the stackframe column ends (plus padding), hence the use of the 'sf_endpoint'
     // parameter. If 'sf_endpoint' is undefined (i.e. was not passed at all), then by default we follow the 20-80
     // paradigm (the stack-frames and objects share the width of the canvas 20-80), however this is dangerous as
-    // the stackframes column might occupate more than 20 percent of the width of the canvas.
-    if (sf_endpoint == undefined) {
+    // the stack-frames column might occupate more than 20 percent of the width of the canvas.
+    if (sf_endpoint === undefined) {
         sf_endpoint = max_width * 0.2;
     }
     const START_X = sf_endpoint + PADDING;
 
     // Running getSize() for every object, and adding the returned width and height as additional properties to
-    // that object, that is, equiping each object with its final dimensions.
-    // NOTE: This assumes that, for a given object, the corresponding "draw" function will allocated the same space
+    // that object, that is, equipping each object with its final dimensions.
+    // NOTE: This assumes that, for a given object, the corresponding "draw" function will allocate the same space
     // (box size) every time, which is true from the implementations in the MemoryModel class.
     for (const item of objs) {
         const dimensions = getSize(item);
@@ -152,10 +168,10 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
 
     // EXPLANATION: Once we fully occupy a row, we need to decide what the height of that row will be, as this will
     // determine the y-coordinate of the boxes in the NEXT row. To ensure that the height of the current row is
-    // sufficient to accomdate for all boxed that have been drawn in this row, we consider the height of the tallest
+    // sufficient to accommodate for all boxes that have been drawn in this row, we consider the height of the tallest
     // object in this row (plus some padding).
-    // We keep track of which objects that have been drawn in the current row through the 'curr_row_objects' array,
-    // which is reset every time we enter an new row. Once we are done with a row, we choose the tallest element object
+    // We keep track of which objects have been drawn in the current row through the 'curr_row_objects' array,
+    // which is reset every time we enter a new row. Once we are done with a row, we choose the tallest element object
     // from 'curr_row_objects' and make the height of that row be the height of this object (plus padding).
     // (Note that in this loop, nothing actually gets drawn, but rather each object gets equipped with coordinates).
     let row_height;
@@ -230,28 +246,22 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
 
 
 /**
- * Separates the items that were given in the JSON file into two categories as stack frames
- * and objects. The returned object has two attributes as 'stack_frames' and 'other_items'.
- * Each of these attributes are a list of objects that were originally given in the JSON file.
+ * Separates the items that were given into two categories as stack frames and objects.
+ * The returned object has two attributes as 'stack_frames' and 'other_items'.
+ * Each of these attributes are a list of objects that were originally given by the user.
  *
- * @param {string} path - the path to the JSON file.
- * @returns {object} an object separating between stackframes and the rest of the items.
+ * @param {object[]} objects - The list of objects, including stack-frames (if any) and other items, that
+ * will be drawn
+ * @returns {object} an object separating between stack-frames and the rest of the items.
  */
-function separateJSON(path) {
-    // Use of fs.readFileSync(<path>, <options>) which synchronously reads and returns a string of the data stored
-    // in the file that corresponds to path. It blocks execution of any other code until the file is read.
-    const json_string = fs.readFileSync(path, "utf-8");
-
-    // Since fs.readFileSync returns a string, we then use JSON.parse in order to convert the return JSON string
-    // into a valid JavaScript object (we assume that 'path' is the path to a valid JSON file).
-    const listOfObjs = JSON.parse(json_string);
+function separateObjects(objects) {
 
     // The accumulator that stores the stack frames (and classes) that will be drawn.
     let stackFrames = [];
     // The accumulator that stores all the other items (objects) that will be drawn.
     let otherItems = [];
 
-    for (const item of listOfObjs) {
+    for (const item of objects) {
         if (item.stack_frame) {  // Whether a stack frame will be drawn.
             stackFrames.push(item);
         } else {
@@ -316,6 +326,37 @@ function compareByID(a, b) {
     return a.id - b.id // For Ascending:
 }
 
+
+
+
+// Helper Compare Functions
+
+/**
+ * Compares objects 'a' and 'b' by their height (assuming they both have the "height" property).
+ * This function returns a negative integer if 'a' is taller (so, by definition of how sort uses the comparison
+ * function, it will prioritize 'a' over 'b'), 0 if they are equally tall, and positive if 'b' is taller.
+ * @param a an object
+ * @param b another object
+ * @returns {number} negative if 'a' is taller, 0 if they have the same height, and positive if 'b' is taller.
+ */
+function compareByHeight(a, b) {
+    return -(a.height - b.height) // or b.height - a.height
+}
+
+/**
+ * Compares objects 'a' and 'b' by their id.
+ * Returns a negative integer if 'a.id' is larger than 'b.id' (so, by definition of how sort uses the comparison
+ * function, it will prioritize 'a' over 'b'), 0 if 'a' and 'b' have the same id's (WHICH SHOULD NOT HAPPEN),
+ * and positive if 'b.id' is larger.
+ * @param a an object
+ * @param b another object
+ * @returns {number} negative if 'a.id' is larger, 0 if a.id == b.id, and positive if 'b.id' is larger.
+ */
+function compareByID(a, b) {
+    // return -(a.id - b.id) // or b.id - a.id // For Descending
+    return a.id - b.id // For Ascending:
+}
+
 /**
  * Compares objects 'a' and 'b' by their "rightness". The metric for rightness is the x-coord of the object plus its width.
  * Returns a negative integer if 'a' is righter than 'b.id', 0 if 'a' and 'b' are equally right, and positive if
@@ -344,5 +385,4 @@ function compareByBottomness(a, b) {
     return -(a_bottom_edge - b_bottom_edge);
 }
 
-export {drawAutomated, drawAutomatedOtherItems, drawAutomatedStackFrames, separateJSON, getSize};
-export default {drawAutomated, drawAutomatedOtherItems, drawAutomatedStackFrames, separateJSON, getSize}
+export { drawAutomated, drawAutomatedOtherItems, drawAutomatedStackFrames, separateObjects, getSize}

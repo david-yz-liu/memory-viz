@@ -6,7 +6,7 @@ import rough from "roughjs/bundled/rough.esm.js"
 const { DOMImplementation, XMLSerializer } = require("@xmldom/xmldom")
 
 /** The class representing the memory model diagram of the given block of code. */
-export class MemoryModel {
+class MemoryModel {
     /**
      * Create the memory model diagram.
      * @property {object} svg - An svg 'Element' object from the DOM (Document Object Model) module.
@@ -702,10 +702,8 @@ export class MemoryModel {
      *      - 'objects' is a valid object with the correct properties, as outlined above.
      */
     drawAll(objects) {
-        // console.log("OBJECTS: ")
-        // console.log(objects)
         const sizes_arr = [];
-
+      
         for (const obj of objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list
             if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
                 // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
@@ -745,7 +743,7 @@ export class MemoryModel {
 }
 
 // Default configurations we are using
-export const config = {
+const config = {
     rect_style: {stroke: "rgb(0, 0, 0)"},
     text_color: "rgb(0, 0, 0)", // Default text color
     value_color: "rgb(27, 14, 139)", // Text color for primitive values
@@ -767,4 +765,4 @@ export const config = {
 const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]
 const collections = ["list", "set", "tuple", "dict"]
 
-export default { MemoryModel, config }
+export { MemoryModel, config }
