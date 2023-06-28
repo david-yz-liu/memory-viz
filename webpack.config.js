@@ -41,7 +41,6 @@ module.exports = [
         target: "node",
         entry: {
             'index': path.resolve(__dirname, "src/index.js"),
-            // automate: {import: path.resolve(__dirname, "src/automate.js"), dependOn: 'index'}
         },
         // entry: [
         //     path.resolve(__dirname, "src/index.js"),

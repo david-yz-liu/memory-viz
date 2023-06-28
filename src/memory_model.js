@@ -703,6 +703,7 @@ class MemoryModel {
      */
     drawAll(objects) {
         const sizes_arr = [];
+      
         for (const obj of objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list
             if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
                 // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
@@ -715,6 +716,7 @@ class MemoryModel {
                 sizes_arr.push(size);
             }
         }
+
         return sizes_arr;
     }
 

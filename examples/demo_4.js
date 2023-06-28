@@ -14,14 +14,6 @@ const m = drawAutomated(
     {padding: 60, top_margin: 50, bottom_margin: 50, left_margin: 80, right_margin:80}
 )
 
+
+// Saving to a file
 m.save("../docs/images/demo_4.svg")
-
-
-//
-// // With beautified function
-// const m2 = drawAutomated(
-//     "../docs/beautified_model.json",
-//     WIDTH
-// )
-//
-// m2.save("../docs/images/demo_4_BEAUT.svg")
