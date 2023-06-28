@@ -1,18 +1,20 @@
-
-const {MemoryModel, drawAutomated, getSize} = require("../dist/memory_models_rough.node.js");
+const {MemoryModel} = require("./memory_model.js");
+const {drawAutomated, getSize} = require("./automate.js");
 const fs = require("fs");
 
 /**
  * Draw the given objects on the canvas.
- * @param {string | object[]} objects - The list of objects (whether given as a collection objects, or in a JSON
- * file) that will be drawn on the canvas
- * @param {boolean} automation - Whether the coordinates (locations of the objects on the canvas) will be automatically
- * or manually drawn.
- * @param {null | number} automation_width - The width determined by the user, if automation is set to true (whether
- * automatic layout will be applied).
- * @param {Object} configuration - The configuration (display settings) defined by the user
+ * @param {string | object[]} objects - The array of objects to be drawn: this could be passed as an actual JavaScript
+ * array of objects, or as a JSON file containing the object array.
+ * @param {boolean} automation - Whether the coordinates (of the objects on the canvas) should be automatically
+ * generated or manually inputted.
+ * @param {Object} configuration - The configuration (display settings) defined by the user.
+ *                          NOTE: In the case that automation == true, then the user must define configuration.width,
+ *                          as this will be used as the "max canvas width" for the automation process.
+ *                          If automation == false, then all configuration properties are optional, and the function
+ *                          will still operate even without defining them.
  */
-function draw(objects, automation, automation_width = null, configuration) {
+function draw(objects, automation, configuration) {
     let objs;
 
     if (typeof objects === 'string') {
@@ -32,11 +34,11 @@ function draw(objects, automation, automation_width = null, configuration) {
     let m;
 
     if (automation) {
-        if (automation_width === null){
+        if (!configuration.hasOwnProperty("width")){
             throw new Error("Width argument for automated drawing is required.")
         }
 
-        m = drawAutomated(objs, automation_width, configuration)
+        m = drawAutomated(objs, configuration.width, configuration)
 
     }
 

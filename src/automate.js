@@ -1,5 +1,4 @@
 const {MemoryModel, config} = require("./memory_model.js");
-const fs = require("fs");
 
 /**
  * Draws the objects given in the path in an automated fashion.
@@ -300,34 +299,6 @@ function getSize(obj) {
 
 
 
-/**
- * Compares objects 'a' and 'b' by their height (assuming they both have the "height" property).
- * This function returns a negative integer if 'a' is taller (so, by definition of how sort uses the comparison
- * function, it will prioritize 'a' over 'b'), 0 if they are equally tall, and positive if 'b' is taller.
- * @param a an object
- * @param b another object
- * @returns {number} negative if 'a' is taller, 0 if they have the same height, and positive if 'b' is taller.
- */
-function compareByHeight(a, b) {
-    return -(a.height - b.height) // or b.height - a.height
-}
-
-/**
- * Compares objects 'a' and 'b' by their id.
- * Returns a negative integer if 'a.id' is larger than 'b.id' (so, by definition of how sort uses the comparison
- * function, it will prioritize 'a' over 'b'), 0 if 'a' and 'b' have the same id's (WHICH SHOULD NOT HAPPEN),
- * and positive if 'b.id' is larger.
- * @param a an object
- * @param b another object
- * @returns {number} negative if 'a.id' is larger, 0 if a.id == b.id, and positive if 'b.id' is larger.
- */
-function compareByID(a, b) {
-    // return -(a.id - b.id) // or b.id - a.id // For Descending
-    return a.id - b.id // For Ascending:
-}
-
-
-
 
 // Helper Compare Functions
 
@@ -356,6 +327,7 @@ function compareByID(a, b) {
     // return -(a.id - b.id) // or b.id - a.id // For Descending
     return a.id - b.id // For Ascending:
 }
+
 
 /**
  * Compares objects 'a' and 'b' by their "rightness". The metric for rightness is the x-coord of the object plus its width.
