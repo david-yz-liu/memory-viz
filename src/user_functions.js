@@ -4,6 +4,9 @@ const fs = require("fs");
 
 /**
  * Draw the given objects on the canvas.
+ *
+ * The format of the array of objects must adhere to the description provided in MemoryModel.drawAll.
+ *
  * @param {string | object[]} objects - The array of objects to be drawn: this could be passed as an actual JavaScript
  * array of objects, or as a JSON file containing the object array.
  * @param {boolean} automation - Whether the coordinates (of the objects on the canvas) should be automatically
@@ -13,6 +16,8 @@ const fs = require("fs");
  *                          as this will be used as the "max canvas width" for the automation process.
  *                          If automation == false, then all configuration properties are optional, and the function
  *                          will still operate even without defining them.
+ *
+ * @returns {MemoryModel} the produced canvas
  */
 function draw(objects, automation, configuration) {
     let objs;
