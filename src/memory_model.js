@@ -97,17 +97,17 @@ class MemoryModel {
      * @param {*} value: can be passed as a list if type is a collection type
      * @param {boolean} show_indexes: whether to show list indices
      */
-    drawObject(x, y, type, id, value, show_indexes) {
+    drawObject(x, y, type, id, value, show_indexes, style) {
         if (collections.includes(type)) {  // If the given object is a collection
             if (type === "dict") {
-                return this.drawDict(x, y, id, value)
+                return this.drawDict(x, y, id, value, style)
             } else if (type === "set") {
-                return this.drawSet(x, y, id, value)
+                return this.drawSet(x, y, id, value, style)
             } else if (type === "list" || type === "tuple") {
-                return this.drawSequence(x, y, type, id, value, show_indexes)
+                return this.drawSequence(x, y, type, id, value, show_indexes, style)
             }
         } else {  // If the given object is a primitive data type
-            return this.drawPrimitive(x, y, type, id, value)
+            return this.drawPrimitive(x, y, type, id, value, style)
         }
     }
 
@@ -120,12 +120,14 @@ class MemoryModel {
      * @param {number} id: the hypothetical memory address number
      * @param {*} value: the value of the primitive object
      */
-    drawPrimitive(x, y, type, id, value) {
+    drawPrimitive(x, y, type, id, value, style) {
         // Adjust and draw object box (see 'config' object for the information on the attributes)
         let box_width = Math.max(
             this.obj_min_width,
             this.getTextLength(String(value)) + this.obj_x_padding
         )
+
+        // add style.box
         this.drawRect(x, y, box_width, this.obj_min_height)
 
         // The value that refers to the size and coordinates of the box, it will be used for automating the layout.
@@ -163,12 +165,12 @@ class MemoryModel {
                 display_text,
                 x + box_width / 2,
                 y + (this.obj_min_height + this.prop_min_height) / 2,
-                this.value_color
+                style.text.value
             )
         }
 
         // Draw type and id boxes
-        this.drawProperties(id, type, x, y, box_width)
+        this.drawProperties(id, type, x, y, box_width, style)
 
         return size;
     }
@@ -181,7 +183,7 @@ class MemoryModel {
      * @param {number} y: value for y coordinate of top left corner
      * @param {number} width: The width of the given box (rectangle)
      */
-    drawProperties(id, type, x, y, width) {
+    drawProperties(id, type, x, y, width, style) {
 
         // Adjust the id box by taking into account 'this.min_width'.
         let id_box = Math.max(
@@ -200,7 +202,7 @@ class MemoryModel {
             id === null ? "" : `id${id}`,
             x + id_box / 2,
             y + this.font_size * 1.5,
-            this.id_color
+            style.text.id
         )
 
         // Draw the text inside the type box (insert the data type of the given object to the id box)
@@ -208,7 +210,7 @@ class MemoryModel {
             type,
             x + width - type_box / 2,
             y + this.font_size * 1.5,
-            this.value_color
+            style.text.type
         )
 
         // Draw boxes (specify the boxes for id and type)
@@ -235,7 +237,7 @@ class MemoryModel {
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
      */
-    drawSequence(x, y, type, id, element_ids, show_idx) {
+    drawSequence(x, y, type, id, element_ids, show_idx, style) {
 
         // Object width
         let box_width = this.obj_x_padding * 2
@@ -296,14 +298,14 @@ class MemoryModel {
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
-                this.id_color
+                style.text.value
             )
             if (show_idx) {
                 this.drawText(
                     i,
                     curr_x + item_length / 2,
                     item_y - this.item_min_height / 4,
-                    this.text_color
+                    default_text_style
                 )
             }
 
@@ -312,9 +314,9 @@ class MemoryModel {
 
         // Draw type and id boxes
         if (type === "list") {
-            this.drawProperties(id, "list", x, y, box_width);
+            this.drawProperties(id, "list", x, y, box_width, style);
         } else {
-            this.drawProperties(id, "tuple", x, y, box_width);
+            this.drawProperties(id, "tuple", x, y, box_width, style);
         }
 
         return size;
@@ -338,7 +340,7 @@ class MemoryModel {
      *
      * @returns {number[]} the top-left coordinates, width, and height of the outermost box
      */
-    drawSet(x, y, id, element_ids) {
+    drawSet(x, y, id, element_ids, style) {
 
         // Adjust the object width (the width of the box)
         let box_width = this.obj_x_padding * 2
@@ -379,7 +381,7 @@ class MemoryModel {
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
-                this.id_color
+                style.text.value
             )
             if (i > 0) {
                 // Draw commas
@@ -387,26 +389,26 @@ class MemoryModel {
                     ",",
                     curr_x - this.item_min_width / 8,
                     item_text_y,
-                    this.text_color
+                    default_text_style
                 )
             }
             curr_x += item_length + this.item_min_height / 4
         })
 
         // Draw type and id boxes
-        this.drawProperties(id, "set", x, y, box_width)
+        this.drawProperties(id, "set", x, y, box_width, style)
         // Draw set braces
         this.drawText(
             "{",
             x + this.item_min_width / 4,
             item_text_y,
-            this.text_color
+            default_text_style
         )
         this.drawText(
             "}",
             x + box_width - this.item_min_width / 4,
             item_text_y,
-            this.text_color
+            default_text_style
         )
 
         return SIZE;
@@ -421,7 +423,7 @@ class MemoryModel {
      *
      * @returns {object} the top-left coordinates, width, and height of the outermost box
      */
-    drawDict(x, y, id, obj) {
+    drawDict(x, y, id, obj, style) {
         let box_width = this.obj_min_width
         let box_height = this.prop_min_height + this.item_min_height / 2
 
@@ -453,7 +455,7 @@ class MemoryModel {
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
-                this.id_color
+                style.text.value
             )
 
             curr_y += this.item_min_height * 1.5
@@ -484,7 +486,7 @@ class MemoryModel {
                 ":",
                 x + box_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                this.value_color
+                default_text_style
             )
 
             // Draw the rectangle for values
@@ -500,7 +502,7 @@ class MemoryModel {
                 idv,
                 x + box_width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                this.id_color
+                style.text.value
             )
 
             curr_y += this.item_min_height * 1.5
@@ -512,7 +514,7 @@ class MemoryModel {
         const SIZE = {x, y, width: box_width, height: box_height}
 
         // Draw type and id boxes
-        this.drawProperties(id, "dict", x, y, box_width);
+        this.drawProperties(id, "dict", x, y, box_width, style);
 
         return SIZE;
     }
@@ -528,7 +530,7 @@ class MemoryModel {
      *
      * @returns {number[]} the top-left coordinates, width, and height of the outermost box
      */
-    drawClass(x, y, name, id, attributes, stack_frame) {
+    drawClass(x, y, name, id, attributes, stack_frame, style) {
         // Get object's width
         let box_width = this.obj_min_width
         let longest = 0
@@ -576,18 +578,27 @@ class MemoryModel {
                 this.item_min_height
             )
 
+            if (!stack_frame){
+
+                if (!style.text.value.hasOwnProperty("fill")) {
+                    style.text.value["fill"] = this.text_color;
+                }
+                if (!style.text.value.hasOwnProperty("text-anchor")) {
+                    style.text.value["text-anchor"] = "begin";
+                }
+            }
+
             this.drawText(
                 attribute,
                 x + this.item_min_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                this.text_color,
-                "begin"
+                style.text.value
             )
             this.drawText(
                 idv,
                 x + box_width - this.item_min_width * 1.5 + attr_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                this.id_color
+                style.text.id
             )
             curr_y += this.item_min_height * 1.5
         }
@@ -600,10 +611,10 @@ class MemoryModel {
                 name,
                 x + text_length / 2 + 5,
                 y + this.prop_min_height * 0.6,
-                this.text_color
+                style.text.value
             )
         } else {
-            this.drawProperties(id, name, x, y, box_width)
+            this.drawProperties(id, name, x, y, box_width, style)
         }
 
         return SIZE;
@@ -632,25 +643,40 @@ class MemoryModel {
      * @param {string} text: The text message that will be displayed
      * @param {number} x: value for x coordinate of top left corner
      * @param {number} y: value for y coordinate of top left corner
-     * @param {string} colour: The colour of the text that will be displayed. Must be in the form "rgb(..., ..., ...)".
-     * @param {string} align: The text anchor; one of "start", "middle" or "end".
-     *                        (As per the SVG documentation from developer.mozilla.org)
-     *                        The default value if nothing is supplied (null or undefined) is "middle"
+     * @param {Object} style: The style configuration defined by the user
+     *                        (As per the SVG documentation from developer.mozilla.org
+     *                        See the page for details)
      */
 
-    drawText(text, x, y, colour, align) {
-        colour = colour || this.text_color
-        align = align || "middle"
+    drawText(text, x, y, style) {
+
+        // Setting up the x and y values inside the style object
+        style["x"] = x;
+        style["y"] = y;
+
+        console.log(style);
+
+        for (const style_attribute of Object.keys(default_text_style)) {
+            if (!style.hasOwnProperty(style_attribute)) {
+                style[style_attribute] = default_text_style[style_attribute];
+            }
+        }
+
+        console.log(style);
+
+        // style.fill = colour || this.text_color
+        // style.text_anchor = align || "middle"
+
         const newElement = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
             "text"
         )
-        newElement.setAttribute("x", x)
-        newElement.setAttribute("y", y)
-        newElement.setAttribute("fill", colour)
-        newElement.setAttribute("text-anchor", align)
-        newElement.setAttribute("font-family", "Consolas, Courier")
-        newElement.setAttribute("font-size", `${this.font_size}px`)
+
+        for (const style_attribute of Object.keys(style)) {
+            // console.log(style_attribute, style[style_attribute]);
+            newElement.setAttribute(style_attribute, style[style_attribute])
+        }
+
         newElement.appendChild(this.document.createTextNode(text))
         this.svg.appendChild(newElement)
     }
@@ -705,14 +731,20 @@ class MemoryModel {
         const sizes_arr = [];
       
         for (const obj of objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list
+
+            obj.style = obj.style || {"text" : {"value" : default_text_style,
+                "id" : default_text_style,
+                "type" : default_text_style}, "box" : {}};
+
             if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
                 // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
                 // line both mutates 'this', and assigns the returned value to the variable 'size'.
-                const size = this.drawClass(obj.x, obj.y, obj.name, obj.id, obj.value, obj.stack_frame);
+                const size = this.drawClass(obj.x, obj.y, obj.name, obj.id, obj.value, obj.stack_frame, obj.style);
                 sizes_arr.push(size);
             }
+
             else {  // The 'drawObject' method will be used to draw an object of a built-in type.
-                const size = this.drawObject(obj.x, obj.y, obj.name, obj.id, obj.value, obj.show_indexes);
+                const size = this.drawObject(obj.x, obj.y, obj.name, obj.id, obj.value, obj.show_indexes, obj.style);
                 sizes_arr.push(size);
             }
         }
@@ -760,6 +792,10 @@ const config = {
     font_size: 20, // Font size, in px
     browser: false, // Whether this library is being used in a browser context
 }
+
+
+const default_text_style = {'fill': config.text_color, 'text-anchor': 'middle',
+    'font-family': 'Consolas, Courier', 'font-size': config.font_size};
 
 // Built-in data types
 const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]
