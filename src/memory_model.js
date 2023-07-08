@@ -197,6 +197,8 @@ class MemoryModel {
             this.getTextLength(type) + 10
         )
 
+        console.log("style: ",style)
+
         // Draw the text inside the id box (insert the id of the given object to the id box)
         this.drawText(
             id === null ? "" : `id${id}`,
@@ -631,7 +633,7 @@ class MemoryModel {
      */
     drawRect(x, y, width, height, style) {
         if (style === undefined) {
-            style = this.rect_style
+            style = this.rect_style;
         }
         this.svg.appendChild(
             this.rough_svg.rectangle(x, y, width, height, style)
@@ -732,9 +734,17 @@ class MemoryModel {
       
         for (const obj of objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list
 
-            obj.style = obj.style || {"text" : {"value" : default_text_style,
-                "id" : default_text_style,
-                "type" : default_text_style}, "box" : {}};
+
+            // ----------- Setting default values for the three attributes of obj.style.text -----------
+
+            // Level 1: Maybe the user did not even pass a 'style' object for some list object, in which case style === undefined.
+            obj.style = obj.style || {};
+
+            // Levels 2 and 3 managed by the invoked function
+            populateStyleObject(obj.style)
+
+            console.log("WHAT THE FUCK? ", obj.style)
+
 
             if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
                 // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
@@ -800,5 +810,36 @@ const default_text_style = {'fill': config.text_color, 'text-anchor': 'middle',
 // Built-in data types
 const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]
 const collections = ["list", "set", "tuple", "dict"]
+
+
+/**
+ * Used to populate the style parameter object with default data (to adhere to the interface of the style object),
+ * especially useful to avoid errors of the type "TypeError: Cannot set properties of undefined (setting 'x')".
+ * @param {object | undefined} style
+ */
+function populateStyleObject(style) {
+    // Level 2: At this stage, 'style' is guaranteed to refer to an object. To handle the situation that this object is
+    // the empty object ({}), we ensure that style is equipped with the attributes "text" and "box", as per the interface.
+    for (const l1_attr of ["text", "box"]) {
+        if (!style.hasOwnProperty(l1_attr)) {
+            style[l1_attr] = {};
+        }
+    }
+
+    // Level 3, A: As per the interface, the style object (of an object of the list) must be in the form
+    // { "text" : { "value" : {...}, "id" : {...}, "type" : {...}}, "box" : {...}},
+    // so with this for loop we ensure that style.text has the three attributes "value", "id", and "type", each referring
+    // to the default_text_style, an of deafult text attribute values.
+    for (const l2_attr of ["value", "type", "id"]) {
+        if (!style.text.hasOwnProperty(l2_attr)) {
+            style.text[l2_attr] = default_text_style;
+        }
+    }
+
+    // Level 3, B
+    // Default filling for obj.style.box attributes
+
+    console.log("FROM INSIDE THE FUNCTION: ", style)
+}
 
 export { MemoryModel, config }
