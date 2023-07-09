@@ -127,8 +127,7 @@ class MemoryModel {
             this.getTextLength(String(value)) + this.obj_x_padding
         )
 
-        // add style.box
-        this.drawRect(x, y, box_width, this.obj_min_height)
+        this.drawRect(x, y, box_width, this.obj_min_height, style.box.container)
 
         // The value that refers to the size and coordinates of the box, it will be used for automating the layout.
         let size = {width: box_width, height: this.obj_min_heigth, x: x, y: y};
@@ -216,8 +215,8 @@ class MemoryModel {
         )
 
         // Draw boxes (specify the boxes for id and type)
-        this.drawRect(x, y, id_box, this.prop_min_height)
-        this.drawRect(x + width - type_box, y, type_box, this.prop_min_height)
+        this.drawRect(x, y, id_box, this.prop_min_height, style.box.id)
+        this.drawRect(x + width - type_box, y, type_box, this.prop_min_height, style.box.type)
     }
 
     /**
@@ -262,7 +261,7 @@ class MemoryModel {
         }
 
         // Draw box
-        this.drawRect(x, y, box_width, box_height)
+        this.drawRect(x, y, box_width, box_height, style.box.container)
 
         // The value that refers to the size and coordinates of the box, it will be used for automating the layout.
         const size = {width: box_width, height: box_height, x: x, y: y};
@@ -356,7 +355,7 @@ class MemoryModel {
         box_width += ((element_ids.length - 1) * this.item_min_width) / 4 // Space for separators
 
         // Draw box which represents the set object
-        this.drawRect(x, y, box_width, this.obj_min_height)
+        this.drawRect(x, y, box_width, this.obj_min_height, style.box.container)
 
         // the value to be returned in the end of this function -- this is required information for automating the layout
         const SIZE = {x, y, width: box_width, height: this.obj_min_height}
@@ -511,7 +510,7 @@ class MemoryModel {
         }
 
         // Draw outer box
-        this.drawRect(x, y, box_width, box_height)
+        this.drawRect(x, y, box_width, box_height, style.box.container)
         // the value to be returned in the end of this function -- this is required information for automating the layout
         const SIZE = {x, y, width: box_width, height: box_height}
 
@@ -559,7 +558,7 @@ class MemoryModel {
         } else {
             box_height = this.obj_min_height
         }
-        this.drawRect(x, y, box_width, box_height)
+        this.drawRect(x, y, box_width, box_height, style.box.container)
 
         // the value to be returned in the end of this function, this is required information for automating the layout
         const SIZE = {x, y, width: box_width, height: box_height}
@@ -608,7 +607,7 @@ class MemoryModel {
         // Draw type and id boxes
         if (stack_frame) {
             let text_length = this.getTextLength(name)
-            this.drawRect(x, y, text_length + 10, this.prop_min_height)
+            this.drawRect(x, y, text_length + 10, this.prop_min_height, style.box.container)
             this.drawText(
                 name,
                 x + text_length / 2 + 5,
@@ -632,6 +631,7 @@ class MemoryModel {
      *                        Rough.js API. For instance, {fill: 'blue', stroke: 'red'}.
      */
     drawRect(x, y, width, height, style) {
+        console.log(style);
         if (style === undefined) {
             style = this.rect_style;
         }
@@ -723,6 +723,7 @@ class MemoryModel {
      *                                                     has a default value of false, and it shall be manually set
      *                                                     only if the object corresponds to a sequence (list or
      *                                                     tuple).
+     * ////// STYLE PARAMETER
      *
      *
      *
@@ -807,6 +808,8 @@ const config = {
 const default_text_style = {'fill': config.text_color, 'text-anchor': 'middle',
     'font-family': 'Consolas, Courier', 'font-size': config.font_size};
 
+const default_box_style = {'stroke': "rgb(0, 0, 0)"};
+
 // Built-in data types
 const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]
 const collections = ["list", "set", "tuple", "dict"]
@@ -830,9 +833,15 @@ function populateStyleObject(style) {
     // { "text" : { "value" : {...}, "id" : {...}, "type" : {...}}, "box" : {...}},
     // so with this for loop we ensure that style.text has the three attributes "value", "id", and "type", each referring
     // to the default_text_style, an of deafult text attribute values.
-    for (const l2_attr of ["value", "type", "id"]) {
-        if (!style.text.hasOwnProperty(l2_attr)) {
-            style.text[l2_attr] = default_text_style;
+    for (const l3_attr of ["value", "type", "id"]) {
+        if (!style.text.hasOwnProperty(l3_attr)) {
+            style.text[l3_attr] = default_text_style;
+        }
+    }
+
+    for (const l3_attr of ["container", "type", "id"]) {
+        if (!style.box.hasOwnProperty(l3_attr)) {
+            style.box[l3_attr] = default_box_style;
         }
     }
 

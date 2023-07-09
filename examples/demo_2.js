@@ -16,7 +16,9 @@ const objs = [
     {isClass: false, x: 1050, y: 260, name: "set", id: 90, value: [36, 49, 64]},
     {isClass: false, x: 1050, y: 500, name: "dict", id: 10, value: {x: 81, y: 100, z: 121}},
     {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None",
-        style:{"text": {"value" : {"font-style" : "italic"}}}
+        style:{"text": {"value" : {"font-style" : "italic"}},
+            'box': {'id': {fill: 'red', fillStyle: "dots"}, 'type': {fill: "red", fillStyle: "solid"},
+                'container': {fill:"black", fillStyle: "solid"}}}
     }
     // {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None"}
 
