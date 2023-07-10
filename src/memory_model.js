@@ -96,6 +96,9 @@ class MemoryModel {
      * @param {number} id: the hypothetical memory address number
      * @param {*} value: can be passed as a list if type is a collection type
      * @param {boolean} show_indexes: whether to show list indices
+     * @param {Object} style: The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
+     * boxes, refer to the Rough.js documentation.
      */
     drawObject(x, y, type, id, value, show_indexes, style) {
         if (collections.includes(type)) {  // If the given object is a collection
@@ -119,6 +122,9 @@ class MemoryModel {
      * @param {string} type: the primitive data type (e.g. boolean, int) of the object we want draw
      * @param {number} id: the hypothetical memory address number
      * @param {*} value: the value of the primitive object
+     * @param {Object} style: The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
+     * boxes, refer to the Rough.js documentation.
      */
     drawPrimitive(x, y, type, id, value, style) {
         // Adjust and draw object box (see 'config' object for the information on the attributes)
@@ -181,6 +187,9 @@ class MemoryModel {
      * @param {number} x: value for x coordinate of top left corner
      * @param {number} y: value for y coordinate of top left corner
      * @param {number} width: The width of the given box (rectangle)
+     * @param {Object} style: The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
+     * boxes, refer to the Rough.js documentation.
      */
     drawProperties(id, type, x, y, width, style) {
 
@@ -237,6 +246,10 @@ class MemoryModel {
      *
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
+     *
+     * @param {Object} style: The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
+     * boxes, refer to the Rough.js documentation.
      */
     drawSequence(x, y, type, id, element_ids, show_idx, style) {
 
