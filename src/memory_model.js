@@ -166,11 +166,12 @@ class MemoryModel {
         // Actually drawing the text to be displayed on our canvas by utilizing the helper 'drawText' instance method.
         // Note that if the value is null or undefined, nothing will be drawn
         if (value !== null && value !== undefined) {
+
             this.drawText(
                 display_text,
                 x + box_width / 2,
                 y + (this.obj_min_height + this.prop_min_height) / 2,
-                style.text.value
+                style.text.value || {fill: this.value_color}
             )
         }
 
@@ -205,14 +206,13 @@ class MemoryModel {
             this.getTextLength(type) + 10
         )
 
-        console.log("style: ",style)
 
         // Draw the text inside the id box (insert the id of the given object to the id box)
         this.drawText(
             id === null ? "" : `id${id}`,
             x + id_box / 2,
             y + this.font_size * 1.5,
-            style.text.id
+            style.text.id || {fill: this.id_color}
         )
 
         // Draw the text inside the type box (insert the data type of the given object to the id box)
@@ -220,7 +220,7 @@ class MemoryModel {
             type,
             x + width - type_box / 2,
             y + this.font_size * 1.5,
-            style.text.type
+            style.text.value || {fill: this.value_color}
         )
 
         // Draw boxes (specify the boxes for id and type)
@@ -308,18 +308,21 @@ class MemoryModel {
                 this.getTextLength(idv) + 10
             )
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
-            this.drawText(
+
+            this.drawText (
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.value
+                style.text.value || {fill : this.id_color}
+
             )
+
             if (show_idx) {
                 this.drawText(
                     i,
                     curr_x + item_length / 2,
                     item_y - this.item_min_height / 4,
-                    default_text_style
+                    {fill: this.text_color}
                 )
             }
 
@@ -391,11 +394,12 @@ class MemoryModel {
                 this.getTextLength(idv) + 10
             )
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
+
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
-                style.text.value
+                style.text.value || {fill: this.id_color}
             )
             if (i > 0) {
                 // Draw commas
@@ -403,7 +407,7 @@ class MemoryModel {
                     ",",
                     curr_x - this.item_min_width / 8,
                     item_text_y,
-                    default_text_style
+                    {fill: this.text_color}
                 )
             }
             curr_x += item_length + this.item_min_height / 4
@@ -416,13 +420,13 @@ class MemoryModel {
             "{",
             x + this.item_min_width / 4,
             item_text_y,
-            default_text_style
+            {fill: this.text_color}
         )
         this.drawText(
             "}",
             x + box_width - this.item_min_width / 4,
             item_text_y,
-            default_text_style
+            {fill: this.text_color}
         )
 
         return SIZE;
@@ -469,7 +473,7 @@ class MemoryModel {
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
-                style.text.value
+                style.text.value || {fill: this.id_color}
             )
 
             curr_y += this.item_min_height * 1.5
@@ -500,7 +504,7 @@ class MemoryModel {
                 ":",
                 x + box_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                default_text_style
+                {fill: this.text_color}
             )
 
             // Draw the rectangle for values
@@ -516,7 +520,7 @@ class MemoryModel {
                 idv,
                 x + box_width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.value
+                style.text.value || {fill : this.id_color}
             )
 
             curr_y += this.item_min_height * 1.5
@@ -606,13 +610,14 @@ class MemoryModel {
                 attribute,
                 x + this.item_min_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.value
+                style.text.value || {fill : this.text_color}
             )
+
             this.drawText(
                 idv,
                 x + box_width - this.item_min_width * 1.5 + attr_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.id
+                style.text.value || {fill : this.id_color}
             )
             curr_y += this.item_min_height * 1.5
         }
@@ -625,7 +630,7 @@ class MemoryModel {
                 name,
                 x + text_length / 2 + 5,
                 y + this.prop_min_height * 0.6,
-                style.text.value
+                style.text.value || {fill : this.text_color}
             )
         } else {
             this.drawProperties(id, name, x, y, box_width, style)
@@ -669,15 +674,15 @@ class MemoryModel {
         style["x"] = x;
         style["y"] = y;
 
-        console.log(style);
+        console.log("style: ", style);
 
         for (const style_attribute of Object.keys(default_text_style)) {
             if (!style.hasOwnProperty(style_attribute)) {
+                // console.log(style_attribute);
                 style[style_attribute] = default_text_style[style_attribute];
             }
         }
 
-        console.log(style);
 
         // style.fill = colour || this.text_color
         // style.text_anchor = align || "middle"
@@ -688,9 +693,9 @@ class MemoryModel {
         )
 
         for (const style_attribute of Object.keys(style)) {
-            // console.log(style_attribute, style[style_attribute]);
             newElement.setAttribute(style_attribute, style[style_attribute])
         }
+
 
         newElement.appendChild(this.document.createTextNode(text))
         this.svg.appendChild(newElement)
@@ -757,8 +762,6 @@ class MemoryModel {
             // Levels 2 and 3 managed by the invoked function
             populateStyleObject(obj.style)
 
-            console.log("WHAT THE FUCK? ", obj.style)
-
 
             if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
                 // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
@@ -821,7 +824,7 @@ const config = {
 const default_text_style = {'fill': config.text_color, 'text-anchor': 'middle',
     'font-family': 'Consolas, Courier', 'font-size': config.font_size};
 
-const default_box_style = {'stroke': "rgb(0, 0, 0)"};
+const default_box_style = {};
 
 // Built-in data types
 const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]
@@ -861,7 +864,7 @@ function populateStyleObject(style) {
     // Level 3, B
     // Default filling for obj.style.box attributes
 
-    console.log("FROM INSIDE THE FUNCTION: ", style)
+    // console.log("FROM INSIDE THE FUNCTION: ", style)
 }
 
 export { MemoryModel, config }
