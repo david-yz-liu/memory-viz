@@ -164,6 +164,7 @@ class MemoryModel {
                 display_text,
                 x + box_width / 2,
                 y + (this.obj_min_height + this.prop_min_height) / 2,
+                // style.text.value || {fill : this.text_color}
                 style.text.value
             )
         }
@@ -196,13 +197,23 @@ class MemoryModel {
             this.getTextLength(type) + 10
         )
 
-        console.log("style: ",style)
+        // console.log("style: ",style)
+        //
+        // // If on value for style.text.id.fill has been provided, we set it to config.id_color.
+        // if (!style.text.id.hasOwnProperty("fill")) {
+        //     style.text.id.fill = this.id_color;
+        // }
+        // // If on value for style.text.id.fill has been provided, we set it to config.id_color.
+        // if (!style.text.id.hasOwnProperty("value")) {
+        //     style.text.id.value = this.value_color;
+        // }
 
         // Draw the text inside the id box (insert the id of the given object to the id box)
         this.drawText(
             id === null ? "" : `id${id}`,
             x + id_box / 2,
             y + this.font_size * 1.5,
+            // style.text.id
             style.text.id
         )
 
@@ -211,7 +222,8 @@ class MemoryModel {
             type,
             x + width - type_box / 2,
             y + this.font_size * 1.5,
-            style.text.type
+            // style.text.type
+             style.text.value
         )
 
         // Draw boxes (specify the boxes for id and type)
@@ -234,6 +246,12 @@ class MemoryModel {
      *             memory boxes for all elements (with id's that match the id's held in 'element_ids').
      *
      * @param {boolean} show_idx: whether to show the indexes of each list element
+     * @param {object} style: object defining the desired style of the sequence. As described in the docstring of
+     *            'drawAll', this must be in the form
+     *            {text:
+     *                  {value: {...}, id : {...}, type : {...}},
+     *                  box: {container : {...}, id : {...}, type : {...}}
+     *            }.
      *
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
@@ -295,18 +313,22 @@ class MemoryModel {
                 this.getTextLength(idv) + 10
             )
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
+
+            // console.log("style.text.value: ")
+            // console.log(style.text.value)
+
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.value
+                style.text.id
             )
             if (show_idx) {
                 this.drawText(
                     i,
                     curr_x + item_length / 2,
                     item_y - this.item_min_height / 4,
-                    default_text_style
+                    {fill: this.text_color}
                 )
             }
 
@@ -335,6 +357,8 @@ class MemoryModel {
      *          2. The 'element_ids' argument must store the id's and not the actual value of the list elements.
      *             If the instructor wishes to showcase the corresponding values, it is their responsibility to create
      *             memory boxes for all elements (with id's that match the id's held in 'element_ids').
+     * @param {object} style: object defining the desired style of the sequence. Must abide by the structure defined
+     *            in 'drawAll'.
      *
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
@@ -382,7 +406,7 @@ class MemoryModel {
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
-                style.text.value
+                style.text.id
             )
             if (i > 0) {
                 // Draw commas
@@ -421,6 +445,8 @@ class MemoryModel {
      * @param {number} y: value for y coordinate of top left corner
      * @param {number} id: the hypothetical memory address number
      * @param {object} obj: the object that will be drawn
+     * @param {object} style: object defining the desired style of the sequence. Must abide by the structure defined
+     *            in 'drawAll'.
      *
      * @returns {object} the top-left coordinates, width, and height of the outermost box
      */
@@ -456,7 +482,7 @@ class MemoryModel {
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
-                style.text.value
+                style.text.id
             )
 
             curr_y += this.item_min_height * 1.5
@@ -503,7 +529,7 @@ class MemoryModel {
                 idv,
                 x + box_width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.value
+                style.text.id
             )
 
             curr_y += this.item_min_height * 1.5
@@ -528,6 +554,8 @@ class MemoryModel {
      * @param {string} id: the hypothetical memory address number
      * @param {object} attributes: the attributes of the given class
      * @param {boolean} stack_frame: set to true if you are drawing a stack frame
+     * @param {object} style: object defining the desired style of the sequence. Must abide by the structure defined
+     *            in 'drawAll'.
      *
      * @returns {number[]} the top-left coordinates, width, and height of the outermost box
      */
@@ -627,14 +655,17 @@ class MemoryModel {
      * @param {number} y: value for y coordinate of top left corner
      * @param {number} width: the width of the rectangle
      * @param {number} height: the height of the rectangle
-     * @param {object | undefined} style: if specified an object with style properties for a Rough.js object, as per the
+     * @param {object | undefined} style: 1-D object with style properties for a Rough.js object, as per the
      *                        Rough.js API. For instance, {fill: 'blue', stroke: 'red'}.
      */
     drawRect(x, y, width, height, style) {
-        console.log(style);
+        // console.log(style);
         if (style === undefined) {
             style = this.rect_style;
         }
+
+        // In the invocation of 'this.rough_svg.rectangle()', passing in the style object means that the provided
+        // styling specifics will be automatically applied to the SVG, due to the rough library.
         this.svg.appendChild(
             this.rough_svg.rectangle(x, y, width, height, style)
         )
@@ -645,18 +676,23 @@ class MemoryModel {
      * @param {string} text: The text message that will be displayed
      * @param {number} x: value for x coordinate of top left corner
      * @param {number} y: value for y coordinate of top left corner
-     * @param {Object} style: The style configuration defined by the user
-     *                        (As per the SVG documentation from developer.mozilla.org
-     *                        See the page for details)
+     * @param {Object} style:  1-D object with style properties for an svg object, as per the
+     *                        standard SVG attributes, documented on
+     *                        https://developer.mozilla.org/en-US/docs/Web/SVG/AttributeRough.js.
+     *                        For instance, {fill: 'blue', stroke: 'red'}
      */
 
     drawText(text, x, y, style) {
+        // console.log("-------------")
+        // console.log("STYLE: ")
+        // console.log(style)
+        // console.log("-------------")
 
         // Setting up the x and y values inside the style object
         style["x"] = x;
         style["y"] = y;
 
-        console.log(style);
+        // console.log(style);
 
         for (const style_attribute of Object.keys(default_text_style)) {
             if (!style.hasOwnProperty(style_attribute)) {
@@ -664,7 +700,7 @@ class MemoryModel {
             }
         }
 
-        console.log(style);
+        // console.log(style);
 
         // style.fill = colour || this.text_color
         // style.text_anchor = align || "middle"
@@ -678,6 +714,10 @@ class MemoryModel {
             // console.log(style_attribute, style[style_attribute]);
             newElement.setAttribute(style_attribute, style[style_attribute])
         }
+
+        // newElement.setAttribute("color", "green");
+        // newElement.setAttribute("stroke", "green");
+        // newElement.setAttribute("font-style", "italic");
 
         newElement.appendChild(this.document.createTextNode(text))
         this.svg.appendChild(newElement)
@@ -744,7 +784,7 @@ class MemoryModel {
             // Levels 2 and 3 managed by the invoked function
             populateStyleObject(obj.style)
 
-            console.log("WHAT THE FUCK? ", obj.style)
+            // console.log("WHAT THE FUCK? ", obj.style)
 
 
             if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
@@ -829,15 +869,108 @@ function populateStyleObject(style) {
         }
     }
 
+    const categ_to_fill_value = {"value":config.value_color, "id":config.id_color, "type":config.value_color}
+
     // Level 3, A: As per the interface, the style object (of an object of the list) must be in the form
     // { "text" : { "value" : {...}, "id" : {...}, "type" : {...}}, "box" : {...}},
     // so with this for loop we ensure that style.text has the three attributes "value", "id", and "type", each referring
     // to the default_text_style, an of deafult text attribute values.
+    // for (const l3_attr of ["value", "type", "id"]) {
+    //     if (!style.text.hasOwnProperty(l3_attr)) {
+    //
+    //         style.text[l3_attr] = JSON.parse(JSON.stringify(default_text_style));
+    //         style.text[l3_attr].fill = l3_attr[]
+    //
+    //
+    //
+    //     }
+    //
+    //     if (l3_attr === "value" | l3_attr === "type") {
+    //         console.log("&&&&&&&&&&&&&&&&&&&")
+    //         style.text[l3_attr].fill = config.value_color;
+    //     }
+    //     if (l3_attr === "id") {
+    //         style.text[l3_attr].fill = config.id_color;
+    //     }
+    // }
+
+
     for (const l3_attr of ["value", "type", "id"]) {
+
+        const deep_copied_default = JSON.parse(JSON.stringify(default_text_style));;
+
         if (!style.text.hasOwnProperty(l3_attr)) {
-            style.text[l3_attr] = default_text_style;
+            style.text[l3_attr] = {};
         }
+
+        if (!style.text[l3_attr].hasOwnProperty("fill")) {
+            console.log("Ok... I entered with " + l3_attr)
+            console.log(style.text[l3_attr])
+            console.log(categ_to_fill_value[l3_attr])
+            style.text[l3_attr]["fill"] = categ_to_fill_value[l3_attr];
+            console.log(style.text[l3_attr])
+            console.log("------------------------------------------")
+        }
+        for (const l4_attr of ["text-anchor", "font-family", "font-size"]){
+            if (!style.text[l3_attr].hasOwnProperty(l4_attr)) {
+                style.text[l3_attr][l4_attr] = deep_copied_default[l4_attr];
+            }
+        }
+
     }
+    //     if (!style.text.hasOwnProperty(l3_attr)) {
+    //
+    //         style.text[l3_attr] = JSON.parse(JSON.stringify(default_text_style));
+    //         style.text[l3_attr].fill = l3_attr[]
+    //
+    //
+    //
+    //     }
+    //
+    // console.log("BEFORE: ")
+    // console.log(style)
+    //
+    //
+    //
+    // if (!style.text.hasOwnProperty("value")) {
+    //     style.text.value = {'fill': config.text_color, 'text-anchor': 'middle',
+    //         'font-family': 'Consolas, Courier', 'font-size': config.font_size};
+    //     style.text.value.fill = config.value_color;
+    // }
+    // console.log(style)
+    // if (!style.text.hasOwnProperty("id")) {
+    //     console.log("ID branch")
+    //     style.text.id = {'fill': config.text_color, 'text-anchor': 'middle',
+    //         'font-family': 'Consolas, Courier', 'font-size': config.font_size};
+    //     style.text.id.fill = config.id_color;
+    // }
+    // console.log(style)
+    // if (!style.text.hasOwnProperty("type")) {
+    //     style.text.type = {'fill': config.text_color, 'text-anchor': 'middle',
+    //         'font-family': 'Consolas, Courier', 'font-size': config.font_size};
+    //     style.text.type.fill = config.value_color;
+    // }
+
+
+    //----------------------------------------------------------------------------------------------------------------
+    // // If on value for style.text.id.fill has been provided, we set it to config.id_color.
+    // console.log("NOT ENTERING: ")
+    // console.log(style)
+    // if (!style.text.id.hasOwnProperty("fill")) {
+    //     console.log(713807123097123901823091283092)
+    //     style.text.id.fill = config.id_color;
+    // }
+    // // If on value for style.text.id.fill has been provided, we set it to config.id_color.
+    // if (!style.text.value.hasOwnProperty("fill")) {
+    //     console.log(713807123097123901823091283092)
+    //     style.text.value.fill = config.value_color;
+    // }
+    // // If on value for style.text.id.fill has been provided, we set it to config.id_color.
+    // if (!style.text.type.hasOwnProperty("fill")) {
+    //     console.log(713807123097123901823091283092)
+    //     style.text.type.fill = config.value_color;
+    // }
+    // //----------------------------------------------------------------------------------------------------------------
 
     for (const l3_attr of ["container", "type", "id"]) {
         if (!style.box.hasOwnProperty(l3_attr)) {
@@ -848,7 +981,10 @@ function populateStyleObject(style) {
     // Level 3, B
     // Default filling for obj.style.box attributes
 
-    console.log("FROM INSIDE THE FUNCTION: ", style)
+    // console.log("FROM INSIDE THE FUNCTION: ", style)
+
+    console.log("final style: ")
+    console.log(style);
 }
 
 export { MemoryModel, config }
