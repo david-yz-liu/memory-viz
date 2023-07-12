@@ -222,9 +222,7 @@ class MemoryModel {
             type,
             x + width - type_box / 2,
             y + this.font_size * 1.5,
-            // style.text.type
-             style.text.value
-
+             style.text.type
         )
 
         // Draw boxes (specify the boxes for id and type)
@@ -320,11 +318,14 @@ class MemoryModel {
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
 
 
+            const style2 = JSON.parse(JSON.stringify(style.text.value));
+            style2.fill = style.text.id.fill;
+
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.id
+                style2
 
             )
 
@@ -333,7 +334,7 @@ class MemoryModel {
                     i,
                     curr_x + item_length / 2,
                     item_y - this.item_min_height / 4,
-                    {fill: this.text_color}
+                    style2
                 )
             }
 
@@ -408,12 +409,14 @@ class MemoryModel {
             )
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
 
+            const style2 = JSON.parse(JSON.stringify(style.text.value));
+            style2.fill = style.text.id.fill;
+
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
-                style.text.id
-
+                style2
             )
             if (i > 0) {
                 // Draw commas
@@ -484,12 +487,14 @@ class MemoryModel {
                 this.item_min_height
             )
 
+            const style2 = JSON.parse(JSON.stringify(style.text.value));
+            style2.fill = style.text.id.fill;
             // Draw the text inside the keys
             this.drawText(
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
-                style.text.id
+                style2
 
             )
 
@@ -533,11 +538,13 @@ class MemoryModel {
             )
 
             // Draw the text for the values
+            const style3 = JSON.parse(JSON.stringify(style.text.value));
+            style3.fill = style.text.id.fill;
             this.drawText(
                 idv,
                 x + box_width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.id
+                style3
 
             )
 
@@ -626,18 +633,23 @@ class MemoryModel {
                 }
             }
 
+            const style2 = JSON.parse(JSON.stringify(style.text.value))
+            style2['text-anchor'] = 'begin'
+            // style.text.value['text-anchor'] = 'begin'
             this.drawText(
                 attribute,
                 x + this.item_min_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.value || {fill : this.text_color}
+                style2
+
+
             )
 
             this.drawText(
                 idv,
                 x + box_width - this.item_min_width * 1.5 + attr_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.value || {fill : this.id_color}
+                style.text.id
             )
             curr_y += this.item_min_height * 1.5
         }
@@ -650,7 +662,7 @@ class MemoryModel {
                 name,
                 x + text_length / 2 + 5,
                 y + this.prop_min_height * 0.6,
-                style.text.value || {fill : this.text_color}
+                style.text.type
             )
         } else {
             this.drawProperties(id, name, x, y, box_width, style)
