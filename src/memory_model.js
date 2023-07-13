@@ -96,6 +96,9 @@ class MemoryModel {
      * @param {number} id: the hypothetical memory address number
      * @param {*} value: can be passed as a list if type is a collection type
      * @param {boolean} show_indexes: whether to show list indices
+     * @param {Object} style: The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
+     * boxes, refer to the Rough.js documentation.
      */
     drawObject(x, y, type, id, value, show_indexes, style) {
         if (collections.includes(type)) {  // If the given object is a collection
@@ -119,6 +122,9 @@ class MemoryModel {
      * @param {string} type: the primitive data type (e.g. boolean, int) of the object we want draw
      * @param {number} id: the hypothetical memory address number
      * @param {*} value: the value of the primitive object
+     * @param {Object} style: The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
+     * boxes, refer to the Rough.js documentation.
      */
     drawPrimitive(x, y, type, id, value, style) {
         // Adjust and draw object box (see 'config' object for the information on the attributes)
@@ -160,6 +166,7 @@ class MemoryModel {
         // Actually drawing the text to be displayed on our canvas by utilizing the helper 'drawText' instance method.
         // Note that if the value is null or undefined, nothing will be drawn
         if (value !== null && value !== undefined) {
+
             this.drawText(
                 display_text,
                 x + box_width / 2,
@@ -182,6 +189,9 @@ class MemoryModel {
      * @param {number} x: value for x coordinate of top left corner
      * @param {number} y: value for y coordinate of top left corner
      * @param {number} width: The width of the given box (rectangle)
+     * @param {Object} style: The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
+     * boxes, refer to the Rough.js documentation.
      */
     drawProperties(id, type, x, y, width, style) {
 
@@ -197,22 +207,12 @@ class MemoryModel {
             this.getTextLength(type) + 10
         )
 
-        // console.log("style: ",style)
-        //
-        // // If on value for style.text.id.fill has been provided, we set it to config.id_color.
-        // if (!style.text.id.hasOwnProperty("fill")) {
-        //     style.text.id.fill = this.id_color;
-        // }
-        // // If on value for style.text.id.fill has been provided, we set it to config.id_color.
-        // if (!style.text.id.hasOwnProperty("value")) {
-        //     style.text.id.value = this.value_color;
-        // }
-
         // Draw the text inside the id box (insert the id of the given object to the id box)
         this.drawText(
             id === null ? "" : `id${id}`,
             x + id_box / 2,
             y + this.font_size * 1.5,
+          
             // style.text.id
             style.text.id
         )
@@ -222,8 +222,7 @@ class MemoryModel {
             type,
             x + width - type_box / 2,
             y + this.font_size * 1.5,
-            // style.text.type
-             style.text.value
+             style.text.type
         )
 
         // Draw boxes (specify the boxes for id and type)
@@ -255,6 +254,10 @@ class MemoryModel {
      *
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
+     *
+     * @param {Object} style: The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
+     * boxes, refer to the Rough.js documentation.
      */
     drawSequence(x, y, type, id, element_ids, show_idx, style) {
 
@@ -314,21 +317,24 @@ class MemoryModel {
             )
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
 
-            // console.log("style.text.value: ")
-            // console.log(style.text.value)
+
+            const style2 = JSON.parse(JSON.stringify(style.text.value));
+            style2.fill = style.text.id.fill;
 
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.id
+                style2
+
             )
+
             if (show_idx) {
                 this.drawText(
                     i,
                     curr_x + item_length / 2,
                     item_y - this.item_min_height / 4,
-                    {fill: this.text_color}
+                    style2
                 )
             }
 
@@ -402,11 +408,15 @@ class MemoryModel {
                 this.getTextLength(idv) + 10
             )
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
+
+            const style2 = JSON.parse(JSON.stringify(style.text.value));
+            style2.fill = style.text.id.fill;
+
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
-                style.text.id
+                style2
             )
             if (i > 0) {
                 // Draw commas
@@ -414,7 +424,7 @@ class MemoryModel {
                     ",",
                     curr_x - this.item_min_width / 8,
                     item_text_y,
-                    default_text_style
+                    {fill: this.text_color}
                 )
             }
             curr_x += item_length + this.item_min_height / 4
@@ -427,13 +437,13 @@ class MemoryModel {
             "{",
             x + this.item_min_width / 4,
             item_text_y,
-            default_text_style
+            {fill: this.text_color}
         )
         this.drawText(
             "}",
             x + box_width - this.item_min_width / 4,
             item_text_y,
-            default_text_style
+            {fill: this.text_color}
         )
 
         return SIZE;
@@ -477,12 +487,15 @@ class MemoryModel {
                 this.item_min_height
             )
 
+            const style2 = JSON.parse(JSON.stringify(style.text.value));
+            style2.fill = style.text.id.fill;
             // Draw the text inside the keys
             this.drawText(
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
-                style.text.id
+                style2
+
             )
 
             curr_y += this.item_min_height * 1.5
@@ -513,7 +526,7 @@ class MemoryModel {
                 ":",
                 x + box_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                default_text_style
+                {fill: this.text_color}
             )
 
             // Draw the rectangle for values
@@ -525,11 +538,14 @@ class MemoryModel {
             )
 
             // Draw the text for the values
+            const style3 = JSON.parse(JSON.stringify(style.text.value));
+            style3.fill = style.text.id.fill;
             this.drawText(
                 idv,
                 x + box_width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.id
+                style3
+
             )
 
             curr_y += this.item_min_height * 1.5
@@ -617,12 +633,18 @@ class MemoryModel {
                 }
             }
 
+            const style2 = JSON.parse(JSON.stringify(style.text.value))
+            style2['text-anchor'] = 'begin'
+            // style.text.value['text-anchor'] = 'begin'
             this.drawText(
                 attribute,
                 x + this.item_min_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.value
+                style2
+
+
             )
+
             this.drawText(
                 idv,
                 x + box_width - this.item_min_width * 1.5 + attr_box / 2,
@@ -640,7 +662,7 @@ class MemoryModel {
                 name,
                 x + text_length / 2 + 5,
                 y + this.prop_min_height * 0.6,
-                style.text.value
+                style.text.type
             )
         } else {
             this.drawProperties(id, name, x, y, box_width, style)
@@ -692,15 +714,14 @@ class MemoryModel {
         style["x"] = x;
         style["y"] = y;
 
-        // console.log(style);
 
         for (const style_attribute of Object.keys(default_text_style)) {
             if (!style.hasOwnProperty(style_attribute)) {
+                // console.log(style_attribute);
                 style[style_attribute] = default_text_style[style_attribute];
             }
         }
 
-        // console.log(style);
 
         // style.fill = colour || this.text_color
         // style.text_anchor = align || "middle"
@@ -711,13 +732,9 @@ class MemoryModel {
         )
 
         for (const style_attribute of Object.keys(style)) {
-            // console.log(style_attribute, style[style_attribute]);
             newElement.setAttribute(style_attribute, style[style_attribute])
         }
 
-        // newElement.setAttribute("color", "green");
-        // newElement.setAttribute("stroke", "green");
-        // newElement.setAttribute("font-style", "italic");
 
         newElement.appendChild(this.document.createTextNode(text))
         this.svg.appendChild(newElement)
@@ -784,8 +801,6 @@ class MemoryModel {
             // Levels 2 and 3 managed by the invoked function
             populateStyleObject(obj.style)
 
-            // console.log("WHAT THE FUCK? ", obj.style)
-
 
             if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
                 // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
@@ -848,7 +863,7 @@ const config = {
 const default_text_style = {'fill': config.text_color, 'text-anchor': 'middle',
     'font-family': 'Consolas, Courier', 'font-size': config.font_size};
 
-const default_box_style = {'stroke': "rgb(0, 0, 0)"};
+const default_box_style = {};
 
 // Built-in data types
 const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]
@@ -985,6 +1000,7 @@ function populateStyleObject(style) {
 
     console.log("final style: ")
     console.log(style);
+
 }
 
 export { MemoryModel, config }
