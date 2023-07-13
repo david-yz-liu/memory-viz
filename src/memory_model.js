@@ -678,7 +678,7 @@ class MemoryModel {
      * @param {number} y: value for y coordinate of top left corner
      * @param {Object} style:  1-D object with style properties for an svg object, as per the
      *                        standard SVG attributes, documented on
-     *                        https://developer.mozilla.org/en-US/docs/Web/SVG/AttributeRough.js.
+     *                        https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
      *                        For instance, {fill: 'blue', stroke: 'red'}
      */
 
