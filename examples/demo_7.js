@@ -1,9 +1,19 @@
 /**
- * This file demonstrates the use of the 'drawAutomatedOtherItems' function from the 'automate.js' module. This function
- * is used as a helper function for the "container" 'drawAutomated' function.
+ * This file demonstrates the ability to leave "blanks" when the 'automated' option is on.
+ *
+ * To define a blank box, you specify it as an object in the list with three attributes:
+ * - name: This must be equal to "BLANK"
+ * - width: the desired width of the blank box (I say box but in reality there aren't any borders)
+ * - height: the desired height of the blank box
+ *
+ * NOTE:
+ *   At the minimum, only the name attribute is required (must be assigned to "BLANK" so the algorithms knows what
+ *   you want to do). If do not specify a width or a height, the default width of 300 and default height of 200 will
+ *   be assigned to the 'blank' object. Including more attributes will not lead to an error, but will not achieve
+ *   anything either.
  *
  * OUTPUT FILES:
- *      - ~/docs/images/demo_3A.svg"
+ *      - ~/docs/images/demo_7.svg"
  */
 
 const {MemoryModel, drawAutomatedOtherItems} = require("../dist/memory_models_rough.node.js");
@@ -13,13 +23,13 @@ const fs = require("fs");
 const WIDTH = 1300;
 
 const listOfObjs = [
-    /*{"isClass": true, "name": "BLANK", "id": 99, "value": {"age": 12, "name": 17}, "stack_frame": false},*/
+    {"name": "BLANK", width: 700, height: 500, stack_frame : false},
     {"isClass": false, "name": "list", "id": 82, "value": [19, 43, 28, 49]},
     {"isClass": false, "name": "list", "id": 84, "value": [32, 10, 90, 57], "show_indexes": true},
     {"isClass": false, "name": "int", "id": 19, "value": 1969},
     {"isClass": false, "name": "bool", "id": 32, "value": true},
     {"isClass": false, "name": "str", "id": 43, "value": "David is cool"},
-    {"isClass": false, "name": "tuple", "id": 11, "value": [82, 76]},
+    {"isClass": false, "name": "tuple", width : 200, height: 150, "id": 11, "value": [82, 76]},
     {"isClass": false, "name": "set", "id": 90, "value": [36, 49, 64]},
     {"isClass": false, "name": "dict", "id": 10, "value": {"x": 81, "y": 100, "z": 121}},
     {"isClass": false, "name": "None", "id": 13, "value": "None"}

@@ -11,7 +11,8 @@ const objs = [
         style : {text: {id: {fill : "yellow", stroke: "green", "stroke-opacity":0.9}}, box: {}}
     },
     {isClass: true, x: 350, y:10, name: "BLANK", id: 99, value: {age: 12, name: 17}, stack_frame: false},
-    {isClass: false, x: 350, y: 350, name: "list", id: 82, value: [19, 43, 28, 49]},
+    {isClass: false, x: 350, y: 350, name: "list", id: 82, value: [19, 43, 28, 49],
+    style: {text: {id: {"font-style": "italic"}}}},
     {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], show_indexes: true},
     {isClass: false, x: 750, y: 10, name: "int", id: 19, value: 1969},
     {isClass: false, x: 750, y: 250, name: "bool", id: 32, value: true}, // as per the implementation of drawPrimitive

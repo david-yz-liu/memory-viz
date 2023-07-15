@@ -27,6 +27,9 @@ function drawAutomated(objects, width, configuration) {
     // initializing a MemoryModel object
     const m = new MemoryModel({width: width, height: final_height});
 
+    console.log("WHAT I GET: ");
+    console.log(objs);
+
     m.drawAll(StackFrames);
     m.drawAll(objs);
 
@@ -103,6 +106,10 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
 function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to avoid undefined error */,
                                  sf_endpoint) {
 
+    console.log("INSIDE")
+    console.log(objs)
+
+
     // Ensuring that not configuration options remain undefined.
     for (const req_prop of ["padding", "top_margin", "left_margin", "bottom_margin", "right_margin"]) {
         if (!config_aut.hasOwnProperty(req_prop)) {
@@ -132,7 +139,16 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
             item.height = dimensions.height;
             item.width = dimensions.width;
         }
+        else {
+            for (const attr of ["width", "height"]) {
+                if (!item.hasOwnProperty(attr)) {
+                    item[attr] = config.blank_default_dimensions[attr];
+                }
+            }
+        }
     }
+
+    console.log("CHECKPOINT 2")
 
     /**
      * The 'sort' function optionally accepts a "compare" function used to determine the basis upon which to sort the array.
@@ -247,9 +263,10 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     console.log(objs)
     const objs_filtered = objs.filter((item) => {return item.name !== "BLANK"});
     console.log(objs_filtered)
+    objs = objs_filtered;
 
 
-    return {objs_filtered, canvas_height, canvas_width};
+    return {objs, canvas_height, canvas_width};
 }
 
 
