@@ -1,70 +1,42 @@
-/**
- * This file demonstrates the use of the 'drawAutomated' function from the 'automate.js' module (so both the stackframes
- * and the object space is present). This function accepts a list of objects, the desired canvas width, and a
- * 'configuration' object meant to define specs like margins and padding.
- *
- * The actual list of objects is stored as JSON file (automated_json.json) and it is being parsed here to become an
- * actual JS array of objects.
- *
- * OUTPUT FILES:
- *      - ~/docs/images/demo_4.svg"
- */
+const { MemoryModel } = require("../dist/memory_models_rough.node")
 
-const { drawAutomated, separateJSON, getSize, drawAutomatedOtherItems, MemoryModel } =
-    require("../dist/memory_models_rough.node.js");
+const m1 = new MemoryModel({ width: 1300, height: 1100 })
+const m2 = new MemoryModel({ width: 1300, height: 1100 })
 
-objs = [
-    {"isClass": true, "name": "__main__", "id": null, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11}, "stack_frame": true,
-    'style': {'text': {id: {'font-size': 'x-large'}, value: {}, type: {"font-weight" : "bold"}}, 'box':{}}},
-    {"isClass": true, "name": "func", "id": null, "value": {"age": 12, "name": 17}, "stack_frame": true},
-    {"isClass": false, "name": "list", "id": 82, "value": [19, 43, 28, 49],
-        style: {text: {
-                id: {}, type: {},
-                value:{"font-weight" : "bold"}}, box: {}}},
-    {"isClass": false, "name": "list", "id": 84, "value": [32, 10, 90, 57], "show_indexes": true},
-    {"isClass": false, "name": "int", "id": 19, "value": 1969,
-        style : {text : {id: {}, value: {"font-size" : "xxx-large"}, type: {}}, box: {}}},
-    {"isClass": false, "name": "bool", "id": 32, "value": true,
-    style : {text : {id: {}, value: {"font-style" : "italic"}, type: {}}, box: {}}},
-    {"isClass": false, "name": "str", "id": 43, "value": "David is cool",
-        style : {text : {id: {}, value: {"font-style" : "italic"}, type: {}}, box: {}}},
-    {"isClass": false, "name": "tuple", "id": 11, "value": [82, 76],
-        style : {
-            text : {id: {}, value: {}, type: {}},
-            box: {
-                type: {"fill" : "black", fillStyle: "solid"},
-                id: {fill : "orange"}
-            }}},
-    {"isClass": false, "name": "set", "id": 90, "value": [36, 49, 64]},
-    {"isClass": false, "name": "dict", "id": 10, "value": {"x": 81, "y": 100, "z": 121}},
-    {"isClass": false, "name": "None", "id": 13, "value": "None",
-    style: {text: {id: {}, type: {}, value: {}},
-        box: {container :
-                {'fillStyle': 'zigzag', "fill" : "red"},
-            type: {'fillStyle': 'dots', "fill" : "blue"},
-            id: {}
+// A sample list of objects to be used as an argument for the 'drawAll' function.
+const objs = [
+    {isClass: true, x: 25, y:200, name: "__main__", id: 82,
+        value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},
+        stack_frame: true,
+        style : {text: {id: {fill : "yellow", stroke: "green", "stroke-opacity":0.9}}, box: {}}
+    },
+    {isClass: true, x: 350, y:10, name: "BLANK", id: 99, value: {age: 12, name: 17}, stack_frame: false},
+    {isClass: false, x: 350, y: 350, name: "list", id: 82, value: [19, 43, 28, 49],
+    style: {text: {id: {"font-style": "italic"}}}},
+    {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], show_indexes: true},
+    {isClass: false, x: 750, y: 10, name: "int", id: 19, value: 1969},
+    {isClass: false, x: 750, y: 250, name: "bool", id: 32, value: true}, // as per the implementation of drawPrimitive
+    {isClass: false, x: 750, y: 500, name: "str", id: 43, value: "David is cool"},
+    {isClass: false, x: 1050, y: 40, name: "tuple", id: 11, value: [82, 76]},
+    {isClass: false, x: 1050, y: 260, name: "set", id: 90, value: [36, 49, 64]},
+    {isClass: false, x: 1050, y: 500, name: "dict", id: 10, value: {x: 81, y: 100, z: 121},
+        style : {"text": {"id" : {"font-style" : "italic"}}}},
+    {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None",
+        style:{"text": {"value" : {"font-style" : "italic"}},
+            'box': {'id': {fill: 'red', fillStyle: "dots"}, 'type': {fill: "red", fillStyle: "solid"},
+                'container': {fill:"black", fillStyle: "solid"}}}
+    },
+    {isClass: false, x: 750, y: 750, name: "BLANK"
     }
-    }
-    }
-
+    // {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None"}
 ]
+
 
 const blank_demonstration = [
-    {isClass: true, stack_frame: true, "name" : "BLANK", width: 300, height, 200},
-    {isClass: true, stack_frame: false, "name" : "BLANK", width: 300, height, 200}
-
-]
+    {isClass: true, x: 25, y:200, name: "__main__", id: 82}
+    ]
 
 
-// xx-small, x-small, small, medium, large, x-large, xx-large, xxx-large
-
-const WIDTH = 1300;
-
-const m = drawAutomated(
-    objects = objs,
-    width = WIDTH,
-    configuration = {padding: 60, top_margin: 50, bottom_margin: 50, left_margin: 80, right_margin:80}
-)
-
-// Saving to SVG file
-m.save("../docs/images/demo_6.svg")
+// -----------------------Demonstration of the 'MemoryModel.drawAll' method-----------------------
+m1.drawAll(objs);
+m1.save("../docs/images/demo_6.svg")
