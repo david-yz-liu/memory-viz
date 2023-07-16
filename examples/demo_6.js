@@ -30,7 +30,6 @@ const objs = [
     }
     // {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None"}
 ]
-git 
 
 // -----------------------Demonstration of the 'MemoryModel.drawAll' method-----------------------
 m1.drawAll(objs);
