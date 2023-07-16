@@ -49,12 +49,6 @@ objs = [
 
 ]
 
-const blank_demonstration = [
-    {isClass: true, stack_frame: true, "name" : "BLANK", width: 300, height, 200},
-    {isClass: true, stack_frame: false, "name" : "BLANK", width: 300, height, 200}
-
-]
-
 
 // xx-small, x-small, small, medium, large, x-large, xx-large, xxx-large
 
