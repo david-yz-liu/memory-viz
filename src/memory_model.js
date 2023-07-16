@@ -163,6 +163,8 @@ class MemoryModel {
             display_text = JSON.stringify(value)
         }
 
+        // config.primitive_default_style
+
         // Actually drawing the text to be displayed on our canvas by utilizing the helper 'drawText' instance method.
         // Note that if the value is null or undefined, nothing will be drawn
         if (value !== null && value !== undefined) {
@@ -640,16 +642,14 @@ class MemoryModel {
                 attribute,
                 x + this.item_min_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style2
-
-
+                style2 // CHANGE ---- style.text.value
             )
 
             this.drawText(
                 idv,
                 x + box_width - this.item_min_width * 1.5 + attr_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.id
+                style.text.id  // style.text.id
             )
             curr_y += this.item_min_height * 1.5
         }
@@ -700,7 +700,7 @@ class MemoryModel {
      * @param {number} y: value for y coordinate of top left corner
      * @param {Object} style:  1-D object with style properties for an svg object, as per the
      *                        standard SVG attributes, documented on
-     *                        https://developer.mozilla.org/en-US/docs/Web/SVG/AttributeRough.js.
+     *                        https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
      *                        For instance, {fill: 'blue', stroke: 'red'}
      */
 
@@ -795,11 +795,12 @@ class MemoryModel {
 
             // ----------- Setting default values for the three attributes of obj.style.text -----------
 
-            // Level 1: Maybe the user did not even pass a 'style' object for some list object, in which case style === undefined.
-            obj.style = obj.style || {};
+            // // Level 1: Maybe the user did not even pass a 'style' object for some list object, in which case style === undefined.
+            // obj.style = obj.style || {};
 
             // Levels 2 and 3 managed by the invoked function
-            populateStyleObject(obj.style)
+            obj.style = populateStyleObject(obj);
+
 
 
             if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
@@ -857,6 +858,10 @@ const config = {
     list_index_sep: 20, // Vertical offset for list index labels
     font_size: 20, // Font size, in px
     browser: false, // Whether this library is being used in a browser context
+
+
+    // Addition for blank implementation
+    blank_default_dimensions : {"width" : 300, "height": 200}
 }
 
 
@@ -864,6 +869,49 @@ const default_text_style = {'fill': config.text_color, 'text-anchor': 'middle',
     'font-family': 'Consolas, Courier', 'font-size': config.font_size};
 
 const default_box_style = {};
+
+const default_styles = {
+    "collection": {
+        text : {
+            id: {"fill": config.id_color,'text-anchor': 'middle',
+                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
+            type: {"fill": config.value_color, 'text-anchor': 'middle',
+                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
+            value: {"fill": config.id_color, 'text-anchor': 'middle',
+                'font-family': 'Consolas, Courier', 'font-size': config.font_size}},
+        box: {container: {}, id: {}, type:{}}
+    },
+    "primitive": {
+        text : {id: {"fill": config.id_color, 'text-anchor': 'middle',
+                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
+            type: {"fill": config.value_color, 'text-anchor': 'middle',
+                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
+            value: {"fill": config.value_color, 'text-anchor': 'middle',
+                'font-family': 'Consolas, Courier', 'font-size': config.font_size}},
+        box: {container: {}, id: {}, type:{}}
+    },
+    "class" : {
+        text : {id: {"fill": config.id_color, 'text-anchor': 'middle',
+                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
+            type: {"fill": config.value_color, 'text-anchor': 'middle',
+                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
+            value: {"fill": config.value_color, 'text-anchor': 'middle',
+                'font-family': 'Consolas, Courier', 'font-size': config.font_size}},
+        box: {container: {}, id: {}, type:{}}
+    },
+    "stackframe" : {
+        text : {
+            id: {"fill": config.id_color, 'text-anchor': 'middle',
+                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
+            type: {"fill": config.text_color, 'text-anchor': 'middle',
+                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
+            value: {"fill": config.text_color, 'text-anchor': 'middle',
+                'font-family': 'Consolas, Courier', 'font-size': config.font_size}},
+        box: {container: {}, id: {}, type:{}}
+    }
+}
+
+
 
 // Built-in data types
 const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]
@@ -875,131 +923,201 @@ const collections = ["list", "set", "tuple", "dict"]
  * especially useful to avoid errors of the type "TypeError: Cannot set properties of undefined (setting 'x')".
  * @param {object | undefined} style
  */
-function populateStyleObject(style) {
-    // Level 2: At this stage, 'style' is guaranteed to refer to an object. To handle the situation that this object is
-    // the empty object ({}), we ensure that style is equipped with the attributes "text" and "box", as per the interface.
+// function populateStyleObject(style) {
+//     // Level 2: At this stage, 'style' is guaranteed to refer to an object. To handle the situation that this object is
+//     // the empty object ({}), we ensure that style is equipped with the attributes "text" and "box", as per the interface.
+//     for (const l1_attr of ["text", "box"]) {
+//         if (!style.hasOwnProperty(l1_attr)) {
+//             style[l1_attr] = {};
+//         }
+//     }
+//
+//     const categ_to_fill_value = {"value":config.value_color, "id":config.id_color, "type":config.value_color}
+//
+//     // Level 3, A: As per the interface, the style object (of an object of the list) must be in the form
+//     // { "text" : { "value" : {...}, "id" : {...}, "type" : {...}}, "box" : {...}},
+//     // so with this for loop we ensure that style.text has the three attributes "value", "id", and "type", each referring
+//     // to the default_text_style, an of deafult text attribute values.
+//     // for (const l3_attr of ["value", "type", "id"]) {
+//     //     if (!style.text.hasOwnProperty(l3_attr)) {
+//     //
+//     //         style.text[l3_attr] = JSON.parse(JSON.stringify(default_text_style));
+//     //         style.text[l3_attr].fill = l3_attr[]
+//     //
+//     //
+//     //
+//     //     }
+//     //
+//     //     if (l3_attr === "value" | l3_attr === "type") {
+//     //         console.log("&&&&&&&&&&&&&&&&&&&")
+//     //         style.text[l3_attr].fill = config.value_color;
+//     //     }
+//     //     if (l3_attr === "id") {
+//     //         style.text[l3_attr].fill = config.id_color;
+//     //     }
+//     // }
+//
+//
+//     for (const l3_attr of ["value", "type", "id"]) {
+//
+//         const deep_copied_default = JSON.parse(JSON.stringify(default_text_style));
+//
+//         if (!style.text.hasOwnProperty(l3_attr)) {
+//             style.text[l3_attr] = {};
+//         }
+//
+//         if (!style.text[l3_attr].hasOwnProperty("fill")) {
+//             console.log("Ok... I entered with " + l3_attr)
+//             console.log(style.text[l3_attr])
+//             console.log(categ_to_fill_value[l3_attr])
+//             style.text[l3_attr]["fill"] = categ_to_fill_value[l3_attr];
+//             console.log(style.text[l3_attr])
+//             console.log("------------------------------------------")
+//         }
+//         for (const l4_attr of ["text-anchor", "font-family", "font-size"]){
+//             if (!style.text[l3_attr].hasOwnProperty(l4_attr)) {
+//                 style.text[l3_attr][l4_attr] = deep_copied_default[l4_attr];
+//             }
+//         }
+//
+//     }
+//     //     if (!style.text.hasOwnProperty(l3_attr)) {
+//     //
+//     //         style.text[l3_attr] = JSON.parse(JSON.stringify(default_text_style));
+//     //         style.text[l3_attr].fill = l3_attr[]
+//     //
+//     //
+//     //
+//     //     }
+//     //
+//     // console.log("BEFORE: ")
+//     // console.log(style)
+//     //
+//     //
+//     //
+//     // if (!style.text.hasOwnProperty("value")) {
+//     //     style.text.value = {'fill': config.text_color, 'text-anchor': 'middle',
+//     //         'font-family': 'Consolas, Courier', 'font-size': config.font_size};
+//     //     style.text.value.fill = config.value_color;
+//     // }
+//     // console.log(style)
+//     // if (!style.text.hasOwnProperty("id")) {
+//     //     console.log("ID branch")
+//     //     style.text.id = {'fill': config.text_color, 'text-anchor': 'middle',
+//     //         'font-family': 'Consolas, Courier', 'font-size': config.font_size};
+//     //     style.text.id.fill = config.id_color;
+//     // }
+//     // console.log(style)
+//     // if (!style.text.hasOwnProperty("type")) {
+//     //     style.text.type = {'fill': config.text_color, 'text-anchor': 'middle',
+//     //         'font-family': 'Consolas, Courier', 'font-size': config.font_size};
+//     //     style.text.type.fill = config.value_color;
+//     // }
+//
+//
+//     //----------------------------------------------------------------------------------------------------------------
+//     // // If on value for style.text.id.fill has been provided, we set it to config.id_color.
+//     // console.log("NOT ENTERING: ")
+//     // console.log(style)
+//     // if (!style.text.id.hasOwnProperty("fill")) {
+//     //     console.log(713807123097123901823091283092)
+//     //     style.text.id.fill = config.id_color;
+//     // }
+//     // // If on value for style.text.id.fill has been provided, we set it to config.id_color.
+//     // if (!style.text.value.hasOwnProperty("fill")) {
+//     //     console.log(713807123097123901823091283092)
+//     //     style.text.value.fill = config.value_color;
+//     // }
+//     // // If on value for style.text.id.fill has been provided, we set it to config.id_color.
+//     // if (!style.text.type.hasOwnProperty("fill")) {
+//     //     console.log(713807123097123901823091283092)
+//     //     style.text.type.fill = config.value_color;
+//     // }
+//     // //----------------------------------------------------------------------------------------------------------------
+//
+//     for (const l3_attr of ["container", "type", "id"]) {
+//         if (!style.box.hasOwnProperty(l3_attr)) {
+//             style.box[l3_attr] = default_box_style;
+//         }
+//     }
+//
+//     // Level 3, B
+//     // Default filling for obj.style.box attributes
+//
+//     // console.log("FROM INSIDE THE FUNCTION: ", style)
+//
+//     console.log("final style: ")
+//     console.log(style);
+//
+// }
+
+
+const primitives = ["int", "str", "None", "bool", "float", "date"]
+
+function populateStyleObject(object) {
+    
+    object.style = object.style || {};
+
+    let object_type;
+
+    if (object.name in primitives) {
+        object_type = "primitive"
+    }
+    else if (object.name in collections) {
+        object_type = "collection"
+    }
+    else if (object.stack_frame) {
+        object_type = "stackframe"
+    }
+    else { // The object is a class object
+        object_type = "class"
+    }
+
+    const default_styles_copy = JSON.parse(JSON.stringify(default_styles));
+
     for (const l1_attr of ["text", "box"]) {
-        if (!style.hasOwnProperty(l1_attr)) {
-            style[l1_attr] = {};
+
+        if (!object.style.hasOwnProperty(l1_attr)) {
+            object.style[l1_attr] = default_styles_copy[object_type][l1_attr];
+
         }
     }
 
-    const categ_to_fill_value = {"value":config.value_color, "id":config.id_color, "type":config.value_color}
-
-    // Level 3, A: As per the interface, the style object (of an object of the list) must be in the form
-    // { "text" : { "value" : {...}, "id" : {...}, "type" : {...}}, "box" : {...}},
-    // so with this for loop we ensure that style.text has the three attributes "value", "id", and "type", each referring
-    // to the default_text_style, an of deafult text attribute values.
-    // for (const l3_attr of ["value", "type", "id"]) {
-    //     if (!style.text.hasOwnProperty(l3_attr)) {
-    //
-    //         style.text[l3_attr] = JSON.parse(JSON.stringify(default_text_style));
-    //         style.text[l3_attr].fill = l3_attr[]
-    //
-    //
-    //
-    //     }
-    //
-    //     if (l3_attr === "value" | l3_attr === "type") {
-    //         console.log("&&&&&&&&&&&&&&&&&&&")
-    //         style.text[l3_attr].fill = config.value_color;
-    //     }
-    //     if (l3_attr === "id") {
-    //         style.text[l3_attr].fill = config.id_color;
-    //     }
-    // }
-
-
-    for (const l3_attr of ["value", "type", "id"]) {
-
-        const deep_copied_default = JSON.parse(JSON.stringify(default_text_style));;
-
-        if (!style.text.hasOwnProperty(l3_attr)) {
-            style.text[l3_attr] = {};
+    for (const l2_attr of ["value", "type", "id"]) {
+        if (!object.style.text.hasOwnProperty(l2_attr)) {
+            object.style.text[l2_attr] = default_styles_copy[object_type].text[l2_attr]
         }
-
-        if (!style.text[l3_attr].hasOwnProperty("fill")) {
-            console.log("Ok... I entered with " + l3_attr)
-            console.log(style.text[l3_attr])
-            console.log(categ_to_fill_value[l3_attr])
-            style.text[l3_attr]["fill"] = categ_to_fill_value[l3_attr];
-            console.log(style.text[l3_attr])
-            console.log("------------------------------------------")
-        }
-        for (const l4_attr of ["text-anchor", "font-family", "font-size"]){
-            if (!style.text[l3_attr].hasOwnProperty(l4_attr)) {
-                style.text[l3_attr][l4_attr] = deep_copied_default[l4_attr];
+        else {
+            for (const def_attr of Object.keys(default_styles_copy[object_type].text[l2_attr])) {
+                if (!object.style.text[l2_attr].hasOwnProperty(def_attr)) {
+                    object.style.text[l2_attr][def_attr] = default_styles_copy[object_type].text[l2_attr][def_attr];
+                }
             }
+
         }
 
+
     }
-    //     if (!style.text.hasOwnProperty(l3_attr)) {
-    //
-    //         style.text[l3_attr] = JSON.parse(JSON.stringify(default_text_style));
-    //         style.text[l3_attr].fill = l3_attr[]
-    //
-    //
-    //
-    //     }
-    //
-    // console.log("BEFORE: ")
-    // console.log(style)
-    //
-    //
-    //
-    // if (!style.text.hasOwnProperty("value")) {
-    //     style.text.value = {'fill': config.text_color, 'text-anchor': 'middle',
-    //         'font-family': 'Consolas, Courier', 'font-size': config.font_size};
-    //     style.text.value.fill = config.value_color;
-    // }
-    // console.log(style)
-    // if (!style.text.hasOwnProperty("id")) {
-    //     console.log("ID branch")
-    //     style.text.id = {'fill': config.text_color, 'text-anchor': 'middle',
-    //         'font-family': 'Consolas, Courier', 'font-size': config.font_size};
-    //     style.text.id.fill = config.id_color;
-    // }
-    // console.log(style)
-    // if (!style.text.hasOwnProperty("type")) {
-    //     style.text.type = {'fill': config.text_color, 'text-anchor': 'middle',
-    //         'font-family': 'Consolas, Courier', 'font-size': config.font_size};
-    //     style.text.type.fill = config.value_color;
-    // }
-
-
-    //----------------------------------------------------------------------------------------------------------------
-    // // If on value for style.text.id.fill has been provided, we set it to config.id_color.
-    // console.log("NOT ENTERING: ")
-    // console.log(style)
-    // if (!style.text.id.hasOwnProperty("fill")) {
-    //     console.log(713807123097123901823091283092)
-    //     style.text.id.fill = config.id_color;
-    // }
-    // // If on value for style.text.id.fill has been provided, we set it to config.id_color.
-    // if (!style.text.value.hasOwnProperty("fill")) {
-    //     console.log(713807123097123901823091283092)
-    //     style.text.value.fill = config.value_color;
-    // }
-    // // If on value for style.text.id.fill has been provided, we set it to config.id_color.
-    // if (!style.text.type.hasOwnProperty("fill")) {
-    //     console.log(713807123097123901823091283092)
-    //     style.text.type.fill = config.value_color;
-    // }
-    // //----------------------------------------------------------------------------------------------------------------
 
     for (const l3_attr of ["container", "type", "id"]) {
-        if (!style.box.hasOwnProperty(l3_attr)) {
-            style.box[l3_attr] = default_box_style;
+
+        if (!object.style.box.hasOwnProperty(l3_attr)) {
+            object.style.box[l3_attr] = default_styles_copy[object_type].box[l3_attr];
+        }
+        else {
+            for (const def_attr of Object.keys(default_styles_copy[object_type].box[l3_attr])) {
+                if (!object.style.box[l3_attr].hasOwnProperty(def_attr)) {
+                    object.style.box[l3_attr][def_attr] = default_styles_copy[object_type].box[l3_attr][def_attr];
+                }
+            }
+
         }
     }
 
-    // Level 3, B
-    // Default filling for obj.style.box attributes
 
-    // console.log("FROM INSIDE THE FUNCTION: ", style)
+    
+    return object.style;
 
-    console.log("final style: ")
-    console.log(style);
 
 }
 

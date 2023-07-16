@@ -9,7 +9,7 @@ const objs = [
     {isClass: true, x: 350, y:10, name: "Person", id: 99, value: {age: 12, name: 17}, stack_frame: false},
     {isClass: false, x: 350, y: 350, name: "list", id: 82, value: [19, 43, 28, 49]},
     {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], show_indexes: true},
-    {isClass: false, x: 750, y: 10, name: "int", id: 19, value: 1969},
+    {isClass: false, x: 750, y: 10, name: "int", id: 19, value: 1969, style : {text: {value: {}}}},
     {isClass: false, x: 750, y: 250, name: "bool", id: 32, value: true}, // as per the implementation of drawPrimitive
     {isClass: false, x: 750, y: 500, name: "str", id: 43, value: "David is cool"},
     {isClass: false, x: 1050, y: 40, name: "tuple", id: 11, value: [82, 76]},
