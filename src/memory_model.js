@@ -317,15 +317,12 @@ class MemoryModel {
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
 
 
-            // const style2 = JSON.parse(JSON.stringify(style.text.value));
-            // style2.fill = style.text.id.fill;
-
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
                 // style2
-                style.text.id
+                style.text.value
             )
 
             if (show_idx) {
@@ -409,15 +406,13 @@ class MemoryModel {
             )
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
 
-            // const style2 = JSON.parse(JSON.stringify(style.text.value));
-            // style2.fill = style.text.id.fill;
 
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
                 // style2
-                style.text.id
+                style.text.value
             )
             if (i > 0) {
                 // Draw commas
@@ -489,15 +484,14 @@ class MemoryModel {
                 this.item_min_height
             )
 
-            // const style2 = JSON.parse(JSON.stringify(style.text.value));
-            // style2.fill = style.text.id.fill;
+
             // Draw the text inside the keys
             this.drawText(
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
                 // style2
-                style.text.id
+                style.text.value
 
             )
 
@@ -541,13 +535,11 @@ class MemoryModel {
             )
 
             // Draw the text for the values
-            const style3 = JSON.parse(JSON.stringify(style.text.value));
-            style3.fill = style.text.id.fill;
             this.drawText(
                 idv,
                 x + box_width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style3
+                style.text.value
 
             )
 
@@ -636,14 +628,11 @@ class MemoryModel {
                 }
             }
 
-            const style2 = JSON.parse(JSON.stringify(style.text.value))
-            style2['text-anchor'] = 'begin'
-            // style.text.value['text-anchor'] = 'begin'
             this.drawText(
                 attribute,
                 x + this.item_min_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style2 // CHANGE ---- style.text.value
+                style.text.value // CHANGE ---- style.text.value
             )
 
             this.drawText(
@@ -706,10 +695,6 @@ class MemoryModel {
      */
 
     drawText(text, x, y, style) {
-        // console.log("-------------")
-        // console.log("STYLE: ")
-        // console.log(style)
-        // console.log("-------------")
 
         // Setting up the x and y values inside the style object
         style["x"] = x;
@@ -718,7 +703,6 @@ class MemoryModel {
 
         for (const style_attribute of Object.keys(default_text_style)) {
             if (!style.hasOwnProperty(style_attribute)) {
-                // console.log(style_attribute);
                 style[style_attribute] = default_text_style[style_attribute];
             }
         }
@@ -891,7 +875,7 @@ const default_styles = {
                 'font-family': 'Consolas, Courier', 'font-size': config.font_size},
             type: {"fill": config.value_color, 'text-anchor': 'middle',
                 'font-family': 'Consolas, Courier', 'font-size': config.font_size},
-            value: {"fill": config.value_color, 'text-anchor': 'middle',
+            value: {"fill": config.value_color, 'text-anchor': 'begin',
                 'font-family': 'Consolas, Courier', 'font-size': config.font_size}},
         box: {container: {}, id: {}, type:{}}
     },
@@ -901,7 +885,7 @@ const default_styles = {
                 'font-family': 'Consolas, Courier', 'font-size': config.font_size},
             type: {"fill": config.text_color, 'text-anchor': 'middle',
                 'font-family': 'Consolas, Courier', 'font-size': config.font_size},
-            value: {"fill": config.text_color, 'text-anchor': 'middle',
+            value: {"fill": config.text_color, 'text-anchor': 'begin',
                 'font-family': 'Consolas, Courier', 'font-size': config.font_size}},
         box: {container: {}, id: {}, type:{}}
     }
@@ -934,10 +918,10 @@ function populateStyleObject(object) {
     let object_type;
 
 
-    if (object.name in primitives) {
+    if (primitives.includes(object.name)) {
         object_type = "primitive"
     }
-    else if (object.name in collections) {
+    else if (collections.includes(object.name)) {
         object_type = "collection"
     }
     else if (object.stack_frame) {
@@ -969,6 +953,8 @@ function populateStyleObject(object) {
 
         }
     }
+
+
 
     // Level-3-A Check (and nested within it level-4 check) for text:
     //      Levet-3: If obj.style.text has any of ["value", "type", "id"] missing, then the corresponding default
@@ -1016,7 +1002,6 @@ function populateStyleObject(object) {
 
         }
     }
-
 
     return object.style;
 
