@@ -913,16 +913,7 @@ const default_styles = {
 const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]
 const collections = ["list", "set", "tuple", "dict"]
 
-// Useful for the populateStyleObject function.
 const primitives = ["int", "str", "None", "bool", "float", "date"]
-
-/**
- * Used to populate the style parameter object with default data (to adhere to the interface of the style object),
- * especially useful to avoid errors of the type "TypeError: Cannot set properties of undefined (setting 'x')".
- * @param {object | undefined} style
- */
-
-
 
 /**
  * Populates a user-passed style object --to the extent needed-- with default data (to adhere to the interface of the

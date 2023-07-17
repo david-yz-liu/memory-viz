@@ -27,8 +27,8 @@ function drawAutomated(objects, width, configuration) {
     // initializing a MemoryModel object
     const m = new MemoryModel({width: width, height: final_height});
 
-    console.log("WHAT I GET: ");
-    console.log(objs);
+    // console.log("WHAT I GET: ");
+    // console.log(objs);
 
     m.drawAll(StackFrames);
     m.drawAll(objs);
@@ -45,7 +45,6 @@ function drawAutomated(objects, width, configuration) {
  * @param {Object[]} stack_frames - The list of stack-frames that will be drawn
  * (without the specified x and y coordinates)
  *
- * @returns {Object} -
  */
 function drawAutomatedStackFrames(stack_frames, configuration) {
 
@@ -62,28 +61,46 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
     // The width required for drawing stack-frames (corresponding to the maximum width among all the stack-frames)
     let required_width = 0;
 
+    // The stack frames that will be drawn (the stack frames that are not blank
+    let draw_stack_frames = [];
+
+
     // Loop through all the stack-frames to determine their individual box height
     for (const stack_frame of stack_frames){
 
+        // Initialize the width and the height of the stack frames
+        let width;
+        let height;
+
         // get the width and height of each box
-        const {height, width} = getSize(stack_frame)
+        if (stack_frame.name !== 'BLANK') {
+            height = getSize(stack_frame).height;
+            width = getSize(stack_frame).width;
+        }
+        else {  // stack_frame.name === 'BLANK'
+            // We already have access to the user defined dimensions of the box
+            height = stack_frame.height;
+            width = stack_frame.width;
+        }
 
         if (width > required_width){
             required_width = width;
         }
 
-        // Mutate the stack_frame object
-        stack_frame.x = configuration.left_margin;
-        stack_frame.y = min_required_height;
+        if (stack_frame.name !== 'BLANK'){
+            // Mutate the stack_frame object
+            stack_frame.x = configuration.left_margin;
+            stack_frame.y = min_required_height;
+            draw_stack_frames.push(stack_frame);
+        }
 
         // Mutate the accumulators
         min_required_height = (height + min_required_height);
 
     }
-
     required_width += configuration.padding;
 
-    return {StackFrames: stack_frames, requiredHeight: min_required_height, requiredWidth: required_width};
+    return {StackFrames: draw_stack_frames, requiredHeight: min_required_height, requiredWidth: required_width};
     }
 
 
@@ -106,8 +123,8 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
 function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to avoid undefined error */,
                                  sf_endpoint) {
 
-    console.log("INSIDE")
-    console.log(objs)
+    // console.log("INSIDE")
+    // console.log(objs)
 
 
     // Ensuring that not configuration options remain undefined.
@@ -148,7 +165,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
         }
     }
 
-    console.log("CHECKPOINT 2")
+    // console.log("CHECKPOINT 2")
 
     /**
      * The 'sort' function optionally accepts a "compare" function used to determine the basis upon which to sort the array.
@@ -259,10 +276,10 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     const canvas_height = down_most_obj.y + down_most_obj.height + config_aut.bottom_margin;
 
     // Additional -- to extend the program for the BLANK option
-    console.log("NEW ------ BLANKS: ")
-    console.log(objs)
+    // console.log("NEW ------ BLANKS: ")
+    // console.log(objs)
     const objs_filtered = objs.filter((item) => {return item.name !== "BLANK"});
-    console.log(objs_filtered)
+    // console.log(objs_filtered)
     objs = objs_filtered;
 
 
