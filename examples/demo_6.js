@@ -31,12 +31,6 @@ const objs = [
     // {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None"}
 ]
 
-
-const blank_demonstration = [
-    {isClass: true, x: 25, y:200, name: "__main__", id: 82}
-    ]
-
-
 // -----------------------Demonstration of the 'MemoryModel.drawAll' method-----------------------
 m1.drawAll(objs);
 m1.save("../docs/images/demo_6.svg")
