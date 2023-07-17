@@ -1,3 +1,13 @@
+/**
+ * This file demonstrates the use of the custom styling for text and boxes in a memory model diagram, showing the
+ * required structure of the style object.
+ *
+ * This is a rough demo for illustrating the capabilities of "highliting" features.
+ *
+ * OUTPUT FILES:
+ *      - ~/docs/images/demo_6.svg"
+ */
+
 const { MemoryModel } = require("../dist/memory_models_rough.node")
 
 const m1 = new MemoryModel({ width: 1300, height: 1100 })
@@ -12,7 +22,7 @@ const objs = [
     },
     {isClass: true, x: 350, y:10, name: "BLANK", id: 99, value: {age: 12, name: 17}, stack_frame: false},
     {isClass: false, x: 350, y: 350, name: "list", id: 82, value: [19, 43, 28, 49],
-    style: {text: {id: {"font-style": "italic"}}}},
+    style: {text: {id: {"font-style": "italic", "font-size":"x-large"}}}},
     {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], show_indexes: true},
     {isClass: false, x: 750, y: 10, name: "int", id: 19, value: 1969},
     {isClass: false, x: 750, y: 250, name: "bool", id: 32, value: true}, // as per the implementation of drawPrimitive

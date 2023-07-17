@@ -173,7 +173,6 @@ class MemoryModel {
                 display_text,
                 x + box_width / 2,
                 y + (this.obj_min_height + this.prop_min_height) / 2,
-                // style.text.value || {fill : this.text_color}
                 style.text.value
             )
         }
@@ -214,8 +213,6 @@ class MemoryModel {
             id === null ? "" : `id${id}`,
             x + id_box / 2,
             y + this.font_size * 1.5,
-          
-            // style.text.id
             style.text.id
         )
 
@@ -320,15 +317,15 @@ class MemoryModel {
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
 
 
-            const style2 = JSON.parse(JSON.stringify(style.text.value));
-            style2.fill = style.text.id.fill;
+            // const style2 = JSON.parse(JSON.stringify(style.text.value));
+            // style2.fill = style.text.id.fill;
 
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
-                style2
-
+                // style2
+                style.text.id
             )
 
             if (show_idx) {
@@ -336,7 +333,8 @@ class MemoryModel {
                     i,
                     curr_x + item_length / 2,
                     item_y - this.item_min_height / 4,
-                    style2
+                    // style2
+                    style.text.id
                 )
             }
 
@@ -411,14 +409,15 @@ class MemoryModel {
             )
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
 
-            const style2 = JSON.parse(JSON.stringify(style.text.value));
-            style2.fill = style.text.id.fill;
+            // const style2 = JSON.parse(JSON.stringify(style.text.value));
+            // style2.fill = style.text.id.fill;
 
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
-                style2
+                // style2
+                style.text.id
             )
             if (i > 0) {
                 // Draw commas
@@ -426,7 +425,8 @@ class MemoryModel {
                     ",",
                     curr_x - this.item_min_width / 8,
                     item_text_y,
-                    {fill: this.text_color}
+                    // {fill: this.text_color}
+                    default_text_style
                 )
             }
             curr_x += item_length + this.item_min_height / 4
@@ -439,13 +439,13 @@ class MemoryModel {
             "{",
             x + this.item_min_width / 4,
             item_text_y,
-            {fill: this.text_color}
+            default_text_style
         )
         this.drawText(
             "}",
             x + box_width - this.item_min_width / 4,
             item_text_y,
-            {fill: this.text_color}
+            default_text_style
         )
 
         return SIZE;
@@ -489,14 +489,15 @@ class MemoryModel {
                 this.item_min_height
             )
 
-            const style2 = JSON.parse(JSON.stringify(style.text.value));
-            style2.fill = style.text.id.fill;
+            // const style2 = JSON.parse(JSON.stringify(style.text.value));
+            // style2.fill = style.text.id.fill;
             // Draw the text inside the keys
             this.drawText(
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
-                style2
+                // style2
+                style.text.id
 
             )
 
@@ -794,11 +795,6 @@ class MemoryModel {
 
 
             // ----------- Setting default values for the three attributes of obj.style.text -----------
-
-            // // Level 1: Maybe the user did not even pass a 'style' object for some list object, in which case style === undefined.
-            // obj.style = obj.style || {};
-
-            // Levels 2 and 3 managed by the invoked function
             obj.style = populateStyleObject(obj);
 
 
@@ -916,13 +912,27 @@ const default_styles = {
 // Built-in data types
 const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]
 const collections = ["list", "set", "tuple", "dict"]
+
 const primitives = ["int", "str", "None", "bool", "float", "date"]
 
+/**
+ * Populates a user-passed style object --to the extent needed-- with default data (to adhere to the interface of the
+ * style object). Needed to avoid errors of the type "TypeError: Cannot set properties of undefined (setting 'x')", as
+ * well as many more.
+ * @param {Object} object : the object that represents a Python object the user wants drawn. The style object
+ *                          corresponding to 'object' will be extracted be doing object.style.
+ * @returns {Object}
+ */
 function populateStyleObject(object) {
-    
+
+    // Level-1 Check: if the user did not pass a style object at all, we first assign {} to the style attribute.
     object.style = object.style || {};
 
+
+    // Determining under which of the four main categories the object falls, so we can fetch the corresponding
+    // default object from the 'default_styles' constant.
     let object_type;
+
 
     if (object.name in primitives) {
         object_type = "primitive"
@@ -937,24 +947,51 @@ function populateStyleObject(object) {
         object_type = "class"
     }
 
-    const default_styles_copy = JSON.parse(JSON.stringify(default_styles));
+    // SOS: Invoking the user-defined deepCopy function to produce a new JS object that is identical to
+    // default_styles[object_type]**. This is mandatory because if we were to use the original
+    // default_styles[object_type] object, then the assignment obj.style = default_styles[object_type]
+    // (or any assignment of the nested objects), would mean that if we change obj.style, then
+    // default_styles[object_type] would automatically also change (since they both refer to the same object)
+    // which we do not want!
+    // ** (doing default_styles[object_type] determines the default style object to be used
+    //     based on the 'object_type' calculated above, which os possible because default_styles containes four sub-objects;
+    //     one for each of the four main categories)
+    const default_style_obj = deepCopy(default_styles[object_type]);
 
+
+    // Level-2 Check: If the user-passed style object does not have text and box attributes, we make sure to add them
+    // there.
+    // NOTE: L-1 check guarantees the existence of obj.style, so we can safely invoke obj.style.hasOwnProperty.
     for (const l1_attr of ["text", "box"]) {
-
         if (!object.style.hasOwnProperty(l1_attr)) {
-            object.style[l1_attr] = default_styles_copy[object_type][l1_attr];
+            // object.style[l1_attr] = default_styles_copy[object_type][l1_attr];
+            object.style[l1_attr] = default_style_obj[l1_attr];
 
         }
     }
 
+    // Level-3-A Check (and nested within it level-4 check) for text:
+    //      Levet-3: If obj.style.text has any of ["value", "type", "id"] missing, then the corresponding default
+    //      object is added there (coming from default_style_obj).
+    //      Level-4: For each of style.text.value, style.text.id, and style.text.type, we ensure the are complete.
     for (const l2_attr of ["value", "type", "id"]) {
+
+        // The current l2_attribute is not present inside the obj.style.text object, so we add it and assign it to
+        // default_style_obj.text[l2_attr].
         if (!object.style.text.hasOwnProperty(l2_attr)) {
-            object.style.text[l2_attr] = default_styles_copy[object_type].text[l2_attr]
+            object.style.text[l2_attr] = default_style_obj.text[l2_attr]
+            // object.style.text[l2_attr] = default_styles_copy[object_type].text[l2_attr]
         }
         else {
-            for (const def_attr of Object.keys(default_styles_copy[object_type].text[l2_attr])) {
+            // SOS: In this case, the current l2_attribute does exist in obj.style.text. HOWEVER, the contents of the
+            // l2_attribute may be incomplete; l2_attribute may lack some of the sub-attributes that exist in
+            // default_style_obj.text[l2_attr], so we make sure to populate obj.style.text[l2_attr] with any missing
+            // attributes, such as font-style, font-size, and so on.
+            // Note that at this point we have covered all levels of the obj.style object (reached the base case),
+            // and the attributes checked now correspond to the SVG DOM docs for the text element.
+            for (const def_attr of Object.keys(default_style_obj.text[l2_attr])) {
                 if (!object.style.text[l2_attr].hasOwnProperty(def_attr)) {
-                    object.style.text[l2_attr][def_attr] = default_styles_copy[object_type].text[l2_attr][def_attr];
+                    object.style.text[l2_attr][def_attr] = default_style_obj.text[l2_attr][def_attr];
                 }
             }
 
@@ -963,15 +1000,17 @@ function populateStyleObject(object) {
 
     }
 
+
+    // l-3 and l-4 check for obj.style.box
     for (const l3_attr of ["container", "type", "id"]) {
 
         if (!object.style.box.hasOwnProperty(l3_attr)) {
-            object.style.box[l3_attr] = default_styles_copy[object_type].box[l3_attr];
+            object.style.box[l3_attr] = default_style_obj.box[l3_attr];
         }
         else {
-            for (const def_attr of Object.keys(default_styles_copy[object_type].box[l3_attr])) {
+            for (const def_attr of Object.keys(default_style_obj.box[l3_attr])) {
                 if (!object.style.box[l3_attr].hasOwnProperty(def_attr)) {
-                    object.style.box[l3_attr][def_attr] = default_styles_copy[object_type].box[l3_attr][def_attr];
+                    object.style.box[l3_attr][def_attr] = default_style_obj.box[l3_attr][def_attr];
                 }
             }
 
@@ -979,10 +1018,19 @@ function populateStyleObject(object) {
     }
 
 
-    
     return object.style;
 
 
+}
+
+
+/**
+ * Returns a deep-copy of the passed object. Does not work if function-objects exist within the passed object.
+ * @param {Object} obj - the object to be deep-copied
+ * @returns {Object}
+ */
+function deepCopy(obj) {
+    return JSON.parse(JSON.stringify(obj));
 }
 
 export { MemoryModel, config }
