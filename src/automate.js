@@ -1,7 +1,7 @@
 const {MemoryModel, config} = require("./memory_model.js");
 
 /**
- * Draws the objects given in the path in an automated fashion.
+ * Draws the objects given in the path in an automated.md fashion.
  * 
  * @param {object[]} objects - The list of objects that will be drawn on the canvas.
  * @param {Object} configuration - The configuration settings defined by the user.

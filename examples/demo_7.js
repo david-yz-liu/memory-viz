@@ -1,5 +1,5 @@
 /**
- * This file demonstrates the ability to leave "blanks" when the 'automated' option is on.
+ * This file demonstrates the ability to leave "blanks" when the 'automated.md' option is on.
  *
  * To define a blank box, you specify it as an object in the list with three attributes:
  * - name: This must be equal to "BLANK"
