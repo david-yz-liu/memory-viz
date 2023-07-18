@@ -13,7 +13,7 @@ function drawAutomated(objects, width, configuration) {
     // Separating the objects given in the JSON file into two categories: stack frames, and everything else.
     const {stack_frames, other_items} = separateObjects(objects);
 
-    const stack_frames_canvas_width = width / 5
+    // const stack_frames_canvas_width = width / 5
 
     // Call helper functions
     const {StackFrames, requiredHeight, requiredWidth} =
@@ -26,9 +26,6 @@ function drawAutomated(objects, width, configuration) {
 
     // initializing a MemoryModel object
     const m = new MemoryModel({width: width, height: final_height});
-
-    // console.log("WHAT I GET: ");
-    // console.log(objs);
 
     m.drawAll(StackFrames);
     m.drawAll(objs);
@@ -123,9 +120,6 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
 function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to avoid undefined error */,
                                  sf_endpoint) {
 
-    // console.log("INSIDE")
-    // console.log(objs)
-
 
     // Ensuring that not configuration options remain undefined.
     for (const req_prop of ["padding", "top_margin", "left_margin", "bottom_margin", "right_margin"]) {
@@ -165,7 +159,6 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
         }
     }
 
-    // console.log("CHECKPOINT 2")
 
     /**
      * The 'sort' function optionally accepts a "compare" function used to determine the basis upon which to sort the array.
@@ -188,8 +181,12 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
             break;
     }
 
-    // Sorting 'objs' by descending height of the contained objects.
-    objs.sort(compareFunc)
+
+
+    if (sort_by != null) {
+        // Sorting 'objs' by descending height of the contained objects.
+        objs.sort(compareFunc)
+    }
 
 
     // -------------------------------------------------------------------------------------------------------------
@@ -276,10 +273,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     const canvas_height = down_most_obj.y + down_most_obj.height + config_aut.bottom_margin;
 
     // Additional -- to extend the program for the BLANK option
-    // console.log("NEW ------ BLANKS: ")
-    // console.log(objs)
     const objs_filtered = objs.filter((item) => {return item.name !== "BLANK"});
-    // console.log(objs_filtered)
     objs = objs_filtered;
 
 
@@ -304,6 +298,7 @@ function separateObjects(objects) {
     let otherItems = [];
 
     for (const item of objects) {
+
         if (item.stack_frame) {  // Whether a stack frame will be drawn.
             stackFrames.push(item);
         } else {
