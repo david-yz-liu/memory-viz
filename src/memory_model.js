@@ -163,8 +163,6 @@ class MemoryModel {
             display_text = JSON.stringify(value)
         }
 
-        // config.primitive_default_style
-
         // Actually drawing the text to be displayed on our canvas by utilizing the helper 'drawText' instance method.
         // Note that if the value is null or undefined, nothing will be drawn
         if (value !== null && value !== undefined) {
@@ -173,7 +171,7 @@ class MemoryModel {
                 display_text,
                 x + box_width / 2,
                 y + (this.obj_min_height + this.prop_min_height) / 2,
-                style.text.value
+                style.text_value
             )
         }
 
@@ -213,7 +211,7 @@ class MemoryModel {
             id === null ? "" : `id${id}`,
             x + id_box / 2,
             y + this.font_size * 1.5,
-            style.text.id
+            style.text_id
         )
 
         // Draw the text inside the type box (insert the data type of the given object to the id box)
@@ -221,7 +219,7 @@ class MemoryModel {
             type,
             x + width - type_box / 2,
             y + this.font_size * 1.5,
-             style.text.type
+             style.text_type
         )
 
         // Draw boxes (specify the boxes for id and type)
@@ -321,8 +319,7 @@ class MemoryModel {
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
-                // style2
-                style.text.value
+                style.text_value
             )
 
             if (show_idx) {
@@ -330,8 +327,7 @@ class MemoryModel {
                     i,
                     curr_x + item_length / 2,
                     item_y - this.item_min_height / 4,
-                    // style2
-                    style.text.id
+                    style.text_id
                 )
             }
 
@@ -411,8 +407,7 @@ class MemoryModel {
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
-                // style2
-                style.text.value
+                style.text_value
             )
             if (i > 0) {
                 // Draw commas
@@ -420,7 +415,6 @@ class MemoryModel {
                     ",",
                     curr_x - this.item_min_width / 8,
                     item_text_y,
-                    // {fill: this.text_color}
                     default_text_style
                 )
             }
@@ -490,8 +484,7 @@ class MemoryModel {
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
-                // style2
-                style.text.value
+                style.text_value
 
             )
 
@@ -539,7 +532,7 @@ class MemoryModel {
                 idv,
                 x + box_width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.value
+                style.text_value
 
             )
 
@@ -632,14 +625,14 @@ class MemoryModel {
                 attribute,
                 x + this.item_min_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.value // CHANGE ---- style.text.value
+                style.text_value
             )
 
             this.drawText(
                 idv,
                 x + box_width - this.item_min_width * 1.5 + attr_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text.id  // style.text.id
+                style.text_id
             )
             curr_y += this.item_min_height * 1.5
         }
@@ -652,7 +645,7 @@ class MemoryModel {
                 name,
                 x + text_length / 2 + 5,
                 y + this.prop_min_height * 0.6,
-                style.text.type
+                style.text_type
             )
         } else {
             this.drawProperties(id, name, x, y, box_width, style)
@@ -688,7 +681,7 @@ class MemoryModel {
      * @param {string} text: The text message that will be displayed
      * @param {number} x: value for x coordinate of top left corner
      * @param {number} y: value for y coordinate of top left corner
-     * @param {Object} style:  1-D object with style properties for an svg object, as per the
+     * @param {Object} style:  1-D object with style properties for a svg object, as per the
      *                        standard SVG attributes, documented on
      *                        https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
      *                        For instance, {fill: 'blue', stroke: 'red'}
@@ -707,9 +700,6 @@ class MemoryModel {
             }
         }
 
-
-        // style.fill = colour || this.text_color
-        // style.text_anchor = align || "middle"
 
         const newElement = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
