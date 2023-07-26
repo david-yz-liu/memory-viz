@@ -44,3 +44,6 @@ const objs = [
 // -----------------------Demonstration of the 'MemoryModel.drawAll' method-----------------------
 m1.drawAll(objs);
 m1.save("../docs/images/demo_6.svg")
+
+
+// style: { text: {id: {"fill" : "blue", ...}, value: {}, type: {}}, box: {container: {}, id: {}, type: {}}}
