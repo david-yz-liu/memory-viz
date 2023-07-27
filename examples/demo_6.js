@@ -8,7 +8,10 @@
  *      - ~/docs/images/demo_6.svg"
  */
 
-const { MemoryModel } = require("../dist/memory_models_rough.node")
+const { MemoryModel, config } = require("../dist/memory_models_rough.node")
+
+// console.log("MERGE TEST:")
+// console.log(merge(common_style, default_styles['collection']))
 
 const m1 = new MemoryModel({ width: 1300, height: 1100 })
 const m2 = new MemoryModel({ width: 1300, height: 1100 })
@@ -31,7 +34,7 @@ const objs = [
     {isClass: false, x: 1050, y: 40, name: "tuple", id: 11, value: [82, 76]},
     {isClass: false, x: 1050, y: 260, name: "set", id: 90, value: [36, 49, 64]},
     {isClass: false, x: 1050, y: 500, name: "dict", id: 10, value: {x: 81, y: 100, z: 121},
-        style: {"text_id" : {"id" : {"font-style" : "italic"}}}},
+        style: {"text_id" : {"font-style" : "italic"}}},
     {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None",
         style:{
         "text_value" : {"font-style" : "italic"},

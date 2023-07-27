@@ -3,6 +3,10 @@ import fs from "fs"
 // The library allowing for the production of sketches that appear to be hand-drawn
 import rough from "roughjs/bundled/rough.esm.js"
 
+// The library for merging js objects (will be used for populating styles)
+const merge = require('deepmerge')
+
+
 const { DOMImplementation, XMLSerializer } = require("@xmldom/xmldom")
 
 /** The class representing the memory model diagram of the given block of code. */
@@ -133,7 +137,7 @@ class MemoryModel {
             this.getTextLength(String(value)) + this.obj_x_padding
         )
 
-        this.drawRect(x, y, box_width, this.obj_min_height, style.box.container)
+        this.drawRect(x, y, box_width, this.obj_min_height, style.box_container)
 
         // The value that refers to the size and coordinates of the box, it will be used for automating the layout.
         let size = {width: box_width, height: this.obj_min_heigth, x: x, y: y};
@@ -223,8 +227,8 @@ class MemoryModel {
         )
 
         // Draw boxes (specify the boxes for id and type)
-        this.drawRect(x, y, id_box, this.prop_min_height, style.box.id)
-        this.drawRect(x + width - type_box, y, type_box, this.prop_min_height, style.box.type)
+        this.drawRect(x, y, id_box, this.prop_min_height, style.box_id)
+        this.drawRect(x + width - type_box, y, type_box, this.prop_min_height, style.box_type)
     }
 
     /**
@@ -279,7 +283,7 @@ class MemoryModel {
         }
 
         // Draw box
-        this.drawRect(x, y, box_width, box_height, style.box.container)
+        this.drawRect(x, y, box_width, box_height, style.box_container)
 
         // The value that refers to the size and coordinates of the box, it will be used for automating the layout.
         const size = {width: box_width, height: box_height, x: x, y: y};
@@ -540,7 +544,7 @@ class MemoryModel {
         }
 
         // Draw outer box
-        this.drawRect(x, y, box_width, box_height, style.box.container)
+        this.drawRect(x, y, box_width, box_height, style.box_container)
         // the value to be returned in the end of this function -- this is required information for automating the layout
         const SIZE = {x, y, width: box_width, height: box_height}
 
@@ -640,7 +644,7 @@ class MemoryModel {
         // Draw type and id boxes
         if (stack_frame) {
             let text_length = this.getTextLength(name)
-            this.drawRect(x, y, text_length + 10, this.prop_min_height, style.box.container)
+            this.drawRect(x, y, text_length + 10, this.prop_min_height, style.box_container)
             this.drawText(
                 name,
                 x + text_length / 2 + 5,
@@ -772,7 +776,6 @@ class MemoryModel {
             obj.style = populateStyleObject(obj);
 
 
-
             if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
                 // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
                 // line both mutates 'this', and assigns the returned value to the variable 'size'.
@@ -838,46 +841,30 @@ const config = {
 const default_text_style = {'fill': config.text_color, 'text-anchor': 'middle',
     'font-family': 'Consolas, Courier', 'font-size': config.font_size};
 
-const default_box_style = {};
+const common_style = {
+    "text_id" :{"fill": config.id_color,'text-anchor': 'middle',
+        'font-family': 'Consolas, Courier', 'font-size': config.font_size},
+    "text_type" : {"fill": config.value_color, 'text-anchor': 'middle',
+        'font-family': 'Consolas, Courier', 'font-size': config.font_size},
+    "text_value": {'text-anchor': 'middle', 'font-family': 'Consolas, Courier',
+        'font-size': config.font_size},
+    "box_container":{},
+    "box_id": {},
+    "box_type": {}
+};
 
-const default_styles = {
+const category_specific_styles = {
     "collection": {
-        text : {
-            id: {"fill": config.id_color,'text-anchor': 'middle',
-                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
-            type: {"fill": config.value_color, 'text-anchor': 'middle',
-                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
-            value: {"fill": config.id_color, 'text-anchor': 'middle',
-                'font-family': 'Consolas, Courier', 'font-size': config.font_size}},
-        box: {container: {}, id: {}, type:{}}
+        text_value: {"fill": config.id_color}
     },
     "primitive": {
-        text : {id: {"fill": config.id_color, 'text-anchor': 'middle',
-                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
-            type: {"fill": config.value_color, 'text-anchor': 'middle',
-                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
-            value: {"fill": config.value_color, 'text-anchor': 'middle',
-                'font-family': 'Consolas, Courier', 'font-size': config.font_size}},
-        box: {container: {}, id: {}, type:{}}
+        text_value: {"fill": config.value_color}
     },
-    "class" : {
-        text : {id: {"fill": config.id_color, 'text-anchor': 'middle',
-                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
-            type: {"fill": config.value_color, 'text-anchor': 'middle',
-                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
-            value: {"fill": config.value_color, 'text-anchor': 'begin',
-                'font-family': 'Consolas, Courier', 'font-size': config.font_size}},
-        box: {container: {}, id: {}, type:{}}
+    "class": {
+        text_value: {"fill": config.value_color}
     },
-    "stackframe" : {
-        text : {
-            id: {"fill": config.id_color, 'text-anchor': 'middle',
-                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
-            type: {"fill": config.text_color, 'text-anchor': 'middle',
-                'font-family': 'Consolas, Courier', 'font-size': config.font_size},
-            value: {"fill": config.text_color, 'text-anchor': 'begin',
-                'font-family': 'Consolas, Courier', 'font-size': config.font_size}},
-        box: {container: {}, id: {}, type:{}}
+    "stackframe": {
+        text_value: {"fill": config.text_color}
     }
 }
 
@@ -899,12 +886,12 @@ const primitives = ["int", "str", "None", "bool", "float", "date"]
  */
 function populateStyleObject(object) {
 
-    // Level-1 Check: if the user did not pass a style object at all, we first assign {} to the style attribute.
-    object.style = object.style || {};
+    // STEP 1: We begin with the common deafault style
+    let style_so_far = common_style;
 
 
     // Determining under which of the four main categories the object falls, so we can fetch the corresponding
-    // default object from the 'default_styles' constant.
+    // default object from the 'category_specific_styles' constant.
     let object_type;
 
 
@@ -919,83 +906,23 @@ function populateStyleObject(object) {
     }
     else { // The object is a class object
         object_type = "class"
-    }
-
-    // SOS: Invoking the user-defined deepCopy function to produce a new JS object that is identical to
-    // default_styles[object_type]**. This is mandatory because if we were to use the original
-    // default_styles[object_type] object, then the assignment obj.style = default_styles[object_type]
-    // (or any assignment of the nested objects), would mean that if we change obj.style, then
-    // default_styles[object_type] would automatically also change (since they both refer to the same object)
-    // which we do not want!
-    // ** (doing default_styles[object_type] determines the default style object to be used
-    //     based on the 'object_type' calculated above, which os possible because default_styles containes four sub-objects;
-    //     one for each of the four main categories)
-    const default_style_obj = deepCopy(default_styles[object_type]);
-
-
-    // Level-2 Check: If the user-passed style object does not have text and box attributes, we make sure to add them
-    // there.
-    // NOTE: L-1 check guarantees the existence of obj.style, so we can safely invoke obj.style.hasOwnProperty.
-    for (const l1_attr of ["text", "box"]) {
-        if (!object.style.hasOwnProperty(l1_attr)) {
-            // object.style[l1_attr] = default_styles_copy[object_type][l1_attr];
-            object.style[l1_attr] = default_style_obj[l1_attr];
-
-        }
-    }
-
-
-
-    // Level-3-A Check (and nested within it level-4 check) for text:
-    //      Levet-3: If obj.style.text has any of ["value", "type", "id"] missing, then the corresponding default
-    //      object is added there (coming from default_style_obj).
-    //      Level-4: For each of style.text_value, style.text.id, and style.text.type, we ensure the are complete.
-    for (const l2_attr of ["value", "type", "id"]) {
-
-        // The current l2_attribute is not present inside the obj.style.text object, so we add it and assign it to
-        // default_style_obj.text[l2_attr].
-        if (!object.style.text.hasOwnProperty(l2_attr)) {
-            object.style.text[l2_attr] = default_style_obj.text[l2_attr]
-            // object.style.text[l2_attr] = default_styles_copy[object_type].text[l2_attr]
-        }
-        else {
-            // SOS: In this case, the current l2_attribute does exist in obj.style.text. HOWEVER, the contents of the
-            // l2_attribute may be incomplete; l2_attribute may lack some of the sub-attributes that exist in
-            // default_style_obj.text[l2_attr], so we make sure to populate obj.style.text[l2_attr] with any missing
-            // attributes, such as font-style, font-size, and so on.
-            // Note that at this point we have covered all levels of the obj.style object (reached the base case),
-            // and the attributes checked now correspond to the SVG DOM docs for the text element.
-            for (const def_attr of Object.keys(default_style_obj.text[l2_attr])) {
-                if (!object.style.text[l2_attr].hasOwnProperty(def_attr)) {
-                    object.style.text[l2_attr][def_attr] = default_style_obj.text[l2_attr][def_attr];
-                }
-            }
 
         }
 
-
-    }
-
-
-    // l-3 and l-4 check for obj.style.box
-    for (const l3_attr of ["container", "type", "id"]) {
-
-        if (!object.style.box.hasOwnProperty(l3_attr)) {
-            object.style.box[l3_attr] = default_style_obj.box[l3_attr];
-        }
-        else {
-            for (const def_attr of Object.keys(default_style_obj.box[l3_attr])) {
-                if (!object.style.box[l3_attr].hasOwnProperty(def_attr)) {
-                    object.style.box[l3_attr][def_attr] = default_style_obj.box[l3_attr][def_attr];
-                }
-            }
-
-        }
-    }
-
-    return object.style;
+    // ~~~~~~~~~~ STEP 2: We then add properties specific to the different type categories ~~~~~~~~~~
+    // SOS: This is mandatory because if we were to use the original category_specific_styles[object_type] object, then the
+    // assignment obj.style = category_specific_styles[object_type] (or any assignment of the nested objects), would mean that
+    // if we change obj.style, then category_specific_styles[object_type] would automatically also change (since they both refer
+    // to the same object) which we do not want!
+    // (merge returns a new object)
+    style_so_far = merge(style_so_far, category_specific_styles[object_type]);  // Merge #1
 
 
+    // ~~~~~~~~~~ STEP 2: Finally, we complement the current style with any user-supplied properties ~~~~~~~~~~
+    // merge the user defined style with the default style
+    style_so_far = merge(style_so_far, object.style || {}) // Merge #2
+
+    return style_so_far;
 }
 
 
