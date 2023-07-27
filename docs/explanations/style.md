@@ -64,3 +64,11 @@ use the DOM method `setAttribute` by doing `newElement.setAttribute(style_attrib
 Thus the style is cascaded down from user to drawText/drawRect as follows:
 
 user-defined style --> drawAll --> drawClass/drawObject --> drawText/drawRect
+
+
+## Examples
+....................
+
+....................
+
+....................
