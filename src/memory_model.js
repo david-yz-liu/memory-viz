@@ -378,7 +378,7 @@ class MemoryModel {
         box_width += ((element_ids.length - 1) * this.item_min_width) / 4 // Space for separators
 
         // Draw box which represents the set object
-        this.drawRect(x, y, box_width, this.obj_min_height, style.box.container)
+        this.drawRect(x, y, box_width, this.obj_min_height, style.box_container)
 
         // the value to be returned in the end of this function -- this is required information for automating the layout
         const SIZE = {x, y, width: box_width, height: this.obj_min_height}
@@ -590,7 +590,7 @@ class MemoryModel {
         } else {
             box_height = this.obj_min_height
         }
-        this.drawRect(x, y, box_width, box_height, style.box.container)
+        this.drawRect(x, y, box_width, box_height, style.box_container)
 
         // the value to be returned in the end of this function, this is required information for automating the layout
         const SIZE = {x, y, width: box_width, height: box_height}
@@ -613,11 +613,11 @@ class MemoryModel {
 
             if (!stack_frame){
 
-                if (!style.text.value.hasOwnProperty("fill")) {
-                    style.text.value["fill"] = this.text_color;
+                if (!style.text_value.hasOwnProperty("fill")) {
+                    style.text_value["fill"] = this.text_color;
                 }
-                if (!style.text.value.hasOwnProperty("text-anchor")) {
-                    style.text.value["text-anchor"] = "begin";
+                if (!style.text_value.hasOwnProperty("text-anchor")) {
+                    style.text_value["text-anchor"] = "begin";
                 }
             }
 
@@ -949,7 +949,7 @@ function populateStyleObject(object) {
     // Level-3-A Check (and nested within it level-4 check) for text:
     //      Levet-3: If obj.style.text has any of ["value", "type", "id"] missing, then the corresponding default
     //      object is added there (coming from default_style_obj).
-    //      Level-4: For each of style.text.value, style.text.id, and style.text.type, we ensure the are complete.
+    //      Level-4: For each of style.text_value, style.text.id, and style.text.type, we ensure the are complete.
     for (const l2_attr of ["value", "type", "id"]) {
 
         // The current l2_attribute is not present inside the obj.style.text object, so we add it and assign it to

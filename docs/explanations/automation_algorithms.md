@@ -17,10 +17,11 @@ dimensions, we sort them by height, and then begin equipping
 them with actual coordinates (of the top-left corner),
 dynamically moving to a new row and continuing if necessary.
 
-In particular, all stackframe object are passed to drawStackFrames, which not only equips the objects
-the coordinates, but importantly also returns 
-So, in particular, the width and the height of the canvas is determined dynamically as follows:
-
+In particular, all stackframe object are passed to `drawAutomatedStackFrames`, which not only equips the objects
+the coordinates, but importantly also returns the total width of the stack-frame "section" in the canvas, which
+is then passed to `drawAutomatedOtherItems` as a way to tell it where the vertical division
+between the two sections takes place (in this way, the divider between the stack-frame section
+and the objects section is determined deynamically).
 
 Below we thoroughly describe the steps for each of the two functions:
 `drawAutomatedOtherItems` and `drawAutomatedStackFrames`.
@@ -54,14 +55,13 @@ Below we thoroughly describe the steps for each of the two functions:
 
 
 
-### drawAutomateOtherItems:
+### drawAutomatedOtherItems:
 
 1. Determine the size --width and height-- of the (outer) box of each object if it were to 
 be drawn on canvas, and **equip the object with its calculated dimensions, by adding width and height properties**. This will tell us exactly how much space each
 object will require in the canvas. For this purpose I created the `getSize` function
 in the `automate.js` module, which accepts any object and returns the
-size it would have on canvas.
-
+size it would have on canvas.*
 
 2. Sort the list of objects by descending height of the objects 
 (the height and weight properties were added to each object in 
@@ -95,6 +95,11 @@ current object be denoted as `obj`:
 
 4. Return the mutated list of objects.
 
+*In case the object has `name="BLANK"`, it is assumed that the user has
+also provided a width and a height attribute corresponding to the desired
+width and height of the blank space. If such dimensions have not been provided,
+a related warning is printed and the object is skipped (no blank space is
+recorded).
 
 ### Summary
 As a result, the caller of the function (may that be an actual user

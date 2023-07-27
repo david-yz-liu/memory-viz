@@ -39,8 +39,6 @@ const listOfObjs = [
 
 ]
 
-console.log("HERE WE ARE 1!")
-
 const {objs, canvas_height, canvas_width} = drawAutomatedOtherItems(
     listOfObjs,
     WIDTH,
