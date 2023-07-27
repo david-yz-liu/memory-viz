@@ -7,7 +7,7 @@ responsible for drawing all non-stackframe objects actually work? The algorithm
 is outlined below.
 
 Given a list of objects in the format described in `MemoryModel.drawAll`
-(butgit s without `x` and `y` coordinates as properties (as the point of
+(but without `x` and `y` coordinates as properties (as the point of
 `drawAutomatedOtherItems` and `drawAutomatedStackFrames` is to assign
 coordinates to each object) we separate these given objects into to collections as _stack frames_ and _other items_
 by using the `seperateObjects` function. We pass these two lists to the functions aforementioned above.
