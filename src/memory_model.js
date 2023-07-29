@@ -170,7 +170,6 @@ class MemoryModel {
         // Actually drawing the text to be displayed on our canvas by utilizing the helper 'drawText' instance method.
         // Note that if the value is null or undefined, nothing will be drawn
         if (value !== null && value !== undefined) {
-
             this.drawText(
                 display_text,
                 x + box_width / 2,

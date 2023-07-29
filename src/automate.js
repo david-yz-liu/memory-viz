@@ -1,11 +1,12 @@
 const {MemoryModel, config} = require("./memory_model.js");
 
 /**
- * Draws the objects given in the path in an automated.md fashion.
+ * Draws the objects given in the path in an automated fashion.
  * 
  * @param {object[]} objects - The list of objects that will be drawn on the canvas.
  * @param {Object} configuration - The configuration settings defined by the user.
  * @param {number} width - User-defined width of the canvas.
+ *
  * @returns {MemoryModel} - The memory model that is created according to the objects given in the path (the JSON
  * file)
  */
@@ -73,8 +74,8 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
         if (stack_frame.name !== 'BLANK') {
             height = getSize(stack_frame).height;
             width = getSize(stack_frame).width;
-        }
-        else {  // stack_frame.name === 'BLANK'
+
+        } else {  // stack_frame.name === 'BLANK'
             // We already have access to the user defined dimensions of the box
             height = stack_frame.height;
             width = stack_frame.width;
