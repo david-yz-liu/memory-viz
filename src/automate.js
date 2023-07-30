@@ -40,10 +40,9 @@ function drawAutomated(objects, width, configuration) {
  * @param {Object} configuration - The configuration set by the user.
  * @param {Object[]} stack_frames - The list of stack-frames that will be drawn
  * (without the specified x and y coordinates)
- *
- * @returns {Object} - Returns the objects consisting of three attributes as stack-frames which will be drawn,
- * the minimum required height on the canvas for drawing stack frames and required width for drawing all the stack
- * frames. Therefore, the last two attributes will be useful in terms of dynamically deciding the width and the height
+ * @returns {Object} - Returns the object consisting of three attributes as follows: stack-frames which will be drawn,
+ * the minimum required height of the canvas for drawing stack frames and required width for drawing all the stack
+ * frames. Notably, the last two attributes will be useful in terms of dynamically deciding the width and the height
  * of the canvas.
  */
 function drawAutomatedStackFrames(stack_frames, configuration) {
@@ -77,7 +76,7 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
             // Obtain the size of the given stack-frame
             const size = getSize(stack_frame)
             height = size.height;
-            width = size.width
+            width = size.width;
 
         } else {  // stack_frame.name === 'BLANK'
             // We already have access to the user defined dimensions of the box

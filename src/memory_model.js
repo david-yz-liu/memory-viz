@@ -584,7 +584,7 @@ class MemoryModel {
         }
         this.drawRect(x, y, box_width, box_height, style.box_container)
 
-        // the value to be returned in the end of this function, this is required information for automating the layout
+        // The value to be returned in the end of this function, this is required information for automating the layout
         const SIZE = {x, y, width: box_width, height: box_height}
 
         // Draw element boxes
