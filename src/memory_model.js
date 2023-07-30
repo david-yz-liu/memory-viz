@@ -480,8 +480,8 @@ class MemoryModel {
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
                 style.text_value
-
             )
+
             curr_y += this.item_min_height * 1.5
 
             // Update dimensions
@@ -493,8 +493,8 @@ class MemoryModel {
                 2 * this.font_size
             )
             box_height += 1.5 * this.item_min_height
-
         }
+
         // A second loop, so that we can position the colon and value boxes correctly
         curr_y = y + this.prop_min_height + this.item_min_height / 2
         for (const k in obj) {
@@ -503,8 +503,8 @@ class MemoryModel {
             let value_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv + 5)
-
             )
+
             // Draw colon
             this.drawText(
                 ":",
@@ -571,6 +571,7 @@ class MemoryModel {
             box_width,
             this.prop_min_width + this.getTextLength(name) + 10
         )
+
         // Get object's height
         let box_height = 0
         if (Object.keys(attributes).length > 0) {
@@ -596,7 +597,6 @@ class MemoryModel {
                 this.item_min_width,
                 this.getTextLength(idv) + 10
             )
-
             this.drawRect(
                 x + box_width - this.item_min_width * 1.5,
                 curr_y,
@@ -657,7 +657,6 @@ class MemoryModel {
      *                        Rough.js API. For instance, {fill: 'blue', stroke: 'red'}.
      */
     drawRect(x, y, width, height, style) {
-
         if (style === undefined) {
             style = this.rect_style;
         }

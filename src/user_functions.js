@@ -42,6 +42,7 @@ function draw(objects, automation, configuration) {
     if (automation) {
         if (!configuration.hasOwnProperty("width")){
             throw new Error("Width argument for automated drawing is required.")
+
         }
         m = drawAutomated(objs, configuration.width, configuration)
 

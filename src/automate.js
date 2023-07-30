@@ -63,7 +63,6 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
     // The stack frames that will be drawn (the stack frames that are not blank
     let draw_stack_frames = [];
 
-
     // Loop through all the stack-frames to determine their individual box height
     for (const stack_frame of stack_frames){
 
@@ -86,7 +85,6 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
 
         if (width > required_width){
             required_width = width;
-
         }
 
         if (stack_frame.name !== 'BLANK'){
@@ -125,7 +123,6 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
  */
 function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to avoid undefined error */,
                                  sf_endpoint) {
-
 
     // Ensuring that not configuration options remain undefined.
     for (const req_prop of ["padding", "top_margin", "left_margin", "bottom_margin", "right_margin"]) {
@@ -292,13 +289,16 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
  * @returns {object} an object separating between stack-frames and the rest of the items.
  */
 function separateObjects(objects) {
-
     // The accumulator that stores the stack frames (and classes) that will be drawn.
     let stackFrames = [];
     // The accumulator that stores all the other items (objects) that will be drawn.
     let otherItems = [];
 
     for (const item of objects) {
+        // Check whether the item is a blank space, and if so ensure that the dimensions are defined.
+        if (item.name === "BLANK" && (item.width === undefined || item.height === undefined)) {
+            throw new Error("The dimensions for blank spaces should be provided.")
+        }
         if (item.stack_frame) {  // Whether a stack frame will be drawn.
             stackFrames.push(item);
         } else {
