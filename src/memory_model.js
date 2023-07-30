@@ -36,6 +36,7 @@ class MemoryModel {
                 null
             )
         }
+
         this.svg = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
             "svg"
@@ -116,6 +117,7 @@ class MemoryModel {
         }
     }
 
+
     /**
      * Draw a primitive object.
      * @param {number} x: value for x coordinate of top left corner
@@ -173,6 +175,7 @@ class MemoryModel {
                 style.text_value
             )
         }
+
         // Draw type and id boxes
         this.drawProperties(id, type, x, y, box_width, style)
 
@@ -197,11 +200,13 @@ class MemoryModel {
             this.prop_min_width,
             this.getTextLength(`id${id}`) + 10
         )
+
         // Adjust the id box by taking into account 'this.prop_min_width'.
         let type_box = Math.max(
             this.prop_min_width,
             this.getTextLength(type) + 10
         )
+
         // Draw the text inside the id box (insert the id of the given object to the id box)
         this.drawText(
             id === null ? "" : `id${id}`,
@@ -209,6 +214,7 @@ class MemoryModel {
             y + this.font_size * 1.5,
             style.text_id
         )
+
         // Draw the text inside the type box (insert the data type of the given object to the id box)
         this.drawText(
             type,
@@ -216,6 +222,7 @@ class MemoryModel {
             y + this.font_size * 1.5,
              style.text_type
         )
+
         // Draw boxes (specify the boxes for id and type)
         this.drawRect(x, y, id_box, this.prop_min_height, style.box_id)
         this.drawRect(x + width - type_box, y, type_box, this.prop_min_height, style.box_type)
@@ -271,6 +278,7 @@ class MemoryModel {
         if (show_idx) {
             box_height += this.list_index_sep
         }
+
         // Draw box
         this.drawRect(x, y, box_width, box_height, style.box_container)
 
@@ -286,6 +294,7 @@ class MemoryModel {
                 box_height + 2 * this.double_rect_sep
             )
         }
+
         // Draw the boxes for each element
         let curr_x = x + this.item_min_width / 2
         let item_y =
@@ -305,7 +314,6 @@ class MemoryModel {
                 this.getTextLength(idv) + 10
             )
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
-
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
@@ -320,8 +328,10 @@ class MemoryModel {
                     style.text_id
                 )
             }
+
             curr_x += item_length
         })
+
         // Draw type and id boxes
         if (type === "list") {
             this.drawProperties(id, "list", x, y, box_width, style);
@@ -331,6 +341,7 @@ class MemoryModel {
 
         return size;
     }
+
     /**
      * Draw a set object.
      * @param {number} x: value for x coordinate of top left corner
@@ -388,8 +399,6 @@ class MemoryModel {
                 this.getTextLength(idv) + 10
             )
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
-
-
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
@@ -423,6 +432,7 @@ class MemoryModel {
             item_text_y,
             default_text_style
         )
+
         return SIZE;
     }
 
@@ -483,6 +493,7 @@ class MemoryModel {
                 2 * this.font_size
             )
             box_height += 1.5 * this.item_min_height
+
         }
         // A second loop, so that we can position the colon and value boxes correctly
         curr_y = y + this.prop_min_height + this.item_min_height / 2
@@ -492,6 +503,7 @@ class MemoryModel {
             let value_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv + 5)
+
             )
             // Draw colon
             this.drawText(
@@ -500,6 +512,7 @@ class MemoryModel {
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 {fill: this.text_color}
             )
+
             // Draw the rectangle for values
             this.drawRect(
                 x + box_width / 2 + this.font_size,
@@ -507,13 +520,13 @@ class MemoryModel {
                 value_box,
                 this.item_min_height
             )
+
             // Draw the text for the values
             this.drawText(
                 idv,
                 x + box_width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 style.text_value
-
             )
 
             curr_y += this.item_min_height * 1.5
@@ -583,6 +596,7 @@ class MemoryModel {
                 this.item_min_width,
                 this.getTextLength(idv) + 10
             )
+
             this.drawRect(
                 x + box_width - this.item_min_width * 1.5,
                 curr_y,
@@ -839,8 +853,6 @@ const category_specific_styles = {
         text_value: {"fill": config.text_color}
     }
 }
-
-
 
 // Built-in data types
 const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]

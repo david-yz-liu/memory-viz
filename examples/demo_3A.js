@@ -38,4 +38,3 @@ const m = new MemoryModel({width: canvas_width, height: canvas_height});
 console.log(objs, canvas_height)
 m.drawAll(objs)
 m.save("../docs/images/demo_3A.svg")
-

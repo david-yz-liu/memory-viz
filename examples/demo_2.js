@@ -23,7 +23,6 @@ const objs = [
     }
 ]
 
-
 // -----------------------Demonstration of the 'MemoryModel.drawAll' method-----------------------
 m1.drawAll(objs);
 m1.save("../docs/images/demo_2A.svg")

@@ -78,6 +78,7 @@ function draw(objects, automation, configuration) {
                     downmost_edge = obj.y + height
                 }
             }
+
             configuration.height = downmost_edge + 100;
         }
 

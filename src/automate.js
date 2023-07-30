@@ -6,13 +6,13 @@ const {MemoryModel, config} = require("./memory_model.js");
  * @param {object[]} objects - The list of objects that will be drawn on the canvas.
  * @param {Object} configuration - The configuration settings defined by the user.
  * @param {number} width - User-defined width of the canvas.
- *
  * @returns {MemoryModel} - The memory model that is created according to the objects given in the path (the JSON
  * file)
  */
 function drawAutomated(objects, width, configuration) {
     // Separating the objects given in the JSON file into two categories: stack frames, and everything else.
     const {stack_frames, other_items} = separateObjects(objects);
+
 
     // Call helper functions
     const {StackFrames, requiredHeight, requiredWidth} =
@@ -41,6 +41,10 @@ function drawAutomated(objects, width, configuration) {
  * @param {Object[]} stack_frames - The list of stack-frames that will be drawn
  * (without the specified x and y coordinates)
  *
+ * @returns {Object} - Returns the objects consisting of three attributes as stack-frames which will be drawn,
+ * the minimum required height on the canvas for drawing stack frames and required width for drawing all the stack
+ * frames. Therefore, the last two attributes will be useful in terms of dynamically deciding the width and the height
+ * of the canvas.
  */
 function drawAutomatedStackFrames(stack_frames, configuration) {
 
@@ -50,6 +54,7 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
             configuration[req_prop] = config.obj_x_padding;
         }
     }
+
     // Determine the required minimum height to draw all the stack-frames (initialized as the top margin)
     let min_required_height = configuration.top_margin;
 
@@ -79,9 +84,12 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
             height = stack_frame.height;
             width = stack_frame.width;
         }
+
         if (width > required_width){
             required_width = width;
+
         }
+
         if (stack_frame.name !== 'BLANK'){
             // Mutate the stack_frame object
             stack_frame.x = configuration.left_margin;
@@ -91,7 +99,9 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
 
         // Mutate the accumulators
         min_required_height = (height + min_required_height);
+
     }
+
     required_width += configuration.padding;
 
     return {StackFrames: draw_stack_frames, requiredHeight: min_required_height, requiredWidth: required_width};
@@ -156,7 +166,6 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
         }
     }
 
-
     /**
      * The 'sort' function optionally accepts a "compare" function used to determine the basis upon which to sort the array.
      * This "compare" function is created and assigned to the variable 'compareFunc' in the following switch statement.
@@ -188,6 +197,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     // Format of the top-left coordinates of the current (in this case, the first) object box: [x-coord, y-coord]
     let x_coord = START_X;
     let y_coord = config_aut.top_margin; // taking into account margin preferences
+
 
     // EXPLANATION: Once we fully occupy a row, we need to decide what the height of that row will be, as this will
     // determine the y-coordinate of the boxes in the NEXT row. To ensure that the height of the current row is
@@ -250,6 +260,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
 
     }
 
+
     // ------------------------------------------------------
     // The 'row_height' accumulator is updated to hold the height of the new row (the one we are moving in now).
     // We sort 'curr_row_objects', so the first object is the tallest one, and we retrieve that object's height.
@@ -271,6 +282,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     return {objs, canvas_height, canvas_width};
 }
 
+
 /**
  * Separates the items that were given into two categories as stack frames and objects.
  * The returned object has two attributes as 'stack_frames' and 'other_items'.
@@ -288,10 +300,8 @@ function separateObjects(objects) {
     let otherItems = [];
 
     for (const item of objects) {
-
         if (item.stack_frame) {  // Whether a stack frame will be drawn.
             stackFrames.push(item);
-
         } else {
             otherItems.push(item);
         }
@@ -299,6 +309,7 @@ function separateObjects(objects) {
 
     return {stack_frames: stackFrames, other_items: otherItems};
 }
+
 
 /**
  * Return the dimensions that the passed object will have if drawn on a canvas (in the context of the MemoryModel class).
@@ -324,6 +335,8 @@ function getSize(obj) {
 
     return {height: size.height, width: size.width};
 }
+
+
 
 
 // Helper Compare Functions
@@ -353,6 +366,7 @@ function compareByID(a, b) {
     // return -(a.id - b.id) // or b.id - a.id // For Descending
     return a.id - b.id // For Ascending:
 }
+
 
 /**
  * Compares objects 'a' and 'b' by their "rightness". The metric for rightness is the x-coord of the object plus its width.
