@@ -10,9 +10,6 @@
 
 const { MemoryModel, config } = require("../dist/memory_models_rough.node")
 
-// console.log("MERGE TEST:")
-// console.log(merge(common_style, default_styles['collection']))
-
 const m1 = new MemoryModel({ width: 1300, height: 1100 })
 const m2 = new MemoryModel({ width: 1300, height: 1100 })
 
@@ -44,12 +41,9 @@ const objs = [
     },
     {isClass: false, x: 750, y: 750, name: "BLANK"
     }
-    // {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None"}
 ]
 
 // -----------------------Demonstration of the 'MemoryModel.drawAll' method-----------------------
 m1.drawAll(objs);
 m1.save("../docs/images/demo_6.svg")
 
-
-// style: { text: {id: {"fill" : "blue", ...}, value: {}, type: {}}, box: {container: {}, id: {}, type: {}}}

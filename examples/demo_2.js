@@ -21,7 +21,6 @@ const objs = [
             'box': {'id': {fill: 'red', fillStyle: "dots"}, 'type': {fill: "red", fillStyle: "solid"},
                 'container': {fill:"black", fillStyle: "solid"}}}
     }
-    // {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None"}
 ]
 
 

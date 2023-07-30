@@ -47,18 +47,9 @@ const {objs, canvas_height, canvas_width} = drawAutomatedOtherItems(
     sf_endpoint = 150
 )
 
-console.log("HERE WE ARE 2!")
 const m = new MemoryModel({width: canvas_width, height: canvas_height});
 
-console.log(objs, canvas_height)
 m.drawAll(objs)
 m.save("../docs/images/demo_7.svg")
 
-
-// // JSON
-// const stringified_objs = JSON.stringify(objs)
-// fs.writeFileSync("../docs/automated_model.json", stringified_objs)
-// const m2 = new MemoryModel({width: WIDTH, height: canvas_height});
-// m2.createFromJSON("../docs/automated_model.json");
-// m2.save("../docs/images/demo_3B.svg")
 
