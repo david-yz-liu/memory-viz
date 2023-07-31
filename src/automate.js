@@ -153,12 +153,6 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
             item.height = dimensions.height;
             item.width = dimensions.width;
 
-        } else {
-            for (const attr of ["width", "height"]) {
-                if (!item.hasOwnProperty(attr)) {
-                    item[attr] = config.blank_default_dimensions[attr];
-                }
-            }
         }
     }
 
@@ -186,7 +180,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
 
 
     if (sort_by != null) {
-        // Sorting 'objs' by descending height of the contained objects.
+        // Sorting 'objs' of the contained objects. If sort_by==null, no sorting will take place.
         objs.sort(compareFunc)
     }
 
@@ -297,9 +291,12 @@ function separateObjects(objects) {
     for (const item of objects) {
         // Check whether the item is a blank space, and if so ensure that the dimensions are defined.
         if (item.name === "BLANK" && (item.width === undefined || item.height === undefined)) {
-            console.log("The dimensions for blank spaces should be provided.")
+            console.log("WARNING :: An object with name='BLANK' exists with missing dimension information " +
+                "(either the width or the height is missing). This object will be ommitted in the memory model" +
+                " diagram.")
         }
-        if (item.stack_frame) {  // Whether a stack frame will be drawn.
+
+        else if (item.stack_frame) {  // Whether a stack frame will be drawn.
             stackFrames.push(item);
         } else {
             otherItems.push(item);
