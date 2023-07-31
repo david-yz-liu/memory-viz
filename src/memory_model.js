@@ -620,7 +620,6 @@ class MemoryModel {
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 style.text_value
             )
-
             this.drawText(
                 idv,
                 x + box_width - this.item_min_width * 1.5 + attr_box / 2,

@@ -283,6 +283,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
  * @returns {object} an object separating between stack-frames and the rest of the items.
  */
 function separateObjects(objects) {
+
     // The accumulator that stores the stack frames (and classes) that will be drawn.
     let stackFrames = [];
     // The accumulator that stores all the other items (objects) that will be drawn.
