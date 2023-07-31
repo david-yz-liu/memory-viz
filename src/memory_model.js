@@ -755,23 +755,20 @@ class MemoryModel {
      */
     drawAll(objects) {
         const sizes_arr = [];
-      
+
         for (const obj of objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list
+                         // ----------- Setting default values for the three attributes of obj.style.text -----------
+                obj.style = populateStyleObject(obj);
 
-
-            // ----------- Setting default values for the three attributes of obj.style.text -----------
-            obj.style = populateStyleObject(obj);
-
-
-            if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
-                // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
-                // line both mutates 'this', and assigns the returned value to the variable 'size'.
-                const size = this.drawClass(obj.x, obj.y, obj.name, obj.id, obj.value, obj.stack_frame, obj.style);
-                sizes_arr.push(size);
-            } else {  // The 'drawObject' method will be used to draw an object of a built-in type.
-                const size = this.drawObject(obj.x, obj.y, obj.name, obj.id, obj.value, obj.show_indexes, obj.style);
-                sizes_arr.push(size);
-            }
+                if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
+                    // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
+                    // line both mutates 'this', and assigns the returned value to the variable 'size'.
+                    const size = this.drawClass(obj.x, obj.y, obj.name, obj.id, obj.value, obj.stack_frame, obj.style);
+                    sizes_arr.push(size);
+                } else {  // The 'drawObject' method will be used to draw an object of a built-in type.
+                    const size = this.drawObject(obj.x, obj.y, obj.name, obj.id, obj.value, obj.show_indexes, obj.style);
+                    sizes_arr.push(size);
+                }
         }
 
         return sizes_arr;
@@ -889,7 +886,7 @@ function populateStyleObject(object) {
 
         }
 
-    // ~~~~~~~~~~ STEP 2A: We then add properties specific to the different type categories ~~~~~~~~~~
+    // ~~~~~~~~~~ STEP 2: We then add properties specific to the different type categories ~~~~~~~~~~
     // SOS: This is mandatory because if we were to use the original category_specific_styles[object_type] object, then the
     // assignment obj.style = category_specific_styles[object_type] (or any assignment of the nested objects), would mean that
     // if we change obj.style, then category_specific_styles[object_type] would automatically also change (since they both refer
@@ -898,7 +895,7 @@ function populateStyleObject(object) {
     style_so_far = merge(style_so_far, category_specific_styles[object_type]);  // Merge #1
 
 
-    // ~~~~~~~~~~ STEP 2B: Finally, we complement the current style with any user-supplied properties ~~~~~~~~~~
+    // ~~~~~~~~~~ STEP 3: Finally, we complement the current style with any user-supplied properties ~~~~~~~~~~
     // merge the user defined style with the default style
     style_so_far = merge(style_so_far, object.style || {}) // Merge #2
 

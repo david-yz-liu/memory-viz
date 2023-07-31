@@ -38,3 +38,19 @@ function vert_beautify(objs) {
 
     return objs;
 }
+
+
+/**
+ *
+ * @param {Array} objects
+ */
+function warnForBlankSpaces(objects) {
+    for (let i=0; i < objects.length; i++) {
+        const obj = objects[i];
+
+        if ((obj.name === "BLANK") && (!obj.hasOwnProperty("height") || !obj.hasOwnProperty("width"))) {
+            objects.splice(i);
+            console.log('%c Oh my heavens! ', 'background: #222; color: #bada55');
+        }
+    }
+}
