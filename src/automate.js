@@ -297,7 +297,7 @@ function separateObjects(objects) {
     for (const item of objects) {
         // Check whether the item is a blank space, and if so ensure that the dimensions are defined.
         if (item.name === "BLANK" && (item.width === undefined || item.height === undefined)) {
-            throw new Error("The dimensions for blank spaces should be provided.")
+            console.log("The dimensions for blank spaces should be provided.")
         }
         if (item.stack_frame) {  // Whether a stack frame will be drawn.
             stackFrames.push(item);
