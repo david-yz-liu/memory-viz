@@ -6,7 +6,6 @@ import rough from "roughjs/bundled/rough.esm.js"
 // The library for merging js objects (will be used for populating styles)
 const merge = require('deepmerge')
 
-
 const { DOMImplementation, XMLSerializer } = require("@xmldom/xmldom")
 
 /** The class representing the memory model diagram of the given block of code. */
@@ -136,7 +135,6 @@ class MemoryModel {
             this.obj_min_width,
             this.getTextLength(String(value)) + this.obj_x_padding
         )
-
         this.drawRect(x, y, box_width, this.obj_min_height, style.box_container)
 
         // The value that refers to the size and coordinates of the box, it will be used for automating the layout.
@@ -170,7 +168,6 @@ class MemoryModel {
         // Actually drawing the text to be displayed on our canvas by utilizing the helper 'drawText' instance method.
         // Note that if the value is null or undefined, nothing will be drawn
         if (value !== null && value !== undefined) {
-
             this.drawText(
                 display_text,
                 x + box_width / 2,
@@ -317,15 +314,12 @@ class MemoryModel {
                 this.getTextLength(idv) + 10
             )
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
-
-
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
                 style.text_value
             )
-
             if (show_idx) {
                 this.drawText(
                     i,
@@ -405,8 +399,6 @@ class MemoryModel {
                 this.getTextLength(idv) + 10
             )
             this.drawRect(curr_x, item_y, item_length, this.item_min_height)
-
-
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
@@ -482,14 +474,12 @@ class MemoryModel {
                 this.item_min_height
             )
 
-
             // Draw the text inside the keys
             this.drawText(
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
                 style.text_value
-
             )
 
             curr_y += this.item_min_height * 1.5
@@ -537,7 +527,6 @@ class MemoryModel {
                 x + box_width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 style.text_value
-
             )
 
             curr_y += this.item_min_height * 1.5
@@ -596,7 +585,7 @@ class MemoryModel {
         }
         this.drawRect(x, y, box_width, box_height, style.box_container)
 
-        // the value to be returned in the end of this function, this is required information for automating the layout
+        // The value to be returned in the end of this function, this is required information for automating the layout
         const SIZE = {x, y, width: box_width, height: box_height}
 
         // Draw element boxes
@@ -668,7 +657,6 @@ class MemoryModel {
      *                        Rough.js API. For instance, {fill: 'blue', stroke: 'red'}.
      */
     drawRect(x, y, width, height, style) {
-        // console.log(style);
         if (style === undefined) {
             style = this.rect_style;
         }
@@ -759,7 +747,6 @@ class MemoryModel {
      *                                                     has a default value of false, and it shall be manually set
      *                                                     only if the object corresponds to a sequence (list or
      *                                                     tuple).
-     * ////// STYLE PARAMETER
      *
      *
      *
@@ -781,9 +768,7 @@ class MemoryModel {
                 // line both mutates 'this', and assigns the returned value to the variable 'size'.
                 const size = this.drawClass(obj.x, obj.y, obj.name, obj.id, obj.value, obj.stack_frame, obj.style);
                 sizes_arr.push(size);
-            }
-
-            else {  // The 'drawObject' method will be used to draw an object of a built-in type.
+            } else {  // The 'drawObject' method will be used to draw an object of a built-in type.
                 const size = this.drawObject(obj.x, obj.y, obj.name, obj.id, obj.value, obj.show_indexes, obj.style);
                 sizes_arr.push(size);
             }
@@ -868,8 +853,6 @@ const category_specific_styles = {
     }
 }
 
-
-
 // Built-in data types
 const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]
 const collections = ["list", "set", "tuple", "dict"]
@@ -897,19 +880,16 @@ function populateStyleObject(object) {
 
     if (primitives.includes(object.name)) {
         object_type = "primitive"
-    }
-    else if (collections.includes(object.name)) {
+    } else if (collections.includes(object.name)) {
         object_type = "collection"
-    }
-    else if (object.stack_frame) {
+    } else if (object.stack_frame) {
         object_type = "stackframe"
-    }
-    else { // The object is a class object
+    } else { // The object is a class object
         object_type = "class"
 
         }
 
-    // ~~~~~~~~~~ STEP 2: We then add properties specific to the different type categories ~~~~~~~~~~
+    // ~~~~~~~~~~ STEP 2A: We then add properties specific to the different type categories ~~~~~~~~~~
     // SOS: This is mandatory because if we were to use the original category_specific_styles[object_type] object, then the
     // assignment obj.style = category_specific_styles[object_type] (or any assignment of the nested objects), would mean that
     // if we change obj.style, then category_specific_styles[object_type] would automatically also change (since they both refer
@@ -918,13 +898,12 @@ function populateStyleObject(object) {
     style_so_far = merge(style_so_far, category_specific_styles[object_type]);  // Merge #1
 
 
-    // ~~~~~~~~~~ STEP 2: Finally, we complement the current style with any user-supplied properties ~~~~~~~~~~
+    // ~~~~~~~~~~ STEP 2B: Finally, we complement the current style with any user-supplied properties ~~~~~~~~~~
     // merge the user defined style with the default style
     style_so_far = merge(style_so_far, object.style || {}) // Merge #2
 
     return style_so_far;
 }
-
 
 /**
  * Returns a deep-copy of the passed object. Does not work if function-objects exist within the passed object.
