@@ -23,12 +23,12 @@ function vert_beautify(objs) {
         // 'drawAutomatedOtherItems' functions, but the rest do not.
         obj.rowBreaker = obj.rowBreaker|false;
 
-        // we are changing row so we now need to compare against the first object of that row.
+        // we are changing row, so we now need to compare against the first object of that row.
         // All displacement happen relative to the "rowBreaker" object, so this object does not move at all.
         if (obj.rowBreaker) {
             height = obj.height;
-        }
-        else {
+
+        } else {
             // Calculations (to make margins from the top and the bottom of the "rowBreaker" box equal)
             const diff = height - obj.height;
             const displacement = diff/2;
@@ -39,6 +39,18 @@ function vert_beautify(objs) {
     return objs;
 }
 
-function horiz_beautif(objs) {
 
+/**
+ *
+ * @param {Array} objects
+ */
+function warnForBlankSpaces(objects) {
+    for (let i=0; i < objects.length; i++) {
+        const obj = objects[i];
+
+        if ((obj.name === "BLANK") && (!obj.hasOwnProperty("height") || !obj.hasOwnProperty("width"))) {
+            objects.splice(i);
+            console.log('%c Oh my heavens! ', 'background: #222; color: #bada55');
+        }
+    }
 }

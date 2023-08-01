@@ -13,7 +13,6 @@ function drawAutomated(objects, width, configuration) {
     // Separating the objects given in the JSON file into two categories: stack frames, and everything else.
     const {stack_frames, other_items} = separateObjects(objects);
 
-    const stack_frames_canvas_width = width / 5
 
     // Call helper functions
     const {StackFrames, requiredHeight, requiredWidth} =
@@ -41,8 +40,10 @@ function drawAutomated(objects, width, configuration) {
  * @param {Object} configuration - The configuration set by the user.
  * @param {Object[]} stack_frames - The list of stack-frames that will be drawn
  * (without the specified x and y coordinates)
- *
- * @returns {Object} -
+ * @returns {Object} - Returns the object consisting of three attributes as follows: stack-frames which will be drawn,
+ * the minimum required height of the canvas for drawing stack frames and required width for drawing all the stack
+ * frames. Notably, the last two attributes will be useful in terms of dynamically deciding the width and the height
+ * of the canvas.
  */
 function drawAutomatedStackFrames(stack_frames, configuration) {
 
@@ -59,19 +60,39 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
     // The width required for drawing stack-frames (corresponding to the maximum width among all the stack-frames)
     let required_width = 0;
 
+    // The stack frames that will be drawn (the stack frames that are not blank
+    let draw_stack_frames = [];
+
     // Loop through all the stack-frames to determine their individual box height
     for (const stack_frame of stack_frames){
 
+        // Initialize the width and the height of the stack frames
+        let width;
+        let height;
+
         // get the width and height of each box
-        const {height, width} = getSize(stack_frame)
+        if (stack_frame.name !== 'BLANK') {
+            // Obtain the size of the given stack-frame
+            const size = getSize(stack_frame)
+            height = size.height;
+            width = size.width;
+
+        } else {  // stack_frame.name === 'BLANK'
+            // We already have access to the user defined dimensions of the box
+            height = stack_frame.height;
+            width = stack_frame.width;
+        }
 
         if (width > required_width){
             required_width = width;
         }
 
-        // Mutate the stack_frame object
-        stack_frame.x = configuration.left_margin;
-        stack_frame.y = min_required_height;
+        if (stack_frame.name !== 'BLANK'){
+            // Mutate the stack_frame object
+            stack_frame.x = configuration.left_margin;
+            stack_frame.y = min_required_height;
+            draw_stack_frames.push(stack_frame);
+        }
 
         // Mutate the accumulators
         min_required_height = (height + min_required_height);
@@ -80,7 +101,7 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
 
     required_width += configuration.padding;
 
-    return {StackFrames: stack_frames, requiredHeight: min_required_height, requiredWidth: required_width};
+    return {StackFrames: draw_stack_frames, requiredHeight: min_required_height, requiredWidth: required_width};
     }
 
 
@@ -127,9 +148,12 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     // NOTE: This assumes that, for a given object, the corresponding "draw" function will allocate the same space
     // (box size) every time, which is true from the implementations in the MemoryModel class.
     for (const item of objs) {
-        const dimensions = getSize(item);
-        item.height = dimensions.height;
-        item.width = dimensions.width;
+        if (item.name !== "BLANK") {
+            const dimensions = getSize(item);
+            item.height = dimensions.height;
+            item.width = dimensions.width;
+
+        }
     }
 
     /**
@@ -153,12 +177,12 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
             break;
     }
 
-    // Sorting 'objs' by descending height of the contained objects.
-    objs.sort(compareFunc)
 
 
-    // -------------------------------------------------------------------------------------------------------------
-
+    if (sort_by != null) {
+        // Sorting 'objs' of the contained objects. If sort_by==null, no sorting will take place.
+        objs.sort(compareFunc)
+    }
 
     // Format of the top-left coordinates of the current (in this case, the first) object box: [x-coord, y-coord]
     let x_coord = START_X;
@@ -181,7 +205,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     for (const item of objs) {
         // 'hor_reach' represents the x-coordinate that would be reached by the right edge (plus padding) of 'item'
         // if it were drawn on this row.
-        // Alternatively, it is the location of the top-left corner of the next object.
+        // Alternatively, it is the x-coord of the left side of the next object.
         let hor_reach = x_coord + item.width + PADDING
 
         // In this case, we can fit this object in the current row.
@@ -191,9 +215,9 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
             item.y = y_coord;
 
             curr_row_objects.push(item);
-        }
-        // In this case, we canNOT fit this object in the current row, and must move to a new row
-        else {
+
+        } else {  // In this case, we canNOT fit this object in the current row, and must move to a new row
+
             // The 'row_height' variable is updated to hold the height of the tallest object in the current row
             // (the one we are about to leave), as this will determine the 'y_coord'.
             const tallest_object = curr_row_objects.reduce((p,c) => p.height >= c.height? p : c);
@@ -240,6 +264,11 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     const canvas_width = right_most_obj.x + right_most_obj.width + config_aut.right_margin;
     const canvas_height = down_most_obj.y + down_most_obj.height + config_aut.bottom_margin;
 
+    // Additional -- to extend the program for the BLANK option
+    const objs_filtered = objs.filter((item) => {return item.name !== "BLANK"});
+    objs = objs_filtered;
+
+
     return {objs, canvas_height, canvas_width};
 }
 
@@ -261,7 +290,14 @@ function separateObjects(objects) {
     let otherItems = [];
 
     for (const item of objects) {
-        if (item.stack_frame) {  // Whether a stack frame will be drawn.
+        // Check whether the item is a blank space, and if so ensure that the dimensions are defined.
+        if (item.name === "BLANK" && (item.width === undefined || item.height === undefined)) {
+            console.log("WARNING :: An object with name='BLANK' exists with missing dimension information " +
+                "(either the width or the height is missing). This object will be ommitted in the memory model" +
+                " diagram.")
+        }
+
+        else if (item.stack_frame) {  // Whether a stack frame will be drawn.
             stackFrames.push(item);
         } else {
             otherItems.push(item);
@@ -290,7 +326,7 @@ function getSize(obj) {
 
     // By definition, MemoryModel.drawAll accepts a list of objects. However, this functions accepts a single object.
     // So to use 'MemoryModel.drawAll', we pass a list with a single object. Since 'MemoryModel.drawAll' returns
-    // a list with sizes, corresponding in parallel to the passedl list of objects, in our case the returned list
+    // a list with sizes, corresponding in parallel to the passed list of objects, in our case the returned list
     // contains only one size, hence we take the element at index 0.
     const size = m.drawAll([obj])[0];
 
