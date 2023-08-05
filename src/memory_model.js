@@ -757,13 +757,27 @@ class MemoryModel {
         const sizes_arr = [];
 
         for (const obj of objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list
+            if (Array.isArray(obj.style)) {
+                let styleSoFar = {}
+                for (let el of obj.style) {
+                    if (typeof el === "string") {
+                        el = presets[el];
+                    }
+                    styleSoFar = merge(styleSoFar, el)
 
-                // This means that the user wants a preset with the label being the string assigned to obj.style
-                if (typeof obj.style === "string") {
-                    // This reassigns obj.style: from referring to a string (the name of the preset) to referring to an
-                    // actual style object (that corresponds to that present)
-                    obj.style =  presets[obj.style];
                 }
+
+                obj.style =  styleSoFar;
+            }
+
+                // // This means that the user wants a preset with the label being the string assigned to obj.style
+                // else if (typeof obj.style === "string") {
+                //     // This reassigns obj.style: from referring to a string (the name of the preset) to referring to an
+                //     // actual style object (that corresponds to that present)
+                //     obj.style =  presets[obj.style];
+                // }
+
+
                 // ----------- Setting default values for the three attributes of obj.style.text -----------
             obj.style = populateStyleObject(obj);
 
@@ -891,7 +905,6 @@ function populateStyleObject(object) {
         object_type = "stackframe"
     } else { // The object is a class object
         object_type = "class"
-
         }
 
     // ~~~~~~~~~~ STEP 2: We then add properties specific to the different type categories ~~~~~~~~~~
@@ -919,54 +932,55 @@ function deepCopy(obj) {
     return JSON.parse(JSON.stringify(obj));
 }
 
-// PRESETS
-const specific_presets = {
-    'highlight_text': {'font-weight': "bolder", 'font-size': "22px"},
-    'fade_text': {/*'font-weight': "normal",*/ 'font-size': "smaller"},
-    'rougher_box_lines': {"roughness": 0.2, "strokeWidth" : 4},
-    'fade_box_lines': {'roughness': 2.0, "strokeWidth": 0.5},
-    'hide_box' : {fill : "white", "fillStyle" : "solid"}
-}
+
+
+// Constants used for styles used to define presets.
+const HIGHLIGHT_TEXT = {'font-weight': "bolder", 'font-size': "22px"};
+const FADE_TEXT = {/*'font-weight': "normal",*/ "fill-opacity": .4};
+const HIGHLIGHT_BOX_LINES = {"roughness": 0.2, "strokeWidth" : 4}
+const HIGHLIGHT_BOX = {"roughness": 0.2, "strokeWidth" : 4, "fill":"yellow", "fillStyle" : "solid"};
+const FADE_BOX_LINES = {'roughness': 2.0, "strokeWidth": 0.5}
+const FADE_BOX = {'roughness': 2.0, "strokeWidth": 0.5, "fill":"rgb(247, 247, 247)", "fillStyle" : "solid"};
+const HIDE_BOX = {"fill" : "white", "fillStyle" : "solid"};
 
 const presets = {
     "highlight": {
-        "text_value" : specific_presets['highlight_text'],
-        "text_id": specific_presets['highlight_text'],
-        "text_type": specific_presets['highlight_text'],
-        "box_id": specific_presets['rougher_box_lines'],
-        "box_type": specific_presets['rougher_box_lines'],
-        "box_container": specific_presets['rougher_box_lines']
-
+        "text_value" : HIGHLIGHT_TEXT,
+        "text_id": HIGHLIGHT_TEXT,
+        "text_type": HIGHLIGHT_TEXT,
+        "box_id": HIGHLIGHT_BOX_LINES,
+        "box_type": HIGHLIGHT_BOX_LINES,
+        "box_container": HIGHLIGHT_BOX
     },
     "highlight_id": {
-        "text_id": specific_presets['highlight_text'],
-        "box_id": specific_presets['rougher_box_lines']
+        "text_id": HIGHLIGHT_TEXT,
+        "box_id": HIGHLIGHT_BOX
     },
     "highlight_type": {
-        "text_type": specific_presets['highlight_type'],
-        "box_type": specific_presets['rougher_box_lines']
+        "text_type": HIGHLIGHT_TEXT,
+        "box_type": HIGHLIGHT_BOX
     },
     "fade" : {
-        "text_value" : specific_presets['fade_text'],
-        "text_id": specific_presets['fade_text'],
-        "text_type": specific_presets['fade_text'],
-        "box_id": specific_presets['fade_box_lines'],
-        "box_type": specific_presets['fade_box_lines'],
-        "box_container": specific_presets['fade_box_lines']
+        "text_value" : FADE_TEXT,
+        "text_id": FADE_TEXT,
+        "text_type": FADE_TEXT,
+        "box_id": FADE_BOX_LINES,
+        "box_type": FADE_BOX_LINES,
+        "box_container": FADE_BOX
     },
     "hide": {
-        "box_container": specific_presets['hide_box'],
-        "box_id": specific_presets['hide_box'],
-        "box_type": specific_presets['hide_box']
+        "box_container": HIDE_BOX,
+        "box_id": HIDE_BOX,
+        "box_type": HIDE_BOX
     },
     "hide_id" : {
-        "box_id": specific_presets['hide_box']
+        "box_id": HIDE_BOX
     },
     "hide_type": {
-        "box_type": specific_presets['hide_box']
+        "box_type": HIDE_BOX
     },
     "hide_container": {
-        "box_container": specific_presets['hide_box']
+        "box_container": HIDE_BOX
     }
 }
 
