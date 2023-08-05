@@ -1,4 +1,5 @@
-const {MemoryModel, config} = require("./memory_model.js");
+const {MemoryModel} = require("./memory_model.js");
+const {config} = require("./config")
 
 /**
  * Draws the objects given in the path in an automated fashion.
