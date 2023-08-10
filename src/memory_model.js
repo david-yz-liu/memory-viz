@@ -760,30 +760,53 @@ class MemoryModel {
         const sizes_arr = [];
 
         for (const obj of objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list
+            // If the input is an array, it means that the user has specified a list of presets and custom objects
+            // (any combination of these).
             if (Array.isArray(obj.style)) {
+                // Inside this body, we need to "parse" the 'objects' array, since it may include preset keywords (that
+                // are strings). In this case, the string corresponding to the preset must be converted to the
+                // actual 'style' object that the present represents.
                 let styleSoFar = {}
+
+                /*
+                PURPOSE OF FOR LOOP:
+                    Beginning with an empty (style) object ('styleSoFar'), the for loop gradually fill the object with
+                    properties by merging the current object with the current loop object
+                    We need to "parse" the 'objects' array, since it may include preset keywords (that
+                    are strings). In this case, the string corresponding to the preset must be converted to the
+                    actual 'style' object that the present represents.
+
+                    NOTE:
+                        Crucially, inside the 'objects' list, the higher the index of an object, the higher its precedence.
+                        For example, if obj.style is the list
+                            [
+                                {'text_id' : {'font-size':'large'},
+                                {'text_id' : {'font-size':'small'}
+                            ],
+                        the final style object (which is being mutated throughout the loop) will have
+                        {'text_id' : {'font-size':'small'}, since the second object has higher precedence than the first
+                        one. This is a result of the behavior of the deepmerge.merge function.
+                 */
                 for (let el of obj.style) {
+
+                    // We need to convert the string keyword to the actual underlying 'style' object
                     if (typeof el === "string") {
                         el = presets[el];
                     }
+
+                    // Merging the accumulator 'styleSoFar' with the current loop variable object, el.
                     styleSoFar = merge(styleSoFar, el)
 
                 }
 
+                // Reassigning obj.style to the final produced 'styleSoFar' object. This way, obj.style now has the
+                // appropriate structure to be passed to 'populateStyleObject' for any additional structural additions.
                 obj.style =  styleSoFar;
             }
 
-                // // This means that the user wants a preset with the label being the string assigned to obj.style
-                // else if (typeof obj.style === "string") {
-                //     // This reassigns obj.style: from referring to a string (the name of the preset) to referring to an
-                //     // actual style object (that corresponds to that present)
-                //     obj.style =  presets[obj.style];
-                // }
 
-
-                // ----------- Setting default values for the three attributes of obj.style.text -----------
+            // ----------- Setting default values for the three attributes of obj.style.text -----------
             obj.style = populateStyleObject(obj);
-
 
                 if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
                     // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
