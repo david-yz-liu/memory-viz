@@ -8,7 +8,6 @@ const merge = require('deepmerge')
 
 const {populateStyleObject, immutable, collections, presets, default_text_style} = require("./style")
 const {config} = require("./config")
-
 const { DOMImplementation, XMLSerializer } = require("@xmldom/xmldom")
 
 /** The class representing the memory model diagram of the given block of code. */
@@ -846,5 +845,5 @@ class MemoryModel {
     }
 }
 
-
 export { MemoryModel }
+
