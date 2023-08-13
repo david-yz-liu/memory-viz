@@ -756,8 +756,6 @@ class MemoryModel {
      */
     drawAll(objects) {
 
-        console.log(objects);
-
         const sizes_arr = [];
 
         for (const obj of objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list
