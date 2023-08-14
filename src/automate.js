@@ -296,9 +296,7 @@ function separateObjects(objects) {
             console.log("WARNING :: An object with name='BLANK' exists with missing dimension information " +
                 "(either the width or the height is missing). This object will be ommitted in the memory model" +
                 " diagram.")
-        }
-
-        else if (item.stack_frame) {  // Whether a stack frame will be drawn.
+        } else if (item.stack_frame) {  // Whether a stack frame will be drawn.
             stackFrames.push(item);
         } else {
             otherItems.push(item);
