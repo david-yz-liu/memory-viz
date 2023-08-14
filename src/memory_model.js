@@ -6,9 +6,9 @@ import rough from "roughjs/bundled/rough.esm.js"
 // The library for merging js objects (will be used for populating styles)
 const merge = require('deepmerge')
 
+
 const {populateStyleObject, immutable, collections, presets, default_text_style} = require("./style")
 const {config} = require("./config")
-
 const { DOMImplementation, XMLSerializer } = require("@xmldom/xmldom")
 
 /** The class representing the memory model diagram of the given block of code. */
@@ -846,6 +846,5 @@ class MemoryModel {
         this.drawAll(listOfObjs); // reusing the 'drawAll' function
     }
 }
-
 
 export { MemoryModel }

@@ -5,7 +5,6 @@ const { MemoryModel } = require("../dist/memory_models_rough.node")
 
 const m = new MemoryModel({ width: 1300, height: 1100 })
 
-
 m.drawClass(10, 10, "emphasize", null, { lst: 4 }, true, {})
 m.drawClass(10, 160, "__main__", null, { sentence: 2, hi: null}, true, {})
 m.drawObject(510, 10, "list", 2, [10, 11, 12], true, {})

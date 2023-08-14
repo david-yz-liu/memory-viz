@@ -47,46 +47,24 @@ This will use `webpack` to watch for changes to the Javascript source files and 
 
 *Note*: this command will keep running until you manually terminate it (Ctrl + C), and so you'll need to open a new terminal window to enter new terminal commands like running the demo below.
 
-## Example usage
 
-```javascript
-// In demo.js
-const { MemoryModel } = require("memory-models-rough")
+## Usage
 
-const m = new MemoryModel({ width: 1300, height: 1100 })
+The only function that a user will ever have to call is `user_functions.draw`.
 
-m.drawClass(10, 10, "emphasize", null, { lst: 4 }, true)
-m.drawClass(10, 160, "__main__", null, { sentence: 2, hi: null }, true)
-m.drawObject(510, 10, "list", 2, [10, 11, 12], true)
-m.drawObject(770, 10, "list", 3, [10, 11, 12], false)
-m.drawObject(510, 200, "str", 10, "winter")
-m.drawObject(760, 200, "int", 11, 999)
-m.drawObject(1010, 200, "bool", 12, true)
-m.drawObject(510, 400, "set", 4, [10, 11, 12, 23, 24])
-m.drawObject(510, 600, "dict", 100, { 2: 3, 10: 20, hi: "bye" })
-
-m.drawClass(
-    800,
-    600,
-    "HockeyTeam",
-    26,
-    { name: 21, games_played: 5, wins: 11 },
-    false
-)
-
-m.save("demo.svg")
-```
-
-(**Note**: If the array of objects to be drawn is stored in a JSON file, the user can simply choose to pass the path to
-that JSON as the first parameter to `draw`. The implementation automatically handles the case that `typeof objs === "string"`.
-)
-
-Running `node demo.js` creates a file `demo.svg` that contains the following image:
-
-![Diagram generated for demo.js file.](docs/images/demo.svg)
+This function has three parameters:
+1. `objs`: The array of objects (including stack-frames) to be drawn. Each object must follow
+a strict structure which is thoroughly outlined in the `object_structure.md` file.
+2. `automation`: A boolean, indicating whether the location of the memory-model boxes should
+be automatically generated. If this is false, the user must x and y attributes for each object
+   (representing the object's coordinates).
+3. `configuration`: A JS object representing configuration such as the user-specified width. 
+Defining a `width` property is mandatory if `automation` is `true`.
 
 
 ### Automation Example
+One of the main capabilities offered is the automatic generation of coordinates for objects
+passed by the user.
 
 ```javascript
 // In automation_demo.js
@@ -182,6 +160,35 @@ m.save("~/Desktop/manual_demo.svg")
 Running node `manual_demo.js` creates a file `manual_demo.svg` that contains the following image:
 
 ![Diagram generated for automation_demo.js file.](docs/images/manual_demo.svg)
+
+
+### Style Features for Drawing
+ 
+The package allows user to define their own configuration for the style of the drawings. To achieve this, we utilize 
+rough package (see the documentation of rough package) and SVG (see the documentation of SVG for details). Rough package
+is used for style configurations related to boxes (that are drawn) and SVG is mainly related to texts. Therefore, the user
+needs to follow the guidelines (documentation) of the aforementioned packages **and** the instructions in the `style.md` file
+on how to pass these *style* arguments. We strongly recommend the user to consult the `style.md` file. 
+
+Also, we provide pre-sets that users can utilize. Hence, user can pass these presets (following
+the instructions in the `style.md` file)
+
+Our default style is as follows:
+
+![Diagram generated for showing our default style](docs/images/demo.svg)
+
+On the other hand, users can gene
+=======
+(**Note**: If the array of objects to be drawn is stored in a JSON file, the user can simply choose to pass the path to
+that JSON as the first parameter to `draw`. The implementation automatically handles the case that `typeof objs === "string"`.
+)
+
+Running `node demo.js` creates a file `demo.svg` that contains the following image:
+
+![Diagram generated for demo.js file.](docs/images/demo.svg)
+
+
+
 
 
 
