@@ -1,4 +1,5 @@
-const {MemoryModel, config} = require("./memory_model.js");
+const {MemoryModel} = require("./memory_model.js");
+const {config} = require("./config");
 const {drawAutomated, drawAutomatedOtherItems, drawAutomatedStackFrames, getSize} = require("./automate.js");
 const {draw} = require("./user_functions.js");
 

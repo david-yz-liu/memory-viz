@@ -6,6 +6,9 @@ import rough from "roughjs/bundled/rough.esm.js"
 // The library for merging js objects (will be used for populating styles)
 const merge = require('deepmerge')
 
+
+const {populateStyleObject, immutable, collections, presets, default_text_style} = require("./style")
+const {config} = require("./config")
 const { DOMImplementation, XMLSerializer } = require("@xmldom/xmldom")
 
 /** The class representing the memory model diagram of the given block of code. */
@@ -620,6 +623,7 @@ class MemoryModel {
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 style.text_value
             )
+
             this.drawText(
                 idv,
                 x + box_width - this.item_min_width * 1.5 + attr_box / 2,
@@ -756,18 +760,63 @@ class MemoryModel {
         const sizes_arr = [];
 
         for (const obj of objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list
-                         // ----------- Setting default values for the three attributes of obj.style.text -----------
-                obj.style = populateStyleObject(obj);
+            // If the input is an array, it means that the user has specified a list of presets and custom objects
+            // (any combination of these).
+            if (Array.isArray(obj.style)) {
+                // Inside this body, we need to "parse" the 'objects' array, since it may include preset keywords (that
+                // are strings). In this case, the string corresponding to the preset must be converted to the
+                // actual 'style' object that the present represents.
+                let styleSoFar = {}
 
-                if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
-                    // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
-                    // line both mutates 'this', and assigns the returned value to the variable 'size'.
-                    const size = this.drawClass(obj.x, obj.y, obj.name, obj.id, obj.value, obj.stack_frame, obj.style);
-                    sizes_arr.push(size);
-                } else {  // The 'drawObject' method will be used to draw an object of a built-in type.
-                    const size = this.drawObject(obj.x, obj.y, obj.name, obj.id, obj.value, obj.show_indexes, obj.style);
-                    sizes_arr.push(size);
+                /*
+                PURPOSE OF FOR LOOP:
+                    Beginning with an empty (style) object ('styleSoFar'), the for loop gradually fill the object with
+                    properties by merging the current object with the current loop object
+                    We need to "parse" the 'objects' array, since it may include preset keywords (that
+                    are strings). In this case, the string corresponding to the preset must be converted to the
+                    actual 'style' object that the present represents.
+
+                    NOTE:
+                        Crucially, inside the 'objects' list, the higher the index of an object, the higher its precedence.
+                        For example, if obj.style is the list
+                            [
+                                {'text_id' : {'font-size':'large'},
+                                {'text_id' : {'font-size':'small'}
+                            ],
+                        the final style object (which is being mutated throughout the loop) will have
+                        {'text_id' : {'font-size':'small'}, since the second object has higher precedence than the first
+                        one. This is a result of the behavior of the deepmerge.merge function.
+                 */
+                for (let el of obj.style) {
+
+                    // We need to convert the string keyword to the actual underlying 'style' object
+                    if (typeof el === "string") {
+                        el = presets[el];
+                    }
+
+                    // Merging the accumulator 'styleSoFar' with the current loop variable object, el.
+                    styleSoFar = merge(styleSoFar, el)
+
                 }
+
+                // Reassigning obj.style to the final produced 'styleSoFar' object. This way, obj.style now has the
+                // appropriate structure to be passed to 'populateStyleObject' for any additional structural additions.
+                obj.style =  styleSoFar;
+            }
+
+
+            // ----------- Setting default values for the three attributes of obj.style.text -----------
+            obj.style = populateStyleObject(obj);
+          
+            if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
+                // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
+                // line both mutates 'this', and assigns the returned value to the variable 'size'.
+                const size = this.drawClass(obj.x, obj.y, obj.name, obj.id, obj.value, obj.stack_frame, obj.style);
+                sizes_arr.push(size);
+            } else {  // The 'drawObject' method will be used to draw an object of a built-in type.
+                const size = this.drawObject(obj.x, obj.y, obj.name, obj.id, obj.value, obj.show_indexes, obj.style);
+                sizes_arr.push(size);
+            }
         }
 
         return sizes_arr;
@@ -795,119 +844,4 @@ class MemoryModel {
     }
 }
 
-// Default configurations we are using
-const config = {
-    rect_style: {stroke: "rgb(0, 0, 0)"},
-    text_color: "rgb(0, 0, 0)", // Default text color
-    value_color: "rgb(27, 14, 139)", // Text color for primitive values
-    id_color: "rgb(150, 100, 28)", // Text color for object ids
-    item_min_width: 50, // Minimum width of an item box in a collection
-    item_min_height: 50, // Minimum height of an item box in a collection
-    obj_min_width: 200, // Minimum width of object rectangle
-    obj_min_height: 130, // Minimum height of object rectangle
-    prop_min_width: 60, // Minimum width of type and id boxes
-    prop_min_height: 50, // Minimum height of type and id boxes
-    obj_x_padding: 25, // Minimum horizontal padding of object rectangle
-    double_rect_sep: 6, // Separation between double boxes around immutable objects
-    list_index_sep: 20, // Vertical offset for list index labels
-    font_size: 20, // Font size, in px
-    browser: false, // Whether this library is being used in a browser context
-
-
-    // Addition for blank implementation
-    blank_default_dimensions : {"width" : 300, "height": 200}
-}
-
-
-const default_text_style = {'fill': config.text_color, 'text-anchor': 'middle',
-    'font-family': 'Consolas, Courier', 'font-size': config.font_size};
-
-const common_style = {
-    "text_id" :{"fill": config.id_color,'text-anchor': 'middle',
-        'font-family': 'Consolas, Courier', 'font-size': config.font_size},
-    "text_type" : {"fill": config.value_color, 'text-anchor': 'middle',
-        'font-family': 'Consolas, Courier', 'font-size': config.font_size},
-    "text_value": {'text-anchor': 'middle', 'font-family': 'Consolas, Courier',
-        'font-size': config.font_size},
-    "box_container":{},
-    "box_id": {},
-    "box_type": {}
-};
-
-const category_specific_styles = {
-    "collection": {
-        text_value: {"fill": config.id_color}
-    },
-    "primitive": {
-        text_value: {"fill": config.value_color}
-    },
-    "class": {
-        text_value: {"fill": config.value_color}
-    },
-    "stackframe": {
-        text_value: {"fill": config.text_color}
-    }
-}
-
-// Built-in data types
-const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]
-const collections = ["list", "set", "tuple", "dict"]
-
-const primitives = ["int", "str", "None", "bool", "float", "date"]
-
-/**
- * Populates a user-passed style object --to the extent needed-- with default data (to adhere to the interface of the
- * style object). Needed to avoid errors of the type "TypeError: Cannot set properties of undefined (setting 'x')", as
- * well as many more.
- * @param {Object} object : the object that represents a Python object the user wants drawn. The style object
- *                          corresponding to 'object' will be extracted be doing object.style.
- * @returns {Object}
- */
-function populateStyleObject(object) {
-
-    // STEP 1: We begin with the common deafault style
-    let style_so_far = common_style;
-
-
-    // Determining under which of the four main categories the object falls, so we can fetch the corresponding
-    // default object from the 'category_specific_styles' constant.
-    let object_type;
-
-
-    if (primitives.includes(object.name)) {
-        object_type = "primitive"
-    } else if (collections.includes(object.name)) {
-        object_type = "collection"
-    } else if (object.stack_frame) {
-        object_type = "stackframe"
-    } else { // The object is a class object
-        object_type = "class"
-
-        }
-
-    // ~~~~~~~~~~ STEP 2: We then add properties specific to the different type categories ~~~~~~~~~~
-    // SOS: This is mandatory because if we were to use the original category_specific_styles[object_type] object, then the
-    // assignment obj.style = category_specific_styles[object_type] (or any assignment of the nested objects), would mean that
-    // if we change obj.style, then category_specific_styles[object_type] would automatically also change (since they both refer
-    // to the same object) which we do not want!
-    // (merge returns a new object)
-    style_so_far = merge(style_so_far, category_specific_styles[object_type]);  // Merge #1
-
-
-    // ~~~~~~~~~~ STEP 3: Finally, we complement the current style with any user-supplied properties ~~~~~~~~~~
-    // merge the user defined style with the default style
-    style_so_far = merge(style_so_far, object.style || {}) // Merge #2
-
-    return style_so_far;
-}
-
-/**
- * Returns a deep-copy of the passed object. Does not work if function-objects exist within the passed object.
- * @param {Object} obj - the object to be deep-copied
- * @returns {Object}
- */
-function deepCopy(obj) {
-    return JSON.parse(JSON.stringify(obj));
-}
-
-export { MemoryModel, config }
+export { MemoryModel }
