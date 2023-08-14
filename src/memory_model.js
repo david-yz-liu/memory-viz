@@ -757,6 +757,9 @@ class MemoryModel {
      *      - 'objects' is a valid object with the correct properties, as outlined above.
      */
     drawAll(objects) {
+
+        // console.log(objects);
+
         const sizes_arr = [];
 
         for (const obj of objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list
@@ -808,15 +811,15 @@ class MemoryModel {
             // ----------- Setting default values for the three attributes of obj.style.text -----------
             obj.style = populateStyleObject(obj);
 
-                if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
-                    // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
-                    // line both mutates 'this', and assigns the returned value to the variable 'size'.
-                    const size = this.drawClass(obj.x, obj.y, obj.name, obj.id, obj.value, obj.stack_frame, obj.style);
-                    sizes_arr.push(size);
-                } else {  // The 'drawObject' method will be used to draw an object of a built-in type.
-                    const size = this.drawObject(obj.x, obj.y, obj.name, obj.id, obj.value, obj.show_indexes, obj.style);
-                    sizes_arr.push(size);
-                }
+            if (obj.isClass) {  // The 'drawClass' method will be used to draw a class (or a stack-frame)
+                // MemoryModel.drawClass returns the location and dimensions of the drawn object, so the below
+                // line both mutates 'this', and assigns the returned value to the variable 'size'.
+                const size = this.drawClass(obj.x, obj.y, obj.name, obj.id, obj.value, obj.stack_frame, obj.style);
+                sizes_arr.push(size);
+            } else {  // The 'drawObject' method will be used to draw an object of a built-in type.
+                const size = this.drawObject(obj.x, obj.y, obj.name, obj.id, obj.value, obj.show_indexes, obj.style);
+                sizes_arr.push(size);
+            }
         }
 
         return sizes_arr;
