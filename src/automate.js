@@ -15,16 +15,17 @@ function drawAutomated(objects, width, configuration) {
     const {stack_frames, other_items} = separateObjects(objects);
 
 
-    // Call helper functions
+    // Call helper automation functions (one for stack frames and one for objects)
+    // These assign the objects with coordinates.
     const {StackFrames, requiredHeight, requiredWidth} =
         drawAutomatedStackFrames(stack_frames, configuration);
     const {objs, canvas_height} = drawAutomatedOtherItems(other_items,
-        width, null, configuration, requiredWidth);
+        width, configuration.sort_by, configuration, requiredWidth);
 
     // The required height for the canvas
     const final_height = Math.max(canvas_height, requiredHeight) + 100;
 
-    // initializing a MemoryModel object
+    // Initializing a MemoryModel object
     const m = new MemoryModel({width: width, height: final_height});
 
     m.drawAll(StackFrames);
@@ -34,7 +35,7 @@ function drawAutomated(objects, width, configuration) {
 }
 
 /**
- * Return the stack-frames with the specified x and y coordinates, as well as the minimum required
+ * Return the stack-frames with generated x and y coordinates, as well as the minimum required
  * height for drawing the stack-frames. The returned collection of stack-frames is the augmented version
  * of the input such that the x and y coordinates of the stack-frames are determined automatically.
  *
@@ -126,6 +127,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
                                  sf_endpoint) {
 
     // Ensuring that not configuration options remain undefined.
+    // By default, all "spacing options" (padding, margins, ...) are set to `config.obj_x_padding`.
     for (const req_prop of ["padding", "top_margin", "left_margin", "bottom_margin", "right_margin"]) {
         if (!config_aut.hasOwnProperty(req_prop)) {
             config_aut[req_prop] = config.obj_x_padding;
@@ -142,6 +144,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     if (sf_endpoint === undefined) {
         sf_endpoint = max_width * 0.2;
     }
+
     const START_X = sf_endpoint + PADDING;
 
     // Running getSize() for every object, and adding the returned width and height as additional properties to
@@ -153,7 +156,6 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
             const dimensions = getSize(item);
             item.height = dimensions.height;
             item.width = dimensions.width;
-
         }
     }
 
@@ -177,7 +179,6 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
             compareFunc = compareByID;
             break;
     }
-
 
 
     if (sort_by != null) {

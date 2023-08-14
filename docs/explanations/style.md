@@ -19,8 +19,18 @@ The object has up to six attributes (the ones observed above), each
 corresponding to a particular component of an object with the potential
 to be styled.
 
-Crucially, each of the attributes in the `style` object refer themselves
-to another object:
+Also, the user can pass in an array for the style attribute. This array can be
+a mixture of presents (name of the preset in the string data format) and a user-defined
+Object. To better illustrate this, here is an example:
+
+```javascript
+["highlight", "hide_type", {"text_id" : {"font-style" : "italic"}}]
+```
+
+
+Crucially, each of the attributes in the `style` object (if user passes in an Object) 
+refer themselves to another object:
+
 - Text-related attributes can contain any attribute specified in the
 documentation of the text element for svg graphics, found on 
 https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
