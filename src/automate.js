@@ -318,8 +318,10 @@ function separateObjects(objects) {
 function getSize(obj) {
     // The value of the x and y properties here is irrelevant; we just need to equip 'obj' with x and y properties so
     // it can be processed by the MemoryModel.drawAll function (which required the passed objects to be in a certain format).
-    obj.x = 10;
-    obj.y = 10;
+    // SOS (added during cleanup stage): but because this function is also called in the case that the `automation`
+    // parameter of `draw` is false, we ensure we only assign a value to obj.x if it is not already defined.
+    obj.x = obj.x || 10;
+    obj.y = obj.y || 10;
 
     // Initializing a MemoryModel object
     const m = new MemoryModel();

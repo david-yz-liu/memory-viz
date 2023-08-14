@@ -21,6 +21,7 @@ const fs = require("fs");
  * @returns {MemoryModel} the produced canvas
  */
 function draw(objects, automation, configuration) {
+
     let objs;
 
     if (typeof objects === 'string') {
@@ -35,7 +36,6 @@ function draw(objects, automation, configuration) {
     } else {
         objs = objects;
     }
-
 
     let m;
 
@@ -78,6 +78,7 @@ function draw(objects, automation, configuration) {
                     downmost_obj = obj
                     downmost_edge = obj.y + height
                 }
+
             }
 
             configuration.height = downmost_edge + 100;
