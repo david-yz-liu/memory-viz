@@ -13,6 +13,7 @@ const fs = require("fs");
  * @param {boolean} automation - Whether the coordinates (of the objects on the canvas) should be automatically
  * generated or manually inputted.
  * @param {Object} configuration - The configuration (display settings) defined by the user.
+ *                          This is also the place to define `sort_by` ("height" or "id") for the object space.
  *                          NOTE: In the case that automation == true, then the user must define configuration.width,
  *                          as this will be used as the "max canvas width" for the automation process.
  *                          If automation == false, then all configuration properties are optional, and the function
@@ -48,6 +49,7 @@ function draw(objects, automation, configuration) {
 
     } else {
 
+        // Dynamically determining the width of the canvas, in case one has not been provided.
         if (!configuration.hasOwnProperty("width")) {
 
             let rightmost_obj;
@@ -64,6 +66,7 @@ function draw(objects, automation, configuration) {
             configuration.width = rightmost_edge + 100;
         }
 
+        // Dynamically determining the height of the canvas, in case one has not been provided.
         if (!configuration.hasOwnProperty("height")) {
 
             let downmost_obj = objs[0];
@@ -84,7 +87,10 @@ function draw(objects, automation, configuration) {
             configuration.height = downmost_edge + 100;
         }
 
+        // Instantiating a new MemoryModel object
         m = new MemoryModel({width: configuration.width, height: configuration.height})
+
+        // Invoking the `drawAll` method render the canvas based on `objs`
         m.drawAll(objs)
     }
 
