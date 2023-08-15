@@ -15,10 +15,6 @@ const config = {
     list_index_sep: 20, // Vertical offset for list index labels
     font_size: 20, // Font size, in px
     browser: false, // Whether this library is being used in a browser context
-
-
-    // Addition for blank implementation
-    blank_default_dimensions : {"width" : 300, "height": 200}
 }
 
 export {config}

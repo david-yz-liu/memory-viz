@@ -6,7 +6,7 @@
  *      - ~/docs/images/demo_3B.svg"
  */
 
-const {MemoryModel, drawAutomatedStackFrames} = require("../dist/memory_models_rough.node.js");
+const {MemoryModel, drawAutomatedStackFrames} = require("../../../dist/memory_models_rough.node.js");
 
 const WIDTH = 1300;
 const listOfStackFrames = [
@@ -25,4 +25,4 @@ const m = new MemoryModel({width: WIDTH, height: requiredHeight + 100});
 
 m.drawAll(StackFrames)
 
-m.save("../docs/images/demo_3B.svg")
+m.save("./stack_frames.svg")

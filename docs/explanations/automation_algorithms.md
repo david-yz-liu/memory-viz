@@ -1,4 +1,4 @@
-## Documentation For Automated Alignment Functions
+## Documentation For Automatic Coordinate Generation Functions
 
 ### Discussion
 

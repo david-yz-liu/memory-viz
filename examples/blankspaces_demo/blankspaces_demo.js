@@ -1,55 +1,47 @@
 /**
  * This file demonstrates the ability to leave "blanks" when the 'automated.md' option is on.
  *
- * To define a blank box, you specify it as an object in the list with three attributes:
+ * To define a blank box, you specify it as an object in the array (the classic array of objects) with three attributes:
  * - name: This must be equal to "BLANK"
  * - width: the desired width of the blank box (I say box but in reality there aren't any borders)
  * - height: the desired height of the blank box
  *
  * NOTE:
- *   At the minimum, only the name attribute is required (must be assigned to "BLANK" so the algorithms knows what
- *   you want to do). If do not specify a width or a height, the default width of 300 and default height of 200 will
- *   be assigned to the 'blank' object. Including more attributes will not lead to an error, but will not achieve
- *   anything either.
+ *   All these attributes are mandatory, and any additional attributes will not have any effect whatsoever in the
+ *   rendering of the blank space.
+ *   Furthermore, note that configuration.sort_by should be null, as otherwise you cannot control where the
+ *   blank space will be located.
  *
- * OUTPUT FILES:
- *      - ~/docs/images/demo_7.svg"
+ * OUTPUT FILE: blankspaces_demo.svg"
  */
 
-const {MemoryModel, drawAutomatedOtherItems} = require("../dist/memory_models_rough.node.js");
-
-const fs = require("fs");
+const {draw} = require("../../dist/memory_models_rough.node.js");
 
 const WIDTH = 1300;
 
 const listOfObjs = [
     {"isClass": true, "name": "__main__", "id": null, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11}, "stack_frame": true},
-    {"name": "BLANK", "width": 100, "height": 200, "stack_frame" : true},
+    {"name": "BLANK", "width": 100, "height": 200, "stack_frame" : true}, // Blank Space
     {"isClass": true, "name": "func", "id": null, "value": {"age": 12, "name": 17}, "stack_frame": true},
     {"isClass": false, "name": "list", "id": 82, "value": [19, 43, 28, 49]},
     {"isClass": false, "name": "list", "id": 84, "value": [32, 10, 90, 57], "show_indexes": true},
     {"isClass": false, "name": "int", "id": 19, "value": 1969},
-    {"name": "BLANK", "width": 100, "height": 200, "stack_frame" : true},
+    {"name": "BLANK", "width": 100, "height": 200}, // Blank Space
     {"isClass": false, "name": "bool", "id": 32, "value": true},
     {"isClass": false, "name": "str", "id": 43, "value": "David is cool"},
+    {"name": "BLANK", "width": 200, "height": 150}, // Blank Space
     {"isClass": false, "name": "tuple", "id": 11, "value": [82, 76]},
     {"isClass": false, "name": "set", "id": 90, "value": [36, 49, 64]},
     {"isClass": false, "name": "dict", "id": 10, "value": {"x": 81, "y": 100, "z": 121}},
     {"isClass": false, "name": "None", "id": 13, "value": "None"}
-
 ]
 
-const {objs, canvas_height, canvas_width} = drawAutomatedOtherItems(
+const configuration = {width: WIDTH, padding: 30, right_margin: 20, bottom_margin: 20, sort_by: null};
+
+const m = draw(
     listOfObjs,
-    WIDTH,
-    sort_by="height",
-    config_aut={padding: 15, right_margin: 20, bottom_margin: 20},
-    sf_endpoint = 150
+    true,
+    configuration
 )
 
-const m = new MemoryModel({width: canvas_width, height: canvas_height});
-
-m.drawAll(objs)
-m.save("../docs/images/demo_7.svg")
-
-
+m.save("blankspaces_demo.svg")

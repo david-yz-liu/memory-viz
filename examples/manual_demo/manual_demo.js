@@ -18,4 +18,4 @@ const m = draw(
     configuration
 )
 
-m.save("../../docs/images/manual_demo.svg")
+m.save("manual_demo.svg")

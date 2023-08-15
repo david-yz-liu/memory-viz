@@ -61,6 +61,10 @@ be automatically generated. If this is false, the user must x and y attributes f
 3. `configuration`: A JS object representing configuration such as the user-specified width. 
 Defining a `width` property is mandatory if `automation` is `true`.
 
+(**Note**: If the array of objects to be drawn is stored in a JSON file, the user can simply choose to pass the path to
+that JSON as the first parameter to `draw`. The implementation automatically handles the case that `typeof objs === "string"`.
+)
+
 
 ### Automation Example
 One of the main capabilities offered is the automatic generation of coordinates for objects
@@ -115,8 +119,7 @@ m.save("~/Desktop/demo.svg")
 
 Running node `automation_demo.js` creates a file `automation_demo.svg` that contains the following image:
 
-![Diagram generated for automation_demo.js file.](docs/images/automation_demo.svg)
-
+![Diagram generated for automation_demo.js file.](examples/automation_demo/automation_demo.svg)
 
 
 
@@ -159,15 +162,17 @@ m.save("~/Desktop/manual_demo.svg")
 
 Running node `manual_demo.js` creates a file `manual_demo.svg` that contains the following image:
 
-![Diagram generated for automation_demo.js file.](docs/images/manual_demo.svg)
+![Diagram generated for automation_demo.js file.](examples/manual_demo/manual_demo.svg)
 
 
 ### Style Features for Drawing
  
 The package allows user to define their own configuration for the style of the drawings. To achieve this, we utilize 
 rough package (see the documentation of rough package) and SVG (see the documentation of SVG for details). Rough package
-is used for style configurations related to boxes (that are drawn) and SVG is mainly related to texts. Therefore, the user
-needs to follow the guidelines (documentation) of the aforementioned packages **and** the instructions in the `style.md` file
+is used for style configurations related to boxes (that are drawn) and SVG is mainly related to texts.
+Moreover, we have created  a few presets that the user can utilize (without creating custom-made style)
+.We allow user to  pass in a JavaScript object, as wwell an array (which can include a mixture of presets and user-defined styles).
+Therefore, the user needs to follow the guidelines(documentation) of the aforementioned packages **and** the instructions in the `style.md` file
 on how to pass these *style* arguments. We strongly recommend the user to consult the `style.md` file. 
 
 Also, we provide pre-sets that users can utilize. Hence, user can pass these presets (following
@@ -175,17 +180,64 @@ the instructions in the `style.md` file)
 
 Our default style is as follows:
 
-![Diagram generated for showing our default style](docs/images/demo.svg)
+![Diagram generated for showing our default style](docs/examples/automation_demo/automation_demo.svg)
 
-On the other hand, users can gene
-=======
-(**Note**: If the array of objects to be drawn is stored in a JSON file, the user can simply choose to pass the path to
-that JSON as the first parameter to `draw`. The implementation automatically handles the case that `typeof objs === "string"`.
+
+
+### Blank Spaces Example
+In many cases, the user might want to have blank spaces in the memory model when in `automation === true` mode in the
+`draw` function (if the user is hardcoding coordinates, then he can easily include spaces wherever he desires).
+
+To define a blank box, you specify it as an object in the array (the classic array of objects) with three attributes:
+- `name: "BLANK"`
+- `width: ...` (the desired width of the blank space)
+- `height: ...` (the desired height of the blank space)
+
+All these attributes are mandatory, and any additional attributes will not have any effect whatsoever in the
+rendering of the blank space.
+Furthermore, note that `configuration.sort_by` should be `null`, as otherwise you cannot control where the
+blank spaces will be located.
+
+In the below example we have added three blank spaces of varying dimensions.
+ 
+```javascript
+// In blankspaces_demo.js
+const {draw} = require("../../dist/memory_models_rough.node.js");
+
+const WIDTH = 1300;
+
+const listOfObjs = [
+   {"isClass": true, "name": "__main__", "id": null, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11}, "stack_frame": true},
+   {"name": "BLANK", "width": 100, "height": 200, "stack_frame" : true}, // Blank Space
+   {"isClass": true, "name": "func", "id": null, "value": {"age": 12, "name": 17}, "stack_frame": true},
+   {"isClass": false, "name": "list", "id": 82, "value": [19, 43, 28, 49]},
+   {"isClass": false, "name": "list", "id": 84, "value": [32, 10, 90, 57], "show_indexes": true},
+   {"isClass": false, "name": "int", "id": 19, "value": 1969},
+   {"name": "BLANK", "width": 100, "height": 200}, // Blank Space
+   {"isClass": false, "name": "bool", "id": 32, "value": true},
+   {"isClass": false, "name": "str", "id": 43, "value": "David is cool"},
+   {"name": "BLANK", "width": 200, "height": 150}, // Blank Space
+   {"isClass": false, "name": "tuple", "id": 11, "value": [82, 76]},
+   {"isClass": false, "name": "set", "id": 90, "value": [36, 49, 64]},
+   {"isClass": false, "name": "dict", "id": 10, "value": {"x": 81, "y": 100, "z": 121}},
+   {"isClass": false, "name": "None", "id": 13, "value": "None"}
+]
+
+const configuration = {width: WIDTH, padding: 30, right_margin: 20, bottom_margin: 20, sort_by: null};
+
+const m = draw(
+        listOfObjs,
+        true,
+        configuration
 )
 
-Running `node demo.js` creates a file `demo.svg` that contains the following image:
+m.save("blankspaces_demo.svg")
+```
 
-![Diagram generated for demo.js file.](docs/images/demo.svg)
+Running node `blankspaces_demo.js` creates a file `blankspaces_demo.svg` that contains the following image:
+
+![Diagram generated for automation_demo.js file.](examples/blankspaces_demo/blankspaces_demo.svg)
+
 
 
 

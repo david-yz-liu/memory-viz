@@ -24,10 +24,10 @@ const category_specific_styles = {
         text_value: {"fill": config.value_color}
     },
     "class": {
-        text_value: {"fill": config.value_color}
+        text_value: {"fill": config.value_color, "text-anchor" : "begin"}
     },
     "stackframe": {
-        text_value: {"fill": config.text_color}
+        text_value: {"fill": config.text_color,  "text-anchor" : "begin"}
     }
 }
 
@@ -82,16 +82,6 @@ function populateStyleObject(object) {
     return style_so_far;
 }
 
-/**
- * Returns a deep-copy of the passed object. Does not work if function-objects exist within the passed object.
- * @param {Object} obj - the object to be deep-copied
- * @returns {Object}
- */
-function deepCopy(obj) {
-    return JSON.parse(JSON.stringify(obj));
-}
-
-
 
 // Constants used for styles used to define presets.
 const HIGHLIGHT_TEXT = {'font-weight': "bolder", 'font-size': "22px"};
@@ -126,6 +116,14 @@ const presets = {
         "box_id": FADE_BOX_LINES,
         "box_type": FADE_BOX_LINES,
         "box_container": FADE_BOX
+    },
+    "fade_id" : {
+        "text_id": FADE_TEXT,
+        "box_id": FADE_BOX_LINES,
+    },
+    "fade_type" : {
+        "text_type": FADE_TEXT,
+        "box_type": FADE_BOX_LINES,
     },
     "hide": {
         "box_container": HIDE_BOX,
