@@ -90,25 +90,6 @@ const objs = [
 
 const configuration = {width: 1300, padding: 30, top_margin: 30, bottom_margin: 40, left_margin: 20, right_margin:30};
 
-// const some_stack_frame = {"isClass": true, "name": "__main__", "id": 
-// null, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11}, "stack_frame": true}
-//
-// const another_stack_frame = {"name": "BLANK", "width": 100, "height": 200, "stack_frame" : true}
-//
-// const some_list = {"isClass": false, "name": "list", "id": 84, "value": [32, 10, 90, 57], "show_indexes": true}
-//
-// const some_int = {"isClass": false, "name": "int", "id": 19, "value": 1969}
-//
-// const some_bool = {"isClass": false, "name": "bool", "id": 32, "value": true}
-//
-// const some_string = {"isClass": false, "name": "str", "id": 43, "value": "David is cool"}
-//
-// const some_dict = {"isClass": false, "name": "dict", "id": 10, "value": {"x": 81, "y": 100, "z": 121}}
-//
-// const none = {"isClass": false, "name": "None", "id": 13, "value": "None"}
-// 
-// const objs = [some_stack_frame, another_stack_frame, some_list, some_int, some_bool, some_string, some_dict,
-// some_dict, none];
 
 
 const m = draw(objs, true, configuration)
@@ -178,10 +159,64 @@ on how to pass these *style* arguments. We strongly recommend the user to consul
 Also, we provide pre-sets that users can utilize. Hence, user can pass these presets (following
 the instructions in the `style.md` file)
 
-Our default style is as follows:
+The code for generating a memory model diagram with built-in default style will look similar to this:
 
-![Diagram generated for showing our default style](docs/examples/automation_demo/automation_demo.svg)
+```javascript
+const objs = [
+    {isClass: true, x: 25, y:200, name: "__main__", id: 82,
+        value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},
+        stack_frame: true
+    },
+    {isClass: true, x: 350, y:10, name: "BLANK", id: 99, value: {age: 12, name: 17}, stack_frame: false},
+    {isClass: false, x: 350, y: 350, name: "list", id: 54, value: [19, 43, 28, 49]},
+    {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], show_indexes: true},
+    {isClass: false, x: 750, y: 10, name: "int", id: 19, value: 1969},
+    {isClass: false, x: 750, y: 250, name: "bool", id: 32, value: true}, // as per the implementation of drawPrimitive
+    {isClass: false, x: 750, y: 500, name: "str", id: 43, value: "David is cool"},
+    {isClass: false, x: 1050, y: 40, name: "tuple", id: 11, value: [82, 76]},
+    {isClass: false, x: 1050, y: 260, name: "set", id: 90, value: [36, 49, 64]},
+    {isClass: false, x: 1050, y: 500, name: "dict", id: 10, value: {x: 81, y: 100, z: 121}},
+    {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None"}
+]
+```
+The produced image will be as follows:
 
+![Diagram generated for showing our default style](examples/style_demo/style_demo.svg)
+
+On the other hand, the same memory model diagram can be created with utilizing styling features s follows:
+
+```javascript
+const objs = [
+    {isClass: true, x: 25, y:200, name: "__main__", id: 82,
+        value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},
+        stack_frame: true,
+        style:[{fill : "yellow", stroke: "green", "stroke-opacity":0.9}]  // Notice style is passed in as an array
+    },
+    {isClass: true, x: 350, y:10, name: "BLANK", id: 99, value: {age: 12, name: 17}, stack_frame: false},
+    {isClass: false, x: 350, y: 350, name: "list", id: 54, value: [19, 43, 28, 49],
+        style: {"text_id" : {"font-style": "italic", "font-size":"x-large"}}},
+    {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], show_indexes: true},
+    {isClass: false, x: 750, y: 10, name: "int", id: 19, value: 1969},
+    {isClass: false, x: 750, y: 250, name: "bool", id: 32, value: true}, // as per the implementation of drawPrimitive
+    {isClass: false, x: 750, y: 500, name: "str", id: 43, value: "David is cool",
+        style: "highlight"},
+    {isClass: false, x: 1050, y: 40, name: "tuple", id: 11, value: [82, 76]},
+    {isClass: false, x: 1050, y: 260, name: "set", id: 90, value: [36, 49, 64]},
+    {isClass: false, x: 1050, y: 500, name: "dict", id: 10, value: {x: 81, y: 100, z: 121},
+        style: {"text_id" : {"font-style" : "italic"}}}, // Notice that style is passed in as an Object
+    {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None",
+        style:{
+            "text_value" : {"font-style" : "italic"},
+            'box_id': {fill: 'red', fillStyle: "dots"},
+            'box_type': {fill: "red", fillStyle: "solid"},
+            "box_container": {fill:"black", fillStyle: "solid"}}
+    }
+]
+```
+
+The resulting diagram will be like this:
+
+![Diagram generated for showing an styling features](examples/style_demo/nostyle_demo.svg)
 
 
 ### Blank Spaces Example

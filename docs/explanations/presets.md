@@ -22,14 +22,14 @@ and they will appear bolder than default.
 ### `highlight_id`
 
 When the keyword `highlight_id` is provided as the value for the `style` attribute, there will be significant
-changes on the appearance of the contanier. In terms of the id box the lines will be bolder, and there will be
+changes on the appearance of the container. In terms of the id box the lines will be bolder, and there will be
 less roughness (lines would be more still than usual). In terms of the id text, the font size will be bigger, and it
 will appear bolder than default.
 
 ### `highlight_type`
 
 When the keyword `highlight_type` is provided as the value for the `style` attribute, there will be significant
-changes on the appearance of the contanier. In terms of the type box the lines will be bolder, and there will be
+changes on the appearance of the container. In terms of the type box the lines will be bolder, and there will be
 less roughness (lines would be more still than usual). In terms of the type text, the font size will be bigger, and it
 will appear bolder than default.
 

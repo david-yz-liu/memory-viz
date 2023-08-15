@@ -1,11 +1,11 @@
 /**
  * This file demonstrates the capability of coordinate automation.
- * It uses the'draw' function from the 'user_interface.js' module; the only function the user will ever have to call.
+ * It uses 'draw' function from the 'user_interface.js' module; the only function the user will ever have to call.
  * Check the function's docstring for usage information.
  *
  *
- * OUTPUT FILES:
- *      -
+ * OUTPUT FILES: ~/examples/automation_demo/automation_demo.svg
+ *
 
  */
 const { draw } = require("../../dist/memory_models_rough.node.js");

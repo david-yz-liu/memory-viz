@@ -4,7 +4,7 @@
  * are no customized styles for the objects in this file.
  *
  * OUTPUT FILES:
- *      - ~/docs/examples/style_demo/nostyle_demo.svg"
+ *      - ~/docs/examples/style_demo/nostyle_demo.svg
  */
 
 const { draw } = require("../../dist/memory_models_rough.node.js");
@@ -14,7 +14,6 @@ const configuration = {width: 1300, padding: 30, top_margin: 30, bottom_margin: 
     left_margin: 20, right_margin:30, sort_by: "id"
 };
 
-// A sample list of objects to be used as an argument for the 'drawAll' function.
 const objs = [
     {isClass: true, x: 25, y:200, name: "__main__", id: 82,
         value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},

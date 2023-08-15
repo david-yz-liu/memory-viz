@@ -7,7 +7,7 @@
  * actual JS array of objects.
  *
  * OUTPUT FILES:
- *      - ~/docs/images/demo_4.svg"
+ *      - ~/examples/automation_demo/more_specific_demos/stack_frames.svg
  */
 
 const { drawAutomated, separateJSON, getSize, drawAutomatedOtherItems, MemoryModel } =
@@ -27,4 +27,4 @@ const m = drawAutomated(
 )
 
 // Saving to SVG file
-m.save("./draw_automated.svg")
+m.save("draw_automated.svg")
