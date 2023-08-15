@@ -37,7 +37,7 @@ function draw(objects, automation, configuration) {
         objs = objects;
     }
 
-    
+
     let m;
 
     if (automation) {
@@ -81,7 +81,6 @@ function draw(objects, automation, configuration) {
                     downmost_obj = obj
                     downmost_edge = obj.y + height
                 }
-
             }
 
             configuration.height = downmost_edge + 100;
