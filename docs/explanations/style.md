@@ -6,12 +6,12 @@ adding an attribute named `style` which maps to an object of the
 following format:
 ```javascript
 style : {
-    text_id : {...},
-    text_type : {...},
-    text_value : {...},
-    box_id : {...},
-    box_type : {...},
-    box_container : {...},
+    text_id : {},
+    text_type : {},
+    text_value : {},
+    box_id : {},
+    box_type : {},
+    box_container : {},
 }
 ```
 

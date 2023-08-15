@@ -1,15 +1,15 @@
 ## Structure of `objects` argument in `draw` function
 
 Arguably the most significant parameter the user has to specify for the `draw` function is `objects`, representing
-the array of objects to be drawn to the memory model.
+the array of objects to be drawn.
 
-To be successfuly rendered, the array must contain objects that strictly follow a specific structure. Every object
+To be successfully rendered, the array must contain objects that strictly follow a specific structure. Every object
 must contain the following attributes:
 - `isClass` - `boolean`: denotes whether the object to be drawn is a user-defined class (or a stack-frame) or a built-in
   object. Pass true to draw a class or a stack-frame, and false to draw any built-in types.
 - `name` - `string`: denotes the type of the object to draw (if `isClass===true`, then this is the name of the
   corresponding class or stackframe).
-- If the user want to hardcode the coordinates (implying the the `automation` parameter of `draw` is false), each object
+- If the user want to hardcode the coordinates (implying the `automation` parameter of `draw` is false), each object
 must include `x` and `y` attributes (for x-y coordinates).
 - `id` - `string`|`number`: denotes the id value of this object. If we are to draw a StackFrame, then this MUST be `null`.
 - `value` - `*`: denotes the value of the object. This could be anything, from an empty string to a JS object,
@@ -22,7 +22,7 @@ must include `x` and `y` attributes (for x-y coordinates).
 - `stack_frame` - `boolean`: denotes whether a stack frame will be drawn or not. NOTE that this is only
   applicable if the object's `isClass` attribute is true (since the
   `MemoryModel.drawClass` covers both classes and stack-frames). By default,
-  `stack_frame` is set to null (*which is falsey*).
+  `stack_frame` is set to null (*which is false*).
 - `show_indexes` - `boolean`: This is applicable only when drawing tuples or lists (when drawSequence
   method will be used). It denotes whether the memory box of the underlying
   sequence will include indices (for sequences) or not. This
@@ -35,11 +35,9 @@ on the required structure (also see `presets.md` for the full capabilities).
 ### Examples
 
 ```javascript
-{"isClass": true, "name": "__main__", "id": null, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11}, "stack_frame": true}
-
-{"name": "BLANK", "width": 100, "height": 200, "stack_frame" : true}
-
-{"isClass": true, "name": "func", "id": null, "value": {"age": 12, "name": 17}, "stack_frame": true}
+{"isClass": true, "name": "__main__", "id": null, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11}, "stack_frame": true},
+{"name": "BLANK", "width": 100, "height": 200, "stack_frame" : true},
+{"isClass": true, "name": "func", "id": null, "value": {"age": 12, "name": 17}, "stack_frame": true},
 
 {"name": "BLANK", "width": 100, "height": 200, "stack_frame" : true}
 
@@ -63,7 +61,7 @@ on the required structure (also see `presets.md` for the full capabilities).
 
 {"isClass": false, "name": "None", "id": 13, "value": "None",
     "style": {
-      "text_value" : {"font-style" : "italic"},
+      "text_value" : {"font-style": "italic"},
       "box_id": {"fill": "red", "fillStyle": "dots"},
       "box_type": {"fill": "red", "fillStyle": "solid"},
       "box_container": {"fill":"black", "fillStyle": "solid"}}
