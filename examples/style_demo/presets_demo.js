@@ -1,9 +1,9 @@
 /**
  * This file demonstrates the use **presets** for styling text and boxes in a memory model diagram.
  *
- * This is a rough demo for illustrating the capabilities of "highliting" features.
+ * This is a rough demo for illustrating the capabilities of "highlighting" features.
  *
- * OUTPUT FILE: ./presets_demo.svg"
+ * OUTPUT FILE: ~/examples/style_demo/presets_demo.svg"
  */
 
 const { draw } = require("../../dist/memory_models_rough.node")
@@ -26,7 +26,7 @@ const objs = [
     {isClass: false, x: 750, y: 250, name: "bool", id: 32, value: true}, // as per the implementation of drawPrimitive
 
     {isClass: false, x: 750, y: 500, name: "str", id: 43, value: "David is cool",
-        style: ["highlight", "hide_type", {"text_id" : {"font-style" : "italic"}}]},
+        style: ["highlight", "hide_type"]},
 
     {isClass: false, x: 1050, y: 40, name: "tuple", id: 11, value: [82, 76], style: ["highlight"]},
 
@@ -41,6 +41,6 @@ const configuration = {width: WIDTH}
 
 const m = draw(objs, true, configuration);
 
-m.save("./presets_demo.svg");
+m.save("presets_demo.svg");
 
 

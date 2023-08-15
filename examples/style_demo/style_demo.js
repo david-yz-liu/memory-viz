@@ -1,8 +1,8 @@
 /**
- * This file demonstrates the use of the custom styling for text and boxes in a memory model diagram, showing the
+ * This file demonstrates the use of the custom styling and usage of presets in a memory model diagram, showing the
  * required structure of the style object.
  *
- * This is a rough demo for illustrating the capabilities of "highliting" features.
+ * This is a rough demo for illustrating the capabilities of "highlighting" features.
  *
  * SOS: The interface for the style is quite flexible, allowing the user to pass a style in two ways:
  * 1. as an object: e.g. {text_id: {"font-size":"large"}}, or
@@ -11,7 +11,7 @@
  *      in the `explanations/style.md` markdown file.
  *
  * OUTPUT FILES:
- *      - ~/docs/images/style_demo.svg"
+ *      - ~/examples/style_demo/style_demo.svg"
  */
 
 const { draw } = require("../../dist/memory_models_rough.node.js");
@@ -21,14 +21,12 @@ const configuration = {width: 1300, padding: 30, top_margin: 30, bottom_margin: 
     left_margin: 20, right_margin:30, sort_by: "id"
 };
 
-// A sample list of objects to be used as an argument for the 'drawAll' function.
 const objs = [
     {isClass: true, x: 25, y:200, name: "__main__", id: 82,
         value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},
         stack_frame: true,
         style:[{fill : "yellow", stroke: "green", "stroke-opacity":0.9}]  // Notice style is passed in as an array
     },
-    {isClass: true, x: 350, y:10, name: "BLANK", id: 99, value: {age: 12, name: 17}, stack_frame: false},
     {isClass: false, x: 350, y: 350, name: "list", id: 54, value: [19, 43, 28, 49],
         style: {"text_id" : {"font-style": "italic", "font-size":"x-large"}}},
     {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], show_indexes: true},
@@ -55,4 +53,4 @@ const m = draw(
     configuration
 )
 
-m.save("nostyle_demo.svg")
+m.save("style_demo.svg")

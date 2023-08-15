@@ -21,7 +21,7 @@ In particular, all stackframe object are passed to `drawAutomatedStackFrames`, w
 the coordinates, but importantly also returns the total width of the stack-frame "section" in the canvas, which
 is then passed to `drawAutomatedOtherItems` as a way to tell it where the vertical division
 between the two sections takes place (in this way, the divider between the stack-frame section
-and the objects section is determined deynamically).
+and the objects section is determined dynamically).
 
 Below we thoroughly describe the steps for each of the two functions:
 `drawAutomatedOtherItems` and `drawAutomatedStackFrames`.

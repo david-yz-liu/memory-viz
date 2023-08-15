@@ -4,7 +4,7 @@
  * are no customized styles for the objects in this file.
  *
  * OUTPUT FILES:
- *      - ~/docs/examples/style_demo/nostyle_demo.svg"
+ *      - ~/docs/examples/style_demo/nostyle_demo.svg
  */
 
 const { draw } = require("../../dist/memory_models_rough.node.js");
@@ -14,13 +14,8 @@ const configuration = {width: 1300, padding: 30, top_margin: 30, bottom_margin: 
     left_margin: 20, right_margin:30, sort_by: "id"
 };
 
-// A sample list of objects to be used as an argument for the 'drawAll' function.
 const objs = [
-    {isClass: true, x: 25, y:200, name: "__main__", id: 82,
-        value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},
-        stack_frame: true
-    },
-    {isClass: true, x: 350, y:10, name: "BLANK", id: 99, value: {age: 12, name: 17}, stack_frame: false},
+    {isClass: true, x: 25, y:200, name: "__main__", id: 82, value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},stack_frame: true},
     {isClass: false, x: 350, y: 350, name: "list", id: 54, value: [19, 43, 28, 49]},
     {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], show_indexes: true},
     {isClass: false, x: 750, y: 10, name: "int", id: 19, value: 1969},

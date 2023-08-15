@@ -1,10 +1,11 @@
 const merge = require("deepmerge");
 const {config} = require("./config");
 
+// Built-in style for drawing text on canvas (if no custom style is provided by the user)
 const default_text_style = {'fill': config.text_color, 'text-anchor': 'middle',
     'font-family': 'Consolas, Courier', 'font-size': config.font_size};
 
-// Style attributes that (by default) across any type of object
+// Style attributes that (by default) across any type of data
 const common_style = {
     "text_id" :{"fill": config.id_color,'text-anchor': 'middle',
         'font-family': 'Consolas, Courier', 'font-size': config.font_size},
@@ -17,7 +18,7 @@ const common_style = {
     "box_type": {}
 };
 
-// Style attributes that (by default) are apply to each category of objects
+// Style attributes that (by default) are apply to each category of data
 const category_specific_styles = {
     "collection": {
         text_value: {"fill": config.id_color}
@@ -49,7 +50,7 @@ const primitives = ["int", "str", "None", "bool", "float", "date"]
  */
 function populateStyleObject(object) {
 
-    // STEP 1: We begin with the common deafault style
+    // STEP 1: We begin with the common default style
     let style_so_far = common_style;
 
 

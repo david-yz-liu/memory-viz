@@ -3,7 +3,7 @@
  * is used as a helper function for the "container" 'drawAutomated' function.
  *
  * OUTPUT FILES:
- *      - ~/docs/images/demo_3B.svg"
+ *      - ~/examples/automation_demo/more_specific_demos/stack_frames.svg
  */
 
 const {MemoryModel, drawAutomatedStackFrames} = require("../../../dist/memory_models_rough.node.js");
@@ -25,4 +25,4 @@ const m = new MemoryModel({width: WIDTH, height: requiredHeight + 100});
 
 m.drawAll(StackFrames)
 
-m.save("./stack_frames.svg")
+m.save("stack_frames.svg")
