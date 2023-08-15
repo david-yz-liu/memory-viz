@@ -6,7 +6,7 @@
  *      - ~/docs/images/demo_3A.svg"
  */
 
-const {MemoryModel, drawAutomatedOtherItems} = require("../dist/memory_models_rough.node.js");
+const {MemoryModel, drawAutomatedOtherItems} = require("../../../dist/memory_models_rough.node.js");
 
 const fs = require("fs");
 
@@ -36,4 +36,4 @@ const {objs, canvas_height, canvas_width} = drawAutomatedOtherItems(
 const m = new MemoryModel({width: canvas_width, height: canvas_height});
 
 m.drawAll(objs)
-m.save("../docs/images/demo_3A.svg")
+m.save("./other_objects.svg")

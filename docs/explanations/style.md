@@ -1,19 +1,20 @@
-## API
+## Style API
 
 A user is able to add custom styling to an object 
 (of the list of objects to be drawn on canvas) by
 adding an attribute named `style` which maps to an object of the 
 following format:
-`
+```javascript
 style : {
-text_id : {...},
-text_type : {...},
-text_value : {...},
-box_id : {...},
-box_type : {...},
-box_container : {...},
+    text_id : {...},
+    text_type : {...},
+    text_value : {...},
+    box_id : {...},
+    box_type : {...},
+    box_container : {...},
 }
-`.
+```
+
 
 The object has up to six attributes (the ones observed above), each 
 corresponding to a particular component of an object with the potential

@@ -11,13 +11,13 @@
  */
 
 const { drawAutomated, separateJSON, getSize, drawAutomatedOtherItems, MemoryModel } =
-    require("../dist/memory_models_rough.node.js");
+    require("../../../dist/memory_models_rough.node.js");
 const fs = require("fs");
 
 const WIDTH = 1300;
 
 // Reading list of objects from JSON file
-const json_string = fs.readFileSync("../docs/automated_json.json", "utf-8");
+const json_string = fs.readFileSync("../automation_demo.json", "utf-8");
 const objs = JSON.parse(json_string);
 
 const m = drawAutomated(
@@ -27,4 +27,4 @@ const m = drawAutomated(
 )
 
 // Saving to SVG file
-m.save("../docs/images/demo_4.svg")
+m.save("./draw_automated.svg")

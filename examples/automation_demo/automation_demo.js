@@ -16,7 +16,7 @@ const configuration = {width: 1300, padding: 30, top_margin: 30, bottom_margin: 
 
 // Demonstrating with a JSON file instead of an actual JS array of objects
 const m = draw(
-    "../docs/automated_json.json",
+    "./automation_demo.json",
     true,
     configuration
 )

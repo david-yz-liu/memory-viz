@@ -24,8 +24,8 @@ class MemoryModel {
      * NOTE: Other properties of this class are a consequence of the constant 'config' object in the bottom of this file.
      *       These include 'id_colour', 'obj_min_width', and 'font_size'. The 'config' constant also contains default
      *       values for these properties.
-     *       Moreover, the user can optionally set custom width and height for the canvas by passing them as attributes
-     *       to the 'options' argument. To see this in practice, see ./examples/demo.js.
+     *       Moreover, width and height can be optionally set for the canvas by passing them as attributes
+     *       to the 'options' argument.
      *
      */
     constructor(options) {
