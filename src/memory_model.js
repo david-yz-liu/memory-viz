@@ -52,7 +52,7 @@ class MemoryModel {
 
         // 'config' is a constant object holding configuration information, defined in the bottom of this file.
         // In particular, 'config' contains all properties that a 'MemoryModel' object must have, ---as well as their
-        // corresponding default values---. However, these can be overriden with the `options` parameter.
+        // corresponding default values---. However, these can be overridden with the `options` parameter.
         // For instance, if we run
         //                      m = new MemoryModel({font_size: 17}),
         // then the default 'font_size' value of 20 will be overridden and 'm.font_size' will evaluate to 17.

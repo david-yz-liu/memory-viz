@@ -27,7 +27,6 @@ const objs = [
         stack_frame: true,
         style:[{fill : "yellow", stroke: "green", "stroke-opacity":0.9}]  // Notice style is passed in as an array
     },
-    {isClass: true, x: 350, y:10, name: "BLANK", id: 99, value: {age: 12, name: 17}, stack_frame: false},
     {isClass: false, x: 350, y: 350, name: "list", id: 54, value: [19, 43, 28, 49],
         style: {"text_id" : {"font-style": "italic", "font-size":"x-large"}}},
     {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], show_indexes: true},
@@ -54,4 +53,4 @@ const m = draw(
     configuration
 )
 
-m.save("nostyle_demo.svg")
+m.save("style_demo.svg")

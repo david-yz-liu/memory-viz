@@ -33,31 +33,31 @@ changes on the appearance of the container. In terms of the type box the lines w
 less roughness (lines would be more still than usual). In terms of the type text, the font size will be bigger, and it
 will appear bolder than default.
 
-### hide
+### `hide`
 ![hide demo](../images/presets_md/hide.png)
 It makes all three major boxes (type box, id box, and the surrounding container box) all blank (white).
 
-### hide_id
+### `hide_id`
 ![hide-id demo](../images/presets_md/hide_id.png)
 It will make the id box blank (white).
 
-### hide_type
+### `hide_type`
 ![hide-id demo](../images/presets_md/hide_type.png)
 It will make the type box blank (white).
 
-### hide_container
+### `hide_container`
 It will make the container box blank (white), but not the `type` and `id` boxes.
 (NOTE: this is not currently supported for sequences).
 
-### fade
+### `fade`
 ![fade demo](../images/presets_md/fade.png)
 It will "fade" the box.
 
-### fade_type
+### `fade_type`
 ![fade-type demo](../images/presets_md/fade_type.png)
 It will "fade" the type sub-box.
 
-### fade_id
+### `fade_id`
 It will "fade" the id sub-box.
 
 ## A combination of various presets and user-defined styles, with `style: ["highlight", "hide_type", {"text_id" : {"font-style" : "italic"}}]`

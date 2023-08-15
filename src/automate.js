@@ -118,8 +118,8 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
  * @param {number} max_width - the desired width of the canvas
  * @param {*} sort_by - the sorting criterion; must be "height" or "id", otherwise no sorting takes place.
  * @param {object} config_aut - additional configuration options, such as margins, paddings, e.t.c.
- * @param {number} sf_endpoint - the x-coord of the right edge of the stackframe column; this will determine where the
- *                               object space begins.
+ * @param {number} sf_endpoint - the x-coordinate of the right edge of the stackframe column; this will determine
+ *                              where the object space begins.
  * @returns {object} the mutates list of objects (where each object is now equipped with x-y coordinates) and the
  * dynamically determined height the canvas will need to be.
  */
@@ -140,7 +140,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     // The object space begins where the stackframe column ends (plus padding), hence the use of the 'sf_endpoint'
     // parameter. If 'sf_endpoint' is undefined (i.e. was not passed at all), then by default we follow the 20-80
     // paradigm (the stack-frames and objects share the width of the canvas 20-80), however this is dangerous as
-    // the stack-frames column might occupate more than 20 percent of the width of the canvas.
+    // the stack-frames column might cover more than 20 percent of the width of the canvas.
     if (sf_endpoint === undefined) {
         sf_endpoint = max_width * 0.2;
     }
@@ -205,7 +205,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
 
     // THE MAIN LOOP
     for (const item of objs) {
-        // 'hor_reach' represents the x-coordinate that would be reached by the right edge (plus padding) of 'item'
+        // 'hor_reach' represents the x-coord that would be reached by the right edge (plus padding) of 'item'
         // if it were drawn on this row.
         // Alternatively, it is the x-coord of the left side of the next object.
         let hor_reach = x_coord + item.width + PADDING
@@ -294,7 +294,7 @@ function separateObjects(objects) {
         // Check whether the item is a blank space, and if so ensure that the dimensions are defined.
         if (item.name === "BLANK" && (item.width === undefined || item.height === undefined)) {
             console.log("WARNING :: An object with name='BLANK' exists with missing dimension information " +
-                "(either the width or the height is missing). This object will be ommitted in the memory model" +
+                "(either the width or the height is missing). This object will be omitted in the memory model" +
                 " diagram.")
         }
 
@@ -317,7 +317,7 @@ function separateObjects(objects) {
  * @returns {object} the width and the height the drawn object would have.
  */
 function getSize(obj) {
-    // The value of the x and y properties here is irrelevant; we just need to equip 'obj' with x and y properties so
+    // The value of the x and y properties here is irrelevant; we just need to equip 'obj' with x and y properties, so
     // it can be processed by the MemoryModel.drawAll function (which required the passed objects to be in a certain format).
     // SOS (added during cleanup stage): but because this function is also called in the case that the `automation`
     // parameter of `draw` is false, we ensure we only assign a value to obj.x if it is not already defined.
@@ -363,8 +363,8 @@ function compareByHeight(a, b) {
  * @returns {number} negative if 'a.id' is larger, 0 if a.id == b.id, and positive if 'b.id' is larger.
  */
 function compareByID(a, b) {
-    // return -(a.id - b.id) // or b.id - a.id // For Descending
-    return a.id - b.id // For Ascending:
+
+    return a.id - b.id // For Ascending
 }
 
 

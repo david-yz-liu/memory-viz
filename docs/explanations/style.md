@@ -6,12 +6,12 @@ adding an attribute named `style` which maps to an object of the
 following format:
 ```javascript
 style : {
-    text_id : {},
-    text_type : {},
-    text_value : {},
-    box_id : {},
-    box_type : {},
-    box_container : {},
+    "text_id" : {},
+    "text_type" : {},
+    "text_value" : {},
+    "box_id" : {},
+    "box_type" : {},
+    "box_container" : {},
 }
 ```
 
@@ -67,7 +67,7 @@ inside the id box, `style.text_id` is passed as an argument to `drawText`).
 
 Finally, inside drawText and drawRect, we loop through all the attributes of the
 passed style object, and apply each of those in the appropriate manner (
-for drawRect, you simply pass the style when initializing a recktangle by doing
+for drawRect, you simply pass the style when initializing a rectangle by doing
 `this.rough_svg.rectangle(x, y, width, height, style)`, and with the text element you
 use the DOM method `setAttribute` by doing `newElement.setAttribute(style_attribute, style[style_attribute])`
 ).
@@ -80,6 +80,7 @@ user-defined style --> drawAll --> drawClass/drawObject --> drawText/drawRect
 ## Examples
 
 ### Example 1
+
 `style:
         {"text_value" : {"font-style" : "italic"},
         'box_id': {fill: 'blue', fillStyle: "dots"}}

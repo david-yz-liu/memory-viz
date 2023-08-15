@@ -1,5 +1,5 @@
 /**
- * This file demonstrates the use of the 'drawAutomated' function from the 'automate.js' module (so both the stackframes
+ * This file demonstrates the use of the 'drawAutomated' function from the 'automate.js' module (so both the stack-frames
  * and the object space is present). This function accepts a list of objects, the desired canvas width, and a
  * 'configuration' object meant to define specs like margins and padding.
  *
@@ -7,7 +7,7 @@
  * actual JS array of objects.
  *
  * OUTPUT FILES:
- *      - ~/examples/automation_demo/more_specific_demos/stack_frames.svg
+ *      - ~/examples/automation_demo/more_specific_demos/draw_automated.svg
  */
 
 const { drawAutomated, separateJSON, getSize, drawAutomatedOtherItems, MemoryModel } =
