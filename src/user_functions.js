@@ -22,7 +22,6 @@ const fs = require("fs");
  * @returns {MemoryModel} the produced canvas
  */
 function draw(objects, automation, configuration) {
-
     let objs;
 
     if (typeof objects === 'string') {
@@ -38,6 +37,7 @@ function draw(objects, automation, configuration) {
         objs = objects;
     }
 
+    
     let m;
 
     if (automation) {

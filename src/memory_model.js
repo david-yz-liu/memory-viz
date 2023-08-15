@@ -6,7 +6,6 @@ import rough from "roughjs/bundled/rough.esm.js"
 // The library for merging js objects (will be used for populating styles)
 const merge = require('deepmerge')
 
-
 const {populateStyleObject, immutable, collections, presets, default_text_style} = require("./style")
 const {config} = require("./config")
 const { DOMImplementation, XMLSerializer } = require("@xmldom/xmldom")
@@ -625,7 +624,6 @@ class MemoryModel {
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 style.text_value
             )
-
             this.drawText(
                 idv,
                 x + box_width - this.item_min_width * 1.5 + attr_box / 2,
@@ -759,7 +757,6 @@ class MemoryModel {
      *      - 'objects' is a valid object with the correct properties, as outlined above.
      */
     drawAll(objects) {
-
         const sizes_arr = [];
 
         for (const obj of objects) { // i takes the values of 0 to n-1, where n is the length of the inputted list

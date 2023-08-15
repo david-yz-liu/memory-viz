@@ -144,7 +144,6 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     if (sf_endpoint === undefined) {
         sf_endpoint = max_width * 0.2;
     }
-
     const START_X = sf_endpoint + PADDING;
 
     // Running getSize() for every object, and adding the returned width and height as additional properties to
@@ -156,6 +155,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
             const dimensions = getSize(item);
             item.height = dimensions.height;
             item.width = dimensions.width;
+
         }
     }
 
@@ -179,6 +179,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
             compareFunc = compareByID;
             break;
     }
+
 
 
     if (sort_by != null) {
@@ -285,6 +286,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
  * @returns {object} an object separating between stack-frames and the rest of the items.
  */
 function separateObjects(objects) {
+
     // The accumulator that stores the stack frames (and classes) that will be drawn.
     let stackFrames = [];
     // The accumulator that stores all the other items (objects) that will be drawn.
@@ -363,7 +365,6 @@ function compareByHeight(a, b) {
  * @returns {number} negative if 'a.id' is larger, 0 if a.id == b.id, and positive if 'b.id' is larger.
  */
 function compareByID(a, b) {
-
     return a.id - b.id // For Ascending
 }
 

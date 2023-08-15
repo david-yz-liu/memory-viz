@@ -272,12 +272,3 @@ m.save("blankspaces_demo.svg")
 Running node `blankspaces_demo.js` creates a file `blankspaces_demo.svg` that contains the following image:
 
 ![Diagram generated for automation_demo.js file.](examples/blankspaces_demo/blankspaces_demo.svg)
-
-
-
-
-
-
-
-
-

@@ -15,7 +15,6 @@ style : {
 }
 ```
 
-
 The object has up to six attributes (the ones observed above), each 
 corresponding to a particular component of an object with the potential
 to be styled.
@@ -80,7 +79,6 @@ user-defined style --> drawAll --> drawClass/drawObject --> drawText/drawRect
 ## Examples
 
 ### Example 1
-
 `style:
         {"text_value" : {"font-style" : "italic"},
         'box_id': {fill: 'blue', fillStyle: "dots"}}
