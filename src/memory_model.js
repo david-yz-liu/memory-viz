@@ -52,11 +52,12 @@ class MemoryModel {
 
         // 'config' is a constant object holding configuration information, defined in the bottom of this file.
         // In particular, 'config' contains all properties that a 'MemoryModel' object must have, ---as well as their
-        // corresponding default values---. However, with the 'options' parameter, the user has the ability to override
-        // these default values by passing in a custom object with the desired attribute values.
-        // For instance, if the user runs
+        // corresponding default values---. However, these can be overriden with the `options` parameter.
+        // For instance, if we run
         //                      m = new MemoryModel({font_size: 17}),
         // then the default 'font_size' value of 20 will be overridden and 'm.font_size' will evaluate to 17.
+        // (However, note that the user should not have to interact with this constructor, as the only method they
+        // should be using is the `user_functions.draw`)
         for (const key in config) {
             this[key] = options.hasOwnProperty(key) ? options[key] : config[key]
         }
@@ -103,8 +104,8 @@ class MemoryModel {
      * @param {*} value: can be passed as a list if type is a collection type
      * @param {boolean} show_indexes: whether to show list indices
      * @param {Object} style: The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
-     * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
-     * boxes, refer to the Rough.js documentation.
+     * For style, firstly refer to `style.md` and `presets.md`. For the styling options in terms of texts, refer to
+     * the SVG documentation. For the styling options in terms of boxes, refer to the Rough.js documentation.
      */
     drawObject(x, y, type, id, value, show_indexes, style) {
         if (collections.includes(type)) {  // If the given object is a collection
@@ -138,7 +139,7 @@ class MemoryModel {
             this.obj_min_width,
             this.getTextLength(String(value)) + this.obj_x_padding
         )
-        this.drawRect(x, y, box_width, this.obj_min_height, style.box_container)
+        this.drawRect(x, y, box_width, this.obj_min_height, style.box_container) // passing style.box_container as style
 
         // The value that refers to the size and coordinates of the box, it will be used for automating the layout.
         let size = {width: box_width, height: this.obj_min_heigth, x: x, y: y};
@@ -147,7 +148,7 @@ class MemoryModel {
         // Coordinate-wise, we utilize 'this.double_rec_sep' (see 'config' for more information).
         // It represents the space to leave between the inner box and the outer box.
         if (immutable.includes(type)) {
-            this.drawRect(
+            this.drawRect( // although we do not supply a `style` argument, the `drawRect` method automatically handles this situation
                 x - this.double_rect_sep,
                 y - this.double_rect_sep,
                 box_width + 2 * this.double_rect_sep,
@@ -223,6 +224,7 @@ class MemoryModel {
             type,
             x + width - type_box / 2,
             y + this.font_size * 1.5,
+            // passing the style.text_type as the 'style', since the drawText invocation here regards the type data
              style.text_type
         )
 
@@ -750,15 +752,13 @@ class MemoryModel {
      *                                                     has a default value of false, and it shall be manually set
      *                                                     only if the object corresponds to a sequence (list or
      *                                                     tuple).
-     *
-     *
+     * @param {object} [objects[*].style]: The style object with which the object will be rendered. Check the
+     * `style.md` and `presets.md` documentation files in the `explanations` directory.
      *
      * Preconditions:
      *      - 'objects' is a valid object with the correct properties, as outlined above.
      */
     drawAll(objects) {
-
-        // console.log(objects);
 
         const sizes_arr = [];
 

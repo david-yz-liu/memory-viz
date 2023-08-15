@@ -4,6 +4,7 @@ const {config} = require("./config");
 const default_text_style = {'fill': config.text_color, 'text-anchor': 'middle',
     'font-family': 'Consolas, Courier', 'font-size': config.font_size};
 
+// Style attributes that (by default) across any type of object
 const common_style = {
     "text_id" :{"fill": config.id_color,'text-anchor': 'middle',
         'font-family': 'Consolas, Courier', 'font-size': config.font_size},
@@ -16,6 +17,7 @@ const common_style = {
     "box_type": {}
 };
 
+// Style attributes that (by default) are apply to each category of objects
 const category_specific_styles = {
     "collection": {
         text_value: {"fill": config.id_color}
@@ -92,6 +94,7 @@ const FADE_BOX_LINES = {'roughness': 2.0, "strokeWidth": 0.5}
 const FADE_BOX = {'roughness': 2.0, "strokeWidth": 0.5, "fill":"rgb(247, 247, 247)", "fillStyle" : "solid"};
 const HIDE_BOX = {"fill" : "white", "fillStyle" : "solid"};
 
+// Defining the different `preset` options with the constants defined above.
 const presets = {
     "highlight": {
         "text_value" : HIGHLIGHT_TEXT,
