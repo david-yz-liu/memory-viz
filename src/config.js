@@ -1,4 +1,3 @@
-// Default configurations used across the package
 const config = {
     rect_style: {stroke: "rgb(0, 0, 0)"},
     text_color: "rgb(0, 0, 0)", // Default text color

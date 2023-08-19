@@ -1,5 +1,5 @@
-/*
-The index file serves is the intermediate stage between all source files and the bundled file. Here we import
+/**
+The index file serves as the intermediate stage between all source files and the bundled file. Here we import
 all the source js files, and by exporting them they get bundled to the bundle file. This is because we have
 defined `entry: path.resolve(__dirname, "src/index.js")` in webpack.config.js.
  */
