@@ -11,21 +11,16 @@ const {config} = require("./config")
  * file)
  */
 function drawAutomated(objects, width, configuration) {
-    // Separating the objects given in the JSON file into two categories: stack frames, and everything else.
     const {stack_frames, other_items} = separateObjects(objects);
 
-
-    // Call helper automation functions (one for stack frames and one for objects)
-    // These assign the objects with coordinates.
+    // These functions assign the objects with coordinates.
     const {StackFrames, requiredHeight, requiredWidth} =
         drawAutomatedStackFrames(stack_frames, configuration);
     const {objs, canvas_height} = drawAutomatedOtherItems(other_items,
         width, configuration.sort_by, configuration, requiredWidth);
 
-    // The required height for the canvas
     const final_height = Math.max(canvas_height, requiredHeight) + 100;
 
-    // Initializing a MemoryModel object
     const m = new MemoryModel({width: width, height: final_height});
 
     m.drawAll(StackFrames);
@@ -49,38 +44,32 @@ function drawAutomated(objects, width, configuration) {
  */
 function drawAutomatedStackFrames(stack_frames, configuration) {
 
-    // Ensuring that not configuration options remain undefined.
+    // Ensuring that no configuration options remain undefined.
     for (const req_prop of ["padding", "top_margin", "left_margin", "bottom_margin", "right_margin"]) {
         if (!configuration.hasOwnProperty(req_prop)) {
             configuration[req_prop] = config.obj_x_padding;
         }
     }
 
-    // Determine the required minimum height to draw all the stack-frames (initialized as the top margin)
     let min_required_height = configuration.top_margin;
 
-    // The width required for drawing stack-frames (corresponding to the maximum width among all the stack-frames)
     let required_width = 0;
 
-    // The stack frames that will be drawn (the stack frames that are not blank
     let draw_stack_frames = [];
 
     // Loop through all the stack-frames to determine their individual box height
     for (const stack_frame of stack_frames){
 
-        // Initialize the width and the height of the stack frames
         let width;
         let height;
 
-        // get the width and height of each box
         if (stack_frame.name !== 'BLANK') {
-            // Obtain the size of the given stack-frame
             const size = getSize(stack_frame)
             height = size.height;
             width = size.width;
 
-        } else {  // stack_frame.name === 'BLANK'
-            // We already have access to the user defined dimensions of the box
+        } else {
+            // We already have access to the user defined dimensions of the box.
             height = stack_frame.height;
             width = stack_frame.width;
         }
@@ -90,13 +79,11 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
         }
 
         if (stack_frame.name !== 'BLANK'){
-            // Mutate the stack_frame object
             stack_frame.x = configuration.left_margin;
             stack_frame.y = min_required_height;
             draw_stack_frames.push(stack_frame);
         }
 
-        // Mutate the accumulators
         min_required_height = (height + min_required_height);
 
     }
@@ -126,30 +113,21 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
 function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to avoid undefined error */,
                                  sf_endpoint) {
 
-    // Ensuring that not configuration options remain undefined.
-    // By default, all "spacing options" (padding, margins, ...) are set to `config.obj_x_padding`.
+    // Ensuring that no configuration options remain undefined.
     for (const req_prop of ["padding", "top_margin", "left_margin", "bottom_margin", "right_margin"]) {
         if (!config_aut.hasOwnProperty(req_prop)) {
             config_aut[req_prop] = config.obj_x_padding;
         }
     }
 
-    // This will be used both as horizontal and as vertical padding for in-between the drawn boxes.
     const PADDING = config_aut.padding;
 
-    // The object space begins where the stackframe column ends (plus padding), hence the use of the 'sf_endpoint'
-    // parameter. If 'sf_endpoint' is undefined (i.e. was not passed at all), then by default we follow the 20-80
-    // paradigm (the stack-frames and objects share the width of the canvas 20-80), however this is dangerous as
-    // the stack-frames column might cover more than 20 percent of the width of the canvas.
+    // The object space begins where the stackframe column ends (plus padding)
     if (sf_endpoint === undefined) {
         sf_endpoint = max_width * 0.2;
     }
     const START_X = sf_endpoint + PADDING;
 
-    // Running getSize() for every object, and adding the returned width and height as additional properties to
-    // that object, that is, equipping each object with its final dimensions.
-    // NOTE: This assumes that, for a given object, the corresponding "draw" function will allocate the same space
-    // (box size) every time, which is true from the implementations in the MemoryModel class.
     for (const item of objs) {
         if (item.name !== "BLANK") {
             const dimensions = getSize(item);
@@ -162,15 +140,12 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     /**
      * The 'sort' function optionally accepts a "compare" function used to determine the basis upon which to sort the array.
      * This "compare" function is created and assigned to the variable 'compareFunc' in the following switch statement.
-     * @param a an object in objs
-     * @param b another object in objs
+     * @param a - an object in objs
+     * @param b - another object in objs
      * @returns {number} negative if 'a' is taller, 0 if they have the same height, and positive if 'b' is taller.
      */
     let compareFunc;
 
-    // This switch statement is used to correctly define 'compareFunc', as per the user's sorting preferences
-    // (represented by the 'sorted_by' parameter).
-    // NOTE: If 'sort_by' is not assigned to one of "height" and "id", no sorting will take place.
     switch(sort_by) {
         case "height":
             compareFunc = compareByHeight;
@@ -182,14 +157,12 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
 
 
 
-    if (sort_by != null) {
-        // Sorting 'objs' of the contained objects. If sort_by==null, no sorting will take place.
+    if (sort_by !== null) {  // If sort_by===null, no sorting will take place.
         objs.sort(compareFunc)
     }
 
-    // Format of the top-left coordinates of the current (in this case, the first) object box: [x-coord, y-coord]
     let x_coord = START_X;
-    let y_coord = config_aut.top_margin; // taking into account margin preferences
+    let y_coord = config_aut.top_margin;
 
 
     // EXPLANATION: Once we fully occupy a row, we need to decide what the height of that row will be, as this will
@@ -201,66 +174,49 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     // from 'curr_row_objects' and make the height of that row be the height of this object (plus padding).
     // (Note that in this loop, nothing actually gets drawn, but rather each object gets equipped with coordinates).
     let row_height;
-    // Using let instead of const because of the need to make the array empty every time we move to a new row.
     let curr_row_objects = [];
 
-    // THE MAIN LOOP
     for (const item of objs) {
-        // 'hor_reach' represents the x-coord that would be reached by the right edge (plus padding) of 'item'
-        // if it were drawn on this row.
-        // Alternatively, it is the x-coord of the left side of the next object.
+        // 'hor_reach' is the x-coord of the left side of the next object.
         let hor_reach = x_coord + item.width + PADDING
 
         // In this case, we can fit this object in the current row.
         if (hor_reach < max_width) {
-            // equipping this object with x and y coordinates
             item.x = x_coord;
             item.y = y_coord;
 
             curr_row_objects.push(item);
 
-        } else {  // In this case, we canNOT fit this object in the current row, and must move to a new row
+        } else {  // In this case, we cannot fit this object in the current row, and must move to a new row
 
-            // The 'row_height' variable is updated to hold the height of the tallest object in the current row
-            // (the one we are about to leave), as this will determine the 'y_coord'.
             const tallest_object = curr_row_objects.reduce((p,c) => p.height >= c.height? p : c);
             row_height = tallest_object.height + PADDING;
 
-            // Making 'curr_row_objects', as we now move to a new row.
             curr_row_objects = [];
 
-            x_coord = START_X; // x_coord resets to where it was in the beggining
-            y_coord = y_coord + row_height; // y_coord moves down by the height of the current row (the one we are leaving)
+            x_coord = START_X;
+            y_coord = y_coord + row_height;
 
-
-            // Equipping this object with x and y coordinates
             item.x = x_coord;
             item.y = y_coord;
 
             // Used to communicate that 'item' if the first object in a row
             item.rowBreaker = true;
 
-            // Updating 'hor_reach', as 'x_coord' is now different.
             hor_reach = x_coord + item.width + PADDING
 
-            // Updating 'curr_row_objects' array by pushing to it the rowBreaker
             curr_row_objects.push(item);
         }
 
-        // Updating 'x_coord'. Intuitively, the left edge of the next object will be at the right edge of the current
-        // object plus the padding.
         x_coord = hor_reach;
 
     }
 
 
-    // ------------------------------------------------------
-    // The 'row_height' accumulator is updated to hold the height of the new row (the one we are moving in now).
-    // We sort 'curr_row_objects', so the first object is the tallest one, and we retrieve that object's height.
+    // The 'row_height' accumulator is updated to hold the height of the new row. We sort 'curr_row_objects',
+    // and we retrieve the tallest object's height.
 
-    // Finding the object with the rightmost edge and the object with the down-most edge. These objects will determine
-    // the canvas_width and canvas_height that are returned by this function (to be the actual width and height of the
-    // canvas).
+    // Finding the object with the rightmost edge and the object with the down-most edge.
     const right_most_obj = objs.reduce((prev, curr) => compareByRightness(prev, curr) <= 0 ? prev : curr);
     const down_most_obj = objs.reduce((prev, curr) => compareByBottomness(prev, curr) <= 0 ? prev : curr);
 
@@ -287,20 +243,17 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
  */
 function separateObjects(objects) {
 
-    // The accumulator that stores the stack frames (and classes) that will be drawn.
     let stackFrames = [];
-    // The accumulator that stores all the other items (objects) that will be drawn.
     let otherItems = [];
 
     for (const item of objects) {
-        // Check whether the item is a blank space, and if so ensure that the dimensions are defined.
         if (item.name === "BLANK" && (item.width === undefined || item.height === undefined)) {
             console.log("WARNING :: An object with name='BLANK' exists with missing dimension information " +
                 "(either the width or the height is missing). This object will be omitted in the memory model" +
                 " diagram.")
         }
 
-        else if (item.stack_frame) {  // Whether a stack frame will be drawn.
+        else if (item.stack_frame) {
             stackFrames.push(item);
         } else {
             otherItems.push(item);
@@ -320,19 +273,14 @@ function separateObjects(objects) {
  */
 function getSize(obj) {
     // The value of the x and y properties here is irrelevant; we just need to equip 'obj' with x and y properties, so
-    // it can be processed by the MemoryModel.drawAll function (which required the passed objects to be in a certain format).
-    // SOS (added during cleanup stage): but because this function is also called in the case that the `automation`
-    // parameter of `draw` is false, we ensure we only assign a value to obj.x if it is not already defined.
+    // it can be processed by the MemoryModel.drawAll function
     obj.x = obj.x || 10;
     obj.y = obj.y || 10;
 
-    // Initializing a MemoryModel object
     const m = new MemoryModel();
 
-    // By definition, MemoryModel.drawAll accepts a list of objects. However, this functions accepts a single object.
-    // So to use 'MemoryModel.drawAll', we pass a list with a single object. Since 'MemoryModel.drawAll' returns
-    // a list with sizes, corresponding in parallel to the passed list of objects, in our case the returned list
-    // contains only one size, hence we take the element at index 0.
+    // Since 'MemoryModel.drawAll' returns a list with sizes, in our case the returned list contains only one element,
+    // hence we take the element at index 0.
     const size = m.drawAll([obj])[0];
 
     return {height: size.height, width: size.width};
@@ -341,18 +289,17 @@ function getSize(obj) {
 
 
 
-// Helper Compare Functions
 
 /**
  * Compares objects 'a' and 'b' by their height (assuming they both have the "height" property).
  * This function returns a negative integer if 'a' is taller (so, by definition of how sort uses the comparison
  * function, it will prioritize 'a' over 'b'), 0 if they are equally tall, and positive if 'b' is taller.
- * @param a an object
- * @param b another object
+ * @param a - an object
+ * @param b - another object
  * @returns {number} negative if 'a' is taller, 0 if they have the same height, and positive if 'b' is taller.
  */
 function compareByHeight(a, b) {
-    return -(a.height - b.height) // or b.height - a.height
+    return -(a.height - b.height)
 }
 
 /**
@@ -360,12 +307,12 @@ function compareByHeight(a, b) {
  * Returns a negative integer if 'a.id' is larger than 'b.id' (so, by definition of how sort uses the comparison
  * function, it will prioritize 'a' over 'b'), 0 if 'a' and 'b' have the same id's (WHICH SHOULD NOT HAPPEN),
  * and positive if 'b.id' is larger.
- * @param a an object
- * @param b another object
+ * @param a - an object
+ * @param b - another object
  * @returns {number} negative if 'a.id' is larger, 0 if a.id == b.id, and positive if 'b.id' is larger.
  */
 function compareByID(a, b) {
-    return a.id - b.id // For Ascending
+    return a.id - b.id
 }
 
 
@@ -373,8 +320,8 @@ function compareByID(a, b) {
  * Compares objects 'a' and 'b' by their "rightness". The metric for rightness is the x-coord of the object plus its width.
  * Returns a negative integer if 'a' is righter than 'b.id', 0 if 'a' and 'b' are equally right, and positive if
  * 'b' is righter.
- * @param a an object
- * @param b another object
+ * @param a - an object
+ * @param b - another object
  * @returns {number} negative if 'a' is righter, 0 if 'a' and 'b' are equally right, and positive if b' is righter.
  */
 function compareByRightness(a, b) {
@@ -387,8 +334,8 @@ function compareByRightness(a, b) {
  * Compares objects 'a' and 'b' by their "bottomness". The metric for rightness is the y-coord of the object plus its height.
  * Returns a negative integer if 'a' is bottomer than 'b.id', 0 if 'a' and 'b' are equally bottom, and positive if
  * 'b' is bottomer.
- * @param a an object
- * @param b another object
+ * @param a - an object
+ * @param b - another object
  * @returns {number} negative if 'a' is bottomer, 0 if 'a' and 'b' are equally bottom, and positive if b' is bottomer.
  */
 function compareByBottomness(a, b) {

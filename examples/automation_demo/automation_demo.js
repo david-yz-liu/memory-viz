@@ -14,7 +14,7 @@ const configuration = {width: 1300, padding: 30, top_margin: 30, bottom_margin: 
     left_margin: 20, right_margin:30, sort_by: "id"
 };
 
-// Demonstrating with a JSON file instead of an actual JS array of objects
+// Demonstrating with a JSON file instead of an actual JS array of objects.
 const m = draw(
     "./automation_demo.json",
     true,
