@@ -84,7 +84,6 @@ function draw(objects, automation, configuration) {
         }
 
         m = new MemoryModel({width: configuration.width, height: configuration.height})
-
         m.drawAll(objs)
     }
 
