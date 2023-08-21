@@ -18,11 +18,6 @@ const objs = [
         style: ["highlight_type"]},
     {isClass: false, x: 350, y: 350, name: "list", id: 54, value: [19, 43, 28, 49],
         style: ["hide_type"]},
-    {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], show_indexes: true},
-
-    {isClass: false, x: 750, y: 10, name: "int", id: 19, value: 1969,
-        style: ["highlight_id"]},
-    {isClass: false, x: 750, y: 250, name: "bool", id: 32, value: true}, // as per the implementation of drawPrimitive
 
     {isClass: false, x: 750, y: 500, name: "str", id: 43, value: "David is cool",
         style: ["highlight", "hide_type"]},
@@ -30,8 +25,6 @@ const objs = [
     {isClass: false, x: 1050, y: 40, name: "tuple", id: 11, value: [82, 76], style: ["highlight"]},
 
     {isClass: false, x: 1050, y: 260, name: "set", id: 90, value: [36, 49, 64], style: ["fade"]},
-    {isClass: false, x: 1050, y: 500, name: "dict", id: 10, value: {x: 81, y: 100, z: 121}, style:["hide"]},
-    {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None", style: ["fade_type"]}
 
 ]
 

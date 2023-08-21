@@ -23,7 +23,7 @@ const objs = JSON.parse(json_string);
 const m = drawAutomated(
     objects = objs,
     width = WIDTH,
-    configuration = {padding: 60, top_margin: 50, bottom_margin: 50, left_margin: 80, right_margin:80}
+    configuration = {}
 )
 
 // Saving to SVG file

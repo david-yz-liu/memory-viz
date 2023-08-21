@@ -65,26 +65,44 @@ Defining a `width` property is mandatory if `automation` is `true`.
 that JSON as the first parameter to `draw`. The implementation automatically handles the case that `typeof objs === "string"`.
 )
 
+### Simple Example
+Before showing the full capabilities of the project, here is a simple example to get you started, consisting of
+two stackframes and three objects.
+
+```javascript
+const { draw } = require("../../dist/memory_models_rough.node.js");
+
+const objects = [
+   {"isClass": true, "name": "__main__", "id": null, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11}, "stack_frame": true},
+   {"isClass": false, "name": "str", "id": 19, "value": "David is cool!"},
+   {"isClass": false, "name": "int", "id": 13, "value": 7}
+]
+
+const m = draw(
+        objects,
+        true,
+        {width: 1300}
+)
+
+m.save("simple_demo.svg")
+```
+
+![Diagram generated for simple_demo.js file.](examples/simple_demo/simple_demo.svg)
+
+
 
 ### Automation Example
 One of the main capabilities offered is the automatic generation of coordinates for objects
 passed by the user.
 
 ```javascript
-// In automation_demo.js
+// The array version of automation.js (in automation.js same objects are used, but they are in the JSON file format.)
 const { draw } = require("user_functions");
 
 const objs = [
    {"isClass": true, "name": "__main__", "id": null, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11}, "stack_frame": true},
    {"isClass": true, "name": "func", "id": null, "value": {"age": 12, "name": 17}, "stack_frame": true},
-   {"isClass": false, "name": "list", "id": 82, "value": [19, 43, 28, 49]},
    {"isClass": false, "name": "list", "id": 84, "value": [32, 10, 90, 57], "show_indexes": true},
-   {"isClass": false, "name": "int", "id": 19, "value": 1969},
-   {"isClass": false, "name": "bool", "id": 32, "value": true},
-   {"isClass": false, "name": "str", "id": 43, "value": "David is cool"},
-   {"isClass": false, "name": "tuple", "id": 11, "value": [82, 76]},
-   {"isClass": false, "name": "set", "id": 90, "value": [36, 49, 64]},
-   {"isClass": false, "name": "dict", "id": 10, "value": {"x": 81, "y": 100, "z": 121}},
    {"isClass": false, "name": "None", "id": 13, "value": "None"}
 ]
 
@@ -115,24 +133,16 @@ Note that in the case of manual coordinates, the `configuration` parameter can p
 and an empty object (`{}`) will suffice.
 
 ```javascript
-// In automation_demo.js
+// The array version of automation.js (in automation.js same objects are used, but they are in the JSON file format.)
 const { draw } = require("user_functions");
 
 const objs = [
    {"isClass": true, "x": 25, "y":200, "name": "__main__", "id": 82, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10,
          "t": 11}, "stack_frame": true},
-   {"isClass": true, "x": 350, "y":10, "name": "Person", "id": 99, "value": {"age": 12, "name": 17}, "stack_frame": false},
-   {"isClass": false, "x": 350, "y": 350, "name": "list", "id": 82, "value": [19, 43, 28, 49]},
-   {"isClass": false, "x": 350, "y": 600, "name": "list", "id": 84, "value": [32, 10, 90, 57], "show_indexes": true},
-   {"isClass": false, "x": 750, "y": 10, "name": "int", "id": 19, "value": 1969},
-   {"isClass": false, "x": 750, "y": 250, "name": "bool", "id": 32, "value": true},
-   {"isClass": false, "x": 750, "y": 500, "name": "str", "id": 43, "value": "David is cool"},
-   {"isClass": false, "x": 1050, "y": 40, "name": "tuple", "id": 11, "value": [82, 76]},
-   {"isClass": false, "x": 1050, "y": 260, "name": "set", "id": 90, "value": [36, 49, 64]},
    {"isClass": false, "x": 1050, "y": 500, "name": "dict", "id": 10, "value": {"x": 81, "y": 100, "z": 121}},
-   {"isClass": false, "x": 750, "y": 750, "name": "None", "id": 13, "value": "None"}
+   {"isClass": false, "x": 1050, "y": 40, "name": "tuple", "id": 11, "value": [82, 76]},
+   {"isClass": false, "x": 750, "y": 250, "name": "bool", "id": 32, "value": true}
 ]
-
 const configuration = {};
 
 const m = draw(objs, false, configuration)
@@ -163,60 +173,47 @@ The code for generating a memory model diagram with built-in default style will 
 
 ```javascript
 const objs = [
-    {isClass: true, x: 25, y:200, name: "__main__", id: 82,
-        value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},
-        stack_frame: true
-    },
-    {isClass: true, x: 350, y:10, name: "BLANK", id: 99, value: {age: 12, name: 17}, stack_frame: false},
-    {isClass: false, x: 350, y: 350, name: "list", id: 54, value: [19, 43, 28, 49]},
-    {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], show_indexes: true},
-    {isClass: false, x: 750, y: 10, name: "int", id: 19, value: 1969},
-    {isClass: false, x: 750, y: 250, name: "bool", id: 32, value: true}, // as per the implementation of drawPrimitive
-    {isClass: false, x: 750, y: 500, name: "str", id: 43, value: "David is cool"},
-    {isClass: false, x: 1050, y: 40, name: "tuple", id: 11, value: [82, 76]},
-    {isClass: false, x: 1050, y: 260, name: "set", id: 90, value: [36, 49, 64]},
-    {isClass: false, x: 1050, y: 500, name: "dict", id: 10, value: {x: 81, y: 100, z: 121}},
-    {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None"}
+   {isClass: true, x: 25, y:200, name: "__main__", id: 82, value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},stack_frame: true},
+   {isClass: false, x: 350, y: 350, name: "list", id: 54, value: [19, 43, 28, 49]},
+   {isClass: false, x: 750, y: 500, name: "str", id: 43, value: "David is cool"},
+   {isClass: false, x: 1050, y: 260, name: "set", id: 90, value: [36, 49, 64]},
+   {isClass: false, x: 1050, y: 500, name: "dict", id: 10, value: {x: 81, y: 100, z: 121}},
+   {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None"}
 ]
 ```
 The produced image will be as follows:
 
-![Diagram generated for showing our default style](examples/style_demo/style_demo.svg)
+![Diagram generated for showing our default style](examples/style_demo/nostyle_demo.svg)
 
 On the other hand, the same memory model diagram can be created with utilizing styling features s follows:
 
 ```javascript
 const objs = [
-    {isClass: true, x: 25, y:200, name: "__main__", id: 82,
-        value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},
-        stack_frame: true,
-        style:[{fill : "yellow", stroke: "green", "stroke-opacity":0.9}]  // Notice style is passed in as an array
-    },
-    {isClass: true, x: 350, y:10, name: "BLANK", id: 99, value: {age: 12, name: 17}, stack_frame: false},
-    {isClass: false, x: 350, y: 350, name: "list", id: 54, value: [19, 43, 28, 49],
-        style: {"text_id" : {"font-style": "italic", "font-size":"x-large"}}},
-    {isClass: false, x: 350, y: 600, name: "list", id: 84, value: [32, 10, 90, 57], show_indexes: true},
-    {isClass: false, x: 750, y: 10, name: "int", id: 19, value: 1969},
-    {isClass: false, x: 750, y: 250, name: "bool", id: 32, value: true}, // as per the implementation of drawPrimitive
-    {isClass: false, x: 750, y: 500, name: "str", id: 43, value: "David is cool",
-        style: "highlight"},
-    {isClass: false, x: 1050, y: 40, name: "tuple", id: 11, value: [82, 76]},
-    {isClass: false, x: 1050, y: 260, name: "set", id: 90, value: [36, 49, 64]},
-    {isClass: false, x: 1050, y: 500, name: "dict", id: 10, value: {x: 81, y: 100, z: 121},
-        style: {"text_id" : {"font-style" : "italic"}}}, // Notice that style is passed in as an Object
-    {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None",
-        style:{
-            "text_value" : {"font-style" : "italic"},
-            'box_id': {fill: 'red', fillStyle: "dots"},
-            'box_type': {fill: "red", fillStyle: "solid"},
-            "box_container": {fill:"black", fillStyle: "solid"}}
-    }
+   {isClass: true, x: 25, y:200, name: "__main__", id: 82,
+      value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},
+      stack_frame: true,
+      style:['highlight']  // Notice style is passed in as an array.
+   },
+   {isClass: false, x: 350, y: 350, name: "list", id: 54, value: [19, 43, 28, 49],
+      style: {"text_id" : {"font-style": "italic", "font-size":"x-large"}}},
+   {isClass: false, x: 750, y: 500, name: "str", id: 43, value: "David is cool",
+      style: "highlight"},
+   {isClass: false, x: 1050, y: 260, name: "set", id: 90, value: [36, 49, 64]},
+   {isClass: false, x: 1050, y: 500, name: "dict", id: 10, value: {x: 81, y: 100, z: 121},
+      style: {"text_id" : {"font-style" : "italic"}}}, // Notice that style is passed in as an Object.
+   {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None",
+      style:{
+         "text_value" : {"font-style" : "italic"},
+         'box_id': {fill: 'red', fillStyle: "dots"},
+         'box_type': {fill: "red", fillStyle: "solid"},
+         "box_container": {fill:"black", fillStyle: "solid"}}
+   }
 ]
 ```
 
 The resulting diagram will be like this:
 
-![Diagram generated for showing an styling features](examples/style_demo/nostyle_demo.svg)
+![Diagram generated for showing an styling features](examples/style_demo/style_demo.svg)
 
 
 ### Blank Spaces Example
@@ -253,9 +250,6 @@ const listOfObjs = [
    {"isClass": false, "name": "str", "id": 43, "value": "David is cool"},
    {"name": "BLANK", "width": 200, "height": 150}, // Blank Space
    {"isClass": false, "name": "tuple", "id": 11, "value": [82, 76]},
-   {"isClass": false, "name": "set", "id": 90, "value": [36, 49, 64]},
-   {"isClass": false, "name": "dict", "id": 10, "value": {"x": 81, "y": 100, "z": 121}},
-   {"isClass": false, "name": "None", "id": 13, "value": "None"}
 ]
 
 const configuration = {width: WIDTH, padding: 30, right_margin: 20, bottom_margin: 20, sort_by: null};

@@ -32,9 +32,6 @@ const listOfObjs = [
     {"isClass": false, "name": "str", "id": 43, "value": "David is cool"},
     {"name": "BLANK", "width": 200, "height": 150}, // Blank Space
     {"isClass": false, "name": "tuple", "id": 11, "value": [82, 76]},
-    {"isClass": false, "name": "set", "id": 90, "value": [36, 49, 64]},
-    {"isClass": false, "name": "dict", "id": 10, "value": {"x": 81, "y": 100, "z": 121}},
-    {"isClass": false, "name": "None", "id": 13, "value": "None"}
 ]
 
 const configuration = {width: WIDTH, padding: 30, right_margin: 20, bottom_margin: 20, sort_by: null};
