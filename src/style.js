@@ -18,7 +18,6 @@ const common_style = {
     "box_type": {}
 };
 
-// Style attributes that (by default) are apply to each category of data
 const category_specific_styles = {
     "collection": {
         text_value: {"fill": config.id_color}
@@ -34,7 +33,6 @@ const category_specific_styles = {
     }
 }
 
-// Built-in data types
 const immutable = ["int", "str", "tuple", "None", "bool", "float", "date"]
 const collections = ["list", "set", "tuple", "dict"]
 
@@ -50,12 +48,9 @@ const primitives = ["int", "str", "None", "bool", "float", "date"]
  */
 function populateStyleObject(object) {
 
-    // STEP 1: We begin with the common default style
     let style_so_far = common_style;
 
 
-    // Determining under which of the four main categories the object falls, so we can fetch the corresponding
-    // default object from the 'category_specific_styles' constant.
     let object_type;
 
 
@@ -69,17 +64,13 @@ function populateStyleObject(object) {
         object_type = "class"
     }
 
-    // ~~~~~~~~~~ STEP 2: We then add properties specific to the different type categories ~~~~~~~~~~
-    // SOS: This is mandatory because if we were to use the original category_specific_styles[object_type] object, then the
-    // assignment obj.style = category_specific_styles[object_type] (or any assignment of the nested objects), would mean that
-    // if we change obj.style, then category_specific_styles[object_type] would automatically also change (since they both refer
-    // to the same object) which we do not want!
-    // (merge returns a new object)
+    // We then add properties specific to the different type categories
+    // Note that, the later will take precedence over styleSoFar.
     style_so_far = merge(style_so_far, category_specific_styles[object_type]);  // Merge #1
 
 
-    // ~~~~~~~~~~ STEP 3: Finally, we complement the current style with any user-supplied properties ~~~~~~~~~~
-    // merge the user defined style with the default style
+    // Finally, we complement the current style with any user-supplied properties.
+    // Note that, the later will take precedence over styleSoFar.
     style_so_far = merge(style_so_far, object.style || {}) // Merge #2
 
     return style_so_far;
@@ -95,7 +86,6 @@ const FADE_BOX_LINES = {'roughness': 2.0, "strokeWidth": 0.5}
 const FADE_BOX = {'roughness': 2.0, "strokeWidth": 0.5, "fill":"rgb(247, 247, 247)", "fillStyle" : "solid"};
 const HIDE_BOX = {"fill" : "white", "fillStyle" : "solid"};
 
-// Defining the different `preset` options with the constants defined above.
 const presets = {
     "highlight": {
         "text_value" : HIGHLIGHT_TEXT,

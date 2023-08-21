@@ -10,7 +10,7 @@ const { draw } = require("../../dist/memory_models_rough.node.js");
 
 const configuration = {};
 
-// Demonstrating with a JSON file, instead of an array of objects
+// Demonstrating with a JSON file, instead of an array of objects.
 const m = draw(
     "./manual_demo.json",
     false,

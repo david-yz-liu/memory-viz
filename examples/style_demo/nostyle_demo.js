@@ -9,7 +9,6 @@
 
 const { draw } = require("../../dist/memory_models_rough.node.js");
 
-// Configuration for drawings on the canvas
 const configuration = {width: 1300, padding: 30, top_margin: 30, bottom_margin: 40,
     left_margin: 20, right_margin:30, sort_by: "id"
 };

@@ -10,7 +10,6 @@ const { draw } = require("../../dist/memory_models_rough.node")
 
 const WIDTH = 1300;
 
-// A sample array of objects to be used as the `objects` argument for the 'draw' function.
 const objs = [
     {isClass: true, x: 25, y:200, name: "__main__", id: 82,
         value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},
