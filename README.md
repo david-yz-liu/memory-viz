@@ -67,7 +67,7 @@ that JSON as the first parameter to `draw`. The implementation automatically han
 
 ### Simple Example
 Before showing the full capabilities of the project, here is a simple example to get you started, consisting of
-two stackframes and three objects.
+two stack-frames and three objects.
 
 ```javascript
 const { draw } = require("../../dist/memory_models_rough.node.js");
@@ -126,7 +126,7 @@ Running node `automation_demo.js` creates a file `automation_demo.svg` that cont
 
 Despite the automation capabilities, the user may still wish to hardcode the coordinates of the memory boxes.
 To do this, they must set the `automation` parameter of the `draw` function to false (signifying that no automation
-should take place), and supply `x` and `y` coordinates for *every* object in the passed array (there is no notion of
+should take place), and supply `x` and `y` coordinates for *every* object in the array (there is no notion of
 "partial" automation).
 
 Note that in the case of manual coordinates, the `configuration` parameter can provide no additional functionality,
@@ -137,7 +137,7 @@ and an empty object (`{}`) will suffice.
 const { draw } = require("user_functions");
 
 const objs = [
-   {"isClass": true, "x": 25, "y":200, "name": "__main__", "id": 82, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10,
+   {"isClass": true, "x": 25, "y":200, "name": "__main__", "id": 10, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10,
          "t": 11}, "stack_frame": true},
    {"isClass": false, "x": 1050, "y": 500, "name": "dict", "id": 10, "value": {"x": 81, "y": 100, "z": 121}},
    {"isClass": false, "x": 1050, "y": 40, "name": "tuple", "id": 11, "value": [82, 76]},
@@ -162,7 +162,7 @@ The package allows user to define their own configuration for the style of the d
 rough package (see the documentation of rough package) and SVG (see the documentation of SVG for details). Rough package
 is used for style configurations related to boxes (that are drawn) and SVG is mainly related to texts.
 Moreover, we have created  a few presets that the user can utilize (without creating custom-made style)
-.We allow user to  pass in a JavaScript object, as wwell an array (which can include a mixture of presets and user-defined styles).
+.We allow user to  pass in a JavaScript object, as well an array (which can include a mixture of presets and user-defined styles).
 Therefore, the user needs to follow the guidelines(documentation) of the aforementioned packages **and** the instructions in the `style.md` file
 on how to pass these *style* arguments. We strongly recommend the user to consult the `style.md` file. 
 
@@ -192,7 +192,7 @@ const objs = [
    {isClass: true, x: 25, y:200, name: "__main__", id: 82,
       value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},
       stack_frame: true,
-      style:['highlight']  // Notice style is passed in as an array.
+      style:['highlight']
    },
    {isClass: false, x: 350, y: 350, name: "list", id: 54, value: [19, 43, 28, 49],
       style: {"text_id" : {"font-style": "italic", "font-size":"x-large"}}},
@@ -200,7 +200,7 @@ const objs = [
       style: "highlight"},
    {isClass: false, x: 1050, y: 260, name: "set", id: 90, value: [36, 49, 64]},
    {isClass: false, x: 1050, y: 500, name: "dict", id: 10, value: {x: 81, y: 100, z: 121},
-      style: {"text_id" : {"font-style" : "italic"}}}, // Notice that style is passed in as an Object.
+      style: {"text_id" : {"font-style" : "italic"}}},
    {isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None",
       style:{
          "text_value" : {"font-style" : "italic"},
@@ -218,7 +218,7 @@ The resulting diagram will be like this:
 
 ### Blank Spaces Example
 In many cases, the user might want to have blank spaces in the memory model when in `automation === true` mode in the
-`draw` function (if the user is hardcoding coordinates, then he can easily include spaces wherever he desires).
+`draw` function (if the user is "hard coding" coordinates, then he can easily include spaces wherever he desires).
 
 To define a blank box, you specify it as an object in the array (the classic array of objects) with three attributes:
 - `name: "BLANK"`
@@ -233,22 +233,21 @@ blank spaces will be located.
 In the below example we have added three blank spaces of varying dimensions.
  
 ```javascript
-// In blankspaces_demo.js
 const {draw} = require("../../dist/memory_models_rough.node.js");
 
 const WIDTH = 1300;
 
 const listOfObjs = [
    {"isClass": true, "name": "__main__", "id": null, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11}, "stack_frame": true},
-   {"name": "BLANK", "width": 100, "height": 200, "stack_frame" : true}, // Blank Space
+   {"name": "BLANK", "width": 100, "height": 200, "stack_frame" : true},
    {"isClass": true, "name": "func", "id": null, "value": {"age": 12, "name": 17}, "stack_frame": true},
    {"isClass": false, "name": "list", "id": 82, "value": [19, 43, 28, 49]},
    {"isClass": false, "name": "list", "id": 84, "value": [32, 10, 90, 57], "show_indexes": true},
    {"isClass": false, "name": "int", "id": 19, "value": 1969},
-   {"name": "BLANK", "width": 100, "height": 200}, // Blank Space
+   {"name": "BLANK", "width": 100, "height": 200},
    {"isClass": false, "name": "bool", "id": 32, "value": true},
    {"isClass": false, "name": "str", "id": 43, "value": "David is cool"},
-   {"name": "BLANK", "width": 200, "height": 150}, // Blank Space
+   {"name": "BLANK", "width": 200, "height": 150},
    {"isClass": false, "name": "tuple", "id": 11, "value": [82, 76]},
 ]
 
