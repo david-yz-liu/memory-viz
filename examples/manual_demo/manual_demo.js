@@ -9,9 +9,9 @@
 const { draw } = require("../../dist/memory_models_rough.node.js");
 
 const m = draw(
-    objects="./manual_demo.json",
-    automation=false,
-    configuration={}
-)
+    (objects = "./manual_demo.json"),
+    (automation = false),
+    (configuration = {})
+);
 
-m.save("manual_demo.svg")
+m.save("manual_demo.svg");

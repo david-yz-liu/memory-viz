@@ -1,5 +1,5 @@
 const config = {
-    rect_style: {stroke: "rgb(0, 0, 0)"},
+    rect_style: { stroke: "rgb(0, 0, 0)" },
     text_color: "rgb(0, 0, 0)", // Default text color
     value_color: "rgb(27, 14, 139)", // Text color for primitive values
     id_color: "rgb(150, 100, 28)", // Text color for object ids
@@ -14,6 +14,6 @@ const config = {
     list_index_sep: 20, // Vertical offset for list index labels
     font_size: 20, // Font size, in px
     browser: false, // Whether this library is being used in a browser context
-}
+};
 
-export {config}
+export { config };

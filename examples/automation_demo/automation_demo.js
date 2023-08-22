@@ -11,18 +11,15 @@
 const { draw } = require("../../dist/memory_models_rough.node.js");
 
 const configuration = {
-    width: 1300, padding: 30,
+    width: 1300,
+    padding: 30,
     top_margin: 30,
     bottom_margin: 40,
     left_margin: 20,
-    right_margin:30,
-    sort_by: "id"
+    right_margin: 30,
+    sort_by: "id",
 };
 
-const m = draw(
-    "./automation_demo.json",
-    true,
-    configuration
-)
+const m = draw("./automation_demo.json", true, configuration);
 
-m.save("automation_demo.svg")
+m.save("automation_demo.svg");

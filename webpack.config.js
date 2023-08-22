@@ -1,4 +1,4 @@
-const path = require("path")
+const path = require("path");
 
 const module_config = {
     rules: [
@@ -13,7 +13,7 @@ const module_config = {
             },
         },
     ],
-}
+};
 
 module.exports = [
     {
@@ -30,7 +30,7 @@ module.exports = [
         },
         module: module_config,
         mode: "development",
-        devtool: 'inline-source-map',
+        devtool: "inline-source-map",
         resolve: {
             fallback: {
                 fs: false,
@@ -40,7 +40,7 @@ module.exports = [
     {
         target: "node",
         entry: {
-            'index': path.resolve(__dirname, "src/index.js"),
+            index: path.resolve(__dirname, "src/index.js"),
         },
         // entry: [
         //     path.resolve(__dirname, "src/index.js"),
@@ -61,6 +61,6 @@ module.exports = [
         },
         module: module_config,
         mode: "development",
-        devtool: 'inline-source-map',
+        devtool: "inline-source-map",
     },
-]
+];

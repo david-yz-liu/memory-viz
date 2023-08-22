@@ -4,9 +4,22 @@ all the source js files, and by exporting them they get bundled to the bundle fi
 defined `entry: path.resolve(__dirname, "src/index.js")` in webpack.config.js.
  */
 
-const {MemoryModel} = require("./memory_model.js");
-const {config} = require("./config");
-const {drawAutomated, drawAutomatedOtherItems, drawAutomatedStackFrames, getSize} = require("./automate.js");
-const {draw} = require("./user_functions.js");
+const { MemoryModel } = require("./memory_model.js");
+const { config } = require("./config");
+const {
+    drawAutomated,
+    drawAutomatedOtherItems,
+    drawAutomatedStackFrames,
+    getSize,
+} = require("./automate.js");
+const { draw } = require("./user_functions.js");
 
-export default {MemoryModel, config, drawAutomated, drawAutomatedOtherItems, drawAutomatedStackFrames, draw, getSize};
+export default {
+    MemoryModel,
+    config,
+    drawAutomated,
+    drawAutomatedOtherItems,
+    drawAutomatedStackFrames,
+    draw,
+    getSize,
+};

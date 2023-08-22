@@ -6,7 +6,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "watch": "webpack --watch",
-        "build": "webpack"
+        "build": "webpack",
+        "prepare": "husky install"
     },
     "keywords": [
         "education",
@@ -26,8 +27,13 @@
         "@babel/core": "^7.20.7",
         "@babel/preset-env": "^7.20.2",
         "babel-loader": "^9.1.0",
+        "husky": "^8.0.3",
+        "lint-staged": "^14.0.1",
         "prettier": "2.8.1",
         "webpack": "^5.75.0",
         "webpack-cli": "^5.0.1"
+    },
+    "lint-staged": {
+        "**/*": "prettier --write --ignore-unknown"
     }
 }

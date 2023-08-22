@@ -26,7 +26,6 @@ and the objects section is determined dynamically).
 Below we thoroughly describe the steps for each of the two functions:
 `drawAutomatedOtherItems` and `drawAutomatedStackFrames`.
 
-
 ### drawAutomatedStackFrames:
 
 1. First we make sure that no configuration options (padding etc.)
@@ -51,60 +50,59 @@ Below we thoroughly describe the steps for each of the two functions:
    the object. After the loop, we update the accumulator in accordance with the `configuration.padding`.
 
 7. At the end, we return a JS object that has the following format
-`{StackFrames: ..., requiredHeight: ..., requiredWidth: ...}`
-
-
+   `{StackFrames: ..., requiredHeight: ..., requiredWidth: ...}`
 
 ### drawAutomatedOtherItems:
 
-1. Determine the size --width and height-- of the (outer) box of each object if it were to 
-be drawn on canvas, and **equip the object with its calculated dimensions, by adding width and height properties**. This will tell us exactly how much space each
-object will require in the canvas. For this purpose I created the `getSize` function
-in the `automate.js` module, which accepts any object and returns the
-size it would have on canvas.*
+1. Determine the size --width and height-- of the (outer) box of each object if it were to
+   be drawn on canvas, and **equip the object with its calculated dimensions, by adding width and height properties**. This will tell us exactly how much space each
+   object will require in the canvas. For this purpose I created the `getSize` function
+   in the `automate.js` module, which accepts any object and returns the
+   size it would have on canvas.\*
 
-2. Sort the list of objects by descending height of the objects 
-(the height and weight properties were added to each object in 
-STEP 1). The purpose of this step is to economize on the height
-of the canvas; **all “tall” boxes ought to be together in the first 
-(few) “rows” of the canvas, so not all “rows” need to have a 
-large vertical value**. This sorting allows us to do this because
-once you place an object in a new row, you know all remaining objects
-will be shorter that this object.
-
+2. Sort the list of objects by descending height of the objects
+   (the height and weight properties were added to each object in
+   STEP 1). The purpose of this step is to economize on the height
+   of the canvas; **all “tall” boxes ought to be together in the first
+   (few) “rows” of the canvas, so not all “rows” need to have a
+   large vertical value**. This sorting allows us to do this because
+   once you place an object in a new row, you know all remaining objects
+   will be shorter that this object.
 
 3. Loop through the passed list of objects (which now is equipped
-with dimensions, and is sorted by descending height), and let the
-current object be denoted as `obj`:
-- If `obj` fits horizontally (which is determined by checking
-   if the top-right coordinate of the last iteration's object,
-   plus some padding, plus the width of `obj` is less than the
-   width of the entire canvas), **equip `obj` with the (top-left) 
-   coordinates** it would take if it were drawn. 
-- If `obj` does NOT fit horizontally, we move to a new row.
-   The height of the new row will be the height of the current
-   object that does not fit (plus some padding), `obj`, since (due to the sorting
-   in step 2) `obj` is tallest amongst all remaining objects
-      (so it just makes sense to the make this the height of
-   the row itself). 
-   Again, **equip `obj` with the (top-left) coordinates** it 
-   would take if it were drawn (in this case, the x-coordinate
-   would go back to the initial state since we moved to a new row,
-   and the y-coordinate would increase by the height of the 
-   *previous* row).
+   with dimensions, and is sorted by descending height), and let the
+   current object be denoted as `obj`:
+
+-   If `obj` fits horizontally (which is determined by checking
+    if the top-right coordinate of the last iteration's object,
+    plus some padding, plus the width of `obj` is less than the
+    width of the entire canvas), **equip `obj` with the (top-left)
+    coordinates** it would take if it were drawn.
+-   If `obj` does NOT fit horizontally, we move to a new row.
+    The height of the new row will be the height of the current
+    object that does not fit (plus some padding), `obj`, since (due to the sorting
+    in step 2) `obj` is tallest amongst all remaining objects
+    (so it just makes sense to the make this the height of
+    the row itself).
+    Again, **equip `obj` with the (top-left) coordinates** it
+    would take if it were drawn (in this case, the x-coordinate
+    would go back to the initial state since we moved to a new row,
+    and the y-coordinate would increase by the height of the
+    _previous_ row).
 
 4. Return the mutated list of objects.
 
-*In case the object has `name="BLANK"`, it is assumed that the user has
+\*In case the object has `name="BLANK"`, it is assumed that the user has
 also provided a width and a height attribute corresponding to the desired
 width and height of the blank space. If such dimensions have not been provided,
 a related warning is printed and the object is skipped (no blank space is
 recorded).
 
 ### Summary
+
 As a result, the caller of the function (may that be an actual user
 or another function) has a list of objects equipped with coordinates,
 and can use `drawAll` (assuming the existence of a MemoryModel object)
 to actually draw them.
 
-Thus, **the process of determining coordinates is now fully automated**. 
+Thus, **the process of determining coordinates is now fully automated**.

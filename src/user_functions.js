@@ -1,5 +1,5 @@
-const {MemoryModel} = require("./memory_model.js");
-const {drawAutomated, getSize} = require("./automate.js");
+const { MemoryModel } = require("./memory_model.js");
+const { drawAutomated, getSize } = require("./automate.js");
 const fs = require("fs");
 
 /**
@@ -24,38 +24,34 @@ const fs = require("fs");
 function draw(objects, automation, configuration) {
     let objs;
 
-    if (typeof objects === 'string') {
+    if (typeof objects === "string") {
         const json_string = fs.readFileSync(objects, "utf-8");
 
         // Convert the JSON string into an array consisting of valid JS objects.
         objs = JSON.parse(json_string);
-
     } else {
         objs = objects;
     }
 
-
     let m;
 
     if (automation) {
-        if (!configuration.hasOwnProperty("width")){
-            throw new Error("Width argument for automated drawing is required.")
-
+        if (!configuration.hasOwnProperty("width")) {
+            throw new Error(
+                "Width argument for automated drawing is required."
+            );
         }
-        m = drawAutomated(objs, configuration.width, configuration)
-
+        m = drawAutomated(objs, configuration.width, configuration);
     } else {
-
         // Dynamically determining the width of the canvas, in case one has not been provided.
         if (!configuration.hasOwnProperty("width")) {
-
             let rightmost_obj;
             let rightmost_edge = 0;
 
             for (const obj of objs) {
                 const width = getSize(obj).width;
                 const curr_edge = obj.x + width;
-                if ( curr_edge > rightmost_edge) {
+                if (curr_edge > rightmost_edge) {
                     rightmost_edge = curr_edge;
                     rightmost_obj = obj;
                 }
@@ -65,31 +61,30 @@ function draw(objects, automation, configuration) {
 
         // Dynamically determining the height of the canvas, in case one has not been provided.
         if (!configuration.hasOwnProperty("height")) {
-
             let downmost_obj = objs[0];
             let downmost_edge = 0;
 
             for (const obj of objs) {
-
                 const height = getSize(obj).height;
                 const curr_edge = obj.y + height;
 
-                if (curr_edge > downmost_edge){
-                    downmost_obj = obj
-                    downmost_edge = obj.y + height
+                if (curr_edge > downmost_edge) {
+                    downmost_obj = obj;
+                    downmost_edge = obj.y + height;
                 }
             }
 
             configuration.height = downmost_edge + 100;
         }
 
-        m = new MemoryModel({width: configuration.width, height: configuration.height})
-        m.drawAll(objs)
+        m = new MemoryModel({
+            width: configuration.width,
+            height: configuration.height,
+        });
+        m.drawAll(objs);
     }
 
     return m;
-
 }
 
-export {draw};
-
+export { draw };

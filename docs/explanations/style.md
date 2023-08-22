@@ -1,9 +1,10 @@
 ## Style API
 
-A user is able to add custom styling to an object 
+A user is able to add custom styling to an object
 (of the list of objects to be drawn on canvas) by
-adding an attribute named `style` which maps to an object of the 
+adding an attribute named `style` which maps to an object of the
 following format:
+
 ```javascript
 style : {
     "text_id" : {},
@@ -15,7 +16,7 @@ style : {
 }
 ```
 
-The object has up to six attributes (the ones observed above), each 
+The object has up to six attributes (the ones observed above), each
 corresponding to a particular component of an object with the potential
 to be styled.
 
@@ -24,25 +25,25 @@ a mixture of presents (name of the preset in the string data format) and a user-
 Object. To better illustrate this, here is an example:
 
 ```javascript
-["highlight", "hide_type", {"text_id" : {"font-style" : "italic"}}]
+["highlight", "hide_type", { text_id: { "font-style": "italic" } }];
 ```
 
-
-Crucially, each of the attributes in the `style` object (if user passes in an Object) 
+Crucially, each of the attributes in the `style` object (if user passes in an Object)
 refer themselves to another object:
 
-- Text-related attributes can contain any attribute specified in the
-documentation of the text element for svg graphics, found on 
-https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
-- Box-related attributes can contain any styling attributes specified in the
-  documentation of the rough library, found on https://roughjs.com/ and
-  https://github.com/rough-stuff/rough/wiki.
-
+-   Text-related attributes can contain any attribute specified in the
+    documentation of the text element for svg graphics, found on
+    https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
+-   Box-related attributes can contain any styling attributes specified in the
+    documentation of the rough library, found on https://roughjs.com/ and
+    https://github.com/rough-stuff/rough/wiki.
 
 ## Insights for the Implementation
+
 The user specifies a desired style for each of the objects in the list.
 
 ### Merging
+
 First, there is a default object that contains all key-value pairs of style attributes
 that (be default) are common across objects of all types. This object is called `common_style`.
 
@@ -55,12 +56,13 @@ Finally, any user-supplied styling attributes are merged to the current style ob
 This is the second and final merge.
 
 ### Cascade
-The above "merging" procedure takes place inside the `drawAll` method (using the 
+
+The above "merging" procedure takes place inside the `drawAll` method (using the
 `populateDefaultStyle` helper function).
 
 Then, inside the `drawClass` and `drawObject` methods (which are called from within
 `drawALl`), for every invocation of `drawText` and `drawRect` (responsible for drawing
-text and boxes, respectively), the corresponding attribute of the object's style 
+text and boxes, respectively), the corresponding attribute of the object's style
 object is passed (for instance, in the case where `drawText` is called to draw the id value
 inside the id box, `style.text_id` is passed as an argument to `drawText`).
 
@@ -75,18 +77,18 @@ Thus, the style is cascaded down from user to drawText/drawRect as follows:
 
 user-defined style --> drawAll --> drawClass/drawObject --> drawText/drawRect
 
-
 ## Examples
 
 ### Example 1
+
 `style:
         {"text_value" : {"font-style" : "italic"},
         'box_id': {fill: 'blue', fillStyle: "dots"}}
 `
-In this example, it is important to note that for box styles 
-(the ones which uses rough.js module), `fill` must be passed in if 
+In this example, it is important to note that for box styles
+(the ones which uses rough.js module), `fill` must be passed in if
 fillStyle argument will be passed in by the user. Otherwise, the behavior of the style will be in the default format
-(refer to the rough.js module for the default style). Also, it points outs that the user has the 
+(refer to the rough.js module for the default style). Also, it points outs that the user has the
 flexibility for defining the styles related to both boxes and text drawn on the canvas.
 
 ### Example 2
@@ -100,7 +102,6 @@ This example illustrates that our implementation for box styles are defined on
 three boxes: the container, the box that represents the id and the box that represents
 the data type. Therefore, the user can utilize the rough.js module for these three boxes that
 are drawn on the canvas (two for stack-frames, as they do not have ids associated with them)
-
 
 ### Example 3
 

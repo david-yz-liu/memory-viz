@@ -1,11 +1,17 @@
-import fs from "fs"
-import rough from "roughjs/bundled/rough.esm.js"
+import fs from "fs";
+import rough from "roughjs/bundled/rough.esm.js";
 
-const merge = require('deepmerge')
+const merge = require("deepmerge");
 
-const {populateStyleObject, immutable, collections, presets, default_text_style} = require("./style")
-const {config} = require("./config")
-const { DOMImplementation, XMLSerializer } = require("@xmldom/xmldom")
+const {
+    populateStyleObject,
+    immutable,
+    collections,
+    presets,
+    default_text_style,
+} = require("./style");
+const { config } = require("./config");
+const { DOMImplementation, XMLSerializer } = require("@xmldom/xmldom");
 
 /** The class representing the memory model diagram of the given block of code. */
 class MemoryModel {
@@ -25,29 +31,31 @@ class MemoryModel {
      *
      */
     constructor(options) {
-        options = options || {}
+        options = options || {};
         if (options.browser) {
-            this.document = document
+            this.document = document;
         } else {
             this.document = new DOMImplementation().createDocument(
                 "http://www.w3.org/1999/xhtml",
                 "html",
                 null
-            )
+            );
         }
 
         this.svg = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
             "svg"
-        )
+        );
 
-        this.svg.setAttribute("width", options.width || 800)
-        this.svg.setAttribute("height", options.height || 800)
-        this.rough_svg = rough.svg(this.svg)
+        this.svg.setAttribute("width", options.width || 800);
+        this.svg.setAttribute("height", options.height || 800);
+        this.rough_svg = rough.svg(this.svg);
 
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
-            this[key] = options.hasOwnProperty(key) ? options[key] : config[key]
+            this[key] = options.hasOwnProperty(key)
+                ? options[key]
+                : config[key];
         }
     }
 
@@ -58,16 +66,16 @@ class MemoryModel {
      * will be saved).
      */
     save(path) {
-        const xmlSerializer = new XMLSerializer()
-        let xml = xmlSerializer.serializeToString(this.svg)
+        const xmlSerializer = new XMLSerializer();
+        let xml = xmlSerializer.serializeToString(this.svg);
         if (path === undefined) {
-            console.log(xml)
+            console.log(xml);
         } else {
             fs.writeFile(path, xml, (err) => {
                 if (err) {
-                    console.error(err)
+                    console.error(err);
                 }
-            })
+            });
         }
     }
 
@@ -76,11 +84,11 @@ class MemoryModel {
      * @param canvas - the element that will be used to draw graphics
      */
     render(canvas) {
-        const ctx = canvas.getContext("2d")
-        let image = new Image()
-        let data = "data:image/svg+xml;base64," + window.btoa(this.svg)
-        image.src = data
-        ctx.drawImage(image, 0, 0)
+        const ctx = canvas.getContext("2d");
+        let image = new Image();
+        let data = "data:image/svg+xml;base64," + window.btoa(this.svg);
+        image.src = data;
+        ctx.drawImage(image, 0, 0);
     }
 
     /**
@@ -98,17 +106,24 @@ class MemoryModel {
     drawObject(x, y, type, id, value, show_indexes, style) {
         if (collections.includes(type)) {
             if (type === "dict") {
-                return this.drawDict(x, y, id, value, style)
+                return this.drawDict(x, y, id, value, style);
             } else if (type === "set") {
-                return this.drawSet(x, y, id, value, style)
+                return this.drawSet(x, y, id, value, style);
             } else if (type === "list" || type === "tuple") {
-                return this.drawSequence(x, y, type, id, value, show_indexes, style)
+                return this.drawSequence(
+                    x,
+                    y,
+                    type,
+                    id,
+                    value,
+                    show_indexes,
+                    style
+                );
             }
         } else {
-            return this.drawPrimitive(x, y, type, id, value, style)
+            return this.drawPrimitive(x, y, type, id, value, style);
         }
     }
-
 
     /**
      * Draw a primitive object.
@@ -125,29 +140,43 @@ class MemoryModel {
         let box_width = Math.max(
             this.obj_min_width,
             this.getTextLength(String(value)) + this.obj_x_padding
-        )
-        this.drawRect(x, y, box_width, this.obj_min_height, style.box_container)
+        );
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            this.obj_min_height,
+            style.box_container
+        );
 
-        let size = {width: box_width, height: this.obj_min_heigth, x: x, y: y};
+        let size = {
+            width: box_width,
+            height: this.obj_min_heigth,
+            x: x,
+            y: y,
+        };
 
         if (immutable.includes(type)) {
-            this.drawRect( // While no style argument is provided, the drawRect method manages this scenario automatically.
+            this.drawRect(
+                // While no style argument is provided, the drawRect method manages this scenario automatically.
                 x - this.double_rect_sep,
                 y - this.double_rect_sep,
                 box_width + 2 * this.double_rect_sep,
                 this.obj_min_height + 2 * this.double_rect_sep
-            )
-            size = {width: box_width + 2 * this.double_rect_sep,
+            );
+            size = {
+                width: box_width + 2 * this.double_rect_sep,
                 height: this.obj_min_height + 2 * this.double_rect_sep,
                 x: x - this.double_rect_sep,
-                y: y - this.double_rect_sep};
+                y: y - this.double_rect_sep,
+            };
         }
 
-        let display_text
+        let display_text;
         if (type === "bool") {
-            display_text = value ? "True" : "False"
+            display_text = value ? "True" : "False";
         } else {
-            display_text = JSON.stringify(value)
+            display_text = JSON.stringify(value);
         }
 
         if (value !== null && value !== undefined) {
@@ -156,10 +185,10 @@ class MemoryModel {
                 x + box_width / 2,
                 y + (this.obj_min_height + this.prop_min_height) / 2,
                 style.text_value
-            )
+            );
         }
 
-        this.drawProperties(id, type, x, y, box_width, style)
+        this.drawProperties(id, type, x, y, box_width, style);
 
         return size;
     }
@@ -176,33 +205,38 @@ class MemoryModel {
      * boxes, refer to the Rough.js documentation.
      */
     drawProperties(id, type, x, y, width, style) {
-
         let id_box = Math.max(
             this.prop_min_width,
             this.getTextLength(`id${id}`) + 10
-        )
+        );
 
         let type_box = Math.max(
             this.prop_min_width,
             this.getTextLength(type) + 10
-        )
+        );
 
         this.drawText(
             id === null ? "" : `id${id}`,
             x + id_box / 2,
             y + this.font_size * 1.5,
             style.text_id
-        )
+        );
 
         this.drawText(
             type,
             x + width - type_box / 2,
             y + this.font_size * 1.5,
-             style.text_type
-        )
+            style.text_type
+        );
 
-        this.drawRect(x, y, id_box, this.prop_min_height, style.box_id)
-        this.drawRect(x + width - type_box, y, type_box, this.prop_min_height, style.box_type)
+        this.drawRect(x, y, id_box, this.prop_min_height, style.box_id);
+        this.drawRect(
+            x + width - type_box,
+            y,
+            type_box,
+            this.prop_min_height,
+            style.box_type
+        );
     }
 
     /**
@@ -235,26 +269,25 @@ class MemoryModel {
      * boxes, refer to the Rough.js documentation.
      */
     drawSequence(x, y, type, id, element_ids, show_idx, style) {
-
-        let box_width = this.obj_x_padding * 2
+        let box_width = this.obj_x_padding * 2;
 
         element_ids.forEach((v) => {
             box_width += Math.max(
                 this.item_min_width,
                 this.getTextLength(v === null ? "" : `id${v}`) + 10
-            )
-        })
+            );
+        });
 
-        box_width = Math.max(this.obj_min_width, box_width)
+        box_width = Math.max(this.obj_min_width, box_width);
 
-        let box_height = this.obj_min_height
+        let box_height = this.obj_min_height;
         if (show_idx) {
-            box_height += this.list_index_sep
+            box_height += this.list_index_sep;
         }
 
-        this.drawRect(x, y, box_width, box_height, style.box_container)
+        this.drawRect(x, y, box_width, box_height, style.box_container);
 
-        const size = {width: box_width, height: box_height, x: x, y: y};
+        const size = { width: box_width, height: box_height, x: x, y: y };
 
         if (immutable.includes(type)) {
             this.drawRect(
@@ -262,44 +295,44 @@ class MemoryModel {
                 y - this.double_rect_sep,
                 box_width + 2 * this.double_rect_sep,
                 box_height + 2 * this.double_rect_sep
-            )
+            );
         }
 
-        let curr_x = x + this.item_min_width / 2
+        let curr_x = x + this.item_min_width / 2;
         let item_y =
             y +
             this.prop_min_height +
             (this.obj_min_height -
                 this.prop_min_height -
                 this.item_min_height) /
-            2
+                2;
         if (show_idx) {
-            item_y += this.list_index_sep
+            item_y += this.list_index_sep;
         }
         element_ids.forEach((v, i) => {
-            const idv = v === null ? "" : `id${v}`
+            const idv = v === null ? "" : `id${v}`;
             const item_length = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv) + 10
-            )
-            this.drawRect(curr_x, item_y, item_length, this.item_min_height)
+            );
+            this.drawRect(curr_x, item_y, item_length, this.item_min_height);
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
                 style.text_value
-            )
+            );
             if (show_idx) {
                 this.drawText(
                     i,
                     curr_x + item_length / 2,
                     item_y - this.item_min_height / 4,
                     style.text_id
-                )
+                );
             }
 
-            curr_x += item_length
-        })
+            curr_x += item_length;
+        });
 
         if (type === "list") {
             this.drawProperties(id, "list", x, y, box_width, style);
@@ -331,68 +364,74 @@ class MemoryModel {
      * @returns {number[]} the top-left coordinates, width, and height of the outermost box
      */
     drawSet(x, y, id, element_ids, style) {
-
-        let box_width = this.obj_x_padding * 2
+        let box_width = this.obj_x_padding * 2;
         element_ids.forEach((v) => {
             box_width += Math.max(
                 this.item_min_width,
                 this.getTextLength(v === null ? "" : `id${v}`) + 10
-            )
-        })
-        box_width = Math.max(this.obj_min_width, box_width)
-        box_width += ((element_ids.length - 1) * this.item_min_width) / 4 // Space for separators
+            );
+        });
+        box_width = Math.max(this.obj_min_width, box_width);
+        box_width += ((element_ids.length - 1) * this.item_min_width) / 4; // Space for separators
 
-        this.drawRect(x, y, box_width, this.obj_min_height, style.box_container)
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            this.obj_min_height,
+            style.box_container
+        );
 
-        const SIZE = {x, y, width: box_width, height: this.obj_min_height}
+        const SIZE = { x, y, width: box_width, height: this.obj_min_height };
 
-        let curr_x = x + this.item_min_width / 2
+        let curr_x = x + this.item_min_width / 2;
         let item_y =
             y +
             this.prop_min_height +
             (this.obj_min_height -
                 this.prop_min_height -
                 this.item_min_height) /
-            2
-        let item_text_y = item_y + this.item_min_height / 2 + this.font_size / 4
+                2;
+        let item_text_y =
+            item_y + this.item_min_height / 2 + this.font_size / 4;
 
         element_ids.forEach((v, i) => {
-            const idv = v === null ? "" : `id${v}`
+            const idv = v === null ? "" : `id${v}`;
             const item_length = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv) + 10
-            )
-            this.drawRect(curr_x, item_y, item_length, this.item_min_height)
+            );
+            this.drawRect(curr_x, item_y, item_length, this.item_min_height);
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
                 style.text_value
-            )
+            );
             if (i > 0) {
                 this.drawText(
                     ",",
                     curr_x - this.item_min_width / 8,
                     item_text_y,
                     default_text_style
-                )
+                );
             }
-            curr_x += item_length + this.item_min_height / 4
-        })
+            curr_x += item_length + this.item_min_height / 4;
+        });
 
-        this.drawProperties(id, "set", x, y, box_width, style)
+        this.drawProperties(id, "set", x, y, box_width, style);
         this.drawText(
             "{",
             x + this.item_min_width / 4,
             item_text_y,
             default_text_style
-        )
+        );
         this.drawText(
             "}",
             x + box_width - this.item_min_width / 4,
             item_text_y,
             default_text_style
-        )
+        );
 
         return SIZE;
     }
@@ -409,22 +448,22 @@ class MemoryModel {
      * @returns {object} the top-left coordinates, width, and height of the outermost box
      */
     drawDict(x, y, id, obj, style) {
-        let box_width = this.obj_min_width
-        let box_height = this.prop_min_height + this.item_min_height / 2
+        let box_width = this.obj_min_width;
+        let box_height = this.prop_min_height + this.item_min_height / 2;
 
-        let curr_y = y + this.prop_min_height + this.item_min_height / 2
+        let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
-            let idk = k === null ? "" : `id${k}`
-            let idv = k === null || obj[k] === null ? "" : `id${obj[k]}`
+            let idk = k === null ? "" : `id${k}`;
+            let idv = k === null || obj[k] === null ? "" : `id${obj[k]}`;
 
             let key_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idk + 5)
-            )
+            );
             let value_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv + 5)
-            )
+            );
 
             // Draw the rectangles representing the keys.
             this.drawRect(
@@ -432,43 +471,43 @@ class MemoryModel {
                 curr_y,
                 key_box,
                 this.item_min_height
-            )
+            );
 
             this.drawText(
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
                 style.text_value
-            )
+            );
 
-            curr_y += this.item_min_height * 1.5
+            curr_y += this.item_min_height * 1.5;
 
             box_width = Math.max(
                 box_width,
                 this.obj_x_padding * 2 +
-                key_box +
-                value_box +
-                2 * this.font_size
-            )
-            box_height += 1.5 * this.item_min_height
+                    key_box +
+                    value_box +
+                    2 * this.font_size
+            );
+            box_height += 1.5 * this.item_min_height;
         }
 
         // A second loop, so that we can position the colon and value boxes correctly.
-        curr_y = y + this.prop_min_height + this.item_min_height / 2
+        curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
-            let idv = k === null || obj[k] === null ? "" : `id${obj[k]}`
+            let idv = k === null || obj[k] === null ? "" : `id${obj[k]}`;
 
             let value_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv + 5)
-            )
+            );
 
             this.drawText(
                 ":",
                 x + box_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                {fill: this.text_color}
-            )
+                { fill: this.text_color }
+            );
 
             // Draw the rectangle for values.
             this.drawRect(
@@ -476,20 +515,20 @@ class MemoryModel {
                 curr_y,
                 value_box,
                 this.item_min_height
-            )
+            );
 
             this.drawText(
                 idv,
                 x + box_width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 style.text_value
-            )
+            );
 
-            curr_y += this.item_min_height * 1.5
+            curr_y += this.item_min_height * 1.5;
         }
 
-        this.drawRect(x, y, box_width, box_height, style.box_container)
-        const SIZE = {x, y, width: box_width, height: box_height}
+        this.drawRect(x, y, box_width, box_height, style.box_container);
+        const SIZE = { x, y, width: box_width, height: box_height };
 
         this.drawProperties(id, "dict", x, y, box_width, style);
 
@@ -510,51 +549,50 @@ class MemoryModel {
      * @returns {number[]} the top-left coordinates, width, and height of the outermost box
      */
     drawClass(x, y, name, id, attributes, stack_frame, style) {
-        let box_width = this.obj_min_width
-        let longest = 0
+        let box_width = this.obj_min_width;
+        let longest = 0;
         for (const attribute in attributes) {
-            longest = Math.max(longest, this.getTextLength(attribute))
+            longest = Math.max(longest, this.getTextLength(attribute));
         }
         if (longest > 0) {
-            box_width = longest + this.item_min_width * 3
+            box_width = longest + this.item_min_width * 3;
         }
         box_width = Math.max(
             box_width,
             this.prop_min_width + this.getTextLength(name) + 10
-        )
+        );
 
-        let box_height = 0
+        let box_height = 0;
         if (Object.keys(attributes).length > 0) {
             box_height =
                 ((this.item_min_width * 3) / 2) *
-                Object.keys(attributes).length +
+                    Object.keys(attributes).length +
                 this.item_min_width / 2 +
-                this.prop_min_height
+                this.prop_min_height;
         } else {
-            box_height = this.obj_min_height
+            box_height = this.obj_min_height;
         }
-        this.drawRect(x, y, box_width, box_height, style.box_container)
+        this.drawRect(x, y, box_width, box_height, style.box_container);
 
-        const SIZE = {x, y, width: box_width, height: box_height}
+        const SIZE = { x, y, width: box_width, height: box_height };
 
         // Draw element boxes.
-        let curr_y = y + this.prop_min_height + this.item_min_height / 2
+        let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const attribute in attributes) {
-            const val = attributes[attribute]
-            let idv = val === null ? "" : `id${val}`
+            const val = attributes[attribute];
+            let idv = val === null ? "" : `id${val}`;
             let attr_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv) + 10
-            )
+            );
             this.drawRect(
                 x + box_width - this.item_min_width * 1.5,
                 curr_y,
                 attr_box,
                 this.item_min_height
-            )
+            );
 
-            if (!stack_frame){
-
+            if (!stack_frame) {
                 if (!style.text_value.hasOwnProperty("fill")) {
                     style.text_value["fill"] = this.text_color;
                 }
@@ -568,27 +606,33 @@ class MemoryModel {
                 x + this.item_min_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 style.text_value
-            )
+            );
             this.drawText(
                 idv,
                 x + box_width - this.item_min_width * 1.5 + attr_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 style.text_id
-            )
-            curr_y += this.item_min_height * 1.5
+            );
+            curr_y += this.item_min_height * 1.5;
         }
 
         if (stack_frame) {
-            let text_length = this.getTextLength(name)
-            this.drawRect(x, y, text_length + 10, this.prop_min_height, style.box_container)
+            let text_length = this.getTextLength(name);
+            this.drawRect(
+                x,
+                y,
+                text_length + 10,
+                this.prop_min_height,
+                style.box_container
+            );
             this.drawText(
                 name,
                 x + text_length / 2 + 5,
                 y + this.prop_min_height * 0.6,
                 style.text_type
-            )
+            );
         } else {
-            this.drawProperties(id, name, x, y, box_width, style)
+            this.drawProperties(id, name, x, y, box_width, style);
         }
 
         return SIZE;
@@ -610,7 +654,7 @@ class MemoryModel {
 
         this.svg.appendChild(
             this.rough_svg.rectangle(x, y, width, height, style)
-        )
+        );
     }
 
     /**
@@ -625,10 +669,8 @@ class MemoryModel {
      */
 
     drawText(text, x, y, style) {
-
         style["x"] = x;
         style["y"] = y;
-
 
         for (const style_attribute of Object.keys(default_text_style)) {
             if (!style.hasOwnProperty(style_attribute)) {
@@ -636,19 +678,17 @@ class MemoryModel {
             }
         }
 
-
         const newElement = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
             "text"
-        )
+        );
 
         for (const style_attribute of Object.keys(style)) {
-            newElement.setAttribute(style_attribute, style[style_attribute])
+            newElement.setAttribute(style_attribute, style[style_attribute]);
         }
 
-
-        newElement.appendChild(this.document.createTextNode(text))
-        this.svg.appendChild(newElement)
+        newElement.appendChild(this.document.createTextNode(text));
+        this.svg.appendChild(newElement);
     }
 
     /**
@@ -656,9 +696,8 @@ class MemoryModel {
      * @param {string} s - The given text.
      */
     getTextLength(s) {
-        return s.length * 12
+        return s.length * 12;
     }
-
 
     /**
      * Create a MemoryModel given a list of JS objects.
@@ -704,37 +743,49 @@ class MemoryModel {
             if (Array.isArray(obj.style)) {
                 // Parsing the 'objects' array is essential, potentially converting preset keywords into the
                 // current item's 'style' object.
-                let styleSoFar = {}
+                let styleSoFar = {};
 
                 for (let el of obj.style) {
-
                     if (typeof el === "string") {
                         el = presets[el];
                     }
 
                     // Note that, the later will take precedence over styleSoFar.
-                    styleSoFar = merge(styleSoFar, el)
-
+                    styleSoFar = merge(styleSoFar, el);
                 }
 
-                obj.style =  styleSoFar;
+                obj.style = styleSoFar;
             }
-
 
             obj.style = populateStyleObject(obj);
 
             if (obj.isClass) {
-                const size = this.drawClass(obj.x, obj.y, obj.name, obj.id, obj.value, obj.stack_frame, obj.style);
+                const size = this.drawClass(
+                    obj.x,
+                    obj.y,
+                    obj.name,
+                    obj.id,
+                    obj.value,
+                    obj.stack_frame,
+                    obj.style
+                );
                 sizes_arr.push(size);
             } else {
-                const size = this.drawObject(obj.x, obj.y, obj.name, obj.id, obj.value, obj.show_indexes, obj.style);
+                const size = this.drawObject(
+                    obj.x,
+                    obj.y,
+                    obj.name,
+                    obj.id,
+                    obj.value,
+                    obj.show_indexes,
+                    obj.style
+                );
                 sizes_arr.push(size);
             }
         }
 
         return sizes_arr;
     }
-
 }
 
-export { MemoryModel }
+export { MemoryModel };

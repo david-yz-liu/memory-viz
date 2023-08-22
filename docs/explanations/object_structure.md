@@ -5,32 +5,33 @@ the array of objects to be drawn.
 
 To be successfully rendered, the array must contain objects that strictly follow a specific structure. Every object
 must contain the following attributes:
-- `isClass` - `boolean`: denotes whether the object to be drawn is a user-defined class (or a stack-frame) or a built-in
-  object. Pass true to draw a class or a stack-frame, and false to draw any built-in types.
-- `name` - `string`: denotes the type of the object to draw (if `isClass===true`, then this is the name of the
-  corresponding class or stackframe).
-- If the user want to hardcode the coordinates (implying the `automation` parameter of `draw` is false), each object
-must include `x` and `y` attributes (for x-y coordinates).
-- `id` - `string`|`number`: denotes the id value of this object. If we are to draw a StackFrame, then this MUST be `null`.
-- `value` - `*`: denotes the value of the object. This could be anything, from an empty string to a JS object,
-   which would be passed for the purpose of drawing a user-defined class object, a
-   stackframe, or a dictionary. 
-   **Note that in such cases where we want to do draw a 'container'
-   object (an object that contains other objects), we pass a *JS object* where the keys are the
-   attributes/variables and the values are the id's of the corresponding objects (not the
+
+-   `isClass` - `boolean`: denotes whether the object to be drawn is a user-defined class (or a stack-frame) or a built-in
+    object. Pass true to draw a class or a stack-frame, and false to draw any built-in types.
+-   `name` - `string`: denotes the type of the object to draw (if `isClass===true`, then this is the name of the
+    corresponding class or stackframe).
+-   If the user want to hardcode the coordinates (implying the `automation` parameter of `draw` is false), each object
+    must include `x` and `y` attributes (for x-y coordinates).
+-   `id` - `string`|`number`: denotes the id value of this object. If we are to draw a StackFrame, then this MUST be `null`.
+-   `value` - `*`: denotes the value of the object. This could be anything, from an empty string to a JS object,
+    which would be passed for the purpose of drawing a user-defined class object, a
+    stackframe, or a dictionary.
+    **Note that in such cases where we want to do draw a 'container'
+    object (an object that contains other objects), we pass a _JS object_ where the keys are the
+    attributes/variables and the values are the id's of the corresponding objects (not the
     objects themselves)**.
-- `stack_frame` - `boolean`: denotes whether a stack frame will be drawn or not. NOTE that this is only
-  applicable if the object's `isClass` attribute is true (since the
-  `MemoryModel.drawClass` covers both classes and stack-frames). By default,
-  `stack_frame` is set to null (*which is false*).
-- `show_indexes` - `boolean`: This is applicable only when drawing tuples or lists (when drawSequence
-  method will be used). It denotes whether the memory box of the underlying
-  sequence will include indices (for sequences) or not. This
-  has a default value of `false`, and it should be manually set to `true`
-  only if the object corresponds to a sequence (list or
-  tuple).
-- `style` - `object` | `array`: a JS object or array specifying the "style" of the object. See `style.md` for information
-on the required structure (also see `presets.md` for the full capabilities).
+-   `stack_frame` - `boolean`: denotes whether a stack frame will be drawn or not. NOTE that this is only
+    applicable if the object's `isClass` attribute is true (since the
+    `MemoryModel.drawClass` covers both classes and stack-frames). By default,
+    `stack_frame` is set to null (_which is false_).
+-   `show_indexes` - `boolean`: This is applicable only when drawing tuples or lists (when drawSequence
+    method will be used). It denotes whether the memory box of the underlying
+    sequence will include indices (for sequences) or not. This
+    has a default value of `false`, and it should be manually set to `true`
+    only if the object corresponds to a sequence (list or
+    tuple).
+-   `style` - `object` | `array`: a JS object or array specifying the "style" of the object. See `style.md` for information
+    on the required structure (also see `presets.md` for the full capabilities).
 
 ### Examples
 
