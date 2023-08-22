@@ -16,7 +16,6 @@ const fs = require("fs");
 
 const WIDTH = 1300;
 
-// Reading list of objects from JSON file
 const json_string = fs.readFileSync("../automation_demo.json", "utf-8");
 const objs = JSON.parse(json_string);
 
@@ -26,5 +25,4 @@ const m = drawAutomated(
     configuration = {}
 )
 
-// Saving to SVG file
 m.save("draw_automated.svg")

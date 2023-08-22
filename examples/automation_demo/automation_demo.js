@@ -19,7 +19,6 @@ const configuration = {
     sort_by: "id"
 };
 
-// Demonstrating with a JSON file instead of an actual JS array of objects.
 const m = draw(
     "./automation_demo.json",
     true,

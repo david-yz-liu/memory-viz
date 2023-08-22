@@ -23,7 +23,7 @@ const {objs, canvas_height, canvas_width} = drawAutomatedOtherItems(
     WIDTH,
     sort_by="height",
     config_aut= {},
-    sf_endpoint = 150 // this is the "separator", dividing the stack-frame space from the object space
+    sf_endpoint = 150 // This is the "separator", dividing the stack-frame space from the object space.
 )
 
 const m = new MemoryModel({width: canvas_width, height: canvas_height});

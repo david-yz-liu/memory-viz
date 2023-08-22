@@ -19,10 +19,9 @@ const {draw} = require("../../dist/memory_models_rough.node.js");
 
 const WIDTH = 1300;
 
-// This demo also illustrates how user can pass in a list of JS objects, instead of a JSON file.
 const listOfObjs = [
     {"isClass": true, "name": "__main__", "id": null, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11}, "stack_frame": true},
-    {"name": "BLANK", "width": 100, "height": 200, "stack_frame" : true}, // Blank Space
+    {"name": "BLANK", "width": 100, "height": 200, "stack_frame" : true},
     {"isClass": true, "name": "func", "id": null, "value": {"age": 12, "name": 17}, "stack_frame": true},
     {"isClass": false, "name": "list", "id": 82, "value": [19, 43, 28, 49]},
     {"isClass": false, "name": "list", "id": 84, "value": [32, 10, 90, 57], "show_indexes": true},

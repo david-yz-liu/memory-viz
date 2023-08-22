@@ -8,7 +8,6 @@
  */
 const { draw } = require("../../dist/memory_models_rough.node.js");
 
-// Demonstrating with a JSON file, instead of an array of objects.
 const m = draw(
     objects="./manual_demo.json",
     automation=false,
