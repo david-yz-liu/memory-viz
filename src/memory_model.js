@@ -45,9 +45,7 @@ class MemoryModel {
         this.svg.setAttribute("height", options.height || 800)
         this.rough_svg = rough.svg(this.svg)
 
-        // 'config' contains all properties that a 'MemoryModel' object must have.
-        // (However, note that the user should not have to interact with this constructor, as the only method they
-        // should be using is the `user_functions.draw`)
+        // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'
         for (const key in config) {
             this[key] = options.hasOwnProperty(key) ? options[key] : config[key]
         }
@@ -132,9 +130,8 @@ class MemoryModel {
 
         let size = {width: box_width, height: this.obj_min_heigth, x: x, y: y};
 
-        // For immutable types we need a double box, so we add another box that will contain the one we created.
         if (immutable.includes(type)) {
-            this.drawRect( // although we do not supply a `style` argument, the `drawRect` method automatically handles this situation.
+            this.drawRect( // While no style argument is provided, the drawRect method manages this scenario automatically.
                 x - this.double_rect_sep,
                 y - this.double_rect_sep,
                 box_width + 2 * this.double_rect_sep,
@@ -243,7 +240,6 @@ class MemoryModel {
 
         let box_width = this.obj_x_padding * 2
 
-        // For each element of 'element_ids', we increase 'box_width' as required, to make space for all values.
         element_ids.forEach((v) => {
             box_width += Math.max(
                 this.item_min_width,
@@ -260,7 +256,6 @@ class MemoryModel {
 
         this.drawRect(x, y, box_width, box_height, style.box_container)
 
-        // This will be used for automating the layout.
         const size = {width: box_width, height: box_height, x: x, y: y};
 
         if (immutable.includes(type)) {
@@ -352,7 +347,6 @@ class MemoryModel {
         // Draw box which represents the set object
         this.drawRect(x, y, box_width, this.obj_min_height, style.box_container)
 
-        // This is required information for automating the layout
         const SIZE = {x, y, width: box_width, height: this.obj_min_height}
 
         let curr_x = x + this.item_min_width / 2
@@ -498,7 +492,6 @@ class MemoryModel {
         }
 
         this.drawRect(x, y, box_width, box_height, style.box_container)
-        // This is required information for automating the layout
         const SIZE = {x, y, width: box_width, height: box_height}
 
         this.drawProperties(id, "dict", x, y, box_width, style);
@@ -545,7 +538,6 @@ class MemoryModel {
         }
         this.drawRect(x, y, box_width, box_height, style.box_container)
 
-        // This is required information for automating the layout
         const SIZE = {x, y, width: box_width, height: box_height}
 
         // Draw element boxes
@@ -714,23 +706,17 @@ class MemoryModel {
 
         for (const obj of objects) {
             if (Array.isArray(obj.style)) {
-                // Inside this body, we need to "parse" the 'objects' array, since it may include preset keywords to be
-                // converted to the actual 'style' object that the present represents.
+                // Parsing the 'objects' array is essential, potentially converting preset keywords into the
+                // current item's 'style' object.
                 let styleSoFar = {}
 
-                /*
-                PURPOSE OF FOR LOOP:
-                    Beginning with an empty (style) object ('styleSoFar'), the for loop gradually fill the object with
-                    properties by merging the current object with the current loop object
-                 */
                 for (let el of obj.style) {
 
                     if (typeof el === "string") {
                         el = presets[el];
                     }
 
-                    // Merging the accumulator 'styleSoFar' with the current loop variable object, el. Note that, the later
-                    // will take precedence over styleSoFar.
+                    // Note that, the later will take precedence over styleSoFar.
                     styleSoFar = merge(styleSoFar, el)
 
                 }

@@ -1,11 +1,11 @@
 const merge = require("deepmerge");
 const {config} = require("./config");
 
-// Built-in style for drawing text on canvas (if no custom style is provided by the user)
+// Built-in style for drawing text on canvas (if no style is provided by the user).
 const default_text_style = {'fill': config.text_color, 'text-anchor': 'middle',
     'font-family': 'Consolas, Courier', 'font-size': config.font_size};
 
-// Style attributes that (by default) across any type of data
+// Default style attributes that apply universally to any type of data.
 const common_style = {
     "text_id" :{"fill": config.id_color,'text-anchor': 'middle',
         'font-family': 'Consolas, Courier', 'font-size': config.font_size},
@@ -60,18 +60,18 @@ function populateStyleObject(object) {
         object_type = "collection"
     } else if (object.stack_frame) {
         object_type = "stackframe"
-    } else { // The object is a class object
+    } else {
         object_type = "class"
     }
 
     // We then add properties specific to the different type categories
     // Note that, the later will take precedence over styleSoFar.
-    style_so_far = merge(style_so_far, category_specific_styles[object_type]);  // Merge #1
+    style_so_far = merge(style_so_far, category_specific_styles[object_type]);
 
 
     // Finally, we complement the current style with any user-supplied properties.
     // Note that, the later will take precedence over styleSoFar.
-    style_so_far = merge(style_so_far, object.style || {}) // Merge #2
+    style_so_far = merge(style_so_far, object.style || {})
 
     return style_so_far;
 }

@@ -27,7 +27,7 @@ function draw(objects, automation, configuration) {
     if (typeof objects === 'string') {
         const json_string = fs.readFileSync(objects, "utf-8");
 
-        // Use JSON.parse in order to convert the return JSON string into a valid JavaScript object.
+        // Convert the JSON string into an array consisting of valid JS objects.
         objs = JSON.parse(json_string);
 
     } else {

@@ -44,7 +44,6 @@ function drawAutomated(objects, width, configuration) {
  */
 function drawAutomatedStackFrames(stack_frames, configuration) {
 
-    // Ensuring that no configuration options remain undefined.
     for (const req_prop of ["padding", "top_margin", "left_margin", "bottom_margin", "right_margin"]) {
         if (!configuration.hasOwnProperty(req_prop)) {
             configuration[req_prop] = config.obj_x_padding;
@@ -57,7 +56,7 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
 
     let draw_stack_frames = [];
 
-    // Loop through all the stack-frames to determine their individual box height
+    // Loop through all the stack-frames to determine their individual box height.
     for (const stack_frame of stack_frames){
 
         let width;
@@ -113,7 +112,6 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
 function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to avoid undefined error */,
                                  sf_endpoint) {
 
-    // Ensuring that no configuration options remain undefined.
     for (const req_prop of ["padding", "top_margin", "left_margin", "bottom_margin", "right_margin"]) {
         if (!config_aut.hasOwnProperty(req_prop)) {
             config_aut[req_prop] = config.obj_x_padding;
@@ -122,7 +120,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
 
     const PADDING = config_aut.padding;
 
-    // The object space begins where the stackframe column ends (plus padding)
+    // The object space begins where the stackframe column ends (plus padding).
     if (sf_endpoint === undefined) {
         sf_endpoint = max_width * 0.2;
     }
@@ -157,7 +155,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
 
 
 
-    if (sort_by !== null) {  // If sort_by===null, no sorting will take place.
+    if (sort_by !== null) {
         objs.sort(compareFunc)
     }
 
@@ -165,22 +163,13 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     let y_coord = config_aut.top_margin;
 
 
-    // EXPLANATION: Once we fully occupy a row, we need to decide what the height of that row will be, as this will
-    // determine the y-coordinate of the boxes in the NEXT row. To ensure that the height of the current row is
-    // sufficient to accommodate for all boxes that have been drawn in this row, we consider the height of the tallest
-    // object in this row (plus some padding).
-    // We keep track of which objects have been drawn in the current row through the 'curr_row_objects' array,
-    // which is reset every time we enter a new row. Once we are done with a row, we choose the tallest element object
-    // from 'curr_row_objects' and make the height of that row be the height of this object (plus padding).
-    // (Note that in this loop, nothing actually gets drawn, but rather each object gets equipped with coordinates).
+    // Once a row is occupied, we must establish its height to determine the y-coordinate of the next row's boxes.
     let row_height;
     let curr_row_objects = [];
-
+    // Note that in this loop, nothing actually gets drawn, but rather each object gets equipped with coordinates.
     for (const item of objs) {
-        // 'hor_reach' is the x-coord of the left side of the next object.
         let hor_reach = x_coord + item.width + PADDING
 
-        // In this case, we can fit this object in the current row.
         if (hor_reach < max_width) {
             item.x = x_coord;
             item.y = y_coord;
@@ -213,10 +202,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     }
 
 
-    // The 'row_height' accumulator is updated to hold the height of the new row. We sort 'curr_row_objects',
-    // and we retrieve the tallest object's height.
 
-    // Finding the object with the rightmost edge and the object with the down-most edge.
     const right_most_obj = objs.reduce((prev, curr) => compareByRightness(prev, curr) <= 0 ? prev : curr);
     const down_most_obj = objs.reduce((prev, curr) => compareByBottomness(prev, curr) <= 0 ? prev : curr);
 
@@ -272,15 +258,13 @@ function separateObjects(objects) {
  * @returns {object} the width and the height the drawn object would have.
  */
 function getSize(obj) {
-    // The value of the x and y properties here is irrelevant; we just need to equip 'obj' with x and y properties, so
-    // it can be processed by the MemoryModel.drawAll function
+    // The x and y values here are unimportant; 'obj' must simply have these properties for processing by 'drawAll'.
     obj.x = obj.x || 10;
     obj.y = obj.y || 10;
 
     const m = new MemoryModel();
 
-    // Since 'MemoryModel.drawAll' returns a list with sizes, in our case the returned list contains only one element,
-    // hence we take the element at index 0.
+    // As 'drawAll' provides a size list, where our case has just one element, we extract the element at index 0.
     const size = m.drawAll([obj])[0];
 
     return {height: size.height, width: size.width};
