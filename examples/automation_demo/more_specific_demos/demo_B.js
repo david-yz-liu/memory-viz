@@ -10,8 +10,8 @@ const {MemoryModel, drawAutomatedStackFrames} = require("../../../dist/memory_mo
 
 const WIDTH = 1300;
 const listOfStackFrames = [
-    {"isClass": true, "name": "__main__", "id": 82, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11}, "stack_frame": true},
-    {"isClass": true, "name": "Animal", "id": 99, "value": {"age": 2, "name": 94}, "stack_frame": true},
+    {"isClass": true, "name": "__main__", "id": null, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11}, "stack_frame": true},
+    {"isClass": true, "name": "Animal", "id": null, "value": {"age": 2, "name": 94}, "stack_frame": true},
 ]
 
 const {StackFrames, requiredHeight} = drawAutomatedStackFrames(

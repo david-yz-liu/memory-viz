@@ -64,7 +64,7 @@ function populateStyleObject(object) {
         object_type = "class"
     }
 
-    // We then add properties specific to the different type categories
+    // We then add properties specific to the different type categories.
     // Note that, the later will take precedence over styleSoFar.
     style_so_far = merge(style_so_far, category_specific_styles[object_type]);
 
@@ -77,7 +77,7 @@ function populateStyleObject(object) {
 }
 
 
-// Constants used for styles used to define presets.
+// Constants employed to establish presets for styles.
 const HIGHLIGHT_TEXT = {'font-weight': "bolder", 'font-size': "22px"};
 const FADE_TEXT = {/*'font-weight': "normal",*/ "fill-opacity": .4};
 const HIGHLIGHT_BOX_LINES = {"roughness": 0.2, "strokeWidth" : 4}

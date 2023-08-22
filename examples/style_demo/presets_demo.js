@@ -11,7 +11,7 @@ const { draw } = require("../../dist/memory_models_rough.node")
 const WIDTH = 1300;
 
 const objs = [
-    {isClass: true, x: 25, y:200, name: "__main__", id: 82,
+    {isClass: true, x: 25, y:200, name: "__main__", id: null,
         value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},
         stack_frame: true},
     {isClass: true, x: 350, y:10, name: "tuple", id: 99, value: {age: 12, name: 17}, stack_frame: false,

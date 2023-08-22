@@ -45,7 +45,7 @@ class MemoryModel {
         this.svg.setAttribute("height", options.height || 800)
         this.rough_svg = rough.svg(this.svg)
 
-        // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'
+        // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
             this[key] = options.hasOwnProperty(key) ? options[key] : config[key]
         }
@@ -187,7 +187,6 @@ class MemoryModel {
             this.getTextLength(type) + 10
         )
 
-        // Draw the text inside the id box.
         this.drawText(
             id === null ? "" : `id${id}`,
             x + id_box / 2,
@@ -195,7 +194,6 @@ class MemoryModel {
             style.text_id
         )
 
-        // Draw the text inside the type box.
         this.drawText(
             type,
             x + width - type_box / 2,
@@ -344,7 +342,6 @@ class MemoryModel {
         box_width = Math.max(this.obj_min_width, box_width)
         box_width += ((element_ids.length - 1) * this.item_min_width) / 4 // Space for separators
 
-        // Draw box which represents the set object
         this.drawRect(x, y, box_width, this.obj_min_height, style.box_container)
 
         const SIZE = {x, y, width: box_width, height: this.obj_min_height}
@@ -429,7 +426,7 @@ class MemoryModel {
                 this.getTextLength(idv + 5)
             )
 
-            // Draw the rectangles representing the keys
+            // Draw the rectangles representing the keys.
             this.drawRect(
                 x + this.obj_x_padding,
                 curr_y,
@@ -456,7 +453,7 @@ class MemoryModel {
             box_height += 1.5 * this.item_min_height
         }
 
-        // A second loop, so that we can position the colon and value boxes correctly
+        // A second loop, so that we can position the colon and value boxes correctly.
         curr_y = y + this.prop_min_height + this.item_min_height / 2
         for (const k in obj) {
             let idv = k === null || obj[k] === null ? "" : `id${obj[k]}`
@@ -473,7 +470,7 @@ class MemoryModel {
                 {fill: this.text_color}
             )
 
-            // Draw the rectangle for values
+            // Draw the rectangle for values.
             this.drawRect(
                 x + box_width / 2 + this.font_size,
                 curr_y,
@@ -540,7 +537,7 @@ class MemoryModel {
 
         const SIZE = {x, y, width: box_width, height: box_height}
 
-        // Draw element boxes
+        // Draw element boxes.
         let curr_y = y + this.prop_min_height + this.item_min_height / 2
         for (const attribute in attributes) {
             const val = attributes[attribute]
@@ -581,7 +578,6 @@ class MemoryModel {
             curr_y += this.item_min_height * 1.5
         }
 
-        // Draw type and id boxes
         if (stack_frame) {
             let text_length = this.getTextLength(name)
             this.drawRect(x, y, text_length + 10, this.prop_min_height, style.box_container)

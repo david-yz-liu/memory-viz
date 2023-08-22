@@ -8,7 +8,7 @@
  * 1. as an object: e.g. {text_id: {"font-size":"large"}}, or
  * 2. as an array: e.g. ["highlight", {text_type: {"font-weight":"bold"}}]
  *      Note that the array can include both presets and concrete objects (containing features in the format described
- *      in the `explanations/style.md` markdown file.
+ *      in the `explanations/style.md` markdown file.)
  *
  * OUTPUT FILES:
  *      - ~/examples/style_demo/style_demo.svg"
@@ -21,7 +21,7 @@ const configuration = {width: 1300, padding: 30, top_margin: 30, bottom_margin: 
 };
 
 const objs = [
-    {isClass: true, x: 25, y:200, name: "__main__", id: 82,
+    {isClass: true, x: 25, y:200, name: "__main__", id: null,
         value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},
         stack_frame: true,
         style:['highlight']  // Notice style is passed in as an array.

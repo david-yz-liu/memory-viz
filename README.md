@@ -67,7 +67,7 @@ that JSON as the first parameter to `draw`. The implementation automatically han
 
 ### Simple Example
 Before showing the full capabilities of the project, here is a simple example to get you started, consisting of
-two stack-frames and three objects.
+one stack-frame and two objects.
 
 ```javascript
 const { draw } = require("../../dist/memory_models_rough.node.js");
@@ -137,7 +137,7 @@ and an empty object (`{}`) will suffice.
 const { draw } = require("user_functions");
 
 const objs = [
-   {"isClass": true, "x": 25, "y":200, "name": "__main__", "id": 10, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10,
+   {"isClass": true, "x": 25, "y":200, "name": "__main__", "id": null, "value": {"lst1": 82, "lst2": 84, "p": 99, "d": 10,
          "t": 11}, "stack_frame": true},
    {"isClass": false, "x": 1050, "y": 500, "name": "dict", "id": 10, "value": {"x": 81, "y": 100, "z": 121}},
    {"isClass": false, "x": 1050, "y": 40, "name": "tuple", "id": 11, "value": [82, 76]},
@@ -173,7 +173,7 @@ The code for generating a memory model diagram with built-in default style will 
 
 ```javascript
 const objs = [
-   {isClass: true, x: 25, y:200, name: "__main__", id: 82, value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},stack_frame: true},
+   {isClass: true, x: 25, y:200, name: "__main__", id: null, value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},stack_frame: true},
    {isClass: false, x: 350, y: 350, name: "list", id: 54, value: [19, 43, 28, 49]},
    {isClass: false, x: 750, y: 500, name: "str", id: 43, value: "David is cool"},
    {isClass: false, x: 1050, y: 260, name: "set", id: 90, value: [36, 49, 64]},
@@ -189,7 +189,7 @@ On the other hand, the same memory model diagram can be created with utilizing s
 
 ```javascript
 const objs = [
-   {isClass: true, x: 25, y:200, name: "__main__", id: 82,
+   {isClass: true, x: 25, y:200, name: "__main__", id: null,
       value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},
       stack_frame: true,
       style:['highlight']

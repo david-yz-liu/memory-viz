@@ -26,11 +26,11 @@ const listOfObjs = [
     {"isClass": false, "name": "list", "id": 82, "value": [19, 43, 28, 49]},
     {"isClass": false, "name": "list", "id": 84, "value": [32, 10, 90, 57], "show_indexes": true},
     {"isClass": false, "name": "int", "id": 19, "value": 1969},
-    {"name": "BLANK", "width": 100, "height": 200}, // Blank Space
+    {"name": "BLANK", "width": 100, "height": 200},
     {"isClass": false, "name": "bool", "id": 32, "value": true},
     {"isClass": false, "name": "str", "id": 43, "value": "David is cool"},
-    {"name": "BLANK", "width": 200, "height": 150}, // Blank Space
-    {"isClass": false, "name": "tuple", "id": 11, "value": [82, 76]},
+    {"name": "BLANK", "width": 200, "height": 150},
+    {"isClass": false, "name": "tuple", "id": 11, "value": [82, 76]}
 ]
 
 const configuration = {width: WIDTH, padding: 30, right_margin: 20, bottom_margin: 20, sort_by: null};

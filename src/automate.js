@@ -13,7 +13,7 @@ const {config} = require("./config")
 function drawAutomated(objects, width, configuration) {
     const {stack_frames, other_items} = separateObjects(objects);
 
-    // These functions assign the objects with coordinates.
+    // Assigning the objects with coordinates.
     const {StackFrames, requiredHeight, requiredWidth} =
         drawAutomatedStackFrames(stack_frames, configuration);
     const {objs, canvas_height} = drawAutomatedOtherItems(other_items,
@@ -56,7 +56,6 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
 
     let draw_stack_frames = [];
 
-    // Loop through all the stack-frames to determine their individual box height.
     for (const stack_frame of stack_frames){
 
         let width;
@@ -166,7 +165,6 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     // Once a row is occupied, we must establish its height to determine the y-coordinate of the next row's boxes.
     let row_height;
     let curr_row_objects = [];
-    // Note that in this loop, nothing actually gets drawn, but rather each object gets equipped with coordinates.
     for (const item of objs) {
         let hor_reach = x_coord + item.width + PADDING
 
@@ -176,7 +174,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
 
             curr_row_objects.push(item);
 
-        } else {  // In this case, we cannot fit this object in the current row, and must move to a new row
+        } else {  // In this case, we cannot fit this object in the current row, and must move to a new row.
 
             const tallest_object = curr_row_objects.reduce((p,c) => p.height >= c.height? p : c);
             row_height = tallest_object.height + PADDING;
@@ -189,7 +187,6 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
             item.x = x_coord;
             item.y = y_coord;
 
-            // Used to communicate that 'item' if the first object in a row
             item.rowBreaker = true;
 
             hor_reach = x_coord + item.width + PADDING
@@ -209,7 +206,7 @@ function drawAutomatedOtherItems(objs, max_width, sort_by, config_aut = {} /* to
     const canvas_width = right_most_obj.x + right_most_obj.width + config_aut.right_margin;
     const canvas_height = down_most_obj.y + down_most_obj.height + config_aut.bottom_margin;
 
-    // Additional -- to extend the program for the BLANK option
+    // Additional -- to extend the program for the BLANK option.
     const objs_filtered = objs.filter((item) => {return item.name !== "BLANK"});
     objs = objs_filtered;
 

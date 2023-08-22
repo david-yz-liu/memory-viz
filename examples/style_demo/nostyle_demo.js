@@ -14,7 +14,7 @@ const configuration = {width: 1300, padding: 30, top_margin: 30, bottom_margin: 
 };
 
 const objs = [
-    {isClass: true, x: 25, y:200, name: "__main__", id: 82, value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},stack_frame: true},
+    {isClass: true, x: 25, y:200, name: "__main__", id: null, value: {lst1: 82, lst2: 84, p: 99, d: 10, t: 11},stack_frame: true},
     {isClass: false, x: 350, y: 350, name: "list", id: 54, value: [19, 43, 28, 49]},
     {isClass: false, x: 750, y: 500, name: "str", id: 43, value: "David is cool"},
     {isClass: false, x: 1050, y: 260, name: "set", id: 90, value: [36, 49, 64]},
