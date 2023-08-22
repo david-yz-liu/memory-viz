@@ -13,6 +13,7 @@ const fs = require("fs");
  * @param {boolean} automation - Whether the coordinates (of the objects on the canvas) should be automatically
  * generated or manually inputted.
  * @param {Object} configuration - The configuration (display settings) defined by the user.
+ *                          This is also the place to define `sort_by` ("height" or "id") for the object space.
  *                          NOTE: In the case that automation == true, then the user must define configuration.width,
  *                          as this will be used as the "max canvas width" for the automation process.
  *                          If automation == false, then all configuration properties are optional, and the function
@@ -24,12 +25,9 @@ function draw(objects, automation, configuration) {
     let objs;
 
     if (typeof objects === 'string') {
-        // Use of fs.readFileSync(<path>, <options>) which synchronously reads and returns a string of the data stored
-        // in the file that corresponds to path. It blocks execution of any other code until the file is read.
         const json_string = fs.readFileSync(objects, "utf-8");
 
-        // Since fs.readFileSync returns a string, we then use JSON.parse in order to convert the return JSON string
-        // into a valid JavaScript object (we assume that 'path' is the path to a valid JSON file).
+        // Convert the JSON string into an array consisting of valid JS objects.
         objs = JSON.parse(json_string);
 
     } else {
@@ -48,6 +46,7 @@ function draw(objects, automation, configuration) {
 
     } else {
 
+        // Dynamically determining the width of the canvas, in case one has not been provided.
         if (!configuration.hasOwnProperty("width")) {
 
             let rightmost_obj;
@@ -64,6 +63,7 @@ function draw(objects, automation, configuration) {
             configuration.width = rightmost_edge + 100;
         }
 
+        // Dynamically determining the height of the canvas, in case one has not been provided.
         if (!configuration.hasOwnProperty("height")) {
 
             let downmost_obj = objs[0];
