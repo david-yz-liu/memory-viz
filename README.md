@@ -29,7 +29,7 @@ This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the
 4. Compile the Javascript assets using [webpack](https://webpack.js.org/guides/getting-started/):
 
     ```console
-    $ npm run build
+    $ npm run build-dev
     ```
 
 5. Install the pre-commit hooks to automatically format your code when you make commits:
@@ -45,7 +45,7 @@ You should then be able to try out the demo in the [Example usage](#example-usag
 
 ### Automatic Javascript compilation
 
-Rather than running `npm run build` to recompile your Javascript bundle every time you make a change, you can instead run the following command:
+Rather than running `npm run build-dev` to recompile your Javascript bundle every time you make a change, you can instead run the following command:
 
 ```console
 $ npm run watch
