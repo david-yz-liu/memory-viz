@@ -6,6 +6,10 @@
 /tmp
 /out-tsc
 
+# Static web output
+/build
+.docusaurus
+
 # Runtime data
 pids
 *.pid
