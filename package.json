@@ -15,7 +15,9 @@
     ],
     "author": "David Liu",
     "contributors": [
-        "Shannon Komguem"
+        "Mimis Chlympatsos",
+        "Shannon Komguem",
+        "Utku Egemen Umut"
     ],
     "license": "MIT",
     "dependencies": {
