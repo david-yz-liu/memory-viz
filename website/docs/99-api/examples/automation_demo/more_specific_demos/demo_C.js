@@ -16,7 +16,7 @@ const {
     getSize,
     drawAutomatedOtherItems,
     MemoryModel,
-} = require("../../../dist/memory_models_rough.node.js");
+} = require("../../../dist/memory_models_rough.js");
 const fs = require("fs");
 
 const WIDTH = 1300;

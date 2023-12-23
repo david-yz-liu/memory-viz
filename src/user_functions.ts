@@ -1,6 +1,11 @@
-const { MemoryModel } = require("./memory_model.js");
-const { drawAutomated, getSize } = require("./automate.js");
-const fs = require("fs");
+import { MemoryModel } from "./memory_model";
+import { drawAutomated, getSize } from "./automate";
+
+// Dynamic import of Node fs module
+let fs;
+if (typeof window === "undefined") {
+    fs = require("fs");
+}
 
 /**
  * Draw the given objects on the canvas.

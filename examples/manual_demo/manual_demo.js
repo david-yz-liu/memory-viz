@@ -6,7 +6,7 @@
  *
  * OUTPUT FILE: ~/examples/manuel_demo/manual_demo.svg
  */
-const { draw } = require("../../dist/memory_models_rough.node.js");
+const { draw } = require("../../dist/memory_models_rough.js");
 
 const m = draw(
     (objects = "./manual_demo.json"),

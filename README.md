@@ -89,7 +89,7 @@ Before showing the full capabilities of the project, here is a simple example to
 one stack-frame and two objects.
 
 ```javascript
-const { draw } = require("../../dist/memory_models_rough.node.js");
+const { draw } = require("../../dist/memory_models_rough.js");
 
 const objects = [
     {
@@ -369,7 +369,7 @@ blank spaces will be located.
 In the below example we have added three blank spaces of varying dimensions.
 
 ```javascript
-const { draw } = require("../../dist/memory_models_rough.node.js");
+const { draw } = require("../../dist/memory_models_rough.js");
 
 const WIDTH = 1300;
 

@@ -1,4 +1,4 @@
-const config = {
+export const config = {
     rect_style: { stroke: "rgb(0, 0, 0)" },
     text_color: "rgb(0, 0, 0)", // Default text color
     value_color: "rgb(27, 14, 139)", // Text color for primitive values
@@ -15,5 +15,3 @@ const config = {
     font_size: 20, // Font size, in px
     browser: false, // Whether this library is being used in a browser context
 };
-
-export { config };
