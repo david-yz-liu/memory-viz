@@ -1,20 +1,25 @@
-import fs from "fs";
 import rough from "roughjs/bundled/rough.esm.js";
 
-const merge = require("deepmerge");
+import merge from "deepmerge";
 
-const {
+import {
     populateStyleObject,
     immutable,
     collections,
     presets,
     default_text_style,
-} = require("./style");
-const { config } = require("./config");
-const { DOMImplementation, XMLSerializer } = require("@xmldom/xmldom");
+} from "./style";
+import { config } from "./config";
+import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
+
+// Dynamic import of Node fs module
+let fs;
+if (typeof window === "undefined") {
+    fs = require("fs");
+}
 
 /** The class representing the memory model diagram of the given block of code. */
-class MemoryModel {
+export class MemoryModel {
     /**
      * Create the memory model diagram.
      * @property {object} svg - An svg 'Element' object from the DOM (Document Object Model) module.
@@ -30,7 +35,26 @@ class MemoryModel {
      *       to the 'options' argument.
      *
      */
-    constructor(options) {
+    document: Document;
+    svg: SVGSVGElement;
+    rough_svg: any;
+    rect_style: object;
+    text_color: string; // Default text color
+    value_color: string; // Text color for primitive values
+    id_color: string; // Text color for object ids
+    item_min_width: number; // Minimum width of an item box in a collection
+    item_min_height: number; // Minimum height of an item box in a collection
+    obj_min_width: number; // Minimum width of object rectangle
+    obj_min_height: number; // Minimum height of object rectangle
+    prop_min_width: number; // Minimum width of type and id boxes
+    prop_min_height: number; // Minimum height of type and id boxes
+    obj_x_padding: number; // Minimum horizontal padding of object rectangle
+    double_rect_sep: number; // Separation between double boxes around immutable objects
+    list_index_sep: number; // Vertical offset for list index labels
+    font_size: number; // Font size, in px
+    browser: boolean; // Whether this library is being used in a browser context
+
+    constructor(options?: any) {
         options = options || {};
         if (options.browser) {
             this.document = document;
@@ -86,7 +110,8 @@ class MemoryModel {
     render(canvas) {
         const ctx = canvas.getContext("2d");
         let image = new Image();
-        let data = "data:image/svg+xml;base64," + window.btoa(this.svg);
+        let data =
+            "data:image/svg+xml;base64," + window.btoa(this.svg.outerHTML);
         image.src = data;
         ctx.drawImage(image, 0, 0);
     }
@@ -151,7 +176,7 @@ class MemoryModel {
 
         let size = {
             width: box_width,
-            height: this.obj_min_heigth,
+            height: this.obj_min_height,
             x: x,
             y: y,
         };
@@ -647,7 +672,13 @@ class MemoryModel {
      * @param {object | undefined} style - 1-D object with style properties for a Rough.js object, as per the
      *                        Rough.js API. For instance, {fill: 'blue', stroke: 'red'}.
      */
-    drawRect(x, y, width, height, style) {
+    drawRect(
+        x: number,
+        y: number,
+        width: number,
+        height: number,
+        style?: object
+    ) {
         if (style === undefined) {
             style = this.rect_style;
         }
@@ -787,5 +818,3 @@ class MemoryModel {
         return sizes_arr;
     }
 }
-
-export { MemoryModel };

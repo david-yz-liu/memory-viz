@@ -1,5 +1,5 @@
-const { MemoryModel } = require("./memory_model.js");
-const { config } = require("./config");
+import { MemoryModel } from "./memory_model";
+import { config } from "./config";
 
 /**
  * Draws the objects given in the path in an automated fashion.
@@ -122,7 +122,7 @@ function drawAutomatedOtherItems(
     objs,
     max_width,
     sort_by,
-    config_aut = {} /* to avoid undefined error */,
+    config_aut: any = {} /* to avoid undefined error */,
     sf_endpoint
 ) {
     for (const req_prop of [

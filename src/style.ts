@@ -1,5 +1,5 @@
-const merge = require("deepmerge");
-const { config } = require("./config");
+import merge from "deepmerge";
+import { config } from "./config";
 
 // Built-in style for drawing text on canvas (if no style is provided by the user).
 const default_text_style = {

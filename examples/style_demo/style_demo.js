@@ -14,7 +14,7 @@
  *      - ~/examples/style_demo/style_demo.svg"
  */
 
-const { draw } = require("../../dist/memory_models_rough.node.js");
+const { draw } = require("../../dist/memory_models_rough.js");
 
 const configuration = {
     width: 1300,
