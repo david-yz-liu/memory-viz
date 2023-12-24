@@ -108,12 +108,14 @@ export class MemoryModel {
      * @param canvas - the element that will be used to draw graphics
      */
     render(canvas) {
-        const ctx = canvas.getContext("2d");
         let image = new Image();
         let data =
-            "data:image/svg+xml;base64," + window.btoa(this.svg.outerHTML);
+            "data:image/svg+xml;base64," + window.btoa(this.svg.toString());
         image.src = data;
-        ctx.drawImage(image, 0, 0);
+        image.onload = () => {
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(image, 0, 0);
+        };
     }
 
     /**
