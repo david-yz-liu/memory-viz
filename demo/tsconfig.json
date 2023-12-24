@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "allowJs": true,
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "esModuleInterop": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "target": "esnext",
+        "sourceMap": true
+    },
+    "include": ["./src/**/*"]
+}
