@@ -9,7 +9,7 @@
 const {
     MemoryModel,
     drawAutomatedStackFrames,
-} = require("../../../dist/memory_models_rough.js");
+} = require("../../../../../../dist/memory_models_rough.js");
 
 const WIDTH = 1300;
 const listOfStackFrames = [

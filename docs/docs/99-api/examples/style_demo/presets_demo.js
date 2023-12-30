@@ -6,7 +6,7 @@
  * OUTPUT FILE: ~/examples/style_demo/presets_demo.svg"
  */
 
-const { draw } = require("../../dist/memory_models_rough.node");
+const { draw } = require("../../../../../dist/memory_models_rough.node");
 
 const WIDTH = 1300;
 

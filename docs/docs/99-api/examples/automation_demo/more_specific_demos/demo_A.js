@@ -9,7 +9,7 @@
 const {
     MemoryModel,
     drawAutomatedOtherItems,
-} = require("../../../dist/memory_models_rough.js");
+} = require("../../../../../../dist/memory_models_rough.js");
 
 const fs = require("fs");
 
