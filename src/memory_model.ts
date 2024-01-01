@@ -624,7 +624,7 @@ export class MemoryModel {
                     style.text_value["fill"] = this.text_color;
                 }
                 if (!style.text_value.hasOwnProperty("text-anchor")) {
-                    style.text_value["text-anchor"] = "begin";
+                    style.text_value["text-anchor"] = "start";
                 }
             }
 

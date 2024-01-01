@@ -41,10 +41,10 @@ const category_specific_styles = {
         text_value: { fill: config.value_color },
     },
     class: {
-        text_value: { fill: config.value_color, "text-anchor": "begin" },
+        text_value: { fill: config.value_color, "text-anchor": "start" },
     },
     stackframe: {
-        text_value: { fill: config.text_color, "text-anchor": "begin" },
+        text_value: { fill: config.text_color, "text-anchor": "start" },
     },
 };
 
