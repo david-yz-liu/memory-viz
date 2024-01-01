@@ -61,7 +61,7 @@ const primitives = ["int", "str", "None", "bool", "float", "date"];
  *                          corresponding to 'object' will be extracted be doing object.style.
  * @returns {Object}
  */
-function populateStyleObject(object) {
+function populateStyleObject(object, seed?) {
     let style_so_far = common_style;
 
     let object_type;
@@ -84,7 +84,7 @@ function populateStyleObject(object) {
     // Note that, the later will take precedence over styleSoFar.
     style_so_far = merge(style_so_far, object.style || {});
 
-    return style_so_far;
+    return { ...style_so_far, seed: seed };
 }
 
 // Constants employed to establish presets for styles.

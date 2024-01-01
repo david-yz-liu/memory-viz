@@ -25,8 +25,11 @@ function drawAutomated(objects, width, configuration) {
     );
 
     const final_height = Math.max(canvas_height, requiredHeight) + 100;
-
-    const m = new MemoryModel({ width: width, height: final_height });
+    const m = new MemoryModel({
+        width: width,
+        height: final_height,
+        seed: configuration.seed || 0,
+    });
 
     m.drawAll(StackFrames);
     m.drawAll(objs);
