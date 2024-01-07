@@ -3,11 +3,11 @@ import rough from "roughjs/bundled/rough.esm.js";
 import merge from "deepmerge";
 
 import {
-    populateStyleObject,
-    immutable,
     collections,
-    presets,
     default_text_style,
+    immutable,
+    populateStyleObject,
+    presets,
 } from "./style";
 import { config } from "./config";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
@@ -53,6 +53,7 @@ export class MemoryModel {
     list_index_sep: number; // Vertical offset for list index labels
     font_size: number; // Font size, in px
     browser: boolean; // Whether this library is being used in a browser context
+    seed: number; // Seed for RoughJS generated shape(s). 0 if wanting randomness, between 1 and 2^31 otherwise.
 
     constructor(options?: any) {
         options = options || {};
@@ -73,7 +74,8 @@ export class MemoryModel {
 
         this.svg.setAttribute("width", options.width || 800);
         this.svg.setAttribute("height", options.height || 800);
-        this.rough_svg = rough.svg(this.svg);
+        this.seed = options.seed || 0;
+        this.rough_svg = rough.svg(this.svg, { seed: this.seed });
 
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
@@ -84,14 +86,23 @@ export class MemoryModel {
     }
 
     /**
+     * Serialize the generated SVG element into a readable string.
+     *
+     * @returns {String} a readable string for the generated SVG element
+     */
+    serializeSVG(): String {
+        const xmlSerializer = new XMLSerializer();
+        return xmlSerializer.serializeToString(this.svg);
+    }
+
+    /**
      * Save the current image to an SVG file at the given path.
      * If path is undefined, write the svg to stdout instead.
      * @param path - The repository (local location that the image
      * will be saved).
      */
     save(path) {
-        const xmlSerializer = new XMLSerializer();
-        let xml = xmlSerializer.serializeToString(this.svg);
+        const xml = this.serializeSVG();
         if (path === undefined) {
             console.log(xml);
         } else {
@@ -624,7 +635,7 @@ export class MemoryModel {
                     style.text_value["fill"] = this.text_color;
                 }
                 if (!style.text_value.hasOwnProperty("text-anchor")) {
-                    style.text_value["text-anchor"] = "begin";
+                    style.text_value["text-anchor"] = "start";
                 }
             }
 
@@ -684,6 +695,7 @@ export class MemoryModel {
         if (style === undefined) {
             style = this.rect_style;
         }
+        style = { ...style, seed: this.seed };
 
         this.svg.appendChild(
             this.rough_svg.rectangle(x, y, width, height, style)
@@ -790,7 +802,7 @@ export class MemoryModel {
                 obj.style = styleSoFar;
             }
 
-            obj.style = populateStyleObject(obj);
+            obj.style = populateStyleObject(obj, this.seed);
 
             if (obj.isClass) {
                 const size = this.drawClass(

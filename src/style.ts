@@ -41,10 +41,10 @@ const category_specific_styles = {
         text_value: { fill: config.value_color },
     },
     class: {
-        text_value: { fill: config.value_color, "text-anchor": "begin" },
+        text_value: { fill: config.value_color, "text-anchor": "start" },
     },
     stackframe: {
-        text_value: { fill: config.text_color, "text-anchor": "begin" },
+        text_value: { fill: config.text_color, "text-anchor": "start" },
     },
 };
 
@@ -59,9 +59,11 @@ const primitives = ["int", "str", "None", "bool", "float", "date"];
  * well as many more.
  * @param {Object} object : the object that represents a Python object the user wants drawn. The style object
  *                          corresponding to 'object' will be extracted be doing object.style.
+ * @param {Number} seed : a numeric seed. If valued between 1 and 2^31, RoughJS will generate the exact same shape(s)
+ *                          when provided with the same seed. If valued at 0, RoughJS will generate random shape(s).
  * @returns {Object}
  */
-function populateStyleObject(object) {
+function populateStyleObject(object, seed) {
     let style_so_far = common_style;
 
     let object_type;
@@ -84,7 +86,7 @@ function populateStyleObject(object) {
     // Note that, the later will take precedence over styleSoFar.
     style_so_far = merge(style_so_far, object.style || {});
 
-    return style_so_far;
+    return { ...style_so_far, seed: seed };
 }
 
 // Constants employed to establish presets for styles.
