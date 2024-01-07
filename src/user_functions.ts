@@ -85,7 +85,7 @@ function draw(objects, automation, configuration) {
         m = new MemoryModel({
             width: configuration.width,
             height: configuration.height,
-            seed: configuration.seed || 0,
+            seed: configuration.seed,
         });
         m.drawAll(objs);
     }

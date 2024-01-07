@@ -28,7 +28,7 @@ function drawAutomated(objects, width, configuration) {
     const m = new MemoryModel({
         width: width,
         height: final_height,
-        seed: configuration.seed || 0,
+        seed: configuration.seed,
     });
 
     m.drawAll(StackFrames);

@@ -53,7 +53,7 @@ export class MemoryModel {
     list_index_sep: number; // Vertical offset for list index labels
     font_size: number; // Font size, in px
     browser: boolean; // Whether this library is being used in a browser context
-    seed: number;
+    seed: number; // Seed for RoughJS generated shape(s). 0 if wanting randomness, between 1 and 2^31 otherwise.
 
     constructor(options?: any) {
         options = options || {};
@@ -85,7 +85,12 @@ export class MemoryModel {
         }
     }
 
-    serializeSVG() {
+    /**
+     * Serialize the generated SVG element into a readable string.
+     *
+     * @returns {String} a readable string for the generated SVG element
+     */
+    serializeSVG(): String {
         const xmlSerializer = new XMLSerializer();
         return xmlSerializer.serializeToString(this.svg);
     }

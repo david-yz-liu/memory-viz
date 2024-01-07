@@ -1,53 +1,54 @@
 {
-  "name": "memory-models-rough",
-  "version": "0.1.0",
-  "description": "Library for creating Python memory model diagrams that look hand-drawn.",
-  "main": "dist/memory_models_rough.js",
-  "scripts": {
-    "test": "jest",
-    "watch": "webpack --watch",
-    "build-dev": "tsc && webpack",
-    "build": "tsc && webpack --mode production",
-    "prepare": "husky install"
-  },
-  "keywords": [
-    "education",
-    "diagrams"
-  ],
-  "author": "David Liu",
-  "contributors": [
-    "Mimis Chlympatsos",
-    "Shannon Komguem",
-    "Utku Egemen Umut"
-  ],
-  "license": "MIT",
-  "dependencies": {
-    "@xmldom/xmldom": "^0.8.6",
-    "deepmerge": "^4.3.1",
-    "roughjs": "^4.5.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.20.7",
-    "@babel/preset-env": "^7.20.2",
-    "@babel/preset-typescript": "^7.23.3",
-    "@types/jest": "^29.5.11",
-    "@types/node": "^20.10.5",
-    "babel-loader": "^9.1.0",
-    "husky": "^8.0.3",
-    "jest": "^29.7.0",
-    "lint-staged": "^14.0.1",
-    "prettier": "2.8.1",
-    "ts-loader": "^9.5.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
-  },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
-  },
-  "workspaces": [
-    "demo",
-    "docs"
-  ]
+    "name": "memory-models-rough",
+    "version": "0.1.0",
+    "description": "Library for creating Python memory model diagrams that look hand-drawn.",
+    "main": "dist/memory_models_rough.js",
+    "scripts": {
+        "test": "jest",
+        "watch": "webpack --watch",
+        "build-dev": "tsc && webpack",
+        "build": "tsc && webpack --mode production",
+        "prepare": "husky install"
+    },
+    "keywords": [
+        "education",
+        "diagrams"
+    ],
+    "author": "David Liu",
+    "contributors": [
+        "Mimis Chlympatsos",
+        "Shannon Komguem",
+        "Utku Egemen Umut",
+        "Ziyuan (Jerry) Zhang"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "@xmldom/xmldom": "^0.8.6",
+        "deepmerge": "^4.3.1",
+        "roughjs": "^4.5.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.20.7",
+        "@babel/preset-env": "^7.20.2",
+        "@babel/preset-typescript": "^7.23.3",
+        "@types/jest": "^29.5.11",
+        "@types/node": "^20.10.5",
+        "babel-loader": "^9.1.0",
+        "husky": "^8.0.3",
+        "jest": "^29.7.0",
+        "lint-staged": "^14.0.1",
+        "prettier": "2.8.1",
+        "ts-loader": "^9.5.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.3.3",
+        "webpack": "^5.75.0",
+        "webpack-cli": "^5.0.1"
+    },
+    "lint-staged": {
+        "**/*": "prettier --write --ignore-unknown"
+    },
+    "workspaces": [
+        "demo",
+        "docs"
+    ]
 }

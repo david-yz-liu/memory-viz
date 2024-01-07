@@ -59,9 +59,11 @@ const primitives = ["int", "str", "None", "bool", "float", "date"];
  * well as many more.
  * @param {Object} object : the object that represents a Python object the user wants drawn. The style object
  *                          corresponding to 'object' will be extracted be doing object.style.
+ * @param {Number} seed : a numeric seed. If valued between 1 and 2^31, RoughJS will generate the exact same shape(s)
+ *                          when provided with the same seed. If valued at 0, RoughJS will generate random shape(s).
  * @returns {Object}
  */
-function populateStyleObject(object, seed?) {
+function populateStyleObject(object, seed) {
     let style_so_far = common_style;
 
     let object_type;

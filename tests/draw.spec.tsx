@@ -1,10 +1,9 @@
-import { MemoryModel } from "../src/memory_model";
-const { draw } = require("../dist/memory_models_rough");
+import exports from "../src";
+const { MemoryModel, draw } = exports;
 
 describe("draw function", () => {
-    let objects: Array<object>;
-    beforeEach(() => {
-        objects = [
+    it("should produce consistent svg when provided seed", () => {
+        const objects: Array<Object> = [
             {
                 isClass: true,
                 name: "__main__",
@@ -21,14 +20,11 @@ describe("draw function", () => {
             },
             { isClass: false, name: "int", id: 13, value: 7 },
         ];
-    });
-
-    it("should produce consistent svg when provided seed", () => {
-        const m: MemoryModel = draw(objects, true, {
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             seed: 12345,
         });
-        const svg = m.serializeSVG();
+        const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
 });
