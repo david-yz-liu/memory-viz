@@ -4,7 +4,8 @@
     "description": "Library for creating Python memory model diagrams that look hand-drawn.",
     "main": "dist/memory_models_rough.js",
     "scripts": {
-        "test": "jest",
+        "test": "jest --no-cache",
+        "test-cov": "jest --no-cache --collect-coverage",
         "watch": "webpack --watch",
         "build-dev": "tsc && webpack",
         "build": "tsc && webpack --mode production",
