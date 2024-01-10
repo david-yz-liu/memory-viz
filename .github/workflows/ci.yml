@@ -1,0 +1,29 @@
+name: Memory Models Tests
+on:
+    pull_request:
+    push:
+        branches:
+            - main
+
+jobs:
+    jest:
+        if: github.event.pull_request.draft == false
+        runs-on: ubuntu-22.04
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
+            - name: Set up node and cache packages
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+                  cache: npm
+            - name: Install npm packages
+              run: npm ci
+            - name: Build
+              run: npm run build-dev
+            - name: Run jest tests
+              run: npm run test-cov
+            - name: Coveralls (jest)
+              uses: coverallsapp/github-action@v2
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
