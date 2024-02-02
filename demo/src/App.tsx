@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import SvgDisplay from "./SvgDisplay";
+import { MemoryModels, MemoryModel } from "./MemoryModels";
+import { json } from "node:stream/consumers";
 
 const DEMO_OBJECTS = [
     {
@@ -20,13 +22,21 @@ const DEMO_OBJECTS = [
 ];
 
 export default function App() {
+    const [formData, setFormData] = useState("");
+    const [jsonResult, setJsonResult] = useState([]);
+
+    const onSubmit = async (event) => {
+        event.preventDefault();
+        setJsonResult(JSON.parse(formData));
+    };
     return (
         <>
-            <section>
-                <h2>Input</h2>
-                <pre>{JSON.stringify(DEMO_OBJECTS)}</pre>
-            </section>
-            <SvgDisplay />
+            <MemoryModels
+                formData={formData}
+                setFormData={setFormData}
+                onSubmit={onSubmit}
+            />
+            <SvgDisplay jsonResult={jsonResult} />
         </>
     );
 }

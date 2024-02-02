@@ -19,13 +19,15 @@ const DEMO_OBJECTS = [
     { isClass: false, name: "int", id: 13, value: 7 },
 ];
 
-export default function SvgDisplay() {
+export default function SvgDisplay(props) {
     const canvasRef = useRef(null);
 
     useEffect(() => {
-        const m = mem.draw(DEMO_OBJECTS, true, { width: 1300 });
-        m.render(canvasRef.current);
-    }, []);
+        if (props.jsonResult.length > 0) {
+            const m = mem.draw(props.jsonResult, true, { width: 1300 });
+            m.render(canvasRef.current);
+        }
+    }, [props.jsonResult]);
 
     return (
         <section>
