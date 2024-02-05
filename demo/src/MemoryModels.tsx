@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Card, CardContent, TextField, Grid } from "@mui/material";
 
-//TODO: might use for input validation, double check the type definitions
 interface MemoryModel {
     isClass: boolean;
     name: string;
