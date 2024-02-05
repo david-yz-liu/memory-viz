@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import SvgDisplay from "./SvgDisplay";
 import { MemoryModels, MemoryModel } from "./MemoryModels";
-import { json } from "node:stream/consumers";
 
 const DEMO_OBJECTS = [
     {
@@ -25,10 +24,23 @@ export default function App() {
     const [formData, setFormData] = useState("");
     const [jsonResult, setJsonResult] = useState([]);
 
+    //TODO: finish
+    function isMemoryModel(obj: any): obj is MemoryModel {
+        return (
+            (typeof obj.isClass === "boolean" &&
+                typeof obj.name === "string" &&
+                obj.isClass &&
+                obj.id === null) ||
+            (!obj.isClass &&
+                (typeof obj.id === "string" || typeof obj.id === "number"))
+        );
+    }
     const onSubmit = async (event) => {
         event.preventDefault();
+        //TODO: use isMemoryModel for input validation
         setJsonResult(JSON.parse(formData));
     };
+
     return (
         <>
             <MemoryModels
