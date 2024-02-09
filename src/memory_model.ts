@@ -130,6 +130,15 @@ export class MemoryModel {
     }
 
     /**
+     * Clear a given canvas object.
+     * @param canvas - the element that is currently used to draw graphics
+     */
+    clear(canvas) {
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    /**
      * Distribute the object drawing depending on type
      * @param {number} x - value for x coordinate of top left corner
      * @param {number} y - value for y coordinate of top left corner

@@ -1,17 +1,7 @@
 import React from "react";
 import { Button, Card, CardContent, TextField, Grid } from "@mui/material";
 
-interface MemoryModel {
-    isClass: boolean;
-    name: string;
-    id: string | number | null;
-    value: any;
-    stack_frame: boolean;
-    show_indexes: boolean;
-    style?: any[] | null;
-}
-
-function MemoryModels(props) {
+export default function MemoryModelsUserInput(props) {
     const handleTextFieldChange = (event) => {
         props.setFormData(event.target.value);
     };
@@ -24,7 +14,7 @@ function MemoryModels(props) {
                         <Grid item xs={12}>
                             <TextField
                                 id="multiline-textfield"
-                                label="Multi-line Text"
+                                label="Enter memory model JSON here"
                                 multiline
                                 fullWidth
                                 rows={10}
@@ -32,7 +22,10 @@ function MemoryModels(props) {
                                 variant="outlined"
                                 value={props.formData}
                                 onChange={handleTextFieldChange}
-                                style={{ width: "100%" }}
+                                style={{
+                                    width: "100%",
+                                    fontFamily: "Monospace",
+                                }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -40,8 +33,9 @@ function MemoryModels(props) {
                                 type="submit"
                                 variant="contained"
                                 color="primary"
+                                style={{ textTransform: "none" }}
                             >
-                                Submit
+                                Draw Diagram
                             </Button>
                         </Grid>
                     </Grid>
@@ -50,6 +44,3 @@ function MemoryModels(props) {
         </form>
     );
 }
-
-export { MemoryModels };
-export type { MemoryModel };
