@@ -1,32 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import SvgDisplay from "./SvgDisplay";
-
-const DEMO_OBJECTS = [
-    {
-        isClass: true,
-        name: "__main__",
-        id: null,
-        value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
-        stack_frame: true,
-    },
-    {
-        isClass: false,
-        name: "str",
-        id: 19,
-        value: "David is cool!",
-        style: ["highlight"],
-    },
-    { isClass: false, name: "int", id: 13, value: 7 },
-];
+import MemoryModelsUserInput from "./MemoryModels";
+import { ErrorBoundary } from "react-error-boundary";
 
 export default function App() {
+    const [formData, setFormData] = useState("");
+    const [jsonResult, setJsonResult] = useState(null);
+
+    const onSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            setJsonResult(JSON.parse(formData));
+        } catch (error) {
+            console.error("Error parsing inputted JSON: ", error);
+            setJsonResult(null);
+        }
+    };
+
     return (
         <>
+            <MemoryModelsUserInput
+                formData={formData}
+                setFormData={setFormData}
+                onSubmit={onSubmit}
+            />
             <section>
-                <h2>Input</h2>
-                <pre>{JSON.stringify(DEMO_OBJECTS)}</pre>
+                <h2>Output</h2>
+                <ErrorBoundary fallback={<div>Something went wrong</div>}>
+                    <SvgDisplay jsonResult={jsonResult} />
+                </ErrorBoundary>
             </section>
-            <SvgDisplay />
         </>
     );
 }
