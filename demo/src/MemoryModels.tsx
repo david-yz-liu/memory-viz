@@ -7,7 +7,7 @@ export default function MemoryModelsUserInput(props) {
     };
 
     return (
-        <form onSubmit={props.onSubmit}>
+        <form data-testid="input-form" onSubmit={props.onSubmit}>
             <Card>
                 <CardContent>
                     <Grid container spacing={2}>
@@ -18,7 +18,6 @@ export default function MemoryModelsUserInput(props) {
                                 multiline
                                 fullWidth
                                 rows={10}
-                                maxRows={20}
                                 variant="outlined"
                                 value={props.formData}
                                 onChange={handleTextFieldChange}
@@ -31,8 +30,10 @@ export default function MemoryModelsUserInput(props) {
                         <Grid item xs={12}>
                             <Button
                                 type="submit"
+                                data-testid="input-submit-button"
                                 variant="contained"
                                 color="primary"
+                                disabled={!props.formData}
                                 style={{ textTransform: "none" }}
                             >
                                 Draw Diagram

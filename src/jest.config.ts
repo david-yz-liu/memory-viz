@@ -16,10 +16,10 @@ const config: Config = {
     // cacheDirectory: "/private/var/folders/tl/mq0ry9mn37n2_djks873jbj80000gn/T/jest_dx",
 
     // Automatically clear mock calls, instances, contexts and results before every test
-    // clearMocks: true,
+    clearMocks: true,
 
     // Indicates whether the coverage information should be collected while executing the test
-    // collectCoverage: false,
+    collectCoverage: false,
 
     // An array of glob patterns indicating a set of files for which coverage information should be collected
     // collectCoverageFrom: undefined,
@@ -46,6 +46,7 @@ const config: Config = {
     // An object that configures minimum threshold enforcement for coverage results
     // coverageThreshold: undefined,
 
+    displayName: "node tests for memory models scripts",
     // A path to a custom dependency extractor
     // dependencyExtractor: undefined,
 
@@ -90,7 +91,10 @@ const config: Config = {
     // ],
 
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-    // moduleNameMapper: {},
+    moduleNameMapper: {
+        // Force module roughjs to resolve with the CJS entry point, because Jest does not support package.json.exports. Elaborated in PR#15.
+        roughjs: require.resolve("roughjs"),
+    },
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
     // modulePathIgnorePatterns: [],
@@ -105,7 +109,7 @@ const config: Config = {
     // preset: undefined,
 
     // Run tests from one or more projects
-    projects: ["./demo/jest.config.ts", "./src/jest.config.ts"],
+    // projects: undefined,
 
     // Use this configuration option to add custom reporters to Jest
     // reporters: undefined,
@@ -146,7 +150,7 @@ const config: Config = {
     // snapshotSerializers: [],
 
     // The test environment that will be used for testing
-    // testEnvironment: "node",
+    testEnvironment: "node",
 
     // Options that will be passed to the testEnvironment
     // testEnvironmentOptions: {},

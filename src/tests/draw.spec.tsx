@@ -1,4 +1,4 @@
-import exports from "../src";
+import exports from "../index";
 const { MemoryModel, draw } = exports;
 
 describe("draw function", () => {
