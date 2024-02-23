@@ -30,6 +30,7 @@ describe("MemoryModelsUserInput", () => {
 
         render(
             <MemoryModelsUserInput
+                onSubmit={onSubmitMock}
                 setFormData={setFormDataMock}
                 formData={formDataMock}
             />

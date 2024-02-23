@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import SvgDisplay from "../SvgDisplay";
 import mem from "../../../src/index";
 const { draw } = mem;

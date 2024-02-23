@@ -12,7 +12,7 @@ export default function App() {
         try {
             setJsonResult(JSON.parse(formData));
         } catch (error) {
-            console.error("Error parsing inputted JSON: ", error);
+            console.error(`Error parsing inputted JSON: ${error.message}`);
             setJsonResult(null);
         }
     };
@@ -26,7 +26,13 @@ export default function App() {
             />
             <section>
                 <h2>Output</h2>
-                <ErrorBoundary fallback={<div>Something went wrong</div>}>
+                <ErrorBoundary
+                    fallback={
+                        <div data-testid="svg-display-error-boundary">
+                            Something went wrong
+                        </div>
+                    }
+                >
                     <SvgDisplay jsonResult={jsonResult} />
                 </ErrorBoundary>
             </section>

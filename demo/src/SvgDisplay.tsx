@@ -1,7 +1,11 @@
 import React, { useRef, useEffect } from "react";
 import mem from "../../src/index"; // TODO: replace with import of the package after it's been published
 
-export default function SvgDisplay(props) {
+type SvgDisplayPropTypes = {
+    jsonResult: object;
+};
+
+export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
 
     useEffect(() => {

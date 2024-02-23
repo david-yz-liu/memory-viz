@@ -1,7 +1,15 @@
 import React from "react";
 import { Button, Card, CardContent, TextField, Grid } from "@mui/material";
 
-export default function MemoryModelsUserInput(props) {
+type MemoryModelsUserInputPropTypes = {
+    onSubmit: (event: React.MouseEvent<HTMLFormElement>) => void;
+    setFormData: React.Dispatch<React.SetStateAction<string>>;
+    formData: string;
+};
+
+export default function MemoryModelsUserInput(
+    props: MemoryModelsUserInputPropTypes
+) {
     const handleTextFieldChange = (event) => {
         props.setFormData(event.target.value);
     };
