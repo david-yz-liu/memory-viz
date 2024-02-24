@@ -1,13 +1,21 @@
 import React from "react";
 import { Button, Card, CardContent, TextField, Grid } from "@mui/material";
 
-export default function MemoryModelsUserInput(props) {
+type MemoryModelsUserInputPropTypes = {
+    onSubmit: (event: React.MouseEvent<HTMLFormElement>) => void;
+    setFormData: React.Dispatch<React.SetStateAction<string>>;
+    formData: string;
+};
+
+export default function MemoryModelsUserInput(
+    props: MemoryModelsUserInputPropTypes
+) {
     const handleTextFieldChange = (event) => {
         props.setFormData(event.target.value);
     };
 
     return (
-        <form onSubmit={props.onSubmit}>
+        <form data-testid="input-form" onSubmit={props.onSubmit}>
             <Card>
                 <CardContent>
                     <Grid container spacing={2}>
@@ -18,7 +26,6 @@ export default function MemoryModelsUserInput(props) {
                                 multiline
                                 fullWidth
                                 rows={10}
-                                maxRows={20}
                                 variant="outlined"
                                 value={props.formData}
                                 onChange={handleTextFieldChange}
@@ -31,8 +38,10 @@ export default function MemoryModelsUserInput(props) {
                         <Grid item xs={12}>
                             <Button
                                 type="submit"
+                                data-testid="input-submit-button"
                                 variant="contained"
                                 color="primary"
+                                disabled={!props.formData}
                                 style={{ textTransform: "none" }}
                             >
                                 Draw Diagram

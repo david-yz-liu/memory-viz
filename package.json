@@ -5,7 +5,7 @@
     "main": "dist/memory_models_rough.js",
     "scripts": {
         "test": "jest --no-cache",
-        "test-cov": "jest --no-cache --collect-coverage",
+        "test-cov": "jest --no-cache --coverage",
         "watch": "webpack --watch",
         "build-dev": "tsc && webpack",
         "build": "tsc && webpack --mode production",
