@@ -32,6 +32,7 @@ export default function App() {
                             Something went wrong
                         </div>
                     }
+                    key={jsonResult}
                 >
                     <SvgDisplay jsonResult={jsonResult} />
                 </ErrorBoundary>
