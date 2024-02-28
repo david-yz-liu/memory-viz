@@ -9,11 +9,13 @@ type SvgDisplayPropTypes = {
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
+    const canvasWidth = 1300;
+    const canvasHeight = 1000;
 
     useEffect(() => {
         if (props.jsonResult !== null) {
-            const m = mem.draw(props.jsonResult, true, { width: 1300 });
-            props.setSvgResult(m.svg.toString());
+            const m = mem.draw(props.jsonResult, true, { width: canvasWidth });
+            props.setSvgResult(m.serializeSVG());
             m.clear(canvasRef.current);
             m.render(canvasRef.current);
         }
@@ -23,8 +25,8 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
         <canvas
             data-testid="memory-models-canvas"
             ref={canvasRef}
-            width={1000}
-            height={1000}
+            width={canvasWidth}
+            height={canvasHeight}
         />
     );
 }

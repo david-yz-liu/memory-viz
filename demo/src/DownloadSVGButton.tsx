@@ -5,19 +5,21 @@ type DownloadSVGButtonPropTypes = {
     svgResult: string;
 };
 export default function DownloadSVGButton(props: DownloadSVGButtonPropTypes) {
-    const file = new Blob([props.svgResult], { type: "image/svg+xml" });
+    const file = new global.Blob([props.svgResult], { type: "image/svg+xml" });
 
     return (
         <Button
             variant="contained"
             color="primary"
+            data-testid="download-svg-btn"
             style={{ fontFamily: "Monospace" }}
+            disabled={!props.svgResult}
             href={URL.createObjectURL(file)}
             target="_blank"
             rel="noreferrer"
             download="output.svg"
         >
-            Download SVG
+            Download This SVG
         </Button>
     );
 }

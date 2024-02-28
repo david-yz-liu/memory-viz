@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-    Box,
     Button,
     Card,
     CardContent,
@@ -11,41 +10,37 @@ import {
     Typography,
 } from "@mui/material";
 
-type MemoryModelsFileInputPropTypes = {
-    setFileData: React.Dispatch<React.SetStateAction<string>>;
-    setTextData: React.Dispatch<React.SetStateAction<string>>;
-};
-type MemoryModelsTextInputPropTypes = {
+type MemoryModelsInputPropTypes = {
     setTextData: React.Dispatch<React.SetStateAction<string>>;
     textData: string;
 };
-type MemoryModelsTabPropTypes = MemoryModelsFileInputPropTypes &
-    MemoryModelsTextInputPropTypes & {
-        fileData: string;
-        onFileDataSubmit: (event: React.MouseEvent<HTMLFormElement>) => void;
-        onTextDataSubmit: (event: React.MouseEvent<HTMLFormElement>) => void;
-    };
+type MemoryModelsUserInputPropTypes = MemoryModelsInputPropTypes & {
+    onTextDataSubmit: (event: React.MouseEvent<HTMLFormElement>) => void;
+};
 
-function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
+function MemoryModelsFileInput(props: MemoryModelsInputPropTypes) {
+    const [uploadedFileString, setUploadedFileString] = useState("");
+
     const onChange = (event) => {
-        // TODO: pop up dialog asking user if they're sure to overwrite (any) existing text data
-        const uploadedFile = event.target.files[0];
-        const fileReader = new FileReader();
-
         try {
+            const uploadedFile = event.target.files[0];
+            const fileReader = new global.FileReader();
             fileReader.readAsText(uploadedFile, "UTF-8");
             fileReader.onload = (event) => {
-                props.setFileData(uploadedFile.name);
-                console.log(uploadedFile.name);
-                props.setTextData(event.target.result as string);
+                const fileString = event.target.result as string;
+                setUploadedFileString(fileString);
+                props.setTextData(fileString);
             };
         } catch (error) {
             console.error(
                 `Error parsing uploaded File as JSON: ${error.message}`
             );
-            props.setFileData(null);
             props.setTextData(null);
         }
+    };
+
+    const onReapplyBtnClick = () => {
+        props.setTextData(uploadedFileString);
     };
 
     return (
@@ -53,15 +48,28 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
             <Input
                 type="file"
                 onChange={onChange}
-                inputProps={{ accept: "application/JSON" }}
-                sx={{ width: "100%", height: "20%" }}
+                inputProps={{
+                    accept: "application/JSON",
+                    "data-testid": "file-input",
+                }}
+                sx={{ width: "100%", input: { color: "primary" } }}
                 disableUnderline={true}
             />
+            <Button
+                data-testid="file-input-reapply-button"
+                variant="contained"
+                color="primary"
+                disabled={!uploadedFileString}
+                style={{ fontFamily: "Monospace", textTransform: "none" }}
+                onClick={onReapplyBtnClick}
+            >
+                (Re)Apply file input to text box
+            </Button>
         </CardContent>
     );
 }
 
-function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
+function MemoryModelsTextInput(props: MemoryModelsInputPropTypes) {
     const handleTextFieldChange = (event) => {
         props.setTextData(event.target.value);
     };
@@ -69,7 +77,8 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
     return (
         <CardContent>
             <TextField
-                id="multiline-textfield"
+                id="multiline-memory-models-textfield"
+                data-testid="textfield-input"
                 label="Enter memory model JSON here"
                 multiline
                 fullWidth
@@ -87,15 +96,17 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
     );
 }
 
-export default function MemoryModelsTab(props: MemoryModelsTabPropTypes) {
+export default function MemoryModelsUserInput(
+    props: MemoryModelsUserInputPropTypes
+) {
     return (
         <form data-testid="input-form" onSubmit={props.onTextDataSubmit}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Card sx={{ height: "400px", overflow: "auto" }}>
+                    <Card>
                         <Typography component="div">
                             <MemoryModelsFileInput
-                                setFileData={props.setFileData}
+                                textData={props.textData}
                                 setTextData={props.setTextData}
                             />
                             <MemoryModelsTextInput
@@ -123,3 +134,5 @@ export default function MemoryModelsTab(props: MemoryModelsTabPropTypes) {
         </form>
     );
 }
+
+export { MemoryModelsFileInput };

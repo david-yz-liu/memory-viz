@@ -9,19 +9,19 @@ export default function DownloadJSONButton(props: DownloadJSONButtonPropTypes) {
         type: "application/JSON",
     });
 
-    //TODO: pop up a dialogue asking if they want to 1) overwrite the uploaded file (and reuse the filename) or
-    // 2) download as a separate file (with a new filename)
     return (
         <Button
             variant="contained"
             color="primary"
+            data-testid="download-json-btn"
             style={{ fontFamily: "Monospace" }}
+            disabled={!props.jsonResult}
             download="input.json"
             target="_blank"
             rel="noreferrer"
-            href={URL.createObjectURL(file)}
+            href={window.URL.createObjectURL(file)}
         >
-            Download JSON
+            Download This JSON
         </Button>
     );
 }
