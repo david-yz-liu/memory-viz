@@ -3,7 +3,7 @@ import mem from "../../src/index"; // TODO: replace with import of the package a
 import { Typography } from "@mui/material";
 
 type SvgDisplayPropTypes = {
-    jsonResult: object;
+    jsonResult: object | null;
     setSvgResult: React.Dispatch<React.SetStateAction<string>>;
 };
 
@@ -14,7 +14,10 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
 
     useEffect(() => {
         if (props.jsonResult !== null) {
-            const m = mem.draw(props.jsonResult, true, { width: canvasWidth });
+            // deep copy jsonResult as mem.draw mutates input JSON
+            // https://github.com/david-yz-liu/memory-models-rough/pull/20#discussion_r1513235452
+            const jsonResultCopy = structuredClone(props.jsonResult);
+            const m = mem.draw(jsonResultCopy, true, { width: canvasWidth });
             props.setSvgResult(m.serializeSVG());
             m.clear(canvasRef.current);
             m.render(canvasRef.current);

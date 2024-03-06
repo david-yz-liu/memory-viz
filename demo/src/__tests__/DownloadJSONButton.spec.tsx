@@ -4,8 +4,9 @@ import DownloadJSONButton from "../DownloadJSONButton";
 
 describe("DownloadJSONButton", () => {
     const mockJsonStr = "[{}]";
+    const mockSx = {};
     beforeEach(() => {
-        render(<DownloadJSONButton jsonResult={mockJsonStr} />);
+        render(<DownloadJSONButton jsonResult={mockJsonStr} sx={mockSx} />);
     });
 
     test("renders with correct text", () => {

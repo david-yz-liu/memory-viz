@@ -12,7 +12,6 @@ export default function DownloadSVGButton(props: DownloadSVGButtonPropTypes) {
             variant="contained"
             color="primary"
             data-testid="download-svg-btn"
-            style={{ fontFamily: "Monospace" }}
             disabled={!props.svgResult}
             href={URL.createObjectURL(file)}
             target="_blank"

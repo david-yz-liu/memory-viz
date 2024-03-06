@@ -8,17 +8,28 @@ import {
     TextField,
     Tooltip,
     Typography,
+    Stack,
 } from "@mui/material";
+import DownloadJSONButton from "./DownloadJSONButton";
 
-type MemoryModelsInputPropTypes = {
+type MemoryModelsFileInputPropTypes = {
+    setTextData: React.Dispatch<React.SetStateAction<string>>;
+    textData: string;
+    setFailureBanner: React.Dispatch<React.SetStateAction<string>>;
+    jsonResult: string | null;
+};
+
+type MemoryModelsTextInputPropTypes = {
     setTextData: React.Dispatch<React.SetStateAction<string>>;
     textData: string;
 };
-type MemoryModelsUserInputPropTypes = MemoryModelsInputPropTypes & {
-    onTextDataSubmit: (event: React.MouseEvent<HTMLFormElement>) => void;
-};
 
-function MemoryModelsFileInput(props: MemoryModelsInputPropTypes) {
+type MemoryModelsUserInputPropTypes = MemoryModelsFileInputPropTypes &
+    MemoryModelsTextInputPropTypes & {
+        onTextDataSubmit: (event: React.MouseEvent<HTMLFormElement>) => void;
+    };
+
+function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
     const [uploadedFileString, setUploadedFileString] = useState("");
 
     const onChange = (event) => {
@@ -32,44 +43,52 @@ function MemoryModelsFileInput(props: MemoryModelsInputPropTypes) {
                 props.setTextData(fileString);
             };
         } catch (error) {
-            console.error(
-                `Error parsing uploaded File as JSON: ${error.message}`
-            );
+            const errorMessage = `Error reading uploaded file as text. Please ensure it's in UTF-8 encoding: ${error.message}`;
+            console.error(errorMessage);
             props.setTextData(null);
+            props.setFailureBanner(errorMessage);
         }
     };
 
-    const onReapplyBtnClick = () => {
+    const onLoadButtonClick = () => {
         props.setTextData(uploadedFileString);
     };
 
     return (
         <CardContent>
-            <Input
-                type="file"
-                onChange={onChange}
-                inputProps={{
-                    accept: "application/JSON",
-                    "data-testid": "file-input",
-                }}
-                sx={{ width: "100%", input: { color: "primary" } }}
-                disableUnderline={true}
-            />
-            <Button
-                data-testid="file-input-reapply-button"
-                variant="contained"
-                color="primary"
-                disabled={!uploadedFileString}
-                style={{ fontFamily: "Monospace", textTransform: "none" }}
-                onClick={onReapplyBtnClick}
+            <Stack
+                direction={{ xs: "column", sm: "row" }}
+                spacing={{ xs: 1, sm: 2, md: 4 }}
             >
-                (Re)Apply file input to text box
-            </Button>
+                <Input
+                    type="file"
+                    onChange={onChange}
+                    inputProps={{
+                        accept: "application/JSON",
+                        "data-testid": "file-input",
+                    }}
+                    sx={{ width: "33.33%" }}
+                    disableUnderline={true}
+                />
+                <Button
+                    data-testid="file-input-reapply-button"
+                    variant="contained"
+                    disabled={!uploadedFileString}
+                    onClick={onLoadButtonClick}
+                    sx={{ width: "33.33%" }}
+                >
+                    Load file data
+                </Button>
+                <DownloadJSONButton
+                    jsonResult={props.jsonResult}
+                    sx={{ width: "33.33%" }}
+                />
+            </Stack>
         </CardContent>
     );
 }
 
-function MemoryModelsTextInput(props: MemoryModelsInputPropTypes) {
+function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
     const handleTextFieldChange = (event) => {
         props.setTextData(event.target.value);
     };
@@ -108,6 +127,8 @@ export default function MemoryModelsUserInput(
                             <MemoryModelsFileInput
                                 textData={props.textData}
                                 setTextData={props.setTextData}
+                                setFailureBanner={props.setFailureBanner}
+                                jsonResult={props.jsonResult}
                             />
                             <MemoryModelsTextInput
                                 textData={props.textData}
@@ -115,7 +136,7 @@ export default function MemoryModelsUserInput(
                             />
                         </Typography>
                     </Card>
-                    <Tooltip title="Input some text or upload a JSON file to draw diagram">
+                    <Tooltip title="Input JSON to draw diagram">
                         <span>
                             <Button
                                 type="submit"

@@ -16,13 +16,35 @@ jest.mock("../../../src/index", () => ({
 
 describe("SvgDisplay", () => {
     const setSvgResultMock = jest.fn();
-
-    describe("when jsonResult is not null", () => {
-        let jsonResult: Object;
-
+    describe.each([
+        ["valid JSON but not valid Memory Models JSON", [{}]],
+        [
+            "valid JSON and valid Memory Models JSON",
+            [
+                {
+                    isClass: true,
+                    name: "__main__",
+                    id: null,
+                    value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
+                    stack_frame: true,
+                },
+                {
+                    isClass: false,
+                    name: "str",
+                    id: 19,
+                    value: "David is cool!",
+                    style: ["highlight"],
+                },
+                {
+                    isClass: false,
+                    name: "int",
+                    id: 13,
+                    value: 7,
+                },
+            ],
+        ],
+    ])("when jsonResult is not null and %s", (scenario, jsonResult) => {
         beforeEach(() => {
-            // In order to get to draw function, input has to be valid json otherwise JSON.parse fails
-            jsonResult = [{}];
             render(
                 <SvgDisplay
                     jsonResult={jsonResult}

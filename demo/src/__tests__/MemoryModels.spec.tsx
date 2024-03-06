@@ -6,6 +6,8 @@ describe("MemoryModelsUserInput", () => {
     // submit button by default resets the form https://stackoverflow.com/a/62404526
     const onSubmitMock = jest.fn((e) => e.preventDefault());
     const setTextDataMock = jest.fn();
+    const setFailureBannerMock = jest.fn();
+    const jsonResult = "";
 
     it("does not submit the form or enable the submit button with empty textData", () => {
         const textDataMock = "";
@@ -14,6 +16,8 @@ describe("MemoryModelsUserInput", () => {
                 onTextDataSubmit={onSubmitMock}
                 setTextData={setTextDataMock}
                 textData={textDataMock}
+                setFailureBanner={setFailureBannerMock}
+                jsonResult={jsonResult}
             />
         );
 
@@ -32,6 +36,8 @@ describe("MemoryModelsUserInput", () => {
                 onTextDataSubmit={onSubmitMock}
                 setTextData={setTextDataMock}
                 textData={textDataMock}
+                setFailureBanner={setFailureBannerMock}
+                jsonResult={jsonResult}
             />
         );
 
@@ -50,6 +56,8 @@ describe("MemoryModelsUserInput", () => {
                     onTextDataSubmit={onSubmitMock}
                     setTextData={setTextDataMock}
                     textData={textDataMock}
+                    setFailureBanner={setFailureBannerMock}
+                    jsonResult={jsonResult}
                 />
             );
         });
@@ -76,6 +84,8 @@ describe("MemoryModelsUserInput", () => {
                     onTextDataSubmit={onSubmitMock}
                     setTextData={setTextDataMock}
                     textData={textDataMock}
+                    setFailureBanner={setFailureBannerMock}
+                    jsonResult={jsonResult}
                 />
             );
         });
@@ -115,7 +125,7 @@ describe("MemoryModelsUserInput", () => {
 
             expect(consoleErrorSpy).toHaveBeenNthCalledWith(
                 1,
-                `Error parsing uploaded File as JSON: ${mockErrorMessage}`
+                `Error reading uploaded file as text. Please ensure it's in UTF-8 encoding: ${mockErrorMessage}`
             );
             expect(setTextDataMock).toHaveBeenNthCalledWith(1, null);
         });

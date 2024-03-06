@@ -2,26 +2,25 @@ import React, { useState } from "react";
 import SvgDisplay from "./SvgDisplay";
 import MemoryModelsUserInput from "./MemoryModels";
 import { ErrorBoundary } from "react-error-boundary";
-import DownloadJSONButton from "./DownloadJSONButton";
 import DownloadSVGButton from "./DownloadSVGButton";
-import { Alert, Stack } from "@mui/material";
+import { Alert } from "@mui/material";
 
 export default function App() {
     const [textData, setTextData] = useState("");
     const [jsonResult, setJsonResult] = useState(null);
     const [svgResult, setSvgResult] = useState(null);
-    const [showFailureBanner, setShowFailureBanner] = useState(false);
+    const [failureBanner, setFailureBanner] = useState("");
 
     const onSubmit = (event, data) => {
         event.preventDefault();
         try {
             setJsonResult(JSON.parse(data));
-            setShowFailureBanner(false);
+            setFailureBanner("");
         } catch (error) {
-            console.error(`Error parsing inputted JSON: ${error.message}`);
-            setShowFailureBanner(true);
+            const errorMessage = `Error parsing inputted JSON: ${error.message}`;
+            console.error(errorMessage);
+            setFailureBanner(errorMessage);
             setJsonResult(null);
-            setSvgResult(null);
         }
     };
     const onTextDataSubmit = (event) => {
@@ -30,35 +29,30 @@ export default function App() {
 
     return (
         <>
-            {showFailureBanner && (
+            {failureBanner && (
                 <Alert severity="error" data-testid="json-parse-alert">
-                    Failed to parse JSON. Please input valid JSON and re-draw
-                    diagram
+                    {failureBanner}
                 </Alert>
             )}
             <MemoryModelsUserInput
                 textData={textData}
                 setTextData={setTextData}
                 onTextDataSubmit={onTextDataSubmit}
+                setFailureBanner={setFailureBanner}
+                jsonResult={jsonResult}
             />
             <section>
                 <h2>Output</h2>
+                <DownloadSVGButton svgResult={svgResult} />
                 <ErrorBoundary
                     fallback={
-                        <div data-testid="svg-display-error-boundary">
+                        <p data-testid="svg-display-error-boundary">
                             This is valid JSON but not valid Memory Models JSON.
                             Please refer to the repo for more details.
-                        </div>
+                        </p>
                     }
                     key={jsonResult}
                 >
-                    <Stack
-                        direction={{ xs: "column", sm: "row" }}
-                        spacing={{ xs: 1, sm: 2, md: 4 }}
-                    >
-                        <DownloadJSONButton jsonResult={jsonResult} />
-                        <DownloadSVGButton svgResult={svgResult} />
-                    </Stack>
                     <SvgDisplay
                         jsonResult={jsonResult}
                         setSvgResult={setSvgResult}
