@@ -1,16 +1,24 @@
 import React, { useRef, useEffect } from "react";
 import mem from "../../src/index"; // TODO: replace with import of the package after it's been published
+import { Typography } from "@mui/material";
 
 type SvgDisplayPropTypes = {
-    jsonResult: object;
+    jsonResult: object | null;
+    setSvgResult: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
+    const canvasWidth = 1300;
+    const canvasHeight = 1000;
 
     useEffect(() => {
         if (props.jsonResult !== null) {
-            const m = mem.draw(props.jsonResult, true, { width: 1300 });
+            // deep copy jsonResult as mem.draw mutates input JSON
+            // https://github.com/david-yz-liu/memory-models-rough/pull/20#discussion_r1513235452
+            const jsonResultCopy = structuredClone(props.jsonResult);
+            const m = mem.draw(jsonResultCopy, true, { width: canvasWidth });
+            props.setSvgResult(m.serializeSVG());
             m.clear(canvasRef.current);
             m.render(canvasRef.current);
         }
@@ -20,8 +28,8 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
         <canvas
             data-testid="memory-models-canvas"
             ref={canvasRef}
-            width={1000}
-            height={1000}
+            width={canvasWidth}
+            height={canvasHeight}
         />
     );
 }
