@@ -17,6 +17,7 @@ export default function DownloadSVGButton(props: DownloadSVGButtonPropTypes) {
             target="_blank"
             rel="noreferrer"
             download="output.svg"
+            sx={{ textTransform: "none" }}
         >
             Download This SVG
         </Button>

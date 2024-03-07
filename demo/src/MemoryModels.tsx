@@ -75,7 +75,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                     variant="contained"
                     disabled={!uploadedFileString}
                     onClick={onLoadButtonClick}
-                    sx={{ width: "33.33%" }}
+                    sx={{ width: "33.33%", textTransform: "none" }}
                 >
                     Load file data
                 </Button>
@@ -144,7 +144,7 @@ export default function MemoryModelsUserInput(
                                 variant="contained"
                                 color="primary"
                                 disabled={!props.textData}
-                                style={{ fontFamily: "Monospace" }}
+                                style={{ textTransform: "none" }}
                             >
                                 Draw Diagram
                             </Button>
