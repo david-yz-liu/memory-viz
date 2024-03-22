@@ -1,12 +1,20 @@
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import MemoryModelsUserInput from "../MemoryModels";
+import MemoryModelsUserInput from "../MemoryModelsUserInput";
 
 describe("MemoryModelsUserInput", () => {
     // submit button by default resets the form https://stackoverflow.com/a/62404526
     const onSubmitMock = jest.fn((e) => e.preventDefault());
     const setTextDataMock = jest.fn();
     const setFailureBannerMock = jest.fn();
+    const configDataMock = {
+        useAutomation: true,
+        overallDrawConfig: {
+            seed: 0,
+        },
+        individualDrawConfig: [],
+    };
+    const setConfigDataMock = jest.fn();
     const jsonResult = "";
 
     it("does not submit the form or enable the submit button with empty textData", () => {
@@ -18,6 +26,8 @@ describe("MemoryModelsUserInput", () => {
                 textData={textDataMock}
                 setFailureBanner={setFailureBannerMock}
                 jsonResult={jsonResult}
+                configData={configDataMock}
+                setConfigData={setConfigDataMock}
             />
         );
 
@@ -38,6 +48,8 @@ describe("MemoryModelsUserInput", () => {
                 textData={textDataMock}
                 setFailureBanner={setFailureBannerMock}
                 jsonResult={jsonResult}
+                configData={configDataMock}
+                setConfigData={setConfigDataMock}
             />
         );
 
@@ -58,6 +70,8 @@ describe("MemoryModelsUserInput", () => {
                     textData={textDataMock}
                     setFailureBanner={setFailureBannerMock}
                     jsonResult={jsonResult}
+                    configData={configDataMock}
+                    setConfigData={setConfigDataMock}
                 />
             );
         });
@@ -86,6 +100,8 @@ describe("MemoryModelsUserInput", () => {
                     textData={textDataMock}
                     setFailureBanner={setFailureBannerMock}
                     jsonResult={jsonResult}
+                    configData={configDataMock}
+                    setConfigData={setConfigDataMock}
                 />
             );
         });

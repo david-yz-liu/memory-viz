@@ -1,16 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
     Button,
     Card,
     CardContent,
+    Checkbox,
+    FormControlLabel,
     Grid,
     Input,
+    Stack,
     TextField,
     Tooltip,
-    Typography,
-    Stack,
 } from "@mui/material";
 import DownloadJSONButton from "./DownloadJSONButton";
+import { ExpandMore } from "@mui/icons-material";
+
+interface configDataPropTypes {
+    useAutomation: boolean;
+    overallDrawConfig: {
+        seed: Number;
+    };
+    individualDrawConfig: Array<any>;
+}
+
+type MemoryModelsConfigInputPropTypes = {
+    configData: configDataPropTypes;
+    setConfigData: React.Dispatch<React.SetStateAction<object>>;
+};
 
 type MemoryModelsFileInputPropTypes = {
     setTextData: React.Dispatch<React.SetStateAction<string>>;
@@ -25,7 +43,8 @@ type MemoryModelsTextInputPropTypes = {
 };
 
 type MemoryModelsUserInputPropTypes = MemoryModelsFileInputPropTypes &
-    MemoryModelsTextInputPropTypes & {
+    MemoryModelsTextInputPropTypes &
+    MemoryModelsConfigInputPropTypes & {
         onTextDataSubmit: (event: React.MouseEvent<HTMLFormElement>) => void;
     };
 
@@ -114,6 +133,73 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
         </CardContent>
     );
 }
+//TODO:
+// Retrieve min and max seeds from the backend
+function MemoryModelsConfigInput(props) {
+    const [seed, setSeed] = useState("");
+    const [useAutomation, setUseAutomation] = useState(true);
+
+    useEffect(() => {
+        props.setConfigData((prevConfig) => ({
+            ...prevConfig,
+            overallDrawConfig: {
+                seed: seed,
+                useAutomation: useAutomation,
+            },
+        }));
+    }, []);
+
+    const handleSeedChange = (event) => {
+        event.preventDefault();
+        const inputSeed = event.target.value;
+        setSeed(inputSeed);
+        props.setConfigData((prevConfig) => ({
+            ...prevConfig,
+            overallDrawConfig: {
+                ...prevConfig.overallDrawConfig,
+                seed: Number(inputSeed),
+            },
+        }));
+    };
+
+    const handleAutomationChange = (event) => {
+        event.preventDefault();
+        setUseAutomation(event.target.checked);
+        props.setConfigData((prevConfig) => ({
+            ...prevConfig,
+            useAutomation: event.target.checked,
+        }));
+    };
+
+    return (
+        <CardContent>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                <TextField
+                    label="Seed"
+                    id="config-seed"
+                    variant="outlined"
+                    value={seed}
+                    onChange={handleSeedChange}
+                    type="number"
+                    InputProps={{
+                        inputProps: { min: 0, max: 2 ** 31 },
+                    }}
+                    sx={{ width: "50%" }}
+                />
+                <FormControlLabel
+                    control={
+                        <Checkbox
+                            checked={useAutomation}
+                            onChange={handleAutomationChange}
+                        />
+                    }
+                    label="Generate with automation"
+                    sx={{ width: "50%" }}
+                />
+            </Stack>
+        </CardContent>
+    );
+}
 
 export default function MemoryModelsUserInput(
     props: MemoryModelsUserInputPropTypes
@@ -122,19 +208,33 @@ export default function MemoryModelsUserInput(
         <form data-testid="input-form" onSubmit={props.onTextDataSubmit}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Card>
-                        <Typography component="div">
-                            <MemoryModelsFileInput
-                                textData={props.textData}
-                                setTextData={props.setTextData}
-                                setFailureBanner={props.setFailureBanner}
-                                jsonResult={props.jsonResult}
-                            />
-                            <MemoryModelsTextInput
-                                textData={props.textData}
-                                setTextData={props.setTextData}
-                            />
-                        </Typography>
+                    <Card color="neutral">
+                        <MemoryModelsFileInput
+                            textData={props.textData}
+                            setTextData={props.setTextData}
+                            setFailureBanner={props.setFailureBanner}
+                            jsonResult={props.jsonResult}
+                        />
+                        <MemoryModelsTextInput
+                            textData={props.textData}
+                            setTextData={props.setTextData}
+                        />
+                        <Accordion>
+                            <AccordionSummary
+                                expandIcon={<ExpandMore />}
+                                id="optional-styles-accordion"
+                            >
+                                Optional Styling
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Card color="neutral" variant="outlined">
+                                    <MemoryModelsConfigInput
+                                        configData={props.configData}
+                                        setConfigData={props.setConfigData}
+                                    />
+                                </Card>
+                            </AccordionDetails>
+                        </Accordion>
                     </Card>
                     <Tooltip title="Input JSON to draw diagram">
                         <span>
@@ -157,3 +257,4 @@ export default function MemoryModelsUserInput(
 }
 
 export { MemoryModelsFileInput };
+export type { configDataPropTypes };
