@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
     Accordion,
     AccordionDetails,
@@ -135,40 +135,26 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
 }
 //TODO:
 // Retrieve min and max seeds from the backend
-function MemoryModelsConfigInput(props) {
-    const [seed, setSeed] = useState("");
-    const [useAutomation, setUseAutomation] = useState(true);
-
-    useEffect(() => {
-        props.setConfigData((prevConfig) => ({
-            ...prevConfig,
-            overallDrawConfig: {
-                seed: seed,
-                useAutomation: useAutomation,
-            },
-        }));
-    }, []);
-
+function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
     const handleSeedChange = (event) => {
         event.preventDefault();
-        const inputSeed = event.target.value;
-        setSeed(inputSeed);
-        props.setConfigData((prevConfig) => ({
-            ...prevConfig,
+        props.setConfigData({
+            ...props.configData,
             overallDrawConfig: {
-                ...prevConfig.overallDrawConfig,
-                seed: Number(inputSeed),
+                ...props.configData.overallDrawConfig,
+                seed: Number(event.target.value),
             },
-        }));
+        });
     };
 
     const handleAutomationChange = (event) => {
-        event.preventDefault();
-        setUseAutomation(event.target.checked);
-        props.setConfigData((prevConfig) => ({
-            ...prevConfig,
+        // Calling the common (among React event handlers) event.preventDefault() here
+        // will cause the checkbox to require double instead of single clicks, as verified by both UI and tests.
+        // Explained in https://grrr.tech/posts/2022/event-prevent-failure/#but-huh-why-does-this-work
+        props.setConfigData({
+            ...props.configData,
             useAutomation: event.target.checked,
-        }));
+        });
     };
 
     return (
@@ -178,18 +164,22 @@ function MemoryModelsConfigInput(props) {
                     label="Seed"
                     id="config-seed"
                     variant="outlined"
-                    value={seed}
+                    value={props.configData.overallDrawConfig.seed}
                     onChange={handleSeedChange}
                     type="number"
                     InputProps={{
-                        inputProps: { min: 0, max: 2 ** 31 },
+                        inputProps: {
+                            min: 0,
+                            max: 2 ** 31,
+                            "data-testid": "config-seed",
+                        },
                     }}
                     sx={{ width: "50%" }}
                 />
                 <FormControlLabel
                     control={
                         <Checkbox
-                            checked={useAutomation}
+                            checked={props.configData.useAutomation}
                             onChange={handleAutomationChange}
                         />
                     }
@@ -222,7 +212,7 @@ export default function MemoryModelsUserInput(
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMore />}
-                                id="optional-styles-accordion"
+                                data-testid="optional-styles-accordion"
                             >
                                 Optional Styling
                             </AccordionSummary>

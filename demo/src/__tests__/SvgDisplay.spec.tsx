@@ -16,10 +16,11 @@ jest.mock("../../../src/index", () => ({
 
 describe("SvgDisplay", () => {
     const setSvgResultMock = jest.fn();
+    const seedMock = 1234;
     const configDataMock = {
         useAutomation: true,
         overallDrawConfig: {
-            seed: 0,
+            seed: seedMock,
         },
         individualDrawConfig: [],
     };
@@ -50,7 +51,7 @@ describe("SvgDisplay", () => {
                 },
             ],
         ],
-    ])("when jsonResult is not null and %s", (scenario, jsonResult) => {
+    ])("when jsonResult is not null and %s", (_, jsonResult) => {
         beforeEach(() => {
             render(
                 <SvgDisplay
@@ -69,7 +70,7 @@ describe("SvgDisplay", () => {
 
         it("calls functions with correct parameters", () => {
             expect(draw).toHaveBeenNthCalledWith(1, jsonResult, true, {
-                seed: 0,
+                seed: seedMock,
                 width: 1300,
             });
             expect(setSvgResultMock).toHaveBeenNthCalledWith(
