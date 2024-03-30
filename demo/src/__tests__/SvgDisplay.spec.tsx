@@ -22,7 +22,6 @@ describe("SvgDisplay", () => {
         overallDrawConfig: {
             seed: seedMock,
         },
-        individualDrawConfig: [],
     };
     describe.each([
         ["valid JSON but not valid Memory Models JSON", [{}]],

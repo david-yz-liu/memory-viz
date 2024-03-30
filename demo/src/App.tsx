@@ -13,7 +13,6 @@ export default function App() {
         overallDrawConfig: {
             seed: 0,
         },
-        individualDrawConfig: [],
     });
     const [jsonResult, setJsonResult] = useState(null);
     const [svgResult, setSvgResult] = useState(null);

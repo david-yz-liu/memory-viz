@@ -18,7 +18,6 @@ describe("MemoryModelsUserInput", () => {
         overallDrawConfig: {
             seed: 0,
         },
-        individualDrawConfig: [],
     };
     const setConfigDataMock = jest.fn();
     const jsonResult = "";
@@ -41,8 +40,8 @@ describe("MemoryModelsUserInput", () => {
             />
         );
         expect(
-            screen.getByTestId("optional-styles-accordion").textContent
-        ).toEqual("Optional Styling");
+            screen.getByTestId("rendering-options-accordion").textContent
+        ).toEqual("Rendering Options");
     });
 
     it("does not submit the form or enable the submit button with empty textData", () => {
@@ -232,7 +231,6 @@ describe("MemoryModelsUserInput", () => {
         it("renders a number input with correct props and checkbox that is checked by default", () => {
             const seedInput: HTMLInputElement =
                 screen.getByTestId("config-seed");
-            //TODO: get max and min values from backend config
             [
                 ["max", (2 ** 31).toString()],
                 ["min", "0"],
@@ -244,7 +242,7 @@ describe("MemoryModelsUserInput", () => {
             // According to https://mui.com/material-ui/react-checkbox/#accessibility, checkboxes should always
             // have labels, so testing with label text rather than data-testid here.
             const automationCheckbox: HTMLInputElement = screen.getByLabelText(
-                "Generate with automation"
+                "Use automatic layout"
             );
             expect(automationCheckbox.checked).toBe(true);
         });
@@ -254,30 +252,24 @@ describe("MemoryModelsUserInput", () => {
                 screen.getByTestId("config-seed");
             const mockSeed = "123";
             fireEvent.change(seedInput, { target: { value: mockSeed } });
-            expect(setConfigDataMock).toHaveBeenNthCalledWith(
-                1,
-                expect.objectContaining({
-                    ...configDataMock,
-                    overallDrawConfig: {
-                        ...configDataMock.overallDrawConfig,
-                        seed: Number("123"),
-                    },
-                })
-            );
+            expect(setConfigDataMock).toHaveBeenNthCalledWith(1, {
+                ...configDataMock,
+                overallDrawConfig: {
+                    ...configDataMock.overallDrawConfig,
+                    seed: Number("123"),
+                },
+            });
         });
 
         it("handles automation change", () => {
             const automationCheckbox: HTMLInputElement = screen.getByLabelText(
-                "Generate with automation"
+                "Use automatic layout"
             );
             fireEvent.click(automationCheckbox);
-            expect(setConfigDataMock).toHaveBeenNthCalledWith(
-                1,
-                expect.objectContaining({
-                    ...configDataMock,
-                    useAutomation: false,
-                })
-            );
+            expect(setConfigDataMock).toHaveBeenNthCalledWith(1, {
+                ...configDataMock,
+                useAutomation: false,
+            });
         });
     });
 });

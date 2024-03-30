@@ -22,7 +22,6 @@ interface configDataPropTypes {
     overallDrawConfig: {
         seed: Number;
     };
-    individualDrawConfig: Array<any>;
 }
 
 type MemoryModelsConfigInputPropTypes = {
@@ -133,8 +132,8 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
         </CardContent>
     );
 }
-//TODO:
-// Retrieve min and max seeds from the backend
+
+//TODO: Retrieve min and max seeds from memory-models-rough
 function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
     const handleSeedChange = (event) => {
         event.preventDefault();
@@ -183,7 +182,7 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                             onChange={handleAutomationChange}
                         />
                     }
-                    label="Generate with automation"
+                    label="Use automatic layout"
                     sx={{ width: "50%" }}
                 />
             </Stack>
@@ -212,9 +211,9 @@ export default function MemoryModelsUserInput(
                         <Accordion>
                             <AccordionSummary
                                 expandIcon={<ExpandMore />}
-                                data-testid="optional-styles-accordion"
+                                data-testid="rendering-options-accordion"
                             >
-                                Optional Styling
+                                Rendering Options
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Card color="neutral" variant="outlined">
