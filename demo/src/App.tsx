@@ -5,6 +5,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import DownloadSVGButton from "./DownloadSVGButton";
 import { Alert } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
+import MemoryModelsSample from "./MemoryModelsSample";
 
 export default function App() {
     const [textData, setTextData] = useState("");
@@ -18,10 +19,10 @@ export default function App() {
     const [svgResult, setSvgResult] = useState(null);
     const [failureBanner, setFailureBanner] = useState("");
 
-    const onSubmit = (event, data) => {
-        event.preventDefault();
+    const onTextDataSubmit = (event?) => {
+        event?.preventDefault();
         try {
-            setJsonResult(JSON.parse(data));
+            setJsonResult(JSON.parse(textData));
             setFailureBanner("");
         } catch (error) {
             const errorMessage = `Error parsing inputted JSON: ${error.message}`;
@@ -29,9 +30,6 @@ export default function App() {
             setFailureBanner(errorMessage);
             setJsonResult(null);
         }
-    };
-    const onTextDataSubmit = (event) => {
-        onSubmit(event, textData);
     };
 
     return (
@@ -41,6 +39,11 @@ export default function App() {
                     {failureBanner}
                 </Alert>
             )}
+            <MemoryModelsSample
+                setTextData={setTextData}
+                setConfigData={setConfigData}
+                onTextDataSubmit={onTextDataSubmit}
+            />
             <MemoryModelsUserInput
                 textData={textData}
                 setTextData={setTextData}
