@@ -1,0 +1,11 @@
+{
+    "useAutomation": true,
+    "overallDrawConfig": {
+        "seed": 0,
+        "width": 1300,
+        "padding": 30,
+        "right_margin": 20,
+        "bottom_margin": 20,
+        "sort_by": null
+    }
+}
