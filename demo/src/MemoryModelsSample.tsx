@@ -28,6 +28,8 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
         }
     }, [clickedBtnIndex]);
 
+    // useEffect with empty dependency array mimics componentDidMount
+    // https://stackoverflow.com/a/58579462
     useEffect(() => {
         const samples = [
             "automation",
@@ -38,6 +40,10 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
         ];
         const tempFileContents = {};
         for (const sample of samples) {
+            // client-side React doesn't have many options for reading local files
+            // fs doesn't work. Alternatively since the goal is storing string,
+            // we can just store the file as the product of JSON.stringify in .txt
+            // but that'd be a design choice
             tempFileContents[sample] = [
                 JSON.stringify(
                     require(`./sample/${sample}/${sample}.json`),
