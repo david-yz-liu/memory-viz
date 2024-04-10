@@ -38,6 +38,7 @@ module.exports = [
                     test: /\.css$/i,
                     use: ["style-loader", "css-loader"],
                 },
+                { test: /\.json$/, type: "json" },
             ],
         },
         mode: "development",
@@ -53,7 +54,7 @@ module.exports = [
             }),
         ],
         resolve: {
-            extensions: [".ts", ".tsx", ".js", ".jsx", ".css"],
+            extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".css"],
         },
     },
 ];

@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
 
+import { SAMPLES } from "./sample";
+
 type MemoryModelsSamplePropTypes = {
     setTextData: React.Dispatch<React.SetStateAction<string>>;
     setConfigData: React.Dispatch<React.SetStateAction<object>>;
@@ -17,9 +19,6 @@ type MemoryModelsSamplePropTypes = {
 };
 
 export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
-    const [fileContents, setFileContents] = useState<{
-        [key: string]: [string, Object];
-    }>({});
     const [clickedBtnIndex, setClickedBtnIndex] = useState<Number>(null);
 
     useEffect(() => {
@@ -28,45 +27,14 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
         }
     }, [clickedBtnIndex]);
 
-    // useEffect with empty dependency array mimics componentDidMount
-    // https://stackoverflow.com/a/58579462
-    useEffect(() => {
-        const samples = [
-            "automation",
-            "blankspace",
-            "manual",
-            "simple",
-            "style",
-        ];
-        const tempFileContents = {};
-        for (const sample of samples) {
-            // client-side React doesn't have many options for reading local files
-            // fs doesn't work. Alternatively since the goal is storing string,
-            // we can just store the file as the product of JSON.stringify in .txt
-            // but that'd be a design choice
-            tempFileContents[sample] = [
-                JSON.stringify(
-                    require(`./sample/${sample}/${sample}.json`),
-                    null,
-                    2
-                ),
-                require(`./sample/${sample}/config.json`),
-            ];
-        }
-        setFileContents({
-            ...tempFileContents,
-        });
-    }, []);
-
-    const handleButtonClick = (
-        index: Number,
-        content: string,
-        config: Object
-    ) => {
-        props.setTextData(content);
+    const handleButtonClick = (index: Number, sample: Object) => {
+        // Note: the following conversion to a string is inefficient, as the data is later parsed
+        // back into JSON for rendering.
+        // TODO: fix this.
+        props.setTextData(JSON.stringify(sample["data"], null, 4));
         props.setConfigData((prevConfigData) => ({
             ...prevConfigData,
-            ...config,
+            ...sample["config"],
         }));
         setClickedBtnIndex(index);
     };
@@ -83,16 +51,12 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
                 <Card color="neutral">
                     <CardContent>
                         <Grid container spacing={2}>
-                            {Object.entries(fileContents).map((file, index) => (
+                            {SAMPLES.map((sample, index) => (
                                 <Grid item xs={12} sm={6} md={4} key={index}>
                                     <Button
                                         variant="contained"
                                         onClick={() =>
-                                            handleButtonClick(
-                                                index,
-                                                file[1][0],
-                                                file[1][1]
-                                            )
+                                            handleButtonClick(index, sample)
                                         }
                                         color={
                                             index === clickedBtnIndex
@@ -101,7 +65,7 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
                                         }
                                         sx={{ textTransform: "capitalize" }}
                                     >
-                                        {file[0]}
+                                        {sample["name"]}
                                     </Button>
                                 </Grid>
                             ))}
