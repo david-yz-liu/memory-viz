@@ -1,6 +1,6 @@
 ---
 id: "index"
-title: "memory-models-rough"
+title: "MemoryViz"
 sidebar_label: "Readme"
 sidebar_position: 0
 custom_edit_url: null
@@ -16,10 +16,10 @@ This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the
 ## Installation (users)
 
 1. Install [Node.js](https://nodejs.org/en/).
-2. Install the `memory-models-rough` package from GitHub (it is currently not on npm):
+2. Install the `memory-viz` package from GitHub (it is currently not on npm):
 
     ```console
-    $ npm install git+https://github.com/david-yz-liu/memory-models-rough.git -g
+    $ npm install git+https://github.com/david-yz-liu/memory-viz.git -g
     ```
 
     _Note_: omit the `-g` flag if you want to install the package into just the current working directory.

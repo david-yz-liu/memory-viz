@@ -16,7 +16,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     useEffect(() => {
         if (props.jsonResult !== null) {
             // deep copy jsonResult as mem.draw mutates input JSON
-            // https://github.com/david-yz-liu/memory-models-rough/pull/20#discussion_r1513235452
+            // https://github.com/david-yz-liu/memory-viz/pull/20#discussion_r1513235452
             const jsonResultCopy = structuredClone(props.jsonResult);
             const m = mem.draw(jsonResultCopy, props.configData.useAutomation, {
                 ...props.configData.overallDrawConfig,

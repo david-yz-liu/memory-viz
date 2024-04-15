@@ -1,4 +1,4 @@
-# Memory model diagrams
+# MemoryViz: Creating memory model diagrams
 
 This package generates memory model diagrams for Python code in the style of CSC110/111/148 at the University of Toronto.
 This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the look of hand-drawn diagrams.
@@ -8,10 +8,10 @@ This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the
 ## Installation (users)
 
 1. Install [Node.js](https://nodejs.org/en/).
-2. Install the `memory-models-rough` package from GitHub (it is currently not on npm):
+2. Install the `memory-viz` package from GitHub (it is currently not on npm):
 
     ```console
-    $ npm install git+https://github.com/david-yz-liu/memory-models-rough.git -g
+    $ npm install git+https://github.com/david-yz-liu/memory-viz.git -g
     ```
 
     _Note_: omit the `-g` flag if you want to install the package into just the current working directory.
@@ -89,7 +89,7 @@ Before showing the full capabilities of the project, here is a simple example to
 one stack-frame and two objects.
 
 ```javascript
-const { draw } = require("../../dist/memory_models_rough.js");
+const { draw } = require("../../dist/memory_viz.js");
 
 const objects = [
     {

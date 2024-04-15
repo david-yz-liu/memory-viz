@@ -1,7 +1,7 @@
 {
-    "name": "memory-models-rough-demo",
+    "name": "memory-viz-demo",
     "version": "0.1.0",
-    "description": "Demo website for memory-models-rough",
+    "description": "Demo website for memory-viz",
     "scripts": {
         "test": "jest --no-cache",
         "test-cov": "jest --no-cache --coverage",
@@ -10,15 +10,15 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/david-yz-liu/memory-models-rough.git"
+        "url": "git+https://github.com/david-yz-liu/memory-viz.git"
     },
     "author": "David Liu",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/david-yz-liu/memory-models-rough/issues"
+        "url": "https://github.com/david-yz-liu/memory-viz/issues"
     },
     "private": true,
-    "homepage": "https://github.com/david-yz-liu/memory-models-rough#readme",
+    "homepage": "https://github.com/david-yz-liu/memory-viz#readme",
     "devDependencies": {
         "@babel/core": "^7.23.6",
         "@babel/preset-env": "^7.23.6",

@@ -134,7 +134,7 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
     );
 }
 
-//TODO: Retrieve min and max seeds from memory-models-rough
+//TODO: Retrieve min and max seeds from memory-viz
 function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
     const handleSeedChange = (event) => {
         event.preventDefault();

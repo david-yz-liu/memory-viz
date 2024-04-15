@@ -12,10 +12,10 @@ This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the
 
 ## Installation
 
-You can install the `memory-models-rough` package from GitHub (it is currently not on npm):
+You can install the `memory-viz` package from GitHub (it is currently not on npm):
 
 ```console
-$ npm install git+https://github.com/david-yz-liu/memory-models-rough.git
+$ npm install git+https://github.com/david-yz-liu/memory-viz.git
 ```
 
 ## Example
@@ -24,7 +24,7 @@ Here's an example of using this package in a Javascript file executed by NodeJS.
 
 ```javascript
 // simple_demo.js
-const { draw } = require("memory_models_rough");
+const { draw } = require("memory_viz");
 
 const objects = [
     {
