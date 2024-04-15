@@ -1,6 +1,6 @@
 ---
 id: "modules"
-title: "memory-models-rough"
+title: "MemoryViz"
 sidebar_label: "Exports"
 sidebar_position: 0.5
 custom_edit_url: null
@@ -32,4 +32,4 @@ the produced canvas
 
 #### Defined in
 
-[user_functions.ts:29](https://github.com/david-yz-liu/memory-models-rough/blob/bc37a9e/src/user_functions.ts#L29)
+[user_functions.ts:29](https://github.com/david-yz-liu/memory-viz/blob/bc37a9e/src/user_functions.ts#L29)

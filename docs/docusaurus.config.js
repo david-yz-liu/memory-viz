@@ -8,7 +8,7 @@ import { themes as prismThemes } from "prism-react-renderer";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-    title: "Memory Models Rough",
+    title: "MemoryViz",
     tagline: "Generator for Python memory model diagrams",
     favicon: "img/favicon.ico",
 
@@ -16,7 +16,7 @@ const config = {
     url: "https://www.cs.toronto.edu/",
     // Set the /<baseUrl>/ pathname under which your site is served
     // For GitHub pages deployment, it is often '/<projectName>/'
-    baseUrl: "/~david/memory-models-rough/",
+    baseUrl: "/~david/memory-viz/",
 
     // GitHub pages deployment config.
     // If you aren't using GitHub pages, you don't need these.
@@ -44,7 +44,7 @@ const config = {
                     // Please change this to your repo.
                     // Remove this to remove the "edit this page" links.
                     editUrl:
-                        "https://github.com/david-yz-liu/memory-models-rough/tree/main/docs",
+                        "https://github.com/david-yz-liu/memory-viz/tree/main/docs",
                 },
                 blog: false,
                 // blog: {
@@ -67,9 +67,9 @@ const config = {
             // Replace with your project's social card
             image: "img/docusaurus-social-card.jpg",
             navbar: {
-                title: "Memory Models Rough",
+                title: "MemoryViz",
                 logo: {
-                    alt: "Memory Models Rough Logo",
+                    alt: "MemoryViz Logo",
                     src: "img/logo.svg",
                 },
                 items: [
@@ -80,7 +80,7 @@ const config = {
                         label: "Docs",
                     },
                     {
-                        href: "https://github.com/david-yz-liu/memory-models-rough",
+                        href: "https://github.com/david-yz-liu/memory-viz",
                         label: "GitHub",
                         position: "right",
                     },
@@ -124,7 +124,7 @@ const config = {
                             // },
                             {
                                 label: "GitHub",
-                                href: "https://github.com/david-yz-liu/memory-models-rough",
+                                href: "https://github.com/david-yz-liu/memory-viz",
                             },
                         ],
                     },

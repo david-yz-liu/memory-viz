@@ -6,9 +6,9 @@ module.exports = [
         entry: path.resolve(__dirname, "src/index.ts"),
         output: {
             path: path.resolve(__dirname, "dist"),
-            filename: "memory_models_rough.js",
+            filename: "memory_viz.js",
             library: {
-                name: "MemoryModelsRough",
+                name: "MemoryViz",
                 type: "umd",
                 export: "default",
             },

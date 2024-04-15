@@ -1,8 +1,8 @@
 {
-    "name": "memory-models-rough",
+    "name": "memory-viz",
     "version": "0.1.0",
-    "description": "Library for creating Python memory model diagrams that look hand-drawn.",
-    "main": "dist/memory_models_rough.js",
+    "description": "Library for creating beginner-friendly memory model diagrams.",
+    "main": "dist/memory_viz.js",
     "scripts": {
         "test": "jest --no-cache",
         "test-cov": "jest --no-cache --coverage",

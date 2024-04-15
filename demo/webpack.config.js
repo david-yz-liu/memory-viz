@@ -48,7 +48,7 @@ module.exports = [
         },
         plugins: [
             new HtmlWebpackPlugin({
-                title: "Memory Models Rough Demo",
+                title: "MemoryViz Demo",
                 filename: "./index.html",
                 template: "./src/html/index.html",
             }),
