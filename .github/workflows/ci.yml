@@ -39,8 +39,6 @@ jobs:
                   cache: npm
             - name: Install npm packages
               run: npm ci
-            - name: Build
-              run: npm run build-dev
             - name: Run jest tests
               run: npm run test-cov
             - name: Coveralls (jest)

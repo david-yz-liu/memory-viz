@@ -19,7 +19,7 @@ const config: Config = {
     clearMocks: true,
 
     // Indicates whether the coverage information should be collected while executing the test
-    collectCoverage: false,
+    // collectCoverage: false,
 
     // An array of glob patterns indicating a set of files for which coverage information should be collected
     // collectCoverageFrom: undefined,
@@ -74,7 +74,7 @@ const config: Config = {
     // maxWorkers: "50%",
 
     // An array of directory names to be searched recursively up from the requiring module's location
-    // moduleDirectories: ["node_modules", "../src", "../dist"],
+    // moduleDirectories: ["node_modules"],
 
     // An array of file extensions your modules use
     // moduleFileExtensions: [
@@ -92,6 +92,7 @@ const config: Config = {
     moduleNameMapper: {
         // Force module roughjs to resolve with the CJS entry point, because Jest does not support package.json.exports. Elaborated in PR#15.
         roughjs: require.resolve("roughjs"),
+        "memory-viz": require.resolve("../memory-viz/src"),
     },
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
