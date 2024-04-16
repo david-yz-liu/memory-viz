@@ -1,6 +1,6 @@
 ---
 id: "modules"
-title: "MemoryViz"
+title: "memory-viz"
 sidebar_label: "Exports"
 sidebar_position: 0.5
 custom_edit_url: null
@@ -32,4 +32,4 @@ the produced canvas
 
 #### Defined in
 
-user_functions.ts:29
+[user_functions.ts:29](https://github.com/david-yz-liu/memory-viz/blob/4d72b15/memory-viz/src/user_functions.ts#L29)
