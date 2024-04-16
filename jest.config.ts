@@ -73,9 +73,7 @@ const config: Config = {
     // maxWorkers: "50%",
 
     // An array of directory names to be searched recursively up from the requiring module's location
-    // moduleDirectories: [
-    //   "node_modules"
-    // ],
+    // moduleDirectories: ["node_modules"],
 
     // An array of file extensions your modules use
     // moduleFileExtensions: [
@@ -105,7 +103,7 @@ const config: Config = {
     // preset: undefined,
 
     // Run tests from one or more projects
-    projects: ["./demo/jest.config.ts", "./src/jest.config.ts"],
+    projects: ["./demo/jest.config.ts", "./memory-viz/src/jest.config.ts"],
 
     // Use this configuration option to add custom reporters to Jest
     // reporters: undefined,

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import SvgDisplay from "../SvgDisplay";
-import mem from "../../../src/index";
+import mem from "memory-viz";
 const { draw } = mem;
 
 const mockMemoryModels = {
@@ -10,7 +10,7 @@ const mockMemoryModels = {
     render: jest.fn(),
 };
 
-jest.mock("../../../src/index", () => ({
+jest.mock("memory-viz", () => ({
     draw: jest.fn(() => mockMemoryModels),
 }));
 

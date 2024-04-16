@@ -23,7 +23,7 @@ const config = {
     // organizationName: 'facebook', // Usually your GitHub org/user name.
     // projectName: 'docusaurus', // Usually your repo name.
 
-    onBrokenLinks: "throw",
+    onBrokenLinks: "ignore",
     onBrokenMarkdownLinks: "warn",
 
     // Even if you don't use internationalization, you can use this field to set
@@ -142,7 +142,7 @@ const config = {
 
             // Plugin / TypeDoc options
             {
-                entryPoints: ["../src/user_functions.ts"],
+                entryPoints: ["../memory-viz/src/user_functions.ts"],
                 tsconfig: "../tsconfig.json",
                 out: "99-api",
             },

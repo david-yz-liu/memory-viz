@@ -1,11 +1,3 @@
----
-id: "index"
-title: "MemoryViz"
-sidebar_label: "Readme"
-sidebar_position: 0
-custom_edit_url: null
----
-
 # MemoryViz: Creating memory model diagrams
 
 This package generates memory model diagrams for Python code in the style of CSC110/111/148 at the University of Toronto.

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import mem from "../../src/index"; // TODO: replace with import of the package after it's been published
+import mem from "memory-viz";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
 
 type SvgDisplayPropTypes = {

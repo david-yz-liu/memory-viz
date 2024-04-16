@@ -46,6 +46,7 @@ module.exports = [
         externals: {
             fs: "fs",
         },
+        externalsType: "window",
         plugins: [
             new HtmlWebpackPlugin({
                 title: "MemoryViz Demo",
@@ -55,6 +56,9 @@ module.exports = [
         ],
         resolve: {
             extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".css"],
+            alias: {
+                "memory-viz": path.resolve(__dirname, "../memory-viz/src"),
+            },
         },
     },
 ];
