@@ -45,3 +45,35 @@ jobs:
               uses: coverallsapp/github-action@v2
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
+
+    build:
+        runs-on: ubuntu-latest
+        environment:
+            name: publish-docs
+            url: https://www.cs.toronto.edu/~david/memory-viz
+        if: github.ref == 'refs/heads/master'
+        steps:
+            - uses: actions/checkout@v3
+            - name: Set up node and cache packages
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+                  cache: npm
+            - name: Install npm packages
+              run: npm ci
+            - name: Build docs and demo website
+              run: |
+                  npm run build --workspace=demo
+                  npm run build --workspace=docs
+                  mkdir docs/build/demo
+                  cp -r demo/dist/* docs/build/demo
+            - name: Deploy to Server
+              uses: easingthemes/ssh-deploy@main
+              with:
+                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+                  ARGS: "-rlgoDzvc -i --delete"
+                  SOURCE: "docs/build/"
+                  REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+                  REMOTE_USER: ${{ secrets.REMOTE_USER }}
+                  TARGET: ${{ secrets.REMOTE_TARGET }}
+                  EXCLUDE: "/dist/, /node_modules/"
