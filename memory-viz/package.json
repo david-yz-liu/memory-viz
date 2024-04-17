@@ -2,7 +2,8 @@
     "name": "memory-viz",
     "version": "0.1.0",
     "description": "Library for creating beginner-friendly memory model diagrams.",
-    "main": "dist/memory_viz.js",
+    "main": "dist/memory-viz.bundle.js",
+    "homepage": "https://www.cs.toronto.edu/~david/memory-viz",
     "scripts": {
         "test": "jest --no-cache",
         "test-cov": "jest --no-cache --coverage",
@@ -14,7 +15,11 @@
         "education",
         "diagrams"
     ],
-    "author": "David Liu",
+    "author": {
+        "name": "David Liu",
+        "email": "david@cs.toronto.edu",
+        "url": "https://www.cs.toronto.edu/~david"
+    },
     "contributors": [
         "Mimis Chlympatsos",
         "Shannon Komguem",
@@ -22,6 +27,14 @@
         "Ziyuan (Jerry) Zhang"
     ],
     "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/david-yz-liu/memory-viz.git",
+        "directory": "memory-viz"
+    },
+    "bugs": {
+        "url": "https://github.com/david-yz-liu/memory-viz/issues"
+    },
     "dependencies": {
         "@xmldom/xmldom": "^0.8.6",
         "deepmerge": "^4.3.1",

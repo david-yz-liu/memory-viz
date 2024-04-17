@@ -8,13 +8,11 @@ This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the
 ## Installation (users)
 
 1. Install [Node.js](https://nodejs.org/en/).
-2. Install the `memory-viz` package from GitHub (it is currently not on npm):
+2. Install the `memory-viz` package:
 
     ```console
-    $ npm install git+https://github.com/david-yz-liu/memory-viz.git -g
+    $ npm install memory-viz
     ```
-
-    _Note_: omit the `-g` flag if you want to install the package into just the current working directory.
 
 ## Installation (developers)
 
@@ -39,9 +37,6 @@ This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the
     $ npm pkg set scripts.prepare="husky install"
     $ npx husky add .husky/pre-commit "npx lint-staged"
     ```
-
-That's it!
-You should then be able to try out the demo in the [Example usage](#example-usage) section below.
 
 ### Automatic Javascript compilation
 

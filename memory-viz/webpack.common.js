@@ -5,9 +5,9 @@ module.exports = {
     entry: path.resolve(__dirname, "src/index.ts"),
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "memory_viz.bundle.js",
+        filename: "memory-viz.bundle.js",
         library: {
-            name: "MemoryViz",
+            name: "memoryViz",
             type: "umd",
             export: "default",
         },
