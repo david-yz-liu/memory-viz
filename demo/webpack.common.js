@@ -44,7 +44,7 @@ module.exports = {
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".css"],
         alias: {
-            "memory-viz": path.resolve(__dirname, "../memory-viz/src"),
+            "memory-viz": path.resolve(__dirname, "../memory-viz"),
         },
     },
 };

@@ -36,5 +36,8 @@ module.exports = {
     },
     resolve: {
         extensions: [".ts", ".js"],
+        alias: {
+            roughjs: "roughjs/bundled/rough.esm.js",
+        },
     },
 };

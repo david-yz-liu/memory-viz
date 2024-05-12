@@ -1,4 +1,4 @@
-import rough from "roughjs/bundled/rough.esm.js";
+import rough from "roughjs";
 
 import merge from "deepmerge";
 
@@ -75,7 +75,7 @@ export class MemoryModel {
         this.svg.setAttribute("width", options.width || 800);
         this.svg.setAttribute("height", options.height || 800);
         this.seed = options.seed || 0;
-        this.rough_svg = rough.svg(this.svg, { seed: this.seed });
+        this.rough_svg = rough.svg(this.svg, { options: { seed: this.seed } });
 
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
