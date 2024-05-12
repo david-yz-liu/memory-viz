@@ -63,6 +63,7 @@ jobs:
               run: npm ci
             - name: Build docs and demo website
               run: |
+                  npm run build --workspace=memory-viz
                   npm run build --workspace=demo
                   npm run build --workspace=docs
                   mkdir docs/build/demo
