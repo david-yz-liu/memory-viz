@@ -50,6 +50,14 @@ This will use `webpack` to watch for changes to the Javascript source files and 
 
 _Note_: this command will keep running until you manually terminate it (Ctrl + C), and so you'll need to open a new terminal window to enter new terminal commands like running the demo below.
 
+### Running tests
+
+To run the test suite, execute the following command:
+
+```console
+$ npm run test --workspace=memory-viz
+```
+
 ## Usage
 
 The only function that a user will ever have to call is `user_functions.draw`.
