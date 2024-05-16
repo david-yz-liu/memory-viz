@@ -15,7 +15,7 @@
  * OUTPUT FILE: ~/examples/blankspaces_demo/blankspaces_demo.svg"
  */
 
-const { draw } = require("../../../../../dist/memory_models_rough.js");
+const { draw } = require("../../../../../memory-viz/dist/memory-viz.bundle.js");
 
 const WIDTH = 1300;
 

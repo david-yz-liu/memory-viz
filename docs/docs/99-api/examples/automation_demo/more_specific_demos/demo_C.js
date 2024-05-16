@@ -16,7 +16,7 @@ const {
     getSize,
     drawAutomatedOtherItems,
     MemoryModel,
-} = require("../../../../../../dist/memory_models_rough.js");
+} = require("../../../../../../memory-viz/dist/memory-viz.bundle.js");
 const fs = require("fs");
 
 const WIDTH = 1300;
