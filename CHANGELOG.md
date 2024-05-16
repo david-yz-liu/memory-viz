@@ -21,6 +21,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Modified `roughjs` import to be compatible with Jest's `moduleNameMapper` config option.
 -   Added instructions on the `memory-viz/README.md` for running the test suite.
 -   Fix CI build action for demo website.
+-   Added data type and manual layout tests for the `draw` function
 
 ## [0.1.0] - 2024-04-16
 
