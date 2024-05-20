@@ -52,6 +52,18 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a float", () => {
+        const objects: Array<Object> = [
+            { isClass: false, name: "float", id: 32, value: 7.0 },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            seed: 12345,
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders a str", () => {
         const objects: Array<Object> = [
             { isClass: false, name: "str", id: 32, value: "winter" },
@@ -67,6 +79,18 @@ describe("draw function", () => {
     it("renders a set", () => {
         const objects: Array<Object> = [
             { isClass: false, name: "set", id: 32, value: [10, 11, 12] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            seed: 12345,
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders an empty set", () => {
+        const objects: Array<Object> = [
+            { isClass: false, name: "set", id: 32, value: [] },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
@@ -94,9 +118,63 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a list without indexes showing", () => {
+        const objects: Array<Object> = [
+            { isClass: false, name: "list", id: 32, value: [10, 11, 12] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            seed: 12345,
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders an empty list", () => {
+        const objects: Array<Object> = [
+            { isClass: false, name: "list", id: 32, value: [] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            seed: 12345,
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a tuple with indexes showing", () => {
+        const objects: Array<Object> = [
+            {
+                isClass: false,
+                name: "tuple",
+                id: 32,
+                value: [10, 11, 12],
+                show_indexes: true,
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            seed: 12345,
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders a tuple without indexes showing", () => {
         const objects: Array<Object> = [
             { isClass: false, name: "tuple", id: 32, value: [10, 11, 12] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            seed: 12345,
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders an empty tuple", () => {
+        const objects: Array<Object> = [
+            { isClass: false, name: "tuple", id: 32, value: [] },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
@@ -114,6 +192,18 @@ describe("draw function", () => {
                 id: 10,
                 value: { x: 81, y: 100, z: 121 },
             },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            seed: 12345,
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders an empty dict", () => {
+        const objects: Array<Object> = [
+            { isClass: false, name: "dict", id: 32, value: {} },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
