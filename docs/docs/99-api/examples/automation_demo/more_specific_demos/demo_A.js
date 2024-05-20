@@ -6,10 +6,7 @@
  *      - ~/examples/automation_demo/more_specific_demos/other_objects.svg"
  */
 
-const {
-    MemoryModel,
-    drawAutomatedOtherItems,
-} = require("../../../../../../dist/memory_models_rough.js");
+const { MemoryModel, drawAutomatedOtherItems } = require("memory-viz");
 
 const fs = require("fs");
 
