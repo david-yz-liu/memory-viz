@@ -5,7 +5,7 @@
  *
 
  */
-const { draw } = require("../../../../../dist/memory_models_rough.js");
+const { draw } = require("memory-viz");
 
 const objects = [
     {
