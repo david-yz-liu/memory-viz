@@ -6,7 +6,7 @@
  * OUTPUT FILE: ~/examples/style_demo/presets_demo.svg"
  */
 
-const { draw } = require("../../../../../memory-viz/dist/memory-viz.bundle.js");
+const { draw } = require("memory-viz");
 
 const WIDTH = 1300;
 

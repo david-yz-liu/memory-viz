@@ -6,7 +6,7 @@
  *
  * OUTPUT FILE: ~/examples/manuel_demo/manual_demo.svg
  */
-const { draw } = require("../../../../../memory-viz/dist/memory-viz.bundle.js");
+const { draw } = require("memory-viz");
 
 const m = draw(
     (objects = "./manual_demo.json"),

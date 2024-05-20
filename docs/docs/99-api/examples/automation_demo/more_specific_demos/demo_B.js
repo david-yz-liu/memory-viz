@@ -6,10 +6,7 @@
  *      - ~/examples/automation_demo/more_specific_demos/stack_frames.svg
  */
 
-const {
-    MemoryModel,
-    drawAutomatedStackFrames,
-} = require("../../../../../../memory-viz/dist/memory-viz.bundle.js");
+const { MemoryModel, drawAutomatedStackFrames } = require("memory-viz");
 
 const WIDTH = 1300;
 const listOfStackFrames = [

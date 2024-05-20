@@ -8,7 +8,7 @@
  *
 
  */
-const { draw } = require("../../../../../memory-viz/dist/memory-viz.bundle.js");
+const { draw } = require("memory-viz");
 
 const configuration = {
     width: 1300,
