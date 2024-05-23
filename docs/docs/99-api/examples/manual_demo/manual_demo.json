@@ -9,7 +9,6 @@
         "stack_frame": true
     },
     {
-        "isClass": false,
         "x": 1050,
         "y": 500,
         "name": "dict",
@@ -17,7 +16,6 @@
         "value": { "x": 81, "y": 100, "z": 121 }
     },
     {
-        "isClass": false,
         "x": 1050,
         "y": 40,
         "name": "tuple",
@@ -25,7 +23,6 @@
         "value": [82, 76]
     },
     {
-        "isClass": false,
         "x": 750,
         "y": 250,
         "name": "bool",

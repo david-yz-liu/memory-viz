@@ -31,7 +31,6 @@ const objs = [
         style: ["highlight_type"],
     },
     {
-        isClass: false,
         x: 350,
         y: 350,
         name: "list",
@@ -41,7 +40,6 @@ const objs = [
     },
 
     {
-        isClass: false,
         x: 750,
         y: 500,
         name: "str",
@@ -51,7 +49,6 @@ const objs = [
     },
 
     {
-        isClass: false,
         x: 1050,
         y: 40,
         name: "tuple",
@@ -61,7 +58,6 @@ const objs = [
     },
 
     {
-        isClass: false,
         x: 1050,
         y: 260,
         name: "set",

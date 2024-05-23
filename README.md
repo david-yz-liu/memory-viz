@@ -100,13 +100,12 @@ const objects = [
         stack_frame: true,
     },
     {
-        isClass: false,
         name: "str",
         id: 19,
         value: "David is cool!",
         style: ["highlight"],
     },
-    { isClass: false, name: "int", id: 13, value: 7 },
+    { name: "int", id: 13, value: 7 },
 ];
 
 const m = draw(objects, true, { width: 1300 });
@@ -114,7 +113,7 @@ const m = draw(objects, true, { width: 1300 });
 m.save("simple_demo.svg");
 ```
 
-![Diagram generated for simple_demo.js file.](examples/simple_demo/simple_demo.svg)
+![Diagram generated for simple_demo.js file.](docs/docs/99-api/examples/simple_demo/simple_demo.svg)
 
 ### Automation Example
 
@@ -141,13 +140,12 @@ const objs = [
         stack_frame: true,
     },
     {
-        isClass: false,
         name: "list",
         id: 84,
         value: [32, 10, 90, 57],
         show_indexes: true,
     },
-    { isClass: false, name: "None", id: 13, value: "None" },
+    { name: "None", id: 13, value: "None" },
 ];
 
 const configuration = {
@@ -157,16 +155,17 @@ const configuration = {
     bottom_margin: 40,
     left_margin: 20,
     right_margin: 30,
+    sort_by: "id",
 };
 
 const m = draw(objs, true, configuration);
 
-m.save("~/Desktop/demo.svg");
+m.save("automation_demo.svg");
 ```
 
 Running node `automation_demo.js` creates a file `automation_demo.svg` that contains the following image:
 
-![Diagram generated for automation_demo.js file.](examples/automation_demo/automation_demo.svg)
+![Diagram generated for automation_demo.js file.](docs/docs/99-api/examples/automation_demo/automation_demo.svg)
 
 ### Manual Coordinates Example
 
@@ -193,26 +192,25 @@ const objs = [
         stack_frame: true,
     },
     {
-        isClass: false,
         x: 1050,
         y: 500,
         name: "dict",
         id: 10,
         value: { x: 81, y: 100, z: 121 },
     },
-    { isClass: false, x: 1050, y: 40, name: "tuple", id: 11, value: [82, 76] },
-    { isClass: false, x: 750, y: 250, name: "bool", id: 32, value: true },
+    { x: 1050, y: 40, name: "tuple", id: 11, value: [82, 76] },
+    { x: 750, y: 250, name: "bool", id: 32, value: true },
 ];
 const configuration = {};
 
 const m = draw(objs, false, configuration);
 
-m.save("~/Desktop/manual_demo.svg");
+m.save("manual_demo.svg");
 ```
 
 Running node `manual_demo.js` creates a file `manual_demo.svg` that contains the following image:
 
-![Diagram generated for automation_demo.js file.](examples/manual_demo/manual_demo.svg)
+![Diagram generated for automation_demo.js file.](docs/docs/99-api/examples/manual_demo/manual_demo.svg)
 
 ### Style Features for Drawing
 
@@ -241,7 +239,6 @@ const objs = [
         stack_frame: true,
     },
     {
-        isClass: false,
         x: 350,
         y: 350,
         name: "list",
@@ -249,7 +246,6 @@ const objs = [
         value: [19, 43, 28, 49],
     },
     {
-        isClass: false,
         x: 750,
         y: 500,
         name: "str",
@@ -257,7 +253,6 @@ const objs = [
         value: "David is cool",
     },
     {
-        isClass: false,
         x: 1050,
         y: 260,
         name: "set",
@@ -265,20 +260,19 @@ const objs = [
         value: [36, 49, 64],
     },
     {
-        isClass: false,
         x: 1050,
         y: 500,
         name: "dict",
         id: 10,
         value: { x: 81, y: 100, z: 121 },
     },
-    { isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None" },
+    { x: 750, y: 750, name: "None", id: 13, value: "None" },
 ];
 ```
 
 The produced image will be as follows:
 
-![Diagram generated for showing our default style](examples/style_demo/nostyle_demo.svg)
+![Diagram generated for showing our default style](docs/docs/99-api/examples/style_demo/nostyle_demo.svg)
 
 On the other hand, the same memory model diagram can be created with utilizing styling features s follows:
 
@@ -295,7 +289,6 @@ const objs = [
         style: ["highlight"],
     },
     {
-        isClass: false,
         x: 350,
         y: 350,
         name: "list",
@@ -304,7 +297,6 @@ const objs = [
         style: { text_id: { "font-style": "italic", "font-size": "x-large" } },
     },
     {
-        isClass: false,
         x: 750,
         y: 500,
         name: "str",
@@ -313,7 +305,6 @@ const objs = [
         style: "highlight",
     },
     {
-        isClass: false,
         x: 1050,
         y: 260,
         name: "set",
@@ -321,7 +312,6 @@ const objs = [
         value: [36, 49, 64],
     },
     {
-        isClass: false,
         x: 1050,
         y: 500,
         name: "dict",
@@ -330,7 +320,6 @@ const objs = [
         style: { text_id: { "font-style": "italic" } },
     },
     {
-        isClass: false,
         x: 750,
         y: 750,
         name: "None",
@@ -348,7 +337,7 @@ const objs = [
 
 The resulting diagram will be like this:
 
-![Diagram generated for showing an styling features](examples/style_demo/style_demo.svg)
+![Diagram generated for showing an styling features](docs/docs/99-api/examples/style_demo/style_demo.svg)
 
 ### Blank Spaces Example
 
@@ -389,20 +378,19 @@ const listOfObjs = [
         value: { age: 12, name: 17 },
         stack_frame: true,
     },
-    { isClass: false, name: "list", id: 82, value: [19, 43, 28, 49] },
+    { name: "list", id: 82, value: [19, 43, 28, 49] },
     {
-        isClass: false,
         name: "list",
         id: 84,
         value: [32, 10, 90, 57],
         show_indexes: true,
     },
-    { isClass: false, name: "int", id: 19, value: 1969 },
+    { name: "int", id: 19, value: 1969 },
     { name: "BLANK", width: 100, height: 200 },
-    { isClass: false, name: "bool", id: 32, value: true },
-    { isClass: false, name: "str", id: 43, value: "David is cool" },
+    { name: "bool", id: 32, value: true },
+    { name: "str", id: 43, value: "David is cool" },
     { name: "BLANK", width: 200, height: 150 },
-    { isClass: false, name: "tuple", id: 11, value: [82, 76] },
+    { name: "tuple", id: 11, value: [82, 76] },
 ];
 
 const configuration = {
@@ -420,4 +408,4 @@ m.save("blankspaces_demo.svg");
 
 Running node `blankspaces_demo.js` creates a file `blankspaces_demo.svg` that contains the following image:
 
-![Diagram generated for automation_demo.js file.](examples/blankspaces_demo/blankspaces_demo.svg)
+![Diagram generated for automation_demo.js file.](docs/docs/99-api/examples/blankspaces_demo/blankspaces_demo.svg)
