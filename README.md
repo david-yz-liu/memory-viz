@@ -49,7 +49,7 @@ m.save("simple_demo.svg");
 
 produces a file `simple_demo.svg` that looks like the following:
 
-![Sample usage svg output](../docs/docs/99-api/examples/simple_demo/simple_demo.svg)
+![Sample usage svg output](docs/docs/99-api/examples/simple_demo/simple_demo.svg)
 
 For more information, check out the project [documentation website](https://www.cs.toronto.edu/~david/memory-viz/) and [demo](https://www.cs.toronto.edu/~david/memory-viz/demo/).
 
@@ -98,3 +98,23 @@ To run the test suite, execute the following command:
 ```console
 $ npm run test --workspace=memory-viz
 ```
+
+### Building and running the documentation website
+
+See [`docs/README.md`](docs/README.md).
+
+### Building and running the demo website
+
+1. First, build the assets using Webpack:
+
+    ```console
+    $ npm run build-dev --workspace=memory-viz-demo
+    ```
+
+2. Then run the website:
+
+    ```console
+    $ npm run start --workspace=memory-viz-demo
+    ```
+
+3. Visit the website at `http://localhost:9000`.
