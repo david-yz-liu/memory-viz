@@ -14,7 +14,48 @@ This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the
     $ npm install memory-viz
     ```
 
-## Installation (developers)
+## Sample usage
+
+Running the following file:
+
+```js
+const { draw } = require("memory-viz");
+
+const objects = [
+    {
+        isClass: true,
+        name: "__main__",
+        id: null,
+        value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
+        stack_frame: true,
+    },
+    {
+        name: "str",
+        id: 19,
+        value: "David is cool!",
+        style: ["highlight"],
+    },
+    {
+        name: "int",
+        id: 13,
+        value: 7,
+    },
+];
+
+const m = draw(objects, true, { width: 1300 });
+
+m.save("simple_demo.svg");
+```
+
+produces a file `simple_demo.svg` that looks like the following:
+
+![Sample usage svg output](../docs/docs/99-api/examples/simple_demo/simple_demo.svg)
+
+For more information, check out the project [documentation website](https://www.cs.toronto.edu/~david/memory-viz/) and [demo](https://www.cs.toronto.edu/~david/memory-viz/demo/).
+
+## Developers
+
+### Installation
 
 1. First, clone this repository.
 2. Install [Node.js](https://nodejs.org/en/).
@@ -57,21 +98,3 @@ To run the test suite, execute the following command:
 ```console
 $ npm run test --workspace=memory-viz
 ```
-
-## Usage
-
-The only function that a user will ever have to call is `user_functions.draw`.
-
-This function has three parameters:
-
-1. `objs`: The array of objects (including stack-frames) to be drawn. Each object must follow
-   a strict structure which is thoroughly outlined in the `object_structure.md` file.
-2. `automation`: A boolean, indicating whether the location of the memory-model boxes should
-   be automatically generated. If this is false, the user must x and y attributes for each object
-   (representing the object's coordinates).
-3. `configuration`: A JS object representing configuration such as the user-specified width.
-   Defining a `width` property is mandatory if `automation` is `true`.
-
-(**Note**: If the array of objects to be drawn is stored in a JSON file, the user can simply choose to pass the path to
-that JSON as the first parameter to `draw`. The implementation automatically handles the case that `typeof objs === "string"`.
-)
