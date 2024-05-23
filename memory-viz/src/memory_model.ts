@@ -262,6 +262,15 @@ export class MemoryModel {
             this.getTextLength(type) + 10
         );
 
+        this.drawRect(x, y, id_box, this.prop_min_height, style.box_id);
+        this.drawRect(
+            x + width - type_box,
+            y,
+            type_box,
+            this.prop_min_height,
+            style.box_type
+        );
+
         this.drawText(
             id === null ? "" : `id${id}`,
             x + id_box / 2,
@@ -274,15 +283,6 @@ export class MemoryModel {
             x + width - type_box / 2,
             y + this.font_size * 1.5,
             style.text_type
-        );
-
-        this.drawRect(x, y, id_box, this.prop_min_height, style.box_id);
-        this.drawRect(
-            x + width - type_box,
-            y,
-            type_box,
-            this.prop_min_height,
-            style.box_type
         );
     }
 

@@ -92,6 +92,7 @@ function populateStyleObject(object, seed) {
 // Constants employed to establish presets for styles.
 const HIGHLIGHT_TEXT = { "font-weight": "bolder", "font-size": "22px" };
 const FADE_TEXT = { /*'font-weight': "normal",*/ "fill-opacity": 0.4 };
+const HIDE_TEXT = { "fill-opacity": 0 };
 const HIGHLIGHT_BOX_LINES = { roughness: 0.2, strokeWidth: 4 };
 const HIGHLIGHT_BOX = {
     roughness: 0.2,
@@ -142,17 +143,23 @@ const presets = {
         box_type: FADE_BOX_LINES,
     },
     hide: {
+        text_value: HIDE_TEXT,
+        text_id: HIDE_TEXT,
+        text_type: HIDE_TEXT,
         box_container: HIDE_BOX,
         box_id: HIDE_BOX,
         box_type: HIDE_BOX,
     },
     hide_id: {
+        text_id: HIDE_TEXT,
         box_id: HIDE_BOX,
     },
     hide_type: {
+        text_type: HIDE_TEXT,
         box_type: HIDE_BOX,
     },
     hide_container: {
+        text_value: HIDE_TEXT,
         box_container: HIDE_BOX,
     },
 };
