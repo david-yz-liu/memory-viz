@@ -143,6 +143,7 @@ const config = {
             // Plugin / TypeDoc options
             {
                 entryPoints: ["../memory-viz/src/user_functions.ts"],
+                readme: "none",
                 tsconfig: "../tsconfig.json",
                 out: "99-api",
             },
