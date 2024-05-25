@@ -10,7 +10,13 @@
  *      - ~/examples/automation_demo/more_specific_demos/draw_automated.svg
  */
 
-const { drawAutomated } = require("memory-viz");
+const {
+    drawAutomated,
+    separateJSON,
+    getSize,
+    drawAutomatedOtherItems,
+    MemoryModel,
+} = require("memory-viz");
 const fs = require("fs");
 
 const WIDTH = 1300;
