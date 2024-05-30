@@ -30,7 +30,6 @@ const objs = [
         stack_frame: true,
     },
     {
-        isClass: false,
         x: 350,
         y: 350,
         name: "list",
@@ -38,7 +37,6 @@ const objs = [
         value: [19, 43, 28, 49],
     },
     {
-        isClass: false,
         x: 750,
         y: 500,
         name: "str",
@@ -46,7 +44,6 @@ const objs = [
         value: "David is cool",
     },
     {
-        isClass: false,
         x: 1050,
         y: 260,
         name: "set",
@@ -54,14 +51,13 @@ const objs = [
         value: [36, 49, 64],
     },
     {
-        isClass: false,
         x: 1050,
         y: 500,
         name: "dict",
         id: 10,
         value: { x: 81, y: 100, z: 121 },
     },
-    { isClass: false, x: 750, y: 750, name: "None", id: 13, value: "None" },
+    { x: 750, y: 750, name: "None", id: 13, value: "None" },
 ];
 
 const m = draw(objs, true, configuration);

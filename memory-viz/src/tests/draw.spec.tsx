@@ -12,13 +12,12 @@ describe("draw function", () => {
                 stack_frame: true,
             },
             {
-                isClass: false,
                 name: "str",
                 id: 19,
                 value: "David is cool!",
                 style: ["highlight"],
             },
-            { isClass: false, name: "int", id: 13, value: 7 },
+            { name: "int", id: 13, value: 7 },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
@@ -29,9 +28,7 @@ describe("draw function", () => {
     });
 
     it("renders a bool", () => {
-        const objects: Array<Object> = [
-            { isClass: false, name: "bool", id: 32, value: true },
-        ];
+        const objects: Array<Object> = [{ name: "bool", id: 32, value: true }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             seed: 12345,
@@ -41,9 +38,7 @@ describe("draw function", () => {
     });
 
     it("renders an int", () => {
-        const objects: Array<Object> = [
-            { isClass: false, name: "int", id: 32, value: 7 },
-        ];
+        const objects: Array<Object> = [{ name: "int", id: 32, value: 7 }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             seed: 12345,
@@ -53,9 +48,7 @@ describe("draw function", () => {
     });
 
     it("renders a float", () => {
-        const objects: Array<Object> = [
-            { isClass: false, name: "float", id: 32, value: 7.0 },
-        ];
+        const objects: Array<Object> = [{ name: "float", id: 32, value: 7.0 }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             seed: 12345,
@@ -66,7 +59,7 @@ describe("draw function", () => {
 
     it("renders a str", () => {
         const objects: Array<Object> = [
-            { isClass: false, name: "str", id: 32, value: "winter" },
+            { name: "str", id: 32, value: "winter" },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
@@ -78,7 +71,7 @@ describe("draw function", () => {
 
     it("renders a set", () => {
         const objects: Array<Object> = [
-            { isClass: false, name: "set", id: 32, value: [10, 11, 12] },
+            { name: "set", id: 32, value: [10, 11, 12] },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
@@ -89,9 +82,7 @@ describe("draw function", () => {
     });
 
     it("renders an empty set", () => {
-        const objects: Array<Object> = [
-            { isClass: false, name: "set", id: 32, value: [] },
-        ];
+        const objects: Array<Object> = [{ name: "set", id: 32, value: [] }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             seed: 12345,
@@ -103,7 +94,6 @@ describe("draw function", () => {
     it("renders a list with indexes showing", () => {
         const objects: Array<Object> = [
             {
-                isClass: false,
                 name: "list",
                 id: 32,
                 value: [10, 11, 12],
@@ -120,7 +110,7 @@ describe("draw function", () => {
 
     it("renders a list without indexes showing", () => {
         const objects: Array<Object> = [
-            { isClass: false, name: "list", id: 32, value: [10, 11, 12] },
+            { name: "list", id: 32, value: [10, 11, 12] },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
@@ -131,9 +121,7 @@ describe("draw function", () => {
     });
 
     it("renders an empty list", () => {
-        const objects: Array<Object> = [
-            { isClass: false, name: "list", id: 32, value: [] },
-        ];
+        const objects: Array<Object> = [{ name: "list", id: 32, value: [] }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             seed: 12345,
@@ -145,7 +133,6 @@ describe("draw function", () => {
     it("renders a tuple with indexes showing", () => {
         const objects: Array<Object> = [
             {
-                isClass: false,
                 name: "tuple",
                 id: 32,
                 value: [10, 11, 12],
@@ -162,7 +149,7 @@ describe("draw function", () => {
 
     it("renders a tuple without indexes showing", () => {
         const objects: Array<Object> = [
-            { isClass: false, name: "tuple", id: 32, value: [10, 11, 12] },
+            { name: "tuple", id: 32, value: [10, 11, 12] },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
@@ -173,9 +160,7 @@ describe("draw function", () => {
     });
 
     it("renders an empty tuple", () => {
-        const objects: Array<Object> = [
-            { isClass: false, name: "tuple", id: 32, value: [] },
-        ];
+        const objects: Array<Object> = [{ name: "tuple", id: 32, value: [] }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             seed: 12345,
@@ -187,7 +172,6 @@ describe("draw function", () => {
     it("renders a dict", () => {
         const objects: Array<Object> = [
             {
-                isClass: false,
                 name: "dict",
                 id: 10,
                 value: { x: 81, y: 100, z: 121 },
@@ -202,9 +186,7 @@ describe("draw function", () => {
     });
 
     it("renders an empty dict", () => {
-        const objects: Array<Object> = [
-            { isClass: false, name: "dict", id: 32, value: {} },
-        ];
+        const objects: Array<Object> = [{ name: "dict", id: 32, value: {} }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             seed: 12345,
@@ -215,7 +197,7 @@ describe("draw function", () => {
 
     it("renders an object with no type and no value", () => {
         const objects: Array<Object> = [
-            { isClass: false, name: "None", id: 13, value: "None" },
+            { name: "None", id: 13, value: "None" },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
@@ -249,7 +231,6 @@ describe("draw function", () => {
                 stack_frame: true,
             },
             {
-                isClass: false,
                 name: "int",
                 id: 13,
                 value: 7,
@@ -288,7 +269,6 @@ describe("draw function", () => {
     it("renders a bool using manual layout", () => {
         const objects: Array<Object> = [
             {
-                isClass: false,
                 x: 750,
                 y: 250,
                 name: "bool",
@@ -306,7 +286,6 @@ describe("draw function", () => {
     it("renders blank spaces in automatic layout", () => {
         const objects: Array<Object> = [
             {
-                isClass: false,
                 name: "int",
                 id: 98,
                 value: 42,
@@ -317,7 +296,6 @@ describe("draw function", () => {
                 height: 200,
             },
             {
-                isClass: false,
                 name: "str",
                 id: 99,
                 value: "life",
@@ -334,7 +312,6 @@ describe("draw function", () => {
     it("formats non-stack frame objects in automatic layout", () => {
         const objects: Array<Object> = [
             {
-                isClass: false,
                 name: "int",
                 id: 98,
                 value: 42,
@@ -348,13 +325,11 @@ describe("draw function", () => {
                 },
             },
             {
-                isClass: false,
                 name: "list",
                 id: 54,
                 value: [19, 42, 22, 63],
             },
             {
-                isClass: false,
                 name: "str",
                 id: 12,
                 value: "banana",
@@ -390,14 +365,12 @@ describe("draw function", () => {
                 stack_frame: true,
             },
             {
-                isClass: false,
                 name: "list",
                 id: 84,
                 value: [17, 8],
                 show_indexes: true,
             },
             {
-                isClass: false,
                 name: "None",
                 id: 10,
                 value: "None",
@@ -414,7 +387,6 @@ describe("draw function", () => {
     it("renders custom style (without presets)", () => {
         const objects: Array<Object> = [
             {
-                isClass: false,
                 name: "str",
                 id: 19,
                 value: "David is cool!",
@@ -449,7 +421,6 @@ describe("draw function", () => {
                 style: ["highlight"],
             },
             {
-                isClass: false,
                 name: "str",
                 id: 42,
                 value: "highlight!",
@@ -477,7 +448,6 @@ describe("draw function", () => {
                 style: ["highlight_id"],
             },
             {
-                isClass: false,
                 name: "str",
                 id: 42,
                 value: "highlight id!",
@@ -505,7 +475,6 @@ describe("draw function", () => {
                 style: ["highlight_type"],
             },
             {
-                isClass: false,
                 name: "str",
                 id: 42,
                 value: "highlight type!",
@@ -533,7 +502,6 @@ describe("draw function", () => {
                 style: ["hide"],
             },
             {
-                isClass: false,
                 name: "str",
                 id: 42,
                 value: "hide!",
@@ -561,7 +529,6 @@ describe("draw function", () => {
                 style: ["hide_id"],
             },
             {
-                isClass: false,
                 name: "str",
                 id: 42,
                 value: "hide id!",
@@ -589,7 +556,6 @@ describe("draw function", () => {
                 style: ["hide_container"],
             },
             {
-                isClass: false,
                 name: "str",
                 id: 42,
                 value: "hide container!",
@@ -617,7 +583,6 @@ describe("draw function", () => {
                 style: ["fade"],
             },
             {
-                isClass: false,
                 name: "str",
                 id: 42,
                 value: "fade!",
@@ -645,7 +610,6 @@ describe("draw function", () => {
                 style: ["fade_type"],
             },
             {
-                isClass: false,
                 name: "str",
                 id: 42,
                 value: "fade_type!",
@@ -673,7 +637,6 @@ describe("draw function", () => {
                 style: ["fade_id"],
             },
             {
-                isClass: false,
                 name: "str",
                 id: 42,
                 value: "fade id!",
@@ -700,7 +663,6 @@ describe("draw function", () => {
                 style: ["highlight", "fade", "hide_id"],
             },
             {
-                isClass: false,
                 name: "str",
                 id: 42,
                 value: "combination!",

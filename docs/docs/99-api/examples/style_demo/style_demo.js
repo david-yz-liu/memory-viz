@@ -38,7 +38,6 @@ const objs = [
         style: ["highlight"], // Notice style is passed in as an array.
     },
     {
-        isClass: false,
         x: 350,
         y: 350,
         name: "list",
@@ -47,7 +46,6 @@ const objs = [
         style: { text_id: { "font-style": "italic", "font-size": "x-large" } },
     },
     {
-        isClass: false,
         x: 750,
         y: 500,
         name: "str",
@@ -56,7 +54,6 @@ const objs = [
         style: "highlight",
     },
     {
-        isClass: false,
         x: 1050,
         y: 260,
         name: "set",
@@ -64,7 +61,6 @@ const objs = [
         value: [36, 49, 64],
     },
     {
-        isClass: false,
         x: 1050,
         y: 500,
         name: "dict",
@@ -73,7 +69,6 @@ const objs = [
         style: { text_id: { "font-style": "italic" } },
     }, // Notice that style is passed in as an Object.
     {
-        isClass: false,
         x: 750,
         y: 750,
         name: "None",

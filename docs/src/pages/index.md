@@ -35,13 +35,12 @@ const objects = [
         stack_frame: true,
     },
     {
-        isClass: false,
         name: "str",
         id: 19,
         value: "David is cool!",
         style: ["highlight"],
     },
-    { isClass: false, name: "int", id: 13, value: 7 },
+    { name: "int", id: 13, value: 7 },
 ];
 
 const m = draw(objects, true, { width: 1300 });
