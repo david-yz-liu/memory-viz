@@ -10,7 +10,6 @@
         "style": ["highlight"]
     },
     {
-        "isClass": false,
         "x": 350,
         "y": 350,
         "name": "list",
@@ -21,7 +20,6 @@
         }
     },
     {
-        "isClass": false,
         "x": 750,
         "y": 500,
         "name": "str",
@@ -30,7 +28,6 @@
         "style": "highlight"
     },
     {
-        "isClass": false,
         "x": 1050,
         "y": 260,
         "name": "set",
@@ -38,7 +35,6 @@
         "value": [36, 49, 64]
     },
     {
-        "isClass": false,
         "x": 1050,
         "y": 500,
         "name": "dict",
@@ -47,7 +43,6 @@
         "style": { "text_id": { "font-style": "italic" } }
     },
     {
-        "isClass": false,
         "x": 750,
         "y": 750,
         "name": "None",

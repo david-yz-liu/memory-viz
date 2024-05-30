@@ -35,20 +35,19 @@ const listOfObjs = [
         value: { age: 12, name: 17 },
         stack_frame: true,
     },
-    { isClass: false, name: "list", id: 82, value: [19, 43, 28, 49] },
+    { name: "list", id: 82, value: [19, 43, 28, 49] },
     {
-        isClass: false,
         name: "list",
         id: 84,
         value: [32, 10, 90, 57],
         show_indexes: true,
     },
-    { isClass: false, name: "int", id: 19, value: 1969 },
+    { name: "int", id: 19, value: 1969 },
     { name: "BLANK", width: 100, height: 200 },
-    { isClass: false, name: "bool", id: 32, value: true },
-    { isClass: false, name: "str", id: 43, value: "David is cool" },
+    { name: "bool", id: 32, value: true },
+    { name: "str", id: 43, value: "David is cool" },
     { name: "BLANK", width: 200, height: 150 },
-    { isClass: false, name: "tuple", id: 11, value: [82, 76] },
+    { name: "tuple", id: 11, value: [82, 76] },
 ];
 
 const configuration = {
