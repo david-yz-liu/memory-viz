@@ -33,7 +33,7 @@ const objs = [
     {
         x: 350,
         y: 350,
-        name: "list",
+        type: "list",
         id: 54,
         value: [19, 43, 28, 49],
         style: ["hide_type"],
@@ -42,7 +42,7 @@ const objs = [
     {
         x: 750,
         y: 500,
-        name: "str",
+        type: "str",
         id: 43,
         value: "David is cool",
         style: ["highlight", "hide_type"],
@@ -51,7 +51,7 @@ const objs = [
     {
         x: 1050,
         y: 40,
-        name: "tuple",
+        type: "tuple",
         id: 11,
         value: [82, 76],
         style: ["highlight"],
@@ -60,7 +60,7 @@ const objs = [
     {
         x: 1050,
         y: 260,
-        name: "set",
+        type: "set",
         id: 90,
         value: [36, 49, 64],
         style: ["fade"],
