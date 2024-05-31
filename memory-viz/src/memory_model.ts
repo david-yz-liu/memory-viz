@@ -829,7 +829,7 @@ export class MemoryModel {
                 const size = this.drawObject(
                     obj.x,
                     obj.y,
-                    obj.name,
+                    obj.type,
                     obj.id,
                     obj.value,
                     obj.show_indexes,

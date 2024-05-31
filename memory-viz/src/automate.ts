@@ -149,7 +149,12 @@ function drawAutomatedOtherItems(
     const START_X = sf_endpoint + PADDING;
 
     for (const item of objs) {
-        if (item.name !== "BLANK") {
+        const invalidValues = ["BLANK", undefined];
+
+        if (
+            !invalidValues.includes(item.name) ||
+            !invalidValues.includes(item.type)
+        ) {
             const dimensions = getSize(item);
             item.height = dimensions.height;
             item.width = dimensions.width;
@@ -232,7 +237,11 @@ function drawAutomatedOtherItems(
 
     // Additional -- to extend the program for the BLANK option.
     const objs_filtered = objs.filter((item) => {
-        return item.name !== "BLANK";
+        const invalidValues = ["BLANK", undefined];
+        return (
+            !invalidValues.includes(item.name) ||
+            !invalidValues.includes(item.type)
+        );
     });
     objs = objs_filtered;
 
@@ -254,7 +263,7 @@ function separateObjects(objects) {
 
     for (const item of objects) {
         if (
-            item.name === "BLANK" &&
+            (item.name === "BLANK" || item.type === "BLANK") &&
             (item.width === undefined || item.height === undefined)
         ) {
             console.log(
