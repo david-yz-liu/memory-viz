@@ -12,7 +12,7 @@ must contain the following attributes:
 
 -   `isClass` - `boolean`: denotes whether the object to be drawn is a user-defined class (or a stack frame) or a built-in
     object. This has a default value of `false` and should be manually set to `true` only when drawing a class or stack frame.
--   `name` - `string`: The name of the class or stackframe to be drawn. Note that this attribute is only applicable if the object's 'isClass' attribute is true. Otherwise, this attribute can be excluded from the input.
+-   `name` - `string`: The name of the class or stack frame to be drawn. Note that this attribute is only applicable if the object's `isClass` attribute is true. Otherwise, this attribute can be excluded from the input.
 -   `type` - `string`: The type of the object to be drawn. If no objects are being drawn, this attribute can be excluded from the input.
 -   If the user wants to hardcode the coordinates (implying the `automation` parameter of `draw` is false), each object
     must include `x` and `y` attributes (for x-y coordinates).
