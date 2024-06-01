@@ -40,7 +40,7 @@ const objs = [
     {
         x: 350,
         y: 350,
-        name: "list",
+        type: "list",
         id: 54,
         value: [19, 43, 28, 49],
         style: { text_id: { "font-style": "italic", "font-size": "x-large" } },
@@ -48,7 +48,7 @@ const objs = [
     {
         x: 750,
         y: 500,
-        name: "str",
+        type: "str",
         id: 43,
         value: "David is cool",
         style: "highlight",
@@ -56,14 +56,14 @@ const objs = [
     {
         x: 1050,
         y: 260,
-        name: "set",
+        type: "set",
         id: 90,
         value: [36, 49, 64],
     },
     {
         x: 1050,
         y: 500,
-        name: "dict",
+        type: "dict",
         id: 10,
         value: { x: 81, y: 100, z: 121 },
         style: { text_id: { "font-style": "italic" } },
@@ -71,7 +71,7 @@ const objs = [
     {
         x: 750,
         y: 750,
-        name: "None",
+        type: "None",
         id: 13,
         value: "None",
         style: {

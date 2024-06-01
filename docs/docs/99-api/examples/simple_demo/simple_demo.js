@@ -16,12 +16,12 @@ const objects = [
         stack_frame: true,
     },
     {
-        name: "str",
+        type: "str",
         id: 19,
         value: "David is cool!",
         style: ["highlight"],
     },
-    { name: "int", id: 13, value: 7 },
+    { type: "int", id: 13, value: 7 },
 ];
 
 const m = draw(objects, true, { width: 1300 });

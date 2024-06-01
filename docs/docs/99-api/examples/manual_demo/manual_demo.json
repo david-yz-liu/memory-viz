@@ -11,21 +11,21 @@
     {
         "x": 1050,
         "y": 500,
-        "name": "dict",
+        "type": "dict",
         "id": 10,
         "value": { "x": 81, "y": 100, "z": 121 }
     },
     {
         "x": 1050,
         "y": 40,
-        "name": "tuple",
+        "type": "tuple",
         "id": 11,
         "value": [82, 76]
     },
     {
         "x": 750,
         "y": 250,
-        "name": "bool",
+        "type": "bool",
         "id": 32,
         "value": true
     }

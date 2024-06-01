@@ -765,8 +765,11 @@ export class MemoryModel {
      *                                      be manually set to true only when drawing a class or stack-frame.
      * @param {number} objects[*].x - Value for x coordinate of top left corner
      * @param {number} objects[*].y - Value for y coordinate of top left corner
-     * @param {string} objects[*].name - The type of the object to draw (if isClass===true, then this is the name of the
-     *                                  corresponding class or stackframe).
+     * @param {string} objects[*].name - The name of the class or stack frame to be drawn. Note that this attribute is only
+     *                                  applicable if the object's 'isClass' attribute is true. If no classes or stack frames
+     *                                   are being drawn, this attribute can be excluded from the input.
+     * @param {string} objects[*].type - The type of the object to be drawn. If no objects are being drawn, this attribute
+     *                                   can be excluded from the input.
      * @param {number} objects[*].id - The id value of this object. If we are to draw a StackFrame, then this MUST be 'null'.
      * @param {*} objects[*].value - The value of the object. This could be anything, from an empty string to a JS object,
      *                          which would be passed for the purpose of drawing a user-defined class object, a
@@ -829,7 +832,7 @@ export class MemoryModel {
                 const size = this.drawObject(
                     obj.x,
                     obj.y,
-                    obj.name,
+                    obj.type,
                     obj.id,
                     obj.value,
                     obj.show_indexes,

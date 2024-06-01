@@ -36,13 +36,13 @@ describe("SvgDisplay", () => {
                     stack_frame: true,
                 },
                 {
-                    name: "str",
+                    type: "str",
                     id: 19,
                     value: "David is cool!",
                     style: ["highlight"],
                 },
                 {
-                    name: "int",
+                    type: "int",
                     id: 13,
                     value: 7,
                 },
