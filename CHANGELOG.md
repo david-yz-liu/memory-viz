@@ -9,6 +9,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🚨 Breaking changes
 
+-   Changed the `name` attribute to `type` when drawing objects.
+
 ### ✨ Enhancements
 
 ### 🐛 Bug fixes

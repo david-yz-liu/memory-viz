@@ -68,9 +68,9 @@ function populateStyleObject(object, seed) {
 
     let object_type;
 
-    if (primitives.includes(object.name)) {
+    if (primitives.includes(object.type)) {
         object_type = "primitive";
-    } else if (collections.includes(object.name)) {
+    } else if (collections.includes(object.type)) {
         object_type = "collection";
     } else if (object.stack_frame) {
         object_type = "stackframe";
