@@ -280,6 +280,19 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a blank stack frame", () => {
+        const objects: Array<Object> = [
+            { type: ".frame", name: ".blank", width: 100, height: 200 },
+            { type: "list", id: 82, value: [19, 43, 28, 49] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            seed: 12345,
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders blank spaces in automatic layout", () => {
         const objects: Array<Object> = [
             {

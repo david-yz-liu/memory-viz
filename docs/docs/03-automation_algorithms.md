@@ -96,11 +96,12 @@ Below we thoroughly describe the steps for each of the two functions:
 
 4. Return the mutated list of objects.
 
-\*In case the object has `name=".blank"`, it is assumed that the user has
+\*In case the object has `type=".blank"`, it is assumed that the user has
 also provided a width and a height attribute corresponding to the desired
 width and height of the blank space. If such dimensions have not been provided,
 a related warning is printed and the object is skipped (no blank space is
-recorded).
+recorded). Note that if a blank stack frame is being drawn, the input should
+have `type=".frame"` and `name=".blank"`.
 
 ## Summary
 
