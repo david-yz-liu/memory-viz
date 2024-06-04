@@ -817,14 +817,16 @@ export class MemoryModel {
 
             obj.style = populateStyleObject(obj, this.seed);
 
-            if (obj.isClass) {
+            if (obj.type === ".class" || obj.type === ".frame") {
+                let is_frame = obj.type === ".frame";
+
                 const size = this.drawClass(
                     obj.x,
                     obj.y,
                     obj.name,
                     obj.id,
                     obj.value,
-                    obj.stack_frame,
+                    is_frame,
                     obj.style
                 );
                 sizes_arr.push(size);
