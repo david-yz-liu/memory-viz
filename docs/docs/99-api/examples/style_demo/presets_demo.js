@@ -20,7 +20,7 @@ const objs = [
         value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
     },
     {
-        type: ".class",
+        type: ".frame",
         x: 350,
         y: 10,
         name: "tuple",

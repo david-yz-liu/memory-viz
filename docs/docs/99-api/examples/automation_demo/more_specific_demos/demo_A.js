@@ -14,7 +14,7 @@ const WIDTH = 1300;
 
 const listOfObjs = [
     {
-        type: ".class",
+        type: ".frame",
         name: "Person",
         id: 99,
         value: { age: 12, name: 17 },
