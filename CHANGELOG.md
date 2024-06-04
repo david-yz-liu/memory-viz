@@ -9,6 +9,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🚨 Breaking changes
 
+-   Changed the `name` attribute to `type` when drawing objects.
+
 ### ✨ Enhancements
 
 ### 🐛 Bug fixes
@@ -24,6 +26,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Added data type and manual layout tests for the `draw` function.
 -   Updated file paths for example files under docs to import the correct file.
 -   Added style and automatic layout tests for the `draw` function.
+-   Updated documentation, tests, and examples to reflect the `isClass` attribute being optional and set to `false` by default.
+-   Removed unused imports in `demo_C.js`.
 
 ## [0.1.0] - 2024-04-16
 

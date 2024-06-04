@@ -20,8 +20,8 @@ const listOfObjs = [
         value: { age: 12, name: 17 },
         stack_frame: false,
     },
-    { isClass: false, name: "list", id: 82, value: [19, 43, 28, 49] },
-    { isClass: false, name: "int", id: 19, value: 1969 },
+    { type: "list", id: 82, value: [19, 43, 28, 49] },
+    { type: "int", id: 19, value: 1969 },
 ];
 
 const { objs, canvas_height, canvas_width } = drawAutomatedOtherItems(

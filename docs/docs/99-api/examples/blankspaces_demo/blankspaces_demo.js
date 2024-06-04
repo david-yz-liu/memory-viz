@@ -2,7 +2,7 @@
  * This file demonstrates the ability to leave "blanks" when the 'automated.md' option is on.
  *
  * To define a blank box, you specify it as an object in the array (the classic array of objects) with three attributes:
- * - name: This must be equal to "BLANK"
+ * - type: This must be equal to "BLANK"
  * - width: the desired width of the blank box (I say box but in reality there aren't any borders)
  * - height: the desired height of the blank box
  *
@@ -27,7 +27,7 @@ const listOfObjs = [
         value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
         stack_frame: true,
     },
-    { name: "BLANK", width: 100, height: 200, stack_frame: true },
+    { type: "BLANK", width: 100, height: 200, stack_frame: true },
     {
         isClass: true,
         name: "func",
@@ -35,20 +35,19 @@ const listOfObjs = [
         value: { age: 12, name: 17 },
         stack_frame: true,
     },
-    { isClass: false, name: "list", id: 82, value: [19, 43, 28, 49] },
+    { type: "list", id: 82, value: [19, 43, 28, 49] },
     {
-        isClass: false,
-        name: "list",
+        type: "list",
         id: 84,
         value: [32, 10, 90, 57],
         show_indexes: true,
     },
-    { isClass: false, name: "int", id: 19, value: 1969 },
-    { name: "BLANK", width: 100, height: 200 },
-    { isClass: false, name: "bool", id: 32, value: true },
-    { isClass: false, name: "str", id: 43, value: "David is cool" },
-    { name: "BLANK", width: 200, height: 150 },
-    { isClass: false, name: "tuple", id: 11, value: [82, 76] },
+    { type: "int", id: 19, value: 1969 },
+    { type: "BLANK", width: 100, height: 200 },
+    { type: "bool", id: 32, value: true },
+    { type: "str", id: 43, value: "David is cool" },
+    { type: "BLANK", width: 200, height: 150 },
+    { type: "tuple", id: 11, value: [82, 76] },
 ];
 
 const configuration = {
