@@ -3,14 +3,15 @@ import { config } from "./config";
 
 interface DrawnObject {
     isClass: boolean;
-    name: string;
-    x: number;
-    y: number;
+    name?: string;
+    type?: string;
+    x?: number;
+    y?: number;
     id: number | string;
     value: any;
     stack_frame: boolean;
     show_indexes: boolean;
-    style: Style;
+    style?: Style;
 }
 
 interface AttributeStyle {

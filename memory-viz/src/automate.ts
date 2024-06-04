@@ -73,7 +73,7 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
         let width;
         let height;
 
-        if (stack_frame.name !== "BLANK") {
+        if (stack_frame.type !== "BLANK") {
             const size = getSize(stack_frame);
             height = size.height;
             width = size.width;
@@ -87,7 +87,7 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
             required_width = width;
         }
 
-        if (stack_frame.name !== "BLANK") {
+        if (stack_frame.type !== "BLANK") {
             stack_frame.x = configuration.left_margin;
             stack_frame.y = min_required_height;
             draw_stack_frames.push(stack_frame);
