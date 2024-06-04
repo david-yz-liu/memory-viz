@@ -10,6 +10,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 🚨 Breaking changes
 
 -   Changed the `name` attribute to `type` when drawing objects.
+-   Removed the `isClass` and `stack_frame` attributes and embedded them as the types `.class` and `.frame`.
+-   Renamed the input for blank objects from `BLANK` to `.blank`.
 
 ### ✨ Enhancements
 

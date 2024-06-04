@@ -14,11 +14,10 @@ const WIDTH = 1300;
 
 const listOfObjs = [
     {
-        isClass: true,
+        type: ".class",
         name: "Person",
         id: 99,
         value: { age: 12, name: 17 },
-        stack_frame: false,
     },
     { type: "list", id: 82, value: [19, 43, 28, 49] },
     { type: "int", id: 19, value: 1969 },

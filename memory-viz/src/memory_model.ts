@@ -758,18 +758,14 @@ export class MemoryModel {
      *
      * @param {object[]} objects - the list of objects (including stack-frames) to be drawn.
      * Each object in 'objects' must include  the following structure:
-     * @param {boolean} objects[*].isClass = false - Whether a user-defined class (or a stack-frame) or a built-in
-     *                                      object will be drawn. Pass true to draw a class or a stack-frame,
-     *                                      and false to draw any of the types found in the 'immutable'
-     *                                      and 'collections' constants. This has a default value of false and should
-     *                                      be manually set to true only when drawing a class or stack-frame.
      * @param {number} objects[*].x - Value for x coordinate of top left corner
      * @param {number} objects[*].y - Value for y coordinate of top left corner
+     * @param {string} objects[*].type - Specifies whether a class, stack frame, or object is being drawn.
+     *                                      To draw a class, input `.class` and to draw a stack frame, input `.frame`. If an
+     *                                       object is being drawn, input the type of the object.
      * @param {string} objects[*].name - The name of the class or stack frame to be drawn. Note that this attribute is only
-     *                                  applicable if the object's 'isClass' attribute is true. If no classes or stack frames
+     *                                  applicable if the object's type is `.class` or `.frame`. If no classes or stack frames
      *                                   are being drawn, this attribute can be excluded from the input.
-     * @param {string} objects[*].type - The type of the object to be drawn. If no objects are being drawn, this attribute
-     *                                   can be excluded from the input.
      * @param {number} objects[*].id - The id value of this object. If we are to draw a StackFrame, then this MUST be 'null'.
      * @param {*} objects[*].value - The value of the object. This could be anything, from an empty string to a JS object,
      *                          which would be passed for the purpose of drawing a user-defined class object, a
@@ -777,10 +773,6 @@ export class MemoryModel {
      *                          object (an object that contains other objects), we pass a JS object where the keys are the
      *                          attributes/variables and the values are the id's of the corresponding objects (not the
      *                          objects themselves).
-     * @param {boolean=} objects[*].stack_frame = null - Whether a stack frame will be drawn or not. NOTE that this is only
-     *                                            applicable if the object's 'isClass' attribute is true (since the
-     *                                            'MemoryModel.drawClass' covers both classes and stack-frames). By default,
-     *                                            'stack_frame' is set to null.
      * @param {boolean=} objects[*].show_indexes = false - Applicable only for drawing tuples or lists (when drawSequence
      *                                                     method will be used).
      *                                                     Whether the memory box of the underlying
