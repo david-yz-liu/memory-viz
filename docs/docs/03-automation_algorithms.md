@@ -101,7 +101,7 @@ also provided a width and a height attribute corresponding to the desired
 width and height of the blank space. If such dimensions have not been provided,
 a related warning is printed and the object is skipped (no blank space is
 recorded). Note that if a blank stack frame is being drawn, the input should
-have `type=".blank-frame"`.
+have `type=".blank-frame"` and the `name` attribute should be excluded from the input.
 
 ## Summary
 
