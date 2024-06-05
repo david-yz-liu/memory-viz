@@ -6,8 +6,7 @@
         "value": { "lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11 }
     },
     {
-        "type": ".frame",
-        "name": ".blank",
+        "type": ".blank-frame",
         "width": 100,
         "height": 200
     },

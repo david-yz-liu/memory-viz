@@ -26,7 +26,7 @@ const listOfObjs = [
         id: null,
         value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
     },
-    { type: ".frame", name: ".blank", width: 100, height: 200 },
+    { type: ".frame", width: 100, height: 200 },
     {
         type: ".frame",
         name: "func",

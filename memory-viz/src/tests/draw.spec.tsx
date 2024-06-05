@@ -282,7 +282,7 @@ describe("draw function", () => {
 
     it("renders a blank stack frame", () => {
         const objects: Array<Object> = [
-            { type: ".frame", name: ".blank", width: 100, height: 200 },
+            { type: ".blank-frame", width: 100, height: 200 },
             { type: "list", id: 82, value: [19, 43, 28, 49] },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {

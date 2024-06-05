@@ -72,7 +72,7 @@ function populateStyleObject(object, seed) {
         object_type = "primitive";
     } else if (collections.includes(object.type)) {
         object_type = "collection";
-    } else if (object.type === ".frame") {
+    } else if (object.type.includes("frame")) {
         object_type = "stackframe";
     } else {
         object_type = "class";

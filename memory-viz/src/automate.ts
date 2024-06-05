@@ -73,7 +73,7 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
         let width;
         let height;
 
-        if (stack_frame.name !== ".blank") {
+        if (stack_frame.type !== ".blank-frame") {
             const size = getSize(stack_frame);
             height = size.height;
             width = size.width;
@@ -87,7 +87,7 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
             required_width = width;
         }
 
-        if (stack_frame.name !== ".blank") {
+        if (stack_frame.type !== ".blank-frame") {
             stack_frame.x = configuration.left_margin;
             stack_frame.y = min_required_height;
             draw_stack_frames.push(stack_frame);
@@ -262,7 +262,7 @@ function separateObjects(objects) {
                     "(either the width or the height is missing). This object will be omitted in the memory model" +
                     " diagram."
             );
-        } else if (item.type === ".frame") {
+        } else if (item.type.includes("frame")) {
             stackFrames.push(item);
         } else {
             otherItems.push(item);

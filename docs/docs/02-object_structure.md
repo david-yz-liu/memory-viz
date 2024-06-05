@@ -49,7 +49,7 @@ must contain the following attributes:
     "value": {"age": 12, "name": 17}
 }
 
-{"type": ".frame", "name": ".blank", "width": 100, "height": 200}
+{"type": ".blank-frame", "width": 100, "height": 200}
 
 {"type": "list", "id": 82, "value": [19, 43, 28, 49]}
 
