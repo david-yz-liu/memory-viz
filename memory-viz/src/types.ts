@@ -7,8 +7,8 @@ interface DrawnObject {
     id: number | string;
     value: any;
     stack_frame: boolean;
-    show_indexes: boolean;
-    style: Style;
+    show_indexes?: boolean;
+    style?: Style;
 }
 
 interface AttributeStyle {
