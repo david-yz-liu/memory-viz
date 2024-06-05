@@ -262,6 +262,15 @@ export class MemoryModel {
             this.getTextLength(type) + 10
         );
 
+        this.drawRect(x, y, id_box, this.prop_min_height, style.box_id);
+        this.drawRect(
+            x + width - type_box,
+            y,
+            type_box,
+            this.prop_min_height,
+            style.box_type
+        );
+
         this.drawText(
             id === null ? "" : `id${id}`,
             x + id_box / 2,
@@ -274,15 +283,6 @@ export class MemoryModel {
             x + width - type_box / 2,
             y + this.font_size * 1.5,
             style.text_type
-        );
-
-        this.drawRect(x, y, id_box, this.prop_min_height, style.box_id);
-        this.drawRect(
-            x + width - type_box,
-            y,
-            type_box,
-            this.prop_min_height,
-            style.box_type
         );
     }
 
@@ -539,6 +539,9 @@ export class MemoryModel {
             box_height += 1.5 * this.item_min_height;
         }
 
+        this.drawRect(x, y, box_width, box_height, style.box_container);
+        const SIZE = { x, y, width: box_width, height: box_height };
+
         // A second loop, so that we can position the colon and value boxes correctly.
         curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
@@ -547,13 +550,6 @@ export class MemoryModel {
             let value_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv + 5)
-            );
-
-            this.drawText(
-                ":",
-                x + box_width / 2,
-                curr_y + this.item_min_height / 2 + this.font_size / 4,
-                { fill: this.text_color }
             );
 
             // Draw the rectangle for values.
@@ -565,6 +561,13 @@ export class MemoryModel {
             );
 
             this.drawText(
+                ":",
+                x + box_width / 2,
+                curr_y + this.item_min_height / 2 + this.font_size / 4,
+                { fill: this.text_color }
+            );
+
+            this.drawText(
                 idv,
                 x + box_width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
@@ -573,9 +576,6 @@ export class MemoryModel {
 
             curr_y += this.item_min_height * 1.5;
         }
-
-        this.drawRect(x, y, box_width, box_height, style.box_container);
-        const SIZE = { x, y, width: box_width, height: box_height };
 
         this.drawProperties(id, "dict", x, y, box_width, style);
 
