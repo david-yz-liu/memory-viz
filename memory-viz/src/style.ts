@@ -1,6 +1,6 @@
 import merge from "deepmerge";
 import { config } from "./config";
-import "./types.ts";
+import { DrawnEntity, AttributeStyle, Style } from "./types";
 
 // Built-in style for drawing text on canvas (if no style is provided by the user).
 const default_text_style: AttributeStyle = {
@@ -73,13 +73,13 @@ const primitives: Array<string> = [
  * Populates a user-passed style object --to the extent needed-- with default data (to adhere to the interface of the
  * style object). Needed to avoid errors of the type "TypeError: Cannot set properties of undefined (setting 'x')", as
  * well as many more.
- * @param {DrawnObject} object : the object that represents a Python object the user wants drawn. The style object
+ * @param {DrawnEntity} object : the object that represents a Python object the user wants drawn. The style object
  *                          corresponding to 'object' will be extracted be doing object.style.
  * @param {Number} seed : a numeric seed. If valued between 1 and 2^31, RoughJS will generate the exact same shape(s)
  *                          when provided with the same seed. If valued at 0, RoughJS will generate random shape(s).
  * @returns {Style}
  */
-function populateStyleObject(object: DrawnObject, seed: Number) {
+function populateStyleObject(object: DrawnEntity, seed: Number) {
     let style_so_far = common_style;
 
     let object_type;

@@ -1,4 +1,4 @@
-interface DrawnObject {
+export interface DrawnEntity {
     isClass: boolean;
     name?: string;
     type?: string;
@@ -11,11 +11,11 @@ interface DrawnObject {
     style?: Style;
 }
 
-interface AttributeStyle {
+export interface AttributeStyle {
     [propName: string]: string | number;
 }
 
-interface Style {
+export interface Style {
     text_id?: AttributeStyle;
     text_type?: AttributeStyle;
     text_value?: AttributeStyle;
