@@ -809,9 +809,9 @@ export class MemoryModel {
 
             obj.style = populateStyleObject(obj, this.seed);
 
-            let non_objects = [".class", ".frame", ".blank-frame"];
-            if (non_objects.includes(obj.type)) {
-                let is_frame = obj.type.includes("frame");
+            const frame_types = [".frame", ".blank-frame"];
+            if (frame_types.includes(obj.type) || obj.type === ".class") {
+                let is_frame = frame_types.includes(obj.type);
 
                 const size = this.drawClass(
                     obj.x,

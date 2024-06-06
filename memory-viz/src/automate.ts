@@ -253,16 +253,18 @@ function separateObjects(objects) {
     let otherItems = [];
 
     for (const item of objects) {
+        const frame_types = [".frame", ".blank-frame"];
+
         if (
             item.type === ".blank" &&
             (item.width === undefined || item.height === undefined)
         ) {
             console.log(
-                "WARNING :: An object with name='BLANK' exists with missing dimension information " +
+                "WARNING :: An object with type='.blank' or '.blank-frame' exists with missing dimension information " +
                     "(either the width or the height is missing). This object will be omitted in the memory model" +
                     " diagram."
             );
-        } else if (item.type.includes("frame")) {
+        } else if (frame_types.includes(item.type)) {
             stackFrames.push(item);
         } else {
             otherItems.push(item);
