@@ -1,5 +1,6 @@
 import { MemoryModel } from "./memory_model";
 import { drawAutomated, getSize } from "./automate";
+import { DrawnEntity } from "./types";
 
 // Dynamic import of Node fs module
 let fs;
@@ -12,7 +13,7 @@ if (typeof window === "undefined") {
  *
  * The format of the array of objects must adhere to the description provided in MemoryModel.drawAll.
  *
- * @param {string | object[]} objects - The array of objects to be drawn: this could be passed as an actual JavaScript
+ * @param {string | DrawnEntity[]} objects - The array of objects to be drawn: this could be passed as an actual JavaScript
  * array of objects, or as a JSON file containing the object array. This array of objects may also include the
  * user-defined style configuration. See the demo files and style.md file for details.
  * @param {boolean} automation - Whether the coordinates (of the objects on the canvas) should be automatically
