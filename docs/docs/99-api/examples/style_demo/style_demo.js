@@ -28,13 +28,12 @@ const configuration = {
 
 const objs = [
     {
-        isClass: true,
+        type: ".frame",
         x: 25,
         y: 200,
         name: "__main__",
         id: null,
         value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
-        stack_frame: true,
         style: ["highlight"], // Notice style is passed in as an array.
     },
     {

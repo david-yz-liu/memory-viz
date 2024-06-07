@@ -72,10 +72,10 @@ function populateStyleObject(object, seed) {
         object_type = "primitive";
     } else if (collections.includes(object.type)) {
         object_type = "collection";
-    } else if (object.stack_frame) {
-        object_type = "stackframe";
-    } else {
+    } else if (object.type === ".class") {
         object_type = "class";
+    } else {
+        object_type = "stackframe";
     }
 
     // We then add properties specific to the different type categories.
