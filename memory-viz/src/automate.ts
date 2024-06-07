@@ -74,7 +74,7 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
         let width;
         let height;
 
-        if (stack_frame.type !== "BLANK") {
+        if (stack_frame.type !== ".blank-frame") {
             const size = getSize(stack_frame);
             height = size.height;
             width = size.width;
@@ -88,7 +88,7 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
             required_width = width;
         }
 
-        if (stack_frame.type !== "BLANK") {
+        if (stack_frame.type !== ".blank-frame") {
             stack_frame.x = configuration.left_margin;
             stack_frame.y = min_required_height;
             draw_stack_frames.push(stack_frame);
@@ -150,7 +150,7 @@ function drawAutomatedOtherItems(
     const START_X = sf_endpoint + PADDING;
 
     for (const item of objs) {
-        if (item.type !== "BLANK") {
+        if (item.type !== ".blank") {
             const dimensions = getSize(item);
             item.height = dimensions.height;
             item.width = dimensions.width;
@@ -231,9 +231,9 @@ function drawAutomatedOtherItems(
     const canvas_height =
         down_most_obj.y + down_most_obj.height + config_aut.bottom_margin;
 
-    // Additional -- to extend the program for the BLANK option.
+    // Additional -- to extend the program for the .blank option.
     const objs_filtered = objs.filter((item) => {
-        return item.type !== "BLANK";
+        return item.type !== ".blank";
     });
     objs = objs_filtered;
 
@@ -254,16 +254,18 @@ function separateObjects(objects) {
     let otherItems = [];
 
     for (const item of objects) {
+        const frame_types = [".frame", ".blank-frame"];
+
         if (
-            item.type === "BLANK" &&
+            item.type === ".blank" &&
             (item.width === undefined || item.height === undefined)
         ) {
             console.log(
-                "WARNING :: An object with name='BLANK' exists with missing dimension information " +
+                "WARNING :: An object with type='.blank' or '.blank-frame' exists with missing dimension information " +
                     "(either the width or the height is missing). This object will be omitted in the memory model" +
                     " diagram."
             );
-        } else if (item.stack_frame) {
+        } else if (frame_types.includes(item.type)) {
             stackFrames.push(item);
         } else {
             otherItems.push(item);

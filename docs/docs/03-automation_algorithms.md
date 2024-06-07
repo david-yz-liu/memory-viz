@@ -41,7 +41,7 @@ Below we thoroughly describe the steps for each of the two functions:
    required width for drawing all stack frames and a collection of stack frames that will be drawn.
 
 3. Afterward, we iterate through the given stack-frames objects. Inside the loop,
-   we first acquire the width and the height of the object. If the box is "BLANK", we obtain the height and width
+   we first acquire the width and the height of the object. If the box is ".blank", we obtain the height and width
    by accessing the attributes of the object. If not, we obtain the dimensions by using the `getSize` function. Refer
    to the function for details.
 
@@ -96,11 +96,12 @@ Below we thoroughly describe the steps for each of the two functions:
 
 4. Return the mutated list of objects.
 
-\*In case the object has `name="BLANK"`, it is assumed that the user has
+\*In case the object has `type=".blank"`, it is assumed that the user has
 also provided a width and a height attribute corresponding to the desired
 width and height of the blank space. If such dimensions have not been provided,
 a related warning is printed and the object is skipped (no blank space is
-recorded).
+recorded). Note that if a blank stack frame is being drawn, the input should
+have `type=".blank-frame"` and the `name` attribute should be excluded from the input.
 
 ## Summary
 

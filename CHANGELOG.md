@@ -10,12 +10,16 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 🚨 Breaking changes
 
 -   Changed the `name` attribute to `type` when drawing objects.
+-   Removed the `isClass` and `stack_frame` attributes and embedded them as the types `.class` and `.frame`.
+-   Renamed the input for blank objects from `BLANK` to `.blank`.
+-   Created new type `.blank-frame` to denote blank stack frames.
 
 ### ✨ Enhancements
 
 ### 🐛 Bug fixes
 
 -   Fixed a bug where box fill colours would cover box text, and changed the implementation of `hide` style option.
+-   Removed double quotes when rendering objects of type `None`.
 
 ### 📚 Documentation and demo website changes
 

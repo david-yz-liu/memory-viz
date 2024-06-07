@@ -5,11 +5,10 @@ describe("draw function", () => {
     it("should produce consistent svg when provided seed", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
+                type: ".frame",
                 name: "__main__",
                 id: null,
                 value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
-                stack_frame: true,
             },
             {
                 type: "str",
@@ -209,7 +208,7 @@ describe("draw function", () => {
 
     it("renders a blank space", () => {
         const objects: Array<Object> = [
-            { type: "BLANK", width: 100, height: 200 },
+            { type: ".blank", width: 100, height: 200 },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
@@ -222,13 +221,12 @@ describe("draw function", () => {
     it("renders a stack frame and an int", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
+                type: ".frame",
                 name: "__main__",
                 id: null,
                 value: {
                     my_int: 13,
                 },
-                stack_frame: true,
             },
             {
                 type: "int",
@@ -247,16 +245,15 @@ describe("draw function", () => {
     it("renders a stack frame using manual layout", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
                 x: 200,
                 y: 200,
                 name: "__main__",
+                type: ".frame",
                 id: null,
                 value: {
                     lst1: 82,
                     lst2: 84,
                 },
-                stack_frame: true,
             },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, false, {
@@ -283,6 +280,19 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a blank stack frame", () => {
+        const objects: Array<Object> = [
+            { type: ".blank-frame", width: 100, height: 200 },
+            { type: "list", id: 82, value: [19, 43, 28, 49] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            seed: 12345,
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders blank spaces in automatic layout", () => {
         const objects: Array<Object> = [
             {
@@ -291,7 +301,7 @@ describe("draw function", () => {
                 value: 42,
             },
             {
-                type: "BLANK",
+                type: ".blank",
                 width: 100,
                 height: 200,
             },
@@ -317,7 +327,7 @@ describe("draw function", () => {
                 value: 42,
             },
             {
-                isClass: true,
+                type: ".class",
                 name: "fruit",
                 id: 23,
                 value: {
@@ -346,23 +356,21 @@ describe("draw function", () => {
     it("formats a mix of stack frame/non-stack frame objects in automatic layout", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
+                type: ".frame",
                 name: "__main__",
                 id: null,
                 value: {
                     a: 7,
                 },
-                stack_frame: true,
             },
             {
-                isClass: true,
+                type: ".frame",
                 name: "func",
                 id: null,
                 value: {
                     x: 1,
                     y: 17,
                 },
-                stack_frame: true,
             },
             {
                 type: "list",
@@ -411,13 +419,12 @@ describe("draw function", () => {
     it("renders 'highlight' style preset", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
+                type: ".frame",
                 name: "__main__",
                 id: null,
                 value: {
                     item: 45,
                 },
-                stack_frame: true,
                 style: ["highlight"],
             },
             {
@@ -438,13 +445,12 @@ describe("draw function", () => {
     it("renders 'highlight_id' style preset", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
+                type: ".frame",
                 name: "__main__",
                 id: null,
                 value: {
                     item: 45,
                 },
-                stack_frame: true,
                 style: ["highlight_id"],
             },
             {
@@ -465,13 +471,12 @@ describe("draw function", () => {
     it("renders 'highlight_type' style preset", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
+                type: ".frame",
                 name: "__main__",
                 id: null,
                 value: {
                     item: 45,
                 },
-                stack_frame: true,
                 style: ["highlight_type"],
             },
             {
@@ -492,13 +497,12 @@ describe("draw function", () => {
     it("renders 'hide' style preset", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
+                type: ".frame",
                 name: "__main__",
                 id: null,
                 value: {
                     item: 45,
                 },
-                stack_frame: true,
                 style: ["hide"],
             },
             {
@@ -519,13 +523,12 @@ describe("draw function", () => {
     it("renders 'hide_id' style preset", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
+                type: ".frame",
                 name: "__main__",
                 id: null,
                 value: {
                     item: 45,
                 },
-                stack_frame: true,
                 style: ["hide_id"],
             },
             {
@@ -546,13 +549,12 @@ describe("draw function", () => {
     it("renders 'hide_container' style preset", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
+                type: ".frame",
                 name: "__main__",
                 id: null,
                 value: {
                     item: 45,
                 },
-                stack_frame: true,
                 style: ["hide_container"],
             },
             {
@@ -573,13 +575,12 @@ describe("draw function", () => {
     it("renders 'fade' style preset", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
+                type: ".frame",
                 name: "__main__",
                 id: null,
                 value: {
                     item: 45,
                 },
-                stack_frame: true,
                 style: ["fade"],
             },
             {
@@ -600,13 +601,12 @@ describe("draw function", () => {
     it("renders 'fade_type' style preset", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
+                type: ".frame",
                 name: "__main__",
                 id: null,
                 value: {
                     item: 45,
                 },
-                stack_frame: true,
                 style: ["fade_type"],
             },
             {
@@ -627,13 +627,12 @@ describe("draw function", () => {
     it("renders 'fade_id' style preset", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
+                type: ".frame",
                 name: "__main__",
                 id: null,
                 value: {
                     item: 45,
                 },
-                stack_frame: true,
                 style: ["fade_id"],
             },
             {
@@ -653,13 +652,12 @@ describe("draw function", () => {
     it("renders combinations of style presets", () => {
         const objects: Array<Object> = [
             {
-                isClass: true,
+                type: ".frame",
                 name: "__main__",
                 id: null,
                 value: {
                     item: 45,
                 },
-                stack_frame: true,
                 style: ["highlight", "fade", "hide_id"],
             },
             {
