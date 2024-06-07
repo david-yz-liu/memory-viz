@@ -222,6 +222,8 @@ export class MemoryModel {
         let display_text;
         if (type === "bool") {
             display_text = value ? "True" : "False";
+        } else if (type === "None") {
+            display_text = "None";
         } else {
             display_text = JSON.stringify(value);
         }
