@@ -1,12 +1,10 @@
 export interface DrawnEntity {
-    isClass: boolean;
     name?: string;
     type?: string;
     x?: number;
     y?: number;
     id: number | string;
     value: any;
-    stack_frame: boolean;
     show_indexes?: boolean;
     style?: Style;
 }
