@@ -1,8 +1,13 @@
 #!/usr/bin/env node
-console.log("Hola amigos");
+const fs = require("fs");
+const path = require("path");
+const { draw } = require("memory-viz");
 
-// args[1] is the path to the JSON file (display error for when the path is not valid)
-// how to run the file?
-// convert JSON to JS (JSON.parse)
-// run memoryviz on the output object (error checking for invalid JSON)
-// save the generated svg
+const filePath = process.argv[2];
+const absolutePath = path.resolve(filePath);
+const fileContent = fs.readFileSync(absolutePath, "utf8");
+const data = JSON.parse(fileContent);
+
+const m = draw(data, true, { width: 1300 });
+
+m.save("my_demo.svg");
