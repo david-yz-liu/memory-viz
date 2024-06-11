@@ -11,7 +11,7 @@ import { DrawnEntity } from "./types";
  * @returns {MemoryModel} - The memory model that is created according to the objects given in the path (the JSON
  * file)
  */
-function drawAutomated(objects, width, configuration) {
+function drawAutomated(objects: DrawnEntity[], width, configuration) {
     const { stack_frames, other_items } = separateObjects(objects);
 
     // Assigning the objects with coordinates.
@@ -51,7 +51,7 @@ function drawAutomated(objects, width, configuration) {
  * frames. Notably, the last two attributes will be useful in terms of dynamically deciding the width and the height
  * of the canvas.
  */
-function drawAutomatedStackFrames(stack_frames, configuration) {
+function drawAutomatedStackFrames(stack_frames: DrawnEntity[], configuration) {
     for (const req_prop of [
         "padding",
         "top_margin",
@@ -113,7 +113,7 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
  * desired canvas width, this function mutates the passed list to equip each object with coordinates (corresponding to
  * the top-left corner of the object's box in the canvas).
  *
- * @param {DrawnEntity} objs - list of objects in the format described in MemoryModel.drawAll
+ * @param {DrawnEntity[]} objs - list of objects in the format described in MemoryModel.drawAll
  * @param {number} max_width - the desired width of the canvas
  * @param {*} sort_by - the sorting criterion; must be "height" or "id", otherwise no sorting takes place.
  * @param {object} config_aut - additional configuration options, such as margins, paddings, e.t.c.
@@ -123,7 +123,7 @@ function drawAutomatedStackFrames(stack_frames, configuration) {
  * dynamically determined height the canvas will need to be.
  */
 function drawAutomatedOtherItems(
-    objs,
+    objs: DrawnEntity[],
     max_width,
     sort_by,
     config_aut: any = {} /* to avoid undefined error */,
@@ -245,7 +245,7 @@ function drawAutomatedOtherItems(
  * The returned object has two attributes as 'stack_frames' and 'other_items'.
  * Each of these attributes are a list of objects that were originally given by the user.
  *
- * @param {DrawnEntity[]} objects - The list of objects, including stack-frames (if any) and other items, that
+ * @param {Object[]} objects - The list of objects, including stack-frames (if any) and other items, that
  * will be drawn
  * @returns {object} an object separating between stack-frames and the rest of the items.
  */
@@ -282,7 +282,7 @@ function separateObjects(objects) {
  * @param {DrawnEntity} obj - an object as specified in MemoryModel.drawAll, except that coordinates are missing.
  * @returns {object} the width and the height the drawn object would have.
  */
-function getSize(obj) {
+function getSize(obj: DrawnEntity) {
     // The x and y values here are unimportant; 'obj' must simply have these properties for processing by 'drawAll'.
     obj.x = obj.x || 10;
     obj.y = obj.y || 10;
