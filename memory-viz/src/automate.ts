@@ -245,11 +245,11 @@ function drawAutomatedOtherItems(
  * The returned object has two attributes as 'stack_frames' and 'other_items'.
  * Each of these attributes are a list of objects that were originally given by the user.
  *
- * @param {Object[]} objects - The list of objects, including stack-frames (if any) and other items, that
+ * @param {DrawnEntity[]} objects - The list of objects, including stack-frames (if any) and other items, that
  * will be drawn
  * @returns {object} an object separating between stack-frames and the rest of the items.
  */
-function separateObjects(objects) {
+function separateObjects(objects: DrawnEntity[]) {
     let stackFrames = [];
     let otherItems = [];
 

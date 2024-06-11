@@ -7,9 +7,9 @@ export interface DrawnEntity {
     value: any;
     show_indexes?: boolean;
     style?: Style;
-    height: number;
-    width: number;
-    rowBreaker: boolean;
+    height?: number;
+    width?: number;
+    rowBreaker?: boolean;
 }
 
 export interface AttributeStyle {
