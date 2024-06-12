@@ -29,7 +29,7 @@ function drawAutomated(objects: DrawnEntity[], width, configuration) {
     const m = new MemoryModel({
         width: width,
         height: final_height,
-        seed: configuration.seed,
+        roughjs_config: { options: { seed: configuration.seed } },
     });
 
     m.drawAll(StackFrames);
