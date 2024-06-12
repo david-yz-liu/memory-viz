@@ -36,6 +36,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Removed unused imports in `demo_C.js`.
 -   Added type interfaces and type annotations to `style.ts`.
 -   Added `DrawnEntity` type annotations to source code files.
+-   Replaced `seed` configuration option with general configuration option `roughjs_config`.
 
 ## [0.1.0] - 2024-04-16
 
