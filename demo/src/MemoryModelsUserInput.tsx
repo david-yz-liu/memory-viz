@@ -20,7 +20,6 @@ import { ExpandMore } from "@mui/icons-material";
 interface configDataPropTypes {
     useAutomation: boolean;
     overallDrawConfig: {
-        seed: Number;
         [key: string]: any;
     };
 }
