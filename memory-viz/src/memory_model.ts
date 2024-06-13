@@ -11,6 +11,7 @@ import {
 } from "./style";
 import { config } from "./config";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
+import { DrawnEntity } from "./types";
 
 // Dynamic import of Node fs module
 let fs;
@@ -758,7 +759,7 @@ export class MemoryModel {
     /**
      * Create a MemoryModel given a list of JS objects.
      *
-     * @param {object[]} objects - the list of objects (including stack-frames) to be drawn.
+     * @param {DrawnEntity[]} objects - the list of objects (including stack-frames) to be drawn.
      * Each object in 'objects' must include  the following structure:
      * @param {number} objects[*].x - Value for x coordinate of top left corner
      * @param {number} objects[*].y - Value for y coordinate of top left corner
