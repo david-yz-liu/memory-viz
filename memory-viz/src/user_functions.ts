@@ -86,7 +86,7 @@ function draw(objects, automation, configuration) {
         m = new MemoryModel({
             width: configuration.width,
             height: configuration.height,
-            roughjs_config: { options: { seed: configuration.seed } },
+            roughjs_config: configuration.roughjs_config,
         });
         m.drawAll(objs);
     }
