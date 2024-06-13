@@ -1,5 +1,115 @@
 import exports from "../index";
 const { MemoryModel, draw } = exports;
+const { execSync } = require("child_process");
+const path = require("path");
+const fs = require("fs");
+
+describe("memory-viz cli", () => {
+    it("should produce an svg that matches snapshot", () => {
+        execSync(`npx memory-viz ${path.resolve(__dirname, "cli-test.json")}`);
+
+        const svgFilePath = path.resolve(process.cwd(), "cli-test.svg");
+
+        if (fs.existsSync(svgFilePath)) {
+            const fileContent = fs.readFileSync(svgFilePath, "utf8");
+            expect(fileContent).toMatchSnapshot();
+            fs.unlinkSync(svgFilePath);
+        } else {
+            expect(fs.existsSync(svgFilePath)).toBe(true); // This should fail if the files does not exist.
+        }
+    });
+});
+
+describe.each([
+    {
+        errorType: "invalid arguments",
+        command: "npx memory-viz",
+        expectedErrorMessage:
+            `Command failed: npx memory-viz\n` +
+            `Error: wrong number of arguments.\n` +
+            `Proper input: npx memory-viz <path-to-file>\n`,
+    },
+    {
+        errorType: "non-existent file",
+        command: "npx memory-viz cli-test.json",
+        expectedErrorMessage:
+            `Command failed: npx memory-viz cli-test.json\n` +
+            `Error: File ${path.resolve(
+                process.cwd(),
+                "cli-test.json"
+            )} does not exist.\n`,
+    },
+    {
+        errorType: "wrong file type",
+        command: "npx memory-viz cli-test.js",
+        expectedErrorMessage:
+            `Command failed: npx memory-viz cli-test.js\n` +
+            `Error: ${path.resolve(
+                process.cwd(),
+                "cli-test.js"
+            )} is not a JSON file.\n`,
+    },
+    {
+        errorType: "invalid json",
+        command: "npx memory-viz invalid-json.json",
+        expectedErrorMessage:
+            `Command failed: npx memory-viz invalid-json.json\n` +
+            `Error: Invalid JSON.\n`,
+    },
+    {
+        errorType: "invalid memory-viz json",
+        command: "npx memory-viz invalid-memory-viz-json.json",
+        expectedErrorMessage:
+            `Command failed: npx memory-viz invalid-memory-viz-json.json\n` +
+            `This is valid JSON but not valid Memory Models JSON.` +
+            `Please refer to the repo for more details.\n`,
+    },
+])(
+    "these incorrect inputs to the memory-viz cli",
+    ({ errorType, command, expectedErrorMessage }) => {
+        it(`should display ${errorType} error`, () => {
+            let statusCode: number;
+            let errorMessage: string;
+            const fileMockingTests = [
+                "wrong file type",
+                "invalid json",
+                "invalid memory-viz json",
+            ];
+            let filePath: string; // only used to test wrong file types
+
+            // this creates a file for the purpose of testing.
+            // the file gets deleted when the test finishes.
+            if (fileMockingTests.includes(errorType)) {
+                filePath = path.resolve(
+                    process.cwd(),
+                    command.match(/[^ ]+$/)[0]
+                );
+                if (errorType === "invalid json") {
+                    fs.writeFileSync(filePath, "[1, 2, 3, 4,]");
+                } else {
+                    fs.writeFileSync(
+                        filePath,
+                        '[{ "name": "int", "id": 13, "value": 7 }]'
+                    );
+                }
+            }
+
+            try {
+                execSync(command);
+            } catch (err) {
+                statusCode = err.status;
+                errorMessage = err.message;
+            }
+
+            if (fileMockingTests.includes(errorType)) {
+                fs.unlinkSync(filePath);
+            }
+
+            expect(statusCode).toBe(1);
+            expect(errorMessage).toBe(expectedErrorMessage);
+        });
+    }
+);
 
 describe("draw function", () => {
     it("should produce consistent svg when provided seed", () => {
