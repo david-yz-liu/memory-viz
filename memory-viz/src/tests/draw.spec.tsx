@@ -9,14 +9,10 @@ describe("memory-viz cli", () => {
         execSync(`npx memory-viz ${path.resolve(__dirname, "cli-test.json")}`);
 
         const svgFilePath = path.resolve(process.cwd(), "cli-test.svg");
+        const fileContent = fs.readFileSync(svgFilePath, "utf8");
 
-        if (fs.existsSync(svgFilePath)) {
-            const fileContent = fs.readFileSync(svgFilePath, "utf8");
-            expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(svgFilePath);
-        } else {
-            expect(fs.existsSync(svgFilePath)).toBe(true); // This should fail if the files does not exist.
-        }
+        expect(fileContent).toMatchSnapshot();
+        fs.unlinkSync(svgFilePath);
     });
 });
 
