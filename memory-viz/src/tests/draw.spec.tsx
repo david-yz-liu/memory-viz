@@ -649,6 +649,7 @@ describe("draw function", () => {
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
+
     it("renders combinations of style presets", () => {
         const objects: Array<Object> = [
             {
@@ -670,6 +671,80 @@ describe("draw function", () => {
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders diagrams with provided roughjs_config 'fill' option", () => {
+        const objects: Array<Object> = [
+            {
+                type: "str",
+                id: 42,
+                value: "hello",
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { fill: "red", seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders diagrams with provided roughjs_config 'fill' and 'fillStyle' options", () => {
+        const objects: Array<Object> = [
+            {
+                type: "str",
+                id: 42,
+                value: "hello",
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: {
+                options: { fill: "green", fillStyle: "dashed", seed: 12345 },
+            },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders diagrams with provided roughjs_config 'roughness' option", () => {
+        const objects: Array<Object> = [
+            {
+                type: "str",
+                id: 42,
+                value: "hello",
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { roughness: 4, seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders diagrams with provided mix of roughjs_config options", () => {
+        const objects: Array<Object> = [
+            {
+                type: "str",
+                id: 42,
+                value: "hello",
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: {
+                options: {
+                    roughness: 4,
+                    bowing: 5,
+                    fill: "blue",
+                    fillWeight: 5,
+                    seed: 12345,
+                },
+            },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
