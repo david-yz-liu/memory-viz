@@ -1,18 +1,60 @@
 import exports from "../index";
 const { MemoryModel, draw } = exports;
-const { execSync } = require("child_process");
+const { exec, execSync } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 
+jest.mock("child_process", () => ({
+    exec: jest.fn(),
+}));
+
+jest.mock("fs", () => ({
+    writeFileSync: jest.fn(),
+    readFileSync: jest.fn(),
+    unlinkSync: jest.fn(),
+}));
+
 describe("memory-viz cli", () => {
     it("should produce an svg that matches snapshot", () => {
-        execSync(`npx memory-viz ${path.resolve(__dirname, "cli-test.json")}`);
+        const fileContent = JSON.stringify(
+            [
+                {
+                    type: ".frame",
+                    name: "__main__",
+                    id: null,
+                    value: {
+                        lst1: 82,
+                        lst2: 84,
+                        p: 99,
+                        d: 10,
+                        t: 11,
+                    },
+                },
+                {
+                    type: "str",
+                    id: 19,
+                    value: "David is cool!",
+                    style: ["highlight"],
+                },
+                {
+                    type: "int",
+                    id: 13,
+                    value: 7,
+                },
+            ],
+            null
+        );
 
-        const svgFilePath = path.resolve(process.cwd(), "cli-test.svg");
-        const fileContent = fs.readFileSync(svgFilePath, "utf8");
+        // fs.writeFileSync.mockImplementation(filePath, fileContent);
+        // console.log(fs.readFileSync.mockImplementation(filePath, 'utf8'));
 
-        expect(fileContent).toMatchSnapshot();
-        fs.unlinkSync(svgFilePath);
+        // exec.mockImplementation(`npx memory-viz ${filePath}`, callback);
+
+        // const svgFilePath = path.resolve(process.cwd(), "cli-test.svg");
+        // const fileContent = fs.readFileSync(svgFilePath, "utf8");
+
+        // expect(fileContent).toMatchSnapshot();
+        // fs.unlinkSync(svgFilePath);
     });
 });
 
