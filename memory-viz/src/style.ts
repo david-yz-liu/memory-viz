@@ -75,8 +75,7 @@ const primitives: Array<string> = [
  * well as many more.
  * @param {DrawnEntity} object : the object that represents a Python object the user wants drawn. The style object
  *                          corresponding to 'object' will be extracted be doing object.style.
- * @param {object} roughjs_config : configuration object that sets default properties of all shapes, including seed, 
- *                          which can be valued from 1 to 2^31.
+ * @param {object} roughjs_config : a configuration object used to pass in options to rough.js
 
 * @returns {Style}
  */

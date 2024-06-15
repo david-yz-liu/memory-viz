@@ -54,7 +54,7 @@ export class MemoryModel {
     list_index_sep: number; // Vertical offset for list index labels
     font_size: number; // Font size, in px
     browser: boolean; // Whether this library is being used in a browser context
-    roughjs_config: object; // Configuration object that sets default properties of all shapes
+    roughjs_config: object; // Configuration object used to pass in options to rough.js
 
     constructor(options?: any) {
         options = options || {};
