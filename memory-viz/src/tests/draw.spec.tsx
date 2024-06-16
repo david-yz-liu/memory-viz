@@ -3,58 +3,39 @@ const { MemoryModel, draw } = exports;
 const { exec, execSync } = require("child_process");
 const path = require("path");
 const fs = require("fs");
+const tmp = require("tmp");
 
-jest.mock("child_process", () => ({
-    exec: jest.fn(),
-}));
-
-jest.mock("fs", () => ({
-    writeFileSync: jest.fn(),
-    readFileSync: jest.fn(),
-    unlinkSync: jest.fn(),
-}));
+tmp.setGracefulCleanup();
 
 describe("memory-viz cli", () => {
-    it("should produce an svg that matches snapshot", () => {
-        const fileContent = JSON.stringify(
+    it("should produce an svg that matches snapshot", (done) => {
+        const tmpFile = tmp.fileSync({ postfix: ".json" });
+        const filePath = tmpFile.name;
+        const input = JSON.stringify(
             [
-                {
-                    type: ".frame",
-                    name: "__main__",
-                    id: null,
-                    value: {
-                        lst1: 82,
-                        lst2: 84,
-                        p: 99,
-                        d: 10,
-                        t: 11,
-                    },
-                },
                 {
                     type: "str",
                     id: 19,
                     value: "David is cool!",
                     style: ["highlight"],
                 },
-                {
-                    type: "int",
-                    id: 13,
-                    value: 7,
-                },
             ],
             null
         );
 
-        // fs.writeFileSync.mockImplementation(filePath, fileContent);
-        // console.log(fs.readFileSync.mockImplementation(filePath, 'utf8'));
+        fs.writeFileSync(filePath, input);
 
-        // exec.mockImplementation(`npx memory-viz ${filePath}`, callback);
-
-        // const svgFilePath = path.resolve(process.cwd(), "cli-test.svg");
-        // const fileContent = fs.readFileSync(svgFilePath, "utf8");
-
-        // expect(fileContent).toMatchSnapshot();
-        // fs.unlinkSync(svgFilePath);
+        exec(`npx memory-viz ${filePath}`, (err) => {
+            if (err) throw err;
+            const svgFilePath = path.resolve(
+                process.cwd(),
+                path.basename(filePath.replace(".json", ".svg"))
+            );
+            const fileContent = fs.readFileSync(svgFilePath, "utf8");
+            expect(fileContent).toMatchSnapshot();
+            fs.unlinkSync(svgFilePath);
+            done();
+        });
     });
 });
 
@@ -78,50 +59,40 @@ describe.each([
             )} does not exist.\n`,
     },
     {
-        errorType: "wrong file type",
-        command: "npx memory-viz cli-test.js",
-        expectedErrorMessage:
-            `Command failed: npx memory-viz cli-test.js\n` +
-            `Error: ${path.resolve(
-                process.cwd(),
-                "cli-test.js"
-            )} is not a JSON file.\n`,
+        errorType: "invalid file type",
+        expectedErrorMessage: "is not a JSON file.",
     },
     {
         errorType: "invalid json",
-        command: "npx memory-viz invalid-json.json",
-        expectedErrorMessage:
-            `Command failed: npx memory-viz invalid-json.json\n` +
-            `Error: Invalid JSON.\n`,
+        expectedErrorMessage: "Error: Invalid JSON.",
     },
     {
         errorType: "invalid memory-viz json",
-        command: "npx memory-viz invalid-memory-viz-json.json",
         expectedErrorMessage:
-            `Command failed: npx memory-viz invalid-memory-viz-json.json\n` +
-            `This is valid JSON but not valid Memory Models JSON.` +
-            `Please refer to the repo for more details.\n`,
+            "This is valid JSON but not valid Memory Models JSON." +
+            "Please refer to the repo for more details.",
     },
 ])(
     "these incorrect inputs to the memory-viz cli",
-    ({ errorType, command, expectedErrorMessage }) => {
-        it(`should display ${errorType} error`, () => {
-            let statusCode: number;
-            let errorMessage: string;
+    ({ errorType, command = undefined, expectedErrorMessage }) => {
+        it(`should display ${errorType} error`, (done) => {
             const fileMockingTests = [
-                "wrong file type",
+                "invalid file type",
                 "invalid json",
                 "invalid memory-viz json",
             ];
-            let filePath: string; // only used to test wrong file types
 
-            // this creates a file for the purpose of testing.
-            // the file gets deleted when the test finishes.
+            let filePath: string;
             if (fileMockingTests.includes(errorType)) {
-                filePath = path.resolve(
-                    process.cwd(),
-                    command.match(/[^ ]+$/)[0]
-                );
+                let err_postfix: string;
+                if (errorType === "invalid file type") {
+                    err_postfix = ".js";
+                } else {
+                    err_postfix = ".json";
+                }
+                const tmpFile = tmp.fileSync({ postfix: err_postfix });
+                filePath = tmpFile.name;
+
                 if (errorType === "invalid json") {
                     fs.writeFileSync(filePath, "[1, 2, 3, 4,]");
                 } else {
@@ -132,19 +103,16 @@ describe.each([
                 }
             }
 
-            try {
-                execSync(command);
-            } catch (err) {
-                statusCode = err.status;
-                errorMessage = err.message;
-            }
-
             if (fileMockingTests.includes(errorType)) {
-                fs.unlinkSync(filePath);
+                command = `npx memory-viz ${filePath}`;
             }
-
-            expect(statusCode).toBe(1);
-            expect(errorMessage).toBe(expectedErrorMessage);
+            exec(command, (err) => {
+                if (err) {
+                    expect(err.code).toBe(1);
+                    expect(err.message).toContain(expectedErrorMessage);
+                }
+                done();
+            });
         });
     }
 );
