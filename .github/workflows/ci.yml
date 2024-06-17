@@ -21,11 +21,11 @@ jobs:
               run: npm ci
             - name: Run prettier
               run: npx prettier . --write
-            - name: Commit changes
-              uses: stefanzweifel/git-auto-commit-action@v4
-              with:
-                  commit_message: Apply formatting changes
-                  branch: ${{ github.head_ref }}
+            # - name: Commit changes
+            #   uses: stefanzweifel/git-auto-commit-action@v4
+            #   with:
+            #       commit_message: Apply formatting changes
+            #       branch: ${{ github.head_ref }}
     jest:
         if: github.event.pull_request.draft == false
         runs-on: ubuntu-22.04
