@@ -40,7 +40,9 @@ jobs:
             - name: Install npm packages
               run: npm ci
             - name: Run jest tests
-              run: npm run test-cov
+              run: |
+                  npm run build --workspace=memory-viz
+                  npm run test-cov
             - name: Coveralls (jest)
               uses: coverallsapp/github-action@v2
               with:
