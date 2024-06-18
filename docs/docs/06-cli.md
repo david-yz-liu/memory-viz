@@ -14,7 +14,7 @@ To run the MemoryViz CLI, run:
 $ npx memory-viz <path-to-file>
 ```
 
-replacing `<path-to-file>` with the path to a file containing MemoryViz-compatible JSON. If the file extension is not `.json` or if the file content is not compatible with MemoryViz, an error will be thrown.
+replacing `<path-to-file>` with the path to a file containing MemoryViz-compatible JSON. If the file content is not compatible with MemoryViz, an error will be thrown.
 
 ## Output
 

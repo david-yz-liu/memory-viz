@@ -27,7 +27,7 @@ let data;
 try {
     data = JSON.parse(fileContent);
 } catch (err) {
-    console.error(`Error: Invalid JSON.`);
+    console.error(`Error: Invalid JSON\n${err.message}.`);
     process.exit(1);
 }
 

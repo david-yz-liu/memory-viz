@@ -58,7 +58,7 @@ describe.each([
     },
     {
         errorType: "invalid json",
-        expectedErrorMessage: "Error: Invalid JSON.",
+        expectedErrorMessage: "Error: Invalid JSON",
     },
     {
         errorType: "invalid memory-viz json",

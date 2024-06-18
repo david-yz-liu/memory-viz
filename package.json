@@ -10,7 +10,6 @@
         "docs"
     ],
     "devDependencies": {
-        "child_process": "^1.0.2",
         "husky": "^8.0.3",
         "lint-staged": "^14.0.1",
         "prettier": "2.8.1",

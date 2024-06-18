@@ -39,10 +39,10 @@ jobs:
                   cache: npm
             - name: Install npm packages
               run: npm ci
+            - name: Compile JavaScript assets
+              run: npm run build --workspace=memory-viz
             - name: Run jest tests
-              run: |
-                  npm run build --workspace=memory-viz
-                  npm run test-cov
+              run: npm run test-cov
             - name: Coveralls (jest)
               uses: coverallsapp/github-action@v2
               with:
