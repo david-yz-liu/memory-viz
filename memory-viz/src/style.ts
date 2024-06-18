@@ -75,11 +75,11 @@ const primitives: Array<string> = [
  * well as many more.
  * @param {DrawnEntity} object : the object that represents a Python object the user wants drawn. The style object
  *                          corresponding to 'object' will be extracted be doing object.style.
- * @param {Number} seed : a numeric seed. If valued between 1 and 2^31, RoughJS will generate the exact same shape(s)
- *                          when provided with the same seed. If valued at 0, RoughJS will generate random shape(s).
- * @returns {Style}
+ * @param {object} roughjs_config : a configuration object used to pass in options to rough.js
+
+* @returns {Style}
  */
-function populateStyleObject(object: DrawnEntity, seed: Number) {
+function populateStyleObject(object: DrawnEntity, roughjs_config: object) {
     let style_so_far = common_style;
 
     let object_type;
@@ -102,7 +102,7 @@ function populateStyleObject(object: DrawnEntity, seed: Number) {
     // Note that, the later will take precedence over styleSoFar.
     style_so_far = merge(style_so_far, object.style || {});
 
-    return { ...style_so_far, seed: seed };
+    return { ...style_so_far, config: roughjs_config };
 }
 
 // Constants employed to establish presets for styles.

@@ -10,7 +10,7 @@ describe("MemoryModelsUserInput", () => {
     const configDataMock = {
         useAutomation: true,
         overallDrawConfig: {
-            seed: 0,
+            roughjs_config: { options: { seed: 0 } },
         },
     };
     const setConfigDataMock = jest.fn();

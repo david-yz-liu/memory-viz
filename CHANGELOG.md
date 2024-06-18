@@ -13,6 +13,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Removed the `isClass` and `stack_frame` attributes and embedded them as the types `.class` and `.frame`.
 -   Renamed the input for blank objects from `BLANK` to `.blank`.
 -   Created new type `.blank-frame` to denote blank stack frames.
+-   Replaced `seed` configuration option with general configuration option `roughjs_config`.
 
 ### ✨ Enhancements
 

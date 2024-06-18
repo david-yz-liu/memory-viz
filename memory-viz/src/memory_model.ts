@@ -54,7 +54,7 @@ export class MemoryModel {
     list_index_sep: number; // Vertical offset for list index labels
     font_size: number; // Font size, in px
     browser: boolean; // Whether this library is being used in a browser context
-    seed: number; // Seed for RoughJS generated shape(s). 0 if wanting randomness, between 1 and 2^31 otherwise.
+    roughjs_config: object; // Configuration object used to pass in options to rough.js
 
     constructor(options?: any) {
         options = options || {};
@@ -75,8 +75,8 @@ export class MemoryModel {
 
         this.svg.setAttribute("width", options.width || 800);
         this.svg.setAttribute("height", options.height || 800);
-        this.seed = options.seed || 0;
-        this.rough_svg = rough.svg(this.svg, { options: { seed: this.seed } });
+        this.roughjs_config = options.roughjs_config;
+        this.rough_svg = rough.svg(this.svg, this.roughjs_config);
 
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
@@ -707,7 +707,7 @@ export class MemoryModel {
         if (style === undefined) {
             style = this.rect_style;
         }
-        style = { ...style, seed: this.seed };
+        style = { ...style, config: this.roughjs_config };
 
         this.svg.appendChild(
             this.rough_svg.rectangle(x, y, width, height, style)
@@ -810,7 +810,7 @@ export class MemoryModel {
                 obj.style = styleSoFar;
             }
 
-            obj.style = populateStyleObject(obj, this.seed);
+            obj.style = populateStyleObject(obj, this.roughjs_config);
 
             const frame_types = [".frame", ".blank-frame"];
             if (frame_types.includes(obj.type) || obj.type === ".class") {
