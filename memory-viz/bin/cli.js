@@ -7,7 +7,7 @@ const { draw } = require("memory-viz");
 // Check for correct number of arguments
 if (process.argv.length !== 3) {
     console.error(
-        "Error: wrong number of arguments.\nProper input: npx memory-viz <path-to-file>"
+        "Error: wrong number of arguments.\nUsage: memory-viz <path-to-file>"
     );
     process.exit(1);
 }
@@ -18,9 +18,6 @@ const absolutePath = path.resolve(process.cwd(), filePath);
 let fileContent;
 if (!fs.existsSync(absolutePath)) {
     console.error(`Error: File ${absolutePath} does not exist.`);
-    process.exit(1);
-} else if (path.extname(filePath) !== ".json") {
-    console.error(`Error: ${absolutePath} is not a JSON file.`);
     process.exit(1);
 } else {
     fileContent = fs.readFileSync(absolutePath, "utf8");
@@ -36,6 +33,7 @@ try {
 
 let m;
 try {
+    // TODO: Replace width and seed with command-line arguments
     m = draw(data, true, { width: 1300, seed: 12345 });
 } catch (err) {
     console.error(
@@ -45,7 +43,7 @@ try {
     process.exit(1);
 }
 
-const outputName = path.basename(filePath).slice(0, -5) + ".svg";
+const outputName = path.parse(filePath).name + ".svg";
 try {
     m.save(outputName);
 } catch (err) {

@@ -94,6 +94,8 @@ const config: Config = {
     moduleNameMapper: {
         // Force module roughjs to resolve with the CJS entry point, because Jest does not support package.json.exports. Elaborated in PR#15.
         roughjs: require.resolve("roughjs"),
+        "^memory-viz$":
+            "<rootDir>/memory-viz/node_modules/memory-viz/dist/memory-viz.bundle.js",
     },
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
