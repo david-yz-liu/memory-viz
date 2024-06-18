@@ -34,7 +34,10 @@ try {
 let m;
 try {
     // TODO: Replace width and seed with command-line arguments
-    m = draw(data, true, { width: 1300, seed: 12345 });
+    m = draw(data, true, {
+        width: 1300,
+        roughjs_config: { options: { seed: 12345 } },
+    });
 } catch (err) {
     console.error(
         `This is valid JSON but not valid Memory Models JSON.` +
