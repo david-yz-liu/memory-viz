@@ -136,7 +136,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -146,7 +146,7 @@ describe("draw function", () => {
         const objects: Array<Object> = [{ type: "bool", id: 32, value: true }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -156,7 +156,7 @@ describe("draw function", () => {
         const objects: Array<Object> = [{ type: "int", id: 32, value: 7 }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -166,7 +166,7 @@ describe("draw function", () => {
         const objects: Array<Object> = [{ type: "float", id: 32, value: 7.0 }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -178,7 +178,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -190,7 +190,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -200,7 +200,7 @@ describe("draw function", () => {
         const objects: Array<Object> = [{ type: "set", id: 32, value: [] }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -217,7 +217,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -229,7 +229,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -239,7 +239,7 @@ describe("draw function", () => {
         const objects: Array<Object> = [{ type: "list", id: 32, value: [] }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -256,7 +256,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -268,7 +268,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -278,7 +278,7 @@ describe("draw function", () => {
         const objects: Array<Object> = [{ type: "tuple", id: 32, value: [] }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -294,7 +294,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -304,7 +304,7 @@ describe("draw function", () => {
         const objects: Array<Object> = [{ type: "dict", id: 32, value: {} }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -316,7 +316,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -328,7 +328,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -352,7 +352,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -373,7 +373,7 @@ describe("draw function", () => {
             },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, false, {
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -390,7 +390,7 @@ describe("draw function", () => {
             },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, false, {
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -403,7 +403,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -429,7 +429,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -463,7 +463,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -502,7 +502,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -526,7 +526,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -552,7 +552,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -578,7 +578,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -604,7 +604,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -630,7 +630,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -656,7 +656,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -682,7 +682,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -708,7 +708,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -734,7 +734,7 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
@@ -760,11 +760,12 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
+
     it("renders combinations of style presets", () => {
         const objects: Array<Object> = [
             {
@@ -785,7 +786,81 @@ describe("draw function", () => {
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
-            seed: 12345,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders diagrams with provided roughjs_config 'fill' option", () => {
+        const objects: Array<Object> = [
+            {
+                type: "str",
+                id: 42,
+                value: "hello",
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { fill: "red", seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders diagrams with provided roughjs_config 'fill' and 'fillStyle' options", () => {
+        const objects: Array<Object> = [
+            {
+                type: "str",
+                id: 42,
+                value: "hello",
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: {
+                options: { fill: "green", fillStyle: "dashed", seed: 12345 },
+            },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders diagrams with provided roughjs_config 'roughness' option", () => {
+        const objects: Array<Object> = [
+            {
+                type: "str",
+                id: 42,
+                value: "hello",
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { roughness: 4, seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders diagrams with provided mix of roughjs_config options", () => {
+        const objects: Array<Object> = [
+            {
+                type: "str",
+                id: 42,
+                value: "hello",
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: {
+                options: {
+                    roughness: 4,
+                    bowing: 5,
+                    fill: "blue",
+                    fillWeight: 5,
+                    seed: 12345,
+                },
+            },
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
