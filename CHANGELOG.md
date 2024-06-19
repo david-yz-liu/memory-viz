@@ -17,12 +17,16 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+-   Created a CLI for MemoryViz.
+
 ### 🐛 Bug fixes
 
 -   Fixed a bug where box fill colours would cover box text, and changed the implementation of `hide` style option.
 -   Removed double quotes when rendering objects of type `None`.
 
 ### 📚 Documentation and demo website changes
+
+-   Added documentation page for the MemoryViz CLI.
 
 ### 🔧 Internal changes
 

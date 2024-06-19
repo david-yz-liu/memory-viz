@@ -37,6 +37,9 @@
     "bugs": {
         "url": "https://github.com/david-yz-liu/memory-viz/issues"
     },
+    "bin": {
+        "memory-viz": "bin/cli.js"
+    },
     "dependencies": {
         "@xmldom/xmldom": "^0.8.6",
         "deepmerge": "^4.3.1",
