@@ -223,10 +223,10 @@ export class MemoryModel {
         let display_text;
         if (type === "bool") {
             display_text = value ? "True" : "False";
-        } else if (type === "None") {
-            display_text = "None";
-        } else {
+        } else if (type === "str") {
             display_text = JSON.stringify(value);
+        } else {
+            display_text = String(value);
         }
 
         if (value !== null && value !== undefined) {

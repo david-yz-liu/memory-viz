@@ -23,6 +23,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 -   Fixed a bug where box fill colours would cover box text, and changed the implementation of `hide` style option.
 -   Removed double quotes when rendering objects of type `None`.
+-   Removed double quotes when rendering objects that are not of type `str`.
 
 ### 📚 Documentation and demo website changes
 
