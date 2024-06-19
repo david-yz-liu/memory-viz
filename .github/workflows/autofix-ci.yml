@@ -9,7 +9,7 @@ permissions:
     contents: write
 
 jobs:
-    autofix:
+    prettier:
         runs-on: ubuntu-22.04
         steps:
             - name: Checkout repo
