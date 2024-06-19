@@ -749,4 +749,20 @@ describe("draw function", () => {
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
+
+    it("renders range object", () => {
+        const objects: Array<Object> = [
+            {
+                type: "range",
+                id: 42,
+                value: "range(1, 5)",
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
 });
