@@ -155,5 +155,3 @@ describe.each([
         });
     }
 );
-
-// TODO: add tests for height and width options once those are added
