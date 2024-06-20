@@ -16,7 +16,6 @@ program
     .option("--width <value>", "width of generated SVG", "1300")
     .option("--height <value>", "height of generated SVG");
 
-// parses user arguments assuming argv[0] is the application and argv[1] is the script
 program.parse();
 
 const filePath = program.args[0];
