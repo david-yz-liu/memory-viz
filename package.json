@@ -17,5 +17,8 @@
     },
     "lint-staged": {
         "**/*": "prettier --write --ignore-unknown"
+    },
+    "dependencies": {
+        "commander": "^12.1.0"
     }
 }

@@ -5,25 +5,73 @@ const tmp = require("tmp");
 
 tmp.setGracefulCleanup();
 
+const tmpFile = tmp.fileSync({ postfix: ".json" });
+const filePath = tmpFile.name;
+const input = JSON.stringify(
+    [
+        {
+            type: "str",
+            id: 19,
+            value: "David is cool!",
+            style: ["highlight"],
+        },
+    ],
+    null
+);
+
 describe("memory-viz cli", () => {
     it("should produce an svg that matches snapshot", (done) => {
-        const tmpFile = tmp.fileSync({ postfix: ".json" });
-        const filePath = tmpFile.name;
-        const input = JSON.stringify(
-            [
-                {
-                    type: "str",
-                    id: 19,
-                    value: "David is cool!",
-                    style: ["highlight"],
-                },
-            ],
-            null
-        );
-
         fs.writeFileSync(filePath, input);
 
         exec(`memory-viz ${filePath}`, (err) => {
+            if (err) throw err;
+            const svgFilePath = path.resolve(
+                process.cwd(),
+                path.basename(filePath.replace(".json", ".svg"))
+            );
+            const fileContent = fs.readFileSync(svgFilePath, "utf8");
+            expect(fileContent).toMatchSnapshot();
+            fs.unlinkSync(svgFilePath);
+            done();
+        });
+    });
+
+    it("produces consistent svg when provided width option", (done) => {
+        fs.writeFileSync(filePath, input);
+
+        exec(`memory-viz ${filePath} --width=700`, (err) => {
+            if (err) throw err;
+            const svgFilePath = path.resolve(
+                process.cwd(),
+                path.basename(filePath.replace(".json", ".svg"))
+            );
+            const fileContent = fs.readFileSync(svgFilePath, "utf8");
+            expect(fileContent).toMatchSnapshot();
+            fs.unlinkSync(svgFilePath);
+            done();
+        });
+    });
+
+    it("produces consistent svg when provided height option", (done) => {
+        fs.writeFileSync(filePath, input);
+
+        exec(`memory-viz ${filePath} --height=700`, (err) => {
+            if (err) throw err;
+            const svgFilePath = path.resolve(
+                process.cwd(),
+                path.basename(filePath.replace(".json", ".svg"))
+            );
+            const fileContent = fs.readFileSync(svgFilePath, "utf8");
+            expect(fileContent).toMatchSnapshot();
+            fs.unlinkSync(svgFilePath);
+            done();
+        });
+    });
+
+    it("produces consistent svg when provided height and width options", (done) => {
+        fs.writeFileSync(filePath, input);
+
+        exec(`memory-viz ${filePath} --height=700, width=1200`, (err) => {
             if (err) throw err;
             const svgFilePath = path.resolve(
                 process.cwd(),
@@ -41,10 +89,7 @@ describe.each([
     {
         errorType: "invalid arguments",
         command: "memory-viz",
-        expectedErrorMessage:
-            `Command failed: memory-viz\n` +
-            `Error: wrong number of arguments.\n` +
-            `Usage: memory-viz <path-to-file>\n`,
+        expectedErrorMessage: "error: missing required argument 'filepath'",
     },
     {
         errorType: "non-existent file",
@@ -110,3 +155,5 @@ describe.each([
         });
     }
 );
+
+// TODO: add tests for height and width options once those are added

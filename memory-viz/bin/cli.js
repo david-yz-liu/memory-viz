@@ -3,15 +3,23 @@
 const fs = require("fs");
 const path = require("path");
 const { draw } = require("memory-viz");
+const { program } = require("commander");
 
-// Check for correct number of arguments
-if (process.argv.length !== 3) {
-    console.error(
-        "Error: wrong number of arguments.\nUsage: memory-viz <path-to-file>"
-    );
-    process.exit(1);
-}
-const filePath = process.argv[2];
+program
+    .description(
+        "Command line interface for generating memory model diagrams with MemoryViz"
+    )
+    .argument(
+        "<filepath>",
+        "path to a file containing MemoryViz-compatible JSON"
+    )
+    .option("--width <value>", "width of generated SVG", "1300")
+    .option("--height <value>", "height of generated SVG");
+
+// parses user arguments assuming argv[0] is the application and argv[1] is the script
+program.parse();
+
+const filePath = program.args[0];
 const absolutePath = path.resolve(process.cwd(), filePath);
 
 // Checks if absolutePath exists and that it is a JSON file
@@ -33,11 +41,19 @@ try {
 
 let m;
 try {
-    // TODO: Replace width and seed with command-line arguments
-    m = draw(data, true, {
-        width: 1300,
-        roughjs_config: { options: { seed: 12345 } },
-    });
+    // TODO: Replace seed with command-line arguments
+    if (program.opts().height === undefined) {
+        m = draw(data, true, {
+            width: program.opts().width,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+    } else {
+        m = draw(data, true, {
+            width: program.opts().width,
+            height: program.opts().height,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+    }
 } catch (err) {
     console.error(
         `This is valid JSON but not valid Memory Models JSON.` +
