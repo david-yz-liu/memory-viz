@@ -41,18 +41,11 @@ try {
 let m;
 try {
     // TODO: Replace seed with command-line arguments
-    if (program.opts().height === undefined) {
-        m = draw(data, true, {
-            width: program.opts().width,
-            roughjs_config: { options: { seed: 12345 } },
-        });
-    } else {
-        m = draw(data, true, {
-            width: program.opts().width,
-            height: program.opts().height,
-            roughjs_config: { options: { seed: 12345 } },
-        });
-    }
+    m = draw(data, true, {
+        width: program.opts().width,
+        height: program.opts().height,
+        roughjs_config: { options: { seed: 12345 } },
+    });
 } catch (err) {
     console.error(
         `This is valid JSON but not valid Memory Models JSON.` +
