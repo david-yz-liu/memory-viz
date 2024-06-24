@@ -1,0 +1,30 @@
+name: autofix.ci
+on:
+    pull_request:
+        types: [opened, synchronize, reopened, ready_for_review]
+    push:
+        branches:
+            - master
+permissions:
+    contents: read
+
+jobs:
+    prettier:
+        runs-on: ubuntu-22.04
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v3
+            - name: Set up node and cache packages
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+                  cache: npm
+            - name: Install npm packages
+              run: npm ci
+            - name: Run prettier
+              run: npx prettier . --write
+            - name: Commit changes
+              uses: autofix-ci/action@d3e591514b99d0fca6779455ff8338516663f7cc
+              with:
+                  commit_message: Apply formatting changes
+                  branch: ${{ github.head_ref }}

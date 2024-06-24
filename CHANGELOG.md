@@ -42,6 +42,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Removed unused imports in `demo_C.js`.
 -   Added type interfaces and type annotations to `style.ts`.
 -   Added `DrawnEntity` type annotations to source code files.
+-   Added `autofix.ci` to the CI workflow.
 
 ## [0.1.0] - 2024-04-16
 
