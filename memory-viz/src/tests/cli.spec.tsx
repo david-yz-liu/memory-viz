@@ -71,7 +71,7 @@ describe("memory-viz cli", () => {
     it("produces consistent svg when provided height and width options", (done) => {
         fs.writeFileSync(filePath, input);
 
-        exec(`memory-viz ${filePath} --height=700, width=1200`, (err) => {
+        exec(`memory-viz ${filePath} --height=700 width=1200`, (err) => {
             if (err) throw err;
             const svgFilePath = path.resolve(
                 process.cwd(),
