@@ -44,6 +44,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Added type interfaces and type annotations to `style.ts`.
 -   Added `DrawnEntity` type annotations to source code files.
 -   Adopted Commander.js library for the MemoryViz CLI.
+-   Added `autofix.ci` to the CI workflow.
 
 ## [0.1.0] - 2024-04-16
 
