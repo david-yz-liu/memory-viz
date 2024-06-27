@@ -19,6 +19,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 -   Created a CLI for MemoryViz.
 -   Added `--height` and `--width` options to MemoryViz CLI.
+-   Added `--roughjs_config` option to MemoryViz CLI.
 
 ### 🐛 Bug fixes
 
