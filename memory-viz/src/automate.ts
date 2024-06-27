@@ -17,6 +17,25 @@ function drawAutomated(objects: DrawnEntity[], width, configuration) {
     // Assigning the objects with coordinates.
     const { StackFrames, requiredHeight, requiredWidth } =
         drawAutomatedStackFrames(stack_frames, configuration);
+
+    // Determining the minimum width of the canvas.
+    let min_width = 0;
+    let item_width;
+    for (const item of other_items) {
+        item_width = getSize(item).width;
+        min_width = item_width > min_width ? item_width : min_width;
+    }
+
+    min_width +=
+        requiredWidth + configuration.padding + configuration.left_margin;
+
+    if (width < min_width) {
+        console.warn(
+            `Warning: provided width (${width}) is smaller than the minimum width of the canvas (${min_width}).`
+        );
+        width = min_width;
+    }
+
     const { objs, canvas_height } = drawAutomatedOtherItems(
         other_items,
         width,
