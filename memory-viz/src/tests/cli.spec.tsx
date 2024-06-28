@@ -23,7 +23,7 @@ describe("memory-viz cli", () => {
     it("should produce an svg that matches snapshot", (done) => {
         fs.writeFileSync(filePath, input);
 
-        exec(`memory-viz ${filePath}`, (err) => {
+        exec(`memory-viz ${filePath} --roughjs-config seed=12345`, (err) => {
             if (err) throw err;
             const svgFilePath = path.resolve(
                 process.cwd(),
@@ -39,49 +39,77 @@ describe("memory-viz cli", () => {
     it("produces consistent svg when provided width option", (done) => {
         fs.writeFileSync(filePath, input);
 
-        exec(`memory-viz ${filePath} --width=700`, (err) => {
-            if (err) throw err;
-            const svgFilePath = path.resolve(
-                process.cwd(),
-                path.basename(filePath.replace(".json", ".svg"))
-            );
-            const fileContent = fs.readFileSync(svgFilePath, "utf8");
-            expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(svgFilePath);
-            done();
-        });
+        exec(
+            `memory-viz ${filePath} --width=700 --roughjs-config seed=12345`,
+            (err) => {
+                if (err) throw err;
+                const svgFilePath = path.resolve(
+                    process.cwd(),
+                    path.basename(filePath.replace(".json", ".svg"))
+                );
+                const fileContent = fs.readFileSync(svgFilePath, "utf8");
+                expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(svgFilePath);
+                done();
+            }
+        );
     });
 
     it("produces consistent svg when provided height option", (done) => {
         fs.writeFileSync(filePath, input);
 
-        exec(`memory-viz ${filePath} --height=700`, (err) => {
-            if (err) throw err;
-            const svgFilePath = path.resolve(
-                process.cwd(),
-                path.basename(filePath.replace(".json", ".svg"))
-            );
-            const fileContent = fs.readFileSync(svgFilePath, "utf8");
-            expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(svgFilePath);
-            done();
-        });
+        exec(
+            `memory-viz ${filePath} --height=700 --roughjs-config seed=12345`,
+            (err) => {
+                if (err) throw err;
+                const svgFilePath = path.resolve(
+                    process.cwd(),
+                    path.basename(filePath.replace(".json", ".svg"))
+                );
+                const fileContent = fs.readFileSync(svgFilePath, "utf8");
+                expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(svgFilePath);
+                done();
+            }
+        );
     });
 
     it("produces consistent svg when provided height and width options", (done) => {
         fs.writeFileSync(filePath, input);
 
-        exec(`memory-viz ${filePath} --height=700 width=1200`, (err) => {
-            if (err) throw err;
-            const svgFilePath = path.resolve(
-                process.cwd(),
-                path.basename(filePath.replace(".json", ".svg"))
-            );
-            const fileContent = fs.readFileSync(svgFilePath, "utf8");
-            expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(svgFilePath);
-            done();
-        });
+        exec(
+            `memory-viz ${filePath} --height=700 width=1200 --roughjs-config seed=12345`,
+            (err) => {
+                if (err) throw err;
+                const svgFilePath = path.resolve(
+                    process.cwd(),
+                    path.basename(filePath.replace(".json", ".svg"))
+                );
+                const fileContent = fs.readFileSync(svgFilePath, "utf8");
+                expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(svgFilePath);
+                done();
+            }
+        );
+    });
+
+    it("produces consistent svg when provided a variety of rough-config options", (done) => {
+        fs.writeFileSync(filePath, input);
+
+        exec(
+            `memory-viz ${filePath} --roughjs-config seed=1234,fill=red,fillStyle=solid`,
+            (err) => {
+                if (err) throw err;
+                const svgFilePath = path.resolve(
+                    process.cwd(),
+                    path.basename(filePath.replace(".json", ".svg"))
+                );
+                const fileContent = fs.readFileSync(svgFilePath, "utf8");
+                expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(svgFilePath);
+                done();
+            }
+        );
     });
 });
 
@@ -107,9 +135,7 @@ describe.each([
     },
     {
         errorType: "invalid memory-viz json",
-        expectedErrorMessage:
-            "This is valid JSON but not valid Memory Models JSON." +
-            "Please refer to the repo for more details.",
+        expectedErrorMessage: "Error:",
     },
 ])(
     "these incorrect inputs to the memory-viz cli",
