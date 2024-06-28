@@ -23,15 +23,18 @@ function drawAutomated(objects: DrawnEntity[], width, configuration) {
     let item_width;
     for (const item of other_items) {
         item_width = getSize(item).width;
-        min_width = item_width > min_width ? item_width : min_width;
+        if (item_width > min_width) {
+            min_width = item_width;
+        }
     }
 
-    min_width +=
-        requiredWidth + configuration.padding + configuration.left_margin;
+    min_width += requiredWidth + 2 * configuration.padding + 1;
 
     if (width < min_width) {
-        console.warn(
-            `Warning: provided width (${width}) is smaller than the minimum width of the canvas (${min_width}).`
+        console.log(
+            `WARNING: provided width (${width}) is smaller than the minimum width` +
+                ` of the canvas (${min_width}). The provided width has been overwritten` +
+                ` in the generated diagram.`
         );
         width = min_width;
     }
@@ -116,7 +119,7 @@ function drawAutomatedStackFrames(stack_frames: DrawnEntity[], configuration) {
         min_required_height = height + min_required_height;
     }
 
-    required_width += configuration.padding;
+    required_width += configuration.left_margin;
 
     return {
         StackFrames: draw_stack_frames,
@@ -206,7 +209,6 @@ function drawAutomatedOtherItems(
     let curr_row_objects = [];
     for (const item of objs) {
         let hor_reach = x_coord + item.width + PADDING;
-
         if (hor_reach < max_width) {
             item.x = x_coord;
             item.y = y_coord;
