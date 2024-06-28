@@ -6,15 +6,9 @@ const { draw } = require("memory-viz");
 const { program } = require("commander");
 
 function parseRoughjsConfig(input) {
-    let config = {};
     const pairs = input.split(",");
-
-    pairs.forEach((pair) => {
-        const [key, val] = pair.split("=");
-        config[key] = val;
-    });
-
-    return config;
+    const keyValuePairs = pairs.map((pair) => pair.split("="));
+    return Object.fromEntries(keyValuePairs);
 }
 
 program
@@ -29,7 +23,7 @@ program
     .option("--height <value>", "height of generated SVG")
     .option(
         "--roughjs-config <key1=value1,key2=value2,...>",
-        "various options to configure how the SVG is drawn" +
+        "options to configure how the SVG is drawn" +
             " - refer to rough.js documentation for available options",
         parseRoughjsConfig
     );
