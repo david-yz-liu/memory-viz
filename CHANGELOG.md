@@ -38,6 +38,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Fixed a bug where box fill colours would cover box text, and changed the implementation of `hide` style option.
 -   Removed double quotes when rendering objects of type `None`.
 -   Removed double quotes when rendering objects that are not of type `str`.
+-   Fixed issue where diagrams would not render when width inputs to `draw()` were too small.
 
 ### 📚 Documentation and demo website changes
 

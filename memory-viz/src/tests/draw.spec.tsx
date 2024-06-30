@@ -765,4 +765,87 @@ describe("draw function", () => {
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
+
+    it("logs a warning when provided 'small' width value", () => {
+        const objects: Array<Object> = [
+            {
+                type: "str",
+                id: 19,
+                value: "David is cool!",
+                style: ["highlight"],
+            },
+        ];
+        const spy = jest.spyOn(global.console, "warn");
+        draw(objects, true, {
+            width: 13,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        expect(spy).toHaveBeenCalledTimes(1);
+        console.log(spy.mock.calls[0][0]);
+
+        const message = new RegExp(
+            "^WARNING: provided width \\(\\d+\\) is smaller than " +
+                "the required width \\(\\d+\\). The provided width has been overwritten " +
+                "in the generated diagram.$"
+        );
+        expect(message.test(spy.mock.calls[0][0])).toBe(true);
+        spy.mockRestore();
+    });
+
+    it("renders a diagram with 'small' width value and no stack frames", () => {
+        const objects: Array<Object> = [
+            {
+                type: "str",
+                id: 19,
+                value: "David is cool!",
+                style: ["highlight"],
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 13,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a diagram with 'small' width value and a mix stack frame/non-stack frame objects", () => {
+        const objects: Array<Object> = [
+            {
+                type: ".frame",
+                name: "__main__",
+                id: null,
+                value: {
+                    a: 7,
+                },
+            },
+            {
+                type: ".frame",
+                name: "func",
+                id: null,
+                value: {
+                    x: 1,
+                    y: 17,
+                },
+            },
+            {
+                type: "list",
+                id: 84,
+                value: [17, 8],
+                show_indexes: true,
+            },
+            {
+                type: "str",
+                id: 19,
+                value: "David is cool!",
+                style: ["highlight"],
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 13,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
 });
