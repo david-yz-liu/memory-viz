@@ -775,12 +775,20 @@ describe("draw function", () => {
                 style: ["highlight"],
             },
         ];
-        const spy = jest.spyOn(global.console, "log");
+        const spy = jest.spyOn(global.console, "warn");
         draw(objects, true, {
             width: 13,
             roughjs_config: { options: { seed: 12345 } },
         });
         expect(spy).toHaveBeenCalledTimes(1);
+        console.log(spy.mock.calls[0][0]);
+
+        const message = new RegExp(
+            "^WARNING: provided width \\(\\d+\\) is smaller than " +
+                "the required width \\(\\d+\\). The provided width has been overwritten " +
+                "in the generated diagram.$"
+        );
+        expect(message.test(spy.mock.calls[0][0])).toBe(true);
         spy.mockRestore();
     });
 
