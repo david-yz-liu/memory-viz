@@ -39,6 +39,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Removed double quotes when rendering objects of type `None`.
 -   Removed double quotes when rendering objects that are not of type `str`.
 -   Fixed issue where diagrams would not render when width inputs to `draw()` were too small.
+-   Fixed issue where object boxes would be drawn on top of stack frames in diagrams with large left margins.
 
 ### 📚 Documentation and demo website changes
 
