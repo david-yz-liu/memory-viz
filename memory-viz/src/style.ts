@@ -80,7 +80,8 @@ const primitives: Array<string> = [
 * @returns {Style}
  */
 function populateStyleObject(object: DrawnEntity, roughjs_config: object) {
-    let style_so_far = common_style;
+    // let style_so_far = common_style;
+    let style_so_far = {}; // TODO: get rid of these comments later
 
     let object_type;
 

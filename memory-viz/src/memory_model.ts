@@ -78,6 +78,37 @@ export class MemoryModel {
         this.roughjs_config = options.roughjs_config;
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
 
+        var styles = `
+            text.default {
+                fill: ${config.text_color};
+                text-anchor: middle;
+                font-family: Consolas, Courier;
+                font-size: ${config.font_size}px;
+                }
+            text.id { 
+                fill: ${config.id_color};
+                text-anchor: middle;
+                font-family: Consolas, Courier;
+                font-size: ${config.font_size}px;
+            }
+            text.type {
+                fill: ${config.value_color};
+                text-anchor: middle;
+                font-family: Consolas, Courier;
+                font-size: ${config.font_size}px;
+            }
+            text.value {
+                fill: ${config.value_color};
+                text-anchor: middle;
+                font-family: Consolas, Courier;
+                font-size: ${config.font_size}px;
+    },
+        `;
+
+        var styleSheet = this.document.createElement("style");
+        styleSheet.textContent = styles;
+        this.svg.appendChild(styleSheet);
+
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
             this[key] = options.hasOwnProperty(key)
@@ -234,7 +265,8 @@ export class MemoryModel {
                 display_text,
                 x + box_width / 2,
                 y + (this.obj_min_height + this.prop_min_height) / 2,
-                style.text_value
+                style.text_value,
+                "value"
             );
         }
 
@@ -278,14 +310,16 @@ export class MemoryModel {
             id === null ? "" : `id${id}`,
             x + id_box / 2,
             y + this.font_size * 1.5,
-            style.text_id
+            style.text_id,
+            "id"
         );
 
         this.drawText(
             type,
             x + width - type_box / 2,
             y + this.font_size * 1.5,
-            style.text_type
+            style.text_type,
+            "type"
         );
     }
 
@@ -370,14 +404,16 @@ export class MemoryModel {
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text_value
+                style.text_value,
+                "id"
             );
             if (show_idx) {
                 this.drawText(
                     i,
                     curr_x + item_length / 2,
                     item_y - this.item_min_height / 4,
-                    style.text_id
+                    style.text_id,
+                    "id"
                 );
             }
 
@@ -456,14 +492,16 @@ export class MemoryModel {
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
-                style.text_value
+                style.text_value,
+                "id"
             );
             if (i > 0) {
                 this.drawText(
                     ",",
                     curr_x - this.item_min_width / 8,
                     item_text_y,
-                    default_text_style
+                    default_text_style,
+                    "default"
                 );
             }
             curr_x += item_length + this.item_min_height / 4;
@@ -474,13 +512,15 @@ export class MemoryModel {
             "{",
             x + this.item_min_width / 4,
             item_text_y,
-            default_text_style
+            default_text_style,
+            "default"
         );
         this.drawText(
             "}",
             x + box_width - this.item_min_width / 4,
             item_text_y,
-            default_text_style
+            default_text_style,
+            "default"
         );
 
         return SIZE;
@@ -527,7 +567,8 @@ export class MemoryModel {
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
-                style.text_value
+                style.text_value,
+                "id"
             );
 
             curr_y += this.item_min_height * 1.5;
@@ -574,7 +615,8 @@ export class MemoryModel {
                 idv,
                 x + box_width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text_value
+                style.text_value,
+                "id"
             );
 
             curr_y += this.item_min_height * 1.5;
@@ -655,13 +697,15 @@ export class MemoryModel {
                 attribute,
                 x + this.item_min_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text_value
+                style.text_value,
+                "default"
             );
             this.drawText(
                 idv,
                 x + box_width - this.item_min_width * 1.5 + attr_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text_id
+                style.text_id,
+                "id"
             );
             curr_y += this.item_min_height * 1.5;
         }
@@ -679,7 +723,8 @@ export class MemoryModel {
                 name,
                 x + text_length / 2 + 5,
                 y + this.prop_min_height * 0.6,
-                style.text_type
+                style.text_type,
+                "type"
             );
         } else {
             this.drawProperties(id, name, x, y, box_width, style);
@@ -709,6 +754,9 @@ export class MemoryModel {
         }
         style = { ...style, config: this.roughjs_config };
 
+        // const rect = this.rough_svg.rectangle(x, y, width, height, style);
+        // rect.className = "some name";
+
         this.svg.appendChild(
             this.rough_svg.rectangle(x, y, width, height, style)
         );
@@ -723,28 +771,38 @@ export class MemoryModel {
      *                        standard SVG attributes, documented on
      *                        https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
      *                        For instance, {fill: 'blue', stroke: 'red'}
+     * @param {class}
      */
 
-    drawText(text, x, y, style) {
-        style["x"] = x;
-        style["y"] = y;
-
-        for (const style_attribute of Object.keys(default_text_style)) {
-            if (!style.hasOwnProperty(style_attribute)) {
-                style[style_attribute] = default_text_style[style_attribute];
-            }
-        }
+    drawText(text, x, y, style, text_class = null) {
+        // style["x"] = x;
+        // style["y"] = y;
 
         const newElement = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
             "text"
         );
 
-        for (const style_attribute of Object.keys(style)) {
-            newElement.setAttribute(style_attribute, style[style_attribute]);
+        newElement.setAttribute("x", `${x}`);
+        newElement.setAttribute("y", `${y}`);
+
+        if (style !== undefined) {
+            for (const style_attribute of Object.keys(style)) {
+                newElement.setAttribute(
+                    style_attribute,
+                    style[style_attribute]
+                );
+            }
         }
 
         newElement.appendChild(this.document.createTextNode(text));
+
+        if (text_class !== null) {
+            // TODO: remember we only want to set the class
+            //       if there are no element-specific styles etc
+            newElement.setAttribute("class", `${text_class}`);
+        }
+
         this.svg.appendChild(newElement);
     }
 
