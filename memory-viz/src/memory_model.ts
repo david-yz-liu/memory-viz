@@ -787,12 +787,12 @@ export class MemoryModel {
         newElement.setAttribute("y", `${y}`);
 
         if (style !== undefined) {
+            let new_style = "";
             for (const style_attribute of Object.keys(style)) {
-                newElement.setAttribute(
-                    style_attribute,
-                    style[style_attribute]
-                );
+                new_style = new_style.concat(style_attribute);
+                new_style = new_style.concat(`: ${style[style_attribute]}; `);
             }
+            newElement.setAttribute("style", new_style);
         }
 
         newElement.appendChild(this.document.createTextNode(text));
