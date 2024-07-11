@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { draw } = require("memory-viz");
 const { program } = require("commander");
+const readline = require("readline");
 
 function parseFilePath(input) {
     return pathExists(input, `File`);
@@ -58,16 +59,25 @@ program
 program.parse();
 const options = program.opts();
 
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+
 let jsonContent = "";
 if (options.stdin) {
-    process.stdin.setEncoding("utf8"); // Set encoding for stdin on Windows
-    process.stdin.on("readable", () => {
-        const chunk = process.stdin.read();
-        if (chunk !== null) {
-            jsonContent += chunk;
-        }
+    if (!options.stdout && !options.output) {
+        console.error(
+            `Error: Either --stdout or --output <path> must be provided.`
+        );
+        process.exit(1);
+    }
+
+    rl.on("line", (line) => {
+        jsonContent += line;
     });
-    process.stdin.on("end", () => {
+
+    rl.on("close", () => {
         runMemoryViz(jsonContent);
     });
 } else if (options.filepath) {
@@ -102,8 +112,8 @@ function runMemoryViz(jsonContent) {
     let outputName;
     if (options.filepath) {
         outputName = path.parse(options.filepath).name + ".svg";
-    } else {
-        outputName = "memory_viz.svg";
+    } else if (options.output) {
+        outputName = path.parse(options.output).name + ".svg";
     }
 
     try {
@@ -115,8 +125,7 @@ function runMemoryViz(jsonContent) {
             }
             m.save();
         } else if (options.output) {
-            const newOutputName = path.join(options.output, outputName);
-            m.save(newOutputName);
+            m.save(outputName);
         } else {
             m.save(outputName);
         }
