@@ -23,24 +23,27 @@ describe("memory-viz cli", () => {
     it("should produce an svg that matches snapshot", (done) => {
         fs.writeFileSync(filePath, input);
 
-        exec(`memory-viz ${filePath} --roughjs-config seed=12345`, (err) => {
-            if (err) throw err;
-            const svgFilePath = path.resolve(
-                process.cwd(),
-                path.basename(filePath.replace(".json", ".svg"))
-            );
-            const fileContent = fs.readFileSync(svgFilePath, "utf8");
-            expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(svgFilePath);
-            done();
-        });
+        exec(
+            `memory-viz --filepath=${filePath} --roughjs-config seed=12345`,
+            (err) => {
+                if (err) throw err;
+                const svgFilePath = path.resolve(
+                    process.cwd(),
+                    path.basename(filePath.replace(".json", ".svg"))
+                );
+                const fileContent = fs.readFileSync(svgFilePath, "utf8");
+                expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(svgFilePath);
+                done();
+            }
+        );
     });
 
     it("produces consistent svg when provided width option", (done) => {
         fs.writeFileSync(filePath, input);
 
         exec(
-            `memory-viz ${filePath} --width=700 --roughjs-config seed=12345`,
+            `memory-viz --filepath=${filePath} --width=700 --roughjs-config seed=12345`,
             (err) => {
                 if (err) throw err;
                 const svgFilePath = path.resolve(
@@ -59,7 +62,7 @@ describe("memory-viz cli", () => {
         fs.writeFileSync(filePath, input);
 
         exec(
-            `memory-viz ${filePath} --height=700 --roughjs-config seed=12345`,
+            `memory-viz --filepath=${filePath} --height=700 --roughjs-config seed=12345`,
             (err) => {
                 if (err) throw err;
                 const svgFilePath = path.resolve(
@@ -78,7 +81,7 @@ describe("memory-viz cli", () => {
         fs.writeFileSync(filePath, input);
 
         exec(
-            `memory-viz ${filePath} --height=700 width=1200 --roughjs-config seed=12345`,
+            `memory-viz --filepath=${filePath} --height=700 width=1200 --roughjs-config seed=12345`,
             (err) => {
                 if (err) throw err;
                 const svgFilePath = path.resolve(
@@ -97,7 +100,7 @@ describe("memory-viz cli", () => {
         fs.writeFileSync(filePath, input);
 
         exec(
-            `memory-viz ${filePath} --roughjs-config seed=1234,fill=red,fillStyle=solid`,
+            `memory-viz --filepath=${filePath} --roughjs-config seed=1234,fill=red,fillStyle=solid`,
             (err) => {
                 if (err) throw err;
                 const svgFilePath = path.resolve(
@@ -117,13 +120,14 @@ describe.each([
     {
         errorType: "invalid arguments",
         command: "memory-viz",
-        expectedErrorMessage: "error: missing required argument 'filepath'",
+        expectedErrorMessage:
+            "Error: Either --stdin or --filepath must be provided.",
     },
     {
         errorType: "non-existent file",
-        command: "memory-viz cli-test.json",
+        command: "memory-viz --filepath=cli-test.json",
         expectedErrorMessage:
-            `Command failed: memory-viz cli-test.json\n` +
+            `Command failed: memory-viz --filepath=cli-test.json\n` +
             `Error: File ${path.resolve(
                 process.cwd(),
                 "cli-test.json"
@@ -169,7 +173,7 @@ describe.each([
             }
 
             if (fileMockingTests.includes(errorType)) {
-                command = `memory-viz ${filePath}`;
+                command = `memory-viz --filepath=${filePath}`;
             }
             exec(command, (err) => {
                 if (err) {

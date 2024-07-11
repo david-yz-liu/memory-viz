@@ -61,7 +61,6 @@ const options = program.opts();
 
 const rl = readline.createInterface({
     input: process.stdin,
-    output: process.stdout,
 });
 
 let jsonContent = "";
@@ -81,6 +80,7 @@ if (options.stdin) {
         runMemoryViz(jsonContent);
     });
 } else if (options.filepath) {
+    rl.close();
     jsonContent = fs.readFileSync(options.filepath, "utf8");
     runMemoryViz(jsonContent);
 } else {
@@ -109,11 +109,12 @@ function runMemoryViz(jsonContent) {
         process.exit(1);
     }
 
-    let outputName;
-    if (options.filepath) {
-        outputName = path.parse(options.filepath).name + ".svg";
-    } else if (options.output) {
+    let outputPath;
+    if (options.output) {
         outputName = path.parse(options.output).name + ".svg";
+        outputPath = path.join(options.output, outputName);
+    } else if (options.filepath) {
+        outputPath = path.parse(options.filepath).name + ".svg";
     }
 
     try {
@@ -124,10 +125,8 @@ function runMemoryViz(jsonContent) {
                 );
             }
             m.save();
-        } else if (options.output) {
-            m.save(outputName);
         } else {
-            m.save(outputName);
+            m.save(outputPath);
         }
     } catch (err) {
         console.error(`Error: ${err.message}`);
