@@ -608,7 +608,7 @@ export class MemoryModel {
                 ":",
                 x + box_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                { fill: this.text_color }
+                {}
             );
 
             this.drawText(
@@ -685,9 +685,6 @@ export class MemoryModel {
             );
 
             if (!stack_frame) {
-                if (!style.text_value.hasOwnProperty("fill")) {
-                    style.text_value["fill"] = this.text_color;
-                }
                 if (!style.text_value.hasOwnProperty("text-anchor")) {
                     style.text_value["text-anchor"] = "start";
                 }
@@ -754,9 +751,6 @@ export class MemoryModel {
         }
         style = { ...style, config: this.roughjs_config };
 
-        // const rect = this.rough_svg.rectangle(x, y, width, height, style);
-        // rect.className = "some name";
-
         this.svg.appendChild(
             this.rough_svg.rectangle(x, y, width, height, style)
         );
@@ -775,16 +769,13 @@ export class MemoryModel {
      */
 
     drawText(text, x, y, style, text_class = null) {
-        // style["x"] = x;
-        // style["y"] = y;
-
         const newElement = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
             "text"
         );
 
-        newElement.setAttribute("x", `${x}`);
-        newElement.setAttribute("y", `${y}`);
+        newElement.setAttribute("x", x);
+        newElement.setAttribute("y", y);
 
         if (style !== undefined) {
             let new_style = "";
@@ -798,8 +789,6 @@ export class MemoryModel {
         newElement.appendChild(this.document.createTextNode(text));
 
         if (text_class !== null) {
-            // TODO: remember we only want to set the class
-            //       if there are no element-specific styles etc
             newElement.setAttribute("class", `${text_class}`);
         }
 

@@ -80,24 +80,10 @@ const primitives: Array<string> = [
 * @returns {Style}
  */
 function populateStyleObject(object: DrawnEntity, roughjs_config: object) {
-    // let style_so_far = common_style;
-    let style_so_far = {}; // TODO: get rid of these comments later
-
-    let object_type;
-
-    if (primitives.includes(object.type)) {
-        object_type = "primitive";
-    } else if (collections.includes(object.type)) {
-        object_type = "collection";
-    } else if (object.type === ".class") {
-        object_type = "class";
-    } else {
-        object_type = "stackframe";
-    }
+    let style_so_far = {};
 
     // We then add properties specific to the different type categories.
     // Note that, the later will take precedence over styleSoFar.
-    style_so_far = merge(style_so_far, category_specific_styles[object_type]);
 
     // Finally, we complement the current style with any user-supplied properties.
     // Note that, the later will take precedence over styleSoFar.
