@@ -119,7 +119,7 @@ function drawAutomatedStackFrames(stack_frames: DrawnEntity[], configuration) {
         min_required_height = height + min_required_height;
     }
 
-    required_width += configuration.padding;
+    required_width += configuration.left_margin;
 
     return {
         StackFrames: draw_stack_frames,
