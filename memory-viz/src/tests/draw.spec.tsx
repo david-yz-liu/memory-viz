@@ -848,4 +848,45 @@ describe("draw function", () => {
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
+
+    it("renders a diagram with large left margins", () => {
+        const objects: Array<Object> = [
+            {
+                type: ".frame",
+                name: "__main__",
+                id: null,
+                value: {
+                    a: 7,
+                },
+            },
+            {
+                type: ".frame",
+                name: "func",
+                id: null,
+                value: {
+                    x: 1,
+                    y: 17,
+                },
+            },
+            {
+                type: "list",
+                id: 84,
+                value: [17, 8],
+                show_indexes: true,
+            },
+            {
+                type: "str",
+                id: 19,
+                value: "David is cool!",
+                style: ["highlight"],
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 13,
+            left_margin: 150,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
 });

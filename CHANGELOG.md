@@ -13,6 +13,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
+-   Fixed issue where object boxes would be drawn on top of stack frames in diagrams with large left margins.
+
 ### 📚 Documentation and demo website changes
 
 ### 🔧 Internal changes
