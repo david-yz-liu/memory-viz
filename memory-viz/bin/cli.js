@@ -61,14 +61,13 @@ const options = program.opts();
 
 const rl = readline.createInterface({
     input: process.stdin,
+    output: process.stdin.isTTY ? process.stdout : null,
 });
 
 let jsonContent = "";
 if (options.stdin) {
     if (!options.stdout && !options.output) {
-        console.error(
-            `Error: Either --stdout or --output <path> must be provided.`
-        );
+        console.error(`Error: Either --stdout or --output must be provided.`);
         process.exit(1);
     }
 

@@ -1,4 +1,4 @@
-const { exec } = require("child_process");
+const { exec, spawn } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 const tmp = require("tmp");
@@ -7,6 +7,7 @@ tmp.setGracefulCleanup();
 
 const tmpFile = tmp.fileSync({ postfix: ".json" });
 const filePath = tmpFile.name;
+const outputPath = "..";
 const input = JSON.stringify(
     [
         {
@@ -19,97 +20,135 @@ const input = JSON.stringify(
     null
 );
 
+// Helper function for determining the output path of the SVG
+const getSVGPath = (isOutputOption: boolean) => {
+    let directoryPath = "";
+    let fileName = "";
+
+    if (isOutputOption) {
+        directoryPath = path.resolve(process.cwd(), outputPath);
+        fileName = path.basename(directoryPath + ".svg");
+    } else {
+        directoryPath = process.cwd();
+        fileName = path.basename(filePath.replace(".json", ".svg"));
+    }
+
+    return path.resolve(directoryPath, fileName);
+};
+
+describe.each([
+    {
+        inputs: "filepath",
+        command: `--filepath=${filePath} --roughjs-config seed=12345`,
+    },
+    {
+        inputs: "filepath and width",
+        command: `--filepath=${filePath} --width=700 --roughjs-config seed=12345`,
+    },
+    {
+        inputs: "filepath and height",
+        command: `--filepath=${filePath} --height=700 --roughjs-config seed=12345`,
+    },
+    {
+        inputs: "filepath, height, and width",
+        command: `--filepath=${filePath} --height=700 width=1200 --roughjs-config seed=12345`,
+    },
+    {
+        inputs: "filepath and a variety of rough-config",
+        command: `--filepath=${filePath} --roughjs-config seed=12345,fill=red,fillStyle=solid`,
+    },
+    {
+        inputs: "filepath and output",
+        command: `--filepath=${filePath} --output=${outputPath} --roughjs-config seed=12345`,
+    },
+])("memory-viz cli", ({ inputs, command }) => {
+    it(`produces consistent svg when provided ${inputs} option(s)`, (done) => {
+        fs.writeFileSync(filePath, input);
+
+        exec(`memory-viz ${command}`, (err) => {
+            if (err) throw err;
+
+            const svgFilePath = getSVGPath(command.includes("--output"));
+            const fileContent = fs.readFileSync(svgFilePath, "utf8");
+
+            expect(fileContent).toMatchSnapshot();
+            fs.unlinkSync(svgFilePath);
+
+            done();
+        });
+    });
+});
+
 describe("memory-viz cli", () => {
-    it("should produce an svg that matches snapshot", (done) => {
+    it("produces consistent svg when provided filepath and stdout", (done) => {
         fs.writeFileSync(filePath, input);
 
         exec(
-            `memory-viz --filepath=${filePath} --roughjs-config seed=12345`,
-            (err) => {
+            `memory-viz --filepath=${filePath} --stdout --roughjs-config seed=1234`,
+            (err, stdout) => {
                 if (err) throw err;
-                const svgFilePath = path.resolve(
-                    process.cwd(),
-                    path.basename(filePath.replace(".json", ".svg"))
-                );
-                const fileContent = fs.readFileSync(svgFilePath, "utf8");
-                expect(fileContent).toMatchSnapshot();
-                fs.unlinkSync(svgFilePath);
+                expect(stdout).toMatchSnapshot();
                 done();
             }
         );
     });
 
-    it("produces consistent svg when provided width option", (done) => {
-        fs.writeFileSync(filePath, input);
+    it("produces consistent svg when provided stdin and stdout", (done) => {
+        const command = "memory-viz";
+        const args = ["--stdin", "--stdout", "--roughjs-config seed=1234"];
 
-        exec(
-            `memory-viz --filepath=${filePath} --width=700 --roughjs-config seed=12345`,
-            (err) => {
-                if (err) throw err;
-                const svgFilePath = path.resolve(
-                    process.cwd(),
-                    path.basename(filePath.replace(".json", ".svg"))
-                );
-                const fileContent = fs.readFileSync(svgFilePath, "utf8");
-                expect(fileContent).toMatchSnapshot();
-                fs.unlinkSync(svgFilePath);
-                done();
-            }
-        );
+        const child = spawn(command, args, { shell: true });
+
+        child.stdin.write(input);
+        child.stdin.end();
+
+        let output = "";
+        child.stdout.on("data", (data) => {
+            output += data.toString();
+        });
+
+        child.on("close", (err) => {
+            if (err) throw err;
+            expect(output).toMatchSnapshot();
+            done();
+        });
     });
 
-    it("produces consistent svg when provided height option", (done) => {
-        fs.writeFileSync(filePath, input);
+    it("produces consistent svg when provided stdin and output", (done) => {
+        const command = "memory-viz";
+        const args = [
+            "--stdin",
+            `--output=${outputPath}`,
+            "--roughjs-config seed=1234",
+        ];
 
-        exec(
-            `memory-viz --filepath=${filePath} --height=700 --roughjs-config seed=12345`,
-            (err) => {
-                if (err) throw err;
-                const svgFilePath = path.resolve(
-                    process.cwd(),
-                    path.basename(filePath.replace(".json", ".svg"))
-                );
-                const fileContent = fs.readFileSync(svgFilePath, "utf8");
-                expect(fileContent).toMatchSnapshot();
-                fs.unlinkSync(svgFilePath);
-                done();
-            }
-        );
+        const child = spawn(command, args, { shell: true });
+
+        child.stdin.write(input);
+        child.stdin.end();
+
+        child.on("close", (err) => {
+            if (err) throw err;
+
+            const svgFilePath = getSVGPath(true);
+            const fileContent = fs.readFileSync(svgFilePath, "utf8");
+            expect(fileContent).toMatchSnapshot();
+            fs.unlinkSync(svgFilePath);
+            done();
+        });
     });
 
-    it("produces consistent svg when provided height and width options", (done) => {
+    it("logs a warning when both --stdout and --output are specified", (done) => {
         fs.writeFileSync(filePath, input);
 
         exec(
-            `memory-viz --filepath=${filePath} --height=700 width=1200 --roughjs-config seed=12345`,
-            (err) => {
+            `memory-viz --filepath=${filePath} --stdout --output=${outputPath}`,
+            (err, stdout, stderr) => {
                 if (err) throw err;
-                const svgFilePath = path.resolve(
-                    process.cwd(),
-                    path.basename(filePath.replace(".json", ".svg"))
+                const output = stdout + stderr;
+                expect(output).toContain(
+                    "Since both --stdout and --output were provided, the output was redirected to stdout."
                 );
-                const fileContent = fs.readFileSync(svgFilePath, "utf8");
-                expect(fileContent).toMatchSnapshot();
-                fs.unlinkSync(svgFilePath);
-                done();
-            }
-        );
-    });
-
-    it("produces consistent svg when provided a variety of rough-config options", (done) => {
-        fs.writeFileSync(filePath, input);
-
-        exec(
-            `memory-viz --filepath=${filePath} --roughjs-config seed=1234,fill=red,fillStyle=solid`,
-            (err) => {
-                if (err) throw err;
-                const svgFilePath = path.resolve(
-                    process.cwd(),
-                    path.basename(filePath.replace(".json", ".svg"))
-                );
-                const fileContent = fs.readFileSync(svgFilePath, "utf8");
-                expect(fileContent).toMatchSnapshot();
-                fs.unlinkSync(svgFilePath);
                 done();
             }
         );
@@ -118,10 +157,16 @@ describe("memory-viz cli", () => {
 
 describe.each([
     {
-        errorType: "invalid arguments",
+        errorType: "no input",
         command: "memory-viz",
         expectedErrorMessage:
             "Error: Either --stdin or --filepath must be provided.",
+    },
+    {
+        errorType: "no output",
+        command: "memory-viz --stdin",
+        expectedErrorMessage:
+            "Error: Either --stdout or --output must be provided.",
     },
     {
         errorType: "non-existent file",
