@@ -54,11 +54,13 @@ For more information, check out the project [documentation website](https://www.
 
 ### MemoryViz CLI
 
-To run MemoryViz from your terminal, run: `npx memory-viz` followed by optional arguments.
+To use the MemoryViz CLI, run:
 
 ```console
-$ npx memory-viz --option1 --option2=<val> ...
+$ npx memory-viz <path-to-file>
 ```
+
+where `<path-to-file>` is the path to a file containing MemoryViz-compatible JSON. If a filepath is not provided, the CLI will take input from standard input.
 
 For more information, check out the project [documentation website](https://www.cs.toronto.edu/~david/memory-viz/docs/cli).
 

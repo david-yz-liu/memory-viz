@@ -7,7 +7,11 @@ const { program } = require("commander");
 const readline = require("readline");
 
 function parseFilePath(input) {
-    return pathExists(input, `File`);
+    if (input) {
+        return pathExists(input, `File`);
+    } else {
+        return undefined;
+    }
 }
 
 function parseOutputPath(input) {
@@ -35,12 +39,11 @@ program
     .description(
         "Command line interface for generating memory model diagrams with MemoryViz"
     )
-    .option(
-        "--filepath <filepath>",
+    .argument(
+        "[filepath]",
         "path to a file containing MemoryViz-compatible JSON",
         parseFilePath
     )
-    .option("--stdin", "takes input from standard input")
     .option("--stdout", "directs generated SVG to standard output")
     .option(
         "--output <path>",
@@ -57,6 +60,7 @@ program
     );
 
 program.parse();
+const filePath = program.processedArgs[0];
 const options = program.opts();
 
 const rl = readline.createInterface({
@@ -65,7 +69,11 @@ const rl = readline.createInterface({
 });
 
 let jsonContent = "";
-if (options.stdin) {
+if (filePath) {
+    rl.close();
+    jsonContent = fs.readFileSync(filePath, "utf8");
+    runMemoryViz(jsonContent);
+} else {
     if (!options.stdout && !options.output) {
         console.error(`Error: Either --stdout or --output must be provided.`);
         process.exit(1);
@@ -78,13 +86,6 @@ if (options.stdin) {
     rl.on("close", () => {
         runMemoryViz(jsonContent);
     });
-} else if (options.filepath) {
-    rl.close();
-    jsonContent = fs.readFileSync(options.filepath, "utf8");
-    runMemoryViz(jsonContent);
-} else {
-    console.error(`Error: Either --stdin or --filepath must be provided.`);
-    process.exit(1);
 }
 
 function runMemoryViz(jsonContent) {
@@ -112,8 +113,8 @@ function runMemoryViz(jsonContent) {
     if (options.output) {
         outputName = path.parse(options.output).name + ".svg";
         outputPath = path.join(options.output, outputName);
-    } else if (options.filepath) {
-        outputPath = path.parse(options.filepath).name + ".svg";
+    } else if (filePath) {
+        outputPath = path.parse(filePath).name + ".svg";
     }
 
     try {

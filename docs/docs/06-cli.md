@@ -10,36 +10,26 @@ The MemoryViz CLI takes in MemoryViz-compatible JSON and returns an SVG of the m
 
 ## Usage
 
-The CLI is called with `npx memory-viz` followed by optional arguments.
+To use the MemoryViz CLI, run:
 
 ```console
-$ npx memory-viz --option1 --option2=<val> ...
+$ npx memory-viz <path-to-file>
 ```
 
-There are two ways to provide JSON input and three options for how the SVG is outputted.
+where `<path-to-file>` is the path to a file containing MemoryViz-compatible JSON. If a filepath is not provided, the CLI will take input from standard input.
 
-## Input
+By default, the SVG is saved in the current working directory. See the "Options" section below for more output options.
 
-### `--filepath=<path>`
-
-Takes in JSON input from a file.
-
-### `--stdin`
-
-Takes in JSON input through standard input.
-
-If you are typing JSON directly into the terminal, you need to signal the end of your input.
+NOTE: If you choose not to provide a filepath and are typing JSON directly into the terminal, you need to signal the end of your input.
 
 -   **macOS, Linux:** `Ctrl + D`
 -   **Windows:** `Enter` followed by either
     -   `Ctrl + D`, or
     -   `Ctrl + Z` and then `Enter`
 
-## Output
+## Options
 
-### Default
-
-Saves SVG in the current working directory. Does not require additional input.
+Below are optional arguments used to specify the way in which the SVG is outputed and generated.
 
 ### `--output=<path>`
 
@@ -49,11 +39,7 @@ Saves SVG in the specified folder.
 
 Prints SVG to standard output.
 
-**NOTE:** While the `--filepath` input option may be combined with any of the three output options, `--stdin` must be used with either `--stdout` or `--output`.
-
-## Options
-
-Below are optional arguments used to specify the way in which the SVG is generated.
+NOTE: If the CLI is taking input from standard input, either `--stdout` or `--output` must be specified.
 
 ### `--width`
 
@@ -74,17 +60,17 @@ The argument is a comma-separated list of key-value pairs in the form `<key1=val
 File path input and default output.
 
 ```console
-$ npx memory-viz --filepath=<path>
+$ npx memory-viz <path-to-file>
 ```
 
 Standard input, standard output, with a width of 200.
 
 ```console
-$ npx memory-viz --stdin --stdout --width=200
+$ npx memory-viz --stdout --width=200
 ```
 
-Standard input, output path, and solid red fill.
+File path input, output path, and solid red fill.
 
 ```console
-$ npx memory-viz --stdin --output=<path> --roughjs-config fill=red,fillStyle=solid
+$ npx memory-viz <path-to-file> --output=<path> --roughjs-config fill=red,fillStyle=solid
 ```

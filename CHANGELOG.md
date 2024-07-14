@@ -28,14 +28,14 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Renamed the input for blank objects from `BLANK` to `.blank`.
 -   Created new type `.blank-frame` to denote blank stack frames.
 -   Replaced `seed` configuration option with general configuration option `roughjs_config`.
--   Removed `filepath` argument in MemoryViz CLI, replacing it with the `--filepath` option.
+-   Changed the `filepath` argument in the MemoryViz CLI to be optional.
 
 ### ✨ Enhancements
 
 -   Created a CLI for MemoryViz.
 -   Added `--height` and `--width` options to MemoryViz CLI.
 -   Added `--roughjs_config` option to MemoryViz CLI.
--   Added options `--filepath`, `--stdin`, `--stdout`, and `--output` to MemoryViz CLI.
+-   Added options `--stdout`, and `--output` to MemoryViz CLI.
 
 ### 🐛 Bug fixes
 
