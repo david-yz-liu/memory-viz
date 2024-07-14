@@ -40,7 +40,7 @@ program
         "Command line interface for generating memory model diagrams with MemoryViz"
     )
     .argument(
-        "[filepath]",
+        "[filePath]",
         "path to a file containing MemoryViz-compatible JSON",
         parseFilePath
     )

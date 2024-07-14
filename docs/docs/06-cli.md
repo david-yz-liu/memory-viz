@@ -16,11 +16,11 @@ To use the MemoryViz CLI, run:
 $ npx memory-viz <path-to-file>
 ```
 
-where `<path-to-file>` is the path to a file containing MemoryViz-compatible JSON. If a filepath is not provided, the CLI will take input from standard input.
+where `<path-to-file>` is the path to a file containing MemoryViz-compatible JSON. If a file path is not provided, the CLI will take input from standard input.
 
 By default, the SVG is saved in the current working directory. See the "Options" section below for more output options.
 
-NOTE: If you choose not to provide a filepath and are typing JSON directly into the terminal, you need to signal the end of your input.
+NOTE: If you choose not to provide a file path and are typing JSON directly into the terminal, you need to signal the end of your input.
 
 -   **macOS, Linux:** `Ctrl + D`
 -   **Windows:** `Enter` followed by either

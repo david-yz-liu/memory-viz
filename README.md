@@ -60,7 +60,7 @@ To use the MemoryViz CLI, run:
 $ npx memory-viz <path-to-file>
 ```
 
-where `<path-to-file>` is the path to a file containing MemoryViz-compatible JSON. If a filepath is not provided, the CLI will take input from standard input.
+where `<path-to-file>` is the path to a file containing MemoryViz-compatible JSON. If a file path is not provided, the CLI will take input from standard input.
 
 For more information, check out the project [documentation website](https://www.cs.toronto.edu/~david/memory-viz/docs/cli).
 

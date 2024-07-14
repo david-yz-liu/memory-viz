@@ -28,7 +28,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Renamed the input for blank objects from `BLANK` to `.blank`.
 -   Created new type `.blank-frame` to denote blank stack frames.
 -   Replaced `seed` configuration option with general configuration option `roughjs_config`.
--   Changed the `filepath` argument in the MemoryViz CLI to be optional.
+-   Changed the `filePath` argument in the MemoryViz CLI to be optional.
 
 ### ✨ Enhancements
 
