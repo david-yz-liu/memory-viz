@@ -10,45 +10,6 @@ const default_text_style: AttributeStyle = {
     "font-size": config.font_size,
 };
 
-// Default style attributes that apply universally to any type of data.
-const common_style: Style = {
-    text_id: {
-        fill: config.id_color,
-        "text-anchor": "middle",
-        "font-family": "Consolas, Courier",
-        "font-size": config.font_size,
-    },
-    text_type: {
-        fill: config.value_color,
-        "text-anchor": "middle",
-        "font-family": "Consolas, Courier",
-        "font-size": config.font_size,
-    },
-    text_value: {
-        "text-anchor": "middle",
-        "font-family": "Consolas, Courier",
-        "font-size": config.font_size,
-    },
-    box_container: {},
-    box_id: {},
-    box_type: {},
-};
-
-const category_specific_styles: Record<string, Style> = {
-    collection: {
-        text_value: { fill: config.id_color },
-    },
-    primitive: {
-        text_value: { fill: config.value_color },
-    },
-    class: {
-        text_value: { fill: config.value_color, "text-anchor": "start" },
-    },
-    stackframe: {
-        text_value: { fill: config.text_color, "text-anchor": "start" },
-    },
-};
-
 const immutable: Array<string> = [
     "int",
     "str",
