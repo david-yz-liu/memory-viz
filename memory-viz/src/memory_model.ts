@@ -682,12 +682,6 @@ export class MemoryModel {
                 this.item_min_height
             );
 
-            if (!stack_frame && style.hasOwnProperty("text_value")) {
-                if (!style.text_value.hasOwnProperty("text-anchor")) {
-                    style.text_value["text-anchor"] = "start";
-                }
-            }
-
             this.drawText(
                 attribute,
                 x + this.item_min_width / 2,
