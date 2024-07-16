@@ -69,29 +69,6 @@ const primitives: Array<string> = [
     "date",
 ];
 
-/**
- * Populates a user-passed style object --to the extent needed-- with default data (to adhere to the interface of the
- * style object). Needed to avoid errors of the type "TypeError: Cannot set properties of undefined (setting 'x')", as
- * well as many more.
- * @param {DrawnEntity} object : the object that represents a Python object the user wants drawn. The style object
- *                          corresponding to 'object' will be extracted be doing object.style.
- * @param {object} roughjs_config : a configuration object used to pass in options to rough.js
-
-* @returns {Style}
- */
-function populateStyleObject(object: DrawnEntity, roughjs_config: object) {
-    let style_so_far = {};
-
-    // We then add properties specific to the different type categories.
-    // Note that, the later will take precedence over styleSoFar.
-
-    // Finally, we complement the current style with any user-supplied properties.
-    // Note that, the later will take precedence over styleSoFar.
-    style_so_far = merge(style_so_far, object.style || {});
-
-    return { ...style_so_far, config: roughjs_config };
-}
-
 // Constants employed to establish presets for styles.
 const HIGHLIGHT_TEXT: AttributeStyle = {
     "font-weight": "bolder",
@@ -172,11 +149,4 @@ const presets: Record<string, Style> = {
     },
 };
 
-export {
-    populateStyleObject,
-    immutable,
-    collections,
-    primitives,
-    presets,
-    default_text_style,
-};
+export { immutable, collections, primitives, presets, default_text_style };
