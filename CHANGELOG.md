@@ -19,6 +19,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🔧 Internal changes
 
+-   Moved global style attributes to CSS embedded in generated SVGs.
+
 ## [0.2.0] - 2024-06-28
 
 ### 🚨 Breaking changes
