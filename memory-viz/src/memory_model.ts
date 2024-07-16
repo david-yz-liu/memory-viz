@@ -2,13 +2,7 @@ import rough from "roughjs";
 
 import merge from "deepmerge";
 
-import {
-    collections,
-    default_text_style,
-    immutable,
-    populateStyleObject,
-    presets,
-} from "./style";
+import { collections, default_text_style, immutable, presets } from "./style";
 import { config } from "./config";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
 import { DrawnEntity } from "./types";
@@ -81,7 +75,7 @@ export class MemoryModel {
         var styles = `
             text.default {
                 fill: ${config.text_color};
-                text-anchor: middle;
+                text-anchor: start;
                 font-family: Consolas, Courier;
                 font-size: ${config.font_size}px;
                 }
@@ -611,7 +605,8 @@ export class MemoryModel {
                 ":",
                 x + box_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                {}
+                {},
+                "default"
             );
 
             this.drawText(
@@ -687,7 +682,7 @@ export class MemoryModel {
                 this.item_min_height
             );
 
-            if (!stack_frame) {
+            if (!stack_frame && style.hasOwnProperty("text_value")) {
                 if (!style.text_value.hasOwnProperty("text-anchor")) {
                     style.text_value["text-anchor"] = "start";
                 }
@@ -781,7 +776,7 @@ export class MemoryModel {
             let new_style = "";
             for (const style_attribute of Object.keys(style)) {
                 new_style = new_style.concat(style_attribute);
-                new_style = new_style.concat(`: ${style[style_attribute]}; `);
+                new_style = new_style.concat(`:${style[style_attribute]}; `);
             }
             newElement.setAttribute("style", new_style);
         }
@@ -857,7 +852,7 @@ export class MemoryModel {
                 obj.style = styleSoFar;
             }
 
-            obj.style = populateStyleObject(obj, this.roughjs_config);
+            obj.style = { ...obj.style, config: this.roughjs_config };
 
             const frame_types = [".frame", ".blank-frame"];
             if (frame_types.includes(obj.type) || obj.type === ".class") {
