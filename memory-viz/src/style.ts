@@ -1,6 +1,7 @@
 import merge from "deepmerge";
 import { config } from "./config";
 import { DrawnEntity, AttributeStyle, Style } from "./types";
+import { MemoryModel } from "./memory_model";
 
 // Built-in style for drawing text on canvas (if no style is provided by the user).
 const default_text_style: AttributeStyle = {
@@ -110,4 +111,47 @@ const presets: Record<string, Style> = {
     },
 };
 
-export { immutable, collections, primitives, presets, default_text_style };
+/**
+ * Add CSS to the svg element of a MemoryModel object via style tags.
+ * @param {MemoryModel} memory_model - The MemoryModel object that will have CSS set for its svg.
+ */
+function setStyleSheet(memory_model: MemoryModel) {
+    const styles = `
+            text {
+                font-family: Consolas, Courier;
+                font-size: ${config.font_size}px;
+            }
+            text.default {
+                fill: ${config.text_color};
+                text-anchor: start;
+                }
+            text.id { 
+                fill: ${config.id_color};
+                text-anchor: middle;
+            }
+            text.type {
+                fill: ${config.value_color};
+                text-anchor: middle;
+            }
+            text.value {
+                fill: ${config.value_color};
+                text-anchor: middle;
+            }
+            path {
+                stroke: ${config.rect_style["stroke"]};
+            }
+        `;
+
+    const styleSheet = memory_model.document.createElement("style");
+    styleSheet.textContent = styles;
+    memory_model.svg.appendChild(styleSheet);
+}
+
+export {
+    immutable,
+    collections,
+    primitives,
+    presets,
+    default_text_style,
+    setStyleSheet,
+};

@@ -2,7 +2,13 @@ import rough from "roughjs";
 
 import merge from "deepmerge";
 
-import { collections, default_text_style, immutable, presets } from "./style";
+import {
+    collections,
+    default_text_style,
+    immutable,
+    presets,
+    setStyleSheet,
+} from "./style";
 import { config } from "./config";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
 import { DrawnEntity } from "./types";
@@ -72,39 +78,7 @@ export class MemoryModel {
         this.roughjs_config = options.roughjs_config;
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
 
-        var styles = `
-            text.default {
-                fill: ${config.text_color};
-                text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: ${config.font_size}px;
-                }
-            text.id { 
-                fill: ${config.id_color};
-                text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: ${config.font_size}px;
-            }
-            text.type {
-                fill: ${config.value_color};
-                text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: ${config.font_size}px;
-            }
-            text.value {
-                fill: ${config.value_color};
-                text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: ${config.font_size}px;
-            }
-            path {
-                stroke: ${config.rect_style["stroke"]};
-            }
-        `;
-
-        var styleSheet = this.document.createElement("style");
-        styleSheet.textContent = styles;
-        this.svg.appendChild(styleSheet);
+        setStyleSheet(this);
 
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
@@ -754,10 +728,10 @@ export class MemoryModel {
      *                        standard SVG attributes, documented on
      *                        https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
      *                        For instance, {fill: 'blue', stroke: 'red'}
-     * @param {class}
+     * @param {string} text_class - The CSS class (if any) of the text message to be drawn
      */
 
-    drawText(text, x, y, style, text_class = null) {
+    drawText(text, x, y, style, text_class = undefined) {
         const newElement = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
             "text"
@@ -769,8 +743,7 @@ export class MemoryModel {
         if (style !== undefined) {
             let new_style = "";
             for (const style_attribute of Object.keys(style)) {
-                new_style = new_style.concat(style_attribute);
-                new_style = new_style.concat(`:${style[style_attribute]}; `);
+                new_style += `${style_attribute}:${style[style_attribute]}; `;
             }
             newElement.setAttribute("style", new_style);
         }
