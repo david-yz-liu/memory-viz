@@ -83,18 +83,18 @@ if (filePath) {
     // });
 
     // Option 1
-    process.stdin.on("data", (chunk) => {
-        if (chunk.includes("\u0004")) {
-            process.stdin.emit("end");
-        } else {
-            jsonContent += chunk;
-        }
-    });
+    // process.stdin.on("data", (chunk) => {
+    //     if (chunk.includes("\u0004")) {
+    //         process.stdin.emit("end");
+    //     } else {
+    //         jsonContent += chunk;
+    //     }
+    // });
 
-    process.stdin.on("end", () => {
-        process.stdin.pause();
-        runMemoryViz(jsonContent);
-    });
+    // process.stdin.on("end", () => {
+    //     process.stdin.pause();
+    //     runMemoryViz(jsonContent);
+    // });
     // End of option 1
 
     // Option 2 (Currently cannot signal EOF from terminal)
