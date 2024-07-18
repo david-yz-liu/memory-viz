@@ -63,6 +63,7 @@ const filePath = program.processedArgs[0];
 const options = program.opts();
 
 let jsonContent = "";
+
 if (filePath) {
     // rl.close();
     jsonContent = fs.readFileSync(filePath, "utf8");
@@ -81,6 +82,7 @@ if (filePath) {
     //     runMemoryViz(jsonContent);
     // });
 
+    // Option 1
     process.stdin.on("data", (chunk) => {
         if (chunk.includes("\u0004")) {
             process.stdin.emit("end");
@@ -93,6 +95,22 @@ if (filePath) {
         process.stdin.pause();
         runMemoryViz(jsonContent);
     });
+    // End of option 1
+
+    // Option 2 (Currently cannot signal EOF from terminal)
+    async function read(stream) {
+        const chunks = [];
+        for await (const chunk of stream) chunks.push(chunk);
+        return Buffer.concat(chunks).toString("utf8");
+    }
+
+    async function run() {
+        const input = await read(process.stdin);
+        runMemoryViz(input);
+    }
+
+    run();
+    // End of option 2
 }
 
 function runMemoryViz(jsonContent) {
