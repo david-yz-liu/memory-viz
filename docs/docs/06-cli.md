@@ -18,14 +18,9 @@ $ npx memory-viz <path-to-file>
 
 where `<path-to-file>` is the path to a file containing MemoryViz-compatible JSON. If a file path is not provided, the CLI will take input from standard input.
 
-By default, the SVG is saved in the current working directory. See the "Options" section below for more output options.
+You may also specify an output path using the `--output` option (see below). If no output path is provided, the CLI will print to standard output.
 
-NOTE: If you choose not to provide a file path and are typing JSON directly into the terminal, you need to signal the end of your input.
-
--   **macOS, Linux:** `Ctrl + D`
--   **Windows:** `Enter` followed by either
-    -   `Ctrl + D`, or
-    -   `Ctrl + Z` and then `Enter`
+NOTE: If you are typing JSON directly into the terminal, you need to use `Ctrl + D` to signal the end of your input.
 
 ## Options
 
@@ -33,13 +28,7 @@ Below are optional arguments used to specify the way in which the SVG is outpute
 
 ### `--output=<path>`
 
-Saves SVG in the specified folder.
-
-### `--stdout`
-
-Prints SVG to standard output.
-
-NOTE: If the CLI is taking input from standard input, either `--stdout` or `--output` must be specified.
+Writes generated SVG to specified path.
 
 ### `--width`
 

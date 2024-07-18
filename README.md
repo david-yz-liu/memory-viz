@@ -62,6 +62,8 @@ $ npx memory-viz <path-to-file>
 
 where `<path-to-file>` is the path to a file containing MemoryViz-compatible JSON. If a file path is not provided, the CLI will take input from standard input.
 
+You may also specify an output path using the `--output` option (see documentation). If no output path is provided, the CLI will print to standard output.
+
 For more information, check out the project [documentation website](https://www.cs.toronto.edu/~david/memory-viz/docs/cli).
 
 ## Developers

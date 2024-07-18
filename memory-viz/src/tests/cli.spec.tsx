@@ -38,28 +38,24 @@ const getSVGPath = (isOutputOption: boolean) => {
 
 describe.each([
     {
-        inputs: "filepath",
-        command: `${filePath} --roughjs-config seed=12345`,
+        inputs: "filepath and output",
+        command: `${filePath} --output=${outputPath} --roughjs-config seed=12345`,
     },
     {
-        inputs: "filepath and width",
-        command: `${filePath} --width=700 --roughjs-config seed=12345`,
+        inputs: "filepath, output, and width",
+        command: `${filePath} --output=${outputPath} --width=700 --roughjs-config seed=12345`,
     },
     {
-        inputs: "filepath and height",
-        command: `${filePath} --height=700 --roughjs-config seed=12345`,
+        inputs: "filepath, output, and height",
+        command: `${filePath} --output=${outputPath} --height=700 --roughjs-config seed=12345`,
     },
     {
-        inputs: "filepath, height, and width",
-        command: `${filePath} --height=700 width=1200 --roughjs-config seed=12345`,
+        inputs: "filepath, output, height, and width",
+        command: `${filePath} --output=${outputPath} --height=700 width=1200 --roughjs-config seed=12345`,
     },
     {
         inputs: "filepath and a variety of rough-config",
-        command: `${filePath} --roughjs-config seed=12345,fill=red,fillStyle=solid`,
-    },
-    {
-        inputs: "filepath and output",
-        command: `${filePath} --output=${outputPath} --roughjs-config seed=12345`,
+        command: `${filePath} --output=${outputPath} --roughjs-config seed=12345,fill=red,fillStyle=solid`,
     },
 ])("memory-viz cli", ({ inputs, command }) => {
     it(`produces consistent svg when provided ${inputs} option(s)`, (done) => {
@@ -84,7 +80,7 @@ describe("memory-viz cli", () => {
         fs.writeFileSync(filePath, input);
 
         exec(
-            `memory-viz ${filePath} --stdout --roughjs-config seed=1234`,
+            `memory-viz ${filePath} --roughjs-config seed=1234`,
             (err, stdout) => {
                 if (err) throw err;
                 expect(stdout).toMatchSnapshot();
@@ -95,7 +91,7 @@ describe("memory-viz cli", () => {
 
     it("produces consistent svg when provided stdin and stdout", (done) => {
         const command = "memory-viz";
-        const args = ["--stdout", "--roughjs-config seed=1234"];
+        const args = ["--roughjs-config seed=1234"];
 
         const child = spawn(command, args, { shell: true });
 
@@ -133,31 +129,9 @@ describe("memory-viz cli", () => {
             done();
         });
     });
-
-    it("logs a warning when both --stdout and --output are specified", (done) => {
-        fs.writeFileSync(filePath, input);
-
-        exec(
-            `memory-viz ${filePath} --stdout --output=${outputPath}`,
-            (err, stdout, stderr) => {
-                if (err) throw err;
-                const output = stdout + stderr;
-                expect(output).toContain(
-                    "Since both --stdout and --output were provided, the output was redirected to stdout."
-                );
-                done();
-            }
-        );
-    });
 });
 
 describe.each([
-    {
-        errorType: "no output",
-        command: "memory-viz",
-        expectedErrorMessage:
-            "Error: Either --stdout or --output must be provided.",
-    },
     {
         errorType: "non-existent file",
         command: "memory-viz cli-test.json",

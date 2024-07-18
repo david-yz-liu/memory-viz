@@ -44,10 +44,9 @@ program
         "path to a file containing MemoryViz-compatible JSON",
         parseFilePath
     )
-    .option("--stdout", "directs generated SVG to standard output")
     .option(
         "--output <path>",
-        "directs generated SVG to specified path",
+        "writes generated SVG to specified path",
         parseOutputPath
     )
     .option("--width <value>", "width of generated SVG", "1300")
@@ -63,27 +62,35 @@ program.parse();
 const filePath = program.processedArgs[0];
 const options = program.opts();
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdin.isTTY ? process.stdout : null,
-});
-
 let jsonContent = "";
 if (filePath) {
-    rl.close();
+    // rl.close();
     jsonContent = fs.readFileSync(filePath, "utf8");
     runMemoryViz(jsonContent);
 } else {
-    if (!options.stdout && !options.output) {
-        console.error(`Error: Either --stdout or --output must be provided.`);
-        process.exit(1);
-    }
+    // const rl = readline.createInterface({
+    //     input: process.stdin,
+    //     output: process.stdin.isTTY ? process.stdout : null,
+    // });
 
-    rl.on("line", (line) => {
-        jsonContent += line;
+    // rl.on("line", (line) => {
+    //     jsonContent += line;
+    // });
+
+    // rl.on("close", () => {
+    //     runMemoryViz(jsonContent);
+    // });
+
+    process.stdin.on("data", (chunk) => {
+        if (chunk.includes("\u0004")) {
+            process.stdin.emit("end");
+        } else {
+            jsonContent += chunk;
+        }
     });
 
-    rl.on("close", () => {
+    process.stdin.on("end", () => {
+        process.stdin.pause();
         runMemoryViz(jsonContent);
     });
 }
@@ -109,24 +116,13 @@ function runMemoryViz(jsonContent) {
         process.exit(1);
     }
 
-    let outputPath;
-    if (options.output) {
-        outputName = path.parse(options.output).name + ".svg";
-        outputPath = path.join(options.output, outputName);
-    } else if (filePath) {
-        outputPath = path.parse(filePath).name + ".svg";
-    }
-
     try {
-        if (options.stdout) {
-            if (options.output) {
-                console.warn(
-                    "Since both --stdout and --output were provided, the output was redirected to stdout."
-                );
-            }
-            m.save();
-        } else {
+        if (options.output) {
+            const outputName = path.parse(options.output).name + ".svg";
+            const outputPath = path.join(options.output, outputName);
             m.save(outputPath);
+        } else {
+            m.save();
         }
     } catch (err) {
         console.error(`Error: ${err.message}`);
