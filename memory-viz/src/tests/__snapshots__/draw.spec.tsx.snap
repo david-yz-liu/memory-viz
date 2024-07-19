@@ -2,29 +2,25 @@
 
 exports[`draw function formats a mix of stack frame/non-stack frame objects in automatic layout 1`] = `
 "<svg width="1300" height="500" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -34,29 +30,25 @@ exports[`draw function formats a mix of stack frame/non-stack frame objects in a
 
 exports[`draw function formats non-stack frame objects in automatic layout 1`] = `
 "<svg width="1300" height="300" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -66,29 +58,25 @@ exports[`draw function formats non-stack frame objects in automatic layout 1`] =
 
 exports[`draw function renders 'fade' style preset 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -98,29 +86,25 @@ exports[`draw function renders 'fade' style preset 1`] = `
 
 exports[`draw function renders 'fade_id' style preset 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -130,29 +114,25 @@ exports[`draw function renders 'fade_id' style preset 1`] = `
 
 exports[`draw function renders 'fade_type' style preset 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -162,29 +142,25 @@ exports[`draw function renders 'fade_type' style preset 1`] = `
 
 exports[`draw function renders 'hide' style preset 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -194,29 +170,25 @@ exports[`draw function renders 'hide' style preset 1`] = `
 
 exports[`draw function renders 'hide_container' style preset 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -226,29 +198,25 @@ exports[`draw function renders 'hide_container' style preset 1`] = `
 
 exports[`draw function renders 'hide_id' style preset 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -258,29 +226,25 @@ exports[`draw function renders 'hide_id' style preset 1`] = `
 
 exports[`draw function renders 'highlight' style preset 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -290,29 +254,25 @@ exports[`draw function renders 'highlight' style preset 1`] = `
 
 exports[`draw function renders 'highlight_id' style preset 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -322,29 +282,25 @@ exports[`draw function renders 'highlight_id' style preset 1`] = `
 
 exports[`draw function renders 'highlight_type' style preset 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -354,29 +310,25 @@ exports[`draw function renders 'highlight_type' style preset 1`] = `
 
 exports[`draw function renders a blank space 1`] = `
 "<svg width="1300" height="350" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -386,29 +338,25 @@ exports[`draw function renders a blank space 1`] = `
 
 exports[`draw function renders a blank stack frame 1`] = `
 "<svg width="1300" height="325" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -418,29 +366,25 @@ exports[`draw function renders a blank stack frame 1`] = `
 
 exports[`draw function renders a bool 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -450,29 +394,25 @@ exports[`draw function renders a bool 1`] = `
 
 exports[`draw function renders a bool using manual layout 1`] = `
 "<svg width="1062" height="492" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -482,29 +422,25 @@ exports[`draw function renders a bool using manual layout 1`] = `
 
 exports[`draw function renders a diagram with 'small' width value and a mix stack frame/non-stack frame objects 1`] = `
 "<svg width="454" height="500" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -514,29 +450,25 @@ exports[`draw function renders a diagram with 'small' width value and a mix stac
 
 exports[`draw function renders a diagram with 'small' width value and no stack frames 1`] = `
 "<svg width="288" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -546,29 +478,25 @@ exports[`draw function renders a diagram with 'small' width value and no stack f
 
 exports[`draw function renders a diagram with large left margins 1`] = `
 "<svg width="579" height="500" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -578,29 +506,25 @@ exports[`draw function renders a diagram with large left margins 1`] = `
 
 exports[`draw function renders a dict 1`] = `
 "<svg width="1300" height="450" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -610,29 +534,25 @@ exports[`draw function renders a dict 1`] = `
 
 exports[`draw function renders a float 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -642,29 +562,25 @@ exports[`draw function renders a float 1`] = `
 
 exports[`draw function renders a list with indexes showing 1`] = `
 "<svg width="1300" height="300" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -674,29 +590,25 @@ exports[`draw function renders a list with indexes showing 1`] = `
 
 exports[`draw function renders a list without indexes showing 1`] = `
 "<svg width="1300" height="280" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -706,29 +618,25 @@ exports[`draw function renders a list without indexes showing 1`] = `
 
 exports[`draw function renders a set 1`] = `
 "<svg width="1300" height="280" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -738,29 +646,25 @@ exports[`draw function renders a set 1`] = `
 
 exports[`draw function renders a stack frame and an int 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -770,29 +674,25 @@ exports[`draw function renders a stack frame and an int 1`] = `
 
 exports[`draw function renders a stack frame using manual layout 1`] = `
 "<svg width="498" height="525" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -802,29 +702,25 @@ exports[`draw function renders a stack frame using manual layout 1`] = `
 
 exports[`draw function renders a str 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -834,29 +730,25 @@ exports[`draw function renders a str 1`] = `
 
 exports[`draw function renders a tuple with indexes showing 1`] = `
 "<svg width="1300" height="300" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -866,29 +758,25 @@ exports[`draw function renders a tuple with indexes showing 1`] = `
 
 exports[`draw function renders a tuple without indexes showing 1`] = `
 "<svg width="1300" height="280" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -898,29 +786,25 @@ exports[`draw function renders a tuple without indexes showing 1`] = `
 
 exports[`draw function renders an empty dict 1`] = `
 "<svg width="1300" height="225" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -930,29 +814,25 @@ exports[`draw function renders an empty dict 1`] = `
 
 exports[`draw function renders an empty list 1`] = `
 "<svg width="1300" height="280" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -962,29 +842,25 @@ exports[`draw function renders an empty list 1`] = `
 
 exports[`draw function renders an empty set 1`] = `
 "<svg width="1300" height="280" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -994,29 +870,25 @@ exports[`draw function renders an empty set 1`] = `
 
 exports[`draw function renders an empty tuple 1`] = `
 "<svg width="1300" height="280" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -1026,29 +898,25 @@ exports[`draw function renders an empty tuple 1`] = `
 
 exports[`draw function renders an int 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -1058,29 +926,25 @@ exports[`draw function renders an int 1`] = `
 
 exports[`draw function renders an object with no type and no value 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -1090,29 +954,25 @@ exports[`draw function renders an object with no type and no value 1`] = `
 
 exports[`draw function renders blank spaces in automatic layout 1`] = `
 "<svg width="1300" height="350" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -1122,29 +982,25 @@ exports[`draw function renders blank spaces in automatic layout 1`] = `
 
 exports[`draw function renders combinations of style presets 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -1154,29 +1010,25 @@ exports[`draw function renders combinations of style presets 1`] = `
 
 exports[`draw function renders custom style (without presets) 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -1186,29 +1038,25 @@ exports[`draw function renders custom style (without presets) 1`] = `
 
 exports[`draw function renders diagrams with provided mix of roughjs_config options 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -1218,29 +1066,25 @@ exports[`draw function renders diagrams with provided mix of roughjs_config opti
 
 exports[`draw function renders diagrams with provided roughjs_config 'fill' and 'fillStyle' options 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -1250,29 +1094,25 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' and 
 
 exports[`draw function renders diagrams with provided roughjs_config 'fill' option 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -1282,29 +1122,25 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' opti
 
 exports[`draw function renders diagrams with provided roughjs_config 'roughness' option 1`] = `
 "<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -1314,29 +1150,25 @@ exports[`draw function renders diagrams with provided roughjs_config 'roughness'
 
 exports[`draw function renders range object 1`] = `
 "<svg width="1300" height="280" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);
@@ -1346,29 +1178,25 @@ exports[`draw function renders range object 1`] = `
 
 exports[`draw function should produce consistent svg when provided seed 1`] = `
 "<svg width="1300" height="575" xmlns="http://www.w3.org/2000/svg"><style>
+            text {
+                font-family: Consolas, Courier;
+                font-size: 20px;
+            }
             text.default {
                 fill: rgb(0, 0, 0);
                 text-anchor: start;
-                font-family: Consolas, Courier;
-                font-size: 20px;
                 }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.type {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             text.value {
                 fill: rgb(27, 14, 139);
                 text-anchor: middle;
-                font-family: Consolas, Courier;
-                font-size: 20px;
             }
             path {
                 stroke: rgb(0, 0, 0);

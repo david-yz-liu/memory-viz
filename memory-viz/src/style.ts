@@ -113,7 +113,7 @@ const presets: Record<string, Style> = {
 
 /**
  * Add CSS to the svg element of a MemoryModel object via style tags.
- * @param {MemoryModel} memory_model - The MemoryModel object that will have CSS set for its svg.
+ * @param {MemoryModel} memory_model - The MemoryModel object that will have CSS set for its associated svg.
  */
 function setStyleSheet(memory_model: MemoryModel) {
     const styles = `
