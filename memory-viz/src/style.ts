@@ -3,14 +3,6 @@ import { config } from "./config";
 import { DrawnEntity, AttributeStyle, Style } from "./types";
 import { MemoryModel } from "./memory_model";
 
-// Built-in style for drawing text on canvas (if no style is provided by the user).
-const default_text_style: AttributeStyle = {
-    fill: config.text_color,
-    "text-anchor": "middle",
-    "font-family": "Consolas, Courier",
-    "font-size": config.font_size,
-};
-
 const immutable: Array<string> = [
     "int",
     "str",
@@ -147,11 +139,4 @@ function setStyleSheet(memory_model: MemoryModel) {
     memory_model.svg.appendChild(styleSheet);
 }
 
-export {
-    immutable,
-    collections,
-    primitives,
-    presets,
-    default_text_style,
-    setStyleSheet,
-};
+export { immutable, collections, primitives, presets, setStyleSheet };

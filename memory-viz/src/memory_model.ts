@@ -2,13 +2,7 @@ import rough from "roughjs";
 
 import merge from "deepmerge";
 
-import {
-    collections,
-    default_text_style,
-    immutable,
-    presets,
-    setStyleSheet,
-} from "./style";
+import { collections, immutable, presets, setStyleSheet } from "./style";
 import { config } from "./config";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
 import { DrawnEntity } from "./types";
@@ -471,7 +465,7 @@ export class MemoryModel {
                     ",",
                     curr_x - this.item_min_width / 8,
                     item_text_y,
-                    default_text_style,
+                    { "text-anchor": "middle" },
                     "default"
                 );
             }
@@ -483,14 +477,14 @@ export class MemoryModel {
             "{",
             x + this.item_min_width / 4,
             item_text_y,
-            default_text_style,
+            { "text-anchor": "middle" },
             "default"
         );
         this.drawText(
             "}",
             x + box_width - this.item_min_width / 4,
             item_text_y,
-            default_text_style,
+            { "text-anchor": "middle" },
             "default"
         );
 
