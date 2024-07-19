@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+-   Changed the `filePath` argument in the MemoryViz CLI to be optional and added `--output` option.
+
 ### 🐛 Bug fixes
 
 -   Fixed issue where object boxes would be drawn on top of stack frames in diagrams with large left margins.
