@@ -20,7 +20,7 @@ where `<path-to-file>` is the path to a file containing MemoryViz-compatible JSO
 
 You may also specify an output path using the `--output` option (see below). If no output path is provided, the CLI will print to standard output.
 
-NOTE: If you are typing JSON directly into the terminal, you need to use `Ctrl + D` to signal the end of your input.
+_Note_: For the `stdin` option, the CLI currently does not accept typed input from the terminal. Instead, use piping or other strategies to pass input to `stdin`.
 
 ## Options
 
@@ -46,19 +46,19 @@ The argument is a comma-separated list of key-value pairs in the form `<key1=val
 
 ## Examples
 
-File path input and default output.
+This takes input from a file and prints to `stdout`.
 
 ```console
 $ npx memory-viz <path-to-file>
 ```
 
-Standard input, standard output, with a width of 200.
+This takes input from `stdin`, generates the SVG with a width of 200, and prints to `stdout`.
 
 ```console
-$ npx memory-viz --stdout --width=200
+$ npx memory-viz --width=200
 ```
 
-File path input, output path, and solid red fill.
+This takes input from a file, generates the SVG with a solid red fill, and writes the SVG to the specified path.
 
 ```console
 $ npx memory-viz <path-to-file> --output=<path> --roughjs-config fill=red,fillStyle=solid

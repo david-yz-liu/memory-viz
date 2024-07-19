@@ -64,6 +64,8 @@ where `<path-to-file>` is the path to a file containing MemoryViz-compatible JSO
 
 You may also specify an output path using the `--output` option (see documentation). If no output path is provided, the CLI will print to standard output.
 
+_Note_: For the `stdin` option, the CLI currently does not accept typed input from the terminal. Instead, use piping or other strategies to pass input to `stdin`.
+
 For more information, check out the project [documentation website](https://www.cs.toronto.edu/~david/memory-viz/docs/cli).
 
 ## Developers

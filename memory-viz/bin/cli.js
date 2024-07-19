@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const { draw } = require("memory-viz");
 const { program } = require("commander");
-const readline = require("readline");
+const { json } = require("node:stream/consumers");
 
 function parseFilePath(input) {
     if (input) {
@@ -62,69 +62,33 @@ program.parse();
 const filePath = program.processedArgs[0];
 const options = program.opts();
 
-let jsonContent = "";
-
 if (filePath) {
-    // rl.close();
-    jsonContent = fs.readFileSync(filePath, "utf8");
-    runMemoryViz(jsonContent);
-} else {
-    // const rl = readline.createInterface({
-    //     input: process.stdin,
-    //     output: process.stdin.isTTY ? process.stdout : null,
-    // });
+    const fileContent = fs.readFileSync(filePath, "utf8");
 
-    // rl.on("line", (line) => {
-    //     jsonContent += line;
-    // });
-
-    // rl.on("close", () => {
-    //     runMemoryViz(jsonContent);
-    // });
-
-    // Option 1
-    // process.stdin.on("data", (chunk) => {
-    //     if (chunk.includes("\u0004")) {
-    //         process.stdin.emit("end");
-    //     } else {
-    //         jsonContent += chunk;
-    //     }
-    // });
-
-    // process.stdin.on("end", () => {
-    //     process.stdin.pause();
-    //     runMemoryViz(jsonContent);
-    // });
-    // End of option 1
-
-    // Option 2 (Currently cannot signal EOF from terminal)
-    async function read(stream) {
-        const chunks = [];
-        for await (const chunk of stream) chunks.push(chunk);
-        return Buffer.concat(chunks).toString("utf8");
-    }
-
-    async function run() {
-        const input = await read(process.stdin);
-        runMemoryViz(input);
-    }
-
-    run();
-    // End of option 2
-}
-
-function runMemoryViz(jsonContent) {
-    let data;
+    let jsonContent;
     try {
-        data = JSON.parse(jsonContent);
+        jsonContent = JSON.parse(fileContent);
     } catch (err) {
         console.error(`Error: Invalid JSON\n${err.message}.`);
         process.exit(1);
     }
 
+    runMemoryViz(jsonContent);
+} else {
+    json(process.stdin)
+        .then((jsonContent) => {
+            runMemoryViz(jsonContent);
+        })
+        .catch((err) => {
+            console.error(`Error: ${err.message}.`);
+            process.exit(1);
+        });
+}
+
+function runMemoryViz(jsonContent) {
     let m;
     try {
-        m = draw(data, true, {
+        m = draw(jsonContent, true, {
             width: options.width,
             height: options.height,
             roughjs_config: { options: options.roughjsConfig },
