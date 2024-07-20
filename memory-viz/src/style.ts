@@ -1,53 +1,7 @@
 import merge from "deepmerge";
 import { config } from "./config";
 import { DrawnEntity, AttributeStyle, Style } from "./types";
-
-// Built-in style for drawing text on canvas (if no style is provided by the user).
-const default_text_style: AttributeStyle = {
-    fill: config.text_color,
-    "text-anchor": "middle",
-    "font-family": "Consolas, Courier",
-    "font-size": config.font_size,
-};
-
-// Default style attributes that apply universally to any type of data.
-const common_style: Style = {
-    text_id: {
-        fill: config.id_color,
-        "text-anchor": "middle",
-        "font-family": "Consolas, Courier",
-        "font-size": config.font_size,
-    },
-    text_type: {
-        fill: config.value_color,
-        "text-anchor": "middle",
-        "font-family": "Consolas, Courier",
-        "font-size": config.font_size,
-    },
-    text_value: {
-        "text-anchor": "middle",
-        "font-family": "Consolas, Courier",
-        "font-size": config.font_size,
-    },
-    box_container: {},
-    box_id: {},
-    box_type: {},
-};
-
-const category_specific_styles: Record<string, Style> = {
-    collection: {
-        text_value: { fill: config.id_color },
-    },
-    primitive: {
-        text_value: { fill: config.value_color },
-    },
-    class: {
-        text_value: { fill: config.value_color, "text-anchor": "start" },
-    },
-    stackframe: {
-        text_value: { fill: config.text_color, "text-anchor": "start" },
-    },
-};
+import { MemoryModel } from "./memory_model";
 
 const immutable: Array<string> = [
     "int",
@@ -68,42 +22,6 @@ const primitives: Array<string> = [
     "float",
     "date",
 ];
-
-/**
- * Populates a user-passed style object --to the extent needed-- with default data (to adhere to the interface of the
- * style object). Needed to avoid errors of the type "TypeError: Cannot set properties of undefined (setting 'x')", as
- * well as many more.
- * @param {DrawnEntity} object : the object that represents a Python object the user wants drawn. The style object
- *                          corresponding to 'object' will be extracted be doing object.style.
- * @param {object} roughjs_config : a configuration object used to pass in options to rough.js
-
-* @returns {Style}
- */
-function populateStyleObject(object: DrawnEntity, roughjs_config: object) {
-    let style_so_far = common_style;
-
-    let object_type;
-
-    if (primitives.includes(object.type)) {
-        object_type = "primitive";
-    } else if (collections.includes(object.type)) {
-        object_type = "collection";
-    } else if (object.type === ".class") {
-        object_type = "class";
-    } else {
-        object_type = "stackframe";
-    }
-
-    // We then add properties specific to the different type categories.
-    // Note that, the later will take precedence over styleSoFar.
-    style_so_far = merge(style_so_far, category_specific_styles[object_type]);
-
-    // Finally, we complement the current style with any user-supplied properties.
-    // Note that, the later will take precedence over styleSoFar.
-    style_so_far = merge(style_so_far, object.style || {});
-
-    return { ...style_so_far, config: roughjs_config };
-}
 
 // Constants employed to establish presets for styles.
 const HIGHLIGHT_TEXT: AttributeStyle = {
@@ -185,11 +103,48 @@ const presets: Record<string, Style> = {
     },
 };
 
-export {
-    populateStyleObject,
-    immutable,
-    collections,
-    primitives,
-    presets,
-    default_text_style,
-};
+/**
+ * Add CSS to the svg element of a MemoryModel object via style tags.
+ * @param {MemoryModel} memory_model - The MemoryModel object that will have CSS set for its associated svg.
+ */
+function setStyleSheet(memory_model: MemoryModel) {
+    const styles = `
+        text {
+            font-family: Consolas, Courier;
+            font-size: ${config.font_size}px;
+        }
+        text.default {
+            fill: ${config.text_color};
+            text-anchor: middle;
+        }
+        text.attribute {
+            fill: ${config.value_color};
+            text-anchor: start;
+        }
+        text.variable {
+            fill: ${config.text_color};
+            text-anchor: start;
+        }
+        text.id { 
+            fill: ${config.id_color};
+            text-anchor: middle;
+        }
+        text.type {
+            fill: ${config.value_color};
+            text-anchor: middle;
+        }
+        text.value {
+            fill: ${config.value_color};
+            text-anchor: middle;
+        }
+        path {
+            stroke: ${config.rect_style["stroke"]};
+        }
+    `;
+
+    const styleSheet = memory_model.document.createElement("style");
+    styleSheet.textContent = styles;
+    memory_model.svg.appendChild(styleSheet);
+}
+
+export { immutable, collections, primitives, presets, setStyleSheet };
