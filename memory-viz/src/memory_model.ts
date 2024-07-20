@@ -706,6 +706,10 @@ export class MemoryModel {
         height: number,
         style?: object
     ) {
+        if (style === undefined) {
+            style = this.rect_style;
+        }
+
         style = { ...style, config: this.roughjs_config };
 
         this.svg.appendChild(

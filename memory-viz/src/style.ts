@@ -109,38 +109,38 @@ const presets: Record<string, Style> = {
  */
 function setStyleSheet(memory_model: MemoryModel) {
     const styles = `
-            text {
-                font-family: Consolas, Courier;
-                font-size: ${config.font_size}px;
-            }
-            text.default {
-                fill: ${config.text_color};
-                text-anchor: middle;
-                }
-            text.attribute {
-                fill: ${config.value_color};
-                text-anchor: start;
-                }
-            text.variable {
-                fill: ${config.text_color};
-                text-anchor: start;
-            }
-            text.id { 
-                fill: ${config.id_color};
-                text-anchor: middle;
-            }
-            text.type {
-                fill: ${config.value_color};
-                text-anchor: middle;
-            }
-            text.value {
-                fill: ${config.value_color};
-                text-anchor: middle;
-            }
-            path {
-                stroke: ${config.rect_style["stroke"]};
-            }
-        `;
+        text {
+            font-family: Consolas, Courier;
+            font-size: ${config.font_size}px;
+        }
+        text.default {
+            fill: ${config.text_color};
+            text-anchor: middle;
+        }
+        text.attribute {
+            fill: ${config.value_color};
+            text-anchor: start;
+        }
+        text.variable {
+            fill: ${config.text_color};
+            text-anchor: start;
+        }
+        text.id { 
+            fill: ${config.id_color};
+            text-anchor: middle;
+        }
+        text.type {
+            fill: ${config.value_color};
+            text-anchor: middle;
+        }
+        text.value {
+            fill: ${config.value_color};
+            text-anchor: middle;
+        }
+        path {
+            stroke: ${config.rect_style["stroke"]};
+        }
+    `;
 
     const styleSheet = memory_model.document.createElement("style");
     styleSheet.textContent = styles;
