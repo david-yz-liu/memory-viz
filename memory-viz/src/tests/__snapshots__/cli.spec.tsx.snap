@@ -8,8 +8,16 @@ exports[`memory-viz cli produces consistent svg when provided filepath and a var
             }
             text.default {
                 fill: rgb(0, 0, 0);
+                text-anchor: middle;
+                }
+            text.attribute {
+                fill: rgb(27, 14, 139);
                 text-anchor: start;
                 }
+            text.variable {
+                fill: rgb(0, 0, 0);
+                text-anchor: start;
+            }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
@@ -36,8 +44,16 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
             }
             text.default {
                 fill: rgb(0, 0, 0);
+                text-anchor: middle;
+                }
+            text.attribute {
+                fill: rgb(27, 14, 139);
                 text-anchor: start;
                 }
+            text.variable {
+                fill: rgb(0, 0, 0);
+                text-anchor: start;
+            }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
@@ -64,8 +80,16 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
             }
             text.default {
                 fill: rgb(0, 0, 0);
+                text-anchor: middle;
+                }
+            text.attribute {
+                fill: rgb(27, 14, 139);
                 text-anchor: start;
                 }
+            text.variable {
+                fill: rgb(0, 0, 0);
+                text-anchor: start;
+            }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
@@ -93,8 +117,16 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
             }
             text.default {
                 fill: rgb(0, 0, 0);
+                text-anchor: middle;
+                }
+            text.attribute {
+                fill: rgb(27, 14, 139);
                 text-anchor: start;
                 }
+            text.variable {
+                fill: rgb(0, 0, 0);
+                text-anchor: start;
+            }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
@@ -121,8 +153,16 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
             }
             text.default {
                 fill: rgb(0, 0, 0);
+                text-anchor: middle;
+                }
+            text.attribute {
+                fill: rgb(27, 14, 139);
                 text-anchor: start;
                 }
+            text.variable {
+                fill: rgb(0, 0, 0);
+                text-anchor: start;
+            }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
@@ -149,8 +189,16 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
             }
             text.default {
                 fill: rgb(0, 0, 0);
+                text-anchor: middle;
+                }
+            text.attribute {
+                fill: rgb(27, 14, 139);
                 text-anchor: start;
                 }
+            text.variable {
+                fill: rgb(0, 0, 0);
+                text-anchor: start;
+            }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
@@ -177,8 +225,16 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
             }
             text.default {
                 fill: rgb(0, 0, 0);
+                text-anchor: middle;
+                }
+            text.attribute {
+                fill: rgb(27, 14, 139);
                 text-anchor: start;
                 }
+            text.variable {
+                fill: rgb(0, 0, 0);
+                text-anchor: start;
+            }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;
@@ -205,8 +261,16 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
             }
             text.default {
                 fill: rgb(0, 0, 0);
+                text-anchor: middle;
+                }
+            text.attribute {
+                fill: rgb(27, 14, 139);
                 text-anchor: start;
                 }
+            text.variable {
+                fill: rgb(0, 0, 0);
+                text-anchor: start;
+            }
             text.id { 
                 fill: rgb(150, 100, 28);
                 text-anchor: middle;

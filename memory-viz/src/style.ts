@@ -115,8 +115,16 @@ function setStyleSheet(memory_model: MemoryModel) {
             }
             text.default {
                 fill: ${config.text_color};
+                text-anchor: middle;
+                }
+            text.attribute {
+                fill: ${config.value_color};
                 text-anchor: start;
                 }
+            text.variable {
+                fill: ${config.text_color};
+                text-anchor: start;
+            }
             text.id { 
                 fill: ${config.id_color};
                 text-anchor: middle;

@@ -465,7 +465,7 @@ export class MemoryModel {
                     ",",
                     curr_x - this.item_min_width / 8,
                     item_text_y,
-                    { "text-anchor": "middle" },
+                    {},
                     "default"
                 );
             }
@@ -477,14 +477,14 @@ export class MemoryModel {
             "{",
             x + this.item_min_width / 4,
             item_text_y,
-            { "text-anchor": "middle" },
+            {},
             "default"
         );
         this.drawText(
             "}",
             x + box_width - this.item_min_width / 4,
             item_text_y,
-            { "text-anchor": "middle" },
+            {},
             "default"
         );
 
@@ -655,7 +655,7 @@ export class MemoryModel {
                 x + this.item_min_width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 style.text_value,
-                "default"
+                stack_frame ? "variable" : "attribute"
             );
             this.drawText(
                 idv,
