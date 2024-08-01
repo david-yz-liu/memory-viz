@@ -6,3 +6,6 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+body {
+    font-family: "Open Sans", Arial, sans-serif;
+}
