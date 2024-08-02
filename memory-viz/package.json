@@ -1,6 +1,6 @@
 {
     "name": "memory-viz",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "description": "Library for creating beginner-friendly memory model diagrams.",
     "main": "dist/memory-viz.bundle.js",
     "homepage": "https://www.cs.toronto.edu/~david/memory-viz",
@@ -31,7 +31,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/david-yz-liu/memory-viz.git",
+        "url": "git+https://github.com/david-yz-liu/memory-viz.git",
         "directory": "memory-viz"
     },
     "bugs": {
