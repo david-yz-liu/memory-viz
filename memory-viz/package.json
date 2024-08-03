@@ -41,7 +41,7 @@
         "memory-viz": "bin/cli.js"
     },
     "dependencies": {
-        "@xmldom/xmldom": "^0.8.6",
+        "@xmldom/xmldom": "^0.8.10",
         "commander": "^12.1.0",
         "deepmerge": "^4.3.1",
         "roughjs": "^4.5.0"
