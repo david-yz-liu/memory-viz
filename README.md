@@ -89,9 +89,7 @@ For more information, check out the project [documentation website](https://www.
 5. Install the pre-commit hooks to automatically format your code when you make commits:
 
     ```console
-    $ npx husky install
-    $ npm pkg set scripts.prepare="husky install"
-    $ npx husky add .husky/pre-commit "npx lint-staged"
+    $ npx husky init
     ```
 
 ### Automatic Javascript compilation

@@ -1,6 +1,6 @@
 {
     "scripts": {
-        "prepare": "husky install",
+        "prepare": "husky",
         "test": "jest --no-cache",
         "test-cov": "jest --no-cache --coverage"
     },
