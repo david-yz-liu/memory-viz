@@ -5,11 +5,11 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directories: # Location of package manifests
-      - "/"
-      - "/demo"
-      - "/docs"
-      - "/memory-viz"
-    schedule:
-      interval: "monthly"
+    - package-ecosystem: "npm" # See documentation for possible values
+      directories: # Location of package manifests
+          - "/"
+          - "/demo"
+          - "/docs"
+          - "/memory-viz"
+      schedule:
+          interval: "monthly"
