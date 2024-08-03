@@ -19,6 +19,16 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.3.0] - 2024-08-02
 
+### 🐛 Bug fixes
+
+-   Ensured built package files under `dist/` were correctly updated
+
+### 🔧 Internal changes
+
+-   Updated most package dependencies
+
+## [0.3.0] - 2024-08-02
+
 ### ✨ Enhancements
 
 -   Changed the `filePath` argument in the MemoryViz CLI to be optional and added `--output` option.
