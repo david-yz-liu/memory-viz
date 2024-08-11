@@ -1,6 +1,6 @@
 import React from "react";
 import SvgDisplay from "./SvgDisplay";
-import { configDataPropTypes } from "./MemoryModelsUserInput";
+import { configDataPropTypes } from "./UserInput";
 import {
     Box,
     Typography,
@@ -19,39 +19,6 @@ type OutputPropTypes = {
 };
 
 export default function Output(props: OutputPropTypes) {
-    const classes = {
-        inputBox: {
-            display: "flex",
-            flexDirection: "column",
-        },
-        title: {
-            fontWeight: "600",
-            mb: "1rem",
-        },
-        button1: {
-            width: "auto",
-            textTransform: "none",
-        },
-        fileInputBox: {
-            display: "flex",
-            justifyContent: "space-between",
-        },
-        textField: {
-            height: "auto",
-            "& .MuiInputBase-input": {
-                fontFamily: "Consolas, monospace",
-                background: "none !important",
-            },
-        },
-        inputBottomBox: {
-            display: "flex",
-            justifyContent: "space-between",
-        },
-        input: {
-            width: "50%",
-        },
-    };
-
     const file = new global.Blob([props.svgResult], { type: "image/svg+xml" });
 
     const handleSeedChange = (event) => {
@@ -76,13 +43,12 @@ export default function Output(props: OutputPropTypes) {
 
     return (
         <>
-            <Typography variant="h5" sx={classes.title}>
+            <Typography variant="h5" sx={{ fontWeight: "600", mb: "1rem" }}>
                 Output
             </Typography>
             <Box
                 sx={{
                     display: "flex",
-                    flexDirection: "row",
                     marginBottom: 1.3,
                 }}
             >

@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, Link, Input, Typography, TextField } from "@mui/material";
 import SampleInputMenu from "./SampleInputMenu";
 
-interface configDataPropTypes {
+export interface configDataPropTypes {
     useAutomation: boolean;
     overallDrawConfig: {
         [key: string]: any;
@@ -33,39 +33,6 @@ type MemoryModelsUserInputPropTypes = MemoryModelsFileInputPropTypes &
     };
 
 export default function UserInput(props: MemoryModelsUserInputPropTypes) {
-    const classes = {
-        inputBox: {
-            display: "flex",
-            flexDirection: "column",
-        },
-        title: {
-            fontWeight: "600",
-            mb: "1rem",
-        },
-        button1: {
-            width: "auto",
-            textTransform: "none",
-        },
-        fileInputBox: {
-            display: "flex",
-            justifyContent: "space-between",
-        },
-        textField: {
-            height: "auto",
-            "& .MuiInputBase-input": {
-                fontFamily: "Consolas, monospace",
-                background: "none !important",
-            },
-        },
-        inputBottomBox: {
-            display: "flex",
-            justifyContent: "space-between",
-        },
-        input: {
-            width: "50%",
-        },
-    };
-
     const onChange = (event) => {
         try {
             const uploadedFile = event.target.files[0];
@@ -92,11 +59,22 @@ export default function UserInput(props: MemoryModelsUserInputPropTypes) {
     };
 
     return (
-        <Box sx={classes.inputBox}>
-            <Typography variant="h5" sx={classes.title}>
+        <>
+            <Typography
+                variant="h5"
+                sx={{
+                    fontWeight: "600",
+                    mb: "1rem",
+                }}
+            >
                 Input
             </Typography>
-            <Box sx={classes.fileInputBox}>
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                }}
+            >
                 <Input
                     type="file"
                     onChange={onChange}
@@ -105,7 +83,7 @@ export default function UserInput(props: MemoryModelsUserInputPropTypes) {
                         "data-testid": "file-input",
                     }}
                     disableUnderline={true}
-                    sx={classes.input}
+                    sx={{ width: "50%" }}
                 />
                 <SampleInputMenu
                     setTextData={props.setTextData}
@@ -122,9 +100,20 @@ export default function UserInput(props: MemoryModelsUserInputPropTypes) {
                 rows={10}
                 value={props.textData}
                 onChange={handleTextFieldChange}
-                sx={classes.textField}
+                sx={{
+                    height: "auto",
+                    "& .MuiInputBase-input": {
+                        fontFamily: "Consolas, monospace",
+                        background: "none !important",
+                    },
+                }}
             />
-            <Box sx={classes.inputBottomBox}>
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                }}
+            >
                 <Link
                     target="_blank"
                     rel="noreferrer"
@@ -137,11 +126,14 @@ export default function UserInput(props: MemoryModelsUserInputPropTypes) {
                     onClick={props.onTextDataSubmit}
                     variant="contained"
                     disabled={!props.textData}
-                    sx={classes.button1}
+                    sx={{
+                        width: "auto",
+                        textTransform: "none",
+                    }}
                 >
                     Draw Diagram
                 </Button>
             </Box>
-        </Box>
+        </>
     );
 }
