@@ -4,7 +4,6 @@ import App from "./App";
 import "@picocss/pico";
 import "./css/styles";
 
-import AppTwo from "./AppTwo";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 const theme = createTheme({
     palette: {
@@ -23,7 +22,7 @@ const root = createRoot(document.getElementById("root"));
 root.render(
     <StrictMode>
         <ThemeProvider theme={theme}>
-            <AppTwo />
+            <App />
         </ThemeProvider>
     </StrictMode>
 );
