@@ -50,7 +50,7 @@ export default function AppTwo() {
                     setFailureBanner={setFailureBanner}
                     jsonResult={jsonResult}
                 />
-                <Box sx={{ width: "60%", marginLeft: 5 }}>
+                <Box sx={{ width: "60%", marginLeft: 5, marginRight: -2 }}>
                     <UserOutput
                         jsonResult={jsonResult}
                         configData={configData}

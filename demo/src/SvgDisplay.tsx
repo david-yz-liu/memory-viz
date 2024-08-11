@@ -41,8 +41,6 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                         { border: 1, borderRadius: 1, borderColor: "gray" },
                         {
                             "&:hover": {
-                                border: 2,
-                                borderRadius: 2,
                                 borderColor: "primary.main",
                             },
                         },
