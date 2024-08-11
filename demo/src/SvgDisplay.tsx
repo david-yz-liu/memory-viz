@@ -38,7 +38,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                     height={400}
                     width={700}
                     sx={[
-                        { border: 1, borderRadius: 2 },
+                        { border: 1, borderRadius: 1, borderColor: "gray" },
                         {
                             "&:hover": {
                                 border: 2,

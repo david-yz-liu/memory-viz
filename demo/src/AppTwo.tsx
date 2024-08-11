@@ -6,6 +6,7 @@ import { Box } from "@mui/material";
 import { ErrorBoundary } from "react-error-boundary";
 import DownloadSVGButton from "./DownloadSVGButton";
 import SvgDisplay from "./SvgDisplay";
+import UserOutput from "./UserOutput";
 
 export default function AppTwo() {
     const [textData, setTextData] = useState("");
@@ -49,24 +50,14 @@ export default function AppTwo() {
                     setFailureBanner={setFailureBanner}
                     jsonResult={jsonResult}
                 />
-                <Box sx={{ width: "60%" }}>
-                    <h2>Output</h2>
-                    <DownloadSVGButton svgResult={svgResult} />
-                    <ErrorBoundary
-                        fallback={
-                            <p data-testid="svg-display-error-boundary">
-                                This is valid JSON but not valid Memory Models
-                                JSON. Please refer to the repo for more details.
-                            </p>
-                        }
-                        key={jsonResult}
-                    >
-                        <SvgDisplay
-                            jsonResult={jsonResult}
-                            configData={configData}
-                            setSvgResult={setSvgResult}
-                        />
-                    </ErrorBoundary>
+                <Box sx={{ width: "60%", marginLeft: 5 }}>
+                    <UserOutput
+                        jsonResult={jsonResult}
+                        configData={configData}
+                        setConfigData={setConfigData}
+                        svgResult={svgResult}
+                        setSvgResult={setSvgResult}
+                    ></UserOutput>
                     {/* Put your component here! (And feel free to get rid of the border) */}
                 </Box>
             </Box>
