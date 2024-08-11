@@ -11,13 +11,31 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+### 🐛 Bug fixes
+
+### 📚 Documentation and demo website changes
+
+### 🔧 Internal changes
+
+## [0.3.0] - 2024-08-02
+
+### 🐛 Bug fixes
+
+-   Ensured built package files under `dist/` were correctly updated
+
+### 🔧 Internal changes
+
+-   Updated most package dependencies
+
+## [0.3.0] - 2024-08-02
+
+### ✨ Enhancements
+
 -   Changed the `filePath` argument in the MemoryViz CLI to be optional and added `--output` option.
 
 ### 🐛 Bug fixes
 
 -   Fixed issue where object boxes would be drawn on top of stack frames in diagrams with large left margins.
-
-### 📚 Documentation and demo website changes
 
 ### 🔧 Internal changes
 
