@@ -15,6 +15,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 📚 Documentation and demo website changes
 
+-   Reformatted demo website to horizontal layout.
+
 ### 🔧 Internal changes
 
 ## [0.3.0] - 2024-08-02
