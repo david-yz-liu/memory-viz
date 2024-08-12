@@ -195,52 +195,34 @@ export default function MemoryModelsUserInput(
 ) {
     return (
         <form data-testid="input-form" onSubmit={props.onTextDataSubmit}>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Card color="neutral">
-                        <MemoryModelsFileInput
-                            textData={props.textData}
-                            setTextData={props.setTextData}
-                            setFailureBanner={props.setFailureBanner}
-                            jsonResult={props.jsonResult}
-                        />
-                        <MemoryModelsTextInput
-                            textData={props.textData}
-                            setTextData={props.setTextData}
-                        />
-                        <Accordion>
-                            <AccordionSummary
-                                expandIcon={<ExpandMore />}
-                                data-testid="rendering-options-accordion"
-                            >
-                                Rendering Options
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Card color="neutral" variant="outlined">
-                                    <MemoryModelsConfigInput
-                                        configData={props.configData}
-                                        setConfigData={props.setConfigData}
-                                    />
-                                </Card>
-                            </AccordionDetails>
-                        </Accordion>
-                    </Card>
-                    <Tooltip title="Input JSON to draw diagram">
-                        <span>
-                            <Button
-                                type="submit"
-                                data-testid="input-submit-button"
-                                variant="contained"
-                                color="primary"
-                                disabled={!props.textData}
-                                style={{ textTransform: "none" }}
-                            >
-                                Draw Diagram
-                            </Button>
-                        </span>
-                    </Tooltip>
-                </Grid>
-            </Grid>
+            <MemoryModelsFileInput
+                textData={props.textData}
+                setTextData={props.setTextData}
+                setFailureBanner={props.setFailureBanner}
+                jsonResult={props.jsonResult}
+            />
+            <MemoryModelsConfigInput
+                configData={props.configData}
+                setConfigData={props.setConfigData}
+            />
+            <MemoryModelsTextInput
+                textData={props.textData}
+                setTextData={props.setTextData}
+            />
+            <Tooltip title="Input JSON to draw diagram">
+                <span>
+                    <Button
+                        type="submit"
+                        data-testid="input-submit-button"
+                        variant="contained"
+                        color="primary"
+                        disabled={!props.textData}
+                        style={{ textTransform: "none" }}
+                    >
+                        Draw Diagram
+                    </Button>
+                </span>
+            </Tooltip>
         </form>
     );
 }

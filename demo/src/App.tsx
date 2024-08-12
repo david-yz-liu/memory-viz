@@ -7,6 +7,7 @@ import { Alert } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
 import MemoryModelsSample from "./MemoryModelsSample";
 import Header from "./Header";
+import { Box } from "@mui/material";
 
 export default function App() {
     const [textData, setTextData] = useState("");
@@ -41,39 +42,43 @@ export default function App() {
                     {failureBanner}
                 </Alert>
             )}
-            <MemoryModelsSample
-                setTextData={setTextData}
-                setConfigData={setConfigData}
-                onTextDataSubmit={onTextDataSubmit}
-            />
-            <MemoryModelsUserInput
-                textData={textData}
-                setTextData={setTextData}
-                configData={configData}
-                setConfigData={setConfigData}
-                onTextDataSubmit={onTextDataSubmit}
-                setFailureBanner={setFailureBanner}
-                jsonResult={jsonResult}
-            />
-            <section>
-                <h2>Output</h2>
-                <DownloadSVGButton svgResult={svgResult} />
-                <ErrorBoundary
-                    fallback={
-                        <p data-testid="svg-display-error-boundary">
-                            This is valid JSON but not valid Memory Models JSON.
-                            Please refer to the repo for more details.
-                        </p>
-                    }
-                    key={jsonResult}
-                >
-                    <SvgDisplay
-                        jsonResult={jsonResult}
-                        configData={configData}
-                        setSvgResult={setSvgResult}
+            <Box sx={{ display: "flex", gap: "2rem" }}>
+                <Box>
+                    <MemoryModelsSample
+                        setTextData={setTextData}
+                        setConfigData={setConfigData}
+                        onTextDataSubmit={onTextDataSubmit}
                     />
-                </ErrorBoundary>
-            </section>
+                    <MemoryModelsUserInput
+                        textData={textData}
+                        setTextData={setTextData}
+                        configData={configData}
+                        setConfigData={setConfigData}
+                        onTextDataSubmit={onTextDataSubmit}
+                        setFailureBanner={setFailureBanner}
+                        jsonResult={jsonResult}
+                    />
+                </Box>
+                <Box>
+                    <h2>Output</h2>
+                    <DownloadSVGButton svgResult={svgResult} />
+                    <ErrorBoundary
+                        fallback={
+                            <p data-testid="svg-display-error-boundary">
+                                This is valid JSON but not valid Memory Models
+                                JSON. Please refer to the repo for more details.
+                            </p>
+                        }
+                        key={jsonResult}
+                    >
+                        <SvgDisplay
+                            jsonResult={jsonResult}
+                            configData={configData}
+                            setSvgResult={setSvgResult}
+                        />
+                    </ErrorBoundary>
+                </Box>
+            </Box>
         </>
     );
 }
