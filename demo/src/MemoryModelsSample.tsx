@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Button,
-    Card,
-    CardContent,
-    Grid,
-} from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
+import { Button, Menu, MenuItem } from "@mui/material";
+import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 
 import { SAMPLES } from "./sample";
 
@@ -20,6 +12,14 @@ type MemoryModelsSamplePropTypes = {
 
 export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
     const [clickedBtnIndex, setClickedBtnIndex] = useState<Number>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     useEffect(() => {
         if (clickedBtnIndex !== null) {
@@ -40,39 +40,39 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
     };
 
     return (
-        <Accordion>
-            <AccordionSummary
-                expandIcon={<ExpandMore />}
+        <>
+            <Button
+                onClick={handleClick}
                 data-testid="sample-inputs-accordion"
+                sx={{
+                    textTransform: "none",
+                    "& .MuiSvgIcon-root": {
+                        transition: "transform 0.2s ease-in-out",
+                        transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                    },
+                }}
             >
                 Sample Inputs
-            </AccordionSummary>
-            <AccordionDetails>
-                <Card color="neutral">
-                    <CardContent>
-                        <Grid container spacing={2}>
-                            {SAMPLES.map((sample, index) => (
-                                <Grid item xs={12} sm={6} md={4} key={index}>
-                                    <Button
-                                        variant="contained"
-                                        onClick={() =>
-                                            handleButtonClick(index, sample)
-                                        }
-                                        color={
-                                            index === clickedBtnIndex
-                                                ? "success"
-                                                : "primary"
-                                        }
-                                        sx={{ textTransform: "capitalize" }}
-                                    >
-                                        {sample["name"]}
-                                    </Button>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </CardContent>
-                </Card>
-            </AccordionDetails>
-        </Accordion>
+                <ExpandMoreRoundedIcon />
+            </Button>
+            <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                }}
+            >
+                {SAMPLES.map((sample, index) => (
+                    <MenuItem
+                        key={index}
+                        onClick={() => handleButtonClick(index, sample)}
+                    >
+                        {sample["name"]}
+                    </MenuItem>
+                ))}
+            </Menu>
+        </>
     );
 }

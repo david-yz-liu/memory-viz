@@ -223,6 +223,7 @@ describe("MemoryModelsUserInput", () => {
         });
 
         it("renders a number input with correct props and checkbox that is checked by default", () => {
+            fireEvent.click(screen.getByText("Rendering Options"));
             const seedInput: HTMLInputElement =
                 screen.getByTestId("config-seed");
             [
@@ -242,6 +243,7 @@ describe("MemoryModelsUserInput", () => {
         });
 
         it("handles seed change", () => {
+            fireEvent.click(screen.getByText("Rendering Options"));
             const seedInput: HTMLInputElement =
                 screen.getByTestId("config-seed");
             const mockSeed = "123";
@@ -256,6 +258,7 @@ describe("MemoryModelsUserInput", () => {
         });
 
         it("handles automation change", () => {
+            fireEvent.click(screen.getByText("Rendering Options"));
             const automationCheckbox: HTMLInputElement = screen.getByLabelText(
                 "Use automatic layout"
             );

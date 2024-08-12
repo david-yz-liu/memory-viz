@@ -1,22 +1,17 @@
 import React, { useState } from "react";
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Button,
     Box,
-    Card,
-    CardContent,
+    Button,
     Checkbox,
     FormControlLabel,
-    Grid,
     Input,
-    Stack,
     TextField,
     Tooltip,
+    Menu,
+    MenuItem,
 } from "@mui/material";
 import DownloadJSONButton from "./DownloadJSONButton";
-import { ExpandMore } from "@mui/icons-material";
+import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 
 interface configDataPropTypes {
     useAutomation: boolean;
@@ -74,32 +69,27 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
     };
 
     return (
-        <CardContent>
-            <Stack
-                direction={{ xs: "column", sm: "row" }}
-                spacing={{ xs: 1, sm: 2, md: 4 }}
+        <>
+            <Input
+                type="file"
+                onChange={onChange}
+                inputProps={{
+                    accept: "application/JSON",
+                    "data-testid": "file-input",
+                }}
+                sx={{ width: "33.33%" }}
+                disableUnderline={true}
+            />
+            <Button
+                data-testid="file-input-reapply-button"
+                variant="contained"
+                disabled={!uploadedFileString}
+                onClick={onLoadButtonClick}
+                sx={{ width: "33.33%", textTransform: "none" }}
             >
-                <Input
-                    type="file"
-                    onChange={onChange}
-                    inputProps={{
-                        accept: "application/JSON",
-                        "data-testid": "file-input",
-                    }}
-                    sx={{ width: "33.33%" }}
-                    disableUnderline={true}
-                />
-                <Button
-                    data-testid="file-input-reapply-button"
-                    variant="contained"
-                    disabled={!uploadedFileString}
-                    onClick={onLoadButtonClick}
-                    sx={{ width: "33.33%", textTransform: "none" }}
-                >
-                    Load file data
-                </Button>
-            </Stack>
-        </CardContent>
+                Load file data
+            </Button>
+        </>
     );
 }
 
@@ -109,29 +99,35 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
     };
 
     return (
-        <CardContent>
-            <TextField
-                id="multiline-memory-models-textfield"
-                data-testid="textfield-input"
-                label="Enter memory model JSON here"
-                multiline
-                fullWidth
-                rows={10}
-                variant="outlined"
-                value={props.textData}
-                onChange={handleTextFieldChange}
-                style={{
-                    width: "100%",
-                    height: "80%",
-                    fontFamily: "Monospace",
-                }}
-            />
-        </CardContent>
+        <TextField
+            id="multiline-memory-models-textfield"
+            data-testid="textfield-input"
+            label="Enter memory model JSON here"
+            multiline
+            fullWidth
+            rows={10}
+            variant="outlined"
+            value={props.textData}
+            onChange={handleTextFieldChange}
+            style={{
+                width: "100%",
+                height: "80%",
+                fontFamily: "Monospace",
+            }}
+        />
     );
 }
 
 //TODO: Retrieve min and max seeds from memory-viz
 function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     const handleSeedChange = (event) => {
         event.preventDefault();
         props.setConfigData({
@@ -154,36 +150,62 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
     };
 
     return (
-        <CardContent>
-            <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-                <TextField
-                    label="Seed"
-                    id="config-seed"
-                    variant="outlined"
-                    value={props.configData.overallDrawConfig.seed}
-                    onChange={handleSeedChange}
-                    type="number"
-                    InputProps={{
-                        inputProps: {
-                            min: 0,
-                            max: 2 ** 31,
-                            "data-testid": "config-seed",
-                        },
-                    }}
-                    sx={{ width: "50%" }}
-                />
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={props.configData.useAutomation}
-                            onChange={handleAutomationChange}
-                        />
-                    }
-                    label="Use automatic layout"
-                    sx={{ width: "50%" }}
-                />
-            </Stack>
-        </CardContent>
+        <>
+            <Button
+                onClick={handleClick}
+                data-testid="rendering-options-accordion"
+                sx={{
+                    textTransform: "none",
+                    "& .MuiSvgIcon-root": {
+                        transition: "transform 0.2s ease-in-out",
+                        transform: open ? "rotate(180deg)" : "rotate(0deg)",
+                    },
+                }}
+            >
+                Rendering Options
+                <ExpandMoreRoundedIcon />
+            </Button>
+            <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                }}
+            >
+                <MenuItem>
+                    <TextField
+                        label="Seed"
+                        id="config-seed"
+                        variant="outlined"
+                        value={props.configData.overallDrawConfig.seed}
+                        onChange={handleSeedChange}
+                        type="number"
+                        InputProps={{
+                            inputProps: {
+                                min: 0,
+                                max: 2 ** 31,
+                                "data-testid": "config-seed",
+                            },
+                        }}
+                        sx={{ width: "50%" }}
+                    />
+                </MenuItem>
+                <MenuItem>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                checked={props.configData.useAutomation}
+                                onChange={handleAutomationChange}
+                            />
+                        }
+                        label="Use automatic layout"
+                        sx={{ width: "50%" }}
+                    />
+                </MenuItem>
+            </Menu>
+        </>
     );
 }
 
@@ -206,29 +228,26 @@ export default function MemoryModelsUserInput(
                 textData={props.textData}
                 setTextData={props.setTextData}
             />
-            <Tooltip title="Input JSON to draw diagram">
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                    }}
-                >
-                    <DownloadJSONButton
-                        jsonResult={props.jsonResult}
-                        sx={{ width: "40%" }}
-                    />
-                    <Button
-                        type="submit"
-                        data-testid="input-submit-button"
-                        variant="contained"
-                        color="primary"
-                        disabled={!props.textData}
-                        style={{ width: "auto", textTransform: "none" }}
-                    >
-                        Draw Diagram
-                    </Button>
-                </Box>
-            </Tooltip>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <DownloadJSONButton
+                    jsonResult={props.jsonResult}
+                    sx={{ width: "33.33%" }}
+                />
+                <Tooltip title="Input JSON to draw diagram">
+                    <span>
+                        <Button
+                            type="submit"
+                            data-testid="input-submit-button"
+                            variant="contained"
+                            color="primary"
+                            disabled={!props.textData}
+                            style={{ textTransform: "none" }}
+                        >
+                            Draw Diagram
+                        </Button>
+                    </span>
+                </Tooltip>
+            </Box>
         </form>
     );
 }

@@ -44,16 +44,20 @@ describe("MemoryModelsSample", () => {
         expect(screen.getByText("Sample Inputs")).toBeDefined();
     });
 
-    it("renders all sample buttons", () => {
+    it("renders all sample buttons", async () => {
         // sx for MUI comps or non-inline CSS in general will not be loaded into Jest by default
         // might be achievable with some libs but this test makes sure the base texts are present.
         // Therefore, we can't test for capitalization (via sx) here
-        SAMPLES.map((sample) =>
-            expect(screen.getByText(sample["name"])).toBeDefined()
-        );
+        fireEvent.click(screen.getByText("Sample Inputs"));
+        await waitFor(() => {
+            SAMPLES.map((sample) =>
+                expect(screen.getByText(sample["name"])).toBeDefined()
+            );
+        });
     });
 
     it("handles sample button click", async () => {
+        fireEvent.click(screen.getByText("Sample Inputs"));
         const button = screen.getByText("Automated Layout");
         fireEvent.click(button);
 
