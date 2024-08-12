@@ -4,6 +4,7 @@ import {
     AccordionDetails,
     AccordionSummary,
     Button,
+    Box,
     Card,
     CardContent,
     Checkbox,
@@ -206,10 +207,15 @@ export default function MemoryModelsUserInput(
                 setTextData={props.setTextData}
             />
             <Tooltip title="Input JSON to draw diagram">
-                <span>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                    }}
+                >
                     <DownloadJSONButton
                         jsonResult={props.jsonResult}
-                        sx={{ width: "33.33%" }}
+                        sx={{ width: "40%" }}
                     />
                     <Button
                         type="submit"
@@ -217,11 +223,11 @@ export default function MemoryModelsUserInput(
                         variant="contained"
                         color="primary"
                         disabled={!props.textData}
-                        style={{ textTransform: "none" }}
+                        style={{ width: "auto", textTransform: "none" }}
                     >
                         Draw Diagram
                     </Button>
-                </span>
+                </Box>
             </Tooltip>
         </form>
     );
