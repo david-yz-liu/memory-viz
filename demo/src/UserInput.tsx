@@ -97,7 +97,6 @@ export default function UserInput(props: MemoryModelsUserInputPropTypes) {
                 variant="outlined"
                 multiline
                 fullWidth
-                rows={10}
                 value={props.textData}
                 onChange={handleTextFieldChange}
                 sx={{

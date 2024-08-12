@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { configDataPropTypes } from "./UserInput";
-import UserInput from "./UserInput";
-import Header from "./Header";
-import { Box } from "@mui/material";
+import SvgDisplay from "./SvgDisplay";
+import MemoryModelsUserInput from "./MemoryModelsUserInput";
 import { ErrorBoundary } from "react-error-boundary";
-import UserOutput from "./UserOutput";
+import DownloadSVGButton from "./DownloadSVGButton";
+import { Alert } from "@mui/material";
+import { configDataPropTypes } from "./MemoryModelsUserInput";
+import MemoryModelsSample from "./MemoryModelsSample";
+import Header from "./Header";
 
 export default function App() {
     const [textData, setTextData] = useState("");
@@ -34,33 +36,44 @@ export default function App() {
     return (
         <>
             <Header />
-            <Box
-                sx={{
-                    display: "flex",
-                    gap: "2rem",
-                }}
-            >
-                <Box sx={{ width: "40%" }}>
-                    <UserInput
-                        textData={textData}
-                        setTextData={setTextData}
-                        configData={configData}
-                        setConfigData={setConfigData}
-                        onTextDataSubmit={onTextDataSubmit}
-                        setFailureBanner={setFailureBanner}
+            {failureBanner && (
+                <Alert severity="error" data-testid="json-parse-alert">
+                    {failureBanner}
+                </Alert>
+            )}
+            <MemoryModelsSample
+                setTextData={setTextData}
+                setConfigData={setConfigData}
+                onTextDataSubmit={onTextDataSubmit}
+            />
+            <MemoryModelsUserInput
+                textData={textData}
+                setTextData={setTextData}
+                configData={configData}
+                setConfigData={setConfigData}
+                onTextDataSubmit={onTextDataSubmit}
+                setFailureBanner={setFailureBanner}
+                jsonResult={jsonResult}
+            />
+            <section>
+                <h2>Output</h2>
+                <DownloadSVGButton svgResult={svgResult} />
+                <ErrorBoundary
+                    fallback={
+                        <p data-testid="svg-display-error-boundary">
+                            This is valid JSON but not valid Memory Models JSON.
+                            Please refer to the repo for more details.
+                        </p>
+                    }
+                    key={jsonResult}
+                >
+                    <SvgDisplay
                         jsonResult={jsonResult}
-                    />
-                </Box>
-                <Box sx={{ width: "60%" }}>
-                    <UserOutput
-                        jsonResult={jsonResult}
                         configData={configData}
-                        setConfigData={setConfigData}
-                        svgResult={svgResult}
                         setSvgResult={setSvgResult}
                     />
-                </Box>
-            </Box>
+                </ErrorBoundary>
+            </section>
         </>
     );
 }

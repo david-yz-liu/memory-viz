@@ -17,3 +17,6 @@ body {
 #root {
     padding: 1rem;
 }
+:where(input, select, textarea):not([type="week"])[aria-invalid="false"] {
+    background-image: none;
+}
