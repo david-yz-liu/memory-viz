@@ -97,10 +97,6 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                 >
                     Load file data
                 </Button>
-                <DownloadJSONButton
-                    jsonResult={props.jsonResult}
-                    sx={{ width: "33.33%" }}
-                />
             </Stack>
         </CardContent>
     );
@@ -211,6 +207,10 @@ export default function MemoryModelsUserInput(
             />
             <Tooltip title="Input JSON to draw diagram">
                 <span>
+                    <DownloadJSONButton
+                        jsonResult={props.jsonResult}
+                        sx={{ width: "33.33%" }}
+                    />
                     <Button
                         type="submit"
                         data-testid="input-submit-button"

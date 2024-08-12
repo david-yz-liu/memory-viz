@@ -61,7 +61,6 @@ export default function App() {
                 </Box>
                 <Box>
                     <h2>Output</h2>
-                    <DownloadSVGButton svgResult={svgResult} />
                     <ErrorBoundary
                         fallback={
                             <p data-testid="svg-display-error-boundary">
@@ -77,6 +76,7 @@ export default function App() {
                             setSvgResult={setSvgResult}
                         />
                     </ErrorBoundary>
+                    <DownloadSVGButton svgResult={svgResult} />
                 </Box>
             </Box>
         </>

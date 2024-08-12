@@ -12,7 +12,7 @@ export default function DownloadJSONButton(props: DownloadJSONButtonPropTypes) {
 
     return (
         <Button
-            variant="contained"
+            variant="text"
             color="primary"
             data-testid="download-json-btn"
             disabled={!props.jsonResult}
@@ -20,7 +20,7 @@ export default function DownloadJSONButton(props: DownloadJSONButtonPropTypes) {
             target="_blank"
             rel="noreferrer"
             href={window.URL.createObjectURL(file)}
-            sx={{ ...props.sx, textTransform: "none" }}
+            sx={{ ...props.sx, textTransform: "none", textAlign: "center" }}
         >
             Download This JSON
         </Button>
