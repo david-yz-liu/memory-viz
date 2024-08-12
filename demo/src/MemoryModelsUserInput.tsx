@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import DownloadJSONButton from "./DownloadJSONButton";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
+import MemoryModelsSample from "./MemoryModelsSample";
 
 interface configDataPropTypes {
     useAutomation: boolean;
@@ -40,7 +41,7 @@ type MemoryModelsTextInputPropTypes = {
 type MemoryModelsUserInputPropTypes = MemoryModelsFileInputPropTypes &
     MemoryModelsTextInputPropTypes &
     MemoryModelsConfigInputPropTypes & {
-        onTextDataSubmit: (event: React.MouseEvent<HTMLFormElement>) => void;
+        onTextDataSubmit: () => void;
     };
 
 function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
@@ -69,7 +70,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
     };
 
     return (
-        <>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Input
                 type="file"
                 onChange={onChange}
@@ -77,7 +78,6 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                     accept: "application/JSON",
                     "data-testid": "file-input",
                 }}
-                sx={{ width: "33.33%" }}
                 disableUnderline={true}
             />
             <Button
@@ -85,11 +85,11 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                 variant="contained"
                 disabled={!uploadedFileString}
                 onClick={onLoadButtonClick}
-                sx={{ width: "33.33%", textTransform: "none" }}
+                sx={{ width: "auto", textTransform: "none" }}
             >
                 Load file data
             </Button>
-        </>
+        </Box>
     );
 }
 
@@ -220,10 +220,17 @@ export default function MemoryModelsUserInput(
                 setFailureBanner={props.setFailureBanner}
                 jsonResult={props.jsonResult}
             />
-            <MemoryModelsConfigInput
-                configData={props.configData}
-                setConfigData={props.setConfigData}
-            />
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <MemoryModelsSample
+                    setTextData={props.setTextData}
+                    setConfigData={props.setConfigData}
+                    onTextDataSubmit={props.onTextDataSubmit}
+                />
+                <MemoryModelsConfigInput
+                    configData={props.configData}
+                    setConfigData={props.setConfigData}
+                />
+            </Box>
             <MemoryModelsTextInput
                 textData={props.textData}
                 setTextData={props.setTextData}
