@@ -44,6 +44,11 @@ export default function App() {
             )}
             <Box sx={{ display: "flex", gap: "2rem" }}>
                 <Box>
+                    <MemoryModelsSample
+                        setTextData={setTextData}
+                        setConfigData={setConfigData}
+                        onTextDataSubmit={onTextDataSubmit}
+                    />
                     <MemoryModelsUserInput
                         textData={textData}
                         setTextData={setTextData}
