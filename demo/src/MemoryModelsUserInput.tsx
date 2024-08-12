@@ -180,8 +180,8 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                         id="config-seed"
                         variant="outlined"
                         value={props.configData.overallDrawConfig.seed}
-                        onChange={handleSeedChange}
                         type="number"
+                        onChange={handleSeedChange}
                         InputProps={{
                             inputProps: {
                                 min: 0,
@@ -189,7 +189,10 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                                 "data-testid": "config-seed",
                             },
                         }}
-                        sx={{ width: "50%" }}
+                        sx={{
+                            width: "50%",
+                            "& .MuiInputBase-input": { height: "10%" },
+                        }}
                     />
                 </MenuItem>
                 <MenuItem>
