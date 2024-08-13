@@ -22,7 +22,7 @@ export default function DownloadJSONButton(props: DownloadJSONButtonPropTypes) {
             href={window.URL.createObjectURL(file)}
             sx={{ ...props.sx, textTransform: "none", textAlign: "center" }}
         >
-            Download This JSON
+            Download JSON
         </Button>
     );
 }

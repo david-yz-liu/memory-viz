@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Link, Typography } from "@mui/material";
+import image from "../../assets/logo_square.png";
 
 export default function Header() {
     return (
@@ -7,6 +8,7 @@ export default function Header() {
             sx={{
                 display: "flex",
                 justifyContent: "space-between",
+                alignItems: "center",
                 mb: "1rem",
             }}
         >
@@ -37,7 +39,14 @@ export default function Header() {
                     for documentation.
                 </Typography>
             </Box>
-            <Box sx={{ width: "30%", border: "2px solid blue" }}></Box>
+            <img
+                src={image}
+                alt="MemoryViz Logo"
+                style={{
+                    marginRight: "1rem",
+                    width: "12%",
+                }}
+            />
         </Box>
     );
 }

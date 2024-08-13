@@ -18,7 +18,7 @@ export default function DownloadSVGButton(props: DownloadSVGButtonPropTypes) {
             download="output.svg"
             sx={{ textTransform: "none" }}
         >
-            Download This SVG
+            Download SVG
         </Button>
     );
 }

@@ -21,7 +21,7 @@ describe("MemoryModelsUserInput", () => {
         textDataMock = "";
     });
 
-    it("renders Accordion for MemoryModelsConfigInput", () => {
+    it("renders Menu for MemoryModelsConfigInput", () => {
         render(
             <MemoryModelsUserInput
                 onTextDataSubmit={onSubmitMock}
@@ -34,7 +34,7 @@ describe("MemoryModelsUserInput", () => {
             />
         );
         expect(
-            screen.getByTestId("rendering-options-accordion").textContent
+            screen.getByTestId("rendering-options-menu").textContent
         ).toEqual("Rendering Options");
     });
 

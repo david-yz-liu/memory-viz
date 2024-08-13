@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Box } from "@mui/material";
 import SvgDisplay from "./SvgDisplay";
 import MemoryModelsUserInput from "./MemoryModelsUserInput";
 import { ErrorBoundary } from "react-error-boundary";
@@ -7,7 +8,6 @@ import { Alert } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
 import MemoryModelsSample from "./MemoryModelsSample";
 import Header from "./Header";
-import { Box } from "@mui/material";
 
 export default function App() {
     const [textData, setTextData] = useState("");
@@ -42,8 +42,9 @@ export default function App() {
                     {failureBanner}
                 </Alert>
             )}
-            <Box sx={{ display: "flex", gap: "2rem" }}>
-                <Box>
+            <Box sx={{ display: "flex", width: "100%", gap: "2rem" }}>
+                <Box sx={{ width: "40%" }}>
+                    <h3 style={{ marginBottom: "1rem" }}>Input</h3>
                     <MemoryModelsSample
                         setTextData={setTextData}
                         setConfigData={setConfigData}
@@ -59,8 +60,8 @@ export default function App() {
                         jsonResult={jsonResult}
                     />
                 </Box>
-                <Box>
-                    <h2>Output</h2>
+                <Box sx={{ width: "60%" }}>
+                    <h3 style={{ marginBottom: "1rem" }}>Output</h3>
                     <ErrorBoundary
                         fallback={
                             <p data-testid="svg-display-error-boundary">

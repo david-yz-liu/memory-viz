@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import mem from "memory-viz";
+import { Box } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
-import { Box, Button } from "@mui/material";
 
 type SvgDisplayPropTypes = {
     jsonResult: object | null;
@@ -31,34 +31,29 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     }, [props.jsonResult]);
 
     return (
-        <>
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-                <Box
-                    overflow="auto"
-                    height={400}
-                    width={700}
-                    sx={[
-                        { border: 1, borderRadius: 1, borderColor: "gray" },
-                        {
-                            "&:hover": {
-                                borderColor: "primary.main",
-                            },
-                        },
-                    ]}
-                >
-                    <canvas
-                        data-testid="memory-models-canvas"
-                        ref={canvasRef}
-                        width={canvasWidth}
-                        height={canvasHeight}
-                        style={{
-                            width: canvasWidth * scale,
-                            height: canvasHeight * scale,
-                        }}
-                    />
-                </Box>
-            </Box>
-        </>
+        <Box
+            overflow="auto"
+            height={500}
+            sx={{
+                border: 1,
+                borderRadius: 1,
+                borderColor: "gray",
+                "&:hover": {
+                    borderColor: "primary.main",
+                },
+            }}
+        >
+            <canvas
+                data-testid="memory-models-canvas"
+                ref={canvasRef}
+                width={canvasWidth}
+                height={canvasHeight}
+                style={{
+                    width: canvasWidth * scale,
+                    height: canvasHeight * scale,
+                }}
+            />
+        </Box>
     );
 }
 

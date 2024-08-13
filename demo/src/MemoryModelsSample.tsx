@@ -43,7 +43,7 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
         <>
             <Button
                 onClick={handleClick}
-                data-testid="sample-inputs-accordion"
+                data-testid="sample-inputs-menu"
                 sx={{
                     textTransform: "none",
                     "& .MuiSvgIcon-root": {
@@ -55,15 +55,7 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
                 Sample Inputs
                 <ExpandMoreRoundedIcon />
             </Button>
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                    "aria-labelledby": "basic-button",
-                }}
-            >
+            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
                 {SAMPLES.map((sample, index) => (
                     <MenuItem
                         key={index}

@@ -37,10 +37,10 @@ describe("MemoryModelsSample", () => {
         );
     });
 
-    it("renders Accordion", () => {
-        expect(
-            screen.getByTestId("sample-inputs-accordion").textContent
-        ).toEqual("Sample Inputs");
+    it("renders Menu", () => {
+        expect(screen.getByTestId("sample-inputs-menu").textContent).toEqual(
+            "Sample Inputs"
+        );
         expect(screen.getByText("Sample Inputs")).toBeDefined();
     });
 

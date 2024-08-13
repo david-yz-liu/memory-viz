@@ -10,8 +10,8 @@ import {
     Menu,
     MenuItem,
 } from "@mui/material";
-import DownloadJSONButton from "./DownloadJSONButton";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
+import DownloadJSONButton from "./DownloadJSONButton";
 
 interface configDataPropTypes {
     useAutomation: boolean;
@@ -152,7 +152,7 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
         <>
             <Button
                 onClick={handleClick}
-                data-testid="rendering-options-accordion"
+                data-testid="rendering-options-menu"
                 sx={{
                     textTransform: "none",
                     "& .MuiSvgIcon-root": {
@@ -164,15 +164,7 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                 Rendering Options
                 <ExpandMoreRoundedIcon />
             </Button>
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                    "aria-labelledby": "basic-button",
-                }}
-            >
+            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
                 <MenuItem>
                     <TextField
                         label="Seed"

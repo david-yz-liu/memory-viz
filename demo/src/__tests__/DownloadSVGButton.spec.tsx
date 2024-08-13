@@ -9,7 +9,7 @@ describe("DownloadSVGButton", () => {
     });
 
     test("renders with correct text", () => {
-        const downloadButton = screen.getByText("Download This SVG");
+        const downloadButton = screen.getByText("Download SVG");
         expect(downloadButton).toBeDefined();
     });
 });
