@@ -7,11 +7,10 @@ import {
     Input,
     TextField,
     Tooltip,
-    Menu,
     MenuItem,
 } from "@mui/material";
-import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import DownloadJSONButton from "./DownloadJSONButton";
+import MemoryModelsMenu from "./MemoryModelsMenu";
 
 interface configDataPropTypes {
     useAutomation: boolean;
@@ -119,14 +118,6 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
 
 //TODO: Retrieve min and max seeds from memory-viz
 function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
     const handleSeedChange = (event) => {
         event.preventDefault();
         props.setConfigData({
@@ -149,57 +140,47 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
     };
 
     return (
-        <>
-            <Button
-                onClick={handleClick}
-                data-testid="rendering-options-menu"
-                sx={{
-                    textTransform: "none",
-                    "& .MuiSvgIcon-root": {
-                        transition: "transform 0.2s ease-in-out",
-                        transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                    },
-                }}
-            >
-                Rendering Options
-                <ExpandMoreRoundedIcon />
-            </Button>
-            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                <MenuItem>
-                    <TextField
-                        label="Seed"
-                        id="config-seed"
-                        variant="outlined"
-                        value={props.configData.overallDrawConfig.seed}
-                        type="number"
-                        onChange={handleSeedChange}
-                        InputProps={{
-                            inputProps: {
-                                min: 0,
-                                max: 2 ** 31,
-                                "data-testid": "config-seed",
-                            },
-                        }}
-                        sx={{
-                            width: "50%",
-                            "& .MuiInputBase-input": { height: "10%" },
-                        }}
-                    />
-                </MenuItem>
-                <MenuItem>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                checked={props.configData.useAutomation}
-                                onChange={handleAutomationChange}
-                            />
-                        }
-                        label="Use automatic layout"
-                        sx={{ width: "50%" }}
-                    />
-                </MenuItem>
-            </Menu>
-        </>
+        <MemoryModelsMenu
+            menuName="Rendering Options"
+            testId="rendering-options-menu"
+            menuItems={
+                <>
+                    <MenuItem>
+                        <TextField
+                            label="Seed"
+                            id="config-seed"
+                            variant="outlined"
+                            value={props.configData.overallDrawConfig.seed}
+                            type="number"
+                            onChange={handleSeedChange}
+                            InputProps={{
+                                inputProps: {
+                                    min: 0,
+                                    max: 2 ** 31,
+                                    "data-testid": "config-seed",
+                                },
+                            }}
+                            sx={{
+                                width: "50%",
+                                "& .MuiInputBase-input": { height: "10%" },
+                            }}
+                        />
+                    </MenuItem>
+                    <MenuItem>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={props.configData.useAutomation}
+                                    onChange={handleAutomationChange}
+                                />
+                            }
+                            label="Use automatic layout"
+                            sx={{ width: "50%" }}
+                        />
+                    </MenuItem>
+                </>
+            }
+        />
     );
 }
 
