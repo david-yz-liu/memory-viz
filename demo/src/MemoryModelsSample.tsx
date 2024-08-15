@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Button, Menu, MenuItem } from "@mui/material";
-import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
+import { Box, MenuItem } from "@mui/material";
+import MemoryModelsMenu from "./MemoryModelsMenu";
 
 import { SAMPLES } from "./sample";
 
@@ -12,14 +12,6 @@ type MemoryModelsSamplePropTypes = {
 
 export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
     const [clickedBtnIndex, setClickedBtnIndex] = useState<Number>(null);
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
 
     useEffect(() => {
         if (clickedBtnIndex !== null) {
@@ -40,31 +32,17 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
     };
 
     return (
-        <>
-            <Button
-                onClick={handleClick}
-                data-testid="sample-inputs-menu"
-                sx={{
-                    textTransform: "none",
-                    "& .MuiSvgIcon-root": {
-                        transition: "transform 0.2s ease-in-out",
-                        transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                    },
-                }}
-            >
-                Sample Inputs
-                <ExpandMoreRoundedIcon />
-            </Button>
-            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-                {SAMPLES.map((sample, index) => (
-                    <MenuItem
-                        key={index}
-                        onClick={() => handleButtonClick(index, sample)}
-                    >
-                        {sample["name"]}
-                    </MenuItem>
-                ))}
-            </Menu>
-        </>
+        <MemoryModelsMenu
+            menuName="Sample Inputs"
+            testId="sample-inputs-menu"
+            menuItems={SAMPLES.map((sample, index) => (
+                <MenuItem
+                    key={index}
+                    onClick={() => handleButtonClick(index, sample)}
+                >
+                    {sample["name"]}
+                </MenuItem>
+            ))}
+        />
     );
 }
