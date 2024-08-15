@@ -84,7 +84,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                 variant="contained"
                 disabled={!uploadedFileString}
                 onClick={onLoadButtonClick}
-                sx={{ width: "auto", textTransform: "none" }}
+                sx={{ textTransform: "none" }}
             >
                 Load file data
             </Button>
@@ -108,11 +108,6 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
             variant="outlined"
             value={props.textData}
             onChange={handleTextFieldChange}
-            style={{
-                width: "100%",
-                height: "80%",
-                fontFamily: "Monospace",
-            }}
         />
     );
 }
@@ -161,10 +156,6 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                                     "data-testid": "config-seed",
                                 },
                             }}
-                            sx={{
-                                width: "50%",
-                                "& .MuiInputBase-input": { height: "10%" },
-                            }}
                         />
                     </MenuItem>
                     <MenuItem>
@@ -176,7 +167,6 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                                 />
                             }
                             label="Use automatic layout"
-                            sx={{ width: "50%" }}
                         />
                     </MenuItem>
                 </>

@@ -37,7 +37,6 @@ export default function Header() {
                 src={image}
                 alt="MemoryViz Logo"
                 style={{
-                    marginRight: "1rem",
                     width: "12%",
                 }}
             />

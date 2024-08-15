@@ -43,7 +43,7 @@ export default function App() {
             )}
             <Stack direction="row" spacing={2}>
                 <Box sx={{ width: "40%" }}>
-                    <h2 style={{ marginBottom: "1rem" }}>Input</h2>
+                    <h2>Input</h2>
                     <MemoryModelsUserInput
                         textData={textData}
                         setTextData={setTextData}
@@ -55,7 +55,7 @@ export default function App() {
                     />
                 </Box>
                 <Box sx={{ width: "60%" }}>
-                    <h2 style={{ marginBottom: "1rem" }}>Output</h2>
+                    <h2>Output</h2>
                     <ErrorBoundary
                         fallback={
                             <p data-testid="svg-display-error-boundary">

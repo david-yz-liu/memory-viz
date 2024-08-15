@@ -20,7 +20,7 @@ export default function DownloadJSONButton(props: DownloadJSONButtonPropTypes) {
             target="_blank"
             rel="noreferrer"
             href={window.URL.createObjectURL(file)}
-            sx={{ ...props.sx, textTransform: "none", textAlign: "center" }}
+            sx={{ ...props.sx, textTransform: "none" }}
         >
             Download JSON
         </Button>

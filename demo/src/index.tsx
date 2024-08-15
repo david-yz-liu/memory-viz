@@ -13,9 +13,6 @@ const theme = createTheme({
             light: "#72ac56",
         },
     },
-    typography: {
-        fontFamily: "Open Sans, Arial, sans-serif",
-    },
 });
 
 const root = createRoot(document.getElementById("root"));
