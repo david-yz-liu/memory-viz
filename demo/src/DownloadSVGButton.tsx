@@ -9,6 +9,7 @@ export default function DownloadSVGButton(props: DownloadSVGButtonPropTypes) {
 
     return (
         <Button
+            color="primary"
             variant="text"
             data-testid="download-svg-btn"
             disabled={!props.svgResult}

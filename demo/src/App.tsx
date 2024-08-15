@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import SvgDisplay from "./SvgDisplay";
 import MemoryModelsUserInput from "./MemoryModelsUserInput";
 import { ErrorBoundary } from "react-error-boundary";
@@ -42,9 +42,9 @@ export default function App() {
                     {failureBanner}
                 </Alert>
             )}
-            <Box sx={{ display: "flex", width: "100%", gap: "2rem" }}>
+            <Stack direction="row" spacing={2}>
                 <Box sx={{ width: "40%" }}>
-                    <h3 style={{ marginBottom: "1rem" }}>Input</h3>
+                    <h2 style={{ marginBottom: "1rem" }}>Input</h2>
                     <MemoryModelsSample
                         setTextData={setTextData}
                         setConfigData={setConfigData}
@@ -61,7 +61,7 @@ export default function App() {
                     />
                 </Box>
                 <Box sx={{ width: "60%" }}>
-                    <h3 style={{ marginBottom: "1rem" }}>Output</h3>
+                    <h2 style={{ marginBottom: "1rem" }}>Output</h2>
                     <ErrorBoundary
                         fallback={
                             <p data-testid="svg-display-error-boundary">
@@ -79,7 +79,7 @@ export default function App() {
                     </ErrorBoundary>
                     <DownloadSVGButton svgResult={svgResult} />
                 </Box>
-            </Box>
+            </Stack>
         </>
     );
 }

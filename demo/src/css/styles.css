@@ -6,17 +6,6 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-input:not([type="checkbox"], [type="radio"]),
-select,
-textarea {
-    margin-bottom: 0;
-}
-body {
-    font-family: "Open Sans", Arial, sans-serif;
-}
 #root {
     padding: 1rem;
-}
-:where(input, select, textarea):not([type="week"])[aria-invalid="false"] {
-    background-image: none;
 }

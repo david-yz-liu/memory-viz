@@ -9,7 +9,7 @@ describe("App", () => {
     });
 
     it("renders Output heading", () => {
-        expect(screen.getByText("Output").nodeName).toEqual("H3");
+        expect(screen.getByText("Output").nodeName).toEqual("H2");
     });
 
     it("renders ErrorBoundary fallback element when draw function throws error", () => {

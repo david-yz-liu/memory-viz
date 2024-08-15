@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import mem from "memory-viz";
-import { Box } from "@mui/material";
+import { Paper } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
 
 type SvgDisplayPropTypes = {
@@ -13,7 +13,6 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
     const canvasWidth = 1300;
     const canvasHeight = 1000;
-    const scale = 0.8;
 
     useEffect(() => {
         if (props.jsonResult !== null) {
@@ -31,17 +30,12 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     }, [props.jsonResult]);
 
     return (
-        <Box
-            overflow="auto"
-            height={500}
+        <Paper
             sx={{
-                border: 1,
-                borderRadius: 1,
-                borderColor: "gray",
-                "&:hover": {
-                    borderColor: "primary.main",
-                },
+                height: 500,
+                overflow: "auto",
             }}
+            variant="outlined"
         >
             <canvas
                 data-testid="memory-models-canvas"
@@ -49,11 +43,11 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                 width={canvasWidth}
                 height={canvasHeight}
                 style={{
-                    width: canvasWidth * scale,
-                    height: canvasHeight * scale,
+                    width: canvasWidth,
+                    height: canvasHeight,
                 }}
             />
-        </Box>
+        </Paper>
     );
 }
 

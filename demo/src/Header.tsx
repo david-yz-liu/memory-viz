@@ -13,13 +13,8 @@ export default function Header() {
             }}
         >
             <Box>
-                <Typography
-                    variant="h4"
-                    sx={{ fontWeight: "650", color: "black", mb: "0.25rem" }}
-                >
-                    MemoryViz Demo
-                </Typography>
-                <Typography variant="body2">
+                <Typography variant="h1">MemoryViz Demo</Typography>
+                <Typography variant="subtitle1">
                     Demos of the{" "}
                     <Link
                         href="https://github.com/david-yz-liu/memory-viz"
