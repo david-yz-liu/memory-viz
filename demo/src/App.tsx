@@ -6,7 +6,6 @@ import { ErrorBoundary } from "react-error-boundary";
 import DownloadSVGButton from "./DownloadSVGButton";
 import { Alert } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
-import MemoryModelsSample from "./MemoryModelsSample";
 import Header from "./Header";
 
 export default function App() {
@@ -45,11 +44,6 @@ export default function App() {
             <Stack direction="row" spacing={2}>
                 <Box sx={{ width: "40%" }}>
                     <h2 style={{ marginBottom: "1rem" }}>Input</h2>
-                    <MemoryModelsSample
-                        setTextData={setTextData}
-                        setConfigData={setConfigData}
-                        onTextDataSubmit={onTextDataSubmit}
-                    />
                     <MemoryModelsUserInput
                         textData={textData}
                         setTextData={setTextData}

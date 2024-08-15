@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import DownloadJSONButton from "./DownloadJSONButton";
 import MemoryModelsMenu from "./MemoryModelsMenu";
+import MemoryModelsSample from "./MemoryModelsSample";
 
 interface configDataPropTypes {
     useAutomation: boolean;
@@ -39,7 +40,7 @@ type MemoryModelsTextInputPropTypes = {
 type MemoryModelsUserInputPropTypes = MemoryModelsFileInputPropTypes &
     MemoryModelsTextInputPropTypes &
     MemoryModelsConfigInputPropTypes & {
-        onTextDataSubmit: (event: React.MouseEvent<HTMLFormElement>) => void;
+        onTextDataSubmit: (event?: React.MouseEvent<HTMLFormElement>) => void;
     };
 
 function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
@@ -195,10 +196,17 @@ export default function MemoryModelsUserInput(
                 setFailureBanner={props.setFailureBanner}
                 jsonResult={props.jsonResult}
             />
-            <MemoryModelsConfigInput
-                configData={props.configData}
-                setConfigData={props.setConfigData}
-            />
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <MemoryModelsSample
+                    setTextData={props.setTextData}
+                    setConfigData={props.setConfigData}
+                    onTextDataSubmit={props.onTextDataSubmit}
+                />
+                <MemoryModelsConfigInput
+                    configData={props.configData}
+                    setConfigData={props.setConfigData}
+                />
+            </Box>
             <MemoryModelsTextInput
                 textData={props.textData}
                 setTextData={props.setTextData}
