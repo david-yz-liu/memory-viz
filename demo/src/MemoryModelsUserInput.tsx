@@ -8,6 +8,7 @@ import {
     TextField,
     Tooltip,
     MenuItem,
+    Stack,
 } from "@mui/material";
 import DownloadJSONButton from "./DownloadJSONButton";
 import MemoryModelsMenu from "./MemoryModelsMenu";
@@ -69,7 +70,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
     };
 
     return (
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Stack direction={"row"} spacing={2}>
             <Input
                 type="file"
                 onChange={onChange}
@@ -88,7 +89,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
             >
                 Load file data
             </Button>
-        </Box>
+        </Stack>
     );
 }
 
@@ -107,6 +108,7 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
             rows={10}
             variant="outlined"
             value={props.textData}
+            style={{ fontFamily: "Monospace" }}
             onChange={handleTextFieldChange}
         />
     );
@@ -180,47 +182,50 @@ export default function MemoryModelsUserInput(
 ) {
     return (
         <form data-testid="input-form" onSubmit={props.onTextDataSubmit}>
-            <MemoryModelsFileInput
-                textData={props.textData}
-                setTextData={props.setTextData}
-                setFailureBanner={props.setFailureBanner}
-                jsonResult={props.jsonResult}
-            />
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <MemoryModelsSample
+            <Stack spacing={2}>
+                <MemoryModelsFileInput
+                    textData={props.textData}
                     setTextData={props.setTextData}
-                    setConfigData={props.setConfigData}
-                    onTextDataSubmit={props.onTextDataSubmit}
-                />
-                <MemoryModelsConfigInput
-                    configData={props.configData}
-                    setConfigData={props.setConfigData}
-                />
-            </Box>
-            <MemoryModelsTextInput
-                textData={props.textData}
-                setTextData={props.setTextData}
-            />
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <DownloadJSONButton
+                    setFailureBanner={props.setFailureBanner}
                     jsonResult={props.jsonResult}
-                    sx={{ width: "33.33%" }}
                 />
-                <Tooltip title="Input JSON to draw diagram">
-                    <span>
-                        <Button
-                            type="submit"
-                            data-testid="input-submit-button"
-                            variant="contained"
-                            color="primary"
-                            disabled={!props.textData}
-                            style={{ textTransform: "none" }}
-                        >
-                            Draw Diagram
-                        </Button>
-                    </span>
-                </Tooltip>
-            </Box>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <MemoryModelsSample
+                        setTextData={props.setTextData}
+                        setConfigData={props.setConfigData}
+                        onTextDataSubmit={props.onTextDataSubmit}
+                    />
+                    <MemoryModelsConfigInput
+                        configData={props.configData}
+                        setConfigData={props.setConfigData}
+                    />
+                </Box>
+                <MemoryModelsTextInput
+                    textData={props.textData}
+                    setTextData={props.setTextData}
+                />
+                <Stack
+                    direction="row"
+                    spacing={2}
+                    sx={{ justifyContent: "space-between" }}
+                >
+                    <DownloadJSONButton jsonResult={props.jsonResult} />
+                    <Tooltip title="Input JSON to draw diagram">
+                        <span>
+                            <Button
+                                type="submit"
+                                data-testid="input-submit-button"
+                                variant="contained"
+                                color="primary"
+                                disabled={!props.textData}
+                                style={{ textTransform: "none" }}
+                            >
+                                Draw Diagram
+                            </Button>
+                        </span>
+                    </Tooltip>
+                </Stack>
+            </Stack>
         </form>
     );
 }
