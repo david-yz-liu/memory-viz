@@ -34,7 +34,7 @@ export default function App() {
     };
 
     return (
-        <>
+        <main className="container">
             <Header />
             {failureBanner && (
                 <Alert severity="error" data-testid="json-parse-alert">
@@ -74,6 +74,6 @@ export default function App() {
                     <DownloadSVGButton svgResult={svgResult} />
                 </Box>
             </Stack>
-        </>
+        </main>
     );
 }
