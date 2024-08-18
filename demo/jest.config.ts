@@ -94,7 +94,7 @@ const config: Config = {
         roughjs: require.resolve("roughjs"),
         "memory-viz": require.resolve("../memory-viz/src"),
         // Mocks a file (see fileMock.js) each time any of the below file types are imported.
-        "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+        "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|css|less|sass|scss)$":
             "./mocks/fileMock.js",
     },
 

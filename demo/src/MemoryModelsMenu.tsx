@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from "react";
 import { Box, Button, Menu } from "@mui/material";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
+import "./css/styles.css";
 
 type MemoryModelsMenuPropTypes = {
     menuName: string;
@@ -23,13 +24,7 @@ export default function MemoryModelsMenu(props: MemoryModelsMenuPropTypes) {
             <Button
                 onClick={handleClick}
                 data-testid={props.testId}
-                sx={{
-                    textTransform: "none",
-                    "& .MuiSvgIcon-root": {
-                        transition: "transform 0.2s ease-in-out",
-                        transform: open ? "rotate(180deg)" : "rotate(0deg)",
-                    },
-                }}
+                className={`menu-button ${open ? "open" : ""}`}
             >
                 {props.menuName}
                 <ExpandMoreRoundedIcon />

@@ -42,10 +42,6 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                 ref={canvasRef}
                 width={canvasWidth}
                 height={canvasHeight}
-                style={{
-                    width: canvasWidth,
-                    height: canvasHeight,
-                }}
             />
         </Paper>
     );

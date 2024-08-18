@@ -108,7 +108,6 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
             rows={10}
             variant="outlined"
             value={props.textData}
-            style={{ fontFamily: "Monospace" }}
             onChange={handleTextFieldChange}
         />
     );

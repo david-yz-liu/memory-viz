@@ -6,3 +6,17 @@ input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
+
+.menu-button {
+    text-transform: none !important;
+}
+
+.menu-button .MuiSvgIcon-root {
+    transition: transform 0.2s ease-in-out;
+    transform: rotate(0deg);
+}
+
+.menu-button.open .MuiSvgIcon-root {
+    transition: transform 0.2s ease-in-out;
+    transform: rotate(180deg);
+}
