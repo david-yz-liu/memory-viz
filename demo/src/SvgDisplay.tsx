@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import mem from "memory-viz";
+import { Paper } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
 
 type SvgDisplayPropTypes = {
@@ -29,11 +30,21 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     }, [props.jsonResult]);
 
     return (
-        <canvas
-            data-testid="memory-models-canvas"
-            ref={canvasRef}
-            width={canvasWidth}
-            height={canvasHeight}
-        />
+        <Paper
+            sx={{
+                height: 500,
+                overflow: "auto",
+            }}
+            variant="outlined"
+        >
+            <canvas
+                data-testid="memory-models-canvas"
+                ref={canvasRef}
+                width={canvasWidth}
+                height={canvasHeight}
+            />
+        </Paper>
     );
 }
+
+export type { SvgDisplayPropTypes };

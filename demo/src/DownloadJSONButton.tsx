@@ -3,7 +3,6 @@ import { Button } from "@mui/material";
 
 type DownloadJSONButtonPropTypes = {
     jsonResult: string;
-    sx: object;
 };
 export default function DownloadJSONButton(props: DownloadJSONButtonPropTypes) {
     const file = new Blob([JSON.stringify(props.jsonResult, null, 2)], {
@@ -12,7 +11,7 @@ export default function DownloadJSONButton(props: DownloadJSONButtonPropTypes) {
 
     return (
         <Button
-            variant="contained"
+            variant="text"
             color="primary"
             data-testid="download-json-btn"
             disabled={!props.jsonResult}
@@ -20,9 +19,9 @@ export default function DownloadJSONButton(props: DownloadJSONButtonPropTypes) {
             target="_blank"
             rel="noreferrer"
             href={window.URL.createObjectURL(file)}
-            sx={{ ...props.sx, textTransform: "none" }}
+            sx={{ textTransform: "none" }}
         >
-            Download This JSON
+            Download JSON
         </Button>
     );
 }

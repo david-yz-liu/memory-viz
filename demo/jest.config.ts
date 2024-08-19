@@ -93,6 +93,9 @@ const config: Config = {
         // Force module roughjs to resolve with the CJS entry point, because Jest does not support package.json.exports. Elaborated in PR#15.
         roughjs: require.resolve("roughjs"),
         "memory-viz": require.resolve("../memory-viz/src"),
+        // Mocks a file (see fileMock.js) each time any of the below file types are imported.
+        "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|css|less|sass|scss)$":
+            "./mocks/fileMock.js",
     },
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

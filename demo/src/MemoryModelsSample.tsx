@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
-    Button,
-    Card,
-    CardContent,
-    Grid,
-} from "@mui/material";
-import { ExpandMore } from "@mui/icons-material";
+import { Box, MenuItem } from "@mui/material";
+import MemoryModelsMenu from "./MemoryModelsMenu";
 
 import { SAMPLES } from "./sample";
 
@@ -40,39 +32,17 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
     };
 
     return (
-        <Accordion>
-            <AccordionSummary
-                expandIcon={<ExpandMore />}
-                data-testid="sample-inputs-accordion"
-            >
-                Sample Inputs
-            </AccordionSummary>
-            <AccordionDetails>
-                <Card color="neutral">
-                    <CardContent>
-                        <Grid container spacing={2}>
-                            {SAMPLES.map((sample, index) => (
-                                <Grid item xs={12} sm={6} md={4} key={index}>
-                                    <Button
-                                        variant="contained"
-                                        onClick={() =>
-                                            handleButtonClick(index, sample)
-                                        }
-                                        color={
-                                            index === clickedBtnIndex
-                                                ? "success"
-                                                : "primary"
-                                        }
-                                        sx={{ textTransform: "capitalize" }}
-                                    >
-                                        {sample["name"]}
-                                    </Button>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </CardContent>
-                </Card>
-            </AccordionDetails>
-        </Accordion>
+        <MemoryModelsMenu
+            menuName="Sample Inputs"
+            testId="sample-inputs-menu"
+            menuItems={SAMPLES.map((sample, index) => (
+                <MenuItem
+                    key={index}
+                    onClick={() => handleButtonClick(index, sample)}
+                >
+                    {sample["name"]}
+                </MenuItem>
+            ))}
+        />
     );
 }

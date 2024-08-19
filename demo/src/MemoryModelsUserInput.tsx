@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import {
-    Accordion,
-    AccordionDetails,
-    AccordionSummary,
+    Box,
     Button,
-    Card,
-    CardContent,
     Checkbox,
     FormControlLabel,
-    Grid,
     Input,
-    Stack,
     TextField,
     Tooltip,
+    MenuItem,
+    Stack,
 } from "@mui/material";
 import DownloadJSONButton from "./DownloadJSONButton";
-import { ExpandMore } from "@mui/icons-material";
+import MemoryModelsMenu from "./MemoryModelsMenu";
+import MemoryModelsSample from "./MemoryModelsSample";
 
 interface configDataPropTypes {
     useAutomation: boolean;
@@ -44,7 +41,7 @@ type MemoryModelsTextInputPropTypes = {
 type MemoryModelsUserInputPropTypes = MemoryModelsFileInputPropTypes &
     MemoryModelsTextInputPropTypes &
     MemoryModelsConfigInputPropTypes & {
-        onTextDataSubmit: (event: React.MouseEvent<HTMLFormElement>) => void;
+        onTextDataSubmit: (event?: React.MouseEvent<HTMLFormElement>) => void;
     };
 
 function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
@@ -73,36 +70,26 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
     };
 
     return (
-        <CardContent>
-            <Stack
-                direction={{ xs: "column", sm: "row" }}
-                spacing={{ xs: 1, sm: 2, md: 4 }}
+        <Stack direction={"row"} spacing={2}>
+            <Input
+                type="file"
+                onChange={onChange}
+                inputProps={{
+                    accept: "application/JSON",
+                    "data-testid": "file-input",
+                }}
+                disableUnderline={true}
+            />
+            <Button
+                data-testid="file-input-reapply-button"
+                variant="contained"
+                disabled={!uploadedFileString}
+                onClick={onLoadButtonClick}
+                sx={{ textTransform: "none" }}
             >
-                <Input
-                    type="file"
-                    onChange={onChange}
-                    inputProps={{
-                        accept: "application/JSON",
-                        "data-testid": "file-input",
-                    }}
-                    sx={{ width: "33.33%" }}
-                    disableUnderline={true}
-                />
-                <Button
-                    data-testid="file-input-reapply-button"
-                    variant="contained"
-                    disabled={!uploadedFileString}
-                    onClick={onLoadButtonClick}
-                    sx={{ width: "33.33%", textTransform: "none" }}
-                >
-                    Load file data
-                </Button>
-                <DownloadJSONButton
-                    jsonResult={props.jsonResult}
-                    sx={{ width: "33.33%" }}
-                />
-            </Stack>
-        </CardContent>
+                Load file data
+            </Button>
+        </Stack>
     );
 }
 
@@ -112,24 +99,17 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
     };
 
     return (
-        <CardContent>
-            <TextField
-                id="multiline-memory-models-textfield"
-                data-testid="textfield-input"
-                label="Enter memory model JSON here"
-                multiline
-                fullWidth
-                rows={10}
-                variant="outlined"
-                value={props.textData}
-                onChange={handleTextFieldChange}
-                style={{
-                    width: "100%",
-                    height: "80%",
-                    fontFamily: "Monospace",
-                }}
-            />
-        </CardContent>
+        <TextField
+            id="multiline-memory-models-textfield"
+            data-testid="textfield-input"
+            label="Enter memory model JSON here"
+            multiline
+            fullWidth
+            rows={10}
+            variant="outlined"
+            value={props.textData}
+            onChange={handleTextFieldChange}
+        />
     );
 }
 
@@ -157,36 +137,42 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
     };
 
     return (
-        <CardContent>
-            <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
-                <TextField
-                    label="Seed"
-                    id="config-seed"
-                    variant="outlined"
-                    value={props.configData.overallDrawConfig.seed}
-                    onChange={handleSeedChange}
-                    type="number"
-                    InputProps={{
-                        inputProps: {
-                            min: 0,
-                            max: 2 ** 31,
-                            "data-testid": "config-seed",
-                        },
-                    }}
-                    sx={{ width: "50%" }}
-                />
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={props.configData.useAutomation}
-                            onChange={handleAutomationChange}
+        <MemoryModelsMenu
+            menuName="Rendering Options"
+            testId="rendering-options-menu"
+            menuItems={
+                <>
+                    <MenuItem>
+                        <TextField
+                            label="Seed"
+                            id="config-seed"
+                            variant="outlined"
+                            value={props.configData.overallDrawConfig.seed}
+                            type="number"
+                            onChange={handleSeedChange}
+                            InputProps={{
+                                inputProps: {
+                                    min: 0,
+                                    max: 2 ** 31,
+                                    "data-testid": "config-seed",
+                                },
+                            }}
                         />
-                    }
-                    label="Use automatic layout"
-                    sx={{ width: "50%" }}
-                />
-            </Stack>
-        </CardContent>
+                    </MenuItem>
+                    <MenuItem>
+                        <FormControlLabel
+                            control={
+                                <Checkbox
+                                    checked={props.configData.useAutomation}
+                                    onChange={handleAutomationChange}
+                                />
+                            }
+                            label="Use automatic layout"
+                        />
+                    </MenuItem>
+                </>
+            }
+        />
     );
 }
 
@@ -195,36 +181,34 @@ export default function MemoryModelsUserInput(
 ) {
     return (
         <form data-testid="input-form" onSubmit={props.onTextDataSubmit}>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <Card color="neutral">
-                        <MemoryModelsFileInput
-                            textData={props.textData}
-                            setTextData={props.setTextData}
-                            setFailureBanner={props.setFailureBanner}
-                            jsonResult={props.jsonResult}
-                        />
-                        <MemoryModelsTextInput
-                            textData={props.textData}
-                            setTextData={props.setTextData}
-                        />
-                        <Accordion>
-                            <AccordionSummary
-                                expandIcon={<ExpandMore />}
-                                data-testid="rendering-options-accordion"
-                            >
-                                Rendering Options
-                            </AccordionSummary>
-                            <AccordionDetails>
-                                <Card color="neutral" variant="outlined">
-                                    <MemoryModelsConfigInput
-                                        configData={props.configData}
-                                        setConfigData={props.setConfigData}
-                                    />
-                                </Card>
-                            </AccordionDetails>
-                        </Accordion>
-                    </Card>
+            <Stack spacing={2}>
+                <MemoryModelsFileInput
+                    textData={props.textData}
+                    setTextData={props.setTextData}
+                    setFailureBanner={props.setFailureBanner}
+                    jsonResult={props.jsonResult}
+                />
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <MemoryModelsSample
+                        setTextData={props.setTextData}
+                        setConfigData={props.setConfigData}
+                        onTextDataSubmit={props.onTextDataSubmit}
+                    />
+                    <MemoryModelsConfigInput
+                        configData={props.configData}
+                        setConfigData={props.setConfigData}
+                    />
+                </Box>
+                <MemoryModelsTextInput
+                    textData={props.textData}
+                    setTextData={props.setTextData}
+                />
+                <Stack
+                    direction="row"
+                    spacing={2}
+                    sx={{ justifyContent: "space-between" }}
+                >
+                    <DownloadJSONButton jsonResult={props.jsonResult} />
                     <Tooltip title="Input JSON to draw diagram">
                         <span>
                             <Button
@@ -239,8 +223,8 @@ export default function MemoryModelsUserInput(
                             </Button>
                         </span>
                     </Tooltip>
-                </Grid>
-            </Grid>
+                </Stack>
+            </Stack>
         </form>
     );
 }

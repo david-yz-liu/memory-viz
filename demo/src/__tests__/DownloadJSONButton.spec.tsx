@@ -10,7 +10,7 @@ describe("DownloadJSONButton", () => {
     });
 
     test("renders with correct text", () => {
-        const downloadButton = screen.getByText("Download This JSON");
+        const downloadButton = screen.getByText("Download JSON");
         expect(downloadButton).toBeDefined();
     });
 });

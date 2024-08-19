@@ -9,8 +9,8 @@ export default function DownloadSVGButton(props: DownloadSVGButtonPropTypes) {
 
     return (
         <Button
-            variant="contained"
             color="primary"
+            variant="text"
             data-testid="download-svg-btn"
             disabled={!props.svgResult}
             href={URL.createObjectURL(file)}
@@ -19,7 +19,7 @@ export default function DownloadSVGButton(props: DownloadSVGButtonPropTypes) {
             download="output.svg"
             sx={{ textTransform: "none" }}
         >
-            Download This SVG
+            Download SVG
         </Button>
     );
 }
