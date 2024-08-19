@@ -5,7 +5,7 @@ import image from "../../assets/logo_square.png";
 export default function Header() {
     return (
         <header className="container">
-            <Stack direction={"row"}>
+            <Stack direction={"row"} justifyContent={"space-between"}>
                 <Box>
                     <h1 style={{ marginBottom: 0 }}>MemoryViz Demo</h1>
                     <Typography variant="subtitle1">
