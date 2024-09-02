@@ -21,7 +21,9 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🔧 Internal changes
 
-## [0.3.0] - 2024-08-02
+-   Update GitHub Actions workflow to execute build on every pull request (and deployment only on changes to `master`)
+
+## [0.3.1] - 2024-08-02
 
 ### 🐛 Bug fixes
 
