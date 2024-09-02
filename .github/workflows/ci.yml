@@ -31,10 +31,7 @@ jobs:
 
     build:
         runs-on: ubuntu-latest
-        environment:
-            name: publish-docs
-            url: https://www.cs.toronto.edu/~david/memory-viz
-        if: github.ref == 'refs/heads/master'
+        if: github.event.pull_request.draft == false
         steps:
             - uses: actions/checkout@v3
             - name: Set up node and cache packages
@@ -51,12 +48,30 @@ jobs:
                   npm run build --workspace=docs
                   mkdir docs/build/demo
                   cp -r demo/dist/* docs/build/demo
+            - name: Archive documentation website artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: docs
+                  path: docs/build
+    publish:
+        runs-on: ubuntu-latest
+        needs: build
+        environment:
+            name: publish-docs
+            url: https://www.cs.toronto.edu/~david/memory-viz
+        if: github.ref == 'refs/heads/master'
+        steps:
+            - name: Download documentation website artifact
+              uses: actions/download-artifct@v4
+              with:
+                  name: docs
+                  path: docs
             - name: Deploy to Server
               uses: easingthemes/ssh-deploy@main
               with:
                   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
                   ARGS: "-rlgoDzvc -i --delete"
-                  SOURCE: "docs/build/"
+                  SOURCE: "docs"
                   REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
                   REMOTE_USER: ${{ secrets.REMOTE_USER }}
                   TARGET: ${{ secrets.REMOTE_TARGET }}
