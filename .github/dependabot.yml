@@ -13,3 +13,6 @@ updates:
           docusaurus:
               patterns:
                   - "@docusaurus/*"
+          mui:
+              patterns:
+                  - "@mui/*"
