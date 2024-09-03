@@ -22,6 +22,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 🔧 Internal changes
 
 -   Update GitHub Actions workflow to execute build on every pull request (and deployment only on changes to `master`)
+-   Create dependabot group for `@docusaurus` dependencies
 
 ## [0.3.1] - 2024-08-02
 
