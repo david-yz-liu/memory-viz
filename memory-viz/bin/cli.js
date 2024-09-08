@@ -15,7 +15,20 @@ function parseFilePath(input) {
 }
 
 function parseOutputPath(input) {
-    return pathExists(input, `Output path`);
+    let outputDir, filename;
+    if (isPathDirectory(input)) {
+        outputDir = input;
+        filename = "memory-viz.svg";
+    } else {
+        const parsedPath = path.parse(input);
+        outputDir = parsedPath.dir;
+        filename = `${parsedPath.name}.svg`;
+    }
+    return { outputDir, filename };
+}
+
+function isPathDirectory(rawOutputPath) {
+    return rawOutputPath.slice(-1) == "/";
 }
 
 // helper function for parsing paths
@@ -100,8 +113,13 @@ function runMemoryViz(jsonContent) {
 
     try {
         if (options.output) {
-            const outputName = path.parse(options.output).name + ".svg";
-            const outputPath = path.join(options.output, outputName);
+            const { outputDir, filename } = options.output;
+
+            if (!fs.existsSync(outputDir)) {
+                fs.mkdirSync(outputDir, { recursive: true });
+            }
+
+            const outputPath = path.join(outputDir, filename);
             m.save(outputPath);
         } else {
             m.save();
