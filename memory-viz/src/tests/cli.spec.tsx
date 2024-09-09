@@ -2,6 +2,7 @@ const { exec, spawn } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 const tmp = require("tmp");
+const os = require("os");
 
 tmp.setGracefulCleanup();
 
@@ -129,104 +130,6 @@ describe("memory-viz cli", () => {
             done();
         });
     });
-
-    // TODO: figure out if this is the correct place to place tests
-    // TODO: use describe.each to simplify the tests
-    // TODO: clean up test folder
-    it("produces consistent svg with default output name when the output path is a folder that does not exist", (done) => {
-        const command = "memory-viz";
-        const outputPathDir = "test_results/";
-        const fullOutputPath = "test_results/memory-viz.svg";
-        const args = [
-            `--output=${outputPathDir}`,
-            "--roughjs-config seed=1234",
-        ];
-
-        const child = spawn(command, args, { shell: true });
-
-        child.stdin.write(input);
-        child.stdin.end();
-
-        child.on("close", (err) => {
-            if (err) throw err;
-
-            const fileContent = fs.readFileSync(fullOutputPath, "utf8");
-            expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(fullOutputPath);
-            done();
-        });
-    });
-
-    // TODO: how to create a temporary folder?
-    it("produces consistent svg with default output name when the output path is a folder that exists", (done) => {
-        const command = "memory-viz";
-        const outputPathDir = "test_results/";
-        const fullOutputPath = "test_results/memory-viz.svg";
-        const args = [
-            `--output=${outputPathDir}`,
-            "--roughjs-config seed=1234",
-        ];
-
-        const child = spawn(command, args, { shell: true });
-
-        child.stdin.write(input);
-        child.stdin.end();
-
-        child.on("close", (err) => {
-            if (err) throw err;
-
-            const fileContent = fs.readFileSync(fullOutputPath, "utf8");
-            expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(fullOutputPath);
-            done();
-        });
-    });
-
-    it("produces consistent svg when the outpuat path is a file, and the output folder does not exist", (done) => {
-        const command = "memory-viz";
-        const fullOutputPath = "test_results/output.svg";
-        const args = [
-            `--output=${fullOutputPath}`,
-            "--roughjs-config seed=1234",
-        ];
-
-        const child = spawn(command, args, { shell: true });
-
-        child.stdin.write(input);
-        child.stdin.end();
-
-        child.on("close", (err) => {
-            if (err) throw err;
-
-            const fileContent = fs.readFileSync(fullOutputPath, "utf8");
-            expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(fullOutputPath);
-            done();
-        });
-    });
-
-    it("produces consistent svg when the outpuat path is a file, and the output folder exists", (done) => {
-        const command = "memory-viz";
-        const fullOutputPath = "test_results/output.svg";
-        const args = [
-            "--output=test_results/output.svg",
-            "--roughjs-config seed=1234",
-        ];
-
-        const child = spawn(command, args, { shell: true });
-
-        child.stdin.write(input);
-        child.stdin.end();
-
-        child.on("close", (err) => {
-            if (err) throw err;
-
-            const fileContent = fs.readFileSync(fullOutputPath, "utf8");
-            expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(fullOutputPath);
-            done();
-        });
-    });
 });
 
 describe.each([
@@ -292,3 +195,57 @@ describe.each([
         });
     }
 );
+
+describe("memory-viz CLI", () => {
+    const command = "memory-viz";
+    const roughjsConfig = "--roughjs-config seed=1234";
+
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "test_results_"));
+
+    afterAll(() => {
+        fs.rm(tempDir, { recursive: true });
+    });
+
+    describe.each([
+        {
+            description: "folder that does not exist",
+            outputPathDir: path.join(tempDir, "nonexistent/"),
+            fullOutputPath: path.join(tempDir, "nonexistent/memory-viz.svg"),
+        },
+        {
+            description: "folder that exists",
+            outputPathDir: `${tempDir}/`,
+            fullOutputPath: path.join(tempDir, "memory-viz.svg"),
+        },
+        {
+            description: "file, and the output folder does not exist",
+            outputPathDir: path.join(tempDir, "nonexistent/output.svg"),
+            fullOutputPath: path.join(tempDir, "nonexistent/output.svg"),
+        },
+        {
+            description: "file, and the output folder exists",
+            outputPathDir: path.join(tempDir, "output.svg"),
+            fullOutputPath: path.join(tempDir, "output.svg"),
+        },
+    ])("output path:", ({ description, outputPathDir, fullOutputPath }) => {
+        it(description, (done) => {
+            const args = [
+                `--output=${outputPathDir}`,
+                "--roughjs-config seed=1234",
+            ];
+            const child = spawn("memory-viz", args, { shell: true });
+
+            child.stdin.write(input);
+            child.stdin.end();
+
+            child.on("close", (err) => {
+                if (err) throw err;
+
+                const fileContent = fs.readFileSync(fullOutputPath, "utf8");
+                expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(fullOutputPath);
+                done();
+            });
+        });
+    });
+});
