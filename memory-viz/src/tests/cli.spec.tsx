@@ -197,13 +197,10 @@ describe.each([
 );
 
 describe("memory-viz CLI", () => {
-    const command = "memory-viz";
-    const roughjsConfig = "--roughjs-config seed=1234";
-
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "test_results_"));
 
     afterAll(() => {
-        fs.rm(tempDir, { recursive: true });
+        fs.rmSync(tempDir, { recursive: true });
     });
 
     describe.each([
