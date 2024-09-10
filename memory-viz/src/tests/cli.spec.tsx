@@ -177,7 +177,6 @@ describe.each([
     }
 );
 
-// TODO: move to only using tmp
 describe("memory-viz CLI output path", () => {
     const tempDir = tmp.dirSync().name;
 
@@ -225,6 +224,7 @@ describe("memory-viz CLI output path", () => {
             child.on("close", () => {
                 const fileContent = fs.readFileSync(outputPath, "utf8");
                 expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(outputPath);
                 done();
             });
         },
@@ -234,7 +234,7 @@ describe("memory-viz CLI output path", () => {
     it(
         "should overwrite existing svg when the output path is a file that exists",
         (done) => {
-            const outputPath = tmp.fileSync({ postfix: ".json" });
+            const outputPath = tmp.fileSync({ postfix: ".svg" });
             const child = runProgram(outputPath.name);
             child.on("close", () => {
                 const fileContent = fs.readFileSync(outputPath.name, "utf8");
@@ -253,6 +253,7 @@ describe("memory-viz CLI output path", () => {
             child.on("close", () => {
                 const fileContent = fs.readFileSync(outputPath, "utf8");
                 expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(outputPath);
                 done();
             });
         },
