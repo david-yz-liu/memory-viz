@@ -21,10 +21,10 @@ function parseOutputPath(input) {
         process.exit(1);
     }
     const parsedPath = path.parse(input);
-    const outputDir = parsedPath.dir;
+    const outputDir = parsedPath.dir || ".";
     const filename = `${parsedPath.name}.svg`;
     if (!fs.existsSync(outputDir)) {
-        console.error(`Error: Output directory does not exist`);
+        console.error(`Error: Output directory ${outputDir} does not exist`);
         process.exit(1);
     }
     return path.join(outputDir, filename);

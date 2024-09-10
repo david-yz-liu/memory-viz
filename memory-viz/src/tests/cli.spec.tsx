@@ -194,7 +194,7 @@ describe("memory-viz CLI output path", () => {
     it(
         "should throw an error when the output path is a folder",
         (done) => {
-            const folderPath = tempDir;
+            const folderPath = `${tempDir}/`;
             const child = runProgram(folderPath);
             child.on("close", (err) => {
                 expect(err).toEqual(1);
