@@ -177,12 +177,9 @@ describe.each([
     }
 );
 
+// TODO: move to only using tmp
 describe("memory-viz CLI output path", () => {
-    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "test_results_"));
-
-    afterAll(() => {
-        fs.rmSync(tempDir, { recursive: true });
-    });
+    const tempDir = tmp.dirSync().name;
 
     const timeout = 200;
 
@@ -197,7 +194,7 @@ describe("memory-viz CLI output path", () => {
     it(
         "should throw an error when the output path is a folder",
         (done) => {
-            const folderPath = "test/";
+            const folderPath = tempDir;
             const child = runProgram(folderPath);
             child.on("close", (err) => {
                 expect(err).toEqual(1);
@@ -210,8 +207,8 @@ describe("memory-viz CLI output path", () => {
     it(
         "should throw an error when the output path is a file in a folder that does not exist",
         (done) => {
-            const folderPath = "nonexistent/file.svg";
-            const child = runProgram(folderPath);
+            const outputPath = "nonexistent/file.svg";
+            const child = runProgram(outputPath);
             child.on("close", (err) => {
                 expect(err).toEqual(1);
                 done();
@@ -221,14 +218,13 @@ describe("memory-viz CLI output path", () => {
     );
 
     it(
-        "should produce consistent svg when the output path is a file",
+        "should produce consistent svg when the output path is a file in a directory",
         (done) => {
-            const filePath = `${tempDir}/file.svg`;
-            const child = runProgram(filePath);
+            const outputPath = `${tempDir}/file.svg`;
+            const child = runProgram(outputPath);
             child.on("close", () => {
-                const fileContent = fs.readFileSync(filePath, "utf8");
+                const fileContent = fs.readFileSync(outputPath, "utf8");
                 expect(fileContent).toMatchSnapshot();
-                fs.unlinkSync(filePath);
                 done();
             });
         },
@@ -238,13 +234,25 @@ describe("memory-viz CLI output path", () => {
     it(
         "should overwrite existing svg when the output path is a file that exists",
         (done) => {
-            const existingFile = tmp.fileSync({ postfix: ".json" });
-            const filePath = existingFile.name;
-            const child = runProgram(filePath);
+            const outputPath = tmp.fileSync({ postfix: ".json" });
+            const child = runProgram(outputPath.name);
             child.on("close", () => {
-                const fileContent = fs.readFileSync(filePath, "utf8");
+                const fileContent = fs.readFileSync(outputPath.name, "utf8");
                 expect(fileContent).toMatchSnapshot();
-                fs.unlinkSync(filePath);
+                done();
+            });
+        },
+        timeout
+    );
+
+    it(
+        "should produce consistent svg when the output path is a file",
+        (done) => {
+            const outputPath = "file.svg";
+            const child = runProgram(outputPath);
+            child.on("close", () => {
+                const fileContent = fs.readFileSync(outputPath, "utf8");
+                expect(fileContent).toMatchSnapshot();
                 done();
             });
         },
