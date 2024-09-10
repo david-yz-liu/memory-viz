@@ -8,7 +8,7 @@ tmp.setGracefulCleanup();
 
 const tmpFile = tmp.fileSync({ postfix: ".json" });
 const filePath = tmpFile.name;
-const outputPath = "../";
+const outputPath = `${tmpFile.name}.svg`;
 const input = JSON.stringify(
     [
         {
@@ -20,22 +20,6 @@ const input = JSON.stringify(
     ],
     null
 );
-
-// Helper function for determining the output path of the SVG
-const getSVGPath = (isOutputOption: boolean) => {
-    let directoryPath = "";
-    let fileName = "";
-
-    if (isOutputOption) {
-        directoryPath = path.resolve(process.cwd(), outputPath);
-        fileName = path.basename(directoryPath + ".svg");
-    } else {
-        directoryPath = process.cwd();
-        fileName = path.basename(filePath.replace(".json", ".svg"));
-    }
-
-    return path.resolve(directoryPath, fileName);
-};
 
 describe.each([
     {
@@ -65,11 +49,9 @@ describe.each([
         exec(`memory-viz ${command}`, (err) => {
             if (err) throw err;
 
-            const svgFilePath = getSVGPath(command.includes("--output"));
-            const fileContent = fs.readFileSync(svgFilePath, "utf8");
-
+            const fileContent = fs.readFileSync(outputPath, "utf8");
             expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(svgFilePath);
+            fs.unlinkSync(outputPath);
 
             done();
         });
@@ -123,10 +105,9 @@ describe("memory-viz cli", () => {
         child.on("close", (err) => {
             if (err) throw err;
 
-            const svgFilePath = getSVGPath(true);
-            const fileContent = fs.readFileSync(svgFilePath, "utf8");
+            const fileContent = fs.readFileSync(outputPath, "utf8");
             expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(svgFilePath);
+            fs.unlinkSync(outputPath);
             done();
         });
     });
@@ -220,7 +201,6 @@ describe("memory-viz CLI output path", () => {
             const child = runProgram(folderPath);
             child.on("close", (err) => {
                 expect(err).toEqual(1);
-                console.log(err.message);
                 done();
             });
         },
@@ -234,7 +214,6 @@ describe("memory-viz CLI output path", () => {
             const child = runProgram(folderPath);
             child.on("close", (err) => {
                 expect(err).toEqual(1);
-                console.log(err.message);
                 done();
             });
         },
