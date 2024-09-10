@@ -15,9 +15,12 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
+-   Fixed an an issue with the `--output` flag not outputting results in the correct location.
+
 ### 📚 Documentation and demo website changes
 
 -   Reformatted demo website to horizontal layout.
+-   Added more documentation for the `--output` flag.
 
 ### 🔧 Internal changes
 
