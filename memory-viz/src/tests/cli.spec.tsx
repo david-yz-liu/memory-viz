@@ -223,7 +223,7 @@ describe("memory-viz CLI output path", () => {
     it(
         "should produce consistent svg when the output path is a file",
         (done) => {
-            const filePath = `${tempDir.name}/file.svg`;
+            const filePath = `${tempDir}/file.svg`;
             const child = runProgram(filePath);
             child.on("close", () => {
                 const fileContent = fs.readFileSync(filePath, "utf8");
