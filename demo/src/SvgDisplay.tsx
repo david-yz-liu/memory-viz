@@ -41,16 +41,31 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
             }}
             variant="outlined"
         >
-            <TransformWrapper minScale={0.2} wheel={{ step: 0.01 }}>
+            <div style={{ height: 500, width: "100%" }}>
+                <TransformWrapper>
+                    <TransformComponent>
+                        <canvas
+                            style={{
+                                height: 500,
+                                width: "100%",
+                                objectFit: "contain",
+                            }}
+                            data-testid="memory-models-canvas"
+                            ref={canvasRef}
+                            width={canvasWidth}
+                            height={500}
+                        />
+                    </TransformComponent>
+                </TransformWrapper>
+            </div>
+
+            {/* <TransformWrapper minScale={0.2} wheel={{ step: 0.01 }}>
                 <TransformComponent>
                     <canvas
-                        data-testid="memory-models-canvas"
-                        ref={canvasRef}
-                        width={canvasWidth}
-                        height={500}
+                        
                     />
                 </TransformComponent>
-            </TransformWrapper>
+            </TransformWrapper> */}
         </Paper>
     );
 }
