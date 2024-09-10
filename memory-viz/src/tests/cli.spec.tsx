@@ -196,53 +196,79 @@ describe.each([
     }
 );
 
-describe("memory-viz CLI", () => {
+describe("memory-viz CLI output path", () => {
     const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "test_results_"));
 
     afterAll(() => {
         fs.rmSync(tempDir, { recursive: true });
     });
 
-    describe.each([
-        {
-            description: "folder that does not exist",
-            outputPathDir: path.join(tempDir, "nonexistent/"),
-            fullOutputPath: path.join(tempDir, "nonexistent/memory-viz.svg"),
-        },
-        {
-            description: "folder that exists",
-            outputPathDir: `${tempDir}/`,
-            fullOutputPath: path.join(tempDir, "memory-viz.svg"),
-        },
-        {
-            description: "file, and the output folder does not exist",
-            outputPathDir: path.join(tempDir, "nonexistent/output.svg"),
-            fullOutputPath: path.join(tempDir, "nonexistent/output.svg"),
-        },
-        {
-            description: "file, and the output folder exists",
-            outputPathDir: path.join(tempDir, "output.svg"),
-            fullOutputPath: path.join(tempDir, "output.svg"),
-        },
-    ])("output path:", ({ description, outputPathDir, fullOutputPath }) => {
-        it(description, (done) => {
-            const args = [
-                `--output=${outputPathDir}`,
-                "--roughjs-config seed=1234",
-            ];
-            const child = spawn("memory-viz", args, { shell: true });
+    const timeout = 200;
 
-            child.stdin.write(input);
-            child.stdin.end();
+    function runProgram(outputPath: string) {
+        const args = [`--output=${outputPath}`, "--roughjs-config seed=1234"];
+        const child = spawn("memory-viz", args, { shell: true });
+        child.stdin.write(input);
+        child.stdin.end();
+        return child;
+    }
 
+    it(
+        "should throw an error when the output path is a folder",
+        (done) => {
+            const folderPath = "test/";
+            const child = runProgram(folderPath);
             child.on("close", (err) => {
-                if (err) throw err;
-
-                const fileContent = fs.readFileSync(fullOutputPath, "utf8");
-                expect(fileContent).toMatchSnapshot();
-                fs.unlinkSync(fullOutputPath);
+                expect(err).toEqual(1);
+                console.log(err.message);
                 done();
             });
-        });
-    });
+        },
+        timeout
+    );
+
+    it(
+        "should throw an error when the output path is a file in a folder that does not exist",
+        (done) => {
+            const folderPath = "nonexistent/file.svg";
+            const child = runProgram(folderPath);
+            child.on("close", (err) => {
+                expect(err).toEqual(1);
+                console.log(err.message);
+                done();
+            });
+        },
+        timeout
+    );
+
+    it(
+        "should produce consistent svg when the output path is a file",
+        (done) => {
+            const filePath = `${tempDir.name}/file.svg`;
+            const child = runProgram(filePath);
+            child.on("close", () => {
+                const fileContent = fs.readFileSync(filePath, "utf8");
+                expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(filePath);
+                done();
+            });
+        },
+        timeout
+    );
+
+    it(
+        "should overwrite existing svg when the output path is a file that exists",
+        (done) => {
+            const existingFile = tmp.fileSync({ postfix: ".json" });
+            const filePath = existingFile.name;
+            const child = runProgram(filePath);
+            child.on("close", () => {
+                const fileContent = fs.readFileSync(filePath, "utf8");
+                expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(filePath);
+                done();
+            });
+        },
+        timeout
+    );
 });
