@@ -7,39 +7,31 @@ const { program } = require("commander");
 const { json } = require("node:stream/consumers");
 
 function parseFilePath(input) {
-    if (input) {
-        return pathExists(input, `File`);
-    } else {
-        return undefined;
+    const fullPath = path.resolve(process.cwd(), input);
+    if (fs.existsSync(fullPath, "File")) {
+        return fullPath;
     }
+    console.error(`Error: File ${fullPath} does not exist.`);
+    process.exit(1);
 }
 
 function parseOutputPath(input) {
-    let outputDir, filename;
     if (isPathDirectory(input)) {
-        outputDir = input;
-        filename = "memory-viz.svg";
-    } else {
-        const parsedPath = path.parse(input);
-        outputDir = parsedPath.dir;
-        filename = `${parsedPath.name}.svg`;
+        console.error(`Error: Output path must be a file`);
+        process.exit(1);
     }
-    return { outputDir, filename };
+    const parsedPath = path.parse(input);
+    const outputDir = parsedPath.dir;
+    const filename = `${parsedPath.name}.svg`;
+    if (!fs.existsSync(outputDir)) {
+        console.error(`Error: Output directory does not exist`);
+        process.exit(1);
+    }
+    return path.join(outputDir, filename);
 }
 
 function isPathDirectory(rawOutputPath) {
     return rawOutputPath.slice(-1) == "/";
-}
-
-// helper function for parsing paths
-function pathExists(inputPath, errMsg) {
-    const fullPath = path.resolve(process.cwd(), inputPath);
-    if (!fs.existsSync(fullPath)) {
-        console.error(`Error: ${errMsg} ${fullPath} does not exist.`);
-        process.exit(1);
-    } else {
-        return fullPath;
-    }
 }
 
 function parseRoughjsConfig(input) {
@@ -113,14 +105,7 @@ function runMemoryViz(jsonContent) {
 
     try {
         if (options.output) {
-            const { outputDir, filename } = options.output;
-
-            if (!fs.existsSync(outputDir)) {
-                fs.mkdirSync(outputDir, { recursive: true });
-            }
-
-            const outputPath = path.join(outputDir, filename);
-            m.save(outputPath);
+            m.save(options.output);
         } else {
             m.save();
         }
