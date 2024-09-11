@@ -17,14 +17,14 @@ function parseFilePath(input) {
 
 function parseOutputPath(input) {
     if (isPathDirectory(input)) {
-        console.error(`Error: Output path must be a file`);
+        console.error(`Error: Output path ${input} must be a file.`);
         process.exit(1);
     }
     const parsedPath = path.parse(input);
     const outputDir = parsedPath.dir || ".";
     const filename = `${parsedPath.name}.svg`;
     if (!fs.existsSync(outputDir)) {
-        console.error(`Error: Output directory ${outputDir} does not exist`);
+        console.error(`Error: Output directory ${outputDir} does not exist.`);
         process.exit(1);
     }
     return path.join(outputDir, filename);
