@@ -16,8 +16,5 @@
     },
     "lint-staged": {
         "**/*": "prettier --write --ignore-unknown"
-    },
-    "dependencies": {
-        "react-zoom-pan-pinch": "^3.6.1"
     }
 }

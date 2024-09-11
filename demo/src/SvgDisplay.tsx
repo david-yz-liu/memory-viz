@@ -34,31 +34,34 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
         <Paper
             sx={{
                 height: 500,
-                overflow: "hidden",
+                // overflow: "hidden",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
             }}
             variant="outlined"
         >
-            <div style={{ height: 500, justifyContent: "center" }}>
-                <TransformWrapper
-                    minScale={0.2}
-                    wheel={{ step: 0.2, smoothStep: 0.01 }}
-                >
-                    <TransformComponent>
-                        <canvas
-                            style={{
-                                height: 500,
-                            }}
-                            data-testid="memory-models-canvas"
-                            ref={canvasRef}
-                            width={canvasWidth}
-                            height={canvasHeight}
-                        />
-                    </TransformComponent>
-                </TransformWrapper>
-            </div>
+            {/* <div style={{ height: 500, width: "110%", display: "flex",
+                justifyContent: "center",
+                alignItems: "center" }}> */}
+            <TransformWrapper
+                minScale={0.2}
+                wheel={{ step: 0.2, smoothStep: 0.01 }}
+            >
+                <TransformComponent>
+                    <canvas
+                        style={{
+                            height: 500,
+                            width: "100%",
+                        }}
+                        data-testid="memory-models-canvas"
+                        ref={canvasRef}
+                        width={canvasWidth}
+                        height={canvasHeight}
+                    />
+                </TransformComponent>
+            </TransformWrapper>
+            {/* </div> */}
         </Paper>
     );
 }
