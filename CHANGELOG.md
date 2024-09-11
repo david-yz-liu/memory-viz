@@ -18,6 +18,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 📚 Documentation and demo website changes
 
 -   Reformatted demo website to horizontal layout.
+-   Added zoom functionality to output canvas.
 
 ### 🔧 Internal changes
 

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import mem from "memory-viz";
-import { Paper, Box } from "@mui/material";
+import { Paper } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
