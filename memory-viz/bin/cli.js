@@ -31,7 +31,7 @@ function parseOutputPath(input) {
 }
 
 function isPathDirectory(rawOutputPath) {
-    return rawOutputPath.slice(-1) == "/";
+    return rawOutputPath.slice(-1) === "/";
 }
 
 function parseRoughjsConfig(input) {
