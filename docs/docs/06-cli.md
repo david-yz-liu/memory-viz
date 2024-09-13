@@ -28,7 +28,9 @@ Below are optional arguments used to specify the way in which the SVG is outpute
 
 ### `--output=<path>`
 
-Writes generated SVG to specified path.
+Writes generated SVG to the specified file path. The directories in the path must exist. If the file already exists, it will be overwritten.
+
+For example, `./<filename>`, `<filename>`, `./<dir>/<filename>`, `<dir>/<filename>` are accepted.
 
 ### `--width`
 

@@ -2,12 +2,13 @@ const { exec, spawn } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 const tmp = require("tmp");
+const os = require("os");
 
 tmp.setGracefulCleanup();
 
 const tmpFile = tmp.fileSync({ postfix: ".json" });
 const filePath = tmpFile.name;
-const outputPath = "..";
+const outputPath = `${tmpFile.name}.svg`;
 const input = JSON.stringify(
     [
         {
@@ -22,16 +23,11 @@ const input = JSON.stringify(
 
 // Helper function for determining the output path of the SVG
 const getSVGPath = (isOutputOption: boolean) => {
-    let directoryPath = "";
-    let fileName = "";
-
     if (isOutputOption) {
-        directoryPath = path.resolve(process.cwd(), outputPath);
-        fileName = path.basename(directoryPath + ".svg");
-    } else {
-        directoryPath = process.cwd();
-        fileName = path.basename(filePath.replace(".json", ".svg"));
+        return outputPath;
     }
+    const directoryPath = process.cwd();
+    const fileName = path.basename(filePath.replace(".json", ".svg"));
 
     return path.resolve(directoryPath, fileName);
 };
@@ -66,7 +62,6 @@ describe.each([
 
             const svgFilePath = getSVGPath(command.includes("--output"));
             const fileContent = fs.readFileSync(svgFilePath, "utf8");
-
             expect(fileContent).toMatchSnapshot();
             fs.unlinkSync(svgFilePath);
 
@@ -122,10 +117,9 @@ describe("memory-viz cli", () => {
         child.on("close", (err) => {
             if (err) throw err;
 
-            const svgFilePath = getSVGPath(true);
-            const fileContent = fs.readFileSync(svgFilePath, "utf8");
+            const fileContent = fs.readFileSync(outputPath, "utf8");
             expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(svgFilePath);
+            fs.unlinkSync(outputPath);
             done();
         });
     });
@@ -194,3 +188,87 @@ describe.each([
         });
     }
 );
+
+describe("memory-viz CLI output path", () => {
+    const tempDir = tmp.dirSync().name;
+
+    const timeout = 200;
+
+    function runProgram(outputPath: string) {
+        const args = [`--output=${outputPath}`, "--roughjs-config seed=1234"];
+        const child = spawn("memory-viz", args, { shell: true });
+        child.stdin.write(input);
+        child.stdin.end();
+        return child;
+    }
+
+    it(
+        "should throw an error when the output path is a folder",
+        (done) => {
+            const folderPath = `${tempDir}/`;
+            const child = runProgram(folderPath);
+            child.on("close", (err) => {
+                expect(err).toEqual(1);
+                done();
+            });
+        },
+        timeout
+    );
+
+    it(
+        "should throw an error when the output path is a file in a folder that does not exist",
+        (done) => {
+            const outputPath = "nonexistent/file.svg";
+            const child = runProgram(outputPath);
+            child.on("close", (err) => {
+                expect(err).toEqual(1);
+                done();
+            });
+        },
+        timeout
+    );
+
+    it(
+        "should produce consistent svg when the output path is a file in a directory",
+        (done) => {
+            const outputPath = `${tempDir}/file.svg`;
+            const child = runProgram(outputPath);
+            child.on("close", () => {
+                const fileContent = fs.readFileSync(outputPath, "utf8");
+                expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(outputPath);
+                done();
+            });
+        },
+        timeout
+    );
+
+    it(
+        "should overwrite existing svg when the output path is a file that exists",
+        (done) => {
+            const outputPath = tmp.fileSync({ postfix: ".svg" });
+            const child = runProgram(outputPath.name);
+            child.on("close", () => {
+                const fileContent = fs.readFileSync(outputPath.name, "utf8");
+                expect(fileContent).toMatchSnapshot();
+                done();
+            });
+        },
+        timeout
+    );
+
+    it(
+        "should produce consistent svg when the output path is a file",
+        (done) => {
+            const outputPath = "file.svg";
+            const child = runProgram(outputPath);
+            child.on("close", () => {
+                const fileContent = fs.readFileSync(outputPath, "utf8");
+                expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(outputPath);
+                done();
+            });
+        },
+        timeout
+    );
+});
