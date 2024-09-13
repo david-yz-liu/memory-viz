@@ -7,26 +7,28 @@ const { program } = require("commander");
 const { json } = require("node:stream/consumers");
 
 function parseFilePath(input) {
-    if (input) {
-        return pathExists(input, `File`);
-    } else {
-        return undefined;
+    const fullPath = path.resolve(process.cwd(), input);
+    if (fs.existsSync(fullPath)) {
+        return fullPath;
     }
+    console.error(`Error: File ${fullPath} does not exist.`);
+    process.exit(1);
 }
 
 function parseOutputPath(input) {
-    return pathExists(input, `Output path`);
-}
-
-// helper function for parsing paths
-function pathExists(inputPath, errMsg) {
-    const fullPath = path.resolve(process.cwd(), inputPath);
-    if (!fs.existsSync(fullPath)) {
-        console.error(`Error: ${errMsg} ${fullPath} does not exist.`);
+    if (fs.existsSync(input) && fs.statSync(input).isDirectory()) {
+        console.error(`Error: Output path ${input} must be a file.`);
         process.exit(1);
-    } else {
-        return fullPath;
     }
+    const parsedPath = path.parse(input);
+    const outputDir = parsedPath.dir || ".";
+    if (!fs.existsSync(outputDir) || !fs.statSync(outputDir).isDirectory()) {
+        console.error(
+            `Error: Output directory ${outputDir} does not exist or is a file.`
+        );
+        process.exit(1);
+    }
+    return path.join(outputDir, parsedPath.base);
 }
 
 function parseRoughjsConfig(input) {
@@ -100,9 +102,7 @@ function runMemoryViz(jsonContent) {
 
     try {
         if (options.output) {
-            const outputName = path.parse(options.output).name + ".svg";
-            const outputPath = path.join(options.output, outputName);
-            m.save(outputPath);
+            m.save(options.output);
         } else {
             m.save();
         }
