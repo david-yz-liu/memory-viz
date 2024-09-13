@@ -8,7 +8,7 @@ const { json } = require("node:stream/consumers");
 
 function parseFilePath(input) {
     const fullPath = path.resolve(process.cwd(), input);
-    if (fs.existsSync(fullPath, "File")) {
+    if (fs.existsSync(fullPath)) {
         return fullPath;
     }
     console.error(`Error: File ${fullPath} does not exist.`);
@@ -16,7 +16,7 @@ function parseFilePath(input) {
 }
 
 function parseOutputPath(input) {
-    if (fs.existsSync(input) && fs.lstatSync(input).isDirectory()) {
+    if (fs.existsSync(input) && fs.statSync(input).isDirectory()) {
         console.error(`Error: Output path ${input} must be a file.`);
         process.exit(1);
     }
@@ -29,10 +29,6 @@ function parseOutputPath(input) {
         process.exit(1);
     }
     return path.join(outputDir, parsedPath.base);
-}
-
-function isPathDirectory(rawOutputPath) {
-    return rawOutputPath.slice(-1) === "/";
 }
 
 function parseRoughjsConfig(input) {
