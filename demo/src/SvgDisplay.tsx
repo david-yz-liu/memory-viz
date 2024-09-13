@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import mem from "memory-viz";
 import { Paper } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 type SvgDisplayPropTypes = {
     jsonResult: object | null;
@@ -33,16 +34,30 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
         <Paper
             sx={{
                 height: 500,
-                overflow: "auto",
+                overflow: "hidden",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
             }}
             variant="outlined"
         >
-            <canvas
-                data-testid="memory-models-canvas"
-                ref={canvasRef}
-                width={canvasWidth}
-                height={canvasHeight}
-            />
+            <TransformWrapper
+                minScale={0.2}
+                wheel={{ step: 0.2, smoothStep: 0.01 }}
+            >
+                <TransformComponent>
+                    <canvas
+                        style={{
+                            height: "100%",
+                            width: "100%",
+                        }}
+                        data-testid="memory-models-canvas"
+                        ref={canvasRef}
+                        width={canvasWidth}
+                        height={canvasHeight}
+                    />
+                </TransformComponent>
+            </TransformWrapper>
         </Paper>
     );
 }
