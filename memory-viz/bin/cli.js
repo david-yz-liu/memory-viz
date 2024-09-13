@@ -16,18 +16,19 @@ function parseFilePath(input) {
 }
 
 function parseOutputPath(input) {
-    if (isPathDirectory(input)) {
+    if (fs.existsSync(input) && fs.lstatSync(input).isDirectory()) {
         console.error(`Error: Output path ${input} must be a file.`);
         process.exit(1);
     }
     const parsedPath = path.parse(input);
     const outputDir = parsedPath.dir || ".";
-    const filename = `${parsedPath.name}.svg`;
-    if (!fs.existsSync(outputDir)) {
-        console.error(`Error: Output directory ${outputDir} does not exist.`);
+    if (!fs.existsSync(outputDir) || !fs.statSync(outputDir).isDirectory()) {
+        console.error(
+            `Error: Output directory ${outputDir} does not exist or is a file.`
+        );
         process.exit(1);
     }
-    return path.join(outputDir, filename);
+    return path.join(outputDir, parsedPath.base);
 }
 
 function isPathDirectory(rawOutputPath) {
