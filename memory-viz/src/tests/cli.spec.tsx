@@ -21,6 +21,17 @@ const input = JSON.stringify(
     null
 );
 
+// Helper function for determining the output path of the SVG
+const getSVGPath = (isOutputOption: boolean) => {
+    if (isOutputOption) {
+        return outputPath;
+    }
+    const directoryPath = process.cwd();
+    const fileName = path.basename(filePath.replace(".json", ".svg"));
+
+    return path.resolve(directoryPath, fileName);
+};
+
 describe.each([
     {
         inputs: "filepath and output",
@@ -49,9 +60,10 @@ describe.each([
         exec(`memory-viz ${command}`, (err) => {
             if (err) throw err;
 
-            const fileContent = fs.readFileSync(outputPath, "utf8");
+            const svgFilePath = getSVGPath(command.includes("--output"));
+            const fileContent = fs.readFileSync(svgFilePath, "utf8");
             expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(outputPath);
+            fs.unlinkSync(svgFilePath);
 
             done();
         });
