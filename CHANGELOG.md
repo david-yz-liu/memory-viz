@@ -11,6 +11,16 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+### 🐛 Bug fixes
+
+### 📚 Documentation and demo website changes
+
+### 🔧 Internal changes
+
+## [0.3.2] - 2024-09-14
+
+### ✨ Enhancements
+
 -   Added MemoryViz logo images!
 
 ### 🐛 Bug fixes
