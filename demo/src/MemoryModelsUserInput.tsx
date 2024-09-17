@@ -210,7 +210,7 @@ export default function MemoryModelsUserInput(
                 >
                     <DownloadJSONButton
                         jsonResult={props.jsonResult}
-                        disable={!props.textData}
+                        disabled={!props.textData}
                     />
                     <Tooltip title="Input JSON to draw diagram">
                         <span>
