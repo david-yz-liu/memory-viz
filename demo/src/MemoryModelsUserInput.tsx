@@ -208,7 +208,10 @@ export default function MemoryModelsUserInput(
                     spacing={2}
                     sx={{ justifyContent: "space-between" }}
                 >
-                    <DownloadJSONButton jsonResult={props.jsonResult} />
+                    <DownloadJSONButton
+                        jsonResult={props.jsonResult}
+                        disable={!props.textData}
+                    />
                     <Tooltip title="Input JSON to draw diagram">
                         <span>
                             <Button
