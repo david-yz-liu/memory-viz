@@ -27,6 +27,8 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
             props.setSvgResult(m.serializeSVG());
             m.clear(canvasRef.current);
             m.render(canvasRef.current);
+        } else {
+            props.setSvgResult(null);
         }
     }, [props.jsonResult]);
 

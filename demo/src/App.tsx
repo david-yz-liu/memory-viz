@@ -71,10 +71,7 @@ export default function App() {
                             setSvgResult={setSvgResult}
                         />
                     </ErrorBoundary>
-                    <DownloadSVGButton
-                        svgResult={svgResult}
-                        disabled={!jsonResult}
-                    />
+                    <DownloadSVGButton svgResult={svgResult} />
                 </Box>
             </Stack>
         </main>

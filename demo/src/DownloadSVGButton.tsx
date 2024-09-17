@@ -3,7 +3,6 @@ import { Button } from "@mui/material";
 
 type DownloadSVGButtonPropTypes = {
     svgResult: string;
-    disabled: boolean;
 };
 export default function DownloadSVGButton(props: DownloadSVGButtonPropTypes) {
     const file = new global.Blob([props.svgResult], { type: "image/svg+xml" });
@@ -13,7 +12,7 @@ export default function DownloadSVGButton(props: DownloadSVGButtonPropTypes) {
             color="primary"
             variant="text"
             data-testid="download-svg-btn"
-            disabled={props.disabled}
+            disabled={!props.svgResult}
             href={URL.createObjectURL(file)}
             target="_blank"
             rel="noreferrer"
