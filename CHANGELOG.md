@@ -15,6 +15,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 📚 Documentation and demo website changes
 
+-   Disabled download buttons when there is no input/output.
+
 ### 🔧 Internal changes
 
 ## [0.3.2] - 2024-09-14
@@ -32,7 +34,6 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Reformatted demo website to horizontal layout.
 -   Added more documentation for the `--output` flag.
 -   Added zoom functionality to output canvas.
--   Disabled download buttons when there is no input/output.
 
 ### 🔧 Internal changes
 
