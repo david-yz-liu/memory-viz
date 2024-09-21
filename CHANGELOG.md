@@ -15,6 +15,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 📚 Documentation and demo website changes
 
+-   Made text input box use a monospace font
+
 ### 🔧 Internal changes
 
 ## [0.3.2] - 2024-09-14
