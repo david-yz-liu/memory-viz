@@ -13,9 +13,12 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
+-   Fixed a bug where the `Download JSON` button would not download the JSON currently inside the input box.
+
 ### 📚 Documentation and demo website changes
 
 -   Made text input box use a monospace font
+-   Disabled download buttons when there is no input/output.
 
 ### 🔧 Internal changes
 
