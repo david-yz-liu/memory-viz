@@ -17,6 +17,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 📚 Documentation and demo website changes
 
+-   Made text input box use a monospace font
+
 -   Disabled download buttons when there is no input/output.
 
 ### 🔧 Internal changes
