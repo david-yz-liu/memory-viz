@@ -9,6 +9,7 @@ import {
     Tooltip,
     MenuItem,
     Stack,
+    Modal,
 } from "@mui/material";
 import DownloadJSONButton from "./DownloadJSONButton";
 import MemoryModelsMenu from "./MemoryModelsMenu";
@@ -46,6 +47,10 @@ type MemoryModelsUserInputPropTypes = MemoryModelsFileInputPropTypes &
 
 function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
     const [uploadedFileString, setUploadedFileString] = useState("");
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const onChange = (event) => {
         try {
@@ -67,29 +72,52 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
 
     const onLoadButtonClick = () => {
         props.setTextData(uploadedFileString);
+        setOpen(false);
     };
 
     return (
-        <Stack direction={"row"} spacing={2}>
-            <Input
-                type="file"
-                onChange={onChange}
-                inputProps={{
-                    accept: "application/JSON",
-                    "data-testid": "file-input",
-                }}
-                disableUnderline={true}
-            />
-            <Button
-                data-testid="file-input-reapply-button"
-                variant="contained"
-                disabled={!uploadedFileString}
-                onClick={onLoadButtonClick}
-                sx={{ textTransform: "none" }}
-            >
-                Load file data
+        <div>
+            <Button onClick={handleOpen} sx={{ textTransform: "none" }}>
+                File Input
             </Button>
-        </Stack>
+            <Modal open={open} onClose={handleClose}>
+                <Box
+                    sx={{
+                        position: "absolute",
+                        top: "40%",
+                        left: "20%",
+                        backgroundColor: "white",
+                        borderRadius: 1,
+                    }}
+                >
+                    <Stack
+                        direction={"row"}
+                        spacing={2}
+                        padding={2}
+                        justifyContent={"space-between"}
+                    >
+                        <Input
+                            type="file"
+                            onChange={onChange}
+                            inputProps={{
+                                accept: "application/JSON",
+                                "data-testid": "file-input",
+                            }}
+                            disableUnderline={true}
+                        />
+                        <Button
+                            data-testid="file-input-reapply-button"
+                            variant="contained"
+                            disabled={!uploadedFileString}
+                            onClick={onLoadButtonClick}
+                            sx={{ textTransform: "none" }}
+                        >
+                            Load file data
+                        </Button>
+                    </Stack>
+                </Box>
+            </Modal>
+        </div>
     );
 }
 
