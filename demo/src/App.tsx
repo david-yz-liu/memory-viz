@@ -51,7 +51,6 @@ export default function App() {
                         setConfigData={setConfigData}
                         onTextDataSubmit={onTextDataSubmit}
                         setFailureBanner={setFailureBanner}
-                        jsonResult={jsonResult}
                     />
                 </Box>
                 <Box sx={{ width: "60%" }}>
