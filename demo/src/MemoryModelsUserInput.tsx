@@ -59,7 +59,6 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
             fileReader.onload = (event) => {
                 const fileString = event.target.result as string;
                 setUploadedFileString(fileString);
-                props.setTextData(fileString);
             };
         } catch (error) {
             const errorMessage = `Error reading uploaded file as text. Please ensure it's in UTF-8 encoding: ${error.message}`;
@@ -85,6 +84,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                         position: "absolute",
                         top: "40%",
                         left: "20%",
+                        width: "50%",
                         backgroundColor: "white",
                         borderRadius: 1,
                     }}
@@ -106,10 +106,10 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                         />
                         <Button
                             data-testid="file-input-reapply-button"
-                            variant="contained"
+                            variant="text"
                             disabled={!uploadedFileString}
                             onClick={onLoadButtonClick}
-                            sx={{ textTransform: "none" }}
+                            sx={{ textTransform: "none", width: "30%" }}
                         >
                             Load file data
                         </Button>
