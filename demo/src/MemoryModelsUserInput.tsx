@@ -79,32 +79,18 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                 File Input
             </Button>
             <Modal open={open} onClose={handleClose}>
-                <Box
-                    sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        position: "absolute",
-                        top: "40%",
-                        left: "20%",
-                        width: "50%",
-                        backgroundColor: "white",
-                        borderRadius: 1,
-                        justifyContent: "space-between",
-                        spacing: 2,
-                        padding: 2,
-                        alignItems: "center",
-                    }}
-                >
-                    <Input
-                        type="file"
-                        onChange={onChange}
-                        inputProps={{
-                            accept: "application/JSON",
-                            "data-testid": "file-input",
-                        }}
-                        disableUnderline={true}
-                        sx={{ alignContent: "center" }}
-                    />
+                <Box className="fileInputBox">
+                    <div>
+                        <Input
+                            type="file"
+                            onChange={onChange}
+                            inputProps={{
+                                accept: "application/JSON",
+                                "data-testid": "file-input",
+                            }}
+                            disableUnderline={true}
+                        />
+                    </div>
                     <div>
                         <Button
                             data-testid="file-input-reapply-button"
