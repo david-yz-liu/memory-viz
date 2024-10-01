@@ -81,39 +81,42 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
             <Modal open={open} onClose={handleClose}>
                 <Box
                     sx={{
+                        display: "flex",
+                        flexDirection: "row",
                         position: "absolute",
                         top: "40%",
                         left: "20%",
                         width: "50%",
                         backgroundColor: "white",
                         borderRadius: 1,
+                        justifyContent: "space-between",
+                        spacing: 2,
+                        padding: 2,
+                        alignItems: "center",
                     }}
                 >
-                    <Stack
-                        direction={"row"}
-                        spacing={2}
-                        padding={2}
-                        justifyContent={"space-between"}
-                    >
-                        <Input
-                            type="file"
-                            onChange={onChange}
-                            inputProps={{
-                                accept: "application/JSON",
-                                "data-testid": "file-input",
-                            }}
-                            disableUnderline={true}
-                        />
+                    <Input
+                        type="file"
+                        onChange={onChange}
+                        inputProps={{
+                            accept: "application/JSON",
+                            "data-testid": "file-input",
+                        }}
+                        disableUnderline={true}
+                        sx={{ alignContent: "center" }}
+                    />
+                    <div>
                         <Button
                             data-testid="file-input-reapply-button"
-                            variant="text"
+                            variant="contained"
+                            color="primary"
                             disabled={!uploadedFileString}
                             onClick={onLoadButtonClick}
-                            sx={{ textTransform: "none", width: "30%" }}
+                            sx={{ textTransform: "none" }}
                         >
                             Load file data
                         </Button>
-                    </Stack>
+                    </div>
                 </Box>
             </Modal>
         </div>
