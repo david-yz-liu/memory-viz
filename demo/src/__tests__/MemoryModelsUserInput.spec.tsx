@@ -212,7 +212,6 @@ describe("MemoryModelsUserInput", () => {
                 });
 
                 await waitFor(() => {
-                    // once from reapplyBtn onChange, once from MemoryModelsTextInput handleTextFieldChange
                     // if put within the same waitFor block as fireEvent.click(reapplyBtn), this test always passes
                     // even with the wrong expect
                     expect(setTextDataMock).toHaveBeenCalledWith(fileString);
