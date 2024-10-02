@@ -81,7 +81,11 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
             <Button onClick={handleOpen} sx={{ textTransform: "none" }}>
                 File Input
             </Button>
-            <Modal open={open} onClose={handleClose}>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                data-testid="file-input-modal"
+            >
                 <Paper
                     sx={{
                         position: "absolute",
