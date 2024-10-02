@@ -10,6 +10,9 @@ import {
     MenuItem,
     Stack,
     Modal,
+    Paper,
+    Card,
+    CardContent,
 } from "@mui/material";
 import DownloadJSONButton from "./DownloadJSONButton";
 import MemoryModelsMenu from "./MemoryModelsMenu";
@@ -79,7 +82,15 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                 File Input
             </Button>
             <Modal open={open} onClose={handleClose}>
-                <Box className="fileInputBox">
+                <Paper
+                    sx={{
+                        position: "absolute",
+                        top: "40%",
+                        left: "20%",
+                        width: "50%",
+                        padding: 2,
+                    }}
+                >
                     <div>
                         <Input
                             type="file"
@@ -89,6 +100,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                                 "data-testid": "file-input",
                             }}
                             disableUnderline={true}
+                            sx={{ alignSelf: "center" }}
                         />
                     </div>
                     <div>
@@ -103,7 +115,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                             Load file data
                         </Button>
                     </div>
-                </Box>
+                </Paper>
             </Modal>
         </div>
     );
