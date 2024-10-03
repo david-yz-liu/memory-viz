@@ -1,5 +1,11 @@
 import React from "react";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+    fireEvent,
+    getByText,
+    render,
+    screen,
+    waitFor,
+} from "@testing-library/react";
 import MemoryModelsUserInput from "../MemoryModelsUserInput";
 
 describe("MemoryModelsUserInput", () => {
@@ -127,7 +133,16 @@ describe("MemoryModelsUserInput", () => {
             jest.restoreAllMocks();
         });
 
+        it("does not render the dialog when the page first loads", () => {
+            const dialog = screen.queryByTestId("file-input-dialog");
+            expect(dialog).toBeNull();
+
+            const input: HTMLInputElement = screen.queryByTestId("file-input");
+            expect(input).toBeNull();
+        });
+
         it("renders an enabled input and disabled reapply button", () => {
+            fireEvent.click(screen.getByText("Upload JSON File"));
             const input: HTMLInputElement = screen.getByTestId("file-input");
             expect(input).toHaveProperty("disabled", false);
 
@@ -149,6 +164,7 @@ describe("MemoryModelsUserInput", () => {
                     type: "application/json",
                 }
             );
+            fireEvent.click(screen.getByText("Upload JSON File"));
             const input: HTMLInputElement = screen.getByTestId("file-input");
             await waitFor(() => {
                 // this needs to be awaited because of fileReader.onload being async
@@ -167,6 +183,7 @@ describe("MemoryModelsUserInput", () => {
             let input: HTMLInputElement;
 
             beforeEach(async () => {
+                fireEvent.click(screen.getByText("Upload JSON File"));
                 const file = new File([fileString], "test.json", {
                     type: "application/json",
                 });
@@ -195,13 +212,9 @@ describe("MemoryModelsUserInput", () => {
                 });
 
                 await waitFor(() => {
-                    // once from reapplyBtn onChange, once from MemoryModelsTextInput handleTextFieldChange
                     // if put within the same waitFor block as fireEvent.click(reapplyBtn), this test always passes
                     // even with the wrong expect
-                    expect(setTextDataMock).toHaveBeenNthCalledWith(
-                        2,
-                        fileString
-                    );
+                    expect(setTextDataMock).toHaveBeenCalledWith(fileString);
                 });
             });
         });

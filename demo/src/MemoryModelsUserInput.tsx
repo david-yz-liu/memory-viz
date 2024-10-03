@@ -9,6 +9,9 @@ import {
     Tooltip,
     MenuItem,
     Stack,
+    Dialog,
+    DialogActions,
+    DialogContent,
 } from "@mui/material";
 import DownloadJSONButton from "./DownloadJSONButton";
 import MemoryModelsMenu from "./MemoryModelsMenu";
@@ -45,6 +48,10 @@ type MemoryModelsUserInputPropTypes = MemoryModelsFileInputPropTypes &
 
 function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
     const [uploadedFileString, setUploadedFileString] = useState("");
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const onChange = (event) => {
         try {
@@ -54,7 +61,6 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
             fileReader.onload = (event) => {
                 const fileString = event.target.result as string;
                 setUploadedFileString(fileString);
-                props.setTextData(fileString);
             };
         } catch (error) {
             const errorMessage = `Error reading uploaded file as text. Please ensure it's in UTF-8 encoding: ${error.message}`;
@@ -66,29 +72,45 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
 
     const onLoadButtonClick = () => {
         props.setTextData(uploadedFileString);
+        setOpen(false);
     };
 
     return (
-        <Stack direction={"row"} spacing={2}>
-            <Input
-                type="file"
-                onChange={onChange}
-                inputProps={{
-                    accept: "application/JSON",
-                    "data-testid": "file-input",
-                }}
-                disableUnderline={true}
-            />
-            <Button
-                data-testid="file-input-reapply-button"
-                variant="contained"
-                disabled={!uploadedFileString}
-                onClick={onLoadButtonClick}
-                sx={{ textTransform: "none" }}
-            >
-                Load file data
+        <div>
+            <Button onClick={handleOpen} sx={{ textTransform: "none" }}>
+                Upload JSON File
             </Button>
-        </Stack>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                data-testid="file-input-dialog"
+            >
+                <DialogContent>
+                    <Input
+                        type="file"
+                        onChange={onChange}
+                        inputProps={{
+                            accept: "application/JSON",
+                            "data-testid": "file-input",
+                        }}
+                        disableUnderline={true}
+                        sx={{ alignSelf: "center" }}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        data-testid="file-input-reapply-button"
+                        variant="contained"
+                        color="primary"
+                        disabled={!uploadedFileString}
+                        onClick={onLoadButtonClick}
+                        sx={{ textTransform: "none" }}
+                    >
+                        Load file data
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </div>
     );
 }
 
