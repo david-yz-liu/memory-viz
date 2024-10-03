@@ -133,9 +133,9 @@ describe("MemoryModelsUserInput", () => {
             jest.restoreAllMocks();
         });
 
-        it("does not render the modal when the page first loads", () => {
-            const modal = screen.queryByTestId("file-input-modal");
-            expect(modal).toBeNull();
+        it("does not render the dialog when the page first loads", () => {
+            const dialog = screen.queryByTestId("file-input-dialog");
+            expect(dialog).toBeNull();
 
             const input: HTMLInputElement = screen.queryByTestId("file-input");
             expect(input).toBeNull();

@@ -11,6 +11,9 @@ import {
     Stack,
     Modal,
     Paper,
+    Dialog,
+    DialogActions,
+    DialogContent,
 } from "@mui/material";
 import DownloadJSONButton from "./DownloadJSONButton";
 import MemoryModelsMenu from "./MemoryModelsMenu";
@@ -79,46 +82,36 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
             <Button onClick={handleOpen} sx={{ textTransform: "none" }}>
                 Upload JSON File
             </Button>
-            <Modal
+            <Dialog
                 open={open}
                 onClose={handleClose}
-                data-testid="file-input-modal"
+                data-testid="file-input-dialog"
             >
-                <Paper
-                    sx={{
-                        position: "absolute",
-                        top: "40%",
-                        left: "20%",
-                        width: "50%",
-                        padding: 2,
-                    }}
-                >
-                    <div>
-                        <Input
-                            type="file"
-                            onChange={onChange}
-                            inputProps={{
-                                accept: "application/JSON",
-                                "data-testid": "file-input",
-                            }}
-                            disableUnderline={true}
-                            sx={{ alignSelf: "center" }}
-                        />
-                    </div>
-                    <div>
-                        <Button
-                            data-testid="file-input-reapply-button"
-                            variant="contained"
-                            color="primary"
-                            disabled={!uploadedFileString}
-                            onClick={onLoadButtonClick}
-                            sx={{ textTransform: "none" }}
-                        >
-                            Load file data
-                        </Button>
-                    </div>
-                </Paper>
-            </Modal>
+                <DialogContent>
+                    <Input
+                        type="file"
+                        onChange={onChange}
+                        inputProps={{
+                            accept: "application/JSON",
+                            "data-testid": "file-input",
+                        }}
+                        disableUnderline={true}
+                        sx={{ alignSelf: "center" }}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        data-testid="file-input-reapply-button"
+                        variant="contained"
+                        color="primary"
+                        disabled={!uploadedFileString}
+                        onClick={onLoadButtonClick}
+                        sx={{ textTransform: "none" }}
+                    >
+                        Load file data
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }
