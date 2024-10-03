@@ -9,8 +9,6 @@ import {
     Tooltip,
     MenuItem,
     Stack,
-    Modal,
-    Paper,
     Dialog,
     DialogActions,
     DialogContent,
