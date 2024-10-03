@@ -142,7 +142,7 @@ describe("MemoryModelsUserInput", () => {
         });
 
         it("renders an enabled input and disabled reapply button", () => {
-            fireEvent.click(screen.getByText("File Input"));
+            fireEvent.click(screen.getByText("Upload JSON File"));
             const input: HTMLInputElement = screen.getByTestId("file-input");
             expect(input).toHaveProperty("disabled", false);
 
@@ -164,7 +164,7 @@ describe("MemoryModelsUserInput", () => {
                     type: "application/json",
                 }
             );
-            fireEvent.click(screen.getByText("File Input"));
+            fireEvent.click(screen.getByText("Upload JSON File"));
             const input: HTMLInputElement = screen.getByTestId("file-input");
             await waitFor(() => {
                 // this needs to be awaited because of fileReader.onload being async
@@ -183,7 +183,7 @@ describe("MemoryModelsUserInput", () => {
             let input: HTMLInputElement;
 
             beforeEach(async () => {
-                fireEvent.click(screen.getByText("File Input"));
+                fireEvent.click(screen.getByText("Upload JSON File"));
                 const file = new File([fileString], "test.json", {
                     type: "application/json",
                 });
