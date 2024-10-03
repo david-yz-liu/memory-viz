@@ -11,8 +11,6 @@ import {
     Stack,
     Modal,
     Paper,
-    Card,
-    CardContent,
 } from "@mui/material";
 import DownloadJSONButton from "./DownloadJSONButton";
 import MemoryModelsMenu from "./MemoryModelsMenu";
@@ -79,7 +77,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
     return (
         <div>
             <Button onClick={handleOpen} sx={{ textTransform: "none" }}>
-                File Input
+                Upload JSON File
             </Button>
             <Modal
                 open={open}
