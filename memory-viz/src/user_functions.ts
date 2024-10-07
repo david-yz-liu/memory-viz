@@ -1,6 +1,6 @@
 import { MemoryModel } from "./memory_model";
 import { drawAutomated, getSize } from "./automate";
-import { DrawnEntity } from "./types";
+import { DrawnEntity, Configuration } from "./types";
 
 // Dynamic import of Node fs module
 let fs;
@@ -27,8 +27,12 @@ if (typeof window === "undefined") {
  *
  * @returns {MemoryModel} the produced canvas
  */
-function draw(objects, automation, configuration) {
-    let objs;
+function draw(
+    objects: string | DrawnEntity[],
+    automation: boolean,
+    configuration: Configuration
+): MemoryModel {
+    let objs: DrawnEntity[];
 
     if (typeof objects === "string") {
         const json_string = fs.readFileSync(objects, "utf-8");
@@ -39,7 +43,7 @@ function draw(objects, automation, configuration) {
         objs = objects;
     }
 
-    let m;
+    let m: MemoryModel;
 
     if (automation) {
         if (!configuration.hasOwnProperty("width")) {
