@@ -1,6 +1,6 @@
 import { MemoryModel } from "./memory_model";
 import { config } from "./config";
-import { DrawnEntity } from "./types";
+import { Configuration, DrawnEntity, SortOptions } from "./types";
 
 /**
  * Draws the objects given in the path in an automated fashion.
@@ -11,7 +11,11 @@ import { DrawnEntity } from "./types";
  * @returns {MemoryModel} - The memory model that is created according to the objects given in the path (the JSON
  * file)
  */
-function drawAutomated(objects: DrawnEntity[], width, configuration) {
+function drawAutomated(
+    objects: DrawnEntity[],
+    width: number,
+    configuration: Configuration
+): MemoryModel {
     const { stack_frames, other_items } = separateObjects(objects);
 
     // Assigning the objects with coordinates.
@@ -20,7 +24,7 @@ function drawAutomated(objects: DrawnEntity[], width, configuration) {
 
     // Determining the minimum width of the canvas.
     let min_width = 0;
-    let item_width;
+    let item_width: number;
     for (const item of other_items) {
         item_width = getSize(item).width;
         if (item_width > min_width) {
@@ -73,7 +77,14 @@ function drawAutomated(objects: DrawnEntity[], width, configuration) {
  * frames. Notably, the last two attributes will be useful in terms of dynamically deciding the width and the height
  * of the canvas.
  */
-function drawAutomatedStackFrames(stack_frames: DrawnEntity[], configuration) {
+function drawAutomatedStackFrames(
+    stack_frames: DrawnEntity[],
+    configuration: Configuration
+): {
+    StackFrames: DrawnEntity[];
+    requiredHeight: number;
+    requiredWidth: number;
+} {
     for (const req_prop of [
         "padding",
         "top_margin",
@@ -93,8 +104,8 @@ function drawAutomatedStackFrames(stack_frames: DrawnEntity[], configuration) {
     let draw_stack_frames = [];
 
     for (const stack_frame of stack_frames) {
-        let width;
-        let height;
+        let width: number;
+        let height: number;
 
         if (stack_frame.type !== ".blank-frame") {
             const size = getSize(stack_frame);
@@ -146,11 +157,11 @@ function drawAutomatedStackFrames(stack_frames: DrawnEntity[], configuration) {
  */
 function drawAutomatedOtherItems(
     objs: DrawnEntity[],
-    max_width,
-    sort_by,
-    config_aut: any = {} /* to avoid undefined error */,
-    sf_endpoint
-) {
+    max_width: number,
+    sort_by: SortOptions,
+    config_aut: Configuration,
+    sf_endpoint: number
+): { objs: DrawnEntity[]; canvas_height: number; canvas_width: number } {
     for (const req_prop of [
         "padding",
         "top_margin",
@@ -186,13 +197,13 @@ function drawAutomatedOtherItems(
      * @param b - another object in objs
      * @returns {number} negative if 'a' is taller, 0 if they have the same height, and positive if 'b' is taller.
      */
-    let compareFunc;
+    let compareFunc: (a: DrawnEntity, b: DrawnEntity) => number;
 
     switch (sort_by) {
-        case "height":
+        case SortOptions.Height:
             compareFunc = compareByHeight;
             break;
-        case "id":
+        case SortOptions.Id:
             compareFunc = compareByID;
             break;
     }
@@ -325,7 +336,7 @@ function getSize(obj: DrawnEntity) {
  * @param b - another object
  * @returns {number} negative if 'a' is taller, 0 if they have the same height, and positive if 'b' is taller.
  */
-function compareByHeight(a, b) {
+function compareByHeight(a: DrawnEntity, b: DrawnEntity) {
     return -(a.height - b.height);
 }
 
@@ -338,8 +349,13 @@ function compareByHeight(a, b) {
  * @param b - another object
  * @returns {number} negative if 'a.id' is larger, 0 if a.id == b.id, and positive if 'b.id' is larger.
  */
-function compareByID(a, b) {
-    return a.id - b.id;
+function compareByID(a: DrawnEntity, b: DrawnEntity): number {
+    if (typeof a.id === "number" && typeof b.id === "number") {
+        return a.id - b.id;
+    }
+    if (typeof a.id === "string" && typeof b.id === "string") {
+        return a.id.localeCompare(b.id);
+    }
 }
 
 /**
@@ -350,7 +366,7 @@ function compareByID(a, b) {
  * @param b - another object
  * @returns {number} negative if 'a' is righter, 0 if 'a' and 'b' are equally right, and positive if b' is righter.
  */
-function compareByRightness(a, b) {
+function compareByRightness(a: DrawnEntity, b: DrawnEntity): number {
     const a_right_edge = a.x + a.width;
     const b_right_edge = b.x + b.width;
     return -(a_right_edge - b_right_edge);
@@ -364,7 +380,7 @@ function compareByRightness(a, b) {
  * @param b - another object
  * @returns {number} negative if 'a' is bottomer, 0 if 'a' and 'b' are equally bottom, and positive if b' is bottomer.
  */
-function compareByBottomness(a, b) {
+function compareByBottomness(a: DrawnEntity, b: DrawnEntity): number {
     const a_bottom_edge = a.y + a.height;
     const b_bottom_edge = b.y + b.height;
     return -(a_bottom_edge - b_bottom_edge);

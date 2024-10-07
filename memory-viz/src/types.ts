@@ -13,7 +13,7 @@ export interface DrawnEntity {
 }
 
 export interface AttributeStyle {
-    [propName: string]: string | number;
+    [propName: string]: string | number | AttributeStyle;
 }
 
 export interface Style {
@@ -28,8 +28,17 @@ export interface Style {
 export interface Configuration {
     width?: number;
     height?: number;
-    sort_by?: string;
+    sort_by?: SortOptions;
     style?: Style;
+    roughjs_config?: object;
+    padding?: number;
+    top_margin?: number;
     left_margin?: number;
-    roughjs_config?: any;
+    bottom_margin?: number;
+    right_margin?: number;
+}
+
+export enum SortOptions {
+    Height,
+    Id,
 }
