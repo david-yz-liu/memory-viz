@@ -3,7 +3,7 @@ export interface DrawnEntity {
     type?: string;
     x?: number;
     y?: number;
-    id?: number | string;
+    id?: number | string | null;
     value?: any;
     show_indexes?: boolean;
     style?: string[] | Style;
@@ -25,17 +25,41 @@ export interface Style {
     box_container?: AttributeStyle;
 }
 
-export interface Configuration {
-    width?: number;
-    height?: number;
-    sort_by?: SortOptions;
-    style?: Style;
-    roughjs_config?: object;
-    padding?: number;
-    top_margin?: number;
-    left_margin?: number;
-    bottom_margin?: number;
-    right_margin?: number;
+export type Styles = Style | (string | Style)[];
+
+export interface MemoryVizConfiguration {
+    width: number;
+    height: number;
+    sort_by: SortOptions;
+    style: Style;
+    roughjs_config: object;
+    padding: number;
+    top_margin: number;
+    left_margin: number;
+    bottom_margin: number;
+    right_margin: number;
+}
+
+export interface MemoryModelOptions {
+    width: number;
+    height: number;
+    rect_style: {
+        stroke: string;
+    };
+    text_color: string;
+    value_color: string;
+    id_color: string;
+    item_min_width: number;
+    item_min_height: number;
+    obj_min_width: number;
+    obj_min_height: number;
+    prop_min_width: number;
+    prop_min_height: number;
+    obj_x_padding: number;
+    double_rect_sep: number;
+    list_index_sep: number;
+    font_size: number;
+    browser: boolean;
 }
 
 export enum SortOptions {
