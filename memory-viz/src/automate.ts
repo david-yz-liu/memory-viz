@@ -315,7 +315,7 @@ function separateObjects(objects: DrawnEntity[]) {
  * @param {DrawnEntity} obj - an object as specified in MemoryModel.drawAll, except that coordinates are missing.
  * @returns {object} the width and the height the drawn object would have.
  */
-function getSize(obj: DrawnEntity) {
+function getSize(obj: DrawnEntity): { height: number; width: number } {
     // The x and y values here are unimportant; 'obj' must simply have these properties for processing by 'drawAll'.
     obj.x = obj.x || 10;
     obj.y = obj.y || 10;
@@ -336,7 +336,7 @@ function getSize(obj: DrawnEntity) {
  * @param b - another object
  * @returns {number} negative if 'a' is taller, 0 if they have the same height, and positive if 'b' is taller.
  */
-function compareByHeight(a: DrawnEntity, b: DrawnEntity) {
+function compareByHeight(a: DrawnEntity, b: DrawnEntity): number {
     return -(a.height - b.height);
 }
 

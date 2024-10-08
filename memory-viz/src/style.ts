@@ -3,7 +3,7 @@ import { config } from "./config";
 import { DrawnEntity, AttributeStyle, Style } from "./types";
 import { MemoryModel } from "./memory_model";
 
-const immutable: Array<string> = [
+const immutable: string[] = [
     "int",
     "str",
     "tuple",
@@ -12,16 +12,9 @@ const immutable: Array<string> = [
     "float",
     "date",
 ];
-const collections: Array<string> = ["list", "set", "tuple", "dict"];
+const collections: string[] = ["list", "set", "tuple", "dict"];
 
-const primitives: Array<string> = [
-    "int",
-    "str",
-    "None",
-    "bool",
-    "float",
-    "date",
-];
+const primitives: string[] = ["int", "str", "None", "bool", "float", "date"];
 
 // Constants employed to establish presets for styles.
 const HIGHLIGHT_TEXT: AttributeStyle = {

@@ -32,7 +32,7 @@ export interface DisplaySettings {
     height: number;
     sort_by: SortOptions;
     style: Style;
-    roughjs_config: object; // TODO: confirm the usage of this and the style propert
+    roughjs_config: object;
     padding: number;
     top_margin: number;
     left_margin: number;
