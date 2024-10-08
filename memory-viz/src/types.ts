@@ -74,3 +74,12 @@ export enum SortOptions {
     Height,
     Id,
 }
+
+export type Primitive =
+    | string
+    | number
+    | boolean
+    | null
+    | undefined
+    | bigint
+    | symbol;

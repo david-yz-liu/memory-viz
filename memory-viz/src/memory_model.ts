@@ -5,7 +5,14 @@ import merge from "deepmerge";
 import { collections, immutable, presets, setStyleSheet } from "./style";
 import { config } from "./config";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
-import { DrawnEntity, VizualizationOptions, Styles, Rect } from "./types";
+import {
+    DrawnEntity,
+    VizualizationOptions,
+    Styles,
+    Rect,
+    Primitive,
+} from "./types";
+import { isArrayOfType } from "./typeguards";
 import type * as fsType from "fs";
 
 // Dynamic import of Node fs module
@@ -141,7 +148,7 @@ export class MemoryModel {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    // TODO: check value and style type
+    // TODO: check style type
     /**
      * Distribute the object drawing depending on type
      * @param {number} x - value for x coordinate of top left corner
@@ -159,16 +166,22 @@ export class MemoryModel {
         y: number,
         type: string,
         id: number,
-        value: any,
+        value: object | number[] | string | boolean | null,
         show_indexes: boolean,
         style: any
     ): Rect {
         if (collections.includes(type)) {
-            if (type === "dict") {
+            if (type === "dict" && typeof value === "object") {
                 return this.drawDict(x, y, id, value, style);
-            } else if (type === "set") {
+            } else if (
+                type === "set" &&
+                isArrayOfType<number>(value, "number")
+            ) {
                 return this.drawSet(x, y, id, value, style);
-            } else if (type === "list" || type === "tuple") {
+            } else if (
+                (type === "list" || type === "tuple") &&
+                isArrayOfType<number>(value, "number")
+            ) {
                 return this.drawSequence(
                     x,
                     y,
@@ -180,7 +193,9 @@ export class MemoryModel {
                 );
             }
         } else {
-            return this.drawPrimitive(x, y, type, id, value, style);
+            if (typeof value !== "object") {
+                return this.drawPrimitive(x, y, type, id, value, style);
+            }
         }
     }
 
@@ -200,7 +215,7 @@ export class MemoryModel {
         y: number,
         type: string,
         id: number,
-        value: any,
+        value: Primitive,
         style: any
     ): Rect {
         let box_width = Math.max(
