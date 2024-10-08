@@ -5,15 +5,11 @@ import merge from "deepmerge";
 import { collections, immutable, presets, setStyleSheet } from "./style";
 import { config } from "./config";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
-import {
-    AttributeStyle,
-    DrawnEntity,
-    MemoryModelOptions,
-    Styles,
-} from "./types";
+import { DrawnEntity, VizualizationOptions, Styles, Rect } from "./types";
+import type * as fsType from "fs";
 
 // Dynamic import of Node fs module
-let fs;
+let fs: typeof fsType | undefined;
 if (typeof window === "undefined") {
     fs = require("fs");
 }
@@ -55,7 +51,7 @@ export class MemoryModel {
     browser: boolean; // Whether this library is being used in a browser context
     roughjs_config: object; // Configuration object used to pass in options to rough.js
 
-    constructor(options?: Partial<MemoryModelOptions>) {
+    constructor(options: Partial<VizualizationOptions>) {
         if (options.browser) {
             this.document = document;
         } else {
@@ -97,7 +93,7 @@ export class MemoryModel {
      *
      * @returns {String} a readable string for the generated SVG element
      */
-    serializeSVG(): String {
+    serializeSVG(): string {
         const xmlSerializer = new XMLSerializer();
         return xmlSerializer.serializeToString(this.svg);
     }
@@ -125,7 +121,7 @@ export class MemoryModel {
      * Render the image (show the output) SVG to a given canvas object.
      * @param canvas - the element that will be used to draw graphics
      */
-    render(canvas) {
+    render(canvas: HTMLCanvasElement): void {
         let image = new Image();
         let data =
             "data:image/svg+xml;base64," + window.btoa(this.svg.toString());
@@ -140,11 +136,12 @@ export class MemoryModel {
      * Clear a given canvas object.
      * @param canvas - the element that is currently used to draw graphics
      */
-    clear(canvas) {
+    clear(canvas: HTMLCanvasElement): void {
         const ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
+    // TODO: check value and style type
     /**
      * Distribute the object drawing depending on type
      * @param {number} x - value for x coordinate of top left corner
@@ -164,8 +161,8 @@ export class MemoryModel {
         id: number,
         value: any,
         show_indexes: boolean,
-        style: CSSStyleDeclaration
-    ) {
+        style: any
+    ): Rect {
         if (collections.includes(type)) {
             if (type === "dict") {
                 return this.drawDict(x, y, id, value, style);
@@ -205,7 +202,7 @@ export class MemoryModel {
         id: number,
         value: any,
         style: any
-    ) {
+    ): Rect {
         let box_width = Math.max(
             this.obj_min_width,
             this.getTextLength(String(value)) + this.obj_x_padding
@@ -357,7 +354,7 @@ export class MemoryModel {
         element_ids: number[],
         show_idx: boolean,
         style: any
-    ) {
+    ): Rect {
         let box_width = this.obj_x_padding * 2;
 
         element_ids.forEach((v) => {
@@ -460,7 +457,7 @@ export class MemoryModel {
         id: number,
         element_ids: number[],
         style: any
-    ) {
+    ): Rect {
         let box_width = this.obj_x_padding * 2;
         element_ids.forEach((v) => {
             box_width += Math.max(
@@ -548,18 +545,7 @@ export class MemoryModel {
      *
      * @returns {object} the top-left coordinates, width, and height of the outermost box
      */
-    drawDict(
-        x: number,
-        y: number,
-        id: number,
-        obj: object,
-        style: any
-    ): {
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-    } {
+    drawDict(x: number, y: number, id: number, obj: object, style: any): Rect {
         let box_width = this.obj_min_width;
         let box_height = this.prop_min_height + this.item_min_height / 2;
 
@@ -671,12 +657,7 @@ export class MemoryModel {
         attributes: object,
         stack_frame: boolean,
         style: any
-    ): {
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-    } {
+    ): Rect {
         let box_width = this.obj_min_width;
         let longest = 0;
         for (const attribute in attributes) {
@@ -872,8 +853,8 @@ export class MemoryModel {
      * Preconditions:
      *      - 'objects' is a valid object with the correct properties, as outlined above.
      */
-    drawAll(objects: DrawnEntity[]) {
-        const sizes_arr = [];
+    drawAll(objects: DrawnEntity[]): Rect[] {
+        const sizes_arr: Rect[] = [];
 
         for (const obj of objects) {
             if (Array.isArray(obj.style)) {

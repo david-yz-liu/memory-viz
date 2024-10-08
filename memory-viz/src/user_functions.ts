@@ -1,10 +1,10 @@
 import { MemoryModel } from "./memory_model";
 import { drawAutomated, getSize } from "./automate";
 import { DrawnEntity, DisplaySettings } from "./types";
+import type * as fsType from "fs";
 
 // Dynamic import of Node fs module
-// TODO: try to type this properly
-let fs;
+let fs: typeof fsType | undefined;
 if (typeof window === "undefined") {
     fs = require("fs");
 }

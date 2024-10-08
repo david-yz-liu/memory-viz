@@ -6,7 +6,7 @@ export interface DrawnEntity {
     id?: number | string | null;
     value?: any;
     show_indexes?: boolean;
-    style?: string[] | Style;
+    style?: any;
     height?: number;
     width?: number;
     rowBreaker?: boolean;
@@ -32,7 +32,7 @@ export interface DisplaySettings {
     height: number;
     sort_by: SortOptions;
     style: Style;
-    roughjs_config: object;
+    roughjs_config: object; // TODO: confirm the usage of this and the style propert
     padding: number;
     top_margin: number;
     left_margin: number;
@@ -40,7 +40,7 @@ export interface DisplaySettings {
     right_margin: number;
 }
 
-export interface MemoryModelOptions {
+export interface VizualizationOptions {
     width: number;
     height: number;
     rect_style: {
@@ -61,6 +61,13 @@ export interface MemoryModelOptions {
     font_size: number;
     browser: boolean;
     roughjs_config: object;
+}
+
+export interface Rect {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
 }
 
 export enum SortOptions {
