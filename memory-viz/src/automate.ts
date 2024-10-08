@@ -1,6 +1,6 @@
 import { MemoryModel } from "./memory_model";
 import { config } from "./config";
-import { Configuration, DrawnEntity, SortOptions } from "./types";
+import { MemoryVizConfiguration, DrawnEntity, SortOptions } from "./types";
 
 /**
  * Draws the objects given in the path in an automated fashion.
@@ -14,7 +14,7 @@ import { Configuration, DrawnEntity, SortOptions } from "./types";
 function drawAutomated(
     objects: DrawnEntity[],
     width: number,
-    configuration: Configuration
+    configuration: Partial<MemoryVizConfiguration>
 ): MemoryModel {
     const { stack_frames, other_items } = separateObjects(objects);
 
@@ -79,7 +79,7 @@ function drawAutomated(
  */
 function drawAutomatedStackFrames(
     stack_frames: DrawnEntity[],
-    configuration: Configuration
+    configuration: Partial<MemoryVizConfiguration>
 ): {
     StackFrames: DrawnEntity[];
     requiredHeight: number;
@@ -159,7 +159,7 @@ function drawAutomatedOtherItems(
     objs: DrawnEntity[],
     max_width: number,
     sort_by: SortOptions,
-    config_aut: Configuration,
+    config_aut: Partial<MemoryVizConfiguration>,
     sf_endpoint: number
 ): { objs: DrawnEntity[]; canvas_height: number; canvas_width: number } {
     for (const req_prop of [

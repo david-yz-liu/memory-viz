@@ -1,8 +1,9 @@
 import { MemoryModel } from "./memory_model";
 import { drawAutomated, getSize } from "./automate";
-import { DrawnEntity, Configuration } from "./types";
+import { DrawnEntity, MemoryVizConfiguration } from "./types";
 
 // Dynamic import of Node fs module
+// TODO: try to type this properly
 let fs;
 if (typeof window === "undefined") {
     fs = require("fs");
@@ -30,7 +31,7 @@ if (typeof window === "undefined") {
 function draw(
     objects: string | DrawnEntity[],
     automation: boolean,
-    configuration: Configuration
+    configuration: Partial<MemoryVizConfiguration>
 ): MemoryModel {
     let objs: DrawnEntity[];
 
@@ -46,7 +47,7 @@ function draw(
     let m: MemoryModel;
 
     if (automation) {
-        if (!configuration.hasOwnProperty("width")) {
+        if (configuration.width === undefined) {
             throw new Error(
                 "Width argument for automated drawing is required."
             );

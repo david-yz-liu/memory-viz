@@ -60,6 +60,7 @@ export interface MemoryModelOptions {
     list_index_sep: number;
     font_size: number;
     browser: boolean;
+    roughjs_config: object;
 }
 
 export enum SortOptions {

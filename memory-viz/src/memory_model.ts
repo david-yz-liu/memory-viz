@@ -5,7 +5,12 @@ import merge from "deepmerge";
 import { collections, immutable, presets, setStyleSheet } from "./style";
 import { config } from "./config";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
-import { DrawnEntity } from "./types";
+import {
+    AttributeStyle,
+    DrawnEntity,
+    MemoryModelOptions,
+    Styles,
+} from "./types";
 
 // Dynamic import of Node fs module
 let fs;
@@ -50,8 +55,7 @@ export class MemoryModel {
     browser: boolean; // Whether this library is being used in a browser context
     roughjs_config: object; // Configuration object used to pass in options to rough.js
 
-    constructor(options?: any) {
-        options = options || {};
+    constructor(options?: Partial<MemoryModelOptions>) {
         if (options.browser) {
             this.document = document;
         } else {
@@ -67,8 +71,14 @@ export class MemoryModel {
             "svg"
         );
 
-        this.svg.setAttribute("width", options.width || 800);
-        this.svg.setAttribute("height", options.height || 800);
+        this.svg.setAttribute(
+            "width",
+            options.width ? options.width.toString() : "800"
+        );
+        this.svg.setAttribute(
+            "height",
+            options.height ? options.width.toString() : "800"
+        );
         this.roughjs_config = options.roughjs_config;
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
 
@@ -98,12 +108,12 @@ export class MemoryModel {
      * @param path - The repository (local location that the image
      * will be saved).
      */
-    save(path) {
+    save(path: string): void {
         const xml = this.serializeSVG();
         if (path === undefined) {
             console.log(xml);
         } else {
-            fs.writeFile(path, xml, (err) => {
+            fs.writeFile(path, xml, (err: Error) => {
                 if (err) {
                     console.error(err);
                 }
@@ -147,7 +157,15 @@ export class MemoryModel {
      * For style, firstly refer to `style.md` and `presets.md`. For the styling options in terms of texts, refer to
      * the SVG documentation. For the styling options in terms of boxes, refer to the Rough.js documentation.
      */
-    drawObject(x, y, type, id, value, show_indexes, style) {
+    drawObject(
+        x: number,
+        y: number,
+        type: string,
+        id: number,
+        value: any,
+        show_indexes: boolean,
+        style: CSSStyleDeclaration
+    ) {
         if (collections.includes(type)) {
             if (type === "dict") {
                 return this.drawDict(x, y, id, value, style);
@@ -180,7 +198,14 @@ export class MemoryModel {
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      */
-    drawPrimitive(x, y, type, id, value, style) {
+    drawPrimitive(
+        x: number,
+        y: number,
+        type: string,
+        id: number,
+        value: any,
+        style: any
+    ) {
         let box_width = Math.max(
             this.obj_min_width,
             this.getTextLength(String(value)) + this.obj_x_padding
@@ -216,7 +241,7 @@ export class MemoryModel {
             };
         }
 
-        let display_text;
+        let display_text: string;
         if (type === "bool") {
             display_text = value ? "True" : "False";
         } else if (type === "str") {
@@ -251,7 +276,14 @@ export class MemoryModel {
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      */
-    drawProperties(id, type, x, y, width, style) {
+    drawProperties(
+        id: number,
+        type: string,
+        x: number,
+        y: number,
+        width: number,
+        style: any
+    ) {
         let id_box = Math.max(
             this.prop_min_width,
             this.getTextLength(`id${id}`) + 10
@@ -317,7 +349,15 @@ export class MemoryModel {
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      */
-    drawSequence(x, y, type, id, element_ids, show_idx, style) {
+    drawSequence(
+        x: number,
+        y: number,
+        type: string,
+        id: number,
+        element_ids: number[],
+        show_idx: boolean,
+        style: any
+    ) {
         let box_width = this.obj_x_padding * 2;
 
         element_ids.forEach((v) => {
@@ -374,7 +414,7 @@ export class MemoryModel {
             );
             if (show_idx) {
                 this.drawText(
-                    i,
+                    i.toString(),
                     curr_x + item_length / 2,
                     item_y - this.item_min_height / 4,
                     style.text_id,
@@ -414,7 +454,13 @@ export class MemoryModel {
      *
      * @returns {number[]} the top-left coordinates, width, and height of the outermost box
      */
-    drawSet(x, y, id, element_ids, style) {
+    drawSet(
+        x: number,
+        y: number,
+        id: number,
+        element_ids: number[],
+        style: any
+    ) {
         let box_width = this.obj_x_padding * 2;
         element_ids.forEach((v) => {
             box_width += Math.max(
@@ -502,7 +548,18 @@ export class MemoryModel {
      *
      * @returns {object} the top-left coordinates, width, and height of the outermost box
      */
-    drawDict(x, y, id, obj, style) {
+    drawDict(
+        x: number,
+        y: number,
+        id: number,
+        obj: object,
+        style: any
+    ): {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    } {
         let box_width = this.obj_min_width;
         let box_height = this.prop_min_height + this.item_min_height / 2;
 
@@ -606,7 +663,20 @@ export class MemoryModel {
      *
      * @returns {number[]} the top-left coordinates, width, and height of the outermost box
      */
-    drawClass(x, y, name, id, attributes, stack_frame, style) {
+    drawClass(
+        x: number,
+        y: number,
+        name: string,
+        id: string,
+        attributes: object,
+        stack_frame: boolean,
+        style: any
+    ): {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+    } {
         let box_width = this.obj_min_width;
         let longest = 0;
         for (const attribute in attributes) {
@@ -684,7 +754,7 @@ export class MemoryModel {
                 "type"
             );
         } else {
-            this.drawProperties(id, name, x, y, box_width, style);
+            this.drawProperties(parseInt(id), name, x, y, box_width, style);
         }
 
         return SIZE;
@@ -705,7 +775,7 @@ export class MemoryModel {
         width: number,
         height: number,
         style?: object
-    ) {
+    ): void {
         if (style === undefined) {
             style = this.rect_style;
         }
@@ -729,14 +799,20 @@ export class MemoryModel {
      * @param {string} text_class - The CSS class (if any) of the text message to be drawn
      */
 
-    drawText(text, x, y, style, text_class = undefined) {
+    drawText(
+        text: string,
+        x: number,
+        y: number,
+        style: Styles,
+        text_class: string = undefined
+    ): void {
         const newElement = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
             "text"
         );
 
-        newElement.setAttribute("x", x);
-        newElement.setAttribute("y", y);
+        newElement.setAttribute("x", x.toString());
+        newElement.setAttribute("y", y.toString());
 
         if (style !== undefined) {
             let new_style = "";
@@ -759,7 +835,7 @@ export class MemoryModel {
      * Return the length of this text.
      * @param {string} s - The given text.
      */
-    getTextLength(s) {
+    getTextLength(s: string): number {
         return s.length * 12;
     }
 
@@ -796,7 +872,7 @@ export class MemoryModel {
      * Preconditions:
      *      - 'objects' is a valid object with the correct properties, as outlined above.
      */
-    drawAll(objects) {
+    drawAll(objects: DrawnEntity[]) {
         const sizes_arr = [];
 
         for (const obj of objects) {
@@ -827,7 +903,7 @@ export class MemoryModel {
                     obj.x,
                     obj.y,
                     obj.name,
-                    obj.id,
+                    obj.id && obj.id.toString(),
                     obj.value,
                     is_frame,
                     obj.style
@@ -838,7 +914,7 @@ export class MemoryModel {
                     obj.x,
                     obj.y,
                     obj.type,
-                    obj.id,
+                    Number(obj.id),
                     obj.value,
                     obj.show_indexes,
                     obj.style
