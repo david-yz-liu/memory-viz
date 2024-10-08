@@ -27,7 +27,7 @@ export interface Style {
 
 export type Styles = Style | (string | Style)[];
 
-export interface MemoryVizConfiguration {
+export interface DisplaySettings {
     width: number;
     height: number;
     sort_by: SortOptions;

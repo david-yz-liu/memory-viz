@@ -1,6 +1,6 @@
 import { MemoryModel } from "./memory_model";
 import { drawAutomated, getSize } from "./automate";
-import { DrawnEntity, MemoryVizConfiguration } from "./types";
+import { DrawnEntity, DisplaySettings } from "./types";
 
 // Dynamic import of Node fs module
 // TODO: try to type this properly
@@ -31,7 +31,7 @@ if (typeof window === "undefined") {
 function draw(
     objects: string | DrawnEntity[],
     automation: boolean,
-    configuration: Partial<MemoryVizConfiguration>
+    configuration: Partial<DisplaySettings>
 ): MemoryModel {
     let objs: DrawnEntity[];
 
