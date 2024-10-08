@@ -80,7 +80,7 @@ export class MemoryModel {
         );
         this.svg.setAttribute(
             "height",
-            options.height ? options.width.toString() : "800"
+            options.height ? options.height.toString() : "800"
         );
         this.roughjs_config = options.roughjs_config;
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
