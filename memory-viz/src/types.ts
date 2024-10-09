@@ -39,7 +39,7 @@ export interface DisplaySettings {
     right_margin: number;
 }
 
-export interface VizualizationOptions {
+export interface VisualizationConfig {
     width: number;
     height: number;
     rect_style: {
@@ -62,12 +62,17 @@ export interface VizualizationOptions {
     roughjs_config: Config;
 }
 
-export interface Rect {
-    x: number;
-    y: number;
+export interface Size {
     width: number;
     height: number;
 }
+
+export interface Point {
+    x: number;
+    y: number;
+}
+
+export interface Rect extends Point, Size {}
 
 export enum SortOptions {
     Height,

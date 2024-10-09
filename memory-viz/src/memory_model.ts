@@ -7,7 +7,7 @@ import { config } from "./config";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
 import {
     DrawnEntity,
-    VizualizationOptions,
+    VisualizationConfig,
     Rect,
     Primitive,
     Style,
@@ -59,9 +59,9 @@ export class MemoryModel {
     list_index_sep: number; // Vertical offset for list index labels
     font_size: number; // Font size, in px
     browser: boolean; // Whether this library is being used in a browser context
-    roughjs_config?: Config; // Configuration object used to pass in options to rough.js
+    roughjs_config: Config; // Configuration object used to pass in options to rough.js
 
-    constructor(options: Partial<VizualizationOptions>) {
+    constructor(options: Partial<VisualizationConfig>) {
         if (options.browser) {
             this.document = document;
         } else {
@@ -232,7 +232,7 @@ export class MemoryModel {
             style.box_container
         );
 
-        let size = {
+        let size: Rect = {
             width: box_width,
             height: this.obj_min_height,
             x: x,
@@ -390,7 +390,7 @@ export class MemoryModel {
 
         this.drawRect(x, y, box_width, box_height, style.box_container);
 
-        const size = { width: box_width, height: box_height, x: x, y: y };
+        const size: Rect = { width: box_width, height: box_height, x: x, y: y };
 
         if (immutable.includes(type)) {
             this.drawRect(
@@ -493,7 +493,12 @@ export class MemoryModel {
             style.box_container
         );
 
-        const SIZE = { x, y, width: box_width, height: this.obj_min_height };
+        const SIZE: Rect = {
+            x,
+            y,
+            width: box_width,
+            height: this.obj_min_height,
+        };
 
         let curr_x = x + this.item_min_width / 2;
         let item_y =
@@ -615,7 +620,7 @@ export class MemoryModel {
         }
 
         this.drawRect(x, y, box_width, box_height, style.box_container);
-        const SIZE = { x, y, width: box_width, height: box_height };
+        const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
         // A second loop, so that we can position the colon and value boxes correctly.
         curr_y = y + this.prop_min_height + this.item_min_height / 2;
@@ -706,7 +711,7 @@ export class MemoryModel {
         }
         this.drawRect(x, y, box_width, box_height, style.box_container);
 
-        const SIZE = { x, y, width: box_width, height: box_height };
+        const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
         // Draw element boxes.
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
@@ -907,7 +912,7 @@ export class MemoryModel {
                     obj.x,
                     obj.y,
                     obj.name,
-                    obj.id && obj.id.toString(),
+                    String(obj.id),
                     obj.value,
                     is_frame,
                     obj.style

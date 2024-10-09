@@ -1,6 +1,6 @@
 import { MemoryModel } from "./memory_model";
 import { config } from "./config";
-import { DisplaySettings, DrawnEntity, SortOptions } from "./types";
+import { DisplaySettings, DrawnEntity, Size, SortOptions } from "./types";
 
 /**
  * Draws the objects given in the path in an automated fashion.
@@ -216,7 +216,7 @@ function drawAutomatedOtherItems(
     let y_coord = config_aut.top_margin;
 
     // Once a row is occupied, we must establish its height to determine the y-coordinate of the next row's boxes.
-    let row_height;
+    let row_height: number;
     let curr_row_objects = [];
     for (const item of objs) {
         let hor_reach = x_coord + item.width + PADDING;
@@ -318,7 +318,7 @@ function separateObjects(objects: DrawnEntity[]): {
  * @param {DrawnEntity} obj - an object as specified in MemoryModel.drawAll, except that coordinates are missing.
  * @returns {object} the width and the height the drawn object would have.
  */
-function getSize(obj: DrawnEntity): { height: number; width: number } {
+function getSize(obj: DrawnEntity): Size {
     // The x and y values here are unimportant; 'obj' must simply have these properties for processing by 'drawAll'.
     obj.x = obj.x || 10;
     obj.y = obj.y || 10;
