@@ -23,6 +23,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🔧 Internal changes
 
+-   Added better typing.
+
 ## [0.3.2] - 2024-09-14
 
 ### ✨ Enhancements
