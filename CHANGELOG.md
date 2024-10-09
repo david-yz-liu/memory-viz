@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+-   Added transparent and dark mode versions of the logos!
+
 ### 🐛 Bug fixes
 
 -   Fixed a bug where the `Download JSON` button would not download the JSON currently inside the input box.
