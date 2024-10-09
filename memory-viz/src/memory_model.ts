@@ -28,9 +28,9 @@ if (typeof window === "undefined") {
 export class MemoryModel {
     /**
      * Create the memory model diagram.
-     * @property {object} svg - An svg 'Element' object from the DOM (Document Object Model) module.
+     * @property {SVGSVGElement} svg - An svg 'Element' object from the DOM (Document Object Model) module.
      *                          Scalable Vector Graphics (svg) is an image format based on geometry.
-     * @property {object} rough_svg - Instantiating a RoughSVG object by passing the root svg node (this.svg) to the
+     * @property {RoughSVG} rough_svg - Instantiating a RoughSVG object by passing the root svg node (this.svg) to the
      *                                'rough.svg()' method. As per the documentation of the 'rough' library,
      *                                "RoughSVG provides the main interface to work with this library".
      *
@@ -44,7 +44,7 @@ export class MemoryModel {
     document: Document;
     svg: SVGSVGElement;
     rough_svg: RoughSVG;
-    rect_style: object;
+    rect_style: Options;
     text_color: string; // Default text color
     value_color: string; // Text color for primitive values
     id_color: string; // Text color for object ids
@@ -111,7 +111,7 @@ export class MemoryModel {
     /**
      * Save the current image to an SVG file at the given path.
      * If path is undefined, write the svg to stdout instead.
-     * @param path - The repository (local location that the image
+     * @param {string} path - The repository (local location that the image
      * will be saved).
      */
     save(path: string): void {
@@ -159,7 +159,7 @@ export class MemoryModel {
      * @param {number} id - the hypothetical memory address number
      * @param {*} value - can be passed as a list if type is a collection type
      * @param {boolean} show_indexes - whether to show list indices
-     * @param {Object} style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * @param {Style} style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * For style, firstly refer to `style.md` and `presets.md`. For the styling options in terms of texts, refer to
      * the SVG documentation. For the styling options in terms of boxes, refer to the Rough.js documentation.
      */
