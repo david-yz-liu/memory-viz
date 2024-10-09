@@ -1,3 +1,8 @@
+import { Config, Options } from "roughjs/bin/core";
+import type * as CSS from "csstype";
+
+export type Styles = Style | (string | Style)[];
+
 export interface DrawnEntity {
     name?: string;
     type?: string;
@@ -6,33 +11,27 @@ export interface DrawnEntity {
     id?: number | string | null;
     value?: any;
     show_indexes?: boolean;
-    style?: any;
+    style?: Styles;
     height?: number;
     width?: number;
     rowBreaker?: boolean;
 }
 
-export interface AttributeStyle {
-    [propName: string]: string | number | AttributeStyle;
-}
-
 export interface Style {
-    text_id?: AttributeStyle;
-    text_type?: AttributeStyle;
-    text_value?: AttributeStyle;
-    box_id?: AttributeStyle;
-    box_type?: AttributeStyle;
-    box_container?: AttributeStyle;
+    text_id?: CSS.PropertiesHyphen;
+    text_type?: CSS.PropertiesHyphen;
+    text_value?: CSS.PropertiesHyphen;
+    box_id?: Options;
+    box_type?: Options;
+    box_container?: Options;
 }
-
-export type Styles = Style | (string | Style)[];
 
 export interface DisplaySettings {
     width: number;
     height: number;
     sort_by: SortOptions;
-    style: Style;
-    roughjs_config: object;
+    style: Styles;
+    roughjs_config: Config;
     padding: number;
     top_margin: number;
     left_margin: number;
@@ -60,7 +59,7 @@ export interface VizualizationOptions {
     list_index_sep: number;
     font_size: number;
     browser: boolean;
-    roughjs_config: object;
+    roughjs_config: Config;
 }
 
 export interface Rect {

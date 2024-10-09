@@ -8,12 +8,15 @@ import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
 import {
     DrawnEntity,
     VizualizationOptions,
-    Styles,
     Rect,
     Primitive,
+    Style,
 } from "./types";
 import { isArrayOfType } from "./typeguards";
+import { RoughSVG } from "roughjs/bin/svg";
+import { Config, Options } from "roughjs/bin/core";
 import type * as fsType from "fs";
+import type * as CSS from "csstype";
 
 // Dynamic import of Node fs module
 let fs: typeof fsType | undefined;
@@ -40,7 +43,7 @@ export class MemoryModel {
      */
     document: Document;
     svg: SVGSVGElement;
-    rough_svg: any;
+    rough_svg: RoughSVG;
     rect_style: object;
     text_color: string; // Default text color
     value_color: string; // Text color for primitive values
@@ -56,7 +59,7 @@ export class MemoryModel {
     list_index_sep: number; // Vertical offset for list index labels
     font_size: number; // Font size, in px
     browser: boolean; // Whether this library is being used in a browser context
-    roughjs_config: object; // Configuration object used to pass in options to rough.js
+    roughjs_config?: Config; // Configuration object used to pass in options to rough.js
 
     constructor(options: Partial<VizualizationOptions>) {
         if (options.browser) {
@@ -168,7 +171,7 @@ export class MemoryModel {
         id: number,
         value: object | number[] | string | boolean | null,
         show_indexes: boolean,
-        style: any
+        style: Style
     ): Rect {
         if (collections.includes(type)) {
             if (type === "dict" && typeof value === "object") {
@@ -284,7 +287,7 @@ export class MemoryModel {
      * @param {number} x - value for x coordinate of top left corner
      * @param {number} y - value for y coordinate of top left corner
      * @param {number} width - The width of the given box (rectangle)
-     * @param {Object} style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * @param {Style} style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      */
@@ -294,7 +297,7 @@ export class MemoryModel {
         x: number,
         y: number,
         width: number,
-        style: any
+        style: Style
     ) {
         let id_box = Math.max(
             this.prop_min_width,
@@ -349,6 +352,7 @@ export class MemoryModel {
      * @param {boolean} show_idx - whether to show the indexes of each list element
      * @param {object} style - object defining the desired style of the sequence. As described in the docstring of
      *            'drawAll', this must be in the form
+     * TODO: This is pretty confusing, confirm what the style object should actually look like
      *            {text:
      *                  {value: {...}, id : {...}, type : {...}},
      *                  box: {container : {...}, id : {...}, type : {...}}
@@ -357,7 +361,7 @@ export class MemoryModel {
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
      *
-     * @param {Object} style -  The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * @param {Style} style -  The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      */
@@ -368,7 +372,7 @@ export class MemoryModel {
         id: number,
         element_ids: number[],
         show_idx: boolean,
-        style: any
+        style: Style
     ): Rect {
         let box_width = this.obj_x_padding * 2;
 
@@ -458,7 +462,8 @@ export class MemoryModel {
      *          2. The 'element_ids' argument must store the id's and not the actual value of the list elements.
      *             If the instructor wishes to showcase the corresponding values, it is their responsibility to create
      *             memory boxes for all elements (with id's that match the id's held in 'element_ids').
-     * @param {object} style - object defining the desired style of the sequence. Must abide by the structure defined
+     * TODO: `drawAll` doesn't actually define what the style object should look like
+     * @param {Style} style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
      *
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
@@ -471,7 +476,7 @@ export class MemoryModel {
         y: number,
         id: number,
         element_ids: number[],
-        style: any
+        style: Style
     ): Rect {
         let box_width = this.obj_x_padding * 2;
         element_ids.forEach((v) => {
@@ -555,12 +560,18 @@ export class MemoryModel {
      * @param {number} y - value for y coordinate of top left corner
      * @param {number} id - the hypothetical memory address number
      * @param {object} obj - the object that will be drawn
-     * @param {object} style - object defining the desired style of the sequence. Must abide by the structure defined
+     * @param {Style} style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
      *
      * @returns {object} the top-left coordinates, width, and height of the outermost box
      */
-    drawDict(x: number, y: number, id: number, obj: object, style: any): Rect {
+    drawDict(
+        x: number,
+        y: number,
+        id: number,
+        obj: object,
+        style: Style
+    ): Rect {
         let box_width = this.obj_min_width;
         let box_height = this.prop_min_height + this.item_min_height / 2;
 
@@ -659,7 +670,7 @@ export class MemoryModel {
      * @param {string} id - the hypothetical memory address number
      * @param {object} attributes - the attributes of the given class
      * @param {boolean} stack_frame - set to true if you are drawing a stack frame
-     * @param {object} style - object defining the desired style of the sequence. Must abide by the structure defined
+     * @param {Style} style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
      *
      * @returns {number[]} the top-left coordinates, width, and height of the outermost box
@@ -671,7 +682,7 @@ export class MemoryModel {
         id: string,
         attributes: object,
         stack_frame: boolean,
-        style: any
+        style: Style
     ): Rect {
         let box_width = this.obj_min_width;
         let longest = 0;
@@ -762,7 +773,7 @@ export class MemoryModel {
      * @param {number} y - value for y coordinate of top left corner
      * @param {number} width - the width of the rectangle
      * @param {number} height - the height of the rectangle
-     * @param {object | undefined} style - 1-D object with style properties for a Rough.js object, as per the
+     * @param {Options} style - 1-D object with style properties for a Rough.js object, as per the
      *                        Rough.js API. For instance, {fill: 'blue', stroke: 'red'}.
      */
     drawRect(
@@ -770,13 +781,13 @@ export class MemoryModel {
         y: number,
         width: number,
         height: number,
-        style?: object
+        style?: Options
     ): void {
         if (style === undefined) {
             style = this.rect_style;
         }
 
-        style = { ...style, config: this.roughjs_config };
+        style = { ...style, ...this.roughjs_config?.options };
 
         this.svg.appendChild(
             this.rough_svg.rectangle(x, y, width, height, style)
@@ -799,7 +810,7 @@ export class MemoryModel {
         text: string,
         x: number,
         y: number,
-        style: Styles,
+        style: CSS.Properties,
         text_class: string = undefined
     ): void {
         const newElement = this.document.createElementNS(
@@ -889,7 +900,7 @@ export class MemoryModel {
                 obj.style = styleSoFar;
             }
 
-            obj.style = { ...obj.style, config: this.roughjs_config };
+            obj.style = { ...obj.style, ...this.roughjs_config?.options };
 
             const frame_types = [".frame", ".blank-frame"];
             if (frame_types.includes(obj.type) || obj.type === ".class") {

@@ -1,7 +1,9 @@
 import merge from "deepmerge";
 import { config } from "./config";
-import { DrawnEntity, AttributeStyle, Style } from "./types";
+import { Style } from "./types";
+import type * as CSS from "csstype";
 import { MemoryModel } from "./memory_model";
+import { Options } from "roughjs/bin/core";
 
 const immutable: string[] = [
     "int",
@@ -17,29 +19,29 @@ const collections: string[] = ["list", "set", "tuple", "dict"];
 const primitives: string[] = ["int", "str", "None", "bool", "float", "date"];
 
 // Constants employed to establish presets for styles.
-const HIGHLIGHT_TEXT: AttributeStyle = {
+const HIGHLIGHT_TEXT: CSS.PropertiesHyphen = {
     "font-weight": "bolder",
     "font-size": "22px",
 };
-const FADE_TEXT: AttributeStyle = {
+const FADE_TEXT: CSS.PropertiesHyphen = {
     /*'font-weight': "normal",*/ "fill-opacity": 0.4,
 };
-const HIDE_TEXT: AttributeStyle = { "fill-opacity": 0 };
-const HIGHLIGHT_BOX_LINES: AttributeStyle = { roughness: 0.2, strokeWidth: 4 };
-const HIGHLIGHT_BOX: AttributeStyle = {
+const HIDE_TEXT: CSS.PropertiesHyphen = { "fill-opacity": 0 };
+const HIGHLIGHT_BOX_LINES: Options = { roughness: 0.2, strokeWidth: 4 };
+const HIGHLIGHT_BOX: Options = {
     roughness: 0.2,
     strokeWidth: 4,
     fill: "yellow",
     fillStyle: "solid",
 };
-const FADE_BOX_LINES: AttributeStyle = { roughness: 2.0, strokeWidth: 0.5 };
-const FADE_BOX: AttributeStyle = {
+const FADE_BOX_LINES: Options = { roughness: 2.0, strokeWidth: 0.5 };
+const FADE_BOX: Options = {
     roughness: 2.0,
     strokeWidth: 0.5,
     fill: "rgb(247, 247, 247)",
     fillStyle: "solid",
 };
-const HIDE_BOX: AttributeStyle = { fill: "white", fillStyle: "solid" };
+const HIDE_BOX: Options = { fill: "white", fillStyle: "solid" };
 
 const presets: Record<string, Style> = {
     highlight: {
