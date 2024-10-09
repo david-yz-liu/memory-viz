@@ -151,7 +151,6 @@ export class MemoryModel {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    // TODO: check style type
     /**
      * Distribute the object drawing depending on type
      * @param {number} x - value for x coordinate of top left corner
@@ -219,7 +218,7 @@ export class MemoryModel {
         type: string,
         id: number,
         value: Primitive,
-        style: any
+        style: Style
     ): Rect {
         let box_width = Math.max(
             this.obj_min_width,
@@ -352,7 +351,6 @@ export class MemoryModel {
      * @param {boolean} show_idx - whether to show the indexes of each list element
      * @param {object} style - object defining the desired style of the sequence. As described in the docstring of
      *            'drawAll', this must be in the form
-     * TODO: This is pretty confusing, confirm what the style object should actually look like
      *            {text:
      *                  {value: {...}, id : {...}, type : {...}},
      *                  box: {container : {...}, id : {...}, type : {...}}
@@ -462,7 +460,6 @@ export class MemoryModel {
      *          2. The 'element_ids' argument must store the id's and not the actual value of the list elements.
      *             If the instructor wishes to showcase the corresponding values, it is their responsibility to create
      *             memory boxes for all elements (with id's that match the id's held in 'element_ids').
-     * TODO: `drawAll` doesn't actually define what the style object should look like
      * @param {Style} style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
      *
