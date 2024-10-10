@@ -8,7 +8,7 @@ export interface DrawnEntity {
     type?: string;
     x?: number;
     y?: number;
-    id?: number | string | null;
+    id?: number | null;
     value?: any;
     show_indexes?: boolean;
     style?: Styles;

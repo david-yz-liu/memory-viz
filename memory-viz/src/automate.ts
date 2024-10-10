@@ -353,12 +353,7 @@ function compareByHeight(a: DrawnEntity, b: DrawnEntity): number {
  * @returns {number} negative if 'a.id' is larger, 0 if a.id == b.id, and positive if 'b.id' is larger.
  */
 function compareByID(a: DrawnEntity, b: DrawnEntity): number {
-    if (typeof a.id === "number" && typeof b.id === "number") {
-        return a.id - b.id;
-    }
-    if (typeof a.id === "string" && typeof b.id === "string") {
-        return a.id.localeCompare(b.id);
-    }
+    return a.id - b.id;
 }
 
 /**
