@@ -16,6 +16,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 🐛 Bug fixes
 
 -   Fixed a bug where the `Download JSON` button would not download the JSON currently inside the input box.
+-   Made sure file input would reset when file input dialog was closed.
 
 ### 📚 Documentation and demo website changes
 

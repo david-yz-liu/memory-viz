@@ -217,6 +217,38 @@ describe("MemoryModelsUserInput", () => {
                     expect(setTextDataMock).toHaveBeenCalledWith(fileString);
                 });
             });
+
+            it("closing the dialog resets the file input", async () => {
+                const reapplyBtn = screen.getByTestId(
+                    "file-input-reapply-button"
+                );
+
+                await waitFor(() => {
+                    // wait until the button is enabled
+                    expect(reapplyBtn).toHaveProperty("disabled", false);
+                    // click off the dialog window
+                    fireEvent.keyDown(
+                        screen.queryByTestId("file-input-dialog"),
+                        {
+                            key: "Escape",
+                            code: "Escape",
+                            keyCode: 27,
+                            charCode: 27,
+                        }
+                    );
+                });
+
+                await waitFor(() => {
+                    // // expect dialog to no longer be there
+                    expect(
+                        screen.queryByTestId("file-input-dialog")
+                    ).toBeNull();
+
+                    // // re-open the modal, reapplyBtn should be disabled
+                    fireEvent.click(screen.getByText("Upload JSON File"));
+                    expect(reapplyBtn).toHaveProperty("disabled", true);
+                });
+            });
         });
     });
 
