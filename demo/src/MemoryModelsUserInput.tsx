@@ -130,7 +130,7 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
             variant="outlined"
             value={props.textData}
             onChange={handleTextFieldChange}
-            slotProps={{ input: { style: { fontFamily: "monospace" } } }}
+            slotProps={{ input: { style: { fontFamily: "monospace" } } }} // todo: change colour attribute
         />
     );
 }

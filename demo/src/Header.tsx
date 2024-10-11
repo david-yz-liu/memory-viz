@@ -1,8 +1,14 @@
 import React from "react";
-import { Box, Link, Stack, Typography } from "@mui/material";
-import image from "../../assets/logo_square.png";
+import { Box, Link, Stack, Typography, useMediaQuery } from "@mui/material";
+import lightLogo from "../../assets/logo_square.png";
+import darkLogo from "../../assets/logo_square_dark.png";
+import { dark } from "@mui/material/styles/createPalette";
 
 export default function Header() {
+    const logo = useMediaQuery("(prefers-color-scheme: dark)")
+        ? darkLogo
+        : lightLogo;
+
     return (
         <header className="container">
             <Stack direction={"row"} justifyContent={"space-between"}>
@@ -29,7 +35,7 @@ export default function Header() {
                     </Typography>
                 </Box>
                 <img
-                    src={image}
+                    src={logo}
                     alt="MemoryViz Logo"
                     style={{
                         width: "100px",

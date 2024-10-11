@@ -4,8 +4,9 @@ import App from "./App";
 import "@picocss/pico";
 import "./css/styles";
 
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-const theme = createTheme({
+import { createTheme } from "@mui/material/styles";
+
+const lightTheme = createTheme({
     palette: {
         primary: {
             main: "#2a6b2c",
@@ -15,11 +16,22 @@ const theme = createTheme({
     },
 });
 
+const darkTheme = createTheme({
+    palette: {
+        primary: {
+            main: "#89c48c",
+            dark: "#89c48c",
+            light: "#89c48c",
+        },
+    },
+});
+
 const root = createRoot(document.getElementById("root"));
+
 root.render(
     <StrictMode>
-        <ThemeProvider theme={theme}>
-            <App />
-        </ThemeProvider>
+        <App />
     </StrictMode>
 );
+
+export { lightTheme, darkTheme };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, ThemeProvider, useMediaQuery } from "@mui/material";
 import SvgDisplay from "./SvgDisplay";
 import MemoryModelsUserInput from "./MemoryModelsUserInput";
 import { ErrorBoundary } from "react-error-boundary";
@@ -7,6 +7,7 @@ import DownloadSVGButton from "./DownloadSVGButton";
 import { Alert } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
 import Header from "./Header";
+import { darkTheme, lightTheme } from "./index";
 
 export default function App() {
     const [textData, setTextData] = useState("");
@@ -33,46 +34,51 @@ export default function App() {
         }
     };
 
+    const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
     return (
-        <main className="container">
-            <Header />
-            {failureBanner && (
-                <Alert severity="error" data-testid="json-parse-alert">
-                    {failureBanner}
-                </Alert>
-            )}
-            <Stack direction="row" spacing={2}>
-                <Box sx={{ width: "40%" }}>
-                    <h2>Input</h2>
-                    <MemoryModelsUserInput
-                        textData={textData}
-                        setTextData={setTextData}
-                        configData={configData}
-                        setConfigData={setConfigData}
-                        onTextDataSubmit={onTextDataSubmit}
-                        setFailureBanner={setFailureBanner}
-                    />
-                </Box>
-                <Box sx={{ width: "60%" }}>
-                    <h2>Output</h2>
-                    <ErrorBoundary
-                        fallback={
-                            <p data-testid="svg-display-error-boundary">
-                                This is valid JSON but not valid Memory Models
-                                JSON. Please refer to the repo for more details.
-                            </p>
-                        }
-                        key={jsonResult}
-                    >
-                        <SvgDisplay
-                            jsonResult={jsonResult}
+        <ThemeProvider theme={prefersDarkMode ? darkTheme : lightTheme}>
+            <main className="container">
+                <Header />
+                {failureBanner && (
+                    <Alert severity="error" data-testid="json-parse-alert">
+                        {failureBanner}
+                    </Alert>
+                )}
+                <Stack direction="row" spacing={2}>
+                    <Box sx={{ width: "40%" }}>
+                        <h2>Input</h2>
+                        <MemoryModelsUserInput
+                            textData={textData}
+                            setTextData={setTextData}
                             configData={configData}
-                            setSvgResult={setSvgResult}
+                            setConfigData={setConfigData}
+                            onTextDataSubmit={onTextDataSubmit}
+                            setFailureBanner={setFailureBanner}
                         />
-                    </ErrorBoundary>
-                    <DownloadSVGButton svgResult={svgResult} />
-                </Box>
-            </Stack>
-        </main>
+                    </Box>
+                    <Box sx={{ width: "60%" }}>
+                        <h2>Output</h2>
+                        <ErrorBoundary
+                            fallback={
+                                <p data-testid="svg-display-error-boundary">
+                                    This is valid JSON but not valid Memory
+                                    Models JSON. Please refer to the repo for
+                                    more details.
+                                </p>
+                            }
+                            key={jsonResult}
+                        >
+                            <SvgDisplay
+                                jsonResult={jsonResult}
+                                configData={configData}
+                                setSvgResult={setSvgResult}
+                            />
+                        </ErrorBoundary>
+                        <DownloadSVGButton svgResult={svgResult} />
+                    </Box>
+                </Stack>
+            </main>
+        </ThemeProvider>
     );
 }
