@@ -35,6 +35,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     return (
         <Paper
             sx={{
+                bgcolor: `primary.paper`,
                 height: 500,
                 overflow: "hidden",
                 display: "flex",

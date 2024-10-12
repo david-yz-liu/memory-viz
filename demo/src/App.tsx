@@ -34,10 +34,10 @@ export default function App() {
         }
     };
 
-    const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+    const usingDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
     return (
-        <ThemeProvider theme={prefersDarkMode ? darkTheme : lightTheme}>
+        <ThemeProvider theme={usingDarkMode ? darkTheme : lightTheme}>
             <main className="container">
                 <Header />
                 {failureBanner && (
