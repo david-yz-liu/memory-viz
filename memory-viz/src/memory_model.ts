@@ -28,9 +28,9 @@ if (typeof window === "undefined") {
 export class MemoryModel {
     /**
      * Create the memory model diagram.
-     * @property {SVGSVGElement} svg - An svg 'Element' object from the DOM (Document Object Model) module.
+     * @property svg - An svg 'Element' object from the DOM (Document Object Model) module.
      *                          Scalable Vector Graphics (svg) is an image format based on geometry.
-     * @property {RoughSVG} rough_svg - Instantiating a RoughSVG object by passing the root svg node (this.svg) to the
+     * @property rough_svg - Instantiating a RoughSVG object by passing the root svg node (this.svg) to the
      *                                'rough.svg()' method. As per the documentation of the 'rough' library,
      *                                "RoughSVG provides the main interface to work with this library".
      *
@@ -101,7 +101,7 @@ export class MemoryModel {
     /**
      * Serialize the generated SVG element into a readable string.
      *
-     * @returns {String} a readable string for the generated SVG element
+     * @returns a readable string for the generated SVG element
      */
     serializeSVG(): string {
         const xmlSerializer = new XMLSerializer();
@@ -111,7 +111,7 @@ export class MemoryModel {
     /**
      * Save the current image to an SVG file at the given path.
      * If path is undefined, write the svg to stdout instead.
-     * @param {string} path - The repository (local location that the image
+     * @param path - The repository (local location that the image
      * will be saved).
      */
     save(path: string): void {
@@ -153,13 +153,13 @@ export class MemoryModel {
 
     /**
      * Distribute the object drawing depending on type
-     * @param {number} x - value for x coordinate of top left corner
-     * @param {number} y - value for y coordinate of top left corner
-     * @param {string} type - the data type (e.g. list, int) of the object we want draw
-     * @param {number} id - the hypothetical memory address number
-     * @param {*} value - can be passed as a list if type is a collection type
-     * @param {boolean} show_indexes - whether to show list indices
-     * @param {Style} style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * @param x - value for x coordinate of top left corner
+     * @param y - value for y coordinate of top left corner
+     * @param type - the data type (e.g. list, int) of the object we want draw
+     * @param id - the hypothetical memory address number
+     * @param value - can be passed as a list if type is a collection type
+     * @param show_indexes - whether to show list indices
+     * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * For style, firstly refer to `style.md` and `presets.md`. For the styling options in terms of texts, refer to
      * the SVG documentation. For the styling options in terms of boxes, refer to the Rough.js documentation.
      */
@@ -203,12 +203,12 @@ export class MemoryModel {
 
     /**
      * Draw a primitive object.
-     * @param {number} x - value for x coordinate of top left corner
-     * @param {number} y - value for y coordinate of top left corner
-     * @param {string} type - the primitive data type (e.g. boolean, int) of the object we want draw
-     * @param {number} id - the hypothetical memory address number
-     * @param {*} value - the value of the primitive object
-     * @param {Object} style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * @param x - value for x coordinate of top left corner
+     * @param y - value for y coordinate of top left corner
+     * @param type - the primitive data type (e.g. boolean, int) of the object we want draw
+     * @param id - the hypothetical memory address number
+     * @param value - the value of the primitive object
+     * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      */
@@ -281,12 +281,12 @@ export class MemoryModel {
 
     /**
      * Draw the id and type properties of an object with a given type and id.
-     * @param {number} id - the hypothetical memory address number
-     * @param {string} type - the data type of the given object
-     * @param {number} x - value for x coordinate of top left corner
-     * @param {number} y - value for y coordinate of top left corner
-     * @param {number} width - The width of the given box (rectangle)
-     * @param {Style} style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * @param id - the hypothetical memory address number
+     * @param type - the data type of the given object
+     * @param x - value for x coordinate of top left corner
+     * @param y - value for y coordinate of top left corner
+     * @param width - The width of the given box (rectangle)
+     * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      */
@@ -336,11 +336,11 @@ export class MemoryModel {
 
     /**
      * Draw a sequence object (must be either a list or a tuple).
-     * @param {number} x - value for x coordinate of top left corner
-     * @param {number} y - value for y coordinate of top left corner
-     * @param {string} type - the data type of the given object (tuple or list)
-     * @param {number} id - the hypothetical memory address number
-     * @param {number[]} element_ids - the list of id's corresponding to the values stored in this set.
+     * @param x - value for x coordinate of top left corner
+     * @param y - value for y coordinate of top left corner
+     * @param type - the data type of the given object (tuple or list)
+     * @param id - the hypothetical memory address number
+     * @param element_ids - the list of id's corresponding to the values stored in this set.
      *      NOTE:
      *          1. This argument MUST be an array, since the built-in 'forEach' method works only for
      *             (finite) ordered collections (i.e. with indexing). Sets are a type of unordered collection.
@@ -348,8 +348,8 @@ export class MemoryModel {
      *             If the instructor wishes to showcase the corresponding values, it is their responsibility to create
      *             memory boxes for all elements (with id's that match the id's held in 'element_ids').
      *
-     * @param {boolean} show_idx - whether to show the indexes of each list element
-     * @param {object} style - object defining the desired style of the sequence. As described in the docstring of
+     * @param show_idx - whether to show the indexes of each list element
+     * @param style - object defining the desired style of the sequence. As described in the docstring of
      *            'drawAll', this must be in the form
      *            {text:
      *                  {value: {...}, id : {...}, type : {...}},
@@ -359,7 +359,7 @@ export class MemoryModel {
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
      *
-     * @param {Style} style -  The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * @param style -  The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      */
@@ -450,23 +450,23 @@ export class MemoryModel {
 
     /**
      * Draw a set object.
-     * @param {number} x - value for x coordinate of top left corner
-     * @param {number} y - value for y coordinate of top left corner
-     * @param {number} id - the hypothetical memory address number
-     * @param {number[]} element_ids - the list of id's corresponding to the values stored in this set.
+     * @param x - value for x coordinate of top left corner
+     * @param y - value for y coordinate of top left corner
+     * @param id - the hypothetical memory address number
+     * @param element_ids - the list of id's corresponding to the values stored in this set.
      *      NOTE:
      *          1. This argument MUST be an array, since the built-in 'forEach' method works only for
      *             (finite) ordered collections (i.e. with indexing). Sets are a type of unordered collection.
      *          2. The 'element_ids' argument must store the id's and not the actual value of the list elements.
      *             If the instructor wishes to showcase the corresponding values, it is their responsibility to create
      *             memory boxes for all elements (with id's that match the id's held in 'element_ids').
-     * @param {Style} style - object defining the desired style of the sequence. Must abide by the structure defined
+     * @param style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
      *
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
      *
-     * @returns {number[]} the top-left coordinates, width, and height of the outermost box
+     * @returns the top-left coordinates, width, and height of the outermost box
      */
     drawSet(
         x: number,
@@ -558,14 +558,14 @@ export class MemoryModel {
 
     /**
      * Draw a dictionary object
-     * @param {number} x - value for x coordinate of top left corner
-     * @param {number} y - value for y coordinate of top left corner
-     * @param {number} id - the hypothetical memory address number
-     * @param {object} obj - the object that will be drawn
-     * @param {Style} style - object defining the desired style of the sequence. Must abide by the structure defined
+     * @param x - value for x coordinate of top left corner
+     * @param y - value for y coordinate of top left corner
+     * @param id - the hypothetical memory address number
+     * @param obj - the object that will be drawn
+     * @param style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
      *
-     * @returns {object} the top-left coordinates, width, and height of the outermost box
+     * @returns the top-left coordinates, width, and height of the outermost box
      */
     drawDict(
         x: number,
@@ -666,16 +666,16 @@ export class MemoryModel {
 
     /**
      * Draw a custom class.
-     * @param  {number} x - value for x coordinate of top left corner
-     * @param {number} y - value for y coordinate of top left corner
-     * @param {string} name - the name of the class
-     * @param {number} id - the hypothetical memory address number
-     * @param {object} attributes - the attributes of the given class
-     * @param {boolean} stack_frame - set to true if you are drawing a stack frame
-     * @param {Style} style - object defining the desired style of the sequence. Must abide by the structure defined
+     * @param  x - value for x coordinate of top left corner
+     * @param y - value for y coordinate of top left corner
+     * @param name - the name of the class
+     * @param id - the hypothetical memory address number
+     * @param attributes - the attributes of the given class
+     * @param stack_frame - set to true if you are drawing a stack frame
+     * @param style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
      *
-     * @returns {number[]} the top-left coordinates, width, and height of the outermost box
+     * @returns the top-left coordinates, width, and height of the outermost box
      */
     drawClass(
         x: number,
@@ -771,11 +771,11 @@ export class MemoryModel {
 
     /**
      * Draw a rectangle that will be used to represent the objects.
-     * @param {number} x - value for x coordinate of top left corner
-     * @param {number} y - value for y coordinate of top left corner
-     * @param {number} width - the width of the rectangle
-     * @param {number} height - the height of the rectangle
-     * @param {Options} style - 1-D object with style properties for a Rough.js object, as per the
+     * @param x - value for x coordinate of top left corner
+     * @param y - value for y coordinate of top left corner
+     * @param width - the width of the rectangle
+     * @param height - the height of the rectangle
+     * @param style - 1-D object with style properties for a Rough.js object, as per the
      *                        Rough.js API. For instance, {fill: 'blue', stroke: 'red'}.
      */
     drawRect(
@@ -798,14 +798,14 @@ export class MemoryModel {
 
     /**
      * Draw given text
-     * @param {string} text - The text message that will be displayed
-     * @param {number} x - value for x coordinate of top left corner
-     * @param {number} y - value for y coordinate of top left corner
-     * @param {Object} style -  1-D object with style properties for a svg object, as per the
+     * @param text - The text message that will be displayed
+     * @param x - value for x coordinate of top left corner
+     * @param y - value for y coordinate of top left corner
+     * @param style -  1-D object with style properties for a svg object, as per the
      *                        standard SVG attributes, documented on
      *                        https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
      *                        For instance, {fill: 'blue', stroke: 'red'}
-     * @param {string} text_class - The CSS class (if any) of the text message to be drawn
+     * @param text_class - The CSS class (if any) of the text message to be drawn
      */
 
     drawText(
@@ -842,7 +842,7 @@ export class MemoryModel {
 
     /**
      * Return the length of this text.
-     * @param {string} s - The given text.
+     * @param s - The given text.
      */
     getTextLength(s: string): number {
         return s.length * 12;
@@ -851,31 +851,31 @@ export class MemoryModel {
     /**
      * Create a MemoryModel given a list of JS objects.
      *
-     * @param {DrawnEntity[]} objects - the list of objects (including stack-frames) to be drawn.
+     * @param objects - the list of objects (including stack-frames) to be drawn.
      * Each object in 'objects' must include  the following structure:
-     * @param {number} objects[*].x - Value for x coordinate of top left corner
-     * @param {number} objects[*].y - Value for y coordinate of top left corner
-     * @param {string} objects[*].type - Specifies whether a class, stack frame, or object is being drawn.
+     * @param objects[*].x - Value for x coordinate of top left corner
+     * @param objects[*].y - Value for y coordinate of top left corner
+     * @param objects[*].type - Specifies whether a class, stack frame, or object is being drawn.
      *                                      To draw a class, input `.class` and to draw a stack frame, input `.frame`. If an
      *                                       object is being drawn, input the type of the object.
-     * @param {string} objects[*].name - The name of the class or stack frame to be drawn. Note that this attribute is only
+     * @param objects[*].name - The name of the class or stack frame to be drawn. Note that this attribute is only
      *                                  applicable if the object's type is `.class` or `.frame`. If no classes or stack frames
      *                                   are being drawn, this attribute can be excluded from the input.
-     * @param {number} objects[*].id - The id value of this object. If we are to draw a StackFrame, then this MUST be 'null'.
-     * @param {*} objects[*].value - The value of the object. This could be anything, from an empty string to a JS object,
+     * @param objects[*].id - The id value of this object. If we are to draw a StackFrame, then this MUST be 'null'.
+     * @param objects[*].value - The value of the object. This could be anything, from an empty string to a JS object,
      *                          which would be passed for the purpose of drawing a user-defined class object, a
      *                          stackframe, or a dictionary. Note that in such cases where we want to do draw a 'container'
      *                          object (an object that contains other objects), we pass a JS object where the keys are the
      *                          attributes/variables and the values are the id's of the corresponding objects (not the
      *                          objects themselves).
-     * @param {boolean=} objects[*].show_indexes = false - Applicable only for drawing tuples or lists (when drawSequence
+     * @param objects[*].show_indexes = false - Applicable only for drawing tuples or lists (when drawSequence
      *                                                     method will be used).
      *                                                     Whether the memory box of the underlying
      *                                                     sequence will include indices (for sequences) or not. This
      *                                                     has a default value of false, and it shall be manually set
      *                                                     only if the object corresponds to a sequence (list or
      *                                                     tuple).
-     * @param {object} objects[*].style - The style object with which the object will be rendered. Check the
+     * @param objects[*].style - The style object with which the object will be rendered. Check the
      * `style.md` and `presets.md` documentation files in the `explanations` directory.
      *
      * Preconditions:
