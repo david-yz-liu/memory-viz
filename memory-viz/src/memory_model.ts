@@ -669,7 +669,7 @@ export class MemoryModel {
      * @param  {number} x - value for x coordinate of top left corner
      * @param {number} y - value for y coordinate of top left corner
      * @param {string} name - the name of the class
-     * @param {string} id - the hypothetical memory address number
+     * @param {number} id - the hypothetical memory address number
      * @param {object} attributes - the attributes of the given class
      * @param {boolean} stack_frame - set to true if you are drawing a stack frame
      * @param {Style} style - object defining the desired style of the sequence. Must abide by the structure defined
@@ -681,7 +681,7 @@ export class MemoryModel {
         x: number,
         y: number,
         name: string,
-        id: string,
+        id: number,
         attributes: object,
         stack_frame: boolean,
         style: Style
@@ -763,7 +763,7 @@ export class MemoryModel {
                 "type"
             );
         } else {
-            this.drawProperties(parseInt(id), name, x, y, box_width, style);
+            this.drawProperties(id, name, x, y, box_width, style);
         }
 
         return SIZE;
@@ -912,7 +912,7 @@ export class MemoryModel {
                     obj.x,
                     obj.y,
                     obj.name,
-                    String(obj.id),
+                    obj.id,
                     obj.value,
                     is_frame,
                     obj.style
@@ -923,7 +923,7 @@ export class MemoryModel {
                     obj.x,
                     obj.y,
                     obj.type,
-                    Number(obj.id),
+                    obj.id,
                     obj.value,
                     obj.show_indexes,
                     obj.style
