@@ -7,7 +7,6 @@ import DownloadSVGButton from "./DownloadSVGButton";
 import { Alert } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
 import Header from "./Header";
-// import { darkTheme, lightTheme } from "./index";
 
 export default function App() {
     const [textData, setTextData] = useState("");
@@ -34,10 +33,7 @@ export default function App() {
         }
     };
 
-    const usingDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-
     return (
-        // <ThemeProvider theme={usingDarkMode ? darkTheme : lightTheme}>
         <main className="container">
             <Header />
             {failureBanner && (
@@ -78,6 +74,5 @@ export default function App() {
                 </Box>
             </Stack>
         </main>
-        // </ThemeProvider>
     );
 }

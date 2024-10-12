@@ -54,5 +54,3 @@ root.render(
         <Root />
     </StrictMode>
 );
-
-export { lightTheme, darkTheme };
