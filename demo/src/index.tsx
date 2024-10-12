@@ -4,7 +4,8 @@ import App from "./App";
 import "@picocss/pico";
 import "./css/styles";
 
-import { createTheme } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
 
 declare module "@mui/material/styles" {
     interface PaletteColor {
@@ -37,11 +38,20 @@ const darkTheme = createTheme({
     },
 });
 
+function Root() {
+    const usingDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+    return (
+        <ThemeProvider theme={usingDarkMode ? darkTheme : lightTheme}>
+            <App />
+        </ThemeProvider>
+    );
+}
+
 const root = createRoot(document.getElementById("root"));
 
 root.render(
     <StrictMode>
-        <App />
+        <Root />
     </StrictMode>
 );
 
