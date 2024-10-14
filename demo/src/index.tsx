@@ -33,7 +33,7 @@ const darkTheme = createTheme({
         mode: "dark",
         primary: {
             main: "#89c48c",
-            paper: "#dadada",
+            paper: "#cacaca",
         },
     },
 });

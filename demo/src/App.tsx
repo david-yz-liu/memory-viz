@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Stack, ThemeProvider, useMediaQuery } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import SvgDisplay from "./SvgDisplay";
 import MemoryModelsUserInput from "./MemoryModelsUserInput";
 import { ErrorBoundary } from "react-error-boundary";
