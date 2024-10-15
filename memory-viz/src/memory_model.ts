@@ -61,7 +61,7 @@ export class MemoryModel {
     browser: boolean; // Whether this library is being used in a browser context
     roughjs_config: Config; // Configuration object used to pass in options to rough.js
 
-    constructor(options: Partial<VisualizationConfig>) {
+    constructor(options: Partial<VisualizationConfig> = {}) {
         if (options.browser) {
             this.document = document;
         } else {
@@ -199,6 +199,9 @@ export class MemoryModel {
                 return this.drawPrimitive(x, y, type, id, value, style);
             }
         }
+        throw new Error(
+            `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${type}" with value "${value}".`
+        );
     }
 
     /**

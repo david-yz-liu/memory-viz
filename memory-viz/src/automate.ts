@@ -323,7 +323,7 @@ function getSize(obj: DrawnEntity): Size {
     obj.x = obj.x || 10;
     obj.y = obj.y || 10;
 
-    const m = new MemoryModel({});
+    const m = new MemoryModel();
 
     // As 'drawAll' provides a size list, where our case has just one element, we extract the element at index 0.
     const size = m.drawAll([obj])[0];

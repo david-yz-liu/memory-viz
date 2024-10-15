@@ -890,4 +890,21 @@ describe("draw function", () => {
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
+
+    it("throws an error when object type is not a collection and value is not a primitive", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "invalid collection",
+                id: 0,
+                value: [1, 2],
+            },
+        ];
+
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        expect(() =>
+            draw(objects, true, {
+                width: 100,
+            })
+        ).toThrow(errorMessage);
+    });
 });
