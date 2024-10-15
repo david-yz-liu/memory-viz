@@ -51,7 +51,10 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setOpen(false);
+        setUploadedFileString("");
+    };
 
     const onChange = (event) => {
         try {

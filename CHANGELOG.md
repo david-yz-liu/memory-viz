@@ -11,15 +11,19 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+-   Added transparent and dark mode versions of the logos!
+
 ### 🐛 Bug fixes
 
 -   Fixed a bug where the `Download JSON` button would not download the JSON currently inside the input box.
+-   Made sure file input would reset when file input dialog was closed.
 
 ### 📚 Documentation and demo website changes
 
 -   Made text input box use a monospace font
 -   Disabled download buttons when there is no input/output.
 -   Added a dialog to the file input section.
+-   Made improvements to the dark mode version of the website.
 
 ### 🔧 Internal changes
 
