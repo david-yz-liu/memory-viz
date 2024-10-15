@@ -1,9 +1,10 @@
 import exports from "../index";
+import { DrawnEntity } from "../types";
 const { MemoryModel, draw } = exports;
 
 describe("draw function", () => {
     it("should produce consistent svg when provided seed", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -27,7 +28,7 @@ describe("draw function", () => {
     });
 
     it("renders a bool", () => {
-        const objects: Array<Object> = [{ type: "bool", id: 32, value: true }];
+        const objects: DrawnEntity[] = [{ type: "bool", id: 32, value: true }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             roughjs_config: { options: { seed: 12345 } },
@@ -37,7 +38,7 @@ describe("draw function", () => {
     });
 
     it("renders an int", () => {
-        const objects: Array<Object> = [{ type: "int", id: 32, value: 7 }];
+        const objects: DrawnEntity[] = [{ type: "int", id: 32, value: 7 }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             roughjs_config: { options: { seed: 12345 } },
@@ -47,7 +48,7 @@ describe("draw function", () => {
     });
 
     it("renders a float", () => {
-        const objects: Array<Object> = [{ type: "float", id: 32, value: 7.0 }];
+        const objects: DrawnEntity[] = [{ type: "float", id: 32, value: 7.0 }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             roughjs_config: { options: { seed: 12345 } },
@@ -57,7 +58,7 @@ describe("draw function", () => {
     });
 
     it("renders a str", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             { type: "str", id: 32, value: "winter" },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
@@ -69,7 +70,7 @@ describe("draw function", () => {
     });
 
     it("renders a set", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             { type: "set", id: 32, value: [10, 11, 12] },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
@@ -81,7 +82,7 @@ describe("draw function", () => {
     });
 
     it("renders an empty set", () => {
-        const objects: Array<Object> = [{ type: "set", id: 32, value: [] }];
+        const objects: DrawnEntity[] = [{ type: "set", id: 32, value: [] }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             roughjs_config: { options: { seed: 12345 } },
@@ -91,7 +92,7 @@ describe("draw function", () => {
     });
 
     it("renders a list with indexes showing", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: "list",
                 id: 32,
@@ -108,7 +109,7 @@ describe("draw function", () => {
     });
 
     it("renders a list without indexes showing", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             { type: "list", id: 32, value: [10, 11, 12] },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
@@ -120,7 +121,7 @@ describe("draw function", () => {
     });
 
     it("renders an empty list", () => {
-        const objects: Array<Object> = [{ type: "list", id: 32, value: [] }];
+        const objects: DrawnEntity[] = [{ type: "list", id: 32, value: [] }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             roughjs_config: { options: { seed: 12345 } },
@@ -130,7 +131,7 @@ describe("draw function", () => {
     });
 
     it("renders a tuple with indexes showing", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: "tuple",
                 id: 32,
@@ -147,7 +148,7 @@ describe("draw function", () => {
     });
 
     it("renders a tuple without indexes showing", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             { type: "tuple", id: 32, value: [10, 11, 12] },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
@@ -159,7 +160,7 @@ describe("draw function", () => {
     });
 
     it("renders an empty tuple", () => {
-        const objects: Array<Object> = [{ type: "tuple", id: 32, value: [] }];
+        const objects: DrawnEntity[] = [{ type: "tuple", id: 32, value: [] }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             roughjs_config: { options: { seed: 12345 } },
@@ -169,7 +170,7 @@ describe("draw function", () => {
     });
 
     it("renders a dict", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: "dict",
                 id: 10,
@@ -185,7 +186,7 @@ describe("draw function", () => {
     });
 
     it("renders an empty dict", () => {
-        const objects: Array<Object> = [{ type: "dict", id: 32, value: {} }];
+        const objects: DrawnEntity[] = [{ type: "dict", id: 32, value: {} }];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             roughjs_config: { options: { seed: 12345 } },
@@ -195,7 +196,7 @@ describe("draw function", () => {
     });
 
     it("renders an object with no type and no value", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             { type: "None", id: 13, value: "None" },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
@@ -207,7 +208,7 @@ describe("draw function", () => {
     });
 
     it("renders a blank space", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             { type: ".blank", width: 100, height: 200 },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
@@ -219,7 +220,7 @@ describe("draw function", () => {
     });
 
     it("renders a stack frame and an int", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -243,7 +244,7 @@ describe("draw function", () => {
     });
 
     it("renders a stack frame using manual layout", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 x: 200,
                 y: 200,
@@ -264,7 +265,7 @@ describe("draw function", () => {
     });
 
     it("renders a bool using manual layout", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 x: 750,
                 y: 250,
@@ -281,7 +282,7 @@ describe("draw function", () => {
     });
 
     it("renders a blank stack frame", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             { type: ".blank-frame", width: 100, height: 200 },
             { type: "list", id: 82, value: [19, 43, 28, 49] },
         ];
@@ -294,7 +295,7 @@ describe("draw function", () => {
     });
 
     it("renders blank spaces in automatic layout", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: "int",
                 id: 98,
@@ -320,7 +321,7 @@ describe("draw function", () => {
     });
 
     it("formats non-stack frame objects in automatic layout", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: "int",
                 id: 98,
@@ -354,7 +355,7 @@ describe("draw function", () => {
     });
 
     it("formats a mix of stack frame/non-stack frame objects in automatic layout", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -393,7 +394,7 @@ describe("draw function", () => {
     });
 
     it("renders custom style (without presets)", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: "str",
                 id: 19,
@@ -417,7 +418,7 @@ describe("draw function", () => {
     });
 
     it("renders 'highlight' style preset", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -443,7 +444,7 @@ describe("draw function", () => {
     });
 
     it("renders 'highlight_id' style preset", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -469,7 +470,7 @@ describe("draw function", () => {
     });
 
     it("renders 'highlight_type' style preset", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -495,7 +496,7 @@ describe("draw function", () => {
     });
 
     it("renders 'hide' style preset", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -521,7 +522,7 @@ describe("draw function", () => {
     });
 
     it("renders 'hide_id' style preset", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -547,7 +548,7 @@ describe("draw function", () => {
     });
 
     it("renders 'hide_container' style preset", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -573,7 +574,7 @@ describe("draw function", () => {
     });
 
     it("renders 'fade' style preset", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -599,7 +600,7 @@ describe("draw function", () => {
     });
 
     it("renders 'fade_type' style preset", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -625,7 +626,7 @@ describe("draw function", () => {
     });
 
     it("renders 'fade_id' style preset", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -651,7 +652,7 @@ describe("draw function", () => {
     });
 
     it("renders combinations of style presets", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -677,7 +678,7 @@ describe("draw function", () => {
     });
 
     it("renders diagrams with provided roughjs_config 'fill' option", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: "str",
                 id: 42,
@@ -693,7 +694,7 @@ describe("draw function", () => {
     });
 
     it("renders diagrams with provided roughjs_config 'fill' and 'fillStyle' options", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: "str",
                 id: 42,
@@ -711,7 +712,7 @@ describe("draw function", () => {
     });
 
     it("renders diagrams with provided roughjs_config 'roughness' option", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: "str",
                 id: 42,
@@ -727,7 +728,7 @@ describe("draw function", () => {
     });
 
     it("renders diagrams with provided mix of roughjs_config options", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: "str",
                 id: 42,
@@ -751,7 +752,7 @@ describe("draw function", () => {
     });
 
     it("renders range object", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: "range",
                 id: 42,
@@ -767,7 +768,7 @@ describe("draw function", () => {
     });
 
     it("logs a warning when provided 'small' width value", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: "str",
                 id: 19,
@@ -793,7 +794,7 @@ describe("draw function", () => {
     });
 
     it("renders a diagram with 'small' width value and no stack frames", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: "str",
                 id: 19,
@@ -810,7 +811,7 @@ describe("draw function", () => {
     });
 
     it("renders a diagram with 'small' width value and a mix stack frame/non-stack frame objects", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -850,7 +851,7 @@ describe("draw function", () => {
     });
 
     it("renders a diagram with large left margins", () => {
-        const objects: Array<Object> = [
+        const objects: DrawnEntity[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -888,5 +889,22 @@ describe("draw function", () => {
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
+    });
+
+    it("throws an error when object type is not a collection and value is not a primitive", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "invalid collection",
+                id: 0,
+                value: [1, 2],
+            },
+        ];
+
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        expect(() =>
+            draw(objects, true, {
+                width: 100,
+            })
+        ).toThrow(errorMessage);
     });
 });

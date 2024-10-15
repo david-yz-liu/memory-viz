@@ -17,6 +17,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 -   Fixed a bug where the `Download JSON` button would not download the JSON currently inside the input box.
 -   Made sure file input would reset when file input dialog was closed.
+-   Fixed a bug where the styles in `DisplaySettings.roughjs_config` were not applied.
 
 ### 📚 Documentation and demo website changes
 
@@ -26,6 +27,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Made improvements to the dark mode version of the website.
 
 ### 🔧 Internal changes
+
+-   Added better typing.
 
 ## [0.3.2] - 2024-09-14
 
