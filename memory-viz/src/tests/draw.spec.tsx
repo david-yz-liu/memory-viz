@@ -907,4 +907,44 @@ describe("draw function", () => {
             })
         ).toThrow(errorMessage);
     });
+
+    it("renders an appropriately sized box for a very long string", () => {
+        const objects: DrawnEntity[] = [
+            {
+                id: 1,
+                type: "str",
+                value: "I am a very very very very very very very very very very very very very very very very very very very very very very very very very very very long string",
+            },
+        ];
+        const output: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 100,
+            roughjs_config: {
+                options: {
+                    seed: 12345,
+                },
+            },
+        });
+        const svg: string = output.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+    it("renders an appropriately sized box for a string with the highlight style", () => {
+        const objects: DrawnEntity[] = [
+            {
+                id: 1,
+                type: "str",
+                value: "I am a very very very very very very very very very very very very very very very very very very very very very very very very very very very long string",
+                style: ["highlight"],
+            },
+        ];
+        const output: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 100,
+            roughjs_config: {
+                options: {
+                    seed: 12345,
+                },
+            },
+        });
+        const svg: string = output.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
 });
