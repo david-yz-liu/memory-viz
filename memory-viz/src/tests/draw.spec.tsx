@@ -786,7 +786,7 @@ describe("draw function", () => {
 
         const message = new RegExp(
             "^WARNING: provided width \\(\\d+\\) is smaller than " +
-                "the required width \\(\\d+\\). The provided width has been overwritten " +
+                "the required width \\(\\d+(\\.\\d+)?\\). The provided width has been overwritten " +
                 "in the generated diagram.$"
         );
         expect(message.test(spy.mock.calls[0][0])).toBe(true);
