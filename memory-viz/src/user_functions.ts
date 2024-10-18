@@ -49,9 +49,9 @@ function draw(
 
     if (automation) {
         if (configuration.width === undefined) {
-            throw new Error(
-                "Width argument for automated drawing is required."
-            );
+            // throw new Error(
+            //     "Width argument for automated drawing is required."
+            // );
         }
         m = drawAutomated(objs, configuration.width, configuration);
     } else {
