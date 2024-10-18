@@ -23,6 +23,6 @@ const objects = [
     { type: "int", id: 13, value: 7 },
 ];
 
-const m = draw(objects, true, { width: 2000 });
+const m = draw(objects, true, { width: 1300 });
 
 m.save("simple_demo.svg");
