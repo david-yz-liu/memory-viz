@@ -947,4 +947,17 @@ describe("draw function", () => {
         const svg: string = output.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
+    it("renders an empty svg given an empty array", () => {
+        const objects = [];
+        const output: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 100,
+            roughjs_config: {
+                options: {
+                    seed: 12345,
+                },
+            },
+        });
+        const svg = output.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
 });

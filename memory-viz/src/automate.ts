@@ -252,11 +252,19 @@ function drawAutomatedOtherItems(
         x_coord = hor_reach;
     }
 
-    const right_most_obj = objs.reduce((prev, curr) =>
-        compareByRightness(prev, curr) <= 0 ? prev : curr
+    const defaultObject: DrawnEntity = {
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0,
+    };
+    const right_most_obj = objs.reduce(
+        (prev, curr) => (compareByRightness(prev, curr) <= 0 ? prev : curr),
+        defaultObject
     );
-    const down_most_obj = objs.reduce((prev, curr) =>
-        compareByBottomness(prev, curr) <= 0 ? prev : curr
+    const down_most_obj = objs.reduce(
+        (prev, curr) => (compareByBottomness(prev, curr) <= 0 ? prev : curr),
+        defaultObject
     );
 
     const canvas_width =
