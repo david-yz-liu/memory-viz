@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SVG Snapshot Viewer</title>
+    </head>
+    <body>
+        <label>
+            Load a Jest Snapshot Output
+            <input
+                type="file"
+                name="file"
+                id="file"
+                onchange="renderSVGs(event)"
+            />
+        </label>
+        <div id="output"></div>
+        <script>
+            async function renderSVGs(event) {
+                try {
+                    clearOutput();
+                    await loadScript(event);
+
+                    const outputDiv = document.getElementById("output");
+                    const fragment = document.createDocumentFragment();
+                    const parser = new DOMParser();
+
+                    for (const [key, value] of Object.entries(window.exports)) {
+                        const name = document.createElement("div");
+                        name.textContent = key;
+                        fragment.appendChild(name);
+
+                        const svgContent = value.trim().replace(/(^"|"$)/g, "");
+                        const doc = parser.parseFromString(
+                            svgContent,
+                            "text/html"
+                        );
+                        fragment.appendChild(doc.firstChild);
+                    }
+
+                    outputDiv.appendChild(fragment);
+                } catch (error) {
+                    console.error("Error rendering SVGs:", error);
+                }
+            }
+
+            function clearOutput() {
+                window.exports = {};
+                const outputDiv = document.getElementById("output");
+                outputDiv.textContent = "";
+            }
+
+            async function loadScript(event) {
+                return new Promise((resolve, reject) => {
+                    const file = event.target.files.item(0);
+                    if (file) {
+                        const scriptTag = document.createElement("script");
+                        scriptTag.setAttribute(
+                            "src",
+                            URL.createObjectURL(file)
+                        );
+                        scriptTag.setAttribute("type", "text/javascript");
+                        scriptTag.addEventListener("load", resolve);
+                        scriptTag.addEventListener("error", reject);
+                        document.head.appendChild(scriptTag);
+                    } else {
+                        console.log("No file selected.");
+                        resolve();
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>
