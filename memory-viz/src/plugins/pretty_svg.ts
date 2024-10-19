@@ -1,8 +1,11 @@
-import type { NewPlugin, OldPlugin } from "pretty-format";
-import pretty from "pretty";
-import { parse } from "node-html-parser";
+// Custom pretty-format plugin for serializing SVG elements
+// See https://github.com/jestjs/jest/tree/main/packages/pretty-format#writing-plugins for more information
 
-export const serialize: NewPlugin["serialize"] = (val) => {
+import type { NewPlugin } from "pretty-format";
+import pretty from "pretty";
+import { parse, HTMLElement } from "node-html-parser";
+
+export const serialize: NewPlugin["serialize"] = (val: HTMLElement) => {
     return pretty(val);
 };
 
