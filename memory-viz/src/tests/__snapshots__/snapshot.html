@@ -27,9 +27,9 @@
                     const parser = new DOMParser();
 
                     for (const [key, value] of Object.entries(window.exports)) {
-                        const name = document.createElement("div");
-                        name.textContent = key;
-                        fragment.appendChild(name);
+                        const testName = document.createElement("div");
+                        testName.textContent = key;
+                        fragment.appendChild(testName);
 
                         const svgContent = value.trim().replace(/(^"|"$)/g, "");
                         const doc = parser.parseFromString(

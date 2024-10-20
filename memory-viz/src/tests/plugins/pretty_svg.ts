@@ -1,7 +1,7 @@
 // Custom pretty-format plugin for serializing SVG elements
 // See https://github.com/jestjs/jest/tree/main/packages/pretty-format#writing-plugins for more information
 
-import type { NewPlugin } from "pretty-format";
+import { NewPlugin } from "pretty-format";
 import pretty from "pretty";
 import { parse, HTMLElement } from "node-html-parser";
 
