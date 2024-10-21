@@ -116,8 +116,4 @@ $ npm run test --workspace=memory-viz
 
 #### Viewing Jest SVG snapshots
 
-To easily view the Jest SVG snapshots, run `open memory-viz/src/tests/__snapshots__/snapshot.html` and select the snapshot outputs with the `*.snap` extension:
-
-![Jest SVG Viewer File Select](../docs/docs/99-api/images/jest-svg-viewer-file-select.png)
-
-![Jest SVG Viewer](../docs/docs/99-api/images/jest-svg-viewer.png)
+To easily view the Jest SVG snapshots, open the file `memory-viz/src/tests/__snapshots__/snapshot.html` and select the snapshot outputs with the `*.snap` extension:
