@@ -924,7 +924,7 @@ describe("draw function", () => {
                 },
             },
         });
-        const svg: string = output.serializeSVG();
+        const svg = output.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
     it("renders an appropriately sized box for a string with the highlight style", () => {
@@ -944,7 +944,7 @@ describe("draw function", () => {
                 },
             },
         });
-        const svg: string = output.serializeSVG();
+        const svg = output.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
     it("renders an empty svg given an empty array", () => {
