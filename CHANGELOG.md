@@ -29,6 +29,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 🔧 Internal changes
 
 -   Added better typing.
+-   Added a page for viewing Jest SVG snapshots.
+-   Added a plugin for prettifying Jest SVG outputs.
 
 ## [0.3.2] - 2024-09-14
 
