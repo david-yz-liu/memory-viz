@@ -223,9 +223,11 @@ export class MemoryModel {
         value: Primitive,
         style: Style
     ): Rect {
+        const renderedText =
+            typeof value === "string" ? `"${value}"` : String(value);
         let box_width = Math.max(
             this.obj_min_width,
-            this.getTextLength(`"${String(value)}"`, style.text_value) +
+            this.getTextLength(renderedText, style.text_value) +
                 this.obj_x_padding
         );
         this.drawRect(
@@ -852,6 +854,7 @@ export class MemoryModel {
     /**
      * Return the length of this text.
      * @param s - The given text.
+     * @param textStyle - The style configuration for the text.
      */
     getTextLength(s: string, textStyle?: CSS.PropertiesHyphen): number {
         if (textStyle?.["font-size"]) {
