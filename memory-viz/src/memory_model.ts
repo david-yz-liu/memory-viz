@@ -223,9 +223,12 @@ export class MemoryModel {
         value: Primitive,
         style: Style
     ): Rect {
+        const renderedText =
+            typeof value === "string" ? `"${value}"` : String(value);
         let box_width = Math.max(
             this.obj_min_width,
-            this.getTextLength(String(value)) + this.obj_x_padding
+            this.getTextLength(renderedText, style.text_value) +
+                this.obj_x_padding
         );
         this.drawRect(
             x,
@@ -303,12 +306,12 @@ export class MemoryModel {
     ) {
         let id_box = Math.max(
             this.prop_min_width,
-            this.getTextLength(`id${id}`) + 10
+            this.getTextLength(`id${id}`, style.text_id) + 10
         );
 
         let type_box = Math.max(
             this.prop_min_width,
-            this.getTextLength(type) + 10
+            this.getTextLength(type, style.text_type) + 10
         );
 
         this.drawRect(x, y, id_box, this.prop_min_height, style.box_id);
@@ -380,7 +383,8 @@ export class MemoryModel {
         element_ids.forEach((v) => {
             box_width += Math.max(
                 this.item_min_width,
-                this.getTextLength(v === null ? "" : `id${v}`) + 10
+                this.getTextLength(v === null ? "" : `id${v}`, style.text_id) +
+                    10
             );
         });
 
@@ -419,7 +423,7 @@ export class MemoryModel {
             const idv = v === null ? "" : `id${v}`;
             const item_length = Math.max(
                 this.item_min_width,
-                this.getTextLength(idv) + 10
+                this.getTextLength(idv, style.text_id) + 10
             );
             this.drawRect(curr_x, item_y, item_length, this.item_min_height);
             this.drawText(
@@ -482,7 +486,8 @@ export class MemoryModel {
         element_ids.forEach((v) => {
             box_width += Math.max(
                 this.item_min_width,
-                this.getTextLength(v === null ? "" : `id${v}`) + 10
+                this.getTextLength(v === null ? "" : `id${v}`, style.text_id) +
+                    10
             );
         });
         box_width = Math.max(this.obj_min_width, box_width);
@@ -518,7 +523,7 @@ export class MemoryModel {
             const idv = v === null ? "" : `id${v}`;
             const item_length = Math.max(
                 this.item_min_width,
-                this.getTextLength(idv) + 10
+                this.getTextLength(idv, style.text_id) + 10
             );
             this.drawRect(curr_x, item_y, item_length, this.item_min_height);
             this.drawText(
@@ -587,11 +592,11 @@ export class MemoryModel {
 
             let key_box = Math.max(
                 this.item_min_width,
-                this.getTextLength(idk + 5)
+                this.getTextLength(idk + 5, style.text_id)
             );
             let value_box = Math.max(
                 this.item_min_width,
-                this.getTextLength(idv + 5)
+                this.getTextLength(idv + 5, style.text_value)
             );
 
             // Draw the rectangles representing the keys.
@@ -632,7 +637,7 @@ export class MemoryModel {
 
             let value_box = Math.max(
                 this.item_min_width,
-                this.getTextLength(idv + 5)
+                this.getTextLength(idv + 5, style.text_value)
             );
 
             // Draw the rectangle for values.
@@ -692,14 +697,17 @@ export class MemoryModel {
         let box_width = this.obj_min_width;
         let longest = 0;
         for (const attribute in attributes) {
-            longest = Math.max(longest, this.getTextLength(attribute));
+            longest = Math.max(
+                longest,
+                this.getTextLength(attribute, style.text_value)
+            );
         }
         if (longest > 0) {
             box_width = longest + this.item_min_width * 3;
         }
         box_width = Math.max(
             box_width,
-            this.prop_min_width + this.getTextLength(name) + 10
+            this.prop_min_width + this.getTextLength(name, style.text_type) + 10
         );
 
         let box_height = 0;
@@ -750,7 +758,7 @@ export class MemoryModel {
         }
 
         if (stack_frame) {
-            let text_length = this.getTextLength(name);
+            let text_length = this.getTextLength(name, style.text_type);
             this.drawRect(
                 x,
                 y,
@@ -846,8 +854,13 @@ export class MemoryModel {
     /**
      * Return the length of this text.
      * @param s - The given text.
+     * @param textStyle - The style configuration for the text.
      */
-    getTextLength(s: string): number {
+    getTextLength(s: string, textStyle?: CSS.PropertiesHyphen): number {
+        if (textStyle?.["font-size"]) {
+            // Note: this assumes font size is in px
+            return s.length * parseInt(textStyle["font-size"]) * 0.6;
+        }
         return s.length * 12;
     }
 

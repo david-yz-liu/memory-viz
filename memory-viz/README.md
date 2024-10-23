@@ -113,3 +113,7 @@ To run the test suite, execute the following command:
 ```console
 $ npm run test --workspace=memory-viz
 ```
+
+#### Viewing Jest SVG snapshots
+
+To easily view the Jest SVG snapshots, open the file `memory-viz/src/tests/__snapshots__/snapshot.html` and select the snapshot outputs with the `*.snap` extension.

@@ -18,6 +18,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Fixed a bug where the `Download JSON` button would not download the JSON currently inside the input box.
 -   Made sure file input would reset when file input dialog was closed.
 -   Fixed a bug where the styles in `DisplaySettings.roughjs_config` were not applied.
+-   Fixed a bug where passing an empty array as objects will crash the program.
+-   Fixed a bug where the text may go outside of the box when it has a text font set
 
 ### 📚 Documentation and demo website changes
 
@@ -29,6 +31,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 🔧 Internal changes
 
 -   Added better typing.
+-   Added a page for viewing Jest SVG snapshots.
+-   Added a plugin for prettifying Jest SVG outputs.
 
 ## [0.3.2] - 2024-09-14
 
