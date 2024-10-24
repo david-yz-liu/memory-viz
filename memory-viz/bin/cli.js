@@ -51,7 +51,7 @@ program
         "writes generated SVG to specified path",
         parseOutputPath
     )
-    .option("--width <value>", "width of generated SVG", "1300")
+    .option("--width <value>", "width of generated SVG")
     .option("--height <value>", "height of generated SVG")
     .option(
         "--roughjs-config <key1=value1,key2=value2,...>",
