@@ -960,4 +960,27 @@ describe("draw function", () => {
         const svg = output.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
+    it("trims width when not provided width value", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: ".frame",
+                name: "__main__",
+                id: null,
+                value: {
+                    item: 45,
+                },
+            },
+            {
+                type: "str",
+                id: 42,
+                value: "hi",
+                style: ["hide_id"],
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
 });

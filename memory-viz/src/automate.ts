@@ -43,9 +43,9 @@ function drawAutomated(
         width = min_width;
     }
 
-    const { objs, canvas_height } = drawAutomatedOtherItems(
+    const { objs, canvas_height, canvas_width } = drawAutomatedOtherItems(
         other_items,
-        width,
+        width ? width : 800,
         configuration.sort_by,
         configuration,
         requiredWidth
@@ -53,7 +53,7 @@ function drawAutomated(
 
     const final_height = Math.max(canvas_height, requiredHeight) + 100;
     const m = new MemoryModel({
-        width: width,
+        width: width ? width : canvas_width,
         height: final_height,
         roughjs_config: configuration.roughjs_config,
     });

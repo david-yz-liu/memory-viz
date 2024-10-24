@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`memory-viz CLI output path should overwrite existing svg when the output path is a file that exists 1`] = `
-<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="323.2" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
@@ -59,7 +59,7 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
 `;
 
 exports[`memory-viz CLI output path should produce consistent svg when the output path is a file 1`] = `
-<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="323.2" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
@@ -117,7 +117,7 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
 `;
 
 exports[`memory-viz CLI output path should produce consistent svg when the output path is a file in a directory 1`] = `
-<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="323.2" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
@@ -175,7 +175,7 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath and a variety of rough-config option(s) 1`] = `
-<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="323.2" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
@@ -236,7 +236,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath and a var
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath and output option(s) 1`] = `
-<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="323.2" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
@@ -294,7 +294,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath and stdout 1`] = `
-<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="323.2" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
@@ -352,7 +352,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath, output, and height option(s) 1`] = `
-<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="323.2" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
@@ -468,7 +468,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath, output, height, and width option(s) 1`] = `
-<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="323.2" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
@@ -526,7 +526,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 `;
 
 exports[`memory-viz cli produces consistent svg when provided stdin and output 1`] = `
-<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="323.2" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
@@ -584,7 +584,7 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
 `;
 
 exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1`] = `
-<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="323.2" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;

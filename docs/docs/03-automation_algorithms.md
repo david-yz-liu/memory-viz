@@ -10,6 +10,8 @@ How does the automation of `drawAutomatedOtherItems` and `drawAutomatedStackFram
 responsible for drawing all non-stackframe objects actually work? The algorithm
 is outlined below.
 
+Users may specify the desired width of the canvas. If no width is provided, a default value (800) will be selected, and "trimmed" if there is excess space.
+
 Given a list of objects in the format described in `MemoryModel.drawAll`
 but without `x` and `y` coordinates as properties (as the point of
 `drawAutomatedOtherItems` and `drawAutomatedStackFrames` is to assign
