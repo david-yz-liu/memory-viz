@@ -44,11 +44,11 @@ function drawAutomated(
     }
 
     // determining default width: should be 800 by default, but set to min_width if necessary
-    let default_width = 800 < min_width ? min_width : 800;
+    let default_width = Math.min(min_width, 800);
 
     const { objs, canvas_height, canvas_width } = drawAutomatedOtherItems(
         other_items,
-        width ? width : default_width,
+        width || default_width,
         configuration.sort_by,
         configuration,
         requiredWidth
