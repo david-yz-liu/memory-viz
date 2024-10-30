@@ -11,7 +11,6 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasWidth = 1300;
     const canvasHeight = 1000;
 
-    // It should be able to take in an svg name and render it
     useEffect(() => {
         const loadAndDrawSvg = async () => {
             const svgSource = await import(`../src/images/snapshot-0.svg`);
