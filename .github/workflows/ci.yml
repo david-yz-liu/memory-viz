@@ -41,11 +41,12 @@ jobs:
                   cache: npm
             - name: Install npm packages
               run: npm ci
-            - name: Build docs and demo website
+            - name: Build docs, demo, and webstepper website
               run: |
                   npm run build --workspace=memory-viz
                   npm run build --workspace=demo
                   npm run build --workspace=docs
+                  npm run build --workspace=webstepper
                   mkdir docs/build/demo
                   cp -r demo/dist/* docs/build/demo
             - name: Archive documentation website artifact
