@@ -40,7 +40,7 @@ module.exports = {
     externalsType: "window",
     plugins: [
         new HtmlWebpackPlugin({
-            title: "MemoryViz Demo",
+            title: "MemoryViz Webstepper",
             filename: "./index.html",
             template: "./src/html/index.html",
         }),
