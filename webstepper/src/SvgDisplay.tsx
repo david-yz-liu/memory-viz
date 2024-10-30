@@ -3,7 +3,7 @@ import { Paper } from "@mui/material";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 type SvgDisplayPropTypes = {
-    svgPath: string;
+    step: number;
 };
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
@@ -13,16 +13,19 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
 
     useEffect(() => {
         const loadAndDrawSvg = async () => {
-            const svgSource = await import(`../src/images/snapshot-0.svg`);
+            const svgSource = await import(
+                `../src/images/snapshot-${props.step}.svg`
+            );
             const image = new Image();
             image.src = svgSource.default;
             image.onload = () => {
                 const context = canvasRef.current.getContext("2d");
+                context.clearRect(0, 0, canvasWidth, canvasHeight);
                 context.drawImage(image, 0, 0);
             };
         };
         loadAndDrawSvg();
-    }, [props.svgPath]);
+    }, [props.step]);
 
     return (
         <Paper

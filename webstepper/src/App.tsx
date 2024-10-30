@@ -1,16 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
-import { Stack, Box } from "@mui/material";
+import { Button, Box, Typography, Stack } from "@mui/material";
 import SvgDisplay from "./SvgDisplay";
 
 export default function App() {
-    // Load all SVGs here or import them when needed?
-    const svgPaths = [
-        "./images/snapshot-0.svg",
-        "./images/snapshot-1.svg",
-        "./images/snapshot-2.svg",
-        "./images/snapshot-3.svg",
-    ];
+    const [step, setStep] = useState<number>(0);
+    const limit = 4;
+    const handleStep = (newStep: number) => {
+        setStep(Math.min(Math.max(newStep, 0), limit - 1));
+    };
 
     return (
         <main className="container">
@@ -18,10 +16,19 @@ export default function App() {
             <Stack direction="row" spacing={2}>
                 <Box sx={{ width: "40%" }}>
                     <h2>Input</h2>
+                    <Typography>Line: {step}</Typography>
+                    <Box sx={{ display: "flex" }}>
+                        <Button onClick={() => handleStep(step - 1)}>
+                            Back
+                        </Button>
+                        <Button onClick={() => handleStep(step + 1)}>
+                            Next
+                        </Button>
+                    </Box>
                 </Box>
                 <Box sx={{ width: "60%" }}>
                     <h2>Output</h2>
-                    <SvgDisplay svgPath={svgPaths[0]} />
+                    <SvgDisplay step={step} />
                 </Box>
             </Stack>
         </main>
