@@ -1,13 +1,9 @@
 import React, { useRef, useEffect } from "react";
-import mem from "memory-viz";
 import { Paper } from "@mui/material";
-import { configDataPropTypes } from "./types";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 type SvgDisplayPropTypes = {
-    jsonResult: object | null;
-    configData: configDataPropTypes;
-    setSvgResult: React.Dispatch<React.SetStateAction<string>>;
+    svgPath: string;
 };
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
@@ -15,22 +11,19 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasWidth = 1300;
     const canvasHeight = 1000;
 
+    // It should be able to take in an svg name and render it
     useEffect(() => {
-        if (props.jsonResult !== null) {
-            // deep copy jsonResult as mem.draw mutates input JSON
-            // https://github.com/david-yz-liu/memory-viz/pull/20#discussion_r1513235452
-            const jsonResultCopy = structuredClone(props.jsonResult);
-            const m = mem.draw(jsonResultCopy, props.configData.useAutomation, {
-                ...props.configData.overallDrawConfig,
-                width: canvasWidth,
-            });
-            props.setSvgResult(m.serializeSVG());
-            m.clear(canvasRef.current);
-            m.render(canvasRef.current);
-        } else {
-            props.setSvgResult(null);
-        }
-    }, [props.jsonResult]);
+        const loadAndDrawSvg = async () => {
+            const svgSource = await import(`../src/images/snapshot-0.svg`);
+            const image = new Image();
+            image.src = svgSource.default;
+            image.onload = () => {
+                const context = canvasRef.current.getContext("2d");
+                context.drawImage(image, 0, 0);
+            };
+        };
+        loadAndDrawSvg();
+    }, [props.svgPath]);
 
     return (
         <Paper
