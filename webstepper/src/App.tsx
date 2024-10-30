@@ -9,6 +9,7 @@ export default function App() {
     const handleStep = (newStep: number) => {
         setStep(Math.min(Math.max(newStep, 0), limit - 1));
     };
+    const svgPath = `/images/snapshot-${step}.svg`;
 
     return (
         <main className="container">
@@ -28,7 +29,7 @@ export default function App() {
                 </Box>
                 <Box sx={{ width: "60%" }}>
                     <h2>Output</h2>
-                    <SvgDisplay step={step} />
+                    <SvgDisplay svgPath={svgPath} />
                 </Box>
             </Stack>
         </main>
