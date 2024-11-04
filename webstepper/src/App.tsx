@@ -5,22 +5,18 @@ import SvgDisplay from "./SvgDisplay";
 import CodeDisplay from "./CodeDisplay";
 
 export default function App() {
-    const [step, setStep] = useState<number>(1);
-    const limit = 10;
+    const [step, setStep] = useState<number>(0);
+    const limit = 4;
     const handleStep = (newStep: number) => {
-        setStep(Math.min(Math.max(newStep, 1), limit - 1));
+        setStep(Math.min(Math.max(newStep, 0), limit - 1));
     };
     const svgPath = `/images/snapshot-${step}.svg`;
 
     // TODO: remove this and replace it with actual stuff lol
-    const codeText = `i = 0
-while i < 7:
-    print("hello world")
-    i += 1
-
-print("this is some sample code")
-i = i // 2
-    `;
+    const codeText = `num = 123
+some_string = "Hello, world"
+num2 = 321
+arr = [some_string, "string 123321"]`;
 
     return (
         <main className="container">
@@ -28,7 +24,7 @@ i = i // 2
             <Stack direction="row" spacing={2}>
                 <Box sx={{ width: "40%" }}>
                     <h2>Code</h2>
-                    <Typography>Line: {step}</Typography>
+                    <Typography>Line: {step + 1}</Typography>
                     <Box
                         sx={{
                             display: "flex",
@@ -39,7 +35,7 @@ i = i // 2
                         <CodeDisplay
                             text={codeText}
                             startingLineNumber={Math.max(step - 10, 1)}
-                            highlightLine={step}
+                            highlightLine={step + 1}
                         />
                         <Box sx={{ display: "flex" }}>
                             <Button onClick={() => handleStep(step - 1)}>
