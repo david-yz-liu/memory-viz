@@ -19,6 +19,7 @@ export default function CodeDisplay(props: CodeDisplayPropTypes) {
     return (
         <Box sx={{ width: "100%", height: "100%", backgroundColor: "white" }}>
             <SyntaxHighlighter
+                data-testid="code-box"
                 language="python"
                 showLineNumbers={true}
                 startingLineNumber={props.startingLineNumber}
