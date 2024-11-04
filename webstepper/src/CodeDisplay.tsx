@@ -1,5 +1,6 @@
 import React from "react";
-import { CodeBlock, ocean } from "react-code-blocks";
+import SyntaxHighlighter from "react-syntax-highlighter";
+import { a11yLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Box } from "@mui/material";
 
 type CodeDisplayPropTypes = {
@@ -9,21 +10,30 @@ type CodeDisplayPropTypes = {
 };
 
 export default function CodeDisplay(props: CodeDisplayPropTypes) {
+    const lineBackground = (lineNumber: number) => {
+        if (lineNumber == props.highlightLine) {
+            return "#ffff00";
+        }
+    };
+
     return (
-        <Box sx={{ width: "50%", backgroundColor: "white" }}>
-            <CodeBlock
-                text={props.text}
+        <Box sx={{ width: "100%", height: "100%", backgroundColor: "white" }}>
+            <SyntaxHighlighter
                 language="python"
                 showLineNumbers={true}
                 startingLineNumber={props.startingLineNumber}
-                highlight={props.highlightLine.toString()}
-                codeContainerStyle={{ width: "100%", backgroundColor: "white" }}
-                customStyle={{
-                    height: "100%",
-                    overflowY: "scroll",
-                    fontFamily: "monospace",
-                }}
-            />
+                wrapLines={true}
+                wrapLongLines={true}
+                style={a11yLight}
+                customStyle={{ backgroundColor: "transparent" }}
+                lineProps={(lineNumber) => ({
+                    style: {
+                        backgroundColor: lineBackground(lineNumber),
+                    },
+                })}
+            >
+                {props.text}
+            </SyntaxHighlighter>
         </Box>
     );
 }

@@ -17,8 +17,5 @@
     },
     "lint-staged": {
         "**/*": "prettier --write --ignore-unknown"
-    },
-    "dependencies": {
-        "react-code-blocks": "^0.1.6"
     }
 }
