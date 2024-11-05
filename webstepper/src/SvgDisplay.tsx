@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { Paper } from "@mui/material";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import "./css/styles.css";
 
 type SvgDisplayPropTypes = {
     svgPath: string;
@@ -8,8 +9,6 @@ type SvgDisplayPropTypes = {
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
-    const canvasWidth = 1300;
-    const canvasHeight = 1000;
 
     useEffect(() => {
         const loadAndDrawSvg = async () => {
@@ -19,8 +18,11 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                 const image = new Image();
                 image.src = URL.createObjectURL(blob);
                 image.onload = () => {
-                    const context = canvasRef.current.getContext("2d");
+                    const canvas = canvasRef.current;
+                    const context = canvas.getContext("2d");
                     context.clearRect(0, 0, image.width, image.height);
+                    canvas.width = image.width;
+                    canvas.height = image.height;
                     context.drawImage(image, 0, 0);
                 };
             } catch (error) {
@@ -32,14 +34,8 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
 
     return (
         <Paper
-            sx={{
-                bgcolor: `primary.paper`,
-                height: 500,
-                overflow: "hidden",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-            }}
+            className="svg-display"
+            sx={{ bgcolor: "primary.paper" }}
             variant="outlined"
         >
             <TransformWrapper
@@ -48,14 +44,9 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
             >
                 <TransformComponent>
                     <canvas
-                        style={{
-                            height: "100%",
-                            width: "100%",
-                        }}
+                        className="svg-display__canvas"
                         data-testid="memory-models-canvas"
                         ref={canvasRef}
-                        width={canvasWidth}
-                        height={canvasHeight}
                     />
                 </TransformComponent>
             </TransformWrapper>
