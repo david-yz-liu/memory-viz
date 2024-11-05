@@ -20,7 +20,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                 image.src = URL.createObjectURL(blob);
                 image.onload = () => {
                     const context = canvasRef.current.getContext("2d");
-                    context.clearRect(0, 0, canvasWidth, canvasHeight);
+                    context.clearRect(0, 0, image.width, image.height);
                     context.drawImage(image, 0, 0);
                 };
             } catch (error) {

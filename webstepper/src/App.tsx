@@ -6,17 +6,16 @@ import CodeDisplay from "./CodeDisplay";
 
 export default function App() {
     const [step, setStep] = useState<number>(0);
-    const limit = 4;
-    const handleStep = (newStep: number) => {
-        setStep(Math.min(Math.max(newStep, 0), limit - 1));
-    };
-    const svgPath = `/images/snapshot-${step}.svg`;
-
     // TODO: remove this and replace it with actual stuff lol
     const codeText = `num = 123
 some_string = "Hello, world"
 num2 = 321
 arr = [some_string, "string 123321"]`;
+    const limit = codeText.split("\n").length;
+    const handleStep = (newStep: number) => {
+        setStep(Math.min(Math.max(newStep, 0), limit - 1));
+    };
+    const svgPath = `/images/snapshot-${step}.svg`;
 
     return (
         <main className="container">
