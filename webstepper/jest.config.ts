@@ -46,7 +46,7 @@ const config: Config = {
     // An object that configures minimum threshold enforcement for coverage results
     // coverageThreshold: undefined,
 
-    displayName: "jsdom tests for demo website",
+    displayName: "jsdom tests for webstepper",
     // A path to a custom dependency extractor
     // dependencyExtractor: undefined,
 
@@ -90,9 +90,6 @@ const config: Config = {
 
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
     moduleNameMapper: {
-        // Force module roughjs to resolve with the CJS entry point, because Jest does not support package.json.exports. Elaborated in PR#15.
-        roughjs: require.resolve("roughjs"),
-        "memory-viz": require.resolve("../memory-viz/src"),
         // Mocks a file (see fileMock.js) each time any of the below file types are imported.
         "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|css|less|sass|scss)$":
             "./mocks/fileMock.js",
