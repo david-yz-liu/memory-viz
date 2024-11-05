@@ -3,6 +3,7 @@ import Header from "./Header";
 import { Button, Box, Typography, Stack } from "@mui/material";
 import SvgDisplay from "./SvgDisplay";
 import CodeDisplay from "./CodeDisplay";
+import "./css/styles.css";
 
 export default function App() {
     const [step, setStep] = useState<number>(0);
@@ -36,7 +37,7 @@ arr = [some_string, "string 123321"]`;
                             startingLineNumber={Math.max(step - 10, 1)}
                             highlightLine={step + 1}
                         />
-                        <Box sx={{ display: "flex" }}>
+                        <Box className="button-container">
                             <Button onClick={() => handleStep(step - 1)}>
                                 Back
                             </Button>

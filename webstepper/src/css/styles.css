@@ -7,3 +7,21 @@
 .HighlightedLine {
     background-color: yellow;
 }
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.svg-display {
+    height: 500px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &__canvas {
+        height: 100%;
+        width: 100%;
+    }
+}
