@@ -2,6 +2,7 @@ import React from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Box } from "@mui/material";
+import "./css/styles.css";
 
 type CodeDisplayPropTypes = {
     text: string;
@@ -10,14 +11,14 @@ type CodeDisplayPropTypes = {
 };
 
 export default function CodeDisplay(props: CodeDisplayPropTypes) {
-    const lineBackground = (lineNumber: number) => {
+    const lineClass = (lineNumber: number) => {
         if (lineNumber == props.highlightLine) {
-            return "#ffff00";
+            return "HighlightedLine";
         }
     };
 
     return (
-        <Box sx={{ width: "100%", height: "100%", backgroundColor: "white" }}>
+        <Box className="CodeBox">
             <SyntaxHighlighter
                 data-testid="code-box"
                 language="python"
@@ -28,9 +29,7 @@ export default function CodeDisplay(props: CodeDisplayPropTypes) {
                 style={a11yLight}
                 customStyle={{ backgroundColor: "transparent" }}
                 lineProps={(lineNumber) => ({
-                    style: {
-                        backgroundColor: lineBackground(lineNumber),
-                    },
+                    className: lineClass(lineNumber),
                 })}
             >
                 {props.text}

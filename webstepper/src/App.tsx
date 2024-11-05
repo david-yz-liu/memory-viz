@@ -6,7 +6,7 @@ import CodeDisplay from "./CodeDisplay";
 
 export default function App() {
     const [step, setStep] = useState<number>(0);
-    // TODO: remove this and replace it with actual stuff lol
+    // TODO: replace this with actual code to display
     const codeText = `num = 123
 some_string = "Hello, world"
 num2 = 321
