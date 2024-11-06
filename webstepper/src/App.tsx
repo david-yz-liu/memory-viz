@@ -25,13 +25,7 @@ arr = [some_string, "string 123321"]`;
                 <Box sx={{ width: "40%" }}>
                     <h2>Code</h2>
                     <Typography>Line: {step + 1}</Typography>
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            height: "80%",
-                        }}
-                    >
+                    <Box className="code-display">
                         <CodeDisplay
                             text={codeText}
                             startingLineNumber={Math.max(step - 10, 1)}

@@ -12,7 +12,7 @@ type CodeDisplayPropTypes = {
 
 export default function CodeDisplay(props: CodeDisplayPropTypes) {
     return (
-        <Box className="code-box">
+        <Box className="code-display__code-box">
             <SyntaxHighlighter
                 data-testid="code-box"
                 language="python"
@@ -24,7 +24,7 @@ export default function CodeDisplay(props: CodeDisplayPropTypes) {
                 customStyle={{ backgroundColor: "transparent" }}
                 lineProps={(lineNumber: number) => {
                     if (lineNumber == props.highlightLine) {
-                        return { className: "line--highlighted" };
+                        return { className: "code-box__line--highlighted" };
                     }
                 }}
             >
