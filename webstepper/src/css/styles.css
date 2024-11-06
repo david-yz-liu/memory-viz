@@ -4,10 +4,8 @@
     background-color: white;
 }
 
-.line {
-    &--highlighted {
-        background-color: yellow;
-    }
+.line--highlighted {
+    background-color: yellow;
 }
 
 .button-container {
