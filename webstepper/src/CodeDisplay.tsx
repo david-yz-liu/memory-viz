@@ -24,7 +24,7 @@ export default function CodeDisplay(props: CodeDisplayPropTypes) {
                 customStyle={{ backgroundColor: "transparent" }}
                 lineProps={(lineNumber: number) => {
                     if (lineNumber == props.highlightLine) {
-                        return { className: "line-highlighted" };
+                        return { className: "line --highlighted" };
                     }
                 }}
             >
