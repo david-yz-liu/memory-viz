@@ -82,18 +82,12 @@ describe("App", () => {
             "code > span:nth-child(2)"
         );
 
-        expect(firstLineElement).toHaveStyle({
-            backgroundColor: "rgb(255, 255, 0)",
-        });
+        expect(firstLineElement).toHaveClass("code-box__line--highlighted");
 
         const nextButton = screen.getByText("Next");
         fireEvent.click(nextButton);
 
-        expect(firstLineElement).not.toHaveStyle({
-            backgroundColor: "rgb(255, 255, 0)",
-        });
-        expect(secondLineElement).toHaveStyle({
-            backgroundColor: "rgb(255, 255, 0)",
-        });
+        expect(firstLineElement).not.toHaveClass("code-box__line--highlighted");
+        expect(secondLineElement).toHaveClass("code-box__line--highlighted");
     });
 });
