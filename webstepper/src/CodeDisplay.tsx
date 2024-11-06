@@ -11,14 +11,8 @@ type CodeDisplayPropTypes = {
 };
 
 export default function CodeDisplay(props: CodeDisplayPropTypes) {
-    const lineClass = (lineNumber: number) => {
-        if (lineNumber == props.highlightLine) {
-            return "HighlightedLine";
-        }
-    };
-
     return (
-        <Box className="CodeBox">
+        <Box className="code-box">
             <SyntaxHighlighter
                 data-testid="code-box"
                 language="python"
@@ -28,9 +22,11 @@ export default function CodeDisplay(props: CodeDisplayPropTypes) {
                 wrapLongLines={true}
                 style={a11yLight}
                 customStyle={{ backgroundColor: "transparent" }}
-                lineProps={(lineNumber) => ({
-                    className: lineClass(lineNumber),
-                })}
+                lineProps={(lineNumber: number) => {
+                    if (lineNumber == props.highlightLine) {
+                        return { className: "line-highlighted" };
+                    }
+                }}
             >
                 {props.text}
             </SyntaxHighlighter>
