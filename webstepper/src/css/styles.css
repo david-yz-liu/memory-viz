@@ -27,7 +27,6 @@
     align-items: center;
 }
 
-.svg-display__canvas {
+.react-transform-wrapper {
     height: 100%;
-    width: 100%;
 }

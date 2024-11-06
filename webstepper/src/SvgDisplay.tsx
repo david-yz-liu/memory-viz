@@ -44,7 +44,6 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
             >
                 <TransformComponent>
                     <canvas
-                        className="svg-display__canvas"
                         data-testid="memory-models-canvas"
                         ref={canvasRef}
                     />
