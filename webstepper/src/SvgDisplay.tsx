@@ -13,7 +13,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     useEffect(() => {
         const loadAndDrawSvg = async () => {
             try {
-                const svgString = window.svgArray[props.step];
+                const svgString = window.svgArray[props.step].svg;
                 const image = new Image();
                 let data =
                     "data:image/svg+xml;base64," +

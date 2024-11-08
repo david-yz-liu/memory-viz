@@ -16,7 +16,6 @@ arr = [some_string, "string 123321"]`;
     const handleStep = (newStep: number) => {
         setStep(Math.min(Math.max(newStep, 0), limit - 1));
     };
-    const svgPath = `/images/snapshot-${step}.svg`;
 
     return (
         <main className="container">
@@ -28,8 +27,10 @@ arr = [some_string, "string 123321"]`;
                     <Box className="code-display">
                         <CodeDisplay
                             text={codeText}
-                            startingLineNumber={Math.max(step - 10, 1)}
-                            highlightLine={step + 1}
+                            startingLineNumber={1}
+                            highlightLine={Number(
+                                window.svgArray[step].lineNumber
+                            )}
                         />
                         <Box className="button-container">
                             <Button onClick={() => handleStep(step - 1)}>
