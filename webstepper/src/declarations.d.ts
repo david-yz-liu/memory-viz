@@ -8,3 +8,13 @@ declare module "*.svg" {
     const value: string;
     export default value;
 }
+
+declare interface Window {
+    svgArray: Record<
+        number,
+        {
+            lineNumber: string;
+            svg: string;
+        }
+    >;
+}

@@ -43,7 +43,7 @@ arr = [some_string, "string 123321"]`;
                 </Box>
                 <Box sx={{ width: "60%" }}>
                     <h2>Memory diagrams</h2>
-                    <SvgDisplay svgPath={svgPath} />
+                    <SvgDisplay step={step} />
                 </Box>
             </Stack>
         </main>
