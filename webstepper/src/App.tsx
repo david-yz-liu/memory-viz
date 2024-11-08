@@ -23,11 +23,15 @@ arr = [some_string, "string 123321"]`;
             <Stack direction="row" spacing={2}>
                 <Box sx={{ width: "40%" }}>
                     <h2>Code</h2>
-                    <Typography>Line: {step + 1}</Typography>
+                    <Typography>
+                        Line: {window.svgArray[step].lineNumber}
+                    </Typography>
                     <Box className="code-display">
                         <CodeDisplay
                             text={codeText}
-                            startingLineNumber={1}
+                            startingLineNumber={Number(
+                                window.svgArray[0].lineNumber
+                            )}
                             highlightLine={Number(
                                 window.svgArray[step].lineNumber
                             )}
