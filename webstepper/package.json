@@ -25,6 +25,7 @@
         "@babel/preset-env": "^7.23.6",
         "@babel/preset-react": "^7.23.3",
         "@babel/preset-typescript": "^7.24.7",
+        "@testing-library/jest-dom": "^6.6.3",
         "@testing-library/react": "^14.2.1",
         "@types/react": "^18.3.5",
         "@types/react-dom": "^18.2.18",
@@ -49,6 +50,7 @@
         "react": "^18.3.1",
         "react-dom": "^18.2.0",
         "react-error-boundary": "^4.0.12",
+        "react-syntax-highlighter": "^15.6.1",
         "react-zoom-pan-pinch": "^3.6.1"
     }
 }

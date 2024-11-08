@@ -1,47 +1,41 @@
 import React, { useRef, useEffect } from "react";
-import mem from "memory-viz";
 import { Paper } from "@mui/material";
-import { configDataPropTypes } from "./types";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import "./css/styles.css";
 
 type SvgDisplayPropTypes = {
-    jsonResult: object | null;
-    configData: configDataPropTypes;
-    setSvgResult: React.Dispatch<React.SetStateAction<string>>;
+    svgPath: string;
 };
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
-    const canvasWidth = 1300;
-    const canvasHeight = 1000;
 
     useEffect(() => {
-        if (props.jsonResult !== null) {
-            // deep copy jsonResult as mem.draw mutates input JSON
-            // https://github.com/david-yz-liu/memory-viz/pull/20#discussion_r1513235452
-            const jsonResultCopy = structuredClone(props.jsonResult);
-            const m = mem.draw(jsonResultCopy, props.configData.useAutomation, {
-                ...props.configData.overallDrawConfig,
-                width: canvasWidth,
-            });
-            props.setSvgResult(m.serializeSVG());
-            m.clear(canvasRef.current);
-            m.render(canvasRef.current);
-        } else {
-            props.setSvgResult(null);
-        }
-    }, [props.jsonResult]);
+        const loadAndDrawSvg = async () => {
+            try {
+                const response = await fetch(props.svgPath);
+                const blob = await response.blob();
+                const image = new Image();
+                image.src = URL.createObjectURL(blob);
+                image.onload = () => {
+                    const canvas = canvasRef.current;
+                    const context = canvas.getContext("2d");
+                    context.clearRect(0, 0, image.width, image.height);
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+                    context.drawImage(image, 0, 0);
+                };
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        loadAndDrawSvg();
+    }, [props.svgPath]);
 
     return (
         <Paper
-            sx={{
-                bgcolor: `primary.paper`,
-                height: 500,
-                overflow: "hidden",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-            }}
+            className="svg-display"
+            sx={{ bgcolor: "primary.paper" }}
             variant="outlined"
         >
             <TransformWrapper
@@ -50,14 +44,8 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
             >
                 <TransformComponent>
                     <canvas
-                        style={{
-                            height: "100%",
-                            width: "100%",
-                        }}
                         data-testid="memory-models-canvas"
                         ref={canvasRef}
-                        width={canvasWidth}
-                        height={canvasHeight}
                     />
                 </TransformComponent>
             </TransformWrapper>
