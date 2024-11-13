@@ -15,7 +15,7 @@ for i in range(len(nums)):
     else:
         nums[i] = nums[i] * 2
 `;
-    const limit = codeText.split("\n").length;
+    const limit = Object.keys(window.svgArray).length;
     const handleStep = (newStep: number) => {
         setStep(Math.min(Math.max(newStep, 0), limit - 1));
     };
@@ -40,10 +40,16 @@ for i in range(len(nums)):
                             )}
                         />
                         <Box className="button-container">
-                            <Button onClick={() => handleStep(step - 1)}>
+                            <Button
+                                disabled={step === 0}
+                                onClick={() => handleStep(step - 1)}
+                            >
                                 Back
                             </Button>
-                            <Button onClick={() => handleStep(step + 1)}>
+                            <Button
+                                disabled={step === limit - 1}
+                                onClick={() => handleStep(step + 1)}
+                            >
                                 Next
                             </Button>
                         </Box>

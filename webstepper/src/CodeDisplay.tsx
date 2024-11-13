@@ -26,8 +26,6 @@ export default function CodeDisplay(props: CodeDisplayPropTypes) {
                     if (lineNumber == props.highlightLine) {
                         return { className: "code-box__line--highlighted" };
                     }
-                    console.log(lineNumber);
-                    console.log(props.highlightLine);
                 }}
             >
                 {props.text}
