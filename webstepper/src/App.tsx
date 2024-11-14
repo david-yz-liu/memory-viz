@@ -8,13 +8,8 @@ import "./css/styles.css";
 export default function App() {
     const [step, setStep] = useState<number>(0);
     // TODO: replace this with actual code to display
-    const codeText = `num = [1, 2, 3]
-for i in range(len(nums)):
-    if i == 0:
-        nums[i] = nums[i] + 1
-    else:
-        nums[i] = nums[i] * 2
-`;
+    const codeText = window.codeText;
+
     const limit = Object.keys(window.svgArray).length;
     const handleStep = (newStep: number) => {
         setStep(Math.min(Math.max(newStep, 0), limit - 1));
