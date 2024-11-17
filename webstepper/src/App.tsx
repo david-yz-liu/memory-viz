@@ -7,10 +7,9 @@ import "./css/styles.css";
 
 export default function App() {
     const [step, setStep] = useState<number>(0);
-    // TODO: replace this with actual code to display
     const codeText = window.codeText;
-
     const limit = Object.keys(window.svgArray).length;
+
     const handleStep = (newStep: number) => {
         setStep(Math.min(Math.max(newStep, 0), limit - 1));
     };
@@ -22,7 +21,7 @@ export default function App() {
                 <Box sx={{ width: "40%" }}>
                     <h2>Code</h2>
                     <Typography>
-                        Line: {window.svgArray[step].lineNumber}
+                        Step {step + 1} / {limit}
                     </Typography>
                     <Box className="code-display">
                         <CodeDisplay
