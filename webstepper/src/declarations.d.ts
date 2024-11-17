@@ -13,7 +13,7 @@ declare interface Window {
     svgArray: Record<
         number,
         {
-            lineNumber: string;
+            lineNumber: number;
             svg: string;
         }
     >;

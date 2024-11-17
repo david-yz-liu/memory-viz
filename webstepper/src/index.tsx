@@ -5,7 +5,7 @@ import "@picocss/pico";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
-import placeholderData from "./placeholder";
+import { svgArray, codeText } from "./placeholder";
 
 declare module "@mui/material/styles" {
     interface PaletteColor {
@@ -47,8 +47,9 @@ function Root() {
     );
 }
 
-if (typeof window === "object" && !window.svgArray) {
-    window.svgArray = placeholderData;
+if (typeof window === "object" && process.env.NODE_ENV === "development") {
+    window.svgArray = svgArray;
+    window.codeText = codeText;
 }
 
 const root = createRoot(document.getElementById("root"));
