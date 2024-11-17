@@ -3,9 +3,14 @@ import Header from "./Header";
 import { Button, Box, Typography, Stack } from "@mui/material";
 import SvgDisplay from "./SvgDisplay";
 import CodeDisplay from "./CodeDisplay";
+import placeholder from "./placeholder";
 import "./css/styles.css";
 
 export default function App() {
+    if (typeof window === "object" && process.env.NODE_ENV !== "production") {
+        window.svgArray = placeholder.svgArray;
+        window.codeText = placeholder.codeText;
+    }
     const [step, setStep] = useState<number>(0);
     const codeText = window.codeText;
     const limit = Object.keys(window.svgArray).length;
@@ -21,7 +26,7 @@ export default function App() {
                 <Box sx={{ width: "40%" }}>
                     <h2>Code</h2>
                     <Typography>
-                        Step {step + 1} / {limit}
+                        Step {step + 1}/{limit}
                     </Typography>
                     <Box className="code-display">
                         <CodeDisplay

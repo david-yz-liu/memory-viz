@@ -53,4 +53,4 @@ for i in range(len(nums)):
         nums[i] = nums[i] * 2
 `;
 
-export { svgArray, codeText };
+export default { svgArray, codeText };

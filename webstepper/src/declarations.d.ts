@@ -17,4 +17,5 @@ declare interface Window {
             svg: string;
         }
     >;
+    codeText: string;
 }
