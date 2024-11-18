@@ -23,12 +23,13 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Fixed a bug where passing an empty array as objects will crash the program.
 -   Fixed a bug where the text may go outside of the box when it has a text font set
 
-### 📚 Documentation and demo website changes
+### 📚 Documentation, demo, and Webstepper website changes
 
 -   Made text input box use a monospace font
 -   Disabled download buttons when there is no input/output.
 -   Added a dialog to the file input section.
 -   Made improvements to the dark mode version of the website.
+-   Added Webstepper, an interactive, web-based memory visualization tool!
 
 ### 🔧 Internal changes
 
