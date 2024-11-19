@@ -6,11 +6,12 @@ import CodeDisplay from "./CodeDisplay";
 import placeholder from "./placeholder";
 import "./css/styles.css";
 
+if (typeof window === "object" && process.env.NODE_ENV !== "production") {
+    window.svgArray = placeholder.svgArray;
+    window.codeText = placeholder.codeText;
+}
+
 export default function App() {
-    if (typeof window === "object" && process.env.NODE_ENV !== "production") {
-        window.svgArray = placeholder.svgArray;
-        window.codeText = placeholder.codeText;
-    }
     const [step, setStep] = useState<number>(0);
     const codeText = window.codeText;
     const limit = Object.keys(window.svgArray).length;
