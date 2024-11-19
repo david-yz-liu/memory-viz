@@ -14,7 +14,7 @@ if (typeof window === "object" && process.env.NODE_ENV !== "production") {
 export default function App() {
     const [step, setStep] = useState<number>(0);
     const codeText = window.codeText;
-    const limit = Object.keys(window.svgArray).length;
+    const limit = window.svgArray.length;
 
     const handleStep = (newStep: number) => {
         setStep(Math.min(Math.max(newStep, 0), limit - 1));

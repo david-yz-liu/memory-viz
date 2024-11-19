@@ -9,6 +9,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+-   Launchd an initial prototype!
 -   Improved UI to indicate when the end of the program is reached.
 
 ### 🐛 Bug fixes
