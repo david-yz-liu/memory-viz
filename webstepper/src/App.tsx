@@ -32,12 +32,8 @@ export default function App() {
                     <Box className="code-display">
                         <CodeDisplay
                             text={codeText}
-                            startingLineNumber={Number(
-                                window.svgArray[0].lineNumber
-                            )}
-                            highlightLine={Number(
-                                window.svgArray[step].lineNumber
-                            )}
+                            startingLineNumber={window.svgArray[0].lineNumber}
+                            highlightLine={window.svgArray[step].lineNumber}
                         />
                         <Box className="button-container">
                             <Button
