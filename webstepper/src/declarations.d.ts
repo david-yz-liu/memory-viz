@@ -10,12 +10,9 @@ declare module "*.svg" {
 }
 
 declare interface Window {
-    svgArray: Record<
-        number,
-        {
-            lineNumber: number;
-            svg: string;
-        }
-    >;
+    svgArray: {
+        lineNumber: number;
+        svg: string;
+    }[];
     codeText: string;
 }
