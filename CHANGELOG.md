@@ -11,6 +11,16 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+### 🐛 Bug fixes
+
+### 📚 Documentation and demo website changes
+
+### 🔧 Internal changes
+
+## [0.4.0] - 2024-11-19
+
+### ✨ Enhancements
+
 -   Added transparent and dark mode versions of the logos!
 -   Added functionality to set a default width for automatic-layout diagrams if not specified,
     and to crop unused space if necessary.
