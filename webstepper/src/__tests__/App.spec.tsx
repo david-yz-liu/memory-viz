@@ -12,14 +12,6 @@ global.fetch = jest.fn(() =>
 
 URL.createObjectURL = jest.fn(() => "mock-url");
 
-const getStepString = (): string => {
-    return screen.getByText(/Step \d+\/\d+/).textContent;
-};
-
-const getMaxStep = (): number => {
-    return Number(getStepString().split("/")[1]);
-};
-
 describe("App", () => {
     beforeEach(() => {
         global.fetch = jest.fn(() =>
@@ -32,50 +24,52 @@ describe("App", () => {
     });
 
     it("renders initial state correctly", async () => {
-        expect(screen.getByText(/Step \d+\/\d+/)).toBeInTheDocument();
+        expect(screen.getByText("Line: 1")).toBeInTheDocument();
         expect(screen.getByText("Code")).toBeInTheDocument();
         expect(screen.getByText("Memory diagrams")).toBeInTheDocument();
+        await waitFor(() => {
+            expect(global.fetch).toHaveBeenCalledWith("/images/snapshot-0.svg");
+        });
     });
 
     it("handles next button click correctly", () => {
-        const maxStep = getMaxStep();
         const nextButton = screen.getByText("Next");
         fireEvent.click(nextButton);
 
-        expect(screen.getByText(`Step 2/${maxStep}`)).toBeInTheDocument();
+        expect(screen.getByText("Line: 2")).toBeInTheDocument();
+        expect(global.fetch).toHaveBeenCalledWith("/images/snapshot-1.svg");
     });
 
     it("handles back button click correctly", () => {
-        const maxStep = getMaxStep();
+        // First go forward
         const nextButton = screen.getByText("Next");
         fireEvent.click(nextButton);
-
-        expect(screen.getByText(`Step 2/${maxStep}`)).toBeInTheDocument();
 
         // Then go back
         const backButton = screen.getByText("Back");
         fireEvent.click(backButton);
 
-        expect(screen.getByText(`Step 1/${maxStep}`)).toBeInTheDocument();
+        expect(screen.getByText("Line: 1")).toBeInTheDocument();
+        expect(global.fetch).toHaveBeenCalledWith("/images/snapshot-0.svg");
     });
 
     it("prevents going below step 0", () => {
         const backButton = screen.getByText("Back");
         fireEvent.click(backButton);
 
-        expect(screen.getByText(`Step 1/${getMaxStep()}`)).toBeInTheDocument();
+        expect(screen.getByText("Line: 1")).toBeInTheDocument();
+        expect(global.fetch).toHaveBeenCalledWith("/images/snapshot-0.svg");
     });
 
     it("prevents going above maximum steps", () => {
-        const maxStep = getMaxStep();
+        // The limit is 4 (defined in App.tsx)
         const nextButton = screen.getByText("Next");
-        for (let i = 0; i < maxStep; i++) {
+        for (let i = 0; i < 5; i++) {
             fireEvent.click(nextButton);
         }
 
-        expect(
-            screen.getByText(`Step ${maxStep}/${maxStep}`)
-        ).toBeInTheDocument();
+        expect(screen.getByText("Line: 4")).toBeInTheDocument();
+        expect(global.fetch).toHaveBeenCalledWith("/images/snapshot-3.svg");
     });
 
     it("highlights the correct line in code display", async () => {

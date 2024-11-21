@@ -7,7 +7,6 @@
         "test-cov": "jest --no-cache --coverage",
         "build-dev": "webpack --config webpack.dev.js",
         "build": "webpack --config webpack.prod.js",
-        "build-copy": "webpack --config webpack.prod.js && cp -r dist/*",
         "start": "webpack serve --config webpack.dev.js"
     },
     "repository": {

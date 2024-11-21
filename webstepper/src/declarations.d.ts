@@ -8,11 +8,3 @@ declare module "*.svg" {
     const value: string;
     export default value;
 }
-
-declare interface Window {
-    svgArray: {
-        lineNumber: number;
-        svg: string;
-    }[];
-    codeText: string;
-}

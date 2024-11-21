@@ -4,7 +4,7 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import "./css/styles.css";
 
 type SvgDisplayPropTypes = {
-    step: number;
+    svgPath: string;
 };
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
@@ -13,11 +13,10 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     useEffect(() => {
         const loadAndDrawSvg = async () => {
             try {
-                const svgString = window.svgArray[props.step].svg;
+                const response = await fetch(props.svgPath);
+                const blob = await response.blob();
                 const image = new Image();
-                let data =
-                    "data:image/svg+xml;base64," + window.btoa(svgString);
-                image.src = data;
+                image.src = URL.createObjectURL(blob);
                 image.onload = () => {
                     const canvas = canvasRef.current;
                     const context = canvas.getContext("2d");
@@ -31,7 +30,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
             }
         };
         loadAndDrawSvg();
-    }, [props.step]);
+    }, [props.svgPath]);
 
     return (
         <Paper

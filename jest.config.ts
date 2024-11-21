@@ -103,11 +103,7 @@ const config: Config = {
     // preset: undefined,
 
     // Run tests from one or more projects
-    projects: [
-        "./demo/jest.config.ts",
-        "./memory-viz/jest.config.ts",
-        "./webstepper/jest.config.ts",
-    ],
+    projects: ["./demo/jest.config.ts", "./memory-viz/jest.config.ts"],
 
     // Use this configuration option to add custom reporters to Jest
     // reporters: undefined,
