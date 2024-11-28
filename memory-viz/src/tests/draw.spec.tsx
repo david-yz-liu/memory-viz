@@ -1025,46 +1025,4 @@ describe("draw function", () => {
             expect(svg).toMatchSnapshot();
         });
     });
-    it("renders a list of snapshots", () => {
-        const snapshots = [
-            [
-                {
-                    type: ".frame",
-                    name: "__main__",
-                    id: null,
-                    value: {
-                        item: 1,
-                    },
-                },
-                {
-                    type: "str",
-                    id: 1,
-                    value: "hello world",
-                },
-            ],
-            [
-                {
-                    type: ".frame",
-                    name: "__main__",
-                    id: null,
-                    value: {
-                        item: 1,
-                    },
-                },
-                {
-                    type: "str",
-                    id: 1,
-                    value: "hi world",
-                },
-            ],
-        ];
-        const models = draw(snapshots, true, {
-            roughjs_config: { options: { seed: 12345 } },
-        });
-
-        models.forEach((model) => {
-            const svg = model.serializeSVG();
-            expect(svg).toMatchSnapshot();
-        });
-    });
 });

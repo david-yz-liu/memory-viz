@@ -38,7 +38,7 @@ function draw(
  *                          If automation == false, then all configuration properties are optional, and the function
  *                          will still operate even without defining them.
  *
- * @returns the produced canvas, either a single canvas or a list of canvas dependent on objects
+ * @returns the produced canvas, either a single canvas or a list of canvas, depending on the objects input.
  */
 function draw(
     objects: string | DrawnEntity[] | DrawnEntity[][],
