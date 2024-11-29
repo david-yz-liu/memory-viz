@@ -11,8 +11,6 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
--   Added the ability to step back and forth in Webstepper using the arrow keys.
-
 ### 🐛 Bug fixes
 
 ### 📚 Documentation and demo website changes
