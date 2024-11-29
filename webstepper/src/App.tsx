@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { Button, Box, Typography, Stack } from "@mui/material";
 import SvgDisplay from "./SvgDisplay";
@@ -19,6 +19,23 @@ export default function App() {
     const handleStep = (newStep: number) => {
         setStep(Math.min(Math.max(newStep, 0), limit - 1));
     };
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key == "ArrowLeft") {
+                handleStep(step - 1);
+            }
+            if (event.key == "ArrowRight") {
+                handleStep(step + 1);
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [step]);
 
     return (
         <main className="container">
