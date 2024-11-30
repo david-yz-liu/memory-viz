@@ -1,5 +1,5 @@
 import { MemoryModel } from "./memory_model";
-import { drawAutomated, getSize } from "./automate";
+import { drawAutomated } from "./automate";
 import { DrawnEntity, DisplaySettings } from "./types";
 import type * as fsType from "fs";
 export * from "./types";
@@ -10,14 +10,25 @@ if (typeof window === "undefined") {
     fs = require("fs");
 }
 
+function draw(
+    objects: string | DrawnEntity[][],
+    automation: boolean,
+    configuration: Partial<DisplaySettings>
+): MemoryModel[];
+function draw(
+    objects: string | DrawnEntity[],
+    automation: boolean,
+    configuration: Partial<DisplaySettings>
+): MemoryModel;
 /**
  * Draw the given objects on the canvas.
  *
  * The format of the array of objects must adhere to the description provided in MemoryModel.drawAll.
  *
  * @param objects - The array of objects to be drawn: this could be passed as an actual JavaScript
- * array of objects, or as a JSON file containing the object array. This array of objects may also include the
- * user-defined style configuration. See the demo files and style.md file for details.
+ * array of objects (a single snapshot), or as a JSON file containing the object array. This array of objects may also include the
+ * user-defined style configuration. It can also be a list of snapshots, where each snapshot is an array of objects.
+ * See the demo files and style.md file for details.
  * @param automation - Whether the coordinates (of the objects on the canvas) should be automatically
  * generated or manually inputted.
  * @param configuration - The configuration (display settings) defined by the user.
@@ -27,14 +38,14 @@ if (typeof window === "undefined") {
  *                          If automation == false, then all configuration properties are optional, and the function
  *                          will still operate even without defining them.
  *
- * @returns the produced canvas
+ * @returns the produced canvas, either a single canvas or a list of canvas, depending on the objects input.
  */
 function draw(
-    objects: string | DrawnEntity[],
+    objects: string | DrawnEntity[] | DrawnEntity[][],
     automation: boolean,
     configuration: Partial<DisplaySettings>
-): MemoryModel {
-    let objs: DrawnEntity[];
+): MemoryModel | MemoryModel[] {
+    let objs: DrawnEntity[] | DrawnEntity[][];
 
     if (typeof objects === "string") {
         const json_string = fs.readFileSync(objects, "utf-8");
@@ -45,54 +56,37 @@ function draw(
         objs = objects;
     }
 
-    let m: MemoryModel;
+    const isArrayOfArrays = Array.isArray(objs) && Array.isArray(objs[0]);
 
-    if (automation) {
-        m = drawAutomated(objs, configuration.width, configuration);
-    } else {
-        // Dynamically determining the width of the canvas, in case one has not been provided.
-        if (!configuration.hasOwnProperty("width")) {
-            let rightmost_obj;
-            let rightmost_edge = 0;
-
-            for (const obj of objs) {
-                const width = getSize(obj).width;
-                const curr_edge = obj.x + width;
-                if (curr_edge > rightmost_edge) {
-                    rightmost_edge = curr_edge;
-                    rightmost_obj = obj;
-                }
-            }
-            configuration.width = rightmost_edge + 100;
-        }
-
-        // Dynamically determining the height of the canvas, in case one has not been provided.
-        if (!configuration.hasOwnProperty("height")) {
-            let downmost_obj = objs[0];
-            let downmost_edge = 0;
-
-            for (const obj of objs) {
-                const height = getSize(obj).height;
-                const curr_edge = obj.y + height;
-
-                if (curr_edge > downmost_edge) {
-                    downmost_obj = obj;
-                    downmost_edge = obj.y + height;
-                }
-            }
-
-            configuration.height = downmost_edge + 100;
-        }
-
-        m = new MemoryModel({
+    const processSnapshot = (snapshotObjects: DrawnEntity[]) => {
+        ({ width: configuration.width, height: configuration.height } =
+            MemoryModel.getCanvasDimensions(configuration, snapshotObjects));
+        const model = new MemoryModel({
             width: configuration.width,
             height: configuration.height,
             roughjs_config: configuration.roughjs_config,
         });
-        m.drawAll(objs);
+        model.drawAll(snapshotObjects);
+        return model;
+    };
+
+    if (isArrayOfArrays) {
+        const snapshots = objs as DrawnEntity[][];
+        return automation
+            ? snapshots.map((snapshotObjects) =>
+                  drawAutomated(
+                      snapshotObjects,
+                      configuration.width,
+                      configuration
+                  )
+              )
+            : snapshots.map(processSnapshot);
     }
 
-    return m;
+    const snapshotObjects = objs as DrawnEntity[];
+    return automation
+        ? drawAutomated(snapshotObjects, configuration.width, configuration)
+        : processSnapshot(snapshotObjects);
 }
 
 export { draw };
