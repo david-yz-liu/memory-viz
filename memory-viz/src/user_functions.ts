@@ -1,5 +1,5 @@
 import { MemoryModel } from "./memory_model";
-import { drawAutomated, getSize } from "./automate";
+import { drawAutomated } from "./automate";
 import { DrawnEntity, DisplaySettings } from "./types";
 import type * as fsType from "fs";
 export * from "./types";
@@ -59,7 +59,8 @@ function draw(
     const isArrayOfArrays = Array.isArray(objs) && Array.isArray(objs[0]);
 
     const processSnapshot = (snapshotObjects: DrawnEntity[]) => {
-        getCanvasDimensions(configuration, snapshotObjects);
+        ({ width: configuration.width, height: configuration.height } =
+            MemoryModel.getCanvasDimensions(configuration, snapshotObjects));
         const model = new MemoryModel({
             width: configuration.width,
             height: configuration.height,
@@ -86,45 +87,6 @@ function draw(
     return automation
         ? drawAutomated(snapshotObjects, configuration.width, configuration)
         : processSnapshot(snapshotObjects);
-}
-
-function getCanvasDimensions(
-    configuration: Partial<DisplaySettings>,
-    snapshotObjects: DrawnEntity[]
-): void {
-    // Dynamically determining the width of the canvas, in case one has not been provided.
-    if (!configuration.hasOwnProperty("width")) {
-        let rightmost_obj;
-        let rightmost_edge = 0;
-
-        for (const obj of snapshotObjects) {
-            const width = getSize(obj).width;
-            const curr_edge = obj.x + width;
-            if (curr_edge > rightmost_edge) {
-                rightmost_edge = curr_edge;
-                rightmost_obj = obj;
-            }
-        }
-        configuration.width = rightmost_edge + 100;
-    }
-
-    // Dynamically determining the height of the canvas, in case one has not been provided.
-    if (!configuration.hasOwnProperty("height")) {
-        let downmost_obj = snapshotObjects[0];
-        let downmost_edge = 0;
-
-        for (const obj of snapshotObjects) {
-            const height = getSize(obj).height;
-            const curr_edge = obj.y + height;
-
-            if (curr_edge > downmost_edge) {
-                downmost_obj = obj;
-                downmost_edge = obj.y + height;
-            }
-        }
-
-        configuration.height = downmost_edge + 100;
-    }
 }
 
 export { draw };
