@@ -11,7 +11,6 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 -   Launchd an initial prototype!
 -   Improved UI to indicate when the end of the program is reached.
--   Added a batch mode to allow multiple snapshots as inputs
 
 ### 🐛 Bug fixes
 

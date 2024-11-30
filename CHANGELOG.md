@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+-   Added a batch mode to allow multiple snapshots as inputs to `draw` function
+
 ### 🐛 Bug fixes
 
 ### 📚 Documentation and demo website changes
