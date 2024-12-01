@@ -47,7 +47,7 @@
         "@picocss/pico": "^1.5.10",
         "memory-viz": "*",
         "react": "^18.3.1",
-        "react-dom": "^18.2.0",
+        "react-dom": "^18.3.1",
         "react-error-boundary": "^4.0.12",
         "react-zoom-pan-pinch": "^3.6.1"
     }
