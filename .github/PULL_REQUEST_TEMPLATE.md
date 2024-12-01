@@ -31,21 +31,21 @@ _(Complete each of the following items for your pull request. Indicate that you 
 
 Before opening your pull request:
 
--   [ ] I have performed a self-review of my changes.
-    -   Check that all changed files included in this pull request are intentional changes.
-    -   Check that all changes are relevant to the purpose of this pull request, as described above.
--   [ ] I have added tests for my changes, if applicable.
-    -   This is **required** for all bug fixes and new features.
--   [ ] I have updated the project documentation, if applicable.
-    -   This is **required** for new features.
--   [ ] If this is my first contribution, I have added myself to the list of contributors.
--   [ ] I have updated the project Changelog (this is required for all changes).
+- [ ] I have performed a self-review of my changes.
+    - Check that all changed files included in this pull request are intentional changes.
+    - Check that all changes are relevant to the purpose of this pull request, as described above.
+- [ ] I have added tests for my changes, if applicable.
+    - This is **required** for all bug fixes and new features.
+- [ ] I have updated the project documentation, if applicable.
+    - This is **required** for new features.
+- [ ] If this is my first contribution, I have added myself to the list of contributors.
+- [ ] I have updated the project Changelog (this is required for all changes).
 
 After opening your pull request:
 
--   [ ] I have verified that the CI tests have passed.
--   [ ] I have reviewed the test coverage changes reported by Coveralls.
--   [ ] I have [requested a review](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/requesting-a-pull-request-review) from a project maintainer.
+- [ ] I have verified that the CI tests have passed.
+- [ ] I have reviewed the test coverage changes reported by Coveralls.
+- [ ] I have [requested a review](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/requesting-a-pull-request-review) from a project maintainer.
 
 ## Questions and Comments
 

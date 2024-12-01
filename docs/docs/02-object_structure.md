@@ -10,27 +10,27 @@ the array of objects to be drawn.
 To be successfully rendered, the array must contain objects that strictly follow a specific structure. Every object
 must contain the following attributes:
 
--   `type` - `string`: Specifies whether a class, stack frame, or object is being drawn. To draw a class, input `.class` and to draw a stack frame, input `.frame`. If an object is being drawn, input the type of the object.
--   `name` - `string`: The name of the class or stack frame to be drawn. Note that this attribute is only
-    applicable if the object's type is `.class` or `.frame`. Otherwise, this attribute can be excluded from the input.
--   If the user wants to hardcode the coordinates (implying the `automation` parameter of `draw` is false), each object
-    must include `x` and `y` attributes (for x-y coordinates).
--   `id` - `string`|`number`: Denotes the id value of this object. If we are to draw a stack frame, then this MUST be `null`.
--   `value` - `*`: Denotes the value of the object. This could be anything, from an empty string to a JS object,
-    which would be passed for the purpose of drawing a user-defined class object, a
-    stack frame, or a dictionary.
-    **Note that in such cases where we want to draw a 'container'
-    object (an object that contains other objects), we pass a _JS object_ where the keys are the
-    attributes/variables and the values are the id's of the corresponding objects (not the
-    objects themselves)**.
--   `show_indexes` - `boolean`: This is applicable only when drawing tuples or lists (when drawSequence
-    method will be used). It denotes whether the memory box of the underlying
-    sequence will include indices (for sequences) or not. This
-    has a default value of `false`, and it should be manually set to `true`
-    only if the object corresponds to a sequence (list or
-    tuple).
--   `style` - `object` | `array`: A JS object or array specifying the "style" of the object. See `style.md` for information
-    on the required structure (also see `presets.md` for the full capabilities).
+- `type` - `string`: Specifies whether a class, stack frame, or object is being drawn. To draw a class, input `.class` and to draw a stack frame, input `.frame`. If an object is being drawn, input the type of the object.
+- `name` - `string`: The name of the class or stack frame to be drawn. Note that this attribute is only
+  applicable if the object's type is `.class` or `.frame`. Otherwise, this attribute can be excluded from the input.
+- If the user wants to hardcode the coordinates (implying the `automation` parameter of `draw` is false), each object
+  must include `x` and `y` attributes (for x-y coordinates).
+- `id` - `string`|`number`: Denotes the id value of this object. If we are to draw a stack frame, then this MUST be `null`.
+- `value` - `*`: Denotes the value of the object. This could be anything, from an empty string to a JS object,
+  which would be passed for the purpose of drawing a user-defined class object, a
+  stack frame, or a dictionary.
+  **Note that in such cases where we want to draw a 'container'
+  object (an object that contains other objects), we pass a _JS object_ where the keys are the
+  attributes/variables and the values are the id's of the corresponding objects (not the
+  objects themselves)**.
+- `show_indexes` - `boolean`: This is applicable only when drawing tuples or lists (when drawSequence
+  method will be used). It denotes whether the memory box of the underlying
+  sequence will include indices (for sequences) or not. This
+  has a default value of `false`, and it should be manually set to `true`
+  only if the object corresponds to a sequence (list or
+  tuple).
+- `style` - `object` | `array`: A JS object or array specifying the "style" of the object. See `style.md` for information
+  on the required structure (also see `presets.md` for the full capabilities).
 
 ### Examples
 

@@ -9,8 +9,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
--   Launchd an initial prototype!
--   Improved UI to indicate when the end of the program is reached.
+- Launchd an initial prototype!
+- Improved UI to indicate when the end of the program is reached.
 
 ### 🐛 Bug fixes
 
@@ -18,5 +18,5 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🔧 Internal changes
 
--   Added a script for installing the Webstepper build to a specified path.
--   Updated to use the window object to serve app data.
+- Added a script for installing the Webstepper build to a specified path.
+- Updated to use the window object to serve app data.
