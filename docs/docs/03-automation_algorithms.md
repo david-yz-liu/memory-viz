@@ -79,22 +79,22 @@ Below we thoroughly describe the steps for each of the two functions:
    with dimensions, and is sorted by descending height), and let the
    current object be denoted as `obj`:
 
--   If `obj` fits horizontally (which is determined by checking
-    if the top-right coordinate of the last iteration's object,
-    plus some padding, plus the width of `obj` is less than the
-    width of the entire canvas), **equip `obj` with the (top-left)
-    coordinates** it would take if it were drawn.
--   If `obj` does NOT fit horizontally, we move to a new row.
-    The height of the new row will be the height of the current
-    object that does not fit (plus some padding), `obj`, since (due to the sorting
-    in step 2) `obj` is tallest amongst all remaining objects
-    (so it just makes sense to the make this the height of
-    the row itself).
-    Again, **equip `obj` with the (top-left) coordinates** it
-    would take if it were drawn (in this case, the x-coordinate
-    would go back to the initial state since we moved to a new row,
-    and the y-coordinate would increase by the height of the
-    _previous_ row).
+- If `obj` fits horizontally (which is determined by checking
+  if the top-right coordinate of the last iteration's object,
+  plus some padding, plus the width of `obj` is less than the
+  width of the entire canvas), **equip `obj` with the (top-left)
+  coordinates** it would take if it were drawn.
+- If `obj` does NOT fit horizontally, we move to a new row.
+  The height of the new row will be the height of the current
+  object that does not fit (plus some padding), `obj`, since (due to the sorting
+  in step 2) `obj` is tallest amongst all remaining objects
+  (so it just makes sense to the make this the height of
+  the row itself).
+  Again, **equip `obj` with the (top-left) coordinates** it
+  would take if it were drawn (in this case, the x-coordinate
+  would go back to the initial state since we moved to a new row,
+  and the y-coordinate would increase by the height of the
+  _previous_ row).
 
 4. Return the mutated list of objects.
 
