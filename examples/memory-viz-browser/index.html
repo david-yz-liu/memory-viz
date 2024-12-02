@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>MemoryViz in the Browser!</title>
+        <!-- Load MemoryViz from a CDN. You can substitute a local memory-viz.bundle.js. -->
+        <script
+            type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/memory-viz@latest/dist/memory-viz.bundle.js"
+        ></script>
+        <!-- Visualize the canvas. -->
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", () => {
+                const canvas = document.getElementById("memory-viz-output");
+                const objects = [
+                    {
+                        type: ".frame",
+                        name: "__main__",
+                        id: null,
+                        value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
+                    },
+                    {
+                        type: "str",
+                        id: 19,
+                        value: "David is cool!",
+                        style: ["highlight"],
+                    },
+                    {
+                        type: "int",
+                        id: 13,
+                        value: 7,
+                    },
+                ];
+
+                const model = memoryViz.draw(objects, true, { width: 1300 });
+                model.render(canvas);
+            });
+        </script>
+    </head>
+
+    <body>
+        <h1>A minimal example of MemoryViz in the browser</h1>
+        <div>
+            <canvas id="memory-viz-output" width="1300" height="800"></canvas>
+        </div>
+    </body>
+</html>

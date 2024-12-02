@@ -1,0 +1,19 @@
+[
+    {
+        "type": ".frame",
+        "name": "__main__",
+        "id": null,
+        "value": { "lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11 }
+    },
+    {
+        "type": "str",
+        "id": 19,
+        "value": "David is cool!",
+        "style": ["highlight"]
+    },
+    {
+        "type": "int",
+        "id": 13,
+        "value": 7
+    }
+]
