@@ -9,7 +9,8 @@
         "test-cov": "jest --no-cache --coverage",
         "watch": "webpack --watch --config webpack.dev.js",
         "build-dev": "tsc && webpack --config webpack.dev.js",
-        "build": "tsc && webpack --config webpack.prod.js"
+        "build": "tsc && webpack --config webpack.prod.js",
+        "prepare": "npm run build"
     },
     "keywords": [
         "education",

@@ -19,6 +19,9 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🔧 Internal changes
 
+- Added a GitHub workflow for automatically publishing memory-viz to npm.
+- Added `prepare` script to `memory-viz/package.json`.
+
 ## [0.4.0] - 2024-11-19
 
 ### ✨ Enhancements
