@@ -1,11 +1,11 @@
-# MemoryViz Demo Website
+# MemoryViz Documentation Website
 
 This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
 
 The commands described in this README assume your current working directory is `memory-viz/docs`.
 You can instead run them in the root project directory by adding the argument `--workspace=docs`.
 
-## Start (development server)
+## Local Development
 
 ```console
 $ npm start
