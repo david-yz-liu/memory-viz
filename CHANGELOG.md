@@ -17,6 +17,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🔧 Internal changes
 
+- Updated `express` dependency to v4.21.2
+
 ## [0.5.0-rc.1] - 2024-12-06
 
 ### 🔧 Internal changes
