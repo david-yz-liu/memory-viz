@@ -54,10 +54,10 @@ This producs an SVG file, `demo_output.svg`, that visualizes the state of memory
 
 This repository contains multiple [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) that contains the MemoryViz-related projects.
 
--   [memory-viz/](memory-viz/) is the source code for the main `memory-viz` Javascript package
--   [demo/](demo/) contains the source code for the [demo website](https://www.cs.toronto.edu/~david/memory-viz/demo/)
--   [docs/](docs/) contains the source code for the [project documentation website](https://www.cs.toronto.edu/~david/memory-viz/)
--   [webstepper/](webstepper/) contains the source code for the Webstepper project, which integrates MemoryViz and [PythonTA](https://www.cs.toronto.edu/~david/pyta/)
+- [memory-viz/](memory-viz/) is the source code for the main `memory-viz` Javascript package
+- [demo/](demo/) contains the source code for the [demo website](https://www.cs.toronto.edu/~david/memory-viz/demo/)
+- [docs/](docs/) contains the source code for the [project documentation website](https://www.cs.toronto.edu/~david/memory-viz/)
+- [webstepper/](webstepper/) contains the source code for the Webstepper project, which integrates MemoryViz and [PythonTA](https://www.cs.toronto.edu/~david/pyta/)
 
 ## Developers
 
