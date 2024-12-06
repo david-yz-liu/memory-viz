@@ -11,11 +11,21 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
-- Added a batch mode to allow multiple snapshots as inputs to `draw` function
-
 ### 🐛 Bug fixes
 
 ### 📚 Documentation and demo website changes
+
+### 🔧 Internal changes
+
+## [0.5.0-rc.0] - 2024-12-06
+
+### ✨ Enhancements
+
+- Added a batch mode to allow multiple snapshots as inputs to `draw` function
+
+### 📚 Documentation and demo website changes
+
+- Updated project READMEs.
 
 ### 🔧 Internal changes
 
@@ -44,7 +54,6 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Disabled download buttons when there is no input/output.
 - Added a dialog to the file input section.
 - Made improvements to the dark mode version of the website.
-- Updated project READMEs.
 
 ### 🔧 Internal changes
 
