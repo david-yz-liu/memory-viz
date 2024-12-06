@@ -16,6 +16,10 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🚨 Breaking changes
 
+### 📚 Documentation changes
+
+- Added a README.
+
 ### 🔧 Internal changes
 
 - Added a script for installing the Webstepper build to a specified path.

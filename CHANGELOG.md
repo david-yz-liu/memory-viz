@@ -41,6 +41,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Disabled download buttons when there is no input/output.
 - Added a dialog to the file input section.
 - Made improvements to the dark mode version of the website.
+- Updated project READMEs.
 
 ### 🔧 Internal changes
 

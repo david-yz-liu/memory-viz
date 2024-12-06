@@ -15,6 +15,10 @@
         "url": "git+https://github.com/david-yz-liu/memory-viz.git"
     },
     "author": "David Liu",
+    "contributors": [
+        "Yoonie Jang",
+        "Siqi (Leo) Liu"
+    ],
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/david-yz-liu/memory-viz/issues"

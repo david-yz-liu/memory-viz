@@ -1,116 +1,99 @@
-# MemoryViz: Creating memory model diagrams
+# MemoryViz
 
-This package generates memory model diagrams for Python code in the style of CSC110/111/148 at the University of Toronto.
-This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the look of hand-drawn diagrams.
+Welcome to the repository for the MemoryViz project!
+MemoryViz is a visualization tool that generates memory model diagrams for Python code, aimed at students and educators.
+MemoryViz is written in Javascript and is built on top of the [Rough.js](https://roughjs.com/) library.
 
-**Note**: this project is currently experimental, and may undergo significant changes before stabilizing.
+For more information, check out our [demo](https://www.cs.toronto.edu/~david/memory-viz/demo/) [project documentation](https://www.cs.toronto.edu/~david/memory-viz/).
 
-## Installation (users)
+## Installation
 
-1. Install [Node.js](https://nodejs.org/en/).
-2. Install the `memory-viz` package:
-
-    ```console
-    $ npm install memory-viz
-    ```
-
-## Sample usage
-
-Running the following file:
-
-```js
-const { draw } = require("memory-viz");
-
-const objects = [
-    {
-        type: ".frame",
-        name: "__main__",
-        id: null,
-        value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
-    },
-    {
-        type: "str",
-        id: 19,
-        value: "David is cool!",
-        style: ["highlight"],
-    },
-    {
-        type: "int",
-        id: 13,
-        value: 7,
-    },
-];
-
-const m = draw(objects, true, { width: 1300 });
-
-m.save("simple_demo.svg");
-```
-
-produces a file `simple_demo.svg` that looks like the following:
-
-![Sample usage svg output](docs/docs/99-api/examples/simple_demo/simple_demo.svg)
-
-For more information, check out the project [documentation website](https://www.cs.toronto.edu/~david/memory-viz/) and [demo](https://www.cs.toronto.edu/~david/memory-viz/demo/).
-
-### MemoryViz CLI
-
-To use the MemoryViz CLI, run:
+Install MemoryViz using `npm` (requires [Node.js](https://nodejs.org/en) to be installed):
 
 ```console
-$ npx memory-viz <path-to-file>
+$ npm install memory-viz
 ```
 
-where `<path-to-file>` is the path to a file containing MemoryViz-compatible JSON. If a file path is not provided, the CLI will take input from standard input.
+## Example
 
-You may also specify an output path using the `--output` option (see documentation). If no output path is provided, the CLI will print to standard output.
+Given a JSON file [`demo.json`](examples/demo.json) that encodes a state of Python memory and some styling options:
 
-_Note_: The CLI currently does not support typing input directly into the terminal. Instead, use piping or other strategies to pass data into standard input.
+```json
+[
+    {
+        "type": ".frame",
+        "name": "__main__",
+        "id": null,
+        "value": { "lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11 }
+    },
+    {
+        "type": "str",
+        "id": 19,
+        "value": "David is cool!",
+        "style": ["highlight"]
+    },
+    {
+        "type": "int",
+        "id": 13,
+        "value": 7
+    }
+]
+```
 
-For more information, check out the project [documentation website](https://www.cs.toronto.edu/~david/memory-viz/docs/cli).
+you can run the following command in the terminal:
+
+```console
+$ npx memory-viz --output demo_output.svg demo.json
+```
+
+This producs an SVG file, `demo_output.svg`, that visualizes the state of memory:
+
+![Sample usage svg output](examples/memory-viz-cli/demo_output.svg)
+
+## About this repository
+
+This repository contains multiple [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) that contains the MemoryViz-related projects.
+
+- [memory-viz/](memory-viz/) is the source code for the main `memory-viz` Javascript package
+- [demo/](demo/) contains the source code for the [demo website](https://www.cs.toronto.edu/~david/memory-viz/demo/)
+- [docs/](docs/) contains the source code for the [project documentation website](https://www.cs.toronto.edu/~david/memory-viz/)
+- [webstepper/](webstepper/) contains the source code for the Webstepper project, which integrates MemoryViz and [PythonTA](https://www.cs.toronto.edu/~david/pyta/)
 
 ## Developers
 
 ### Installation
 
-1. First, clone this repository.
-2. Install [Node.js](https://nodejs.org/en/).
-3. Open a terminal in your local code of the repository, and then run:
+1. Install [Node.js](https://nodejs.org/en/).
+2. Clone the MemoryViz repository and `cd` into it:
+
+    ```console
+    $ git clone https://github.com/david-yz-liu/memory-viz.git
+    $ cd memory-viz
+    ```
+
+3. Install the dependencies:
 
     ```console
     $ npm install
     ```
 
-4. Compile the Javascript assets using [webpack](https://webpack.js.org/guides/getting-started/):
-
-    ```console
-    $ npm run build-dev --workspace=memory-viz
-    ```
-
-5. Install the pre-commit hooks to automatically format your code when you make commits:
+4. Install the pre-commit hooks to automatically format your code when you make commits:
 
     ```console
     $ npx husky init
     ```
 
-### Automatic Javascript compilation
+5. Compile the MemoryViz library:
 
-Rather than running `npm run build-dev` to recompile your Javascript bundle every time you make a change, you can instead run the following command:
+    ```console
+    $ npm run build-dev --workspace=memory-viz
+    ```
 
-```console
-$ npm run watch --workspace=memory-viz
-```
+6. Run the test suite to check that all tests pass:
 
-This will use `webpack` to watch for changes to the Javascript source files and recompile them automatically.
-
-_Note_: this command will keep running until you manually terminate it (Ctrl + C), and so you'll need to open a new terminal window to enter new terminal commands like running the demo below.
-
-### Running tests
-
-To run the test suite, execute the following command:
-
-```console
-$ npm run test --workspace=memory-viz
-```
+    ```console
+    $ npm test
+    ```
 
 ### Building and running the documentation website
 
@@ -118,16 +101,4 @@ See [`docs/README.md`](docs/README.md).
 
 ### Building and running the demo website
 
-1. First, build the assets using Webpack:
-
-    ```console
-    $ npm run build-dev --workspace=memory-viz-demo
-    ```
-
-2. Then run the website:
-
-    ```console
-    $ npm run start --workspace=memory-viz-demo
-    ```
-
-3. Visit the website at `http://localhost:9000`.
+See [`demo/README.md`](demo/README.md).
