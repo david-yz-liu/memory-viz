@@ -9,6 +9,8 @@ jobs:
         permissions:
             contents: read
             id-token: write
+        environment:
+            name: publish-npm
         steps:
             - uses: actions/checkout@v4
             # Setup .npmrc file to publish to npm
