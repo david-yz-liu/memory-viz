@@ -17,6 +17,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🔧 Internal changes
 
+- Added environment to GitHub Actions configuration for publishing releases
+
 ## [0.5.0-rc.0] - 2024-12-06
 
 ### ✨ Enhancements
