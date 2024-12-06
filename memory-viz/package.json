@@ -1,6 +1,6 @@
 {
     "name": "memory-viz",
-    "version": "0.5.0-rc.1",
+    "version": "0.5.0",
     "description": "Library for creating beginner-friendly memory model diagrams.",
     "main": "dist/memory-viz.bundle.js",
     "homepage": "https://www.cs.toronto.edu/~david/memory-viz",
