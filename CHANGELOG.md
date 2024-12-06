@@ -17,15 +17,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🔧 Internal changes
 
-- Updated `express` dependency to v4.21.2
-
-## [0.5.0-rc.1] - 2024-12-06
-
-### 🔧 Internal changes
-
-- Added environment to GitHub Actions configuration for publishing releases
-
-## [0.5.0-rc.0] - 2024-12-06
+## [0.5.0] - 2024-12-06
 
 ### ✨ Enhancements
 
@@ -39,6 +31,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Added a GitHub workflow for automatically publishing memory-viz to npm.
 - Added `prepare` script to `memory-viz/package.json`.
+- Added environment to GitHub Actions configuration for publishing releases
+- Updated `express` dependency to v4.21.2
 
 ## [0.4.0] - 2024-11-19
 
