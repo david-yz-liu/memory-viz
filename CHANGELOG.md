@@ -15,6 +15,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 📚 Documentation and demo website changes
 
+- Ensure GitHub Action deploys documentation to correct location
+
 ### 🔧 Internal changes
 
 ## [0.5.0] - 2024-12-06
