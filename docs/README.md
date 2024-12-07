@@ -7,7 +7,7 @@ You can instead run them in the root project directory by adding the argument `-
 
 ## Local Development
 
-```console
+```bash
 $ npm start
 ```
 
@@ -16,7 +16,7 @@ Most changes are reflected live without having to restart the server.
 
 ## Build
 
-```console
+```bash
 $ npm run build
 ```
 
@@ -26,13 +26,13 @@ This command generates static content into the `build` directory and can be serv
 
 Using SSH:
 
-```console
+```bash
 $ USE_SSH=true npm run deploy
 ```
 
 Not using SSH:
 
-```console
+```bash
 $ GIT_USER=<Your GitHub username> npm run deploy
 ```
 
