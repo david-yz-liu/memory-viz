@@ -4,19 +4,19 @@ Welcome to the repository for the MemoryViz project!
 MemoryViz is a visualization tool that generates memory model diagrams for Python code, aimed at students and educators.
 MemoryViz is written in Javascript and is built on top of the [Rough.js](https://roughjs.com/) library.
 
-For more information, check out our [demo](https://www.cs.toronto.edu/~david/memory-viz/demo/) [project documentation](https://www.cs.toronto.edu/~david/memory-viz/).
+For more information, check out our [demo](https://www.cs.toronto.edu/~david/memory-viz/demo/) and [project documentation](https://www.cs.toronto.edu/~david/memory-viz/).
 
 ## Installation
 
 Install MemoryViz using `npm` (requires [Node.js](https://nodejs.org/en) to be installed):
 
-```console
+```bash
 $ npm install memory-viz
 ```
 
 ## Example
 
-Given a JSON file [`demo.json`](examples/demo.json) that encodes a state of Python memory and some styling options:
+Given a JSON file [`demo.json`](examples/memory-viz-cli/demo.json) that encodes a state of Python memory and some styling options:
 
 ```json
 [
@@ -66,32 +66,32 @@ This repository contains multiple [npm workspaces](https://docs.npmjs.com/cli/v7
 1. Install [Node.js](https://nodejs.org/en/).
 2. Clone the MemoryViz repository and `cd` into it:
 
-    ```console
+    ```bash
     $ git clone https://github.com/david-yz-liu/memory-viz.git
     $ cd memory-viz
     ```
 
 3. Install the dependencies:
 
-    ```console
+    ```bash
     $ npm install
     ```
 
 4. Install the pre-commit hooks to automatically format your code when you make commits:
 
-    ```console
+    ```bash
     $ npx husky init
     ```
 
 5. Compile the MemoryViz library:
 
-    ```console
+    ```bash
     $ npm run build-dev --workspace=memory-viz
     ```
 
 6. Run the test suite to check that all tests pass:
 
-    ```console
+    ```bash
     $ npm test
     ```
 

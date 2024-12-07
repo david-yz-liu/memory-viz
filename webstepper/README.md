@@ -10,13 +10,13 @@ _Note_: you can instead run the commands in the root project directory by adding
 
 1. First, build the assets using Webpack:
 
-    ```console
+    ```bash
     $ npm run build-dev
     ```
 
 2. Then run the website:
 
-    ```console
+    ```bash
     $ npm start
     ```
 

@@ -3,13 +3,13 @@
 MemoryViz is a visualization tool that generates memory model diagrams for Python code, aimed at students and educators.
 MemoryViz is written in Javascript and is built on top of the [Rough.js](https://roughjs.com/) library.
 
-For more information, check out our [demo](https://www.cs.toronto.edu/~david/memory-viz/demo/) [project documentation](https://www.cs.toronto.edu/~david/memory-viz/).
+For more information, check out our [demo](https://www.cs.toronto.edu/~david/memory-viz/demo/) and [project documentation](https://www.cs.toronto.edu/~david/memory-viz/).
 
 ## Installation
 
 Install MemoryViz using `npm` (requires [Node.js](https://nodejs.org/en) to be installed):
 
-```console
+```bash
 $ npm install memory-viz
 ```
 
@@ -19,7 +19,7 @@ MemoryViz can be run from the command line or using its Javascript API.
 
 ### Command-line interface
 
-Given a JSON file [`demo.json`](examples/demo.json) that encodes a state of Python memory and some styling options:
+Given a JSON file [`demo.json`](https://github.com/david-yz-liu/memory-viz/blob/master/examples/memory-viz-cli/demo.json) that encodes a state of Python memory and some styling options:
 
 ```json
 [
@@ -45,13 +45,13 @@ Given a JSON file [`demo.json`](examples/demo.json) that encodes a state of Pyth
 
 you can run the following command in the terminal:
 
-```console
+```bash
 $ npx memory-viz --output demo_output.svg demo.json
 ```
 
 This producs an SVG file, `demo_output.svg`, that visualizes the state of memory:
 
-![Sample usage svg output](examples/demo_output.svg)
+![Sample usage svg output](https://github.com/david-yz-liu/memory-viz/blob/master/examples/memory-viz-cli/demo_output.svg)
 
 ## Javascript API (Node.js)
 
@@ -98,32 +98,32 @@ Here is a [standalone example](https://github.com/david-yz-liu/memory-viz/tree/m
 1. Install [Node.js](https://nodejs.org/en/).
 2. Clone the MemoryViz repository and `cd` into it:
 
-    ```console
+    ```bash
     $ git clone https://github.com/david-yz-liu/memory-viz.git
     $ cd memory-viz
     ```
 
 3. Install the dependencies:
 
-    ```console
+    ```bash
     $ npm install
     ```
 
 4. Install the pre-commit hooks to automatically format your code when you make commits:
 
-    ```console
+    ```bash
     $ npx husky init
     ```
 
 5. Compile the MemoryViz library:
 
-    ```console
+    ```bash
     $ npm run build-dev --workspace=memory-viz
     ```
 
 6. Run the test suite to check that all tests pass:
 
-    ```console
+    ```bash
     $ npm test
     ```
 
@@ -131,7 +131,7 @@ Here is a [standalone example](https://github.com/david-yz-liu/memory-viz/tree/m
 
 **Automatic Javascript compilation**. Rather than running `npm run build-dev` to recompile your Javascript bundle every time you make a change, you can instead run the following command:
 
-```console
+```bash
 $ npm run watch --workspace=memory-viz
 ```
 

@@ -16,6 +16,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 📚 Documentation and demo website changes
 
 - Ensure GitHub Action deploys documentation to correct location
+- Fixed links and syntax highlighting in READMEs
 
 ### 🔧 Internal changes
 
