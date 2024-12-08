@@ -2,7 +2,6 @@ import React from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { a11yLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { Box } from "@mui/material";
-import "./css/styles.css";
 
 type CodeDisplayPropTypes = {
     text: string;
@@ -21,7 +20,6 @@ export default function CodeDisplay(props: CodeDisplayPropTypes) {
                 wrapLines={true}
                 wrapLongLines={true}
                 style={a11yLight}
-                customStyle={{ backgroundColor: "transparent" }}
                 lineProps={(lineNumber: number) => {
                     if (lineNumber == props.highlightLine) {
                         return { className: "code-box__line--highlighted" };

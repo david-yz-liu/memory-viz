@@ -4,7 +4,6 @@ import { Button, Box, Typography, Stack } from "@mui/material";
 import SvgDisplay from "./SvgDisplay";
 import CodeDisplay from "./CodeDisplay";
 import placeholder from "./placeholder";
-import "./css/styles.css";
 
 if (typeof window === "object" && process.env.NODE_ENV !== "production") {
     window.svgArray = placeholder.svgArray;
@@ -21,21 +20,16 @@ export default function App() {
     };
 
     return (
-        <main className="container">
+        <>
             <Header />
-            <Stack direction="row" spacing={2}>
-                <Box sx={{ width: "40%" }}>
-                    <h2>Code</h2>
-                    <Typography>
-                        Step {step + 1}/{limit}
-                    </Typography>
-                    <Box className="code-display">
-                        <CodeDisplay
-                            text={codeText}
-                            startingLineNumber={window.svgArray[0].lineNumber}
-                            highlightLine={window.svgArray[step].lineNumber}
-                        />
-                        <Box className="button-container">
+            <main className="container-fluid">
+                <Stack direction="row" spacing={2} sx={{ height: "100%" }}>
+                    <Stack direction="column" sx={{ width: "45%" }}>
+                        <h2>Code</h2>
+                        <Stack direction="row" className="code-controls">
+                            <Typography>
+                                Step {step + 1}/{limit}
+                            </Typography>
                             <Button
                                 disabled={step === 0}
                                 onClick={() => handleStep(step - 1)}
@@ -48,14 +42,23 @@ export default function App() {
                             >
                                 Next
                             </Button>
+                        </Stack>
+                        <Box className="code-display">
+                            <CodeDisplay
+                                text={codeText}
+                                startingLineNumber={
+                                    window.svgArray[0].lineNumber
+                                }
+                                highlightLine={window.svgArray[step].lineNumber}
+                            />
                         </Box>
-                    </Box>
-                </Box>
-                <Box sx={{ width: "60%" }}>
-                    <h2>Memory diagrams</h2>
-                    <SvgDisplay step={step} />
-                </Box>
-            </Stack>
-        </main>
+                    </Stack>
+                    <Stack direction="column" sx={{ width: "55%" }}>
+                        <h2>Memory visualization</h2>
+                        <SvgDisplay step={step} />
+                    </Stack>
+                </Stack>
+            </main>
+        </>
     );
 }

@@ -1,7 +1,7 @@
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import "@picocss/pico";
+import "./css/styles.scss";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useMediaQuery } from "@mui/material";
