@@ -1,0 +1,61 @@
+@use "@picocss/pico";
+
+/* Override default picocss variables */
+h1 {
+    --typography-spacing-vertical: 0.5rem;
+}
+
+h2 {
+    --typography-spacing-vertical: 0.5rem;
+}
+
+pre > code {
+    --spacing: 0.25rem;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+main {
+    flex: 1;
+}
+
+.code-controls {
+    align-items: center;
+    gap: 10px;
+
+    > button {
+        flex: 1;
+    }
+}
+
+.code-display__code-box > pre {
+    background-color: transparent;
+}
+
+.code-box__line--highlighted {
+    background-color: yellow;
+}
+
+.svg-display {
+    flex: 1;
+    margin-bottom: 1rem;
+}
+
+.react-transform-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
+.logo {
+    object-fit: contain;
+    width: 100px;
+}

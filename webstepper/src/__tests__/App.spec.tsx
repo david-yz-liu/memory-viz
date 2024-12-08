@@ -34,7 +34,7 @@ describe("App", () => {
     it("renders initial state correctly", async () => {
         expect(screen.getByText(/Step \d+\/\d+/)).toBeInTheDocument();
         expect(screen.getByText("Code")).toBeInTheDocument();
-        expect(screen.getByText("Memory diagrams")).toBeInTheDocument();
+        expect(screen.getByText("Memory visualization")).toBeInTheDocument();
     });
 
     it("handles next button click correctly", () => {

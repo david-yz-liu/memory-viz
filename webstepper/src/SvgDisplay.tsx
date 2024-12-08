@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { Paper } from "@mui/material";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import "./css/styles.css";
 
 type SvgDisplayPropTypes = {
     step: number;
@@ -36,10 +35,11 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     return (
         <Paper
             className="svg-display"
+            elevation={3}
             sx={{ bgcolor: "primary.paper" }}
-            variant="outlined"
         >
             <TransformWrapper
+                centerZoomedOut={true}
                 minScale={0.2}
                 wheel={{ step: 0.2, smoothStep: 0.01 }}
             >

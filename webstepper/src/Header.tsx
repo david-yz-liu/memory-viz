@@ -10,12 +10,13 @@ export default function Header() {
         : lightLogo;
 
     return (
-        <header className="container">
+        <header className="container-fluid">
             <Stack direction={"row"} justifyContent={"space-between"}>
                 <Box>
-                    <h1 style={{ marginBottom: 0 }}>MemoryViz Stepper</h1>
+                    <h1>MemoryViz Webstepper</h1>
                     <Typography variant="subtitle1">
-                        A web debugger for the{" "}
+                        A web-based interactive tool for visualizing Python
+                        memory, based on the{" "}
                         <Link
                             href="https://github.com/david-yz-liu/memory-viz"
                             target="_blank"
@@ -23,25 +24,10 @@ export default function Header() {
                         >
                             MemoryViz
                         </Link>{" "}
-                        Javascript library for visualizing Python memory. Click{" "}
-                        <Link
-                            href="https://www.cs.toronto.edu/~david/memory-viz/docs/api/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            here
-                        </Link>{" "}
-                        for documentation.
+                        Javascript library.
                     </Typography>
                 </Box>
-                <img
-                    src={logo}
-                    alt="MemoryViz Logo"
-                    style={{
-                        width: "100px",
-                        objectFit: "contain",
-                    }}
-                />
+                <img src={logo} alt="MemoryViz Logo" className="logo" />
             </Stack>
         </header>
     );
