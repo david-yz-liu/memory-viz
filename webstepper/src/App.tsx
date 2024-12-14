@@ -16,17 +16,17 @@ export default function App() {
     const codeText = window.codeText;
     const limit = window.svgArray.length;
 
-    const handleStep = (newStep: number) => {
-        setStep(Math.min(Math.max(newStep, 0), limit - 1));
+    const handleStep = (offset: number) => {
+        setStep((step) => Math.min(Math.max(step + offset, 0), limit - 1));
     };
 
     useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.key == "ArrowLeft") {
-                handleStep(step - 1);
+                handleStep(-1);
             }
             if (event.key == "ArrowRight") {
-                handleStep(step + 1);
+                handleStep(1);
             }
         };
 
@@ -35,7 +35,7 @@ export default function App() {
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
         };
-    }, [step]);
+    }, []);
 
     return (
         <main className="container">
@@ -55,13 +55,13 @@ export default function App() {
                         <Box className="button-container">
                             <Button
                                 disabled={step === 0}
-                                onClick={() => handleStep(step - 1)}
+                                onClick={() => handleStep(-1)}
                             >
                                 Back
                             </Button>
                             <Button
                                 disabled={step === limit - 1}
-                                onClick={() => handleStep(step + 1)}
+                                onClick={() => handleStep(1)}
                             >
                                 Next
                             </Button>
