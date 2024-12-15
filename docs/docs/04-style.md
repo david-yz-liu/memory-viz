@@ -35,12 +35,12 @@ Object. To better illustrate this, here is an example:
 Crucially, each of the attributes in the `style` object (if user passes in an Object)
 refer themselves to another object:
 
--   Text-related attributes can contain any attribute specified in the
-    documentation of the text element for svg graphics, found on
-    https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
--   Box-related attributes can contain any styling attributes specified in the
-    documentation of the rough library, found on https://roughjs.com/ and
-    https://github.com/rough-stuff/rough/wiki.
+- Text-related attributes can contain any attribute specified in the
+  documentation of the text element for svg graphics, found on
+  https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
+- Box-related attributes can contain any styling attributes specified in the
+  documentation of the rough library, found on https://roughjs.com/ and
+  https://github.com/rough-stuff/rough/wiki.
 
 ## Insights for the Implementation
 

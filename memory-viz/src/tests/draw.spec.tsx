@@ -948,7 +948,7 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
     it("renders an empty svg given an empty array", () => {
-        const objects = [];
+        const objects: DrawnEntity[] = [];
         const output: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 100,
             roughjs_config: {
@@ -982,5 +982,47 @@ describe("draw function", () => {
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
+    });
+    it("renders a list of snapshots", () => {
+        const snapshots = [
+            [
+                {
+                    type: ".frame",
+                    name: "__main__",
+                    id: null,
+                    value: {
+                        item: 1,
+                    },
+                },
+                {
+                    type: "str",
+                    id: 1,
+                    value: "hello world",
+                },
+            ],
+            [
+                {
+                    type: ".frame",
+                    name: "__main__",
+                    id: null,
+                    value: {
+                        item: 1,
+                    },
+                },
+                {
+                    type: "str",
+                    id: 1,
+                    value: "hi world",
+                },
+            ],
+        ];
+        const models = draw(snapshots, true, {
+            roughjs_config: { options: { seed: 12345 } },
+        });
+
+        models.forEach((model) => {
+            const svg = model.serializeSVG();
+            expect(svg).toMatchSnapshot();
+        });
     });
 });

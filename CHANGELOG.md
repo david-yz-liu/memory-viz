@@ -15,125 +15,145 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 📚 Documentation and demo website changes
 
+- Ensure GitHub Action deploys documentation to correct location
+- Fixed links and syntax highlighting in READMEs
+
 ### 🔧 Internal changes
+
+## [0.5.0] - 2024-12-06
+
+### ✨ Enhancements
+
+- Added a batch mode to allow multiple snapshots as inputs to `draw` function
+
+### 📚 Documentation and demo website changes
+
+- Updated project READMEs.
+
+### 🔧 Internal changes
+
+- Added a GitHub workflow for automatically publishing memory-viz to npm.
+- Added `prepare` script to `memory-viz/package.json`.
+- Added environment to GitHub Actions configuration for publishing releases
+- Updated `express` dependency to v4.21.2
 
 ## [0.4.0] - 2024-11-19
 
 ### ✨ Enhancements
 
--   Added transparent and dark mode versions of the logos!
--   Added functionality to set a default width for automatic-layout diagrams if not specified,
-    and to crop unused space if necessary.
+- Added transparent and dark mode versions of the logos!
+- Added functionality to set a default width for automatic-layout diagrams if not specified,
+  and to crop unused space if necessary.
 
 ### 🐛 Bug fixes
 
--   Fixed a bug where the `Download JSON` button would not download the JSON currently inside the input box.
--   Made sure file input would reset when file input dialog was closed.
--   Fixed a bug where the styles in `DisplaySettings.roughjs_config` were not applied.
--   Fixed a bug where passing an empty array as objects will crash the program.
--   Fixed a bug where the text may go outside of the box when it has a text font set
+- Fixed a bug where the `Download JSON` button would not download the JSON currently inside the input box.
+- Made sure file input would reset when file input dialog was closed.
+- Fixed a bug where the styles in `DisplaySettings.roughjs_config` were not applied.
+- Fixed a bug where passing an empty array as objects will crash the program.
+- Fixed a bug where the text may go outside of the box when it has a text font set
 
 ### 📚 Documentation and demo website changes
 
--   Made text input box use a monospace font
--   Disabled download buttons when there is no input/output.
--   Added a dialog to the file input section.
--   Made improvements to the dark mode version of the website.
+- Made text input box use a monospace font
+- Disabled download buttons when there is no input/output.
+- Added a dialog to the file input section.
+- Made improvements to the dark mode version of the website.
 
 ### 🔧 Internal changes
 
--   Added better typing.
--   Added a page for viewing Jest SVG snapshots.
--   Added a plugin for prettifying Jest SVG outputs.
+- Added better typing.
+- Added a page for viewing Jest SVG snapshots.
+- Added a plugin for prettifying Jest SVG outputs.
 
 ## [0.3.2] - 2024-09-14
 
 ### ✨ Enhancements
 
--   Added MemoryViz logo images!
+- Added MemoryViz logo images!
 
 ### 🐛 Bug fixes
 
--   Fixed an an issue with the `--output` flag not outputting results in the correct location.
+- Fixed an an issue with the `--output` flag not outputting results in the correct location.
 
 ### 📚 Documentation and demo website changes
 
--   Reformatted demo website to horizontal layout.
--   Added more documentation for the `--output` flag.
--   Added zoom functionality to output canvas.
+- Reformatted demo website to horizontal layout.
+- Added more documentation for the `--output` flag.
+- Added zoom functionality to output canvas.
 
 ### 🔧 Internal changes
 
--   Update GitHub Actions workflow to execute build on every pull request (and deployment only on changes to `master`)
--   Create dependabot group for `@docusaurus` dependencies
--   Create dependabot group for `@mui` dependencies
+- Update GitHub Actions workflow to execute build on every pull request (and deployment only on changes to `master`)
+- Create dependabot group for `@docusaurus` dependencies
+- Create dependabot group for `@mui` dependencies
 
 ## [0.3.1] - 2024-08-02
 
 ### 🐛 Bug fixes
 
--   Ensured built package files under `dist/` were correctly updated
+- Ensured built package files under `dist/` were correctly updated
 
 ### 🔧 Internal changes
 
--   Updated most package dependencies
+- Updated most package dependencies
 
 ## [0.3.0] - 2024-08-02
 
 ### ✨ Enhancements
 
--   Changed the `filePath` argument in the MemoryViz CLI to be optional and added `--output` option.
+- Changed the `filePath` argument in the MemoryViz CLI to be optional and added `--output` option.
 
 ### 🐛 Bug fixes
 
--   Fixed issue where object boxes would be drawn on top of stack frames in diagrams with large left margins.
+- Fixed issue where object boxes would be drawn on top of stack frames in diagrams with large left margins.
 
 ### 🔧 Internal changes
 
--   Moved global style attributes to CSS embedded in generated SVGs.
+- Moved global style attributes to CSS embedded in generated SVGs.
 
 ## [0.2.0] - 2024-06-28
 
 ### 🚨 Breaking changes
 
--   Changed the `name` attribute to `type` when drawing objects.
--   Removed the `isClass` and `stack_frame` attributes and embedded them as the types `.class` and `.frame`.
--   Renamed the input for blank objects from `BLANK` to `.blank`.
--   Created new type `.blank-frame` to denote blank stack frames.
--   Replaced `seed` configuration option with general configuration option `roughjs_config`.
+- Changed the `name` attribute to `type` when drawing objects.
+- Removed the `isClass` and `stack_frame` attributes and embedded them as the types `.class` and `.frame`.
+- Renamed the input for blank objects from `BLANK` to `.blank`.
+- Created new type `.blank-frame` to denote blank stack frames.
+- Replaced `seed` configuration option with general configuration option `roughjs_config`.
 
 ### ✨ Enhancements
 
--   Created a CLI for MemoryViz.
--   Added `--height` and `--width` options to MemoryViz CLI.
--   Added `--roughjs_config` option to MemoryViz CLI.
+- Created a CLI for MemoryViz.
+- Added `--height` and `--width` options to MemoryViz CLI.
+- Added `--roughjs_config` option to MemoryViz CLI.
 
 ### 🐛 Bug fixes
 
--   Fixed a bug where box fill colours would cover box text, and changed the implementation of `hide` style option.
--   Removed double quotes when rendering objects of type `None`.
--   Removed double quotes when rendering objects that are not of type `str`.
--   Fixed issue where diagrams would not render when width inputs to `draw()` were too small.
+- Fixed a bug where box fill colours would cover box text, and changed the implementation of `hide` style option.
+- Removed double quotes when rendering objects of type `None`.
+- Removed double quotes when rendering objects that are not of type `str`.
+- Fixed issue where diagrams would not render when width inputs to `draw()` were too small.
 
 ### 📚 Documentation and demo website changes
 
--   Added documentation page for the MemoryViz CLI.
+- Added documentation page for the MemoryViz CLI.
 
 ### 🔧 Internal changes
 
--   Added a changelog and pull request template.
--   Modified `roughjs` import to be compatible with Jest's `moduleNameMapper` config option.
--   Added instructions on the `memory-viz/README.md` for running the test suite.
--   Fix CI build action for demo website.
--   Added data type and manual layout tests for the `draw` function.
--   Updated file paths for example files under docs to import the correct file.
--   Added style and automatic layout tests for the `draw` function.
--   Updated documentation, tests, and examples to reflect the `isClass` attribute being optional and set to `false` by default.
--   Removed unused imports in `demo_C.js`.
--   Added type interfaces and type annotations to `style.ts`.
--   Added `DrawnEntity` type annotations to source code files.
--   Adopted Commander.js library for the MemoryViz CLI.
--   Added `autofix.ci` to the CI workflow.
+- Added a changelog and pull request template.
+- Modified `roughjs` import to be compatible with Jest's `moduleNameMapper` config option.
+- Added instructions on the `memory-viz/README.md` for running the test suite.
+- Fix CI build action for demo website.
+- Added data type and manual layout tests for the `draw` function.
+- Updated file paths for example files under docs to import the correct file.
+- Added style and automatic layout tests for the `draw` function.
+- Updated documentation, tests, and examples to reflect the `isClass` attribute being optional and set to `false` by default.
+- Removed unused imports in `demo_C.js`.
+- Added type interfaces and type annotations to `style.ts`.
+- Added `DrawnEntity` type annotations to source code files.
+- Adopted Commander.js library for the MemoryViz CLI.
+- Added `autofix.ci` to the CI workflow.
 
 ## [0.1.0] - 2024-04-16
 

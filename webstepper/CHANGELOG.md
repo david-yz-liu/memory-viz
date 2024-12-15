@@ -11,13 +11,19 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 -   Launchd an initial prototype!
 -   Improved UI to indicate when the end of the program is reached.
+-   Expanded code and svg displays in UI.
 -   Added the ability to step back and forth using the arrow keys.
 
 ### 🐛 Bug fixes
 
 ### 🚨 Breaking changes
 
+### 📚 Documentation changes
+
+- Added a README.
+
 ### 🔧 Internal changes
 
--   Added a script for installing the Webstepper build to a specified path.
--   Updated to use the window object to serve app data.
+- Added a script for installing the Webstepper build to a specified path.
+- Updated to use the window object to serve app data.
+- Enabled SCSS support.

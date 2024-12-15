@@ -11,12 +11,15 @@ import {
     Rect,
     Primitive,
     Style,
+    DisplaySettings,
+    Size,
 } from "./types";
 import { isArrayOfType } from "./typeguards";
 import { RoughSVG } from "roughjs/bin/svg";
 import { Config, Options } from "roughjs/bin/core";
 import type * as fsType from "fs";
 import type * as CSS from "csstype";
+import { getSize } from "./automate";
 
 // Dynamic import of Node fs module
 let fs: typeof fsType | undefined;
@@ -949,5 +952,54 @@ export class MemoryModel {
         }
 
         return sizes_arr;
+    }
+
+    /**
+     * Return the dimension of the canvas.
+     * @param configuration: The configuration of the canvas.
+     * @param snapshotObjects: The objects that will be on the canvas.
+     */
+    static getCanvasDimensions(
+        configuration: Partial<DisplaySettings>,
+        snapshotObjects: DrawnEntity[]
+    ): Size {
+        // Dynamically determining the width of the canvas, in case one has not been provided.
+        const size: Size = {
+            width: configuration.width,
+            height: configuration.height,
+        };
+        if (!configuration.hasOwnProperty("width")) {
+            let rightmost_obj;
+            let rightmost_edge = 0;
+
+            for (const obj of snapshotObjects) {
+                const width = getSize(obj).width;
+                const curr_edge = obj.x + width;
+                if (curr_edge > rightmost_edge) {
+                    rightmost_edge = curr_edge;
+                    rightmost_obj = obj;
+                }
+            }
+            size.width = rightmost_edge + 100;
+        }
+
+        // Dynamically determining the height of the canvas, in case one has not been provided.
+        if (!configuration.hasOwnProperty("height")) {
+            let downmost_obj = snapshotObjects[0];
+            let downmost_edge = 0;
+
+            for (const obj of snapshotObjects) {
+                const height = getSize(obj).height;
+                const curr_edge = obj.y + height;
+
+                if (curr_edge > downmost_edge) {
+                    downmost_obj = obj;
+                    downmost_edge = obj.y + height;
+                }
+            }
+
+            size.height = downmost_edge + 100;
+        }
+        return size;
     }
 }

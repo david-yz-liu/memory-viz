@@ -1,22 +1,62 @@
 # MemoryViz: Creating memory model diagrams
 
-This package generates memory model diagrams for Python code in the style of CSC110/111/148 at the University of Toronto.
-This uses the [Rough.js](https://roughjs.com/) Javascript library to emulate the look of hand-drawn diagrams.
+MemoryViz is a visualization tool that generates memory model diagrams for Python code, aimed at students and educators.
+MemoryViz is written in Javascript and is built on top of the [Rough.js](https://roughjs.com/) library.
 
-**Note**: this project is currently experimental, and may undergo significant changes before stabilizing.
+For more information, check out our [demo](https://www.cs.toronto.edu/~david/memory-viz/demo/) and [project documentation](https://www.cs.toronto.edu/~david/memory-viz/).
 
-## Installation (users)
+## Installation
 
-1. Install [Node.js](https://nodejs.org/en/).
-2. Install the `memory-viz` package:
+Install MemoryViz using `npm` (requires [Node.js](https://nodejs.org/en) to be installed):
 
-    ```console
-    $ npm install memory-viz
-    ```
+```bash
+$ npm install memory-viz
+```
 
-## Sample usage
+## Usage
 
-Running the following file:
+MemoryViz can be run from the command line or using its Javascript API.
+
+### Command-line interface
+
+Given a JSON file [`demo.json`](https://github.com/david-yz-liu/memory-viz/blob/master/examples/memory-viz-cli/demo.json) that encodes a state of Python memory and some styling options:
+
+```json
+[
+    {
+        "type": ".frame",
+        "name": "__main__",
+        "id": null,
+        "value": { "lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11 }
+    },
+    {
+        "type": "str",
+        "id": 19,
+        "value": "David is cool!",
+        "style": ["highlight"]
+    },
+    {
+        "type": "int",
+        "id": 13,
+        "value": 7
+    }
+]
+```
+
+you can run the following command in the terminal:
+
+```bash
+$ npx memory-viz --output demo_output.svg demo.json
+```
+
+This producs an SVG file, `demo_output.svg`, that visualizes the state of memory:
+
+![Sample usage svg output](https://github.com/david-yz-liu/memory-viz/blob/master/examples/memory-viz-cli/demo_output.svg)
+
+## Javascript API (Node.js)
+
+Call the `draw` function on an array that encodes a state of Python memory and some styling options.
+Here's a complete example, which produces the same SVG output as above.
 
 ```js
 const { draw } = require("memory-viz");
@@ -41,64 +81,57 @@ const objects = [
     },
 ];
 
-const m = draw(objects, true, { width: 1300 });
+const model = draw(objects, true, { width: 1300 });
 
-m.save("simple_demo.svg");
+model.save("demo_output.svg");
 ```
 
-produces a file `simple_demo.svg` that looks like the following:
+### Javascript API (browser)
 
-![Sample usage svg output](../docs/docs/99-api/examples/simple_demo/simple_demo.svg)
+MemoryViz can also be run in the browser by loading the library from a CDN (e.g., [jsDelivr](https://cdn.jsdelivr.net/npm/memory-viz@latest/dist/memory-viz.bundle.js)) and accessing the global `memoryViz` object.
+Here is a [standalone example](https://github.com/david-yz-liu/memory-viz/tree/master/examples/memory-viz-browser/index.html).
 
-For more information, check out the project [documentation website](https://www.cs.toronto.edu/~david/memory-viz/) and [demo](https://www.cs.toronto.edu/~david/memory-viz/demo/).
-
-### MemoryViz CLI
-
-To use the MemoryViz CLI, run:
-
-```console
-$ npx memory-viz <path-to-file>
-```
-
-where `<path-to-file>` is the path to a file containing MemoryViz-compatible JSON. If a file path is not provided, the CLI will take input from standard input.
-
-You may also specify an output path using the `--output` option (see documentation). If no output path is provided, the CLI will print to standard output.
-
-_Note_: The CLI currently does not support typing input directly into the terminal. Instead, use piping or other strategies to pass data into standard input.
-
-For more information, check out the project [documentation website](https://www.cs.toronto.edu/~david/memory-viz/docs/cli).
-
-## Developers
+## Contributing
 
 ### Installation
 
-1. First, clone this repository.
-2. Install [Node.js](https://nodejs.org/en/).
-3. Open a terminal in your local code of the repository, and then run:
+1. Install [Node.js](https://nodejs.org/en/).
+2. Clone the MemoryViz repository and `cd` into it:
 
-    ```console
+    ```bash
+    $ git clone https://github.com/david-yz-liu/memory-viz.git
+    $ cd memory-viz
+    ```
+
+3. Install the dependencies:
+
+    ```bash
     $ npm install
     ```
 
-4. Compile the Javascript assets using [webpack](https://webpack.js.org/guides/getting-started/):
+4. Install the pre-commit hooks to automatically format your code when you make commits:
 
-    ```console
+    ```bash
+    $ npx husky init
+    ```
+
+5. Compile the MemoryViz library:
+
+    ```bash
     $ npm run build-dev --workspace=memory-viz
     ```
 
-5. Install the pre-commit hooks to automatically format your code when you make commits:
+6. Run the test suite to check that all tests pass:
 
-    ```console
-    $ npx husky install
-    $ npm pkg set scripts.prepare="husky install"
-    $ npx husky add .husky/pre-commit "npx lint-staged"
+    ```bash
+    $ npm test
     ```
 
-### Automatic Javascript compilation
+### Developer tips
 
-Rather than running `npm run build-dev` to recompile your Javascript bundle every time you make a change, you can instead run the following command:
+**Automatic Javascript compilation**. Rather than running `npm run build-dev` to recompile your Javascript bundle every time you make a change, you can instead run the following command:
 
-```console
+```bash
 $ npm run watch --workspace=memory-viz
 ```
 
@@ -106,14 +139,4 @@ This will use `webpack` to watch for changes to the Javascript source files and 
 
 _Note_: this command will keep running until you manually terminate it (Ctrl + C), and so you'll need to open a new terminal window to enter new terminal commands like running the demo below.
 
-### Running tests
-
-To run the test suite, execute the following command:
-
-```console
-$ npm run test --workspace=memory-viz
-```
-
-#### Viewing Jest SVG snapshots
-
-To easily view the Jest SVG snapshots, open the file `memory-viz/src/tests/__snapshots__/snapshot.html` and select the snapshot outputs with the `*.snap` extension.
+**Viewing Jest SVG snapshots.** To easily view the Jest SVG snapshots, open the file `memory-viz/src/tests/__snapshots__/snapshot.html` and select the snapshot outputs with the `*.snap` extension.
