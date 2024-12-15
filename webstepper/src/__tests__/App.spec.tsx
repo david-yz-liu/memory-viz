@@ -96,4 +96,16 @@ describe("App", () => {
         expect(firstLineElement).not.toHaveClass("code-box__line--highlighted");
         expect(secondLineElement).toHaveClass("code-box__line--highlighted");
     });
+
+    it("updates step when arrow keys are pressed", () => {
+        const maxStep = getMaxStep();
+        fireEvent.keyDown(document, { key: "ArrowRight" });
+
+        expect(screen.getByText(`Step 2/${maxStep}`)).toBeInTheDocument();
+
+        // Then go back
+        fireEvent.keyDown(document, { key: "ArrowLeft" });
+
+        expect(screen.getByText(`Step 1/${maxStep}`)).toBeInTheDocument();
+    });
 });
