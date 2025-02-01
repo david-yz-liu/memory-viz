@@ -42,7 +42,7 @@
     },
     "dependencies": {
         "@emotion/styled": "^11.11.0",
-        "@mui/icons-material": "^6.1.9",
+        "@mui/icons-material": "^6.4.2",
         "@mui/material": "^6.0.1",
         "@picocss/pico": "^1.5.10",
         "memory-viz": "*",
