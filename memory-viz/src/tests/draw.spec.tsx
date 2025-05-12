@@ -91,6 +91,18 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a set with null values", () => {
+        const objects: DrawnEntity[] = [
+            { type: "set", id: 32, value: [null, null, null] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders a list with indexes showing", () => {
         const objects: DrawnEntity[] = [
             {
@@ -122,6 +134,18 @@ describe("draw function", () => {
 
     it("renders an empty list", () => {
         const objects: DrawnEntity[] = [{ type: "list", id: 32, value: [] }];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a list with null values", () => {
+        const objects: DrawnEntity[] = [
+            { type: "list", id: 32, value: [null, null, null] },
+        ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             roughjs_config: { options: { seed: 12345 } },
