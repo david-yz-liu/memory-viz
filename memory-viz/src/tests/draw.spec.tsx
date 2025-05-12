@@ -103,6 +103,24 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("does not render a set containing strings", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "set",
+                id: 32,
+                value: ["hello", "world"],
+            },
+        ];
+
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        expect(() =>
+            draw(objects, true, {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            })
+        ).toThrow(errorMessage);
+    });
+
     it("renders a list with indexes showing", () => {
         const objects: DrawnEntity[] = [
             {
@@ -152,6 +170,24 @@ describe("draw function", () => {
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
+    });
+
+    it("does not render a list containing strings", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "list",
+                id: 32,
+                value: ["hello", "world"],
+            },
+        ];
+
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        expect(() =>
+            draw(objects, true, {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            })
+        ).toThrow(errorMessage);
     });
 
     it("renders a tuple with indexes showing", () => {
