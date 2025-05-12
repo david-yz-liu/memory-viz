@@ -180,19 +180,31 @@ export class MemoryModel {
                 return this.drawDict(x, y, id, value, style);
             } else if (
                 type === "set" &&
-                isArrayOfType<number>(value, "number")
+                (isArrayOfType<number>(value, "number") ||
+                    isArrayOfType<object>(value, "object"))
             ) {
-                return this.drawSet(x, y, id, value, style);
+                return this.drawSet(
+                    x,
+                    y,
+                    id,
+                    isArrayOfType<object>(value, "object")
+                        ? Array(value.length).fill(null)
+                        : value,
+                    style
+                );
             } else if (
                 (type === "list" || type === "tuple") &&
-                isArrayOfType<number>(value, "number")
+                (isArrayOfType<number>(value, "number") ||
+                    isArrayOfType<object>(value, "object"))
             ) {
                 return this.drawSequence(
                     x,
                     y,
                     type,
                     id,
-                    value,
+                    isArrayOfType<object>(value, "object")
+                        ? Array(value.length).fill(null)
+                        : value,
                     show_indexes,
                     style
                 );
