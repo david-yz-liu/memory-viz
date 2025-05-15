@@ -590,7 +590,7 @@ export class MemoryModel {
 
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
-            let idk = k === "" || k === " " ? "" : `id${k}`;
+            let idk = k.trim() === "" ? "" : `id${k}`;
             let idv = k === null || obj[k] === null ? "" : `id${obj[k]}`;
 
             let key_box = Math.max(
