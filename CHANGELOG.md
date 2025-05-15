@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- Blank boxes can be created with blank empty strings or blank whitespace string values for dictionary keys
+
 ### 🐛 Bug fixes
 
 ### 📚 Documentation and demo website changes
