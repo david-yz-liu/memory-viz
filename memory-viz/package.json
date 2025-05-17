@@ -22,14 +22,14 @@
         "url": "https://www.cs.toronto.edu/~david"
     },
     "contributors": [
+        "Max Chen",
         "Mimis Chlympatsos",
         "Yoonie Jang",
         "Shannon Komguem",
         "Siqi (Leo) Liu",
         "Utku Egemen Umut",
         "Sarah Wang",
-        "Ziyuan (Jerry) Zhang",
-        "Max Chen"
+        "Ziyuan (Jerry) Zhang"
     ],
     "license": "MIT",
     "repository": {
