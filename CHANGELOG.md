@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- If attribute name is the empty string or a string with only whitespaces, draw nothing
+
 ### 🐛 Bug fixes
 
 ### 📚 Documentation and demo website changes
