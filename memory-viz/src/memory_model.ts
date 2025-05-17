@@ -743,14 +743,7 @@ export class MemoryModel {
                 this.item_min_height
             );
 
-            if (attribute.trim() === "") {
-                this.drawRect(
-                    x + this.item_min_width / 2,
-                    curr_y,
-                    longest,
-                    this.item_min_height
-                );
-            } else {
+            if (attribute.trim() !== "") {
                 this.drawText(
                     attribute,
                     x + this.item_min_width / 2,
