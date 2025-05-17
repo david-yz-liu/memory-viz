@@ -755,13 +755,16 @@ export class MemoryModel {
                 this.item_min_height
             );
 
-            this.drawText(
-                attribute,
-                x + this.item_min_width / 2,
-                curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text_value,
-                stack_frame ? "variable" : "attribute"
-            );
+            if (attribute.trim() !== "") {
+                this.drawText(
+                    attribute,
+                    x + this.item_min_width / 2,
+                    curr_y + this.item_min_height / 2 + this.font_size / 4,
+                    style.text_value,
+                    stack_frame ? "variable" : "attribute"
+                );
+            }
+
             this.drawText(
                 idv,
                 x + box_width - this.item_min_width * 1.5 + attr_box / 2,

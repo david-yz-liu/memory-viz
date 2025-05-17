@@ -341,6 +341,63 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a class", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: ".class",
+                name: "my_class",
+                id: 1,
+                value: {
+                    name: 10,
+                },
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a class with null attribute name using empty string", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: ".class",
+                name: "my_class",
+                id: 1,
+                value: {
+                    "": 10,
+                },
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a class with null attribute name using whitespaces", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: ".class",
+                name: "my_class",
+                id: 1,
+                value: {
+                    "      ": 10,
+                },
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders a blank stack frame", () => {
         const objects: DrawnEntity[] = [
             { type: ".blank-frame", width: 100, height: 200 },
