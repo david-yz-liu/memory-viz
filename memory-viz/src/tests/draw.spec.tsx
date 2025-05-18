@@ -246,7 +246,65 @@ describe("draw function", () => {
     });
 
     it("renders an empty dict", () => {
-        const objects: DrawnEntity[] = [{ type: "dict", id: 32, value: {} }];
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 10,
+                value: {},
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders dict with empty string key without 'id' prefix", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 10,
+                value: { "": 100, another_key: 200 },
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders dict with space key without 'id' prefix", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 2,
+                value: { " ": 300, another_key: 400 },
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders dict with empty/space keys and null values", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 3,
+                value: {
+                    "": null,
+                    " ": null,
+                    key_with_null: null,
+                },
+            },
+        ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             roughjs_config: { options: { seed: 12345 } },
