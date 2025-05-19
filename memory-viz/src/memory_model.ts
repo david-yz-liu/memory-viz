@@ -834,7 +834,7 @@ export class MemoryModel {
         x: number,
         y: number,
         style: CSS.Properties,
-        text_class: string = undefined
+        text_class?: string
     ): void {
         const newElement = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
