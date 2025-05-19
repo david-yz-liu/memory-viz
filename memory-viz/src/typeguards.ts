@@ -3,7 +3,7 @@ import { Style } from "./types";
 export function isArrayOfType<T>(value: any, type: string): value is T[] {
     return (
         Array.isArray(value) &&
-        value.every((element) => typeof element === type)
+        value.every((element) => typeof element === type || element === null)
     );
 }
 
