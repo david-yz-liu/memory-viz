@@ -105,7 +105,7 @@ describe("draw function", () => {
 
     it("renders a set with null and valid values", () => {
         const objects: DrawnEntity[] = [
-            { type: "set", id: 32, value: [null, 2, null] },
+            { type: "set", id: 32, value: [null, 1, 2] },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
@@ -184,9 +184,9 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
-    it("renders a list with null values", () => {
+    it("renders a list with null and valid values", () => {
         const objects: DrawnEntity[] = [
-            { type: "list", id: 32, value: [null, 1, null] },
+            { type: "list", id: 32, value: [null, 1, 2] },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
@@ -251,6 +251,48 @@ describe("draw function", () => {
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a tuple with null values", () => {
+        const objects: DrawnEntity[] = [
+            { type: "tuple", id: 32, value: [null, null, null] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a tuple with null and valid values", () => {
+        const objects: DrawnEntity[] = [
+            { type: "tuple", id: 32, value: [null, 1, 2] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("does not render a tuple containing strings", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "tuple",
+                id: 32,
+                value: ["hello", "world"],
+            },
+        ];
+
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        expect(() =>
+            draw(objects, true, {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            })
+        ).toThrow(errorMessage);
     });
 
     it("renders a dict", () => {
