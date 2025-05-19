@@ -141,7 +141,9 @@ export class MemoryModel {
         image.src = data;
         image.onload = () => {
             const ctx = canvas.getContext("2d");
-            ctx.drawImage(image, 0, 0);
+            if (ctx !== null) {
+                ctx.drawImage(image, 0, 0);
+            }
         };
     }
 
