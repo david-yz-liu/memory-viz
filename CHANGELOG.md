@@ -14,7 +14,6 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - If attribute name is the empty string or a string with only whitespaces, draw nothing
 - Blank boxes can be created with null values for sets and lists
 - Blank boxes can be created with blank empty strings or blank whitespace string values for dictionary keys
-- Blank boxes can be created with null values for sets and lists
 
 ### 🐛 Bug fixes
 
