@@ -5,9 +5,11 @@ import type * as fsType from "fs";
 export * from "./types";
 
 // Dynamic import of Node fs module
-let fs: typeof fsType | undefined;
+let fs: typeof fsType;
 if (typeof window === "undefined") {
     fs = require("fs");
+} else {
+    throw new Error("fs is not available in the browser");
 }
 
 function draw(
