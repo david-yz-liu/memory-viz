@@ -3,6 +3,7 @@
     "version": "0.5.0",
     "description": "Library for creating beginner-friendly memory model diagrams.",
     "main": "dist/memory-viz.bundle.js",
+    "types": "dist/index.d.ts",
     "homepage": "https://www.cs.toronto.edu/~david/memory-viz",
     "scripts": {
         "test": "jest --no-cache",

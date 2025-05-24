@@ -4,6 +4,7 @@
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "declaration": true,
+        "declarationMap": true,
         "emitDeclarationOnly": true,
         "esModuleInterop": true,
         "isolatedModules": true,
