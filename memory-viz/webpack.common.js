@@ -12,7 +12,7 @@ module.exports = {
             export: "default",
         },
         globalObject: "this",
-        clean: true,
+        clean: false, // Prevent deletion of type declaration files under dist/
     },
     module: {
         rules: [
