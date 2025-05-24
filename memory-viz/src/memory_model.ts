@@ -141,7 +141,9 @@ export class MemoryModel {
         image.src = data;
         image.onload = () => {
             const ctx = canvas.getContext("2d");
-            ctx.drawImage(image, 0, 0);
+            if (ctx !== null) {
+                ctx.drawImage(image, 0, 0);
+            }
         };
     }
 
@@ -151,7 +153,9 @@ export class MemoryModel {
      */
     clear(canvas: HTMLCanvasElement): void {
         const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (ctx !== null) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
     }
 
     /**
@@ -830,7 +834,7 @@ export class MemoryModel {
         x: number,
         y: number,
         style: CSS.Properties,
-        text_class: string = undefined
+        text_class?: string
     ): void {
         const newElement = this.document.createElementNS(
             "http://www.w3.org/2000/svg",

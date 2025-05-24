@@ -12,6 +12,7 @@
         "noEmit": false, // Overrides noEmit from @docusaurus/tsconfig
         "outDir": "./dist",
         "sourceMap": true,
+        "strictNullChecks": true,
         "target": "es2020",
         "types": ["node", "@types/jest"]
     },

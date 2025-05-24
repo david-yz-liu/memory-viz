@@ -173,11 +173,9 @@ describe.each([
                         '[{ "name": "int", "id": 13, "value": 7 }]'
                     );
                 }
-            }
-
-            if (fileMockingTests.includes(errorType)) {
                 command = `memory-viz ${filePath}`;
             }
+
             exec(command, (err) => {
                 if (err) {
                     expect(err.code).toBe(1);
