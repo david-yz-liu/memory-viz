@@ -1578,7 +1578,7 @@ exports[`draw function renders a float 1`] = `
 `;
 
 exports[`draw function renders a list of snapshots 1`] = `
-<svg width="485" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="486" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
@@ -1644,7 +1644,7 @@ exports[`draw function renders a list of snapshots 1`] = `
 `;
 
 exports[`draw function renders a list of snapshots 2`] = `
-<svg width="485" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="486" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
@@ -3875,7 +3875,7 @@ exports[`draw function should produce consistent svg when provided seed 1`] = `
 `;
 
 exports[`draw function trims width when not provided width value 1`] = `
-<svg width="485" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="486" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
