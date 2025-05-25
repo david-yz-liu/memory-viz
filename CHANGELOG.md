@@ -11,8 +11,20 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+### 🐛 Bug fixes
+
+### 📚 Documentation and demo website changes
+
+### 🔧 Internal changes
+
+## [0.6.0] - 2025-05-24
+
+### ✨ Enhancements
+
 - If attribute name is the empty string or a string with only whitespaces, draw nothing
+- Blank boxes can be created with null values for sets and lists
 - Blank boxes can be created with blank empty strings or blank whitespace string values for dictionary keys
+- Added type annotations in published package output
 
 ### 🐛 Bug fixes
 
@@ -22,6 +34,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fixed links and syntax highlighting in READMEs
 
 ### 🔧 Internal changes
+
+- Added Typescript declaration maps
 
 ## [0.5.0] - 2024-12-06
 
@@ -157,6 +171,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added `DrawnEntity` type annotations to source code files.
 - Adopted Commander.js library for the MemoryViz CLI.
 - Added `autofix.ci` to the CI workflow.
+- Added correct link to file on GitHub for the "list of contributors" text in the pull request template markdown file.
 
 ## [0.1.0] - 2024-04-16
 

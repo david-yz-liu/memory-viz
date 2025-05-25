@@ -7,6 +7,16 @@ export function isArrayOfType<T>(value: any, type: string): value is T[] {
     );
 }
 
+export function isArrayOfNullableType<T>(
+    value: any,
+    type: string
+): value is (T | null)[] {
+    return (
+        Array.isArray(value) &&
+        value.every((element) => typeof element === type || element === null)
+    );
+}
+
 export function isStyle(value: any): value is Style {
     const attributes = [
         "text_id",

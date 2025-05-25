@@ -14,7 +14,7 @@ import {
     DisplaySettings,
     Size,
 } from "./types";
-import { isArrayOfType } from "./typeguards";
+import { isArrayOfNullableType } from "./typeguards";
 import { RoughSVG } from "roughjs/bin/svg";
 import { Config, Options } from "roughjs/bin/core";
 import type * as fsType from "fs";
@@ -186,12 +186,12 @@ export class MemoryModel {
                 return this.drawDict(x, y, id, value, style);
             } else if (
                 type === "set" &&
-                isArrayOfType<number>(value, "number")
+                isArrayOfNullableType<number>(value, "number")
             ) {
                 return this.drawSet(x, y, id, value, style);
             } else if (
                 (type === "list" || type === "tuple") &&
-                isArrayOfType<number>(value, "number")
+                isArrayOfNullableType<number>(value, "number")
             ) {
                 return this.drawSequence(
                     x,
