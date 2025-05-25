@@ -38,7 +38,7 @@ Before opening your pull request:
     - This is **required** for all bug fixes and new features.
 - [ ] I have updated the project documentation, if applicable.
     - This is **required** for new features.
-- [ ] If this is my first contribution, I have added myself to the list of contributors.
+- [ ] If this is my first contribution, I have added myself to the [list of contributors](https://github.com/david-yz-liu/memory-viz/blob/master/memory-viz/package.json).
 - [ ] I have updated the project Changelog (this is required for all changes).
 
 After opening your pull request:
