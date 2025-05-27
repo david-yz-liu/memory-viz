@@ -182,7 +182,11 @@ export class MemoryModel {
         style: Style
     ): Rect {
         if (collections.includes(type)) {
-            if (type === "dict" && typeof value === "object") {
+            if (
+                type === "dict" &&
+                typeof value === "object" &&
+                value !== null
+            ) {
                 return this.drawDict(x, y, id, value, style);
             } else if (
                 type === "set" &&
@@ -383,7 +387,7 @@ export class MemoryModel {
         y: number,
         type: string,
         id: number,
-        element_ids: number[],
+        element_ids: (number | null)[],
         show_idx: boolean,
         style: Style
     ): Rect {
@@ -488,7 +492,7 @@ export class MemoryModel {
         x: number,
         y: number,
         id: number,
-        element_ids: number[],
+        element_ids: (number | null)[],
         style: Style
     ): Rect {
         let box_width = this.obj_x_padding * 2;
