@@ -104,7 +104,7 @@ function drawAutomatedStackFrames(
 
     let required_width = 0;
 
-    let draw_stack_frames = [];
+    let draw_stack_frames: DrawnEntity[] = [];
 
     for (const stack_frame of stack_frames) {
         let width: number;
@@ -116,8 +116,8 @@ function drawAutomatedStackFrames(
             width = size.width;
         } else {
             // We already have access to the user defined dimensions of the box.
-            height = stack_frame.height;
-            width = stack_frame.width;
+            height = stack_frame.height!;
+            width = stack_frame.width!;
         }
 
         if (width > required_width) {
@@ -220,7 +220,7 @@ function drawAutomatedOtherItems(
 
     // Once a row is occupied, we must establish its height to determine the y-coordinate of the next row's boxes.
     let row_height: number;
-    let curr_row_objects = [];
+    let curr_row_objects: DrawnEntity[] = [];
     for (const item of objs) {
         let hor_reach = x_coord + item.width + PADDING;
 
@@ -297,8 +297,8 @@ function separateObjects(objects: DrawnEntity[]): {
     stack_frames: DrawnEntity[];
     other_items: DrawnEntity[];
 } {
-    let stackFrames = [];
-    let otherItems = [];
+    let stackFrames: DrawnEntity[] = [];
+    let otherItems: DrawnEntity[] = [];
 
     for (const item of objects) {
         const frame_types = [".frame", ".blank-frame"];
