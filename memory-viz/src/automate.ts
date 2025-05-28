@@ -32,7 +32,7 @@ function drawAutomated(
         }
     }
 
-    min_width += requiredWidth + 2 * configuration.padding + 1;
+    min_width += requiredWidth + 2 * (configuration.padding ?? 25) + 1;
 
     if (width < min_width) {
         console.warn(
@@ -104,7 +104,7 @@ function drawAutomatedStackFrames(
 
     let required_width = 0;
 
-    let draw_stack_frames = [];
+    let draw_stack_frames: DrawnEntity[] = [];
 
     for (const stack_frame of stack_frames) {
         let width: number;
@@ -116,8 +116,8 @@ function drawAutomatedStackFrames(
             width = size.width;
         } else {
             // We already have access to the user defined dimensions of the box.
-            height = stack_frame.height;
-            width = stack_frame.width;
+            height = stack_frame.height!;
+            width = stack_frame.width!;
         }
 
         if (width > required_width) {
@@ -220,7 +220,7 @@ function drawAutomatedOtherItems(
 
     // Once a row is occupied, we must establish its height to determine the y-coordinate of the next row's boxes.
     let row_height: number;
-    let curr_row_objects = [];
+    let curr_row_objects: DrawnEntity[] = [];
     for (const item of objs) {
         let hor_reach = x_coord + item.width + PADDING;
 
@@ -297,8 +297,8 @@ function separateObjects(objects: DrawnEntity[]): {
     stack_frames: DrawnEntity[];
     other_items: DrawnEntity[];
 } {
-    let stackFrames = [];
-    let otherItems = [];
+    let stackFrames: DrawnEntity[] = [];
+    let otherItems: DrawnEntity[] = [];
 
     for (const item of objects) {
         const frame_types = [".frame", ".blank-frame"];
@@ -351,6 +351,9 @@ function getSize(obj: DrawnEntity): Size {
  * @returns negative if 'a' is taller, 0 if they have the same height, and positive if 'b' is taller.
  */
 function compareByHeight(a: DrawnEntity, b: DrawnEntity): number {
+    if (a.height === undefined || b.height === undefined) {
+        throw new Error("Both objects must have 'height' property.");
+    }
     return -(a.height - b.height);
 }
 
@@ -364,6 +367,9 @@ function compareByHeight(a: DrawnEntity, b: DrawnEntity): number {
  * @returns negative if 'a.id' is larger, 0 if a.id == b.id, and positive if 'b.id' is larger.
  */
 function compareByID(a: DrawnEntity, b: DrawnEntity): number {
+    if (a.id === undefined || b.id === undefined) {
+        throw new Error("Both objects must have 'id' property.");
+    }
     return a.id - b.id;
 }
 
@@ -376,6 +382,14 @@ function compareByID(a: DrawnEntity, b: DrawnEntity): number {
  * @returns negative if 'a' is righter, 0 if 'a' and 'b' are equally right, and positive if b' is righter.
  */
 function compareByRightness(a: DrawnEntity, b: DrawnEntity): number {
+    if (
+        a.x === undefined ||
+        a.width === undefined ||
+        b.x === undefined ||
+        b.width === undefined
+    ) {
+        throw new Error("Both objects must have 'x' and 'width' property.");
+    }
     const a_right_edge = a.x + a.width;
     const b_right_edge = b.x + b.width;
     return -(a_right_edge - b_right_edge);
@@ -390,6 +404,14 @@ function compareByRightness(a: DrawnEntity, b: DrawnEntity): number {
  * @returns negative if 'a' is bottomer, 0 if 'a' and 'b' are equally bottom, and positive if b' is bottomer.
  */
 function compareByBottomness(a: DrawnEntity, b: DrawnEntity): number {
+    if (
+        a.y === undefined ||
+        a.height === undefined ||
+        b.y === undefined ||
+        b.height === undefined
+    ) {
+        throw new Error("Both objects must have 'x' and 'width' property.");
+    }
     const a_bottom_edge = a.y + a.height;
     const b_bottom_edge = b.y + b.height;
     return -(a_bottom_edge - b_bottom_edge);

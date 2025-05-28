@@ -22,9 +22,11 @@ import type * as CSS from "csstype";
 import { getSize } from "./automate";
 
 // Dynamic import of Node fs module
-let fs: typeof fsType | undefined;
+let fs: typeof fsType;
 if (typeof window === "undefined") {
     fs = require("fs");
+} else {
+    throw new Error("fs is not available in the browser");
 }
 
 /** The class representing the memory model diagram of the given block of code. */
@@ -141,7 +143,9 @@ export class MemoryModel {
         image.src = data;
         image.onload = () => {
             const ctx = canvas.getContext("2d");
-            ctx.drawImage(image, 0, 0);
+            if (ctx !== null) {
+                ctx.drawImage(image, 0, 0);
+            }
         };
     }
 
@@ -151,7 +155,9 @@ export class MemoryModel {
      */
     clear(canvas: HTMLCanvasElement): void {
         const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (ctx !== null) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
     }
 
     /**
@@ -176,7 +182,11 @@ export class MemoryModel {
         style: Style
     ): Rect {
         if (collections.includes(type)) {
-            if (type === "dict" && typeof value === "object") {
+            if (
+                type === "dict" &&
+                typeof value === "object" &&
+                value !== null
+            ) {
                 return this.drawDict(x, y, id, value, style);
             } else if (
                 type === "set" &&
@@ -377,7 +387,7 @@ export class MemoryModel {
         y: number,
         type: string,
         id: number,
-        element_ids: number[],
+        element_ids: (number | null)[],
         show_idx: boolean,
         style: Style
     ): Rect {
@@ -482,7 +492,7 @@ export class MemoryModel {
         x: number,
         y: number,
         id: number,
-        element_ids: number[],
+        element_ids: (number | null)[],
         style: Style
     ): Rect {
         let box_width = this.obj_x_padding * 2;
@@ -829,8 +839,8 @@ export class MemoryModel {
         text: string,
         x: number,
         y: number,
-        style: CSS.Properties,
-        text_class: string = undefined
+        style?: CSS.Properties,
+        text_class?: string
     ): void {
         const newElement = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
@@ -966,12 +976,11 @@ export class MemoryModel {
         configuration: Partial<DisplaySettings>,
         snapshotObjects: DrawnEntity[]
     ): Size {
-        // Dynamically determining the width of the canvas, in case one has not been provided.
-        const size: Size = {
-            width: configuration.width,
-            height: configuration.height,
-        };
-        if (!configuration.hasOwnProperty("width")) {
+        const size = {} as Size;
+
+        if (configuration.hasOwnProperty("width")) {
+            size.width = configuration.width!;
+        } else {
             let rightmost_obj;
             let rightmost_edge = 0;
 
@@ -986,8 +995,9 @@ export class MemoryModel {
             size.width = rightmost_edge + 100;
         }
 
-        // Dynamically determining the height of the canvas, in case one has not been provided.
-        if (!configuration.hasOwnProperty("height")) {
+        if (configuration.hasOwnProperty("height")) {
+            size.height = configuration.height!;
+        } else {
             let downmost_obj = snapshotObjects[0];
             let downmost_edge = 0;
 

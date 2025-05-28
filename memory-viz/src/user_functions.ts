@@ -5,9 +5,11 @@ import type * as fsType from "fs";
 export * from "./types";
 
 // Dynamic import of Node fs module
-let fs: typeof fsType | undefined;
+let fs: typeof fsType;
 if (typeof window === "undefined") {
     fs = require("fs");
+} else {
+    throw new Error("fs is not available in the browser");
 }
 
 function draw(
@@ -76,7 +78,7 @@ function draw(
             ? snapshots.map((snapshotObjects) =>
                   drawAutomated(
                       snapshotObjects,
-                      configuration.width,
+                      configuration.width ?? 486,
                       configuration
                   )
               )
@@ -85,7 +87,11 @@ function draw(
 
     const snapshotObjects = objs as DrawnEntity[];
     return automation
-        ? drawAutomated(snapshotObjects, configuration.width, configuration)
+        ? drawAutomated(
+              snapshotObjects,
+              configuration.width ?? 486,
+              configuration
+          )
         : processSnapshot(snapshotObjects);
 }
 
