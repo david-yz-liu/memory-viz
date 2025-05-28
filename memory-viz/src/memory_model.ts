@@ -976,12 +976,11 @@ export class MemoryModel {
         configuration: Partial<DisplaySettings>,
         snapshotObjects: DrawnEntity[]
     ): Size {
-        // Dynamically determining the width of the canvas, in case one has not been provided.
-        const size: Size = {
-            width: configuration.width,
-            height: configuration.height,
-        };
-        if (!configuration.hasOwnProperty("width")) {
+        const size = {} as Size;
+
+        if (configuration.hasOwnProperty("width")) {
+            size.width = configuration.width!;
+        } else {
             let rightmost_obj;
             let rightmost_edge = 0;
 
@@ -996,8 +995,9 @@ export class MemoryModel {
             size.width = rightmost_edge + 100;
         }
 
-        // Dynamically determining the height of the canvas, in case one has not been provided.
-        if (!configuration.hasOwnProperty("height")) {
+        if (configuration.hasOwnProperty("height")) {
+            size.height = configuration.height!;
+        } else {
             let downmost_obj = snapshotObjects[0];
             let downmost_edge = 0;
 
