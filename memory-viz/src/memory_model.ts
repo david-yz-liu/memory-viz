@@ -839,7 +839,7 @@ export class MemoryModel {
         text: string,
         x: number,
         y: number,
-        style: CSS.Properties,
+        style?: CSS.Properties,
         text_class?: string
     ): void {
         const newElement = this.document.createElementNS(
