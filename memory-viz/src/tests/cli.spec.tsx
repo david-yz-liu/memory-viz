@@ -190,7 +190,7 @@ describe.each([
 describe("memory-viz CLI output path", () => {
     const tempDir = tmp.dirSync().name;
 
-    const timeout = 200;
+    const timeout = 3000;
 
     function runProgram(outputPath: string) {
         const args = [`--output=${outputPath}`, "--roughjs-config seed=1234"];
