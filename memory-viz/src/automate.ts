@@ -351,6 +351,9 @@ function getSize(obj: DrawnEntity): Size {
  * @returns negative if 'a' is taller, 0 if they have the same height, and positive if 'b' is taller.
  */
 function compareByHeight(a: DrawnEntity, b: DrawnEntity): number {
+    if (a.height === undefined || b.height === undefined) {
+        throw new Error("Both objects must have 'height' property.");
+    }
     return -(a.height - b.height);
 }
 
@@ -364,6 +367,9 @@ function compareByHeight(a: DrawnEntity, b: DrawnEntity): number {
  * @returns negative if 'a.id' is larger, 0 if a.id == b.id, and positive if 'b.id' is larger.
  */
 function compareByID(a: DrawnEntity, b: DrawnEntity): number {
+    if (a.id === undefined || b.id === undefined) {
+        throw new Error("Both objects must have 'id' property.");
+    }
     return a.id - b.id;
 }
 
@@ -376,6 +382,14 @@ function compareByID(a: DrawnEntity, b: DrawnEntity): number {
  * @returns negative if 'a' is righter, 0 if 'a' and 'b' are equally right, and positive if b' is righter.
  */
 function compareByRightness(a: DrawnEntity, b: DrawnEntity): number {
+    if (
+        a.x === undefined ||
+        a.width === undefined ||
+        b.x === undefined ||
+        b.width === undefined
+    ) {
+        throw new Error("Both objects must have 'x' and 'width' property.");
+    }
     const a_right_edge = a.x + a.width;
     const b_right_edge = b.x + b.width;
     return -(a_right_edge - b_right_edge);
@@ -390,6 +404,14 @@ function compareByRightness(a: DrawnEntity, b: DrawnEntity): number {
  * @returns negative if 'a' is bottomer, 0 if 'a' and 'b' are equally bottom, and positive if b' is bottomer.
  */
 function compareByBottomness(a: DrawnEntity, b: DrawnEntity): number {
+    if (
+        a.y === undefined ||
+        a.height === undefined ||
+        b.y === undefined ||
+        b.height === undefined
+    ) {
+        throw new Error("Both objects must have 'x' and 'width' property.");
+    }
     const a_bottom_edge = a.y + a.height;
     const b_bottom_edge = b.y + b.height;
     return -(a_bottom_edge - b_bottom_edge);
