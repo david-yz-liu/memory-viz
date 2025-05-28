@@ -32,7 +32,7 @@ function drawAutomated(
         }
     }
 
-    min_width += requiredWidth + 2 * configuration.padding + 1;
+    min_width += requiredWidth + 2 * (configuration.padding ?? 25) + 1;
 
     if (width < min_width) {
         console.warn(
