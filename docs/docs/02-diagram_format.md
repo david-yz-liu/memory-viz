@@ -17,7 +17,7 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `id`      | `number` or `null`  | Yes      | A unique identifier for the object. Must be `null` for stack frames. May be `null` anywhere to render a blank ID box.                   |
 | `value`   | `any`               | Yes      | The content of the object to be drawn. Format depends on the [object type](#object-types).                                              |
 | `x`, `y`  | `number`            | No       | The x and y coordinates for the object on the canvas. Required only if the `automation` parameter of `draw` is `false`.                 |
-| `style`   | `object` or `array` | No       | Custom visual styling. See [Style API](06-cli.md) for more details.                                                                     |
+| `style`   | `object` or `array` | No       | Custom visual styling. See [Style API](04-style.md) for more details.                                                                   |
 
 [//]: # "| `show_indexes` | `boolean` | No | Applicable only for sequences (lists or tuples). Indicates whether to show indices in the memory box. Defaults to `false`. |"
 
