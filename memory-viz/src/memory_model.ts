@@ -95,9 +95,9 @@ export class MemoryModel {
 
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
-            this[key] = options.hasOwnProperty(key)
-                ? options[key]
-                : config[key];
+            (this as any)[key] = options.hasOwnProperty(key)
+                ? options[key as keyof VisualizationConfig]
+                : config[key as keyof typeof config];
         }
     }
 
@@ -591,7 +591,7 @@ export class MemoryModel {
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
             let idk = k.trim() === "" ? "" : `id${k}`;
-            let idv = obj[k] === null ? "" : `id${obj[k]}`;
+            let idv = (obj as any)[k] === null ? "" : `id${(obj as any)[k]}`;
 
             let key_box = Math.max(
                 this.item_min_width,
@@ -636,7 +636,10 @@ export class MemoryModel {
         // A second loop, so that we can position the colon and value boxes correctly.
         curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
-            let idv = k === null || obj[k] === null ? "" : `id${obj[k]}`;
+            let idv =
+                k === null || (obj as any)[k] === null
+                    ? ""
+                    : `id${(obj as any)[k]}`;
 
             let value_box = Math.max(
                 this.item_min_width,
@@ -730,7 +733,7 @@ export class MemoryModel {
         // Draw element boxes.
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const attribute in attributes) {
-            const val = attributes[attribute];
+            const val = (attributes as any)[attribute];
             let idv = val === null ? "" : `id${val}`;
             let attr_box = Math.max(
                 this.item_min_width,
@@ -843,7 +846,7 @@ export class MemoryModel {
         if (style !== undefined) {
             let new_style = "";
             for (const style_attribute of Object.keys(style)) {
-                new_style += `${style_attribute}:${style[style_attribute]}; `;
+                new_style += `${style_attribute}:${(style as any)[style_attribute]}; `;
             }
             newElement.setAttribute("style", new_style);
         }

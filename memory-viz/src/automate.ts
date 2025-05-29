@@ -96,7 +96,7 @@ function drawAutomatedStackFrames(
         "right_margin",
     ]) {
         if (!configuration.hasOwnProperty(req_prop)) {
-            configuration[req_prop] = config.obj_x_padding;
+            (configuration as any)[req_prop] = config.obj_x_padding;
         }
     }
 
@@ -173,7 +173,7 @@ function drawAutomatedOtherItems(
         "right_margin",
     ]) {
         if (!config_aut.hasOwnProperty(req_prop)) {
-            config_aut[req_prop] = config.obj_x_padding;
+            (config_aut as any)[req_prop] = config.obj_x_padding;
         }
     }
 
