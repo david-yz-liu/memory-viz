@@ -95,7 +95,7 @@ export class MemoryModel {
 
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
-            (this as any)[key] = options.hasOwnProperty(key)
+            (this as { [key: string]: any })[key] = options.hasOwnProperty(key)
                 ? options[key as keyof VisualizationConfig]
                 : config[key as keyof typeof config];
         }
@@ -582,7 +582,7 @@ export class MemoryModel {
         x: number,
         y: number,
         id: number,
-        obj: object,
+        obj: { [key: string]: any },
         style: Style
     ): Rect {
         let box_width = this.obj_min_width;
@@ -591,7 +591,7 @@ export class MemoryModel {
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
             let idk = k.trim() === "" ? "" : `id${k}`;
-            let idv = (obj as any)[k] === null ? "" : `id${(obj as any)[k]}`;
+            let idv = obj[k] === null ? "" : `id${obj[k]}`;
 
             let key_box = Math.max(
                 this.item_min_width,
@@ -636,10 +636,7 @@ export class MemoryModel {
         // A second loop, so that we can position the colon and value boxes correctly.
         curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
-            let idv =
-                k === null || (obj as any)[k] === null
-                    ? ""
-                    : `id${(obj as any)[k]}`;
+            let idv = k === null || obj[k] === null ? "" : `id${obj[k]}`;
 
             let value_box = Math.max(
                 this.item_min_width,
@@ -696,7 +693,7 @@ export class MemoryModel {
         y: number,
         name: string,
         id: number,
-        attributes: object,
+        attributes: { [key: string]: any },
         stack_frame: boolean,
         style: Style
     ): Rect {
@@ -733,7 +730,7 @@ export class MemoryModel {
         // Draw element boxes.
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const attribute in attributes) {
-            const val = (attributes as any)[attribute];
+            const val = attributes[attribute];
             let idv = val === null ? "" : `id${val}`;
             let attr_box = Math.max(
                 this.item_min_width,
@@ -846,7 +843,7 @@ export class MemoryModel {
         if (style !== undefined) {
             let new_style = "";
             for (const style_attribute of Object.keys(style)) {
-                new_style += `${style_attribute}:${(style as any)[style_attribute]}; `;
+                new_style += `${style_attribute}:${style[style_attribute as keyof CSS.Properties]}; `;
             }
             newElement.setAttribute("style", new_style);
         }
