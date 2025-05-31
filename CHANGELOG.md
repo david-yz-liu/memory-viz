@@ -37,8 +37,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 🔧 Internal changes
 
 - Added Typescript declaration maps
-- Added TypeScript support for the "NoImplicitAny" rule across project, fixing type issues in memory_model.ts, src/tests
-- `pretty` module plugin type support for TypeScript through type declaration file in src/types
+- Added TypeScript support for the "NoImplicitAny" rule across project, fixing type issues raised across project.
 
 ## [0.5.0] - 2024-12-06
 
