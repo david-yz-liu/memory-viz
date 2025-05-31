@@ -6,7 +6,7 @@ import pretty from "pretty";
 import { parse, HTMLElement } from "node-html-parser";
 
 export const serialize: NewPlugin["serialize"] = (val: HTMLElement) => {
-    return pretty(val);
+    return pretty(val.toString());
 };
 
 export const test: NewPlugin["test"] = (val: any) => {

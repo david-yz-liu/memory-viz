@@ -1225,7 +1225,7 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
     it("renders a list of snapshots", () => {
-        const snapshots = [
+        const snapshots: DrawnEntity[][] = [
             [
                 {
                     type: ".frame",
