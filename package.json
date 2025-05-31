@@ -17,5 +17,8 @@
     },
     "lint-staged": {
         "**/*": "prettier --write --ignore-unknown"
+    },
+    "dependencies": {
+        "@types/pretty": "^2.0.3"
     }
 }
