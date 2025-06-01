@@ -100,7 +100,7 @@ function drawAutomatedStackFrames(
         }
     }
 
-    let min_required_height = configuration.top_margin;
+    let min_required_height = configuration.top_margin ?? 25;
 
     let required_width = 0;
 
@@ -132,8 +132,9 @@ function drawAutomatedStackFrames(
 
         min_required_height = height + min_required_height;
     }
-
-    required_width += configuration.left_margin;
+    if (configuration.left_margin !== undefined) {
+        required_width += configuration.left_margin;
+    }
 
     return {
         StackFrames: draw_stack_frames,
@@ -177,7 +178,7 @@ function drawAutomatedOtherItems(
         }
     }
 
-    const PADDING = config_aut.padding;
+    const PADDING = config_aut.padding ?? 25;
 
     // The object space begins where the stackframe column ends (plus padding).
     if (sf_endpoint === undefined) {
@@ -367,7 +368,12 @@ function compareByHeight(a: DrawnEntity, b: DrawnEntity): number {
  * @returns negative if 'a.id' is larger, 0 if a.id == b.id, and positive if 'b.id' is larger.
  */
 function compareByID(a: DrawnEntity, b: DrawnEntity): number {
-    if (a.id === undefined || b.id === undefined) {
+    if (
+        a.id === undefined ||
+        b.id === undefined ||
+        a.id === null ||
+        b.id === null
+    ) {
         throw new Error("Both objects must have 'id' property.");
     }
     return a.id - b.id;
