@@ -271,7 +271,7 @@ function drawAutomatedOtherItems(
         defaultObject
     );
 
-    // compareByRightness and compareByBottomness didn't throw error, so right_most_obj has attributes x, y, width, height
+    // compareByRightness and compareByBottomness didn't throw error, so right_most_obj and down_most_obj has attributes x, y, width, height
     const canvas_width =
         right_most_obj.x! + right_most_obj.width! + config_aut.right_margin;
     const canvas_height =
@@ -305,7 +305,9 @@ function separateObjects(objects: DrawnEntity[]): {
     for (const item of objects) {
         const frame_types = [".frame", ".blank-frame"];
 
-        if (
+        if (item.type === undefined) {
+            otherItems.push(item);
+        } else if (
             item.type === ".blank" &&
             (item.width === undefined || item.height === undefined)
         ) {
