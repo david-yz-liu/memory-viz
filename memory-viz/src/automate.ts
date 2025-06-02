@@ -271,10 +271,11 @@ function drawAutomatedOtherItems(
         defaultObject
     );
 
+    // compareByRightness and compareByBottomness didn't throw error, so right_most_obj has attributes x, y, width, height
     const canvas_width =
-        right_most_obj.x + right_most_obj.width + config_aut.right_margin;
+        right_most_obj.x! + right_most_obj.width! + config_aut.right_margin;
     const canvas_height =
-        down_most_obj.y + down_most_obj.height + config_aut.bottom_margin;
+        down_most_obj.y! + down_most_obj.height! + config_aut.bottom_margin;
 
     // Additional -- to extend the program for the .blank option.
     const objs_filtered = objs.filter((item) => {
