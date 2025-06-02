@@ -217,7 +217,7 @@ function drawAutomatedOtherItems(
     }
 
     let x_coord = START_X;
-    let y_coord = config_aut.top_margin;
+    let y_coord = config_aut.top_margin ?? 25;
 
     // Once a row is occupied, we must establish its height to determine the y-coordinate of the next row's boxes.
     let row_height: number;
@@ -273,9 +273,13 @@ function drawAutomatedOtherItems(
 
     // compareByRightness and compareByBottomness didn't throw error, so right_most_obj and down_most_obj has attributes x, y, width, height
     const canvas_width =
-        right_most_obj.x! + right_most_obj.width! + config_aut.right_margin;
+        right_most_obj.x! +
+        right_most_obj.width! +
+        (config_aut.right_margin ?? 25);
     const canvas_height =
-        down_most_obj.y! + down_most_obj.height! + config_aut.bottom_margin;
+        down_most_obj.y! +
+        down_most_obj.height! +
+        (config_aut.bottom_margin ?? 25);
 
     // Additional -- to extend the program for the .blank option.
     const objs_filtered = objs.filter((item) => {
