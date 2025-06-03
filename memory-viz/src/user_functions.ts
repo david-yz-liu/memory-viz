@@ -5,11 +5,9 @@ import type * as fsType from "fs";
 export * from "./types";
 
 // Dynamic import of Node fs module
-let fs: typeof fsType;
+let fs: typeof fsType | undefined;
 if (typeof window === "undefined") {
     fs = require("fs");
-} else {
-    throw new Error("fs is not available in the browser");
 }
 
 function draw(
@@ -50,6 +48,9 @@ function draw(
     let objs: DrawnEntity[] | DrawnEntity[][];
 
     if (typeof objects === "string") {
+        if (!fs) {
+            throw new Error("fs module is not available in this environment.");
+        }
         const json_string = fs.readFileSync(objects, "utf-8");
 
         // Convert the JSON string into an array consisting of valid JS objects.

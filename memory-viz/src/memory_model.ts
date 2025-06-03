@@ -22,11 +22,9 @@ import type * as CSS from "csstype";
 import { getSize } from "./automate";
 
 // Dynamic import of Node fs module
-let fs: typeof fsType;
+let fs: typeof fsType | undefined;
 if (typeof window === "undefined") {
     fs = require("fs");
-} else {
-    throw new Error("fs is not available in the browser");
 }
 
 /** The class representing the memory model diagram of the given block of code. */
@@ -126,6 +124,11 @@ export class MemoryModel {
         if (path === undefined) {
             console.log(xml);
         } else {
+            if (!fs) {
+                throw new Error(
+                    "fs module is not available in this environment."
+                );
+            }
             fs.writeFile(path, xml, (err: Error) => {
                 if (err) {
                     console.error(err);
