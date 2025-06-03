@@ -937,7 +937,10 @@ export class MemoryModel {
             obj.style = { ...obj.style, ...this.roughjs_config?.options };
 
             const frame_types = [".frame", ".blank-frame"];
-            if (frame_types.includes(obj.type) || obj.type === ".class") {
+            if (
+                obj.type !== undefined &&
+                (frame_types.includes(obj.type) || obj.type === ".class")
+            ) {
                 let is_frame = frame_types.includes(obj.type);
 
                 const size = this.drawClass(
