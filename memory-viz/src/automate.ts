@@ -49,7 +49,7 @@ function drawAutomated(
     const { objs, canvas_height, canvas_width } = drawAutomatedOtherItems(
         other_items,
         width || default_width,
-        configuration.sort_by,
+        configuration.sort_by ?? null,
         configuration,
         requiredWidth
     );
@@ -162,7 +162,7 @@ function drawAutomatedStackFrames(
 function drawAutomatedOtherItems(
     objs: DrawnEntity[],
     max_width: number,
-    sort_by: SortOptions,
+    sort_by: SortOptions | null,
     config_aut: Partial<DisplaySettings>,
     sf_endpoint: number
 ): { objs: DrawnEntity[]; canvas_height: number; canvas_width: number } {
@@ -213,16 +213,15 @@ function drawAutomatedOtherItems(
      */
     let compareFunc: (a: DrawnEntity, b: DrawnEntity) => number;
 
-    switch (sort_by) {
-        case SortOptions.Height:
-            compareFunc = compareByHeight;
-            break;
-        case SortOptions.Id:
-            compareFunc = compareByID;
-            break;
-    }
-
     if (sort_by !== null) {
+        switch (sort_by) {
+            case SortOptions.Height:
+                compareFunc = compareByHeight;
+                break;
+            case SortOptions.Id:
+                compareFunc = compareByID;
+                break;
+        }
         objs.sort(compareFunc);
     }
 
