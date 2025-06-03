@@ -937,17 +937,14 @@ export class MemoryModel {
             obj.style = { ...obj.style, ...this.roughjs_config?.options };
 
             const frame_types = [".frame", ".blank-frame"];
-            if (
-                obj.type !== undefined &&
-                (frame_types.includes(obj.type) || obj.type === ".class")
-            ) {
-                let is_frame = frame_types.includes(obj.type);
+            if (frame_types.includes(obj.type!) || obj.type === ".class") {
+                let is_frame = frame_types.includes(obj.type!);
 
                 const size = this.drawClass(
-                    obj.x,
-                    obj.y,
-                    obj.name,
-                    obj.id,
+                    obj.x!,
+                    obj.y!,
+                    obj.name!,
+                    obj.id!,
                     obj.value,
                     is_frame,
                     obj.style
@@ -955,12 +952,12 @@ export class MemoryModel {
                 sizes_arr.push(size);
             } else {
                 const size = this.drawObject(
-                    obj.x,
-                    obj.y,
-                    obj.type,
-                    obj.id,
+                    obj.x!,
+                    obj.y!,
+                    obj.type!,
+                    obj.id!,
                     obj.value,
-                    obj.show_indexes,
+                    obj.show_indexes!,
                     obj.style
                 );
                 sizes_arr.push(size);
@@ -989,7 +986,7 @@ export class MemoryModel {
 
             for (const obj of snapshotObjects) {
                 const width = getSize(obj).width;
-                const curr_edge = obj.x + width;
+                const curr_edge = obj.x! + width;
                 if (curr_edge > rightmost_edge) {
                     rightmost_edge = curr_edge;
                     rightmost_obj = obj;
@@ -1006,11 +1003,11 @@ export class MemoryModel {
 
             for (const obj of snapshotObjects) {
                 const height = getSize(obj).height;
-                const curr_edge = obj.y + height;
+                const curr_edge = obj.y! + height;
 
                 if (curr_edge > downmost_edge) {
                     downmost_obj = obj;
-                    downmost_edge = obj.y + height;
+                    downmost_edge = obj.y! + height;
                 }
             }
 
