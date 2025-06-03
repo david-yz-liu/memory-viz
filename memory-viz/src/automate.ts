@@ -187,6 +187,16 @@ function drawAutomatedOtherItems(
     const START_X = sf_endpoint + PADDING;
 
     for (const item of objs) {
+        if (
+            item.type === ".blank" &&
+            (item.width === undefined || item.height === undefined)
+        ) {
+            console.log(
+                "WARNING :: An object with type='.blank' or '.blank-frame' exists with missing dimension information " +
+                    "(either the width or the height is missing). This object will be omitted in the memory model" +
+                    " diagram."
+            );
+        }
         if (item.type !== ".blank") {
             const dimensions = getSize(item);
             item.height = dimensions.height;
@@ -223,7 +233,7 @@ function drawAutomatedOtherItems(
     let row_height: number;
     let curr_row_objects: DrawnEntity[] = [];
     for (const item of objs) {
-        let hor_reach = x_coord + item.width + PADDING;
+        let hor_reach = x_coord + item.width! + PADDING;
 
         if (hor_reach < max_width) {
             item.x = x_coord;
@@ -232,11 +242,11 @@ function drawAutomatedOtherItems(
             curr_row_objects.push(item);
         } else {
             // In this case, we cannot fit this object in the current row, and must move to a new row.
-
+            // Based on how objs is initialized, every item will have attributes width and height
             const tallest_object = curr_row_objects.reduce((p, c) =>
-                p.height >= c.height ? p : c
+                p.height! >= c.height! ? p : c
             );
-            row_height = tallest_object.height + PADDING;
+            row_height = tallest_object.height! + PADDING;
 
             curr_row_objects = [];
 
@@ -248,7 +258,7 @@ function drawAutomatedOtherItems(
 
             item.rowBreaker = true;
 
-            hor_reach = x_coord + item.width + PADDING;
+            hor_reach = x_coord + item.width! + PADDING;
 
             curr_row_objects.push(item);
         }
