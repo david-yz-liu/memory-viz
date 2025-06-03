@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+- Added Typescript support for "strictNullChecks" and refactored code accordingly
+
 ### 🚨 Breaking changes
 
 ### ✨ Enhancements
