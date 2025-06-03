@@ -90,7 +90,9 @@ export class MemoryModel {
             "height",
             options.height ? options.height.toString() : "800"
         );
-        this.roughjs_config = options.roughjs_config;
+        this.roughjs_config = options.roughjs_config ?? {
+            options: { seed: 12345 },
+        };
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
 
         setStyleSheet(this);
