@@ -7,18 +7,7 @@ export * from "./types";
 // Dynamic import of Node fs module
 let fs: typeof fsType | undefined;
 if (typeof window === "undefined") {
-    try {
-        fs = require("fs");
-    } catch {
-        fs = undefined;
-    }
-}
-
-function getFs(): typeof fsType {
-    if (!fs) {
-        throw new Error("fs is unavailable in this environment");
-    }
-    return fs;
+    fs = require("fs");
 }
 
 function draw(
@@ -59,7 +48,10 @@ function draw(
     let objs: DrawnEntity[] | DrawnEntity[][];
 
     if (typeof objects === "string") {
-        const json_string = getFs().readFileSync(objects, "utf-8");
+        if (!fs) {
+            throw new Error("fs module not available in this environment.");
+        }
+        const json_string = fs.readFileSync(objects, "utf-8");
 
         // Convert the JSON string into an array consisting of valid JS objects.
         objs = JSON.parse(json_string);

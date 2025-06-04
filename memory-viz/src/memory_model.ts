@@ -24,18 +24,7 @@ import { getSize } from "./automate";
 // Dynamic import of Node fs module
 let fs: typeof fsType | undefined;
 if (typeof window === "undefined") {
-    try {
-        fs = require("fs");
-    } catch {
-        fs = undefined;
-    }
-}
-
-function getFs(): typeof fsType {
-    if (!fs) {
-        throw new Error("fs module is unavailable in this environment");
-    }
-    return fs;
+    fs = require("fs");
 }
 
 /** The class representing the memory model diagram of the given block of code. */
@@ -135,7 +124,10 @@ export class MemoryModel {
         if (path === undefined) {
             console.log(xml);
         } else {
-            getFs().writeFile(path, xml, (err: Error) => {
+            if (!fs) {
+                throw new Error("fs module not available in this environment.");
+            }
+            fs.writeFile(path, xml, (err: Error) => {
                 if (err) {
                     console.error(err);
                 }
