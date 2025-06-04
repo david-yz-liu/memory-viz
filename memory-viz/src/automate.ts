@@ -11,6 +11,15 @@ import { DisplaySettings, DrawnEntity, Size, SortOptions } from "./types";
  * @returns - The memory model that is created according to the objects given in the path (the JSON
  * file)
  */
+
+const REQUIRED_DISPLAY_PROPERTIES: (keyof DisplaySettings)[] = [
+    "padding",
+    "top_margin",
+    "left_margin",
+    "bottom_margin",
+    "right_margin",
+];
+
 function drawAutomated(
     objects: DrawnEntity[],
     width: number,
@@ -88,13 +97,7 @@ function drawAutomatedStackFrames(
     requiredHeight: number;
     requiredWidth: number;
 } {
-    for (const req_prop of [
-        "padding",
-        "top_margin",
-        "left_margin",
-        "bottom_margin",
-        "right_margin",
-    ]) {
+    for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
         if (!configuration.hasOwnProperty(req_prop)) {
             configuration[req_prop] = config.obj_x_padding;
         }
@@ -166,13 +169,7 @@ function drawAutomatedOtherItems(
     config_aut: Partial<DisplaySettings>,
     sf_endpoint: number
 ): { objs: DrawnEntity[]; canvas_height: number; canvas_width: number } {
-    for (const req_prop of [
-        "padding",
-        "top_margin",
-        "left_margin",
-        "bottom_margin",
-        "right_margin",
-    ]) {
+    for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
         if (!config_aut.hasOwnProperty(req_prop)) {
             config_aut[req_prop] = config.obj_x_padding;
         }

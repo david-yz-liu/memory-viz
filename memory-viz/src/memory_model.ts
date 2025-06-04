@@ -97,9 +97,9 @@ export class MemoryModel {
 
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
-            this[key] = options.hasOwnProperty(key)
-                ? options[key]
-                : config[key];
+            (this as { [key: string]: any })[key] = options.hasOwnProperty(key)
+                ? options[key as keyof VisualizationConfig]
+                : config[key as keyof typeof config];
         }
     }
 
@@ -597,7 +597,7 @@ export class MemoryModel {
         x: number,
         y: number,
         id: number,
-        obj: object,
+        obj: { [key: string]: any },
         style: Style
     ): Rect {
         let box_width = this.obj_min_width;
@@ -708,7 +708,7 @@ export class MemoryModel {
         y: number,
         name: string,
         id: number,
-        attributes: object,
+        attributes: { [key: string]: any },
         stack_frame: boolean,
         style: Style
     ): Rect {
@@ -858,7 +858,7 @@ export class MemoryModel {
         if (style !== undefined) {
             let new_style = "";
             for (const style_attribute of Object.keys(style)) {
-                new_style += `${style_attribute}:${style[style_attribute]}; `;
+                new_style += `${style_attribute}:${style[style_attribute as keyof CSS.Properties]}; `;
             }
             newElement.setAttribute("style", new_style);
         }

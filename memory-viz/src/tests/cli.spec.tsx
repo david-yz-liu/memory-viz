@@ -1,3 +1,5 @@
+import { ExecException } from "child_process";
+
 const { exec, spawn } = require("child_process");
 const path = require("path");
 const fs = require("fs");
@@ -57,7 +59,7 @@ describe.each([
     it(`produces consistent svg when provided ${inputs} option(s)`, (done) => {
         fs.writeFileSync(filePath, input);
 
-        exec(`memory-viz ${command}`, (err) => {
+        exec(`memory-viz ${command}`, (err: ExecException | null) => {
             if (err) throw err;
 
             const svgFilePath = getSVGPath(command.includes("--output"));
@@ -76,7 +78,7 @@ describe("memory-viz cli", () => {
 
         exec(
             `memory-viz ${filePath} --roughjs-config seed=1234`,
-            (err, stdout) => {
+            (err: unknown | null, stdout: string) => {
                 if (err) throw err;
                 expect(stdout).toMatchSnapshot();
                 done();
@@ -94,11 +96,11 @@ describe("memory-viz cli", () => {
         child.stdin.end();
 
         let output = "";
-        child.stdout.on("data", (data) => {
+        child.stdout.on("data", (data: Buffer) => {
             output += data.toString();
         });
 
-        child.on("close", (err) => {
+        child.on("close", (err: ExecException | null) => {
             if (err) throw err;
             expect(output).toMatchSnapshot();
             done();
@@ -114,7 +116,7 @@ describe("memory-viz cli", () => {
         child.stdin.write(input);
         child.stdin.end();
 
-        child.on("close", (err) => {
+        child.on("close", (err: ExecException | null) => {
             if (err) throw err;
 
             const fileContent = fs.readFileSync(outputPath, "utf8");
@@ -173,10 +175,12 @@ describe.each([
                         '[{ "name": "int", "id": 13, "value": 7 }]'
                     );
                 }
-                command = `memory-viz ${filePath}`;
             }
 
-            exec(command, (err) => {
+            if (fileMockingTests.includes(errorType)) {
+                command = `memory-viz ${filePath}`;
+            }
+            exec(command, (err: ExecException | null) => {
                 if (err) {
                     expect(err.code).toBe(1);
                     expect(err.message).toContain(expectedErrorMessage);
@@ -205,7 +209,7 @@ describe("memory-viz CLI output path", () => {
         (done) => {
             const folderPath = `${tempDir}/`;
             const child = runProgram(folderPath);
-            child.on("close", (err) => {
+            child.on("close", (err: ExecException | null) => {
                 expect(err).toEqual(1);
                 done();
             });
@@ -218,7 +222,7 @@ describe("memory-viz CLI output path", () => {
         (done) => {
             const outputPath = "nonexistent/file.svg";
             const child = runProgram(outputPath);
-            child.on("close", (err) => {
+            child.on("close", (err: ExecException | null) => {
                 expect(err).toEqual(1);
                 done();
             });
