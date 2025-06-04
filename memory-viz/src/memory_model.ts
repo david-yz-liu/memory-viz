@@ -124,11 +124,6 @@ export class MemoryModel {
         if (path === undefined) {
             console.log(xml);
         } else {
-            if (!fs) {
-                throw new Error(
-                    "fs module is not available in this environment."
-                );
-            }
             fs.writeFile(path, xml, (err: Error) => {
                 if (err) {
                     console.error(err);

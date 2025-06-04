@@ -48,9 +48,6 @@ function draw(
     let objs: DrawnEntity[] | DrawnEntity[][];
 
     if (typeof objects === "string") {
-        if (!fs) {
-            throw new Error("fs module is not available in this environment.");
-        }
         const json_string = fs.readFileSync(objects, "utf-8");
 
         // Convert the JSON string into an array consisting of valid JS objects.
