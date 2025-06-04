@@ -70,10 +70,10 @@ All drawable JSON objects include the following core attributes, unless explicit
                 }
             }
             ```
-            ![Example Frame](images/diagram_format_md/stack_frame_main.svg)
+            ![Example Main Stack Frame](images/diagram_format_md/stack_frame_main.svg)
     </details>
     <details>
-        <summary>**Function Stack Frame**</summary>
+        <summary>**Function Stack Frame with blank boxes**</summary>
             ```json
             {
                 "type": ".frame",
@@ -86,7 +86,7 @@ All drawable JSON objects include the following core attributes, unless explicit
                 }
             }
             ```
-            ![Example Frame](images/diagram_format_md/stack_frame_function.svg)
+            ![Example Function Stack Frame](images/diagram_format_md/stack_frame_function.svg)
     </details>
 </details>
 
