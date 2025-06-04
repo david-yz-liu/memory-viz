@@ -14,6 +14,13 @@ if (typeof window === "undefined") {
     }
 }
 
+function getFs(): typeof fsType {
+    if (!fs) {
+        throw new Error("fs is unavailable in this environment");
+    }
+    return fs;
+}
+
 function draw(
     objects: string | DrawnEntity[][],
     automation: boolean,
@@ -52,10 +59,7 @@ function draw(
     let objs: DrawnEntity[] | DrawnEntity[][];
 
     if (typeof objects === "string") {
-        if (!fs) {
-            throw new Error("fs module not available in this environment.");
-        }
-        const json_string = fs.readFileSync(objects, "utf-8");
+        const json_string = getFs().readFileSync(objects, "utf-8");
 
         // Convert the JSON string into an array consisting of valid JS objects.
         objs = JSON.parse(json_string);
