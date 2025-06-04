@@ -4,6 +4,8 @@ title: Diagram JSON Format
 
 # JSON Format of `objects` argument in `draw` function
 
+> :warning: Dark mode may make example images harder to read.
+
 The `draw` function defined in `user_functions.ts` has an `objects` argument which is used to define the array of objects that is drawn on the canvas.
 One way to populate the `objects` argument is by using a JSON file containing the object array.
 
@@ -52,33 +54,40 @@ All drawable JSON objects include the following core attributes, unless explicit
 
 <details>
 <summary>**Examples**</summary>
-```json
-{
-    "type": ".frame",
-    "name": "__main__",
-    "id": null,
-    "value": {
-        "lst1": 82,
-        "lst2": 84,
-        "p": 99,
-        "d": 10,
-        "t": 11
-    }
-}
-```
-```json
-{
-    "type": ".frame",
-    "name": "func",
-    "id": null,
-    "value": {
-        "age": 12,
-        "name": 17,
-        "": null
-    }
-}
-```
-![Example Frame](images/diagram_format_md/example_frame.svg)
+    <details>
+        <summary>**Main Stack Frame**</summary>
+            ```json
+            {
+                "type": ".frame",
+                "name": "__main__",
+                "id": null,
+                "value": {
+                    "lst1": 82,
+                    "lst2": 84,
+                    "p": 99,
+                    "d": 10,
+                    "t": 11
+                }
+            }
+            ```
+            ![Example Frame](images/diagram_format_md/stack_frame_main.svg)
+    </details>
+    <details>
+        <summary>**Function Stack Frame**</summary>
+            ```json
+            {
+                "type": ".frame",
+                "name": "func",
+                "id": null,
+                "value": {
+                    "age": 12,
+                    "name": 17,
+                    "": null
+                }
+            }
+            ```
+            ![Example Frame](images/diagram_format_md/stack_frame_function.svg)
+    </details>
 </details>
 
 ### Classes
@@ -92,6 +101,26 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                               |
 | `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                                                                |
 
+<details>
+<summary>**Examples**</summary>
+    <details>
+        <summary>**Class with blank boxes**</summary>
+            ```json
+            {
+                "type": ".class",
+                "id": 82,
+                "name": "Person",
+                "value": {
+                    "age": 12,
+                    "name": 17,
+                    "": null
+                }
+            }
+            ```
+            ![Example Class](images/diagram_format_md/class_blank_boxes.svg)
+    </details>
+</details>
+
 ### Blank Frames
 
 | Attribute | Type     | Required | Description                                              |
@@ -102,11 +131,39 @@ All drawable JSON objects include the following core attributes, unless explicit
 
 ### Blank Objects
 
+<details>
+<summary>**Examples**</summary>
+    <details>
+        <summary>**Blank Frame**</summary>
+            ```json
+            {
+                "type": ".blank-frame",
+                "width": 200,
+                "height": 100
+            }
+            ```
+    </details>
+</details>
+
 | Attribute | Type     | Required | Description                                         |
 | --------- | -------- | -------- | --------------------------------------------------- |
 | `type`    | `string` | Yes      | Must be set to `.blank` to indicate a blank object. |
 | `width`   | `number` | Yes      | The width of the blank object.                      |
 | `height`  | `number` | Yes      | The height of the blank object.                     |
+
+<details>
+<summary>**Examples**</summary>
+    <details>
+        <summary>**Blank Object**</summary>
+            ```json
+            {
+                "type": ".blank",
+                "width": 200,
+                "height": 100
+            }
+            ```
+    </details>
+</details>
 
 ### Lists
 
@@ -119,6 +176,33 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `x`, `y`       | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.   |
 | `style`        | `object` or `array` | No       | Custom visual styling.                                                    |
 
+<details>
+<summary>**Examples**</summary>
+    <details>
+        <summary>**List with blank boxes**</summary>
+            ```json
+            {
+                "type": "list",
+                "id": 82,
+                "value": [19, 43, null, 49]
+            }
+            ```
+            ![Example List](images/diagram_format_md/list_blank_boxes.svg)
+    </details>
+    <details>
+        <summary>**List with indices shown**</summary>
+            ```json
+            {
+                "type": "list",
+                "id": 84,
+                "value": [32, 10, 90, 57],
+                "show_indexes": true
+            }
+            ```
+            ![Example List with Indices](images/diagram_format_md/list_with_indices.svg)
+    </details>
+</details>
+
 ### Tuples
 
 | Attribute      | Type                | Required | Description                                                               |
@@ -130,6 +214,21 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `x`, `y`       | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.   |
 | `style`        | `object` or `array` | No       | Custom visual styling.                                                    |
 
+<details>
+<summary>**Examples**</summary>
+    <details>
+        <summary>**Tuple with blank boxes**</summary>
+            ```json
+            {
+                "type": "tuple",
+                "id": 11,
+                "value": [82, 76, null]
+            }
+            ```
+            ![Example Tuple](images/diagram_format_md/tuple_blank_boxes.svg)
+    </details>
+</details>
+
 ### Sets
 
 | Attribute | Type                | Required | Description                                                             |
@@ -140,25 +239,129 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled. |
 | `style`   | `object` or `array` | No       | Custom visual styling.                                                  |
 
+<details>
+<summary>**Examples**</summary>
+    <details>
+        <summary>**Set with blank boxes**</summary>
+            ```json
+            {
+                "type": "set",
+                "id": 90,
+                "value": [36, 49, null, 64]
+            }
+            ```
+            ![Example Set](images/diagram_format_md/set_blank_boxes.svg)
+    </details>
+</details>
+
 ### Dictionaries
 
-| Attribute | Type                | Required | Description                                                             |
-| --------- | ------------------- | -------- | ----------------------------------------------------------------------- |
-| `type`    | `string`            | Yes      | Must be set to `dict` to indicate a dictionary object.                  |
-| `id`      | `number`            | Yes      | Unique identifier for the dictionary.                                   |
-| `value`   | `dict`              | Yes      | Dictionary of `string` key to `int` object id value pairs.              |
-| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled. |
-| `style`   | `object` or `array` | No       | Custom visual styling.                                                  |
+| Attribute | Type                | Required | Description                                                                                                                                         |
+| --------- | ------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`    | `string`            | Yes      | Must be set to `dict` to indicate a dictionary object.                                                                                              |
+| `id`      | `number`            | Yes      | Unique identifier for the dictionary.                                                                                                               |
+| `value`   | `dict`              | Yes      | Dictionary of `string` key to `int` object id value pairs. Keys can be made empty strings (`""`) and values can be made `null` to draw blank boxes. |
+| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                             |
+| `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                              |
+
+<details>
+<summary>**Examples**</summary>
+    <details>
+        <summary>**Dictionary with blank boxes**</summary>
+            ```json
+            {
+                "type": "dict",
+                "id": 10,
+                "value": {
+                    "": 81,
+                    "y": null,
+                    "z": 12
+                }
+            }
+            ```
+            ![Example Dictionary](images/diagram_format_md/dict_blank_boxes.svg)
+    </details>
+</details>
 
 ### Primitives
 
-| Attribute | Type                | Required | Description                                                                                                        |
-| --------- | ------------------- | -------- | ------------------------------------------------------------------------------------------------------------------ |
-| `type`    | `string`            | Yes      | Must be set to one of `int`, `str`, `bool`, `float`, or `None` to indicate a primitive object.                     |
-| `id`      | `number`            | Yes      | Unique identifier for the primitive object.                                                                        |
-| `value`   | `any`               | Yes      | The actual value represented by the primitive object. Value may be an empty string (`""`) to render a blank space. |
-| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                            |
-| `style`   | `object` or `array` | No       | Custom visual styling.                                                                                             |
+| Attribute | Type                | Required | Description                                                                                                                                         |
+| --------- | ------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`    | `string`            | Yes      | Must be set to one of `int`, `str`, `bool`, `float`, or `None` to indicate a primitive object.                                                      |
+| `id`      | `number`            | Yes      | Unique identifier for the primitive object.                                                                                                         |
+| `value`   | `any`               | Yes      | The actual value represented by the primitive object. For types `int` and `float`, the value may be an empty string (`""`) to render a blank space. |
+| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                             |
+| `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                              |
+
+<details>
+<summary>**Examples**</summary>
+    <details>
+        <summary>**Integer**</summary>
+            ```json
+            {
+                "type": "int",
+                "id": 19,
+                "value": 124
+            }
+            ```
+            ![Example Integer](images/diagram_format_md/int.svg)
+    </details>
+    <details>
+        <summary>**Blank Integer**</summary>
+            ```json
+            {
+                "type": "int",
+                "id": 19,
+                "value": ""
+            }
+            ```
+            ![Example Blank Integer](images/diagram_format_md/int_blank.svg)
+    </details>
+    <details>
+        <summary>**String**</summary>
+            ```json
+            {
+                "type": "str",
+                "id": 43,
+                "value": "David is cool"
+            }
+            ```
+            ![Example String](images/diagram_format_md/str.svg)
+    </details>
+    <details>
+        <summary>**Boolean**</summary>
+            ```json
+            {
+                "type": "bool",
+                "id": 32,
+                "value": true
+            }
+            ```
+            ![Example Boolean](images/diagram_format_md/bool.svg)
+    </details>
+    <details>
+        <summary>**Float**</summary>
+            ```json
+            {
+                "type": "float",
+                "id": 76,
+                "value": 3.14
+            }
+            ```
+            ![Example Float](images/diagram_format_md/float.svg)
+    </details>
+    <details>
+        <summary>**Blank Float**</summary>
+            ```json
+            {
+                "type": "float",
+                "id": 76,
+                "value": ""
+            }
+            ```
+            ![Example Blank Float](images/diagram_format_md/float_blank.svg)
+    </details>
+</details>
 
 [//]: # "# Structure of `objects` argument in `draw` function"
 [//]: #
