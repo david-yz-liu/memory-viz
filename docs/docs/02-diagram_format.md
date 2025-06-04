@@ -227,6 +227,18 @@ All drawable JSON objects include the following core attributes, unless explicit
             ```
             ![Example Tuple](images/diagram_format_md/tuple_blank_boxes.svg)
     </details>
+    <details>
+    <summary>**Tuple with indices shown**</summary>
+            ```json
+            {
+                "type": "tuple",
+                "id": 11,
+                "value": [82, 76, null],
+                "show_indexes": true
+            }
+            ```
+            ![Example Tuple with Indices](images/diagram_format_md/tuple_with_indices.svg)
+    </details>    
 </details>
 
 ### Sets
@@ -360,6 +372,17 @@ All drawable JSON objects include the following core attributes, unless explicit
             }
             ```
             ![Example Blank Float](images/diagram_format_md/float_blank.svg)
+    </details>
+    <details>
+        <summary>**NoneType**</summary>
+            ```json
+            {
+                "type": "None",
+                "id": 0,
+                "value": "None"
+            }
+            ```
+            ![Example NoneType](images/diagram_format_md/nonetype.svg)
     </details>
 </details>
 
