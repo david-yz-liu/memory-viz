@@ -88,7 +88,9 @@ export class MemoryModel {
             "height",
             options.height ? options.height.toString() : "800"
         );
-        this.roughjs_config = options.roughjs_config;
+        this.roughjs_config = options.roughjs_config ?? {
+            options: { seed: 12345 },
+        };
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
 
         setStyleSheet(this);
@@ -122,6 +124,9 @@ export class MemoryModel {
         if (path === undefined) {
             console.log(xml);
         } else {
+            if (!fs) {
+                throw new Error("fs module not available in this environment.");
+            }
             fs.writeFile(path, xml, (err: Error) => {
                 if (err) {
                     console.error(err);
@@ -141,7 +146,9 @@ export class MemoryModel {
         image.src = data;
         image.onload = () => {
             const ctx = canvas.getContext("2d");
-            ctx.drawImage(image, 0, 0);
+            if (ctx !== null) {
+                ctx.drawImage(image, 0, 0);
+            }
         };
     }
 
@@ -151,7 +158,9 @@ export class MemoryModel {
      */
     clear(canvas: HTMLCanvasElement): void {
         const ctx = canvas.getContext("2d");
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (ctx !== null) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
     }
 
     /**
@@ -176,7 +185,11 @@ export class MemoryModel {
         style: Style
     ): Rect {
         if (collections.includes(type)) {
-            if (type === "dict" && typeof value === "object") {
+            if (
+                type === "dict" &&
+                typeof value === "object" &&
+                value !== null
+            ) {
                 return this.drawDict(x, y, id, value, style);
             } else if (
                 type === "set" &&
@@ -377,7 +390,7 @@ export class MemoryModel {
         y: number,
         type: string,
         id: number,
-        element_ids: number[],
+        element_ids: (number | null)[],
         show_idx: boolean,
         style: Style
     ): Rect {
@@ -482,7 +495,7 @@ export class MemoryModel {
         x: number,
         y: number,
         id: number,
-        element_ids: number[],
+        element_ids: (number | null)[],
         style: Style
     ): Rect {
         let box_width = this.obj_x_padding * 2;
@@ -829,8 +842,8 @@ export class MemoryModel {
         text: string,
         x: number,
         y: number,
-        style: CSS.Properties,
-        text_class: string = undefined
+        style?: CSS.Properties,
+        text_class?: string
     ): void {
         const newElement = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
@@ -927,14 +940,14 @@ export class MemoryModel {
             obj.style = { ...obj.style, ...this.roughjs_config?.options };
 
             const frame_types = [".frame", ".blank-frame"];
-            if (frame_types.includes(obj.type) || obj.type === ".class") {
-                let is_frame = frame_types.includes(obj.type);
+            if (frame_types.includes(obj.type!) || obj.type === ".class") {
+                let is_frame = frame_types.includes(obj.type!);
 
                 const size = this.drawClass(
-                    obj.x,
-                    obj.y,
-                    obj.name,
-                    obj.id,
+                    obj.x!,
+                    obj.y!,
+                    obj.name!,
+                    obj.id!,
                     obj.value,
                     is_frame,
                     obj.style
@@ -942,12 +955,12 @@ export class MemoryModel {
                 sizes_arr.push(size);
             } else {
                 const size = this.drawObject(
-                    obj.x,
-                    obj.y,
-                    obj.type,
-                    obj.id,
+                    obj.x!,
+                    obj.y!,
+                    obj.type!,
+                    obj.id!,
                     obj.value,
-                    obj.show_indexes,
+                    obj.show_indexes!,
                     obj.style
                 );
                 sizes_arr.push(size);
@@ -966,18 +979,17 @@ export class MemoryModel {
         configuration: Partial<DisplaySettings>,
         snapshotObjects: DrawnEntity[]
     ): Size {
-        // Dynamically determining the width of the canvas, in case one has not been provided.
-        const size: Size = {
-            width: configuration.width,
-            height: configuration.height,
-        };
-        if (!configuration.hasOwnProperty("width")) {
+        const size = {} as Size;
+
+        if (configuration.hasOwnProperty("width")) {
+            size.width = configuration.width!;
+        } else {
             let rightmost_obj;
             let rightmost_edge = 0;
 
             for (const obj of snapshotObjects) {
                 const width = getSize(obj).width;
-                const curr_edge = obj.x + width;
+                const curr_edge = obj.x! + width;
                 if (curr_edge > rightmost_edge) {
                     rightmost_edge = curr_edge;
                     rightmost_obj = obj;
@@ -986,18 +998,19 @@ export class MemoryModel {
             size.width = rightmost_edge + 100;
         }
 
-        // Dynamically determining the height of the canvas, in case one has not been provided.
-        if (!configuration.hasOwnProperty("height")) {
+        if (configuration.hasOwnProperty("height")) {
+            size.height = configuration.height!;
+        } else {
             let downmost_obj = snapshotObjects[0];
             let downmost_edge = 0;
 
             for (const obj of snapshotObjects) {
                 const height = getSize(obj).height;
-                const curr_edge = obj.y + height;
+                const curr_edge = obj.y! + height;
 
                 if (curr_edge > downmost_edge) {
                     downmost_obj = obj;
-                    downmost_edge = obj.y + height;
+                    downmost_edge = obj.y! + height;
                 }
             }
 

@@ -133,7 +133,7 @@ function setStyleSheet(memory_model: MemoryModel) {
             text-anchor: middle;
         }
         path {
-            stroke: ${config.rect_style["stroke"]};
+            stroke: ${config.rect_style?.stroke ?? "rgb(0,0,0)"};
         }
     `;
 
