@@ -79,7 +79,7 @@ function draw(
             ? snapshots.map((snapshotObjects) =>
                   drawAutomated(
                       snapshotObjects,
-                      configuration.width ?? 486,
+                      configuration.width ?? 323.2,
                       configuration
                   )
               )
@@ -90,7 +90,7 @@ function draw(
     return automation
         ? drawAutomated(
               snapshotObjects,
-              configuration.width ?? 486,
+              configuration.width ?? 323.2,
               configuration
           )
         : processSnapshot(snapshotObjects);
