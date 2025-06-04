@@ -79,7 +79,7 @@ function draw(
             ? snapshots.map((snapshotObjects) =>
                   drawAutomated(
                       snapshotObjects,
-                      configuration.width ?? 323.2,
+                      configuration.width,
                       configuration
                   )
               )
@@ -88,11 +88,7 @@ function draw(
 
     const snapshotObjects = objs as DrawnEntity[];
     return automation
-        ? drawAutomated(
-              snapshotObjects,
-              configuration.width ?? 323.2,
-              configuration
-          )
+        ? drawAutomated(snapshotObjects, configuration.width, configuration)
         : processSnapshot(snapshotObjects);
 }
 

@@ -22,7 +22,7 @@ const REQUIRED_DISPLAY_PROPERTIES: (keyof DisplaySettings)[] = [
 
 function drawAutomated(
     objects: DrawnEntity[],
-    width: number,
+    width: number | undefined,
     configuration: Partial<DisplaySettings>
 ): MemoryModel {
     const { stack_frames, other_items } = separateObjects(objects);
@@ -43,7 +43,7 @@ function drawAutomated(
 
     min_width += requiredWidth + 2 * (configuration.padding ?? 25) + 1;
 
-    if (width < min_width) {
+    if (width !== undefined && width < min_width) {
         console.warn(
             `WARNING: provided width (${width}) is smaller than the required width` +
                 ` (${min_width}). The provided width has been overwritten` +
