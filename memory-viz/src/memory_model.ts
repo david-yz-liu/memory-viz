@@ -24,7 +24,11 @@ import { getSize } from "./automate";
 // Dynamic import of Node fs module
 let fs: typeof fsType | undefined;
 if (typeof window === "undefined") {
-    fs = require("fs");
+    try {
+        fs = require("fs");
+    } catch {
+        fs = undefined;
+    }
 }
 
 /** The class representing the memory model diagram of the given block of code. */

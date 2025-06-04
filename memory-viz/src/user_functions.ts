@@ -7,7 +7,11 @@ export * from "./types";
 // Dynamic import of Node fs module
 let fs: typeof fsType | undefined;
 if (typeof window === "undefined") {
-    fs = require("fs");
+    try {
+        fs = require("fs");
+    } catch {
+        fs = undefined;
+    }
 }
 
 function draw(
