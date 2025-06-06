@@ -429,7 +429,7 @@ function compareByBottomness(a: DrawnEntity, b: DrawnEntity): number {
         b.y === undefined ||
         b.height === undefined
     ) {
-        throw new Error("Both objects must have 'x' and 'width' property.");
+        throw new Error("Both objects must have 'y' and 'height' property.");
     }
     const a_bottom_edge = a.y + a.height;
     const b_bottom_edge = b.y + b.height;
