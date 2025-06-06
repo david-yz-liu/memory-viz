@@ -11,10 +11,7 @@ export const serialize: NewPlugin["serialize"] = (val: HTMLElement) => {
 
 export const test: NewPlugin["test"] = (val: any) => {
     const root = parse(val);
-    if (root.firstChild !== undefined) {
-        return root.firstChild.rawTagName === "svg";
-    }
-    return false;
+    return root.firstChild?.rawTagName === "svg";
 };
 
 export const plugin: NewPlugin = {
