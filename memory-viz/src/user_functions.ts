@@ -49,7 +49,9 @@ function draw(
 
     if (typeof objects === "string") {
         if (!fs) {
-            throw new Error("fs module not available in this environment.");
+            throw new Error(
+                `Could not load file ${objects} in this environment.`
+            );
         }
         const json_string = fs.readFileSync(objects, "utf-8");
 
