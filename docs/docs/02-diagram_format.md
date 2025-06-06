@@ -21,8 +21,6 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `x`, `y`  | `number`            | No       | The x and y coordinates for the object on the canvas. Required only if the `automation` parameter of `draw` is `false`.                 |
 | `style`   | `object` or `array` | No       | Custom visual styling. See [Style API](04-style.md) for more details.                                                                   |
 
-[//]: # "| `show_indexes` | `boolean` | No | Applicable only for sequences (lists or tuples). Indicates whether to show indices in the memory box. Defaults to `false`. |"
-
 ---
 
 ## Object Types
@@ -52,8 +50,8 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                                                                                            |
 | `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                                                                                                                             |
 
-<details>
-<summary>**Examples**</summary>
+#### Examples
+
     <details>
         <summary>**Main Stack Frame**</summary>
             ```json
@@ -88,7 +86,6 @@ All drawable JSON objects include the following core attributes, unless explicit
             ```
             ![Example Function Stack Frame](images/diagram_format_md/stack_frame_function.svg)
     </details>
-</details>
 
 ### Classes
 
@@ -101,8 +98,8 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                               |
 | `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                                                                |
 
-<details>
-<summary>**Examples**</summary>
+#### Examples
+
     <details>
         <summary>**Class with blank boxes**</summary>
             ```json
@@ -119,7 +116,6 @@ All drawable JSON objects include the following core attributes, unless explicit
             ```
             ![Example Class](images/diagram_format_md/class_blank_boxes.svg)
     </details>
-</details>
 
 ### Blank Frames
 
@@ -129,10 +125,8 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `width`   | `number` | Yes      | The width of the blank frame.                            |
 | `height`  | `number` | Yes      | The height of the blank frame.                           |
 
-### Blank Objects
+#### Examples
 
-<details>
-<summary>**Examples**</summary>
     <details>
         <summary>**Blank Frame**</summary>
             ```json
@@ -143,7 +137,8 @@ All drawable JSON objects include the following core attributes, unless explicit
             }
             ```
     </details>
-</details>
+
+### Blank Objects
 
 | Attribute | Type     | Required | Description                                         |
 | --------- | -------- | -------- | --------------------------------------------------- |
@@ -151,8 +146,8 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `width`   | `number` | Yes      | The width of the blank object.                      |
 | `height`  | `number` | Yes      | The height of the blank object.                     |
 
-<details>
-<summary>**Examples**</summary>
+#### Examples
+
     <details>
         <summary>**Blank Object**</summary>
             ```json
@@ -163,7 +158,6 @@ All drawable JSON objects include the following core attributes, unless explicit
             }
             ```
     </details>
-</details>
 
 ### Lists
 
@@ -176,8 +170,8 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `x`, `y`       | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.   |
 | `style`        | `object` or `array` | No       | Custom visual styling.                                                    |
 
-<details>
-<summary>**Examples**</summary>
+#### Examples
+
     <details>
         <summary>**List with blank boxes**</summary>
             ```json
@@ -201,7 +195,6 @@ All drawable JSON objects include the following core attributes, unless explicit
             ```
             ![Example List with Indices](images/diagram_format_md/list_with_indices.svg)
     </details>
-</details>
 
 ### Tuples
 
@@ -214,8 +207,8 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `x`, `y`       | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.   |
 | `style`        | `object` or `array` | No       | Custom visual styling.                                                    |
 
-<details>
-<summary>**Examples**</summary>
+#### Examples
+
     <details>
         <summary>**Tuple with blank boxes**</summary>
             ```json
@@ -238,8 +231,7 @@ All drawable JSON objects include the following core attributes, unless explicit
             }
             ```
             ![Example Tuple with Indices](images/diagram_format_md/tuple_with_indices.svg)
-    </details>    
-</details>
+    </details>
 
 ### Sets
 
@@ -251,8 +243,8 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled. |
 | `style`   | `object` or `array` | No       | Custom visual styling.                                                  |
 
-<details>
-<summary>**Examples**</summary>
+#### Examples
+
     <details>
         <summary>**Set with blank boxes**</summary>
             ```json
@@ -264,7 +256,6 @@ All drawable JSON objects include the following core attributes, unless explicit
             ```
             ![Example Set](images/diagram_format_md/set_blank_boxes.svg)
     </details>
-</details>
 
 ### Dictionaries
 
@@ -276,8 +267,8 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                             |
 | `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                              |
 
-<details>
-<summary>**Examples**</summary>
+#### Examples
+
     <details>
         <summary>**Dictionary with blank boxes**</summary>
             ```json
@@ -293,7 +284,6 @@ All drawable JSON objects include the following core attributes, unless explicit
             ```
             ![Example Dictionary](images/diagram_format_md/dict_blank_boxes.svg)
     </details>
-</details>
 
 ### Primitives
 
@@ -305,8 +295,8 @@ All drawable JSON objects include the following core attributes, unless explicit
 | `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                             |
 | `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                              |
 
-<details>
-<summary>**Examples**</summary>
+#### Examples
+
     <details>
         <summary>**Integer**</summary>
             ```json
@@ -384,7 +374,6 @@ All drawable JSON objects include the following core attributes, unless explicit
             ```
             ![Example NoneType](images/diagram_format_md/nonetype.svg)
     </details>
-</details>
 
 [//]: # "# Structure of `objects` argument in `draw` function"
 [//]: #
