@@ -20,6 +20,8 @@ const REQUIRED_DISPLAY_PROPERTIES: (keyof DisplaySettings)[] = [
     "right_margin",
 ];
 
+const DEFAULT_PADDING = 25;
+
 function drawAutomated(
     objects: DrawnEntity[],
     width: number | undefined,
@@ -41,7 +43,8 @@ function drawAutomated(
         }
     }
 
-    min_width += requiredWidth + 2 * (configuration.padding ?? 25) + 1;
+    min_width +=
+        requiredWidth + 2 * (configuration.padding ?? DEFAULT_PADDING) + 1;
 
     if (width !== undefined && width < min_width) {
         console.warn(
@@ -103,7 +106,7 @@ function drawAutomatedStackFrames(
         }
     }
 
-    let min_required_height = configuration.top_margin ?? 25;
+    let min_required_height = configuration.top_margin ?? DEFAULT_PADDING;
 
     let required_width = 0;
 
@@ -175,7 +178,7 @@ function drawAutomatedOtherItems(
         }
     }
 
-    const PADDING = config_aut.padding ?? 25;
+    const PADDING = config_aut.padding ?? DEFAULT_PADDING;
 
     // The object space begins where the stackframe column ends (plus padding).
     if (sf_endpoint === undefined) {
@@ -223,7 +226,7 @@ function drawAutomatedOtherItems(
     }
 
     let x_coord = START_X;
-    let y_coord = config_aut.top_margin ?? 25;
+    let y_coord = config_aut.top_margin ?? DEFAULT_PADDING;
 
     // Once a row is occupied, we must establish its height to determine the y-coordinate of the next row's boxes.
     let row_height: number;
@@ -281,11 +284,11 @@ function drawAutomatedOtherItems(
     const canvas_width =
         right_most_obj.x! +
         right_most_obj.width! +
-        (config_aut.right_margin ?? 25);
+        (config_aut.right_margin ?? DEFAULT_PADDING);
     const canvas_height =
         down_most_obj.y! +
         down_most_obj.height! +
-        (config_aut.bottom_margin ?? 25);
+        (config_aut.bottom_margin ?? DEFAULT_PADDING);
 
     // Additional -- to extend the program for the .blank option.
     const objs_filtered = objs.filter((item) => {
