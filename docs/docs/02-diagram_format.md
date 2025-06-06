@@ -52,40 +52,40 @@ All drawable JSON objects include the following core attributes, unless explicit
 
 #### Examples
 
-    <details>
-        <summary>**Main Stack Frame**</summary>
-            ```json
-            {
-                "type": ".frame",
-                "name": "__main__",
-                "id": null,
-                "value": {
-                    "lst1": 82,
-                    "lst2": 84,
-                    "p": 99,
-                    "d": 10,
-                    "t": 11
-                }
+<details>
+    <summary>**Main Stack Frame**</summary>
+        ```json
+        {
+            "type": ".frame",
+            "name": "__main__",
+            "id": null,
+            "value": {
+                "lst1": 82,
+                "lst2": 84,
+                "p": 99,
+                "d": 10,
+                "t": 11
             }
-            ```
-            ![Example Main Stack Frame](images/diagram_format_md/stack_frame_main.svg)
-    </details>
-    <details>
-        <summary>**Function Stack Frame with blank boxes**</summary>
-            ```json
-            {
-                "type": ".frame",
-                "name": "func",
-                "id": null,
-                "value": {
-                    "age": 12,
-                    "name": 17,
-                    "": null
-                }
+        }
+        ```
+        ![Example Main Stack Frame](images/diagram_format_md/stack_frame_main.svg)
+</details>
+<details>
+    <summary>**Function Stack Frame with blank boxes**</summary>
+        ```json
+        {
+            "type": ".frame",
+            "name": "func",
+            "id": null,
+            "value": {
+                "age": 12,
+                "name": 17,
+                "": null
             }
-            ```
-            ![Example Function Stack Frame](images/diagram_format_md/stack_frame_function.svg)
-    </details>
+        }
+        ```
+        ![Example Function Stack Frame](images/diagram_format_md/stack_frame_function.svg)
+</details>
 
 ### Classes
 
@@ -100,22 +100,22 @@ All drawable JSON objects include the following core attributes, unless explicit
 
 #### Examples
 
-    <details>
-        <summary>**Class with blank boxes**</summary>
-            ```json
-            {
-                "type": ".class",
-                "id": 82,
-                "name": "Person",
-                "value": {
-                    "age": 12,
-                    "name": 17,
-                    "": null
-                }
+<details>
+    <summary>**Class with blank boxes**</summary>
+        ```json
+        {
+            "type": ".class",
+            "id": 82,
+            "name": "Person",
+            "value": {
+                "age": 12,
+                "name": 17,
+                "": null
             }
-            ```
-            ![Example Class](images/diagram_format_md/class_blank_boxes.svg)
-    </details>
+        }
+        ```
+        ![Example Class](images/diagram_format_md/class_blank_boxes.svg)
+</details>
 
 ### Blank Frames
 
@@ -127,16 +127,16 @@ All drawable JSON objects include the following core attributes, unless explicit
 
 #### Examples
 
-    <details>
-        <summary>**Blank Frame**</summary>
-            ```json
-            {
-                "type": ".blank-frame",
-                "width": 200,
-                "height": 100
-            }
-            ```
-    </details>
+<details>
+    <summary>**Blank Frame**</summary>
+        ```json
+        {
+            "type": ".blank-frame",
+            "width": 200,
+            "height": 100
+        }
+        ```
+</details>
 
 ### Blank Objects
 
@@ -148,16 +148,16 @@ All drawable JSON objects include the following core attributes, unless explicit
 
 #### Examples
 
-    <details>
-        <summary>**Blank Object**</summary>
-            ```json
-            {
-                "type": ".blank",
-                "width": 200,
-                "height": 100
-            }
-            ```
-    </details>
+<details>
+    <summary>**Blank Object**</summary>
+        ```json
+        {
+            "type": ".blank",
+            "width": 200,
+            "height": 100
+        }
+        ```
+</details>
 
 ### Lists
 
@@ -172,29 +172,29 @@ All drawable JSON objects include the following core attributes, unless explicit
 
 #### Examples
 
-    <details>
-        <summary>**List with blank boxes**</summary>
-            ```json
-            {
-                "type": "list",
-                "id": 82,
-                "value": [19, 43, null, 49]
-            }
-            ```
-            ![Example List](images/diagram_format_md/list_blank_boxes.svg)
-    </details>
-    <details>
-        <summary>**List with indices shown**</summary>
-            ```json
-            {
-                "type": "list",
-                "id": 84,
-                "value": [32, 10, 90, 57],
-                "show_indexes": true
-            }
-            ```
-            ![Example List with Indices](images/diagram_format_md/list_with_indices.svg)
-    </details>
+<details>
+    <summary>**List with blank boxes**</summary>
+        ```json
+        {
+            "type": "list",
+            "id": 82,
+            "value": [19, 43, null, 49]
+        }
+        ```
+        ![Example List](images/diagram_format_md/list_blank_boxes.svg)
+</details>
+<details>
+    <summary>**List with indices shown**</summary>
+        ```json
+        {
+            "type": "list",
+            "id": 84,
+            "value": [32, 10, 90, 57],
+            "show_indexes": true
+        }
+        ```
+        ![Example List with Indices](images/diagram_format_md/list_with_indices.svg)
+</details>
 
 ### Tuples
 
@@ -209,29 +209,29 @@ All drawable JSON objects include the following core attributes, unless explicit
 
 #### Examples
 
-    <details>
-        <summary>**Tuple with blank boxes**</summary>
-            ```json
-            {
-                "type": "tuple",
-                "id": 11,
-                "value": [82, 76, null]
-            }
-            ```
-            ![Example Tuple](images/diagram_format_md/tuple_blank_boxes.svg)
-    </details>
-    <details>
-    <summary>**Tuple with indices shown**</summary>
-            ```json
-            {
-                "type": "tuple",
-                "id": 11,
-                "value": [82, 76, null],
-                "show_indexes": true
-            }
-            ```
-            ![Example Tuple with Indices](images/diagram_format_md/tuple_with_indices.svg)
-    </details>
+<details>
+    <summary>**Tuple with blank boxes**</summary>
+        ```json
+        {
+            "type": "tuple",
+            "id": 11,
+            "value": [82, 76, null]
+        }
+        ```
+        ![Example Tuple](images/diagram_format_md/tuple_blank_boxes.svg)
+</details>
+<details>
+<summary>**Tuple with indices shown**</summary>
+        ```json
+        {
+            "type": "tuple",
+            "id": 11,
+            "value": [82, 76, null],
+            "show_indexes": true
+        }
+        ```
+        ![Example Tuple with Indices](images/diagram_format_md/tuple_with_indices.svg)
+</details>
 
 ### Sets
 
@@ -245,17 +245,17 @@ All drawable JSON objects include the following core attributes, unless explicit
 
 #### Examples
 
-    <details>
-        <summary>**Set with blank boxes**</summary>
-            ```json
-            {
-                "type": "set",
-                "id": 90,
-                "value": [36, 49, null, 64]
-            }
-            ```
-            ![Example Set](images/diagram_format_md/set_blank_boxes.svg)
-    </details>
+<details>
+    <summary>**Set with blank boxes**</summary>
+        ```json
+        {
+            "type": "set",
+            "id": 90,
+            "value": [36, 49, null, 64]
+        }
+        ```
+        ![Example Set](images/diagram_format_md/set_blank_boxes.svg)
+</details>
 
 ### Dictionaries
 
@@ -269,21 +269,21 @@ All drawable JSON objects include the following core attributes, unless explicit
 
 #### Examples
 
-    <details>
-        <summary>**Dictionary with blank boxes**</summary>
-            ```json
-            {
-                "type": "dict",
-                "id": 10,
-                "value": {
-                    "": 81,
-                    "y": null,
-                    "z": 12
-                }
+<details>
+    <summary>**Dictionary with blank boxes**</summary>
+        ```json
+        {
+            "type": "dict",
+            "id": 10,
+            "value": {
+                "": 81,
+                "y": null,
+                "z": 12
             }
-            ```
-            ![Example Dictionary](images/diagram_format_md/dict_blank_boxes.svg)
-    </details>
+        }
+        ```
+        ![Example Dictionary](images/diagram_format_md/dict_blank_boxes.svg)
+</details>
 
 ### Primitives
 
@@ -297,80 +297,80 @@ All drawable JSON objects include the following core attributes, unless explicit
 
 #### Examples
 
-    <details>
-        <summary>**Integer**</summary>
-            ```json
-            {
-                "type": "int",
-                "id": 19,
-                "value": 124
-            }
-            ```
-            ![Example Integer](images/diagram_format_md/int.svg)
-    </details>
-    <details>
-        <summary>**Blank Integer**</summary>
-            ```json
-            {
-                "type": "int",
-                "id": 19,
-                "value": ""
-            }
-            ```
-            ![Example Blank Integer](images/diagram_format_md/int_blank.svg)
-    </details>
-    <details>
-        <summary>**String**</summary>
-            ```json
-            {
-                "type": "str",
-                "id": 43,
-                "value": "David is cool"
-            }
-            ```
-            ![Example String](images/diagram_format_md/str.svg)
-    </details>
-    <details>
-        <summary>**Boolean**</summary>
-            ```json
-            {
-                "type": "bool",
-                "id": 32,
-                "value": true
-            }
-            ```
-            ![Example Boolean](images/diagram_format_md/bool.svg)
-    </details>
-    <details>
-        <summary>**Float**</summary>
-            ```json
-            {
-                "type": "float",
-                "id": 76,
-                "value": 3.14
-            }
-            ```
-            ![Example Float](images/diagram_format_md/float.svg)
-    </details>
-    <details>
-        <summary>**Blank Float**</summary>
-            ```json
-            {
-                "type": "float",
-                "id": 76,
-                "value": ""
-            }
-            ```
-            ![Example Blank Float](images/diagram_format_md/float_blank.svg)
-    </details>
-    <details>
-        <summary>**NoneType**</summary>
-            ```json
-            {
-                "type": "None",
-                "id": 0,
-                "value": "None"
-            }
-            ```
-            ![Example NoneType](images/diagram_format_md/nonetype.svg)
-    </details>
+<details>
+    <summary>**Integer**</summary>
+        ```json
+        {
+            "type": "int",
+            "id": 19,
+            "value": 124
+        }
+        ```
+        ![Example Integer](images/diagram_format_md/int.svg)
+</details>
+<details>
+    <summary>**Blank Integer**</summary>
+        ```json
+        {
+            "type": "int",
+            "id": 19,
+            "value": ""
+        }
+        ```
+        ![Example Blank Integer](images/diagram_format_md/int_blank.svg)
+</details>
+<details>
+    <summary>**String**</summary>
+        ```json
+        {
+            "type": "str",
+            "id": 43,
+            "value": "David is cool"
+        }
+        ```
+        ![Example String](images/diagram_format_md/str.svg)
+</details>
+<details>
+    <summary>**Boolean**</summary>
+        ```json
+        {
+            "type": "bool",
+            "id": 32,
+            "value": true
+        }
+        ```
+        ![Example Boolean](images/diagram_format_md/bool.svg)
+</details>
+<details>
+    <summary>**Float**</summary>
+        ```json
+        {
+            "type": "float",
+            "id": 76,
+            "value": 3.14
+        }
+        ```
+        ![Example Float](images/diagram_format_md/float.svg)
+</details>
+<details>
+    <summary>**Blank Float**</summary>
+        ```json
+        {
+            "type": "float",
+            "id": 76,
+            "value": ""
+        }
+        ```
+        ![Example Blank Float](images/diagram_format_md/float_blank.svg)
+</details>
+<details>
+    <summary>**NoneType**</summary>
+        ```json
+        {
+            "type": "None",
+            "id": 0,
+            "value": "None"
+        }
+        ```
+        ![Example NoneType](images/diagram_format_md/nonetype.svg)
+</details>
