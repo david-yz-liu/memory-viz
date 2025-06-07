@@ -88,9 +88,7 @@ export class MemoryModel {
             "height",
             options.height ? options.height.toString() : "800"
         );
-        this.roughjs_config = options.roughjs_config ?? {
-            options: { seed: 12345 },
-        };
+        this.roughjs_config = options.roughjs_config ?? {};
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
 
         setStyleSheet(this);
@@ -125,7 +123,9 @@ export class MemoryModel {
             console.log(xml);
         } else {
             if (!fs) {
-                throw new Error("fs module not available in this environment.");
+                throw new Error(
+                    `Could not load path ${path} in this environment.`
+                );
             }
             fs.writeFile(path, xml, (err: Error) => {
                 if (err) {
@@ -181,15 +181,11 @@ export class MemoryModel {
         type: string,
         id: number,
         value: object | number[] | string | boolean | null,
-        show_indexes: boolean,
+        show_indexes: boolean = false,
         style: Style
     ): Rect {
         if (collections.includes(type)) {
-            if (
-                type === "dict" &&
-                typeof value === "object" &&
-                value !== null
-            ) {
+            if (type === "dict" && typeof value === "object") {
                 return this.drawDict(x, y, id, value, style);
             } else if (
                 type === "set" &&
@@ -595,7 +591,7 @@ export class MemoryModel {
         x: number,
         y: number,
         id: number,
-        obj: { [key: string]: any },
+        obj: { [key: string]: any } | null,
         style: Style
     ): Rect {
         let box_width = this.obj_min_width;
@@ -944,10 +940,10 @@ export class MemoryModel {
                 let is_frame = frame_types.includes(obj.type!);
 
                 const size = this.drawClass(
-                    obj.x!,
-                    obj.y!,
-                    obj.name!,
-                    obj.id!,
+                    obj.x,
+                    obj.y,
+                    obj.name,
+                    obj.id,
                     obj.value,
                     is_frame,
                     obj.style
@@ -955,12 +951,12 @@ export class MemoryModel {
                 sizes_arr.push(size);
             } else {
                 const size = this.drawObject(
-                    obj.x!,
-                    obj.y!,
-                    obj.type!,
-                    obj.id!,
+                    obj.x,
+                    obj.y,
+                    obj.type,
+                    obj.id,
                     obj.value,
-                    obj.show_indexes!,
+                    obj.show_indexes,
                     obj.style
                 );
                 sizes_arr.push(size);
