@@ -176,39 +176,41 @@ export class MemoryModel {
      * the SVG documentation. For the styling options in terms of boxes, refer to the Rough.js documentation.
      */
     drawObject(
-        x: number,
-        y: number,
-        type: string,
-        id: number,
+        x: number | undefined = 0,
+        y: number | undefined = 0,
+        type: string | undefined,
+        id: number | undefined = 0,
         value: object | number[] | string | boolean | null,
         show_indexes: boolean = false,
         style: Style
     ): Rect {
-        if (collections.includes(type)) {
-            if (type === "dict" && typeof value === "object") {
-                return this.drawDict(x, y, id, value, style);
-            } else if (
-                type === "set" &&
-                isArrayOfNullableType<number>(value, "number")
-            ) {
-                return this.drawSet(x, y, id, value, style);
-            } else if (
-                (type === "list" || type === "tuple") &&
-                isArrayOfNullableType<number>(value, "number")
-            ) {
-                return this.drawSequence(
-                    x,
-                    y,
-                    type,
-                    id,
-                    value,
-                    show_indexes,
-                    style
-                );
-            }
-        } else {
-            if (typeof value !== "object") {
-                return this.drawPrimitive(x, y, type, id, value, style);
+        if (type !== undefined) {
+            if (collections.includes(type)) {
+                if (type === "dict" && typeof value === "object") {
+                    return this.drawDict(x, y, id, value, style);
+                } else if (
+                    type === "set" &&
+                    isArrayOfNullableType<number>(value, "number")
+                ) {
+                    return this.drawSet(x, y, id, value, style);
+                } else if (
+                    (type === "list" || type === "tuple") &&
+                    isArrayOfNullableType<number>(value, "number")
+                ) {
+                    return this.drawSequence(
+                        x,
+                        y,
+                        type,
+                        id,
+                        value,
+                        show_indexes,
+                        style
+                    );
+                }
+            } else {
+                if (typeof value !== "object") {
+                    return this.drawPrimitive(x, y, type, id, value, style);
+                }
             }
         }
         throw new Error(
@@ -698,10 +700,10 @@ export class MemoryModel {
      * @returns the top-left coordinates, width, and height of the outermost box
      */
     drawClass(
-        x: number,
-        y: number,
-        name: string,
-        id: number,
+        x: number | undefined = 0,
+        y: number | undefined = 0,
+        name: string | undefined = "",
+        id: number | undefined = 0,
         attributes: { [key: string]: any },
         stack_frame: boolean,
         style: Style
@@ -943,7 +945,7 @@ export class MemoryModel {
                     obj.x,
                     obj.y,
                     obj.name,
-                    obj.id,
+                    obj.id ?? 0,
                     obj.value,
                     is_frame,
                     obj.style
@@ -954,7 +956,7 @@ export class MemoryModel {
                     obj.x,
                     obj.y,
                     obj.type,
-                    obj.id,
+                    obj.id ?? 0,
                     obj.value,
                     obj.show_indexes,
                     obj.style
