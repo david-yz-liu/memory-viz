@@ -1,8 +1,8 @@
 ---
-title: Entity Specification
+title: MemoryViz Entity Specification
 ---
 
-# Specification of `objects` argument in `draw` function
+# MemoryViz Entity Specification
 
 > :warning: Dark mode may make example images harder to see.
 
@@ -11,15 +11,15 @@ This page documents the attributes of the `DrawnEntity` object type and provides
 
 ## Core Attributes
 
-All drawable JSON objects include the following core attributes, unless explicitly stated otherwise:
+All supported entities include the following core attributes, unless explicitly stated otherwise:
 
-| Attribute | Type                | Required | Description                                                                                                                             |
-| :-------- | :------------------ | :------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`    | `string`            | Yes      | Specifies the type of object to be drawn. (e.g., `.class`, `.frame`, `int`, `str`). See [Object Types](#object-types) for more details. |
-| `id`      | `number` or `null`  | Yes      | A unique identifier for the object. May be `null` anywhere to render a blank ID box.                                                    |
-| `value`   | `any`               | Yes      | The content of the object to be drawn. Format depends on the [object type](#object-types).                                              |
-| `x`, `y`  | `number`            | No       | The x and y coordinates for the object on the canvas. Required only if the `automation` parameter of `draw` is `false`.                 |
-| `style`   | `object` or `array` | No       | Custom visual styling. See [Style API](04-style.md) for more details.                                                                   |
+| Attribute | Type                | Required | Description                                                                                                                           |
+| :-------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`    | `string`            | Yes      | Specifies the type of object to be drawn. (e.g., `.class`, `.frame`, `int`, `str`). See [Entity Type](#entity-type) for more details. |
+| `id`      | `number` or `null`  | Yes      | A unique identifier for the object. May be `null` anywhere to render a blank ID box.                                                  |
+| `value`   | `any`               | Yes      | The content of the object to be drawn. Format depends on the [entity type](#entity-type).                                             |
+| `x`, `y`  | `number`            | No       | The x and y coordinates for the object on the canvas. Required only if the `automation` parameter of `draw` is `false`.               |
+| `style`   | `object` or `array` | No       | Custom visual styling. See [Style API](04-style.md) for more details.                                                                 |
 
 ### Entity Type
 
