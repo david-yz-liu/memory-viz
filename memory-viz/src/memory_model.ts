@@ -176,41 +176,40 @@ export class MemoryModel {
      * the SVG documentation. For the styling options in terms of boxes, refer to the Rough.js documentation.
      */
     drawObject(
-        x: number | undefined = 0,
-        y: number | undefined = 0,
-        type: string | undefined,
-        id: number | undefined = 0,
+        x: number,
+        y: number,
+        type: string,
+        id: number | undefined | null,
         value: object | number[] | string | boolean | null,
         show_indexes: boolean = false,
         style: Style
     ): Rect {
-        if (type !== undefined) {
-            if (collections.includes(type)) {
-                if (type === "dict" && typeof value === "object") {
-                    return this.drawDict(x, y, id, value, style);
-                } else if (
-                    type === "set" &&
-                    isArrayOfNullableType<number>(value, "number")
-                ) {
-                    return this.drawSet(x, y, id, value, style);
-                } else if (
-                    (type === "list" || type === "tuple") &&
-                    isArrayOfNullableType<number>(value, "number")
-                ) {
-                    return this.drawSequence(
-                        x,
-                        y,
-                        type,
-                        id,
-                        value,
-                        show_indexes,
-                        style
-                    );
-                }
-            } else {
-                if (typeof value !== "object") {
-                    return this.drawPrimitive(x, y, type, id, value, style);
-                }
+        id = id ?? null;
+        if (collections.includes(type)) {
+            if (type === "dict" && typeof value === "object") {
+                return this.drawDict(x, y, id, value, style);
+            } else if (
+                type === "set" &&
+                isArrayOfNullableType<number>(value, "number")
+            ) {
+                return this.drawSet(x, y, id, value, style);
+            } else if (
+                (type === "list" || type === "tuple") &&
+                isArrayOfNullableType<number>(value, "number")
+            ) {
+                return this.drawSequence(
+                    x,
+                    y,
+                    type,
+                    id,
+                    value,
+                    show_indexes,
+                    style
+                );
+            }
+        } else {
+            if (typeof value !== "object") {
+                return this.drawPrimitive(x, y, type, id, value, style);
             }
         }
         throw new Error(
@@ -233,7 +232,7 @@ export class MemoryModel {
         x: number,
         y: number,
         type: string,
-        id: number,
+        id: number | null,
         value: Primitive,
         style: Style
     ): Rect {
@@ -311,7 +310,7 @@ export class MemoryModel {
      * boxes, refer to the Rough.js documentation.
      */
     drawProperties(
-        id: number,
+        id: number | null,
         type: string,
         x: number,
         y: number,
@@ -387,7 +386,7 @@ export class MemoryModel {
         x: number,
         y: number,
         type: string,
-        id: number,
+        id: number | null,
         element_ids: (number | null)[],
         show_idx: boolean,
         style: Style
@@ -492,7 +491,7 @@ export class MemoryModel {
     drawSet(
         x: number,
         y: number,
-        id: number,
+        id: number | null,
         element_ids: (number | null)[],
         style: Style
     ): Rect {
@@ -592,7 +591,7 @@ export class MemoryModel {
     drawDict(
         x: number,
         y: number,
-        id: number,
+        id: number | null,
         obj: { [key: string]: any } | null,
         style: Style
     ): Rect {
@@ -700,14 +699,15 @@ export class MemoryModel {
      * @returns the top-left coordinates, width, and height of the outermost box
      */
     drawClass(
-        x: number | undefined = 0,
-        y: number | undefined = 0,
-        name: string | undefined = "",
-        id: number | undefined = 0,
+        x: number,
+        y: number,
+        name: string,
+        id: number | undefined | null,
         attributes: { [key: string]: any },
         stack_frame: boolean,
         style: Style
     ): Rect {
+        id = id ?? null;
         let box_width = this.obj_min_width;
         let longest = 0;
         for (const attribute in attributes) {
@@ -942,10 +942,10 @@ export class MemoryModel {
                 let is_frame = frame_types.includes(obj.type!);
 
                 const size = this.drawClass(
-                    obj.x,
-                    obj.y,
-                    obj.name,
-                    obj.id ?? 0,
+                    obj.x!,
+                    obj.y!,
+                    obj.name!,
+                    obj.id,
                     obj.value,
                     is_frame,
                     obj.style
@@ -953,10 +953,10 @@ export class MemoryModel {
                 sizes_arr.push(size);
             } else {
                 const size = this.drawObject(
-                    obj.x,
-                    obj.y,
-                    obj.type,
-                    obj.id ?? 0,
+                    obj.x!,
+                    obj.y!,
+                    obj.type!,
+                    obj.id,
                     obj.value,
                     obj.show_indexes,
                     obj.style
