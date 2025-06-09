@@ -184,7 +184,9 @@ export class MemoryModel {
         show_indexes: boolean = false,
         style: Style
     ): Rect {
-        id = id ?? null;
+        if (id === undefined) {
+            id = null;
+        }
         if (collections.includes(type)) {
             if (type === "dict" && typeof value === "object") {
                 return this.drawDict(x, y, id, value, style);
@@ -707,7 +709,9 @@ export class MemoryModel {
         stack_frame: boolean,
         style: Style
     ): Rect {
-        id = id ?? null;
+        if (id === undefined) {
+            id = null;
+        }
         let box_width = this.obj_min_width;
         let longest = 0;
         for (const attribute in attributes) {
