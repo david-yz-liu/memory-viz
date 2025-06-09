@@ -191,7 +191,7 @@ function drawAutomatedOtherItems(
             item.type === ".blank" &&
             (item.width === undefined || item.height === undefined)
         ) {
-            console.log(
+            console.warn(
                 "WARNING :: An object with type='.blank' or '.blank-frame' exists with missing dimension information " +
                     "(either the width or the height is missing). This object will be omitted in the memory model" +
                     " diagram."
