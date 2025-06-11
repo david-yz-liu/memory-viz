@@ -588,7 +588,6 @@ export class MemoryModel {
         let box_width = this.obj_min_width;
         let box_height = this.prop_min_height + this.item_min_height / 2;
 
-        let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
             let idk = k.trim() === "" ? "" : `id${k}`;
             let idv = obj[k] === null ? "" : `id${obj[k]}`;
@@ -600,6 +599,31 @@ export class MemoryModel {
             let value_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv + 5, style.text_value)
+            );
+
+            box_width = Math.max(
+                box_width,
+                this.obj_x_padding * 2 +
+                    key_box +
+                    value_box +
+                    2 * this.font_size
+            );
+            box_height += 1.5 * this.item_min_height;
+        }
+
+        this.drawRect(x, y, box_width, box_height, style.box_container);
+
+        const SIZE: Rect = { x, y, width: box_width, height: box_height };
+
+        let curr_y = y + this.prop_min_height + this.item_min_height / 2;
+
+        // First loop, to draw the key boxes
+        for (const k in obj) {
+            let idk = k.trim() === "" ? "" : `id${k}`;
+
+            let key_box = Math.max(
+                this.item_min_width,
+                this.getTextLength(idk + 5, style.text_id)
             );
 
             // Draw the rectangles representing the keys.
@@ -619,19 +643,7 @@ export class MemoryModel {
             );
 
             curr_y += this.item_min_height * 1.5;
-
-            box_width = Math.max(
-                box_width,
-                this.obj_x_padding * 2 +
-                    key_box +
-                    value_box +
-                    2 * this.font_size
-            );
-            box_height += 1.5 * this.item_min_height;
         }
-
-        this.drawRect(x, y, box_width, box_height, style.box_container);
-        const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
         // A second loop, so that we can position the colon and value boxes correctly.
         curr_y = y + this.prop_min_height + this.item_min_height / 2;
