@@ -703,7 +703,7 @@ export class MemoryModel {
     drawClass(
         x: number,
         y: number,
-        name: string,
+        name: string | undefined | null,
         id: number | undefined | null,
         attributes: { [key: string]: any },
         stack_frame: boolean,
@@ -712,6 +712,10 @@ export class MemoryModel {
         if (id === undefined) {
             id = null;
         }
+        if (name === undefined || name === null) {
+            name = "";
+        }
+
         let box_width = this.obj_min_width;
         let longest = 0;
         for (const attribute in attributes) {
@@ -948,7 +952,7 @@ export class MemoryModel {
                 const size = this.drawClass(
                     obj.x!,
                     obj.y!,
-                    obj.name!,
+                    obj.name,
                     obj.id,
                     obj.value,
                     is_frame,
@@ -981,6 +985,7 @@ export class MemoryModel {
         configuration: Partial<DisplaySettings>,
         snapshotObjects: DrawnEntity[]
     ): Size {
+        // Dynamically determining the width of the canvas, in case one has not been provided.
         const size = {} as Size;
 
         if (configuration.hasOwnProperty("width")) {
@@ -1000,6 +1005,7 @@ export class MemoryModel {
             size.width = rightmost_edge + 100;
         }
 
+        // Dynamically determining the height of the canvas, in case one has not been provided.
         if (configuration.hasOwnProperty("height")) {
             size.height = configuration.height!;
         } else {
