@@ -1,8 +1,8 @@
 ---
-title: MemoryViz Entity Specification
+title: Entity Specification
 ---
 
-# MemoryViz Entity Specification
+# Entity Specification
 
 > :warning: Dark mode may make example images harder to see.
 
@@ -35,13 +35,13 @@ All supported entities include the following core attributes, unless explicitly 
 
 ## Primitives
 
-| Attribute | Type                | Required | Description                                                                                                                                         |
-| :-------- | :------------------ | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`    | `string`            | Yes      | Must be set to one of `int`, `str`, `bool`, `float`, or `None` to indicate a primitive object.                                                      |
-| `id`      | `number`            | Yes      | Unique identifier for the primitive object.                                                                                                         |
-| `value`   | `any`               | Yes      | The actual value represented by the primitive object. For types `int` and `float`, the value may be an empty string (`""`) to render a blank space. |
-| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                             |
-| `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                              |
+| Attribute | Type                | Required | Description                                                                                                                                                    |
+| :-------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`    | `string`            | Yes      | Must be set to one of `int`, `str`, `bool`, `float`, or `None` to indicate a primitive object.                                                                 |
+| `id`      | `number`            | Yes      | Unique identifier for the primitive object.                                                                                                                    |
+| `value`   | `any`               | Yes      | The actual value represented by the primitive object. For types `int` and `float`, the value may be an empty or all-whitespace string to render a blank space. |
+| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                        |
+| `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                                         |
 
 #### Examples
 
@@ -209,13 +209,13 @@ All supported entities include the following core attributes, unless explicitly 
 
 ## Dictionaries
 
-| Attribute | Type                | Required | Description                                                                                                                                                    |
-| :-------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`    | `string`            | Yes      | Must be set to `dict` to indicate a dictionary object.                                                                                                         |
-| `id`      | `number`            | Yes      | Unique identifier for the dictionary.                                                                                                                          |
-| `value`   | `dict`              | Yes      | Dictionary of `string` object id keys to `int` object id value pairs. Keys can be made empty strings (`""`) and values can be made `null` to draw blank boxes. |
-| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                        |
-| `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                                         |
+| Attribute | Type                | Required | Description                                                                                                                                                               |
+| :-------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`    | `string`            | Yes      | Must be set to `dict` to indicate a dictionary object.                                                                                                                    |
+| `id`      | `number`            | Yes      | Unique identifier for the dictionary.                                                                                                                                     |
+| `value`   | `dict`              | Yes      | Dictionary of `string` object id keys to `int` object id value pairs. Keys can be made empty or all-whitespace strings and values can be made `null` to draw blank boxes. |
+| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                   |
+| `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                                                    |
 
 #### Examples
 
@@ -237,14 +237,14 @@ All supported entities include the following core attributes, unless explicitly 
 
 ## Classes
 
-| Attribute | Type                | Required | Description                                                                                                                                                                           |
-| :-------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `type`    | `string`            | Yes      | Must be set to `.class` to indicate a class object.                                                                                                                                   |
-| `id`      | `number`            | Yes      | Unique identifier for the class object.                                                                                                                                               |
-| `name`    | `string`            | Yes      | The name of the class being drawn.                                                                                                                                                    |
-| `value`   | `object`            | Yes      | A mapping of attribute names (as keys) to object IDs (as values). Attribute names may be empty strings (`""`) and attribute values may be `null` to render blank boxes, respectively. |
-| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                               |
-| `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                                                                |
+| Attribute | Type                | Required | Description                                                                                                                                                                                      |
+| :-------- | :------------------ | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`    | `string`            | Yes      | Must be set to `.class` to indicate a class object.                                                                                                                                              |
+| `id`      | `number`            | Yes      | Unique identifier for the class object.                                                                                                                                                          |
+| `name`    | `string`            | Yes      | The name of the class being drawn.                                                                                                                                                               |
+| `value`   | `object`            | Yes      | A mapping of attribute names (as keys) to object IDs (as values). Attribute names may be empty or all-whitespace strings and attribute values may be `null` to render blank boxes, respectively. |
+| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                                          |
+| `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                                                                           |
 
 #### Examples
 
@@ -267,14 +267,14 @@ All supported entities include the following core attributes, unless explicitly 
 
 ## Stack Frames
 
-| Attribute | Type                | Required | Description                                                                                                                                                                                                                                        |
-| :-------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`    | `string`            | Yes      | Must be `.frame` to indicate a stack frame.                                                                                                                                                                                                        |
-| `id`      | `null`              | No       | Ignored for stack frames and not rendered regardless of value.                                                                                                                                                                                     |
-| `name`    | `string`            | Yes      | The name of the stack frame (e.g., `__main__`, `foo`)                                                                                                                                                                                              |
-| `value`   | `object`            | Yes      | A mapping of variable names (as keys) to object IDs (as values). These represent the local variables in the scope of the frame. Variable names may be empty strings (`""`) and attribute values may be `null` to render blank boxes, respectively. |
-| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                                                                                            |
-| `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                                                                                                                             |
+| Attribute | Type                | Required | Description                                                                                                                                                                                                                                                   |
+| :-------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`    | `string`            | Yes      | Must be `.frame` to indicate a stack frame.                                                                                                                                                                                                                   |
+| `id`      | `null`              | No       | Ignored for stack frames and not rendered regardless of value.                                                                                                                                                                                                |
+| `name`    | `string`            | Yes      | The name of the stack frame (e.g., `__main__`, `foo`)                                                                                                                                                                                                         |
+| `value`   | `object`            | Yes      | A mapping of variable names (as keys) to object IDs (as values). These represent the local variables in the scope of the frame. Variable names may be empty or all-whitespace strings and attribute values may be `null` to render blank boxes, respectively. |
+| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                                                                                                       |
+| `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                                                                                                                                        |
 
 #### Examples
 
