@@ -15,7 +15,11 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 📚 Documentation and demo website changes
 
+- Rewrote 02-object_structure.md documentation page and renamed as 02-entity_specification.md
+
 ### 🔧 Internal changes
+
+- Added Typescript support for "strictNullChecks" and refactored code accordingly
 
 ## [0.6.0] - 2025-05-24
 
