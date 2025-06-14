@@ -624,12 +624,10 @@ export class MemoryModel {
         }
 
         this.drawRect(x, y, box_width, box_height, style.box_container);
-
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
-        let curr_y = y + this.prop_min_height + this.item_min_height / 2;
-
         // First loop, to draw the key boxes
+        let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
             let idk = k.trim() === "" ? "" : `id${k}`;
 
