@@ -402,6 +402,30 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders dict with id and box having different colours", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 3,
+                value: {
+                    "0": 0,
+                    "1": 1,
+                    "2": 2,
+                },
+                style: {
+                    box_id: { fill: "black", fillStyle: "solid" },
+                    box_container: { fill: "green", fillStyle: "solid" },
+                },
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders an object with no type and no value", () => {
         const objects: DrawnEntity[] = [
             { type: "None", id: 13, value: "None" },
