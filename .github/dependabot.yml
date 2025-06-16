@@ -16,3 +16,12 @@ updates:
           mui:
               patterns:
                   - "@mui/*"
+          react:
+              patterns:
+                  - "react"
+                  - "react-dom"
+                  - "@types/react"
+                  - "@types/react-dom"
+          babel:
+              patterns:
+                  - "@babel/*"
