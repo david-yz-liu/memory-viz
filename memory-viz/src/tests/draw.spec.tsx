@@ -69,6 +69,46 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a bool with null value", () => {
+        const objects: DrawnEntity[] = [{ type: "bool", id: 10, value: null }];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders an int with null value", () => {
+        const objects: DrawnEntity[] = [{ type: "int", id: 10, value: null }];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a float with null value", () => {
+        const objects: DrawnEntity[] = [{ type: "float", id: 10, value: null }];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a str with null value", () => {
+        const objects: DrawnEntity[] = [{ type: "str", id: 10, value: null }];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders a set", () => {
         const objects: DrawnEntity[] = [
             { type: "set", id: 32, value: [10, 11, 12] },
