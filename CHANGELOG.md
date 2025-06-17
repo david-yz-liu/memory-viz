@@ -13,6 +13,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
+- Fixed bug where the box wouldn't render properly when value is null for primitive types
+
 ### 📚 Documentation and demo website changes
 
 - Rewrote 02-object_structure.md documentation page and renamed as 02-entity_specification.md
