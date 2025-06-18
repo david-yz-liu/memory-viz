@@ -35,7 +35,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 🐛 Bug fixes
 
 - Fixed bug where the keys of dictionaries disappear if box_container style sets a custom background colour
-- Fixed bug where demo site would freeze upon the user inputting any valid JSON but not valid Memory Models JSON
+- Fixed bug where demo site would freeze upon the user inputting any valid JSON but not valid Memory Models JSON, added a test case
 
 ### 📚 Documentation and demo website changes
 

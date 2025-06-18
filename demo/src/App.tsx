@@ -19,14 +19,12 @@ export default function App() {
     const [jsonResult, setJsonResult] = useState(null);
     const [svgResult, setSvgResult] = useState(null);
     const [failureBanner, setFailureBanner] = useState("");
-    const [errorBoundaryKey, setErrorBoundaryKey] = useState(0);
 
     const onTextDataSubmit = (event?) => {
         event?.preventDefault();
         try {
             setJsonResult(JSON.parse(textData));
             setFailureBanner("");
-            setErrorBoundaryKey((prev) => prev + 1);
         } catch (error) {
             const errorMessage = `Error parsing inputted JSON: ${error.message}`;
             console.error(errorMessage);
@@ -64,7 +62,7 @@ export default function App() {
                                 JSON. Please refer to the repo for more details.
                             </p>
                         }
-                        key={errorBoundaryKey}
+                        resetKeys={[jsonResult]}
                     >
                         <SvgDisplay
                             jsonResult={jsonResult}
