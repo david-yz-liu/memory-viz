@@ -210,7 +210,7 @@ export class MemoryModel {
                 );
             }
         } else {
-            if (typeof value !== "object") {
+            if (typeof value !== "object" || value === null) {
                 return this.drawPrimitive(x, y, type, id, value, style);
             }
         }

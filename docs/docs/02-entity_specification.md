@@ -35,13 +35,13 @@ All supported entities include the following core attributes, unless explicitly 
 
 ## Primitives
 
-| Attribute | Type                | Required | Description                                                                                                                                                    |
-| :-------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`    | `string`            | Yes      | Must be set to one of `int`, `str`, `bool`, `float`, or `None` to indicate a primitive object.                                                                 |
-| `id`      | `number`            | Yes      | Unique identifier for the primitive object.                                                                                                                    |
-| `value`   | `any`               | Yes      | The actual value represented by the primitive object. For types `int` and `float`, the value may be an empty or all-whitespace string to render a blank space. |
-| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                        |
-| `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                                                         |
+| Attribute | Type                | Required | Description                                                                                                               |
+| :-------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------ |
+| `type`    | `string`            | Yes      | Must be set to one of `int`, `str`, `bool`, `float`, or `None` to indicate a primitive object.                            |
+| `id`      | `number`            | Yes      | Unique identifier for the primitive object.                                                                               |
+| `value`   | `any`               | No       | The actual value represented by the primitive object. To render an empty box, set the value as `null` or don't define it. |
+| `x`, `y`  | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                   |
+| `style`   | `object` or `array` | No       | Custom visual styling.                                                                                                    |
 
 #### Examples
 
@@ -121,6 +121,17 @@ All supported entities include the following core attributes, unless explicitly 
         }
         ```
         ![Example None](images/entity_specification/none.svg)
+</details>
+<details>
+    <summary>**Empty Box**</summary>
+        ```json
+        {
+            "type": "bool",
+            "id": 0,
+            "value": null
+        }
+        ```
+        ![Example None](images/entity_specification/empty_box.svg)
 </details>
 
 ## Sequences
