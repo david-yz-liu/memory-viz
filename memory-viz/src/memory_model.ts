@@ -27,6 +27,56 @@ if (typeof window === "undefined") {
     fs = require("fs");
 }
 
+/**
+ * Set box_width based on given_width and calculated_width
+ * @param given_width - The given width, may be undefined.
+ * @param calculated_width - The width calculated based on the object.
+ */
+function setBoxWidth(
+    given_width: number | undefined,
+    calculated_width: number
+): number {
+    if (given_width !== undefined) {
+        if (given_width < calculated_width) {
+            console.warn(
+                `WARNING: provided width of object (${given_width}) is smaller than the required width` +
+                    ` (${calculated_width}). The provided width has been overwritten` +
+                    ` in the generated diagram.`
+            );
+            return calculated_width;
+        } else {
+            return given_width;
+        }
+    } else {
+        return calculated_width;
+    }
+}
+
+/**
+ * Set box_height based on given_height and calculated_height
+ * @param given_height - The given height, may be undefined.
+ * @param calculated_height - The height calculated based on the object.
+ */
+function setBoxHeight(
+    given_height: number | undefined,
+    calculated_height: number
+): number {
+    if (given_height !== undefined) {
+        if (given_height < calculated_height) {
+            console.warn(
+                `WARNING: provided width of object (${given_height}) is smaller than the required width` +
+                    ` (${calculated_height}). The provided width has been overwritten` +
+                    ` in the generated diagram.`
+            );
+            return calculated_height;
+        } else {
+            return given_height;
+        }
+    } else {
+        return calculated_height;
+    }
+}
+
 /** The class representing the memory model diagram of the given block of code. */
 export class MemoryModel {
     /**
@@ -182,19 +232,21 @@ export class MemoryModel {
         id: number | undefined | null,
         value: object | number[] | string | boolean | null,
         show_indexes: boolean = false,
-        style: Style
+        style: Style,
+        width: number | undefined,
+        height: number | undefined
     ): Rect {
         if (id === undefined) {
             id = null;
         }
         if (collections.includes(type)) {
             if (type === "dict" && typeof value === "object") {
-                return this.drawDict(x, y, id, value, style);
+                return this.drawDict(x, y, id, value, style, width, height);
             } else if (
                 type === "set" &&
                 isArrayOfNullableType<number>(value, "number")
             ) {
-                return this.drawSet(x, y, id, value, style);
+                return this.drawSet(x, y, id, value, style, width, height);
             } else if (
                 (type === "list" || type === "tuple") &&
                 isArrayOfNullableType<number>(value, "number")
@@ -206,12 +258,23 @@ export class MemoryModel {
                     id,
                     value,
                     show_indexes,
-                    style
+                    style,
+                    width,
+                    height
                 );
             }
         } else {
             if (typeof value !== "object" || value === null) {
-                return this.drawPrimitive(x, y, type, id, value, style);
+                return this.drawPrimitive(
+                    x,
+                    y,
+                    type,
+                    id,
+                    value,
+                    style,
+                    width,
+                    height
+                );
             }
         }
         throw new Error(
@@ -236,26 +299,28 @@ export class MemoryModel {
         type: string,
         id: number | null,
         value: Primitive,
-        style: Style
+        style: Style,
+        width: number | undefined,
+        height: number | undefined
     ): Rect {
         const renderedText =
             typeof value === "string" ? `"${value}"` : String(value);
-        let box_width = Math.max(
+
+        let default_width = Math.max(
             this.obj_min_width,
             this.getTextLength(renderedText, style.text_value) +
                 this.obj_x_padding
         );
-        this.drawRect(
-            x,
-            y,
-            box_width,
-            this.obj_min_height,
-            style.box_container
-        );
+        let default_height = this.obj_min_height;
+
+        let box_width = setBoxWidth(width, default_width);
+        let box_height = setBoxHeight(height, default_height);
+
+        this.drawRect(x, y, box_width, box_height, style.box_container);
 
         let size: Rect = {
             width: box_width,
-            height: this.obj_min_height,
+            height: box_height,
             x: x,
             y: y,
         };
@@ -266,11 +331,11 @@ export class MemoryModel {
                 x - this.double_rect_sep,
                 y - this.double_rect_sep,
                 box_width + 2 * this.double_rect_sep,
-                this.obj_min_height + 2 * this.double_rect_sep
+                box_height + 2 * this.double_rect_sep
             );
             size = {
                 width: box_width + 2 * this.double_rect_sep,
-                height: this.obj_min_height + 2 * this.double_rect_sep,
+                height: box_height + 2 * this.double_rect_sep,
                 x: x - this.double_rect_sep,
                 y: y - this.double_rect_sep,
             };
@@ -289,7 +354,7 @@ export class MemoryModel {
             this.drawText(
                 display_text,
                 x + box_width / 2,
-                y + (this.obj_min_height + this.prop_min_height) / 2,
+                y + (box_height + this.prop_min_height) / 2,
                 style.text_value,
                 "value"
             );
@@ -391,24 +456,26 @@ export class MemoryModel {
         id: number | null,
         element_ids: (number | null)[],
         show_idx: boolean,
-        style: Style
+        style: Style,
+        width: number | undefined,
+        height: number | undefined
     ): Rect {
-        let box_width = this.obj_x_padding * 2;
-
+        let default_width = this.obj_x_padding * 2;
         element_ids.forEach((v) => {
-            box_width += Math.max(
+            default_width += Math.max(
                 this.item_min_width,
                 this.getTextLength(v === null ? "" : `id${v}`, style.text_id) +
                     10
             );
         });
-
-        box_width = Math.max(this.obj_min_width, box_width);
-
-        let box_height = this.obj_min_height;
+        default_width = Math.max(this.obj_min_width, default_width);
+        let default_height = this.obj_min_height;
         if (show_idx) {
-            box_height += this.list_index_sep;
+            default_height += this.list_index_sep;
         }
+
+        let box_width = setBoxWidth(width, default_width);
+        let box_height = setBoxHeight(height, default_height);
 
         this.drawRect(x, y, box_width, box_height, style.box_container);
 
@@ -495,42 +562,39 @@ export class MemoryModel {
         y: number,
         id: number | null,
         element_ids: (number | null)[],
-        style: Style
+        style: Style,
+        width: number | undefined,
+        height: number | undefined
     ): Rect {
-        let box_width = this.obj_x_padding * 2;
+        let default_width = this.obj_x_padding * 2;
         element_ids.forEach((v) => {
-            box_width += Math.max(
+            default_width += Math.max(
                 this.item_min_width,
                 this.getTextLength(v === null ? "" : `id${v}`, style.text_id) +
                     10
             );
         });
-        box_width = Math.max(this.obj_min_width, box_width);
-        box_width += ((element_ids.length - 1) * this.item_min_width) / 4; // Space for separators
+        default_width = Math.max(this.obj_min_width, default_width);
+        default_width += ((element_ids.length - 1) * this.item_min_width) / 4; // Space for separators
+        let default_height = this.obj_min_height;
 
-        this.drawRect(
-            x,
-            y,
-            box_width,
-            this.obj_min_height,
-            style.box_container
-        );
+        let box_width = setBoxWidth(width, default_width);
+        let box_height = setBoxHeight(height, default_height);
+
+        this.drawRect(x, y, box_width, box_height, style.box_container);
 
         const SIZE: Rect = {
             x,
             y,
             width: box_width,
-            height: this.obj_min_height,
+            height: box_height,
         };
 
         let curr_x = x + this.item_min_width / 2;
         let item_y =
             y +
             this.prop_min_height +
-            (this.obj_min_height -
-                this.prop_min_height -
-                this.item_min_height) /
-                2;
+            (box_height - this.prop_min_height - this.item_min_height) / 2;
         let item_text_y =
             item_y + this.item_min_height / 2 + this.font_size / 4;
 
@@ -595,10 +659,15 @@ export class MemoryModel {
         y: number,
         id: number | null,
         obj: { [key: string]: any } | null,
-        style: Style
+        style: Style,
+        width: number | undefined,
+        height: number | undefined
     ): Rect {
-        let box_width = this.obj_min_width;
-        let box_height = this.prop_min_height + this.item_min_height / 2;
+        let default_width = this.obj_min_width;
+        let default_height = this.prop_min_height + this.item_min_height / 2;
+
+        let box_width = setBoxWidth(width, default_width);
+        let box_height = setBoxHeight(height, default_height);
 
         for (const k in obj) {
             let idk = k.trim() === "" ? "" : `id${k}`;
@@ -717,7 +786,9 @@ export class MemoryModel {
         id: number | undefined | null,
         attributes: { [key: string]: any },
         stack_frame: boolean,
-        style: Style
+        style: Style,
+        width: number | undefined,
+        height: number | undefined
     ): Rect {
         if (id === undefined) {
             id = null;
@@ -726,7 +797,7 @@ export class MemoryModel {
             name = "";
         }
 
-        let box_width = this.obj_min_width;
+        let default_width = this.obj_min_width;
         let longest = 0;
         for (const attribute in attributes) {
             longest = Math.max(
@@ -735,23 +806,27 @@ export class MemoryModel {
             );
         }
         if (longest > 0) {
-            box_width = longest + this.item_min_width * 3;
+            default_width = longest + this.item_min_width * 3;
         }
-        box_width = Math.max(
-            box_width,
+        default_width = Math.max(
+            default_width,
             this.prop_min_width + this.getTextLength(name, style.text_type) + 10
         );
 
-        let box_height = 0;
+        let default_height = 0;
         if (Object.keys(attributes).length > 0) {
-            box_height =
+            default_height =
                 ((this.item_min_width * 3) / 2) *
                     Object.keys(attributes).length +
                 this.item_min_width / 2 +
                 this.prop_min_height;
         } else {
-            box_height = this.obj_min_height;
+            default_height = this.obj_min_height;
         }
+
+        let box_width = setBoxWidth(width, default_width);
+        let box_height = setBoxHeight(height, default_height);
+
         this.drawRect(x, y, box_width, box_height, style.box_container);
 
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
@@ -966,7 +1041,9 @@ export class MemoryModel {
                     obj.id,
                     obj.value,
                     is_frame,
-                    obj.style
+                    obj.style,
+                    obj.width,
+                    obj.height
                 );
                 sizes_arr.push(size);
             } else {
@@ -977,7 +1054,9 @@ export class MemoryModel {
                     obj.id,
                     obj.value,
                     obj.show_indexes,
-                    obj.style
+                    obj.style,
+                    obj.width,
+                    obj.height
                 );
                 sizes_arr.push(size);
             }
