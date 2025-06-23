@@ -64,7 +64,7 @@ function setBoxHeight(
     if (given_height !== undefined) {
         if (given_height < calculated_height) {
             console.warn(
-                `WARNING: provided width of object (${given_height}) is smaller than the required width` +
+                `WARNING: provided height of object (${given_height}) is smaller than the required height` +
                     ` (${calculated_height}). The provided width has been overwritten` +
                     ` in the generated diagram.`
             );
