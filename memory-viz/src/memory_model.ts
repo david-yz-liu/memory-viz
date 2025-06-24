@@ -222,6 +222,8 @@ export class MemoryModel {
      * @param value - can be passed as a list if type is a collection type
      * @param show_indexes - whether to show list indices
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * @param width - The width of the object
+     * @param height - The height of the object
      * For style, firstly refer to `style.md` and `presets.md`. For the styling options in terms of texts, refer to
      * the SVG documentation. For the styling options in terms of boxes, refer to the Rough.js documentation.
      */
@@ -290,6 +292,8 @@ export class MemoryModel {
      * @param id - the hypothetical memory address number
      * @param value - the value of the primitive object
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * @param width - The width of the object
+     * @param height - The height of the object
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      */
@@ -448,6 +452,8 @@ export class MemoryModel {
      * @param style -  The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
+     * @param width - The width of the object
+     * @param height - The height of the object-
      */
     drawSequence(
         x: number,
@@ -551,6 +557,8 @@ export class MemoryModel {
      *             memory boxes for all elements (with id's that match the id's held in 'element_ids').
      * @param style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
+     * @param width - The width of the object
+     * @param height - The height of the object
      *
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
@@ -651,6 +659,8 @@ export class MemoryModel {
      * @param obj - the object that will be drawn
      * @param style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
+     * @param width - The width of the object
+     * @param height - The height of the object
      *
      * @returns the top-left coordinates, width, and height of the outermost box
      */
@@ -776,6 +786,8 @@ export class MemoryModel {
      * @param stack_frame - set to true if you are drawing a stack frame
      * @param style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
+     * @param width - The width of the object
+     * @param height - The height of the object
      *
      * @returns the top-left coordinates, width, and height of the outermost box
      */
