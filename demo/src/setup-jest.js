@@ -2,3 +2,5 @@
 if (typeof window.URL.createObjectURL === "undefined") {
     window.URL.createObjectURL = jest.fn();
 }
+
+global.ResizeObserver = require("resize-observer-polyfill");

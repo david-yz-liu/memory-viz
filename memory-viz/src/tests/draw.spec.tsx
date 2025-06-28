@@ -69,6 +69,86 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a bool with null value", () => {
+        const objects: DrawnEntity[] = [{ type: "bool", id: 10, value: null }];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a bool without defining the value", () => {
+        const objects: DrawnEntity[] = [{ type: "bool", id: 10 }];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders an int with null value", () => {
+        const objects: DrawnEntity[] = [{ type: "int", id: 10, value: null }];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders an int without defining the value", () => {
+        const objects: DrawnEntity[] = [{ type: "int", id: 10 }];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a float with null value", () => {
+        const objects: DrawnEntity[] = [{ type: "float", id: 10, value: null }];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a float without defining the value", () => {
+        const objects: DrawnEntity[] = [{ type: "float", id: 10 }];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a str with null value", () => {
+        const objects: DrawnEntity[] = [{ type: "str", id: 10, value: null }];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a str without defining the value", () => {
+        const objects: DrawnEntity[] = [{ type: "str", id: 10 }];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders a set", () => {
         const objects: DrawnEntity[] = [
             { type: "set", id: 32, value: [10, 11, 12] },
@@ -89,6 +169,48 @@ describe("draw function", () => {
         });
         const svg: String = m.serializeSVG();
         expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a set with null values", () => {
+        const objects: DrawnEntity[] = [
+            { type: "set", id: 32, value: [null, null, null] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a set with null and valid values", () => {
+        const objects: DrawnEntity[] = [
+            { type: "set", id: 32, value: [null, 1, 2] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("does not render a set containing strings", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "set",
+                id: 32,
+                value: ["hello", "world"],
+            },
+        ];
+
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        expect(() =>
+            draw(objects, true, {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            })
+        ).toThrow(errorMessage);
     });
 
     it("renders a list with indexes showing", () => {
@@ -130,6 +252,48 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a list with null values", () => {
+        const objects: DrawnEntity[] = [
+            { type: "list", id: 32, value: [null, null, null] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a list with null and valid values", () => {
+        const objects: DrawnEntity[] = [
+            { type: "list", id: 32, value: [null, 1, 2] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("does not render a list containing strings", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "list",
+                id: 32,
+                value: ["hello", "world"],
+            },
+        ];
+
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        expect(() =>
+            draw(objects, true, {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            })
+        ).toThrow(errorMessage);
+    });
+
     it("renders a tuple with indexes showing", () => {
         const objects: DrawnEntity[] = [
             {
@@ -169,6 +333,48 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a tuple with null values", () => {
+        const objects: DrawnEntity[] = [
+            { type: "tuple", id: 32, value: [null, null, null] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a tuple with null and valid values", () => {
+        const objects: DrawnEntity[] = [
+            { type: "tuple", id: 32, value: [null, 1, 2] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("does not render a tuple containing strings", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "tuple",
+                id: 32,
+                value: ["hello", "world"],
+            },
+        ];
+
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        expect(() =>
+            draw(objects, true, {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            })
+        ).toThrow(errorMessage);
+    });
+
     it("renders a dict", () => {
         const objects: DrawnEntity[] = [
             {
@@ -186,7 +392,112 @@ describe("draw function", () => {
     });
 
     it("renders an empty dict", () => {
-        const objects: DrawnEntity[] = [{ type: "dict", id: 32, value: {} }];
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 10,
+                value: {},
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders dict with empty string key without 'id' prefix", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 10,
+                value: { "": 100, another_key: 200 },
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders dict with space key without 'id' prefix", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 2,
+                value: { " ": 300, another_key: 400 },
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders dict with empty/space keys and null values", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 3,
+                value: {
+                    "": null,
+                    " ": null,
+                    key_with_null: null,
+                },
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders dict with custom styling", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 3,
+                value: {
+                    "0": 0,
+                    "1": 1,
+                    "2": 2,
+                },
+                style: {
+                    box_container: { fill: "green", fillStyle: "solid" },
+                },
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders dict with id and box having different colours", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 3,
+                value: {
+                    "0": 0,
+                    "1": 1,
+                    "2": 2,
+                },
+                style: {
+                    box_id: { fill: "black", fillStyle: "solid" },
+                    box_container: { fill: "green", fillStyle: "solid" },
+                },
+            },
+        ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             roughjs_config: { options: { seed: 12345 } },
@@ -275,6 +586,63 @@ describe("draw function", () => {
             },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, false, {
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a class", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: ".class",
+                name: "my_class",
+                id: 1,
+                value: {
+                    name: 10,
+                },
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a class with null attribute name using empty string", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: ".class",
+                name: "my_class",
+                id: 1,
+                value: {
+                    "": 10,
+                },
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a class with null attribute name using whitespaces", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: ".class",
+                name: "my_class",
+                id: 1,
+                value: {
+                    "      ": 10,
+                },
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
             roughjs_config: { options: { seed: 12345 } },
         });
         const svg: String = m.serializeSVG();
@@ -984,7 +1352,7 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
     it("renders a list of snapshots", () => {
-        const snapshots = [
+        const snapshots: DrawnEntity[][] = [
             [
                 {
                     type: ".frame",

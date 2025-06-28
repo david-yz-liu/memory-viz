@@ -13,12 +13,41 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
+- Fixed bug where the box wouldn't render properly when value is null for primitive types
+
+### 📚 Documentation and demo website changes
+
+- Rewrote 02-object_structure.md documentation page and renamed as 02-entity_specification.md
+
+### 🔧 Internal changes
+
+- Added Typescript support for "strictNullChecks" and refactored code accordingly
+- Added dependabot groups for react and babel
+
+## [0.6.0] - 2025-05-24
+
+### ✨ Enhancements
+
+- If attribute name is the empty string or a string with only whitespaces, draw nothing
+- Blank boxes can be created with null values for sets and lists
+- Blank boxes can be created with blank empty strings or blank whitespace string values for dictionary keys
+- Added type annotations in published package output
+- Increased timeout for CLI tests from 2 seconds to 30 seconds
+
+### 🐛 Bug fixes
+
+- Fixed bug where the keys of dictionaries disappear if box_container style sets a custom background colour
+- Fixed bug where demo site would freeze upon the user inputting any valid JSON but not valid Memory Models JSON, added a test case
+
 ### 📚 Documentation and demo website changes
 
 - Ensure GitHub Action deploys documentation to correct location
 - Fixed links and syntax highlighting in READMEs
 
 ### 🔧 Internal changes
+
+- Added Typescript declaration maps
+- Added TypeScript support for the "NoImplicitAny" rule across project, fixing type issues raised across project.
 
 ## [0.5.0] - 2024-12-06
 
@@ -154,6 +183,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added `DrawnEntity` type annotations to source code files.
 - Adopted Commander.js library for the MemoryViz CLI.
 - Added `autofix.ci` to the CI workflow.
+- Added correct link to file on GitHub for the "list of contributors" text in the pull request template markdown file.
 
 ## [0.1.0] - 2024-04-16
 

@@ -62,7 +62,7 @@ export default function App() {
                                 JSON. Please refer to the repo for more details.
                             </p>
                         }
-                        key={jsonResult}
+                        resetKeys={[jsonResult]}
                     >
                         <SvgDisplay
                             jsonResult={jsonResult}

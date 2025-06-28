@@ -11,9 +11,20 @@ import { DisplaySettings, DrawnEntity, Size, SortOptions } from "./types";
  * @returns - The memory model that is created according to the objects given in the path (the JSON
  * file)
  */
+
+const REQUIRED_DISPLAY_PROPERTIES: (keyof DisplaySettings)[] = [
+    "padding",
+    "top_margin",
+    "left_margin",
+    "bottom_margin",
+    "right_margin",
+];
+
+const DEFAULT_PADDING = 25;
+
 function drawAutomated(
     objects: DrawnEntity[],
-    width: number,
+    width: number | undefined,
     configuration: Partial<DisplaySettings>
 ): MemoryModel {
     const { stack_frames, other_items } = separateObjects(objects);
@@ -32,9 +43,10 @@ function drawAutomated(
         }
     }
 
-    min_width += requiredWidth + 2 * configuration.padding + 1;
+    min_width +=
+        requiredWidth + 2 * (configuration.padding ?? DEFAULT_PADDING) + 1;
 
-    if (width < min_width) {
+    if (width !== undefined && width < min_width) {
         console.warn(
             `WARNING: provided width (${width}) is smaller than the required width` +
                 ` (${min_width}). The provided width has been overwritten` +
@@ -49,7 +61,7 @@ function drawAutomated(
     const { objs, canvas_height, canvas_width } = drawAutomatedOtherItems(
         other_items,
         width || default_width,
-        configuration.sort_by,
+        configuration.sort_by ?? null,
         configuration,
         requiredWidth
     );
@@ -88,23 +100,17 @@ function drawAutomatedStackFrames(
     requiredHeight: number;
     requiredWidth: number;
 } {
-    for (const req_prop of [
-        "padding",
-        "top_margin",
-        "left_margin",
-        "bottom_margin",
-        "right_margin",
-    ]) {
+    for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
         if (!configuration.hasOwnProperty(req_prop)) {
             configuration[req_prop] = config.obj_x_padding;
         }
     }
 
-    let min_required_height = configuration.top_margin;
+    let min_required_height = configuration.top_margin ?? DEFAULT_PADDING;
 
     let required_width = 0;
 
-    let draw_stack_frames = [];
+    let draw_stack_frames: DrawnEntity[] = [];
 
     for (const stack_frame of stack_frames) {
         let width: number;
@@ -116,8 +122,8 @@ function drawAutomatedStackFrames(
             width = size.width;
         } else {
             // We already have access to the user defined dimensions of the box.
-            height = stack_frame.height;
-            width = stack_frame.width;
+            height = stack_frame.height!;
+            width = stack_frame.width!;
         }
 
         if (width > required_width) {
@@ -132,8 +138,9 @@ function drawAutomatedStackFrames(
 
         min_required_height = height + min_required_height;
     }
-
-    required_width += configuration.left_margin;
+    if (configuration.left_margin !== undefined) {
+        required_width += configuration.left_margin;
+    }
 
     return {
         StackFrames: draw_stack_frames,
@@ -161,23 +168,17 @@ function drawAutomatedStackFrames(
 function drawAutomatedOtherItems(
     objs: DrawnEntity[],
     max_width: number,
-    sort_by: SortOptions,
+    sort_by: SortOptions | null,
     config_aut: Partial<DisplaySettings>,
     sf_endpoint: number
 ): { objs: DrawnEntity[]; canvas_height: number; canvas_width: number } {
-    for (const req_prop of [
-        "padding",
-        "top_margin",
-        "left_margin",
-        "bottom_margin",
-        "right_margin",
-    ]) {
+    for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
         if (!config_aut.hasOwnProperty(req_prop)) {
             config_aut[req_prop] = config.obj_x_padding;
         }
     }
 
-    const PADDING = config_aut.padding;
+    const PADDING = config_aut.padding ?? DEFAULT_PADDING;
 
     // The object space begins where the stackframe column ends (plus padding).
     if (sf_endpoint === undefined) {
@@ -186,6 +187,16 @@ function drawAutomatedOtherItems(
     const START_X = sf_endpoint + PADDING;
 
     for (const item of objs) {
+        if (
+            item.type === ".blank" &&
+            (item.width === undefined || item.height === undefined)
+        ) {
+            console.warn(
+                "WARNING :: An object with type='.blank' or '.blank-frame' exists with missing dimension information " +
+                    "(either the width or the height is missing). This object will be omitted in the memory model" +
+                    " diagram."
+            );
+        }
         if (item.type !== ".blank") {
             const dimensions = getSize(item);
             item.height = dimensions.height;
@@ -202,27 +213,26 @@ function drawAutomatedOtherItems(
      */
     let compareFunc: (a: DrawnEntity, b: DrawnEntity) => number;
 
-    switch (sort_by) {
-        case SortOptions.Height:
-            compareFunc = compareByHeight;
-            break;
-        case SortOptions.Id:
-            compareFunc = compareByID;
-            break;
-    }
-
     if (sort_by !== null) {
+        switch (sort_by) {
+            case SortOptions.Height:
+                compareFunc = compareByHeight;
+                break;
+            case SortOptions.Id:
+                compareFunc = compareByID;
+                break;
+        }
         objs.sort(compareFunc);
     }
 
     let x_coord = START_X;
-    let y_coord = config_aut.top_margin;
+    let y_coord = config_aut.top_margin ?? DEFAULT_PADDING;
 
     // Once a row is occupied, we must establish its height to determine the y-coordinate of the next row's boxes.
     let row_height: number;
-    let curr_row_objects = [];
+    let curr_row_objects: DrawnEntity[] = [];
     for (const item of objs) {
-        let hor_reach = x_coord + item.width + PADDING;
+        let hor_reach = x_coord + item.width! + PADDING;
 
         if (hor_reach < max_width) {
             item.x = x_coord;
@@ -231,11 +241,11 @@ function drawAutomatedOtherItems(
             curr_row_objects.push(item);
         } else {
             // In this case, we cannot fit this object in the current row, and must move to a new row.
-
+            // Based on how objs is initialized, every item will have attributes width and height
             const tallest_object = curr_row_objects.reduce((p, c) =>
-                p.height >= c.height ? p : c
+                p.height! >= c.height! ? p : c
             );
-            row_height = tallest_object.height + PADDING;
+            row_height = tallest_object.height! + PADDING;
 
             curr_row_objects = [];
 
@@ -247,7 +257,7 @@ function drawAutomatedOtherItems(
 
             item.rowBreaker = true;
 
-            hor_reach = x_coord + item.width + PADDING;
+            hor_reach = x_coord + item.width! + PADDING;
 
             curr_row_objects.push(item);
         }
@@ -270,10 +280,15 @@ function drawAutomatedOtherItems(
         defaultObject
     );
 
+    // compareByRightness and compareByBottomness didn't throw error, so right_most_obj and down_most_obj has attributes x, y, width, height
     const canvas_width =
-        right_most_obj.x + right_most_obj.width + config_aut.right_margin;
+        right_most_obj.x! +
+        right_most_obj.width! +
+        (config_aut.right_margin ?? DEFAULT_PADDING);
     const canvas_height =
-        down_most_obj.y + down_most_obj.height + config_aut.bottom_margin;
+        down_most_obj.y! +
+        down_most_obj.height! +
+        (config_aut.bottom_margin ?? DEFAULT_PADDING);
 
     // Additional -- to extend the program for the .blank option.
     const objs_filtered = objs.filter((item) => {
@@ -297,13 +312,15 @@ function separateObjects(objects: DrawnEntity[]): {
     stack_frames: DrawnEntity[];
     other_items: DrawnEntity[];
 } {
-    let stackFrames = [];
-    let otherItems = [];
+    let stackFrames: DrawnEntity[] = [];
+    let otherItems: DrawnEntity[] = [];
 
     for (const item of objects) {
         const frame_types = [".frame", ".blank-frame"];
 
-        if (
+        if (item.type === undefined) {
+            otherItems.push(item);
+        } else if (
             item.type === ".blank" &&
             (item.width === undefined || item.height === undefined)
         ) {
@@ -351,6 +368,9 @@ function getSize(obj: DrawnEntity): Size {
  * @returns negative if 'a' is taller, 0 if they have the same height, and positive if 'b' is taller.
  */
 function compareByHeight(a: DrawnEntity, b: DrawnEntity): number {
+    if (a.height === undefined || b.height === undefined) {
+        throw new Error("Both objects must have 'height' property.");
+    }
     return -(a.height - b.height);
 }
 
@@ -364,6 +384,14 @@ function compareByHeight(a: DrawnEntity, b: DrawnEntity): number {
  * @returns negative if 'a.id' is larger, 0 if a.id == b.id, and positive if 'b.id' is larger.
  */
 function compareByID(a: DrawnEntity, b: DrawnEntity): number {
+    if (
+        a.id === undefined ||
+        b.id === undefined ||
+        a.id === null ||
+        b.id === null
+    ) {
+        throw new Error("Both objects must have 'id' property.");
+    }
     return a.id - b.id;
 }
 
@@ -376,6 +404,14 @@ function compareByID(a: DrawnEntity, b: DrawnEntity): number {
  * @returns negative if 'a' is righter, 0 if 'a' and 'b' are equally right, and positive if b' is righter.
  */
 function compareByRightness(a: DrawnEntity, b: DrawnEntity): number {
+    if (
+        a.x === undefined ||
+        a.width === undefined ||
+        b.x === undefined ||
+        b.width === undefined
+    ) {
+        throw new Error("Both objects must have 'x' and 'width' property.");
+    }
     const a_right_edge = a.x + a.width;
     const b_right_edge = b.x + b.width;
     return -(a_right_edge - b_right_edge);
@@ -390,6 +426,14 @@ function compareByRightness(a: DrawnEntity, b: DrawnEntity): number {
  * @returns negative if 'a' is bottomer, 0 if 'a' and 'b' are equally bottom, and positive if b' is bottomer.
  */
 function compareByBottomness(a: DrawnEntity, b: DrawnEntity): number {
+    if (
+        a.y === undefined ||
+        a.height === undefined ||
+        b.y === undefined ||
+        b.height === undefined
+    ) {
+        throw new Error("Both objects must have 'y' and 'height' property.");
+    }
     const a_bottom_edge = a.y + a.height;
     const b_bottom_edge = b.y + b.height;
     return -(a_bottom_edge - b_bottom_edge);

@@ -4,14 +4,17 @@
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
         "declaration": true,
+        "declarationMap": true,
         "emitDeclarationOnly": true,
         "esModuleInterop": true,
         "isolatedModules": true,
         "module": "es2015",
         "moduleResolution": "bundler",
         "noEmit": false, // Overrides noEmit from @docusaurus/tsconfig
+        "noImplicitAny": true,
         "outDir": "./dist",
         "sourceMap": true,
+        "strictNullChecks": true,
         "target": "es2020",
         "types": ["node", "@types/jest"]
     },
