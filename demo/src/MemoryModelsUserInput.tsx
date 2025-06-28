@@ -13,6 +13,9 @@ import {
     DialogActions,
     DialogContent,
 } from "@mui/material";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import FolderOpenIcon from "@mui/icons-material/FolderOpen";
+import DrawIcon from "@mui/icons-material/Draw";
 import DownloadJSONButton from "./DownloadJSONButton";
 import MemoryModelsMenu from "./MemoryModelsMenu";
 import MemoryModelsSample from "./MemoryModelsSample";
@@ -80,7 +83,11 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
 
     return (
         <div>
-            <Button onClick={handleOpen} sx={{ textTransform: "none" }}>
+            <Button
+                onClick={handleOpen}
+                startIcon={<UploadFileIcon />}
+                sx={{ textTransform: "none" }}
+            >
                 Upload JSON File
             </Button>
             <Dialog
@@ -107,6 +114,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                         color="primary"
                         disabled={!uploadedFileString}
                         onClick={onLoadButtonClick}
+                        startIcon={<FolderOpenIcon />}
                         sx={{ textTransform: "none" }}
                     >
                         Load file data
@@ -212,27 +220,27 @@ export default function MemoryModelsUserInput(
                     setTextData={props.setTextData}
                     setFailureBanner={props.setFailureBanner}
                 />
-                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <MemoryModelsSample
-                        setTextData={props.setTextData}
-                        setConfigData={props.setConfigData}
-                        onTextDataSubmit={props.onTextDataSubmit}
-                    />
-                    <MemoryModelsConfigInput
-                        configData={props.configData}
-                        setConfigData={props.setConfigData}
-                    />
-                </Box>
+                <MemoryModelsSample
+                    setTextData={props.setTextData}
+                    setConfigData={props.setConfigData}
+                    onTextDataSubmit={props.onTextDataSubmit}
+                />
                 <MemoryModelsTextInput
                     textData={props.textData}
                     setTextData={props.setTextData}
                 />
-                <Stack
-                    direction="row"
-                    spacing={2}
-                    sx={{ justifyContent: "space-between" }}
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: 2,
+                    }}
                 >
-                    <DownloadJSONButton textData={props.textData} />
+                    <MemoryModelsConfigInput
+                        configData={props.configData}
+                        setConfigData={props.setConfigData}
+                    />
                     <Tooltip title="Input JSON to draw diagram">
                         <span>
                             <Button
@@ -241,13 +249,19 @@ export default function MemoryModelsUserInput(
                                 variant="contained"
                                 color="primary"
                                 disabled={!props.textData}
-                                style={{ textTransform: "none" }}
+                                startIcon={<DrawIcon />}
+                                sx={{
+                                    textTransform: "none",
+                                    minWidth: "160px",
+                                    whiteSpace: "nowrap",
+                                }}
                             >
                                 Draw Diagram
                             </Button>
                         </span>
                     </Tooltip>
-                </Stack>
+                </Box>
+                <DownloadJSONButton textData={props.textData} />
             </Stack>
         </form>
     );

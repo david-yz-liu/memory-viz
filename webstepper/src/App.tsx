@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { Button, Box, Typography, Stack } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SvgDisplay from "./SvgDisplay";
 import CodeDisplay from "./CodeDisplay";
 import placeholder from "./placeholder";
@@ -50,12 +52,14 @@ export default function App() {
                             <Button
                                 disabled={step === 0}
                                 onClick={() => handleStep(-1)}
+                                startIcon={<ArrowBackIcon />}
                             >
                                 Back
                             </Button>
                             <Button
                                 disabled={step === limit - 1}
                                 onClick={() => handleStep(1)}
+                                endIcon={<ArrowForwardIcon />}
                             >
                                 Next
                             </Button>
