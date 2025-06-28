@@ -12,4 +12,10 @@ describe("DownloadSVGButton", () => {
         const downloadButton = screen.getByText("Download SVG");
         expect(downloadButton).toBeDefined();
     });
+
+    // Test that the download is an actual button
+    test("download button uses onClick instead of href", () => {
+        const button = screen.getByTestId("download-svg-btn");
+        expect(button.getAttribute("href")).toBeNull();
+    });
 });
