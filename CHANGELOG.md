@@ -33,6 +33,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Blank boxes can be created with blank empty strings or blank whitespace string values for dictionary keys
 - Added type annotations in published package output
 - Increased timeout for CLI tests from 2 seconds to 30 seconds
+- Added icons to the buttons on the demo and webstepper pages
+- Changed download JSON/SVG buttons from download links disguised as buttons to actual buttons that trigger downloads programmatically.
 
 ### 🐛 Bug fixes
 
