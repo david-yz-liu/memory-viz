@@ -6,27 +6,20 @@ type DownloadJSONButtonPropTypes = {
     textData: string;
 };
 export default function DownloadJSONButton(props: DownloadJSONButtonPropTypes) {
-    const handleDownload = () => {
-        const file = new Blob([props.textData], {
-            type: "application/JSON",
-        });
-        const url = window.URL.createObjectURL(file);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "memory_model.json";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        window.URL.revokeObjectURL(url);
-    };
+    const file = new Blob([props.textData], {
+        type: "application/JSON",
+    });
 
     return (
         <Button
-            variant="text"
+            variant="contained"
             color="primary"
             data-testid="download-json-btn"
             disabled={!props.textData}
-            onClick={handleDownload}
+            download="memory_model.json"
+            target="_blank"
+            rel="noreferrer"
+            href={window.URL.createObjectURL(file)}
             startIcon={<DownloadIcon />}
             sx={{ textTransform: "none" }}
         >

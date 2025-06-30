@@ -6,17 +6,11 @@ describe("DownloadJSONButton", () => {
     const mockJsonStr = "[{}]";
     const mockSx = {};
     beforeEach(() => {
-        render(<DownloadJSONButton textData={mockJsonStr} />);
+        render(<DownloadJSONButton jsonResult={mockJsonStr} sx={mockSx} />);
     });
 
     test("renders with correct text", () => {
         const downloadButton = screen.getByText("Download JSON");
         expect(downloadButton).toBeDefined();
-    });
-
-    // Test that the download is an actual button
-    test("download button uses onClick instead of href", () => {
-        const button = screen.getByTestId("download-json-btn");
-        expect(button.getAttribute("href")).toBeNull();
     });
 });

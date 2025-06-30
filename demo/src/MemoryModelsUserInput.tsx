@@ -114,8 +114,8 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                         color="primary"
                         disabled={!uploadedFileString}
                         onClick={onLoadButtonClick}
-                        startIcon={<FolderOpenIcon />}
                         sx={{ textTransform: "none" }}
+                        startIcon={<FolderOpenIcon />}
                     >
                         Load file data
                     </Button>
@@ -220,27 +220,27 @@ export default function MemoryModelsUserInput(
                     setTextData={props.setTextData}
                     setFailureBanner={props.setFailureBanner}
                 />
-                <MemoryModelsSample
-                    setTextData={props.setTextData}
-                    setConfigData={props.setConfigData}
-                    onTextDataSubmit={props.onTextDataSubmit}
-                />
-                <MemoryModelsTextInput
-                    textData={props.textData}
-                    setTextData={props.setTextData}
-                />
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        gap: 2,
-                    }}
-                >
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <MemoryModelsSample
+                        setTextData={props.setTextData}
+                        setConfigData={props.setConfigData}
+                        onTextDataSubmit={props.onTextDataSubmit}
+                    />
                     <MemoryModelsConfigInput
                         configData={props.configData}
                         setConfigData={props.setConfigData}
                     />
+                </Box>
+                <MemoryModelsTextInput
+                    textData={props.textData}
+                    setTextData={props.setTextData}
+                />
+                <Stack
+                    direction="row"
+                    spacing={2}
+                    sx={{ justifyContent: "space-between" }}
+                >
+                    <DownloadJSONButton textData={props.textData} />
                     <Tooltip title="Input JSON to draw diagram">
                         <span>
                             <Button
@@ -249,19 +249,14 @@ export default function MemoryModelsUserInput(
                                 variant="contained"
                                 color="primary"
                                 disabled={!props.textData}
+                                style={{ textTransform: "none" }}
                                 startIcon={<DrawIcon />}
-                                sx={{
-                                    textTransform: "none",
-                                    minWidth: "160px",
-                                    whiteSpace: "nowrap",
-                                }}
                             >
                                 Draw Diagram
                             </Button>
                         </span>
                     </Tooltip>
-                </Box>
-                <DownloadJSONButton textData={props.textData} />
+                </Stack>
             </Stack>
         </form>
     );

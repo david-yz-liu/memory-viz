@@ -6,27 +6,18 @@ type DownloadSVGButtonPropTypes = {
     svgResult: string;
 };
 export default function DownloadSVGButton(props: DownloadSVGButtonPropTypes) {
-    const handleDownload = () => {
-        const file = new global.Blob([props.svgResult], {
-            type: "image/svg+xml",
-        });
-        const url = URL.createObjectURL(file);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = "output.svg";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-    };
+    const file = new global.Blob([props.svgResult], { type: "image/svg+xml" });
 
     return (
         <Button
             color="primary"
-            variant="text"
+            variant="contained"
             data-testid="download-svg-btn"
             disabled={!props.svgResult}
-            onClick={handleDownload}
+            href={URL.createObjectURL(file)}
+            target="_blank"
+            rel="noreferrer"
+            download="output.svg"
             startIcon={<DownloadIcon />}
             sx={{ textTransform: "none" }}
         >
