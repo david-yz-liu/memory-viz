@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@mui/material";
+import DownloadIcon from "@mui/icons-material/Download";
 
 type DownloadJSONButtonPropTypes = {
     textData: string;
@@ -11,7 +12,7 @@ export default function DownloadJSONButton(props: DownloadJSONButtonPropTypes) {
 
     return (
         <Button
-            variant="text"
+            variant="contained"
             color="primary"
             data-testid="download-json-btn"
             disabled={!props.textData}
@@ -19,6 +20,7 @@ export default function DownloadJSONButton(props: DownloadJSONButtonPropTypes) {
             target="_blank"
             rel="noreferrer"
             href={window.URL.createObjectURL(file)}
+            startIcon={<DownloadIcon />}
             sx={{ textTransform: "none" }}
         >
             Download JSON
