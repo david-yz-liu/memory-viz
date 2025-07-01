@@ -71,6 +71,7 @@ function drawAutomated(
         width: width ? width : canvas_width,
         height: final_height,
         roughjs_config: configuration.roughjs_config,
+        global_style: configuration.global_style,
     });
 
     m.drawAll(StackFrames);
@@ -102,6 +103,7 @@ function drawAutomatedStackFrames(
 } {
     for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
         if (!configuration.hasOwnProperty(req_prop)) {
+            // @ts-ignore
             configuration[req_prop] = config.obj_x_padding;
         }
     }
@@ -174,6 +176,7 @@ function drawAutomatedOtherItems(
 ): { objs: DrawnEntity[]; canvas_height: number; canvas_width: number } {
     for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
         if (!config_aut.hasOwnProperty(req_prop)) {
+            // @ts-ignore
             config_aut[req_prop] = config.obj_x_padding;
         }
     }

@@ -63,6 +63,7 @@ export class MemoryModel {
     font_size: number; // Font size, in px
     browser: boolean; // Whether this library is being used in a browser context
     roughjs_config: Config; // Configuration object used to pass in options to rough.js
+    global_style: string; // Global CSS string to be applied to the SVG
 
     constructor(options: Partial<VisualizationConfig> = {}) {
         if (options.browser) {
@@ -74,7 +75,7 @@ export class MemoryModel {
                 null
             );
         }
-
+        // console.log(options.global_style);
         this.svg = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
             "svg"
@@ -91,7 +92,7 @@ export class MemoryModel {
         this.roughjs_config = options.roughjs_config ?? {};
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
 
-        setStyleSheet(this);
+        setStyleSheet(this, options.global_style ?? "");
 
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
