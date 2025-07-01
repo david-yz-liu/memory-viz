@@ -69,7 +69,7 @@ program
         parseRoughjsConfig
     )
     .option(
-        "--global-style <path>",
+        "-s, --global-style <path>",
         "path to a CSS file containing global styles for the SVG",
         parseGlobalStyle
     );
