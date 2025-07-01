@@ -17,10 +17,13 @@ export default function MemoryModelsMenu(props: MemoryModelsMenuPropTypes) {
 
     const getIcon = () => {
         const name = props.menuName.toLowerCase();
-        if (name.includes("sample")) return <LightbulbIcon />;
-        if (name.includes("rendering") || name.includes("options"))
+        if (name.includes("sample")) {
+            return <LightbulbIcon />;
+        } else if (name.includes("rendering") || name.includes("options")) {
             return <SettingsIcon />;
-        return null;
+        } else {
+            return null;
+        }
     };
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
