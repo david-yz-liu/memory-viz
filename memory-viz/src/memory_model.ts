@@ -235,8 +235,8 @@ export class MemoryModel {
         value: object | number[] | string | boolean | null,
         show_indexes: boolean = false,
         style: Style,
-        width: number | undefined,
-        height: number | undefined
+        width?: number,
+        height?: number
     ): Rect {
         if (id === undefined) {
             id = null;
@@ -304,8 +304,8 @@ export class MemoryModel {
         id: number | null,
         value: Primitive,
         style: Style,
-        width: number | undefined,
-        height: number | undefined
+        width?: number,
+        height?: number
     ): Rect {
         const renderedText =
             typeof value === "string" ? `"${value}"` : String(value);
@@ -463,8 +463,8 @@ export class MemoryModel {
         element_ids: (number | null)[],
         show_idx: boolean,
         style: Style,
-        width: number | undefined,
-        height: number | undefined
+        width?: number,
+        height?: number
     ): Rect {
         let default_width = this.obj_x_padding * 2;
         element_ids.forEach((v) => {
@@ -571,8 +571,8 @@ export class MemoryModel {
         id: number | null,
         element_ids: (number | null)[],
         style: Style,
-        width: number | undefined,
-        height: number | undefined
+        width?: number,
+        height?: number
     ): Rect {
         let default_width = this.obj_x_padding * 2;
         element_ids.forEach((v) => {
@@ -670,8 +670,8 @@ export class MemoryModel {
         id: number | null,
         obj: { [key: string]: any } | null,
         style: Style,
-        width: number | undefined,
-        height: number | undefined
+        width?: number,
+        height?: number
     ): Rect {
         let default_width = this.obj_min_width;
         let default_height = this.prop_min_height + this.item_min_height / 2;
@@ -799,8 +799,8 @@ export class MemoryModel {
         attributes: { [key: string]: any },
         stack_frame: boolean,
         style: Style,
-        width: number | undefined,
-        height: number | undefined
+        width?: number,
+        height?: number
     ): Rect {
         if (id === undefined) {
             id = null;
