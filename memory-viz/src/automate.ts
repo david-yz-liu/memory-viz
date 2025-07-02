@@ -103,7 +103,7 @@ function drawAutomatedStackFrames(
 } {
     for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
         if (!configuration.hasOwnProperty(req_prop)) {
-            (configuration as Record<keyof DisplaySettings, any>)[req_prop] =
+            (configuration[req_prop] as number | undefined) =
                 config.obj_x_padding;
         }
     }
@@ -176,8 +176,7 @@ function drawAutomatedOtherItems(
 ): { objs: DrawnEntity[]; canvas_height: number; canvas_width: number } {
     for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
         if (!config_aut.hasOwnProperty(req_prop)) {
-            (config_aut as Record<keyof DisplaySettings, any>)[req_prop] =
-                config.obj_x_padding;
+            (config_aut[req_prop] as number | undefined) = config.obj_x_padding;
         }
     }
 
