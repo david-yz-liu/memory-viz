@@ -101,8 +101,9 @@ const presets: Record<string, Style> = {
 /**
  * Add CSS to the svg element of a MemoryModel object via style tags.
  * @param {MemoryModel} memory_model - The MemoryModel object that will have CSS set for its associated svg.
+ * @param {string} global_style - An optional string containing global CSS styles to be applied to the svg.
  */
-function setStyleSheet(memory_model: MemoryModel, global_style: string) {
+function setStyleSheet(memory_model: MemoryModel, global_style?: string) {
     const styles = `
         text {
             font-family: Consolas, Courier;

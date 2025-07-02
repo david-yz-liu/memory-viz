@@ -63,7 +63,6 @@ export class MemoryModel {
     font_size: number; // Font size, in px
     browser: boolean; // Whether this library is being used in a browser context
     roughjs_config: Config; // Configuration object used to pass in options to rough.js
-    global_style: string; // Global CSS string to be applied to the SVG
 
     constructor(options: Partial<VisualizationConfig> = {}) {
         if (options.browser) {

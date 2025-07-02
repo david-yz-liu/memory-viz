@@ -70,6 +70,10 @@ describe.each([
         inputs: "filepath and global style",
         command: `${filePath} --output=${outputPath} --global-style=${globalStylePath} --roughjs-config seed=12345`,
     },
+    {
+        inputs: "filepath and (shorthand) global style",
+        command: `${filePath} --output=${outputPath} -s ${globalStylePath} --roughjs-config seed=12345`,
+    },
 ])("memory-viz cli", ({ inputs, command }) => {
     it(`produces consistent svg when provided ${inputs} option(s)`, (done) => {
         fs.writeFileSync(filePath, input);
