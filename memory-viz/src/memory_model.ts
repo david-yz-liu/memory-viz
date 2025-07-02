@@ -27,56 +27,6 @@ if (typeof window === "undefined") {
     fs = require("fs");
 }
 
-/**
- * Set box_width based on given_width and calculated_width
- * @param given_width - The given width, may be undefined.
- * @param calculated_width - The width calculated based on the object.
- */
-function setBoxWidth(
-    given_width: number | undefined,
-    calculated_width: number
-): number {
-    if (given_width !== undefined) {
-        if (given_width < calculated_width) {
-            console.warn(
-                `WARNING: provided width of object (${given_width}) is smaller than the required width` +
-                    ` (${calculated_width}). The provided width has been overwritten` +
-                    ` in the generated diagram.`
-            );
-            return calculated_width;
-        } else {
-            return given_width;
-        }
-    } else {
-        return calculated_width;
-    }
-}
-
-/**
- * Set box_height based on given_height and calculated_height
- * @param given_height - The given height, may be undefined.
- * @param calculated_height - The height calculated based on the object.
- */
-function setBoxHeight(
-    given_height: number | undefined,
-    calculated_height: number
-): number {
-    if (given_height !== undefined) {
-        if (given_height < calculated_height) {
-            console.warn(
-                `WARNING: provided height of object (${given_height}) is smaller than the required height` +
-                    ` (${calculated_height}). The provided width has been overwritten` +
-                    ` in the generated diagram.`
-            );
-            return calculated_height;
-        } else {
-            return given_height;
-        }
-    } else {
-        return calculated_height;
-    }
-}
-
 /** The class representing the memory model diagram of the given block of code. */
 export class MemoryModel {
     /**
@@ -317,8 +267,14 @@ export class MemoryModel {
         );
         let default_height = this.obj_min_height;
 
-        let box_width = setBoxWidth(width, default_width);
-        let box_height = setBoxHeight(height, default_height);
+        let box_width =
+            width !== undefined
+                ? Math.max(width, default_width)
+                : default_width;
+        let box_height =
+            height !== undefined
+                ? Math.max(height, default_height)
+                : default_height;
 
         this.drawRect(x, y, box_width, box_height, style.box_container);
 
@@ -480,8 +436,14 @@ export class MemoryModel {
             default_height += this.list_index_sep;
         }
 
-        let box_width = setBoxWidth(width, default_width);
-        let box_height = setBoxHeight(height, default_height);
+        let box_width =
+            width !== undefined
+                ? Math.max(width, default_width)
+                : default_width;
+        let box_height =
+            height !== undefined
+                ? Math.max(height, default_height)
+                : default_height;
 
         this.drawRect(x, y, box_width, box_height, style.box_container);
 
@@ -586,8 +548,14 @@ export class MemoryModel {
         default_width += ((element_ids.length - 1) * this.item_min_width) / 4; // Space for separators
         let default_height = this.obj_min_height;
 
-        let box_width = setBoxWidth(width, default_width);
-        let box_height = setBoxHeight(height, default_height);
+        let box_width =
+            width !== undefined
+                ? Math.max(width, default_width)
+                : default_width;
+        let box_height =
+            height !== undefined
+                ? Math.max(height, default_height)
+                : default_height;
 
         this.drawRect(x, y, box_width, box_height, style.box_container);
 
@@ -676,8 +644,14 @@ export class MemoryModel {
         let default_width = this.obj_min_width;
         let default_height = this.prop_min_height + this.item_min_height / 2;
 
-        let box_width = setBoxWidth(width, default_width);
-        let box_height = setBoxHeight(height, default_height);
+        let box_width =
+            width !== undefined
+                ? Math.max(width, default_width)
+                : default_width;
+        let box_height =
+            height !== undefined
+                ? Math.max(height, default_height)
+                : default_height;
 
         for (const k in obj) {
             let idk = k.trim() === "" ? "" : `id${k}`;
@@ -836,8 +810,14 @@ export class MemoryModel {
             default_height = this.obj_min_height;
         }
 
-        let box_width = setBoxWidth(width, default_width);
-        let box_height = setBoxHeight(height, default_height);
+        let box_width =
+            width !== undefined
+                ? Math.max(width, default_width)
+                : default_width;
+        let box_height =
+            height !== undefined
+                ? Math.max(height, default_height)
+                : default_height;
 
         this.drawRect(x, y, box_width, box_height, style.box_container);
 
