@@ -51,7 +51,6 @@ const HIGHLIGHT_TEXT_DARK: CSS.PropertiesHyphen = {
 
 const FADE_TEXT_DARK: CSS.PropertiesHyphen = {
     "fill-opacity": 0.4,
-    fill: "#FFFFFF",
 };
 
 const HIDE_TEXT_DARK: CSS.PropertiesHyphen = {
