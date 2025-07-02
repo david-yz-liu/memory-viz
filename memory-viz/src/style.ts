@@ -43,6 +43,50 @@ const FADE_BOX: Options = {
 };
 const HIDE_BOX: Options = { fill: "white", fillStyle: "solid" };
 
+const HIGHLIGHT_TEXT_DARK: CSS.PropertiesHyphen = {
+    "font-weight": "bolder",
+    "font-size": "22px",
+    fill: "#FFFFFF",
+};
+
+const FADE_TEXT_DARK: CSS.PropertiesHyphen = {
+    "fill-opacity": 0.4,
+    fill: "#FFFFFF",
+};
+
+const HIDE_TEXT_DARK: CSS.PropertiesHyphen = {
+    "fill-opacity": 0,
+};
+
+const HIGHLIGHT_BOX_LINES_DARK: Options = {
+    roughness: 0.2,
+    strokeWidth: 4,
+};
+
+const HIGHLIGHT_BOX_DARK: Options = {
+    roughness: 0.2,
+    strokeWidth: 4,
+    fill: "#EDB926",
+    fillStyle: "solid",
+};
+
+const FADE_BOX_LINES_DARK: Options = {
+    roughness: 2.0,
+    strokeWidth: 0.5,
+};
+
+const FADE_BOX_DARK: Options = {
+    roughness: 2.0,
+    strokeWidth: 0.5,
+    fill: "#2C2C2C",
+    fillStyle: "solid",
+};
+
+const HIDE_BOX_DARK: Options = {
+    fill: "#121212",
+    fillStyle: "solid",
+};
+
 const presets: Record<string, Style> = {
     highlight: {
         text_value: HIGHLIGHT_TEXT,
