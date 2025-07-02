@@ -65,7 +65,7 @@ The above "merging" procedure takes place inside the `drawAll` method (using the
 `populateDefaultStyle` helper function).
 
 Then, inside the `drawClass` and `drawObject` methods (which are called from within
-`drawALl`), for every invocation of `drawText` and `drawRect` (responsible for drawing
+`drawAll`), for every invocation of `drawText` and `drawRect` (responsible for drawing
 text and boxes, respectively), the corresponding attribute of the object's style
 object is passed (for instance, in the case where `drawText` is called to draw the id value
 inside the id box, `style.text_id` is passed as an argument to `drawText`).
