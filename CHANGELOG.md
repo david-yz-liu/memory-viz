@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- Added optional attributes width and height for each object, so users can create objects with their desired dimensions
+
 ### 🐛 Bug fixes
 
 - Fixed bug where the box wouldn't render properly when value is null for primitive types
