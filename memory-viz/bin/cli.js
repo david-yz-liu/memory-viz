@@ -37,6 +37,15 @@ function parseRoughjsConfig(input) {
     return Object.fromEntries(keyValuePairs);
 }
 
+function parseGlobalStyle(input) {
+    const fullPath = path.resolve(process.cwd(), input);
+    if (fs.existsSync(fullPath)) {
+        return fs.readFileSync(fullPath, "utf8");
+    }
+    console.error(`Error: CSS file ${fullPath} does not exist.`);
+    process.exit(1);
+}
+
 program
     .description(
         "Command line interface for generating memory model diagrams with MemoryViz"
@@ -58,6 +67,11 @@ program
         "options to configure how the SVG is drawn" +
             " - refer to rough.js documentation for available options",
         parseRoughjsConfig
+    )
+    .option(
+        "-s, --global-style <path>",
+        "path to a CSS file containing global styles for the SVG",
+        parseGlobalStyle
     );
 
 program.parse();
@@ -94,6 +108,7 @@ function runMemoryViz(jsonContent) {
             width: options.width,
             height: options.height,
             roughjs_config: { options: options.roughjsConfig },
+            global_style: options.globalStyle,
         });
     } catch (err) {
         console.error(`Error: ${err.message}`);
