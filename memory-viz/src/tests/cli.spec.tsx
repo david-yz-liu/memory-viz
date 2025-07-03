@@ -149,7 +149,7 @@ describe("memory-viz cli", () => {
 
 describe.each([
     {
-        errorType: "non-existent file",
+        errorType: "nonexistent file",
         command: "memory-viz cli-test.json",
         expectedErrorMessage:
             `Command failed: memory-viz cli-test.json\n` +
