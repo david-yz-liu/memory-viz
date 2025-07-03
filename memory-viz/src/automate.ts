@@ -187,10 +187,7 @@ function drawAutomatedOtherItems(
     const START_X = sf_endpoint + PADDING;
 
     for (const item of objs) {
-        if (
-            item.type === ".blank" &&
-            (item.width === undefined || item.height === undefined)
-        ) {
+        if (item.type === ".blank") {
             if (item.width === undefined || item.height === undefined) {
                 console.warn(
                     "WARNING :: An object with type='.blank' or '.blank-frame' exists with missing dimension information " +
