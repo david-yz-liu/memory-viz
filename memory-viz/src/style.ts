@@ -139,7 +139,7 @@ function setStyleSheet(memory_model: MemoryModel, global_style?: string) {
     `;
 
     const styleSheet = memory_model.document.createElement("style");
-    styleSheet.textContent = styles + "\n" + global_style;
+    styleSheet.textContent = styles + (global_style ? "\n" + global_style : "");
     memory_model.svg.appendChild(styleSheet);
 }
 
