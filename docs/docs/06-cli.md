@@ -46,10 +46,9 @@ Specifies the style of the generated SVG. Please refer to the [Rough.js document
 
 The argument is a comma-separated list of key-value pairs in the form `<key1=value1,key2=value2,...>`.
 
-### `--global-style=<path>`
+### `--global-style=<path>` (`-s <path>`)
 
-Specifies a path to a CSS file that contains global styles for the SVG. The shorter `-s <path>` option can also be used.
-The SVG source code contains various CSS selectors within the `<style>` tag, which can be used to style the SVG elements.
+Specifies a path to a CSS file that contains global styles for the SVG. The SVG source code contains various CSS selectors within the `<style>` tag, which can be used to style the SVG elements.
 
 ## Examples
 

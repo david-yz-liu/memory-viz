@@ -159,7 +159,7 @@ describe.each([
             )} does not exist.\n`,
     },
     {
-        errorType: "non-existent css file",
+        errorType: "nonexistent css file",
         command: `memory-viz ${filePath} --global-style=nonexistent.css`,
         expectedErrorMessage:
             `Command failed: memory-viz ${filePath} --global-style=nonexistent.css\n` +
