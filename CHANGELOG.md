@@ -11,7 +11,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
-- Added optional attributes width and height for each object, so users can create objects with their desired dimensions
+- Added support for global CSS styling using the `--global-style` option in the CLI
 
 ### 🐛 Bug fixes
 
@@ -35,6 +35,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Blank boxes can be created with blank empty strings or blank whitespace string values for dictionary keys
 - Added type annotations in published package output
 - Increased timeout for CLI tests from 2 seconds to 30 seconds
+- Added appropriate icons to the buttons on the demo and webstepper pages
+- Updated demo page tests in accordance with this change
 
 ### 🐛 Bug fixes
 

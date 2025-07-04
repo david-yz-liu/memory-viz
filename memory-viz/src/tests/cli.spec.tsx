@@ -11,6 +11,7 @@ tmp.setGracefulCleanup();
 const tmpFile = tmp.fileSync({ postfix: ".json" });
 const filePath = tmpFile.name;
 const outputPath = `${tmpFile.name}.svg`;
+const globalStylePath = tmp.fileSync({ postfix: ".css" }).name;
 const input = JSON.stringify(
     [
         {
@@ -22,6 +23,16 @@ const input = JSON.stringify(
     ],
     null
 );
+const globalStyle = `
+    svg {
+        background-color: #121212;
+    }
+    
+    text {
+        font-family: Consolas, Courier;
+        font-size: 20px;
+    }
+`;
 
 // Helper function for determining the output path of the SVG
 const getSVGPath = (isOutputOption: boolean) => {
@@ -55,9 +66,18 @@ describe.each([
         inputs: "filepath and a variety of rough-config",
         command: `${filePath} --output=${outputPath} --roughjs-config seed=12345,fill=red,fillStyle=solid`,
     },
+    {
+        inputs: "filepath and global style",
+        command: `${filePath} --output=${outputPath} --global-style=${globalStylePath} --roughjs-config seed=12345`,
+    },
+    {
+        inputs: "filepath and (shorthand) global style",
+        command: `${filePath} --output=${outputPath} -s ${globalStylePath} --roughjs-config seed=12345`,
+    },
 ])("memory-viz cli", ({ inputs, command }) => {
     it(`produces consistent svg when provided ${inputs} option(s)`, (done) => {
         fs.writeFileSync(filePath, input);
+        fs.writeFileSync(globalStylePath, globalStyle);
 
         exec(`memory-viz ${command}`, (err: ExecException | null) => {
             if (err) throw err;
@@ -129,13 +149,23 @@ describe("memory-viz cli", () => {
 
 describe.each([
     {
-        errorType: "non-existent file",
+        errorType: "nonexistent file",
         command: "memory-viz cli-test.json",
         expectedErrorMessage:
             `Command failed: memory-viz cli-test.json\n` +
             `Error: File ${path.resolve(
                 process.cwd(),
                 "cli-test.json"
+            )} does not exist.\n`,
+    },
+    {
+        errorType: "nonexistent css file",
+        command: `memory-viz ${filePath} --global-style=nonexistent.css`,
+        expectedErrorMessage:
+            `Command failed: memory-viz ${filePath} --global-style=nonexistent.css\n` +
+            `Error: CSS file ${path.resolve(
+                process.cwd(),
+                "nonexistent.css"
             )} does not exist.\n`,
     },
     {

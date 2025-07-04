@@ -46,6 +46,10 @@ Specifies the style of the generated SVG. Please refer to the [Rough.js document
 
 The argument is a comma-separated list of key-value pairs in the form `<key1=value1,key2=value2,...>`.
 
+### `--global-style=<path>` (`-s <path>`)
+
+Specifies a path to a CSS file that contains global styles for the SVG. The SVG source code contains various CSS selectors within the `<style>` tag, which can be used to style the SVG elements.
+
 ## Examples
 
 This takes input from a file and prints to `stdout`.
@@ -64,4 +68,10 @@ This takes input from a file, generates the SVG with a solid red fill, and write
 
 ```console
 $ npx memory-viz <path-to-file> --output=<path> --roughjs-config fill=red,fillStyle=solid
+```
+
+This takes an input from a file, generates the SVG with custom styles from a CSS file, and writes the SVG to the specified path.
+
+```console
+$ npx memory-viz <path-to-file> --output=<path> --global-style=<path-to-css>
 ```

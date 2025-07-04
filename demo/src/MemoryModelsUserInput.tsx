@@ -13,6 +13,9 @@ import {
     DialogActions,
     DialogContent,
 } from "@mui/material";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import FolderOpenIcon from "@mui/icons-material/FolderOpen";
+import DrawIcon from "@mui/icons-material/Draw";
 import DownloadJSONButton from "./DownloadJSONButton";
 import MemoryModelsMenu from "./MemoryModelsMenu";
 import MemoryModelsSample from "./MemoryModelsSample";
@@ -80,7 +83,11 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
 
     return (
         <div>
-            <Button onClick={handleOpen} sx={{ textTransform: "none" }}>
+            <Button
+                onClick={handleOpen}
+                startIcon={<UploadFileIcon />}
+                sx={{ textTransform: "none" }}
+            >
                 Upload JSON File
             </Button>
             <Dialog
@@ -108,6 +115,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                         disabled={!uploadedFileString}
                         onClick={onLoadButtonClick}
                         sx={{ textTransform: "none" }}
+                        startIcon={<FolderOpenIcon />}
                     >
                         Load file data
                     </Button>
@@ -242,6 +250,7 @@ export default function MemoryModelsUserInput(
                                 color="primary"
                                 disabled={!props.textData}
                                 style={{ textTransform: "none" }}
+                                startIcon={<DrawIcon />}
                             >
                                 Draw Diagram
                             </Button>
