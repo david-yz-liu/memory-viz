@@ -530,6 +530,56 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders an object with defined size", () => {
+        const objects: DrawnEntity[] = [
+            { type: "int", width: 500, height: 500 },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("logs a warning when defined width is smaller than calculated", () => {
+        const objects: DrawnEntity[] = [{ type: "int", width: 1, height: 500 }];
+        const spy = jest.spyOn(global.console, "warn");
+        draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        expect(spy).toHaveBeenCalledTimes(3);
+        console.log(spy.mock.calls[0][0]);
+
+        const message = new RegExp(
+            "^WARNING: provided width of object \\(\\d+\\) is smaller than " +
+                "the required width \\(\\d+(\\.\\d+)?\\). The provided width has been overwritten " +
+                "in the generated diagram.$"
+        );
+        expect(message.test(spy.mock.calls[0][0])).toBe(true);
+        spy.mockRestore();
+    });
+
+    it("logs a warning when defined height is smaller than calculated", () => {
+        const objects: DrawnEntity[] = [{ type: "int", width: 500, height: 1 }];
+        const spy = jest.spyOn(global.console, "warn");
+        draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        expect(spy).toHaveBeenCalledTimes(3);
+        console.log(spy.mock.calls[0][0]);
+
+        const message = new RegExp(
+            "^WARNING: provided height of object \\(\\d+\\) is smaller than " +
+                "the required height \\(\\d+(\\.\\d+)?\\). The provided height has been overwritten " +
+                "in the generated diagram.$"
+        );
+        expect(message.test(spy.mock.calls[0][0])).toBe(true);
+        spy.mockRestore();
+    });
+
     it("renders a stack frame and an int", () => {
         const objects: DrawnEntity[] = [
             {
