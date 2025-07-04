@@ -12,6 +12,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### ✨ Enhancements
 
 - Added support for global CSS styling using the `--global-style` option in the CLI
+- Added opetional parameters width and height for each object, so users can define object's dimensions
 
 ### 🐛 Bug fixes
 
