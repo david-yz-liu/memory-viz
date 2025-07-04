@@ -267,6 +267,19 @@ export class MemoryModel {
         );
         let default_height = this.obj_min_height;
 
+        if (width !== undefined && width < default_width) {
+            console.warn(
+                `WARNING: provided width of object (${width}) is smaller than the required width` +
+                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
+            );
+        }
+        if (height !== undefined && height < default_height) {
+            console.warn(
+                `WARNING: provided height of object (${height}) is smaller than the required height` +
+                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
+            );
+        }
+
         let box_width =
             width !== undefined
                 ? Math.max(width, default_width)
@@ -436,6 +449,19 @@ export class MemoryModel {
             default_height += this.list_index_sep;
         }
 
+        if (width !== undefined && width < default_width) {
+            console.warn(
+                `WARNING: provided width of object (${width}) is smaller than the required width` +
+                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
+            );
+        }
+        if (height !== undefined && height < default_height) {
+            console.warn(
+                `WARNING: provided height of object (${height}) is smaller than the required height` +
+                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
+            );
+        }
+
         let box_width =
             width !== undefined
                 ? Math.max(width, default_width)
@@ -548,6 +574,19 @@ export class MemoryModel {
         default_width += ((element_ids.length - 1) * this.item_min_width) / 4; // Space for separators
         let default_height = this.obj_min_height;
 
+        if (width !== undefined && width < default_width) {
+            console.warn(
+                `WARNING: provided width of object (${width}) is smaller than the required width` +
+                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
+            );
+        }
+        if (height !== undefined && height < default_height) {
+            console.warn(
+                `WARNING: provided height of object (${height}) is smaller than the required height` +
+                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
+            );
+        }
+
         let box_width =
             width !== undefined
                 ? Math.max(width, default_width)
@@ -643,6 +682,19 @@ export class MemoryModel {
     ): Rect {
         let default_width = this.obj_min_width;
         let default_height = this.prop_min_height + this.item_min_height / 2;
+
+        if (width !== undefined && width < default_width) {
+            console.warn(
+                `WARNING: provided width of object (${width}) is smaller than the required width` +
+                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
+            );
+        }
+        if (height !== undefined && height < default_height) {
+            console.warn(
+                `WARNING: provided height of object (${height}) is smaller than the required height` +
+                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
+            );
+        }
 
         let box_width =
             width !== undefined
@@ -808,6 +860,19 @@ export class MemoryModel {
                 this.prop_min_height;
         } else {
             default_height = this.obj_min_height;
+        }
+
+        if (width !== undefined && width < default_width) {
+            console.warn(
+                `WARNING: provided width of object (${width}) is smaller than the required width` +
+                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
+            );
+        }
+        if (height !== undefined && height < default_height) {
+            console.warn(
+                `WARNING: provided height of object (${height}) is smaller than the required height` +
+                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
+            );
         }
 
         let box_width =
