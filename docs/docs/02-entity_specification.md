@@ -13,13 +13,14 @@ This page documents the attributes of the `DrawnEntity` object type and provides
 
 All supported entities include the following core attributes, unless explicitly stated otherwise:
 
-| Attribute | Type                | Required | Description                                                                                                                           |
-| :-------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------ |
-| `type`    | `string`            | Yes      | Specifies the type of object to be drawn. (e.g., `.class`, `.frame`, `int`, `str`). See [Entity Type](#entity-type) for more details. |
-| `id`      | `number` or `null`  | Yes      | A unique identifier for the object. May be `null` anywhere to render a blank ID box.                                                  |
-| `value`   | `any`               | Yes      | The content of the object to be drawn. Format depends on the [entity type](#entity-type).                                             |
-| `x`, `y`  | `number`            | No       | The x and y coordinates for the object on the canvas. Required only if the `automation` parameter of `draw` is `false`.               |
-| `style`   | `object` or `array` | No       | Custom visual styling. See [Style API](04-style.md) for more details.                                                                 |
+| Attribute         | Type                | Required | Description                                                                                                                                                                             |
+| :---------------- | :------------------ | :------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`            | `string`            | Yes      | Specifies the type of object to be drawn. (e.g., `.class`, `.frame`, `int`, `str`). See [Entity Type](#entity-type) for more details.                                                   |
+| `id`              | `number` or `null`  | Yes      | A unique identifier for the object. May be `null` anywhere to render a blank ID box.                                                                                                    |
+| `value`           | `any`               | Yes      | The content of the object to be drawn. Format depends on the [entity type](#entity-type).                                                                                               |
+| `x`, `y`          | `number`            | No       | The x and y coordinates for the object on the canvas. Required only if the `automation` parameter of `draw` is `false`.                                                                 |
+| `style`           | `object` or `array` | No       | Custom visual styling. See [Style API](04-style.md) for more details.                                                                                                                   |
+| `width`, `height` | `number`            | No       | The height and width for the object on the canvas. If defined height and width is smaller than the automatically calculated, then it will be overwritten and an warning will be logged. |
 
 ### Entity Type
 
