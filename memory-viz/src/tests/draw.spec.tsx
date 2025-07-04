@@ -542,6 +542,35 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a dict with large height", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 10,
+                value: { x: 81, y: 100, z: 121 },
+                height: 300,
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a set with large width", () => {
+        const objects: DrawnEntity[] = [
+            { type: "set", id: 32, value: [10, 11, 12], width: 500 },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("logs a warning when defined width is smaller than calculated", () => {
         const objects: DrawnEntity[] = [{ type: "int", width: 1, height: 500 }];
         const spy = jest.spyOn(global.console, "warn");
