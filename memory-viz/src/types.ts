@@ -15,8 +15,6 @@ export interface DrawnEntity {
     height?: number;
     width?: number;
     rowBreaker?: boolean;
-    layoutWidth?: number;
-    layoutHeight?: number;
 }
 
 export interface Style {
