@@ -280,14 +280,8 @@ export class MemoryModel {
             );
         }
 
-        let box_width =
-            width !== undefined
-                ? Math.max(width, default_width)
-                : default_width;
-        let box_height =
-            height !== undefined
-                ? Math.max(height, default_height)
-                : default_height;
+        let box_width = Math.max(width ?? 0, default_width);
+        let box_height = Math.max(height ?? 0, default_height);
 
         this.drawRect(x, y, box_width, box_height, style.box_container);
 
@@ -462,14 +456,8 @@ export class MemoryModel {
             );
         }
 
-        let box_width =
-            width !== undefined
-                ? Math.max(width, default_width)
-                : default_width;
-        let box_height =
-            height !== undefined
-                ? Math.max(height, default_height)
-                : default_height;
+        let box_width = Math.max(width ?? 0, default_width);
+        let box_height = Math.max(height ?? 0, default_height);
 
         this.drawRect(x, y, box_width, box_height, style.box_container);
 
@@ -587,14 +575,8 @@ export class MemoryModel {
             );
         }
 
-        let box_width =
-            width !== undefined
-                ? Math.max(width, default_width)
-                : default_width;
-        let box_height =
-            height !== undefined
-                ? Math.max(height, default_height)
-                : default_height;
+        let box_width = Math.max(width ?? 0, default_width);
+        let box_height = Math.max(height ?? 0, default_height);
 
         this.drawRect(x, y, box_width, box_height, style.box_container);
 
@@ -696,14 +678,8 @@ export class MemoryModel {
             );
         }
 
-        let box_width =
-            width !== undefined
-                ? Math.max(width, default_width)
-                : default_width;
-        let box_height =
-            height !== undefined
-                ? Math.max(height, default_height)
-                : default_height;
+        let box_width = Math.max(width ?? 0, default_width);
+        let box_height = Math.max(height ?? 0, default_height);
 
         for (const k in obj) {
             let idk = k.trim() === "" ? "" : `id${k}`;
@@ -875,14 +851,8 @@ export class MemoryModel {
             );
         }
 
-        let box_width =
-            width !== undefined
-                ? Math.max(width, default_width)
-                : default_width;
-        let box_height =
-            height !== undefined
-                ? Math.max(height, default_height)
-                : default_height;
+        let box_width = Math.max(width ?? 0, default_width);
+        let box_height = Math.max(height ?? 0, default_height);
 
         this.drawRect(x, y, box_width, box_height, style.box_container);
 
