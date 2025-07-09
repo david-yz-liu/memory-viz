@@ -690,6 +690,39 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("adds unique IDs to object boxes in SVG output", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: ".frame",
+                name: "__main__",
+                id: null,
+                value: { lst1: 82, lst2: 84 },
+            },
+            {
+                type: "str",
+                id: 19,
+                value: "David is cool!",
+            },
+            { type: "int", id: 13, value: 7 },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+
+        // IDSs are present?
+        expect(svg).toContain('id="object-0"');
+        expect(svg).toContain('id="object-1"');
+        expect(svg).toContain('id="object-2"');
+
+        // IDs are unique?
+        const svg_str = svg.toString();
+        expect((svg_str.match(/id="object-0"/g) || []).length).toBe(1);
+        expect((svg_str.match(/id="object-1"/g) || []).length).toBe(1);
+        expect((svg_str.match(/id="object-2"/g) || []).length).toBe(1);
+    });
+
     it("renders a blank stack frame", () => {
         const objects: DrawnEntity[] = [
             { type: ".blank-frame", width: 100, height: 200 },
