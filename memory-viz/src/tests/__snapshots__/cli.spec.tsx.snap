@@ -215,16 +215,6 @@ exports[`memory-viz cli produces consistent svg when provided filepath and (shor
     path {
       stroke: rgb(0, 0, 0);
     }
-
-
-    svg {
-      background-color: #121212;
-    }
-
-    text {
-      font-family: Consolas, Courier;
-      font-size: 20px;
-    }
   </style>
   <g id="object-0">
     <path d="M50.03387502096594 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="yellow" />
@@ -343,16 +333,6 @@ exports[`memory-viz cli produces consistent svg when provided filepath and globa
 
     path {
       stroke: rgb(0, 0, 0);
-    }
-
-
-    svg {
-      background-color: #121212;
-    }
-
-    text {
-      font-family: Consolas, Courier;
-      font-size: 20px;
     }
   </style>
   <g id="object-0">
