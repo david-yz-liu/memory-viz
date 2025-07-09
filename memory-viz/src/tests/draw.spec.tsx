@@ -548,7 +548,7 @@ describe("draw function", () => {
                 type: "dict",
                 id: 10,
                 value: { x: 81, y: 100, z: 121 },
-                height: 300,
+                height: 600,
             },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
