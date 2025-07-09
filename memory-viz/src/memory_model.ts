@@ -648,8 +648,6 @@ export class MemoryModel {
      * @param obj - the object that will be drawn
      * @param style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
-     * @param width - The width of the object
-     * @param height - The height of the object
      *
      * @returns the top-left coordinates, width, and height of the outermost box
      */
@@ -664,6 +662,29 @@ export class MemoryModel {
     ): Rect {
         let default_width = this.obj_min_width;
         let default_height = this.prop_min_height + this.item_min_height / 2;
+
+        for (const k in obj) {
+            let idk = k.trim() === "" ? "" : `id${k}`;
+            let idv = obj[k] === null ? "" : `id${obj[k]}`;
+
+            let key_box = Math.max(
+                this.item_min_width,
+                this.getTextLength(idk + 5, style.text_id)
+            );
+            let value_box = Math.max(
+                this.item_min_width,
+                this.getTextLength(idv + 5, style.text_value)
+            );
+
+            default_width = Math.max(
+                default_width,
+                this.obj_x_padding * 2 +
+                    key_box +
+                    value_box +
+                    2 * this.font_size
+            );
+            default_height += 1.5 * this.item_min_height;
+        }
 
         if (width !== undefined && width < default_width) {
             console.warn(
@@ -680,29 +701,6 @@ export class MemoryModel {
 
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
-
-        for (const k in obj) {
-            let idk = k.trim() === "" ? "" : `id${k}`;
-            let idv = obj[k] === null ? "" : `id${obj[k]}`;
-
-            let key_box = Math.max(
-                this.item_min_width,
-                this.getTextLength(idk + 5, style.text_id)
-            );
-            let value_box = Math.max(
-                this.item_min_width,
-                this.getTextLength(idv + 5, style.text_value)
-            );
-
-            box_width = Math.max(
-                box_width,
-                this.obj_x_padding * 2 +
-                    key_box +
-                    value_box +
-                    2 * this.font_size
-            );
-            box_height += 1.5 * this.item_min_height;
-        }
 
         this.drawRect(x, y, box_width, box_height, style.box_container);
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
