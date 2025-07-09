@@ -267,17 +267,23 @@ export class MemoryModel {
         );
         let default_height = this.obj_min_height;
 
-        if (width !== undefined && width < default_width) {
-            console.warn(
-                `WARNING: provided width of object (${width}) is smaller than the required width` +
-                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
-            );
+        if (width !== undefined) {
+            width -= 2 * this.double_rect_sep;
+            if (width < default_width) {
+                console.warn(
+                    `WARNING: provided width of object (${width}) is smaller than the required width` +
+                        ` (${default_width}). The provided width has been overwritten in the generated diagram.`
+                );
+            }
         }
-        if (height !== undefined && height < default_height) {
-            console.warn(
-                `WARNING: provided height of object (${height}) is smaller than the required height` +
-                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
-            );
+        if (height !== undefined) {
+            height -= 2 * this.double_rect_sep;
+            if (height < default_height) {
+                console.warn(
+                    `WARNING: provided height of object (${height}) is smaller than the required height` +
+                        ` (${default_height}). The provided height has been overwritten in the generated diagram.`
+                );
+            }
         }
 
         let box_width = Math.max(width ?? 0, default_width);
