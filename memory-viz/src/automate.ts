@@ -199,6 +199,11 @@ function drawAutomatedOtherItems(
                     " diagram."
             );
         }
+        if (item.type !== ".blank") {
+            const dimensions = getSize(item);
+            item.height = dimensions.height;
+            item.width = dimensions.width;
+        }
     }
 
     /**
@@ -229,7 +234,7 @@ function drawAutomatedOtherItems(
     let row_height: number;
     let curr_row_objects: DrawnEntity[] = [];
     for (const item of objs) {
-        let hor_reach = x_coord + (item.width ?? getSize(item).width) + PADDING;
+        let hor_reach = x_coord + item.width! + PADDING;
 
         if (hor_reach < max_width) {
             item.x = x_coord;
@@ -240,14 +245,9 @@ function drawAutomatedOtherItems(
             // In this case, we cannot fit this object in the current row, and must move to a new row.
             // Based on how objs is initialized, every item will have attributes width and height
             const tallest_object = curr_row_objects.reduce((p, c) =>
-                (p.height ?? getSize(p).height) >=
-                (c.height ?? getSize(c).height)
-                    ? p
-                    : c
+                p.height! >= c.height! ? p : c
             );
-            row_height =
-                (tallest_object.height ?? getSize(tallest_object).height) +
-                PADDING;
+            row_height = tallest_object.height! + PADDING;
 
             curr_row_objects = [];
 
@@ -259,7 +259,7 @@ function drawAutomatedOtherItems(
 
             item.rowBreaker = true;
 
-            hor_reach = x_coord + (item.width ?? getSize(item).width) + PADDING;
+            hor_reach = x_coord + item.width! + PADDING;
 
             curr_row_objects.push(item);
         }
@@ -270,8 +270,8 @@ function drawAutomatedOtherItems(
     const defaultObject: DrawnEntity = {
         x: 0,
         y: 0,
-        height: 0,
         width: 0,
+        height: 0,
     };
     const right_most_obj = objs.reduce(
         (prev, curr) => (compareByRightness(prev, curr) <= 0 ? prev : curr),
@@ -285,11 +285,11 @@ function drawAutomatedOtherItems(
     // compareByRightness and compareByBottomness didn't throw error, so right_most_obj and down_most_obj has attributes x, y, width, height
     const canvas_width =
         right_most_obj.x! +
-        (right_most_obj.width ?? getSize(right_most_obj).width) +
+        right_most_obj.width! +
         (config_aut.right_margin ?? DEFAULT_PADDING);
     const canvas_height =
         down_most_obj.y! +
-        (down_most_obj.height ?? getSize(down_most_obj).height) +
+        down_most_obj.height! +
         (config_aut.bottom_margin ?? DEFAULT_PADDING);
 
     // Additional -- to extend the program for the .blank option.
@@ -370,7 +370,10 @@ function getSize(obj: DrawnEntity): Size {
  * @returns negative if 'a' is taller, 0 if they have the same height, and positive if 'b' is taller.
  */
 function compareByHeight(a: DrawnEntity, b: DrawnEntity): number {
-    return -((a.height ?? getSize(a).height) - (b.height ?? getSize(b).height));
+    if (a.height === undefined || b.height === undefined) {
+        throw new Error("Both objects must have 'height' property.");
+    }
+    return -(a.height - b.height);
 }
 
 /**
@@ -403,11 +406,16 @@ function compareByID(a: DrawnEntity, b: DrawnEntity): number {
  * @returns negative if 'a' is righter, 0 if 'a' and 'b' are equally right, and positive if b' is righter.
  */
 function compareByRightness(a: DrawnEntity, b: DrawnEntity): number {
-    if (a.x === undefined || b.x === undefined) {
-        throw new Error("Both objects must have 'x' property.");
+    if (
+        a.x === undefined ||
+        a.width === undefined ||
+        b.x === undefined ||
+        b.width === undefined
+    ) {
+        throw new Error("Both objects must have 'x' and 'width' property.");
     }
-    const a_right_edge = a.x + (a.width ?? getSize(a).width);
-    const b_right_edge = b.x + (b.width ?? getSize(b).width);
+    const a_right_edge = a.x + a.width;
+    const b_right_edge = b.x + b.width;
     return -(a_right_edge - b_right_edge);
 }
 
@@ -420,11 +428,16 @@ function compareByRightness(a: DrawnEntity, b: DrawnEntity): number {
  * @returns negative if 'a' is bottomer, 0 if 'a' and 'b' are equally bottom, and positive if b' is bottomer.
  */
 function compareByBottomness(a: DrawnEntity, b: DrawnEntity): number {
-    if (a.y === undefined || b.y === undefined) {
-        throw new Error("Both objects must have 'y' property.");
+    if (
+        a.y === undefined ||
+        a.height === undefined ||
+        b.y === undefined ||
+        b.height === undefined
+    ) {
+        throw new Error("Both objects must have 'y' and 'height' property.");
     }
-    const a_bottom_edge = a.y + (a.height ?? getSize(a).height);
-    const b_bottom_edge = b.y + (b.height ?? getSize(b).height);
+    const a_bottom_edge = a.y + a.height;
+    const b_bottom_edge = b.y + b.height;
     return -(a_bottom_edge - b_bottom_edge);
 }
 
