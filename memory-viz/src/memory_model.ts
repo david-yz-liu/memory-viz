@@ -63,6 +63,7 @@ export class MemoryModel {
     font_size: number; // Font size, in px
     browser: boolean; // Whether this library is being used in a browser context
     roughjs_config: Config; // Configuration object used to pass in options to rough.js
+    objectCounter: number; // Counter for tracking ids of objects drawn
 
     constructor(options: Partial<VisualizationConfig> = {}) {
         if (options.browser) {
@@ -99,6 +100,9 @@ export class MemoryModel {
                 ? options[key as keyof VisualizationConfig]
                 : config[key as keyof typeof config];
         }
+
+        // Initialize counter
+        this.objectCounter = 0;
     }
 
     /**
@@ -943,9 +947,18 @@ export class MemoryModel {
 
         style = { ...style, ...this.roughjs_config?.options };
 
-        this.svg.appendChild(
-            this.rough_svg.rectangle(x, y, width, height, style)
+        const rectElement = this.rough_svg.rectangle(
+            x,
+            y,
+            width,
+            height,
+            style
         );
+
+        rectElement.setAttribute("id", `object-${this.objectCounter}`);
+        this.objectCounter++;
+
+        this.svg.appendChild(rectElement);
     }
 
     /**
