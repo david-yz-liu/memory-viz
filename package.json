@@ -1,21 +1,21 @@
 {
-    "scripts": {
-        "prepare": "husky",
-        "test": "jest --no-cache",
-        "test-cov": "jest --no-cache --coverage"
-    },
-    "workspaces": [
-        "memory-viz",
-        "demo",
-        "docs",
-        "webstepper"
-    ],
-    "devDependencies": {
-        "husky": "^9.1.7",
-        "lint-staged": "^16.1.2",
-        "prettier": "3.4.1"
-    },
-    "lint-staged": {
-        "**/*": "prettier --write --ignore-unknown"
-    }
+  "scripts": {
+    "prepare": "husky",
+    "test": "jest --no-cache",
+    "test-cov": "jest --no-cache --coverage"
+  },
+  "workspaces": [
+    "memory-viz",
+    "demo",
+    "docs",
+    "webstepper"
+  ],
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "3.4.1"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
 }
