@@ -17,8 +17,5 @@
     },
     "lint-staged": {
         "**/*": "prettier --write --ignore-unknown"
-    },
-    "dependencies": {
-        "memory-viz": "^0.6.0"
     }
 }
