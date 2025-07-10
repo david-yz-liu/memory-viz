@@ -222,7 +222,7 @@ All supported entities include the following core attributes, unless explicitly 
         ![Example Set](images/entity_specification/set_blank_boxes.svg)
 </details>
 <details>
-    <summary>**Set with large width</summary>
+    <summary>**Set with large width**</summary>
     ```json
         { "type": "set", 
             "id": 32, 
@@ -262,7 +262,7 @@ All supported entities include the following core attributes, unless explicitly 
         ![Example Dictionary](images/entity_specification/dict_blank_boxes.svg)
 </details>
 <details>
-    <summary>**Dictionary with large height</summary>
+    <summary>**Dictionary with large height**</summary>
     ```json
         { "type": "dict", 
             "id": 10, 
