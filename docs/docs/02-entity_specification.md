@@ -223,13 +223,13 @@ All supported entities include the following core attributes, unless explicitly 
 </details>
 <details>
     <summary>**Set with large width</summary>
-    '''json
+    ```json
         { "type": "set", 
             "id": 32, 
             "value": [10, 11, 12], 
             "width": 500 
         }
-    '''
+    ```
     ![Example Set](images/entity_specification/set_large_width.svg)
 </details>
 
@@ -263,13 +263,13 @@ All supported entities include the following core attributes, unless explicitly 
 </details>
 <details>
     <summary>**Dictionary with large height</summary>
-    '''json
+    ```json
         { "type": "dict", 
             "id": 10, 
             "value": { "x": 81, "y": 100, "z": 121 }, 
             "height": 600 
         }
-    '''
+    ```
     ![Example Dictionary](images/entity_specification/dict_large_height.svg)
 </details>
 
