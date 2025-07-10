@@ -721,6 +721,10 @@ describe("draw function", () => {
         expect((svg_str.match(/id="object-0"/g) || []).length).toBe(1);
         expect((svg_str.match(/id="object-1"/g) || []).length).toBe(1);
         expect((svg_str.match(/id="object-2"/g) || []).length).toBe(1);
+
+        // Ensure internal rectangles like property boxes don't get IDs
+        const objectIdMatches = svg_str.match(/id="object-\d+"/g) || [];
+        expect(objectIdMatches.length).toBe(3);
     });
 
     it("renders a blank stack frame", () => {

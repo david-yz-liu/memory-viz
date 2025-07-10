@@ -101,7 +101,6 @@ export class MemoryModel {
                 : config[key as keyof typeof config];
         }
 
-        // Initialize counter
         this.objectCounter = 0;
     }
 
@@ -293,7 +292,7 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container);
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
 
         let size: Rect = {
             width: box_width,
@@ -469,7 +468,7 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container);
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
 
         const size: Rect = { width: box_width, height: box_height, x: x, y: y };
 
@@ -588,7 +587,7 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container);
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
 
         const SIZE: Rect = {
             x,
@@ -712,7 +711,7 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container);
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
         // First loop, to draw the key boxes
@@ -862,7 +861,7 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container);
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
 
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
@@ -939,7 +938,8 @@ export class MemoryModel {
         y: number,
         width: number,
         height: number,
-        style?: Options
+        style?: Options,
+        isBoundingBox: boolean = false
     ): void {
         if (style === undefined) {
             style = this.rect_style;
@@ -955,8 +955,10 @@ export class MemoryModel {
             style
         );
 
-        rectElement.setAttribute("id", `object-${this.objectCounter}`);
-        this.objectCounter++;
+        if (isBoundingBox) {
+            rectElement.setAttribute("id", `object-${this.objectCounter}`);
+            this.objectCounter++;
+        }
 
         this.svg.appendChild(rectElement);
     }
