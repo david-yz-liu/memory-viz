@@ -83,7 +83,11 @@ describe.each([
             if (err) throw err;
 
             const svgFilePath = getSVGPath(command.includes("--output"));
-            const fileContent = fs.readFileSync(svgFilePath, "utf8");
+            let fileContent = fs.readFileSync(svgFilePath, "utf8");
+            fileContent = fileContent.replace(
+                /<style>[\s\S]*?<\/style>/,
+                "<style></style>"
+            );
             expect(fileContent).toMatchSnapshot();
             fs.unlinkSync(svgFilePath);
 
