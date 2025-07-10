@@ -270,7 +270,7 @@ All supported entities include the following core attributes, unless explicitly 
             "height": 600 
         }
     '''
-    ![Example Set](images/entity_specification/dict_large_height.svg)
+    ![Example Dictionary](images/entity_specification/dict_large_height.svg)
 </details>
 
 ## Classes
