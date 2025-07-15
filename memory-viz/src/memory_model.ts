@@ -63,6 +63,7 @@ export class MemoryModel {
     font_size: number; // Font size, in px
     browser: boolean; // Whether this library is being used in a browser context
     roughjs_config: Config; // Configuration object used to pass in options to rough.js
+    objectCounter: number; // Counter for tracking ids of objects drawn
 
     constructor(options: Partial<VisualizationConfig> = {}) {
         if (options.browser) {
@@ -91,7 +92,7 @@ export class MemoryModel {
         this.roughjs_config = options.roughjs_config ?? {};
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
 
-        setStyleSheet(this);
+        setStyleSheet(this, options.global_style ?? "");
 
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
@@ -99,6 +100,8 @@ export class MemoryModel {
                 ? options[key as keyof VisualizationConfig]
                 : config[key as keyof typeof config];
         }
+
+        this.objectCounter = 0;
     }
 
     /**
@@ -172,6 +175,8 @@ export class MemoryModel {
      * @param value - can be passed as a list if type is a collection type
      * @param show_indexes - whether to show list indices
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * @param width - The width of the object
+     * @param height - The height of the object
      * For style, firstly refer to `style.md` and `presets.md`. For the styling options in terms of texts, refer to
      * the SVG documentation. For the styling options in terms of boxes, refer to the Rough.js documentation.
      */
@@ -182,19 +187,21 @@ export class MemoryModel {
         id: number | undefined | null,
         value: object | number[] | string | boolean | null,
         show_indexes: boolean = false,
-        style: Style
+        style: Style,
+        width?: number,
+        height?: number
     ): Rect {
         if (id === undefined) {
             id = null;
         }
         if (collections.includes(type)) {
             if (type === "dict" && typeof value === "object") {
-                return this.drawDict(x, y, id, value, style);
+                return this.drawDict(x, y, id, value, style, width, height);
             } else if (
                 type === "set" &&
                 isArrayOfNullableType<number>(value, "number")
             ) {
-                return this.drawSet(x, y, id, value, style);
+                return this.drawSet(x, y, id, value, style, width, height);
             } else if (
                 (type === "list" || type === "tuple") &&
                 isArrayOfNullableType<number>(value, "number")
@@ -206,12 +213,23 @@ export class MemoryModel {
                     id,
                     value,
                     show_indexes,
-                    style
+                    style,
+                    width,
+                    height
                 );
             }
         } else {
             if (typeof value !== "object" || value === null) {
-                return this.drawPrimitive(x, y, type, id, value, style);
+                return this.drawPrimitive(
+                    x,
+                    y,
+                    type,
+                    id,
+                    value,
+                    style,
+                    width,
+                    height
+                );
             }
         }
         throw new Error(
@@ -227,6 +245,8 @@ export class MemoryModel {
      * @param id - the hypothetical memory address number
      * @param value - the value of the primitive object
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * @param width - The width of the object
+     * @param height - The height of the object
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      */
@@ -236,26 +256,47 @@ export class MemoryModel {
         type: string,
         id: number | null,
         value: Primitive,
-        style: Style
+        style: Style,
+        width?: number,
+        height?: number
     ): Rect {
         const renderedText =
             typeof value === "string" ? `"${value}"` : String(value);
-        let box_width = Math.max(
+
+        let default_width = Math.max(
             this.obj_min_width,
             this.getTextLength(renderedText, style.text_value) +
                 this.obj_x_padding
         );
-        this.drawRect(
-            x,
-            y,
-            box_width,
-            this.obj_min_height,
-            style.box_container
-        );
+        let default_height = this.obj_min_height;
+
+        if (width !== undefined) {
+            width -= 2 * this.double_rect_sep;
+            if (width < default_width) {
+                console.warn(
+                    `WARNING: provided width of object (${width}) is smaller than the required width` +
+                        ` (${default_width}). The provided width has been overwritten in the generated diagram.`
+                );
+            }
+        }
+        if (height !== undefined) {
+            height -= 2 * this.double_rect_sep;
+            if (height < default_height) {
+                console.warn(
+                    `WARNING: provided height of object (${height}) is smaller than the required height` +
+                        ` (${default_height}). The provided height has been overwritten in the generated diagram.`
+                );
+            }
+        }
+
+        let box_width = Math.max(width ?? 0, default_width);
+        let box_height = Math.max(height ?? 0, default_height);
+
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
 
         let size: Rect = {
             width: box_width,
-            height: this.obj_min_height,
+            height: box_height,
             x: x,
             y: y,
         };
@@ -266,11 +307,11 @@ export class MemoryModel {
                 x - this.double_rect_sep,
                 y - this.double_rect_sep,
                 box_width + 2 * this.double_rect_sep,
-                this.obj_min_height + 2 * this.double_rect_sep
+                box_height + 2 * this.double_rect_sep
             );
             size = {
                 width: box_width + 2 * this.double_rect_sep,
-                height: this.obj_min_height + 2 * this.double_rect_sep,
+                height: box_height + 2 * this.double_rect_sep,
                 x: x - this.double_rect_sep,
                 y: y - this.double_rect_sep,
             };
@@ -289,7 +330,7 @@ export class MemoryModel {
             this.drawText(
                 display_text,
                 x + box_width / 2,
-                y + (this.obj_min_height + this.prop_min_height) / 2,
+                y + (box_height + this.prop_min_height) / 2,
                 style.text_value,
                 "value"
             );
@@ -383,6 +424,8 @@ export class MemoryModel {
      * @param style -  The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
+     * @param width - The width of the object
+     * @param height - The height of the object-
      */
     drawSequence(
         x: number,
@@ -391,26 +434,41 @@ export class MemoryModel {
         id: number | null,
         element_ids: (number | null)[],
         show_idx: boolean,
-        style: Style
+        style: Style,
+        width?: number,
+        height?: number
     ): Rect {
-        let box_width = this.obj_x_padding * 2;
-
+        let default_width = this.obj_x_padding * 2;
         element_ids.forEach((v) => {
-            box_width += Math.max(
+            default_width += Math.max(
                 this.item_min_width,
                 this.getTextLength(v === null ? "" : `id${v}`, style.text_id) +
                     10
             );
         });
-
-        box_width = Math.max(this.obj_min_width, box_width);
-
-        let box_height = this.obj_min_height;
+        default_width = Math.max(this.obj_min_width, default_width);
+        let default_height = this.obj_min_height;
         if (show_idx) {
-            box_height += this.list_index_sep;
+            default_height += this.list_index_sep;
         }
 
-        this.drawRect(x, y, box_width, box_height, style.box_container);
+        if (width !== undefined && width < default_width) {
+            console.warn(
+                `WARNING: provided width of object (${width}) is smaller than the required width` +
+                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
+            );
+        }
+        if (height !== undefined && height < default_height) {
+            console.warn(
+                `WARNING: provided height of object (${height}) is smaller than the required height` +
+                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
+            );
+        }
+
+        let box_width = Math.max(width ?? 0, default_width);
+        let box_height = Math.max(height ?? 0, default_height);
+
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
 
         const size: Rect = { width: box_width, height: box_height, x: x, y: y };
 
@@ -484,6 +542,8 @@ export class MemoryModel {
      *             memory boxes for all elements (with id's that match the id's held in 'element_ids').
      * @param style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
+     * @param width - The width of the object
+     * @param height - The height of the object
      *
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
@@ -495,42 +555,52 @@ export class MemoryModel {
         y: number,
         id: number | null,
         element_ids: (number | null)[],
-        style: Style
+        style: Style,
+        width?: number,
+        height?: number
     ): Rect {
-        let box_width = this.obj_x_padding * 2;
+        let default_width = this.obj_x_padding * 2;
         element_ids.forEach((v) => {
-            box_width += Math.max(
+            default_width += Math.max(
                 this.item_min_width,
                 this.getTextLength(v === null ? "" : `id${v}`, style.text_id) +
                     10
             );
         });
-        box_width = Math.max(this.obj_min_width, box_width);
-        box_width += ((element_ids.length - 1) * this.item_min_width) / 4; // Space for separators
+        default_width = Math.max(this.obj_min_width, default_width);
+        default_width += ((element_ids.length - 1) * this.item_min_width) / 4; // Space for separators
+        let default_height = this.obj_min_height;
 
-        this.drawRect(
-            x,
-            y,
-            box_width,
-            this.obj_min_height,
-            style.box_container
-        );
+        if (width !== undefined && width < default_width) {
+            console.warn(
+                `WARNING: provided width of object (${width}) is smaller than the required width` +
+                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
+            );
+        }
+        if (height !== undefined && height < default_height) {
+            console.warn(
+                `WARNING: provided height of object (${height}) is smaller than the required height` +
+                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
+            );
+        }
+
+        let box_width = Math.max(width ?? 0, default_width);
+        let box_height = Math.max(height ?? 0, default_height);
+
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
 
         const SIZE: Rect = {
             x,
             y,
             width: box_width,
-            height: this.obj_min_height,
+            height: box_height,
         };
 
         let curr_x = x + this.item_min_width / 2;
         let item_y =
             y +
             this.prop_min_height +
-            (this.obj_min_height -
-                this.prop_min_height -
-                this.item_min_height) /
-                2;
+            (box_height - this.prop_min_height - this.item_min_height) / 2;
         let item_text_y =
             item_y + this.item_min_height / 2 + this.font_size / 4;
 
@@ -595,10 +665,12 @@ export class MemoryModel {
         y: number,
         id: number | null,
         obj: { [key: string]: any } | null,
-        style: Style
+        style: Style,
+        width?: number,
+        height?: number
     ): Rect {
-        let box_width = this.obj_min_width;
-        let box_height = this.prop_min_height + this.item_min_height / 2;
+        let default_width = this.obj_min_width;
+        let default_height = this.prop_min_height + this.item_min_height / 2;
 
         for (const k in obj) {
             let idk = k.trim() === "" ? "" : `id${k}`;
@@ -613,17 +685,33 @@ export class MemoryModel {
                 this.getTextLength(idv + 5, style.text_value)
             );
 
-            box_width = Math.max(
-                box_width,
+            default_width = Math.max(
+                default_width,
                 this.obj_x_padding * 2 +
                     key_box +
                     value_box +
                     2 * this.font_size
             );
-            box_height += 1.5 * this.item_min_height;
+            default_height += 1.5 * this.item_min_height;
         }
 
-        this.drawRect(x, y, box_width, box_height, style.box_container);
+        if (width !== undefined && width < default_width) {
+            console.warn(
+                `WARNING: provided width of object (${width}) is smaller than the required width` +
+                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
+            );
+        }
+        if (height !== undefined && height < default_height) {
+            console.warn(
+                `WARNING: provided height of object (${height}) is smaller than the required height` +
+                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
+            );
+        }
+
+        let box_width = Math.max(width ?? 0, default_width);
+        let box_height = Math.max(height ?? 0, default_height);
+
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
         // First loop, to draw the key boxes
@@ -707,6 +795,8 @@ export class MemoryModel {
      * @param stack_frame - set to true if you are drawing a stack frame
      * @param style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
+     * @param width - The width of the object
+     * @param height - The height of the object
      *
      * @returns the top-left coordinates, width, and height of the outermost box
      */
@@ -717,7 +807,9 @@ export class MemoryModel {
         id: number | undefined | null,
         attributes: { [key: string]: any },
         stack_frame: boolean,
-        style: Style
+        style: Style,
+        width?: number,
+        height?: number
     ): Rect {
         if (id === undefined) {
             id = null;
@@ -726,7 +818,7 @@ export class MemoryModel {
             name = "";
         }
 
-        let box_width = this.obj_min_width;
+        let default_width = this.obj_min_width;
         let longest = 0;
         for (const attribute in attributes) {
             longest = Math.max(
@@ -735,24 +827,41 @@ export class MemoryModel {
             );
         }
         if (longest > 0) {
-            box_width = longest + this.item_min_width * 3;
+            default_width = longest + this.item_min_width * 3;
         }
-        box_width = Math.max(
-            box_width,
+        default_width = Math.max(
+            default_width,
             this.prop_min_width + this.getTextLength(name, style.text_type) + 10
         );
 
-        let box_height = 0;
+        let default_height = 0;
         if (Object.keys(attributes).length > 0) {
-            box_height =
+            default_height =
                 ((this.item_min_width * 3) / 2) *
                     Object.keys(attributes).length +
                 this.item_min_width / 2 +
                 this.prop_min_height;
         } else {
-            box_height = this.obj_min_height;
+            default_height = this.obj_min_height;
         }
-        this.drawRect(x, y, box_width, box_height, style.box_container);
+
+        if (width !== undefined && width < default_width) {
+            console.warn(
+                `WARNING: provided width of object (${width}) is smaller than the required width` +
+                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
+            );
+        }
+        if (height !== undefined && height < default_height) {
+            console.warn(
+                `WARNING: provided height of object (${height}) is smaller than the required height` +
+                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
+            );
+        }
+
+        let box_width = Math.max(width ?? 0, default_width);
+        let box_height = Math.max(height ?? 0, default_height);
+
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
 
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
@@ -829,7 +938,8 @@ export class MemoryModel {
         y: number,
         width: number,
         height: number,
-        style?: Options
+        style?: Options,
+        isBoundingBox: boolean = false
     ): void {
         if (style === undefined) {
             style = this.rect_style;
@@ -837,9 +947,20 @@ export class MemoryModel {
 
         style = { ...style, ...this.roughjs_config?.options };
 
-        this.svg.appendChild(
-            this.rough_svg.rectangle(x, y, width, height, style)
+        const rectElement = this.rough_svg.rectangle(
+            x,
+            y,
+            width,
+            height,
+            style
         );
+
+        if (isBoundingBox) {
+            rectElement.setAttribute("id", `object-${this.objectCounter}`);
+            this.objectCounter++;
+        }
+
+        this.svg.appendChild(rectElement);
     }
 
     /**
@@ -966,7 +1087,9 @@ export class MemoryModel {
                     obj.id,
                     obj.value,
                     is_frame,
-                    obj.style
+                    obj.style,
+                    obj.width,
+                    obj.height
                 );
                 sizes_arr.push(size);
             } else {
@@ -977,7 +1100,9 @@ export class MemoryModel {
                     obj.id,
                     obj.value,
                     obj.show_indexes,
-                    obj.style
+                    obj.style,
+                    obj.width,
+                    obj.height
                 );
                 sizes_arr.push(size);
             }

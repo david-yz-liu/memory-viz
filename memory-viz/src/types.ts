@@ -32,6 +32,7 @@ export interface DisplaySettings {
     sort_by: SortOptions;
     style: Styles;
     roughjs_config: Config;
+    global_style: string;
     padding: number;
     top_margin: number;
     left_margin: number;
@@ -59,6 +60,7 @@ export interface VisualizationConfig {
     list_index_sep: number;
     font_size: number;
     browser: boolean;
+    global_style: string;
     roughjs_config: Config;
 }
 
