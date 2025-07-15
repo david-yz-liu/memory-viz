@@ -22,67 +22,49 @@ const primitives: string[] = ["int", "str", "None", "bool", "float", "date"];
 const HIGHLIGHT_TEXT: CSS.PropertiesHyphen = {
     "font-weight": "bolder",
     "font-size": "22px",
+    fill: "var(--highlight-text-color)",
 };
+
 const FADE_TEXT: CSS.PropertiesHyphen = {
     /*'font-weight': "normal",*/ "fill-opacity": 0.4,
+    fill: "var(--fade-text-color)",
 };
-const HIDE_TEXT: CSS.PropertiesHyphen = { "fill-opacity": 0 };
-const HIGHLIGHT_BOX_LINES: Options = { roughness: 0.2, strokeWidth: 4 };
+
+const HIDE_TEXT: CSS.PropertiesHyphen = {
+    "fill-opacity": 0,
+    fill: "var(--hide-text-color)",
+};
+
+const HIGHLIGHT_BOX_LINES: Options = {
+    roughness: 0.2,
+    strokeWidth: 4,
+    stroke: "var(--highlight-box-line-color)",
+};
+
 const HIGHLIGHT_BOX: Options = {
     roughness: 0.2,
     strokeWidth: 4,
-    fill: "yellow",
+    fill: "var(--highlight-box-fill)",
     fillStyle: "solid",
+    stroke: "var(--highlight-box-line-color)",
 };
-const FADE_BOX_LINES: Options = { roughness: 2.0, strokeWidth: 0.5 };
+
+const FADE_BOX_LINES: Options = {
+    roughness: 2.0,
+    strokeWidth: 0.5,
+    stroke: "var(--fade-box-line-color)",
+};
+
 const FADE_BOX: Options = {
     roughness: 2.0,
     strokeWidth: 0.5,
-    fill: "rgb(247, 247, 247)",
+    fill: "var(--fade-box-fill)",
     fillStyle: "solid",
-};
-const HIDE_BOX: Options = { fill: "white", fillStyle: "solid" };
-
-const HIGHLIGHT_TEXT_DARK: CSS.PropertiesHyphen = {
-    "font-weight": "bolder",
-    "font-size": "22px",
-    fill: "#FFFFFF",
+    stroke: "var(--fade-box-line-color)",
 };
 
-const FADE_TEXT_DARK: CSS.PropertiesHyphen = {
-    "fill-opacity": 0.4,
-};
-
-const HIDE_TEXT_DARK: CSS.PropertiesHyphen = {
-    "fill-opacity": 0,
-};
-
-const HIGHLIGHT_BOX_LINES_DARK: Options = {
-    roughness: 0.2,
-    strokeWidth: 4,
-};
-
-const HIGHLIGHT_BOX_DARK: Options = {
-    roughness: 0.2,
-    strokeWidth: 4,
-    fill: "#EDB926",
-    fillStyle: "solid",
-};
-
-const FADE_BOX_LINES_DARK: Options = {
-    roughness: 2.0,
-    strokeWidth: 0.5,
-};
-
-const FADE_BOX_DARK: Options = {
-    roughness: 2.0,
-    strokeWidth: 0.5,
-    fill: "#2C2C2C",
-    fillStyle: "solid",
-};
-
-const HIDE_BOX_DARK: Options = {
-    fill: "#121212",
+const HIDE_BOX: Options = {
+    fill: "var(--hide-box-fill)",
     fillStyle: "solid",
 };
 
@@ -148,6 +130,36 @@ const presets: Record<string, Style> = {
  */
 function setStyleSheet(memory_model: MemoryModel, global_style?: string) {
     const styles = `
+        :root {               
+        --fade-text-color: ${config.text_color};
+        --hide-text-color: white;
+
+        --highlight-box-fill: yellow;
+        --highlight-box-line-color: ${config.rect_style?.stroke};
+
+        --fade-box-fill: rgb(247, 247, 247);
+        --fade-box-line-color: gray;
+
+        --hide-box-fill: white;
+
+        --primitive-value-color: ${config.value_color};
+        --id-text-color: ${config.id_color};
+        --default-font-size: ${config.font_size}px;
+    }
+
+    [data-theme="dark"] {
+        --highlight-text-color: #FFFFFF;
+        --fade-text-color: #BBBBBB;
+        --hide-text-color: #121212;
+
+        --highlight-box-fill: #EDB926;
+        --highlight-box-line-color: #FFFFFF;
+
+        --fade-box-fill: #2C2C2C;
+        --fade-box-line-color: #666666;
+
+        --hide-box-fill: #121212;
+    }
         text {
             font-family: Consolas, Courier;
             font-size: ${config.font_size}px;
@@ -184,6 +196,11 @@ function setStyleSheet(memory_model: MemoryModel, global_style?: string) {
     const styleSheet = memory_model.document.createElement("style");
     styleSheet.textContent = styles + (global_style ? "\n" + global_style : "");
     memory_model.svg.appendChild(styleSheet);
+    const darkTheme = global_style?.includes("data-theme: dark") || false;
+    if (darkTheme) {
+        console.log("Dark theme detected on SVG element");
+        memory_model.svg.setAttribute("data-theme", "dark");
+    }
 }
 
 export { immutable, collections, primitives, presets, setStyleSheet };
