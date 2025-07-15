@@ -19,10 +19,16 @@ const collections: string[] = ["list", "set", "tuple", "dict"];
 const primitives: string[] = ["int", "str", "None", "bool", "float", "date"];
 
 // Constants employed to establish presets for styles.
-const HIGHLIGHT_TEXT: CSS.PropertiesHyphen = {
+const HIGHLIGHT_VALUE_TEXT: CSS.PropertiesHyphen = {
     "font-weight": "bolder",
     "font-size": "22px",
-    fill: "var(--highlight-text-color)",
+    fill: "var(--highlight-text-color, " + config.value_color + ")",
+};
+
+const HIGHLIGHT_ID_TEXT: CSS.PropertiesHyphen = {
+    "font-weight": "bolder",
+    "font-size": "22px",
+    fill: "var(--highlight-text-color, " + config.id_color + ")",
 };
 
 const FADE_TEXT: CSS.PropertiesHyphen = {
@@ -70,19 +76,19 @@ const HIDE_BOX: Options = {
 
 const presets: Record<string, Style> = {
     highlight: {
-        text_value: HIGHLIGHT_TEXT,
-        text_id: HIGHLIGHT_TEXT,
-        text_type: HIGHLIGHT_TEXT,
+        text_value: HIGHLIGHT_VALUE_TEXT,
+        text_id: HIGHLIGHT_ID_TEXT,
+        text_type: HIGHLIGHT_VALUE_TEXT,
         box_id: HIGHLIGHT_BOX_LINES,
         box_type: HIGHLIGHT_BOX_LINES,
         box_container: HIGHLIGHT_BOX,
     },
     highlight_id: {
-        text_id: HIGHLIGHT_TEXT,
+        text_id: HIGHLIGHT_ID_TEXT,
         box_id: HIGHLIGHT_BOX,
     },
     highlight_type: {
-        text_type: HIGHLIGHT_TEXT,
+        text_type: HIGHLIGHT_VALUE_TEXT,
         box_type: HIGHLIGHT_BOX,
     },
     fade: {
