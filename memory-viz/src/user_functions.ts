@@ -64,8 +64,6 @@ function draw(
     const isArrayOfArrays = Array.isArray(objs) && Array.isArray(objs[0]);
 
     const processSnapshot = (snapshotObjects: DrawnEntity[]) => {
-        ({ width: configuration.width, height: configuration.height } =
-            MemoryModel.getCanvasDimensions(configuration, snapshotObjects));
         const model = new MemoryModel({
             width: configuration.width,
             height: configuration.height,
