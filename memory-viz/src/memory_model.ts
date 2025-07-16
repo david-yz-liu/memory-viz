@@ -65,6 +65,7 @@ export class MemoryModel {
     roughjs_config: Config; // Configuration object used to pass in options to rough.js
     width?: number;
     height?: number;
+    objectCounter: number; // Counter for tracking ids of objects drawn
 
     constructor(options: Partial<VisualizationConfig> = {}) {
         if (options.browser) {
@@ -103,6 +104,8 @@ export class MemoryModel {
                 ? options[key as keyof VisualizationConfig]
                 : config[key as keyof typeof config];
         }
+
+        this.objectCounter = 0;
     }
 
     /**
@@ -293,7 +296,7 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container);
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
 
         let size: Rect = {
             width: box_width,
@@ -481,7 +484,7 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container);
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
 
         const size: Rect = { width: box_width, height: box_height, x: x, y: y };
 
@@ -612,7 +615,7 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container);
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
 
         const SIZE: Rect = {
             x,
@@ -748,7 +751,7 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container);
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
         // First loop, to draw the key boxes
@@ -910,7 +913,7 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container);
+        this.drawRect(x, y, box_width, box_height, style.box_container, true);
 
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
@@ -999,7 +1002,8 @@ export class MemoryModel {
         y: number,
         width: number,
         height: number,
-        style?: Options
+        style?: Options,
+        isBoundingBox: boolean = false
     ): void {
         if (style === undefined) {
             style = this.rect_style;
@@ -1007,9 +1011,20 @@ export class MemoryModel {
 
         style = { ...style, ...this.roughjs_config?.options };
 
-        this.svg.appendChild(
-            this.rough_svg.rectangle(x, y, width, height, style)
+        const rectElement = this.rough_svg.rectangle(
+            x,
+            y,
+            width,
+            height,
+            style
         );
+
+        if (isBoundingBox) {
+            rectElement.setAttribute("id", `object-${this.objectCounter}`);
+            this.objectCounter++;
+        }
+
+        this.svg.appendChild(rectElement);
     }
 
     /**

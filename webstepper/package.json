@@ -26,7 +26,7 @@
     "private": true,
     "homepage": "https://github.com/david-yz-liu/memory-viz#readme",
     "devDependencies": {
-        "@babel/core": "^7.27.4",
+        "@babel/core": "^7.27.7",
         "@babel/preset-env": "^7.27.2",
         "@babel/preset-react": "^7.27.1",
         "@babel/preset-typescript": "^7.27.1",
@@ -40,7 +40,7 @@
         "css-loader": "^7.1.2",
         "html-webpack-plugin": "^5.6.3",
         "jest-canvas-mock": "^2.5.2",
-        "jest-environment-jsdom": "^29.7.0",
+        "jest-environment-jsdom": "^30.0.2",
         "resize-observer-polyfill": "^1.5.1",
         "sass": "^1.82.0",
         "sass-loader": "^16.0.4",
@@ -52,7 +52,7 @@
     },
     "dependencies": {
         "@emotion/styled": "^11.11.0",
-        "@mui/icons-material": "^7.1.1",
+        "@mui/icons-material": "^7.2.0",
         "@mui/material": "^7.1.1",
         "@picocss/pico": "^1.5.10",
         "memory-viz": "*",
