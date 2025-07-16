@@ -82,14 +82,6 @@ export class MemoryModel {
             "svg"
         );
 
-        // this.svg.setAttribute(
-        //     "width",
-        //     options.width ? options.width.toString() : "800"
-        // );
-        // this.svg.setAttribute(
-        //     "height",
-        //     options.height ? options.height.toString() : "800"
-        // );
         if (options.width) {
             this.svg.setAttribute("width", options.width.toString());
         } else {
