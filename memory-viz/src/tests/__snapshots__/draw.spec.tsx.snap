@@ -975,7 +975,7 @@ exports[`draw function renders a bool 1`] = `
 `;
 
 exports[`draw function renders a bool using manual layout 1`] = `
-<svg width="1062" height="492" xmlns="http://www.w3.org/2000/svg">
+<svg width="1050" height="480" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
