@@ -63,6 +63,8 @@ export class MemoryModel {
     font_size: number; // Font size, in px
     browser: boolean; // Whether this library is being used in a browser context
     roughjs_config: Config; // Configuration object used to pass in options to rough.js
+    width?: number;
+    height?: number;
 
     constructor(options: Partial<VisualizationConfig> = {}) {
         if (options.browser) {
@@ -80,14 +82,24 @@ export class MemoryModel {
             "svg"
         );
 
-        this.svg.setAttribute(
-            "width",
-            options.width ? options.width.toString() : "800"
-        );
-        this.svg.setAttribute(
-            "height",
-            options.height ? options.height.toString() : "800"
-        );
+        // this.svg.setAttribute(
+        //     "width",
+        //     options.width ? options.width.toString() : "800"
+        // );
+        // this.svg.setAttribute(
+        //     "height",
+        //     options.height ? options.height.toString() : "800"
+        // );
+        if (options.width) {
+            this.svg.setAttribute("width", options.width.toString());
+        } else {
+            this.width = 0;
+        }
+        if (options.height) {
+            this.svg.setAttribute("height", options.height.toString());
+        } else {
+            this.height = 0;
+        }
         this.roughjs_config = options.roughjs_config ?? {};
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
 
@@ -335,6 +347,18 @@ export class MemoryModel {
 
         this.drawProperties(id, type, x, y, box_width, style);
 
+        let right_edge = x + box_width + 100;
+        let bottom_edge = y + box_width + 100;
+
+        if (this.width !== undefined && right_edge > this.width) {
+            this.width = right_edge;
+            this.svg.setAttribute("width", this.width.toString());
+        }
+        if (this.height !== undefined && bottom_edge > this.height) {
+            this.height = bottom_edge;
+            this.svg.setAttribute("height", this.height.toString());
+        }
+
         return size;
     }
 
@@ -522,6 +546,18 @@ export class MemoryModel {
             this.drawProperties(id, "tuple", x, y, box_width, style);
         }
 
+        let right_edge = x + box_width + 100;
+        let bottom_edge = y + box_width + 100;
+
+        if (this.width !== undefined && right_edge > this.width) {
+            this.width = right_edge;
+            this.svg.setAttribute("width", this.width.toString());
+        }
+        if (this.height !== undefined && bottom_edge > this.height) {
+            this.height = bottom_edge;
+            this.svg.setAttribute("height", this.height.toString());
+        }
+
         return size;
     }
 
@@ -642,6 +678,18 @@ export class MemoryModel {
             {},
             "default"
         );
+
+        let right_edge = x + box_width + 100;
+        let bottom_edge = y + box_width + 100;
+
+        if (this.width !== undefined && right_edge > this.width) {
+            this.width = right_edge;
+            this.svg.setAttribute("width", this.width.toString());
+        }
+        if (this.height !== undefined && bottom_edge > this.height) {
+            this.height = bottom_edge;
+            this.svg.setAttribute("height", this.height.toString());
+        }
 
         return SIZE;
     }
@@ -778,6 +826,18 @@ export class MemoryModel {
         }
 
         this.drawProperties(id, "dict", x, y, box_width, style);
+
+        let right_edge = x + box_width + 100;
+        let bottom_edge = y + box_width + 100;
+
+        if (this.width !== undefined && right_edge > this.width) {
+            this.width = right_edge;
+            this.svg.setAttribute("width", this.width.toString());
+        }
+        if (this.height !== undefined && bottom_edge > this.height) {
+            this.height = bottom_edge;
+            this.svg.setAttribute("height", this.height.toString());
+        }
 
         return SIZE;
     }
@@ -916,6 +976,18 @@ export class MemoryModel {
             );
         } else {
             this.drawProperties(id, name, x, y, box_width, style);
+        }
+
+        let right_edge = x + box_width + 100;
+        let bottom_edge = y + box_width + 100;
+
+        if (this.width !== undefined && right_edge > this.width) {
+            this.width = right_edge;
+            this.svg.setAttribute("width", this.width.toString());
+        }
+        if (this.height !== undefined && bottom_edge > this.height) {
+            this.height = bottom_edge;
+            this.svg.setAttribute("height", this.height.toString());
         }
 
         return SIZE;
