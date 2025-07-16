@@ -26,6 +26,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Added Typescript support for "strictNullChecks" and refactored code accordingly
 - Added dependabot groups for react and babel
+- Removed getCanvasDimensions method and refactored logic into each `draw*` method
 
 ## [0.6.0] - 2025-05-24
 
