@@ -348,7 +348,7 @@ export class MemoryModel {
         this.drawProperties(id, type, x, y, box_width, style);
 
         let right_edge = x + box_width + 100;
-        let bottom_edge = y + box_width + 100;
+        let bottom_edge = y + box_height + 100;
 
         if (this.width !== undefined && right_edge > this.width) {
             this.width = right_edge;
@@ -547,7 +547,7 @@ export class MemoryModel {
         }
 
         let right_edge = x + box_width + 100;
-        let bottom_edge = y + box_width + 100;
+        let bottom_edge = y + box_height + 100;
 
         if (this.width !== undefined && right_edge > this.width) {
             this.width = right_edge;
@@ -680,7 +680,7 @@ export class MemoryModel {
         );
 
         let right_edge = x + box_width + 100;
-        let bottom_edge = y + box_width + 100;
+        let bottom_edge = y + box_height + 100;
 
         if (this.width !== undefined && right_edge > this.width) {
             this.width = right_edge;
@@ -828,7 +828,7 @@ export class MemoryModel {
         this.drawProperties(id, "dict", x, y, box_width, style);
 
         let right_edge = x + box_width + 100;
-        let bottom_edge = y + box_width + 100;
+        let bottom_edge = y + box_height + 100;
 
         if (this.width !== undefined && right_edge > this.width) {
             this.width = right_edge;
@@ -979,7 +979,7 @@ export class MemoryModel {
         }
 
         let right_edge = x + box_width + 100;
-        let bottom_edge = y + box_width + 100;
+        let bottom_edge = y + box_height + 100;
 
         if (this.width !== undefined && right_edge > this.width) {
             this.width = right_edge;
