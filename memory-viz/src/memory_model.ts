@@ -58,6 +58,8 @@ export class MemoryModel {
     prop_min_width: number; // Minimum width of type and id boxes
     prop_min_height: number; // Minimum height of type and id boxes
     obj_x_padding: number; // Minimum horizontal padding of object rectangle
+    canvas_horizontal_padding: number; // Minimum horizontal padding of the canvas
+    canvas_vertical_padding: number; // Minimum vertical padding of the canvas
     double_rect_sep: number; // Separation between double boxes around immutable objects
     list_index_sep: number; // Vertical offset for list index labels
     font_size: number; // Font size, in px
@@ -1126,8 +1128,8 @@ export class MemoryModel {
     }
 
     private updateDimensions(size: Rect) {
-        let right_edge = size.x + size.width + 100;
-        let bottom_edge = size.y + size.height + 100;
+        let right_edge = size.x + size.width + this.canvas_horizontal_padding;
+        let bottom_edge = size.y + size.height + this.canvas_vertical_padding;
 
         if (this.width !== undefined && right_edge > this.width) {
             this.width = right_edge;
