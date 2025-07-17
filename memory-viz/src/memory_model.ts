@@ -342,17 +342,7 @@ export class MemoryModel {
 
         this.drawProperties(id, type, x, y, box_width, style);
 
-        let right_edge = x + box_width + 100;
-        let bottom_edge = y + box_height + 100;
-
-        if (this.width !== undefined && right_edge > this.width) {
-            this.width = right_edge;
-            this.svg.setAttribute("width", this.width.toString());
-        }
-        if (this.height !== undefined && bottom_edge > this.height) {
-            this.height = bottom_edge;
-            this.svg.setAttribute("height", this.height.toString());
-        }
+        this.updateDimensions(size);
 
         return size;
     }
@@ -541,17 +531,7 @@ export class MemoryModel {
             this.drawProperties(id, "tuple", x, y, box_width, style);
         }
 
-        let right_edge = x + box_width + 100;
-        let bottom_edge = y + box_height + 100;
-
-        if (this.width !== undefined && right_edge > this.width) {
-            this.width = right_edge;
-            this.svg.setAttribute("width", this.width.toString());
-        }
-        if (this.height !== undefined && bottom_edge > this.height) {
-            this.height = bottom_edge;
-            this.svg.setAttribute("height", this.height.toString());
-        }
+        this.updateDimensions(size);
 
         return size;
     }
@@ -674,17 +654,7 @@ export class MemoryModel {
             "default"
         );
 
-        let right_edge = x + box_width + 100;
-        let bottom_edge = y + box_height + 100;
-
-        if (this.width !== undefined && right_edge > this.width) {
-            this.width = right_edge;
-            this.svg.setAttribute("width", this.width.toString());
-        }
-        if (this.height !== undefined && bottom_edge > this.height) {
-            this.height = bottom_edge;
-            this.svg.setAttribute("height", this.height.toString());
-        }
+        this.updateDimensions(SIZE);
 
         return SIZE;
     }
@@ -822,17 +792,7 @@ export class MemoryModel {
 
         this.drawProperties(id, "dict", x, y, box_width, style);
 
-        let right_edge = x + box_width + 100;
-        let bottom_edge = y + box_height + 100;
-
-        if (this.width !== undefined && right_edge > this.width) {
-            this.width = right_edge;
-            this.svg.setAttribute("width", this.width.toString());
-        }
-        if (this.height !== undefined && bottom_edge > this.height) {
-            this.height = bottom_edge;
-            this.svg.setAttribute("height", this.height.toString());
-        }
+        this.updateDimensions(SIZE);
 
         return SIZE;
     }
@@ -973,17 +933,7 @@ export class MemoryModel {
             this.drawProperties(id, name, x, y, box_width, style);
         }
 
-        let right_edge = x + box_width + 100;
-        let bottom_edge = y + box_height + 100;
-
-        if (this.width !== undefined && right_edge > this.width) {
-            this.width = right_edge;
-            this.svg.setAttribute("width", this.width.toString());
-        }
-        if (this.height !== undefined && bottom_edge > this.height) {
-            this.height = bottom_edge;
-            this.svg.setAttribute("height", this.height.toString());
-        }
+        this.updateDimensions(SIZE);
 
         return SIZE;
     }
@@ -1173,5 +1123,19 @@ export class MemoryModel {
         }
 
         return sizes_arr;
+    }
+
+    private updateDimensions(size: Rect) {
+        let right_edge = size.x + size.width + 100;
+        let bottom_edge = size.y + size.height + 100;
+
+        if (this.width !== undefined && right_edge > this.width) {
+            this.width = right_edge;
+            this.svg.setAttribute("width", this.width.toString());
+        }
+        if (this.height !== undefined && bottom_edge > this.height) {
+            this.height = bottom_edge;
+            this.svg.setAttribute("height", this.height.toString());
+        }
     }
 }
