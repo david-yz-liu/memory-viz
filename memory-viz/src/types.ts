@@ -56,8 +56,7 @@ export interface VisualizationConfig {
     prop_min_width: number;
     prop_min_height: number;
     obj_x_padding: number;
-    canvas_horizontal_padding: number;
-    canvas_vertical_padding: number;
+    canvas_padding: number;
     double_rect_sep: number;
     list_index_sep: number;
     font_size: number;
