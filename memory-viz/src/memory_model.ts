@@ -65,8 +65,8 @@ export class MemoryModel {
     font_size: number; // Font size, in px
     browser: boolean; // Whether this library is being used in a browser context
     roughjs_config: Config; // Configuration object used to pass in options to rough.js
-    width?: number;
-    height?: number;
+    width?: number; // Width of the canvas, dynamically updated if not provided in options
+    height?: number; // Height of the canvas, dynamically updated if not provided in options
     objectCounter: number; // Counter for tracking ids of objects drawn
 
     constructor(options: Partial<VisualizationConfig> = {}) {
@@ -1127,7 +1127,13 @@ export class MemoryModel {
         return sizes_arr;
     }
 
-    private updateDimensions(size: Rect) {
+    /**
+     * Updates the SVG canvas dimensions by dynamically updating its width and height
+     * to fit the given object. Only applies when dimensions are not fixed by the user.
+     *
+     * @param size - Contains the top left coordinates, width and height of the box
+     */
+    private updateDimensions(size: Rect): void {
         let right_edge = size.x + size.width + this.canvas_horizontal_padding;
         let bottom_edge = size.y + size.height + this.canvas_vertical_padding;
 
