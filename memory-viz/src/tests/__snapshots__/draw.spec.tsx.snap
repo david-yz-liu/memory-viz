@@ -975,7 +975,7 @@ exports[`draw function renders a bool 1`] = `
 `;
 
 exports[`draw function renders a bool using manual layout 1`] = `
-<svg width="1056" height="486" xmlns="http://www.w3.org/2000/svg">
+<svg width="981" height="411" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
@@ -2580,7 +2580,7 @@ exports[`draw function renders a stack frame and an int 1`] = `
 `;
 
 exports[`draw function renders a stack frame using manual layout 1`] = `
-<svg width="498" height="525" xmlns="http://www.w3.org/2000/svg">
+<svg width="423" height="450" xmlns="http://www.w3.org/2000/svg">
   <style>
     text {
       font-family: Consolas, Courier;
