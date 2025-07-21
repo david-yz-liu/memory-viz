@@ -60,50 +60,37 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
 
     [data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
-      /* white */
       --highlight-id-text-color: #FFFF00;
-      /* bright yellow */
 
       --fade-text-color: #CCCCCC;
-      /* light gray */
       --hide-text-color: #000000;
-      /* black */
 
       --highlight-box-fill: #0000FF;
-      /* bright blue */
       --highlight-box-line-color: #FFFFFF;
-      /* white */
 
       --fade-box-fill: #333333;
-      /* dark gray */
       --fade-box-line-color: #FFFFFF;
-      /* white */
 
       --hide-box-fill: #000000;
-      /* black */
     }
 
     [data-theme="high-contrast"] text.default,
     [data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
-      /* white */
     }
 
     [data-theme="high-contrast"] text.attribute,
     [data-theme="high-contrast"] text.type,
     [data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
-      /* cyan */
     }
 
     [data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
-      /* yellow */
     }
 
     [data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
-      /* white */
     }
 
     text {
@@ -221,50 +208,37 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
 
     [data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
-      /* white */
       --highlight-id-text-color: #FFFF00;
-      /* bright yellow */
 
       --fade-text-color: #CCCCCC;
-      /* light gray */
       --hide-text-color: #000000;
-      /* black */
 
       --highlight-box-fill: #0000FF;
-      /* bright blue */
       --highlight-box-line-color: #FFFFFF;
-      /* white */
 
       --fade-box-fill: #333333;
-      /* dark gray */
       --fade-box-line-color: #FFFFFF;
-      /* white */
 
       --hide-box-fill: #000000;
-      /* black */
     }
 
     [data-theme="high-contrast"] text.default,
     [data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
-      /* white */
     }
 
     [data-theme="high-contrast"] text.attribute,
     [data-theme="high-contrast"] text.type,
     [data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
-      /* cyan */
     }
 
     [data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
-      /* yellow */
     }
 
     [data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
-      /* white */
     }
 
     text {
@@ -382,50 +356,37 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
 
     [data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
-      /* white */
       --highlight-id-text-color: #FFFF00;
-      /* bright yellow */
 
       --fade-text-color: #CCCCCC;
-      /* light gray */
       --hide-text-color: #000000;
-      /* black */
 
       --highlight-box-fill: #0000FF;
-      /* bright blue */
       --highlight-box-line-color: #FFFFFF;
-      /* white */
 
       --fade-box-fill: #333333;
-      /* dark gray */
       --fade-box-line-color: #FFFFFF;
-      /* white */
 
       --hide-box-fill: #000000;
-      /* black */
     }
 
     [data-theme="high-contrast"] text.default,
     [data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
-      /* white */
     }
 
     [data-theme="high-contrast"] text.attribute,
     [data-theme="high-contrast"] text.type,
     [data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
-      /* cyan */
     }
 
     [data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
-      /* yellow */
     }
 
     [data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
-      /* white */
     }
 
     text {
@@ -543,50 +504,37 @@ exports[`memory-viz cli produces consistent svg when provided filepath and (shor
 
     [data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
-      /* white */
       --highlight-id-text-color: #FFFF00;
-      /* bright yellow */
 
       --fade-text-color: #CCCCCC;
-      /* light gray */
       --hide-text-color: #000000;
-      /* black */
 
       --highlight-box-fill: #0000FF;
-      /* bright blue */
       --highlight-box-line-color: #FFFFFF;
-      /* white */
 
       --fade-box-fill: #333333;
-      /* dark gray */
       --fade-box-line-color: #FFFFFF;
-      /* white */
 
       --hide-box-fill: #000000;
-      /* black */
     }
 
     [data-theme="high-contrast"] text.default,
     [data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
-      /* white */
     }
 
     [data-theme="high-contrast"] text.attribute,
     [data-theme="high-contrast"] text.type,
     [data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
-      /* cyan */
     }
 
     [data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
-      /* yellow */
     }
 
     [data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
-      /* white */
     }
 
     text {
@@ -714,50 +662,37 @@ exports[`memory-viz cli produces consistent svg when provided filepath and a var
 
     [data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
-      /* white */
       --highlight-id-text-color: #FFFF00;
-      /* bright yellow */
 
       --fade-text-color: #CCCCCC;
-      /* light gray */
       --hide-text-color: #000000;
-      /* black */
 
       --highlight-box-fill: #0000FF;
-      /* bright blue */
       --highlight-box-line-color: #FFFFFF;
-      /* white */
 
       --fade-box-fill: #333333;
-      /* dark gray */
       --fade-box-line-color: #FFFFFF;
-      /* white */
 
       --hide-box-fill: #000000;
-      /* black */
     }
 
     [data-theme="high-contrast"] text.default,
     [data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
-      /* white */
     }
 
     [data-theme="high-contrast"] text.attribute,
     [data-theme="high-contrast"] text.type,
     [data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
-      /* cyan */
     }
 
     [data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
-      /* yellow */
     }
 
     [data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
-      /* white */
     }
 
     text {
@@ -878,50 +813,37 @@ exports[`memory-viz cli produces consistent svg when provided filepath and globa
 
     [data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
-      /* white */
       --highlight-id-text-color: #FFFF00;
-      /* bright yellow */
 
       --fade-text-color: #CCCCCC;
-      /* light gray */
       --hide-text-color: #000000;
-      /* black */
 
       --highlight-box-fill: #0000FF;
-      /* bright blue */
       --highlight-box-line-color: #FFFFFF;
-      /* white */
 
       --fade-box-fill: #333333;
-      /* dark gray */
       --fade-box-line-color: #FFFFFF;
-      /* white */
 
       --hide-box-fill: #000000;
-      /* black */
     }
 
     [data-theme="high-contrast"] text.default,
     [data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
-      /* white */
     }
 
     [data-theme="high-contrast"] text.attribute,
     [data-theme="high-contrast"] text.type,
     [data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
-      /* cyan */
     }
 
     [data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
-      /* yellow */
     }
 
     [data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
-      /* white */
     }
 
     text {
@@ -1049,50 +971,37 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
 
     [data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
-      /* white */
       --highlight-id-text-color: #FFFF00;
-      /* bright yellow */
 
       --fade-text-color: #CCCCCC;
-      /* light gray */
       --hide-text-color: #000000;
-      /* black */
 
       --highlight-box-fill: #0000FF;
-      /* bright blue */
       --highlight-box-line-color: #FFFFFF;
-      /* white */
 
       --fade-box-fill: #333333;
-      /* dark gray */
       --fade-box-line-color: #FFFFFF;
-      /* white */
 
       --hide-box-fill: #000000;
-      /* black */
     }
 
     [data-theme="high-contrast"] text.default,
     [data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
-      /* white */
     }
 
     [data-theme="high-contrast"] text.attribute,
     [data-theme="high-contrast"] text.type,
     [data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
-      /* cyan */
     }
 
     [data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
-      /* yellow */
     }
 
     [data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
-      /* white */
     }
 
     text {
@@ -1210,50 +1119,37 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
 
     [data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
-      /* white */
       --highlight-id-text-color: #FFFF00;
-      /* bright yellow */
 
       --fade-text-color: #CCCCCC;
-      /* light gray */
       --hide-text-color: #000000;
-      /* black */
 
       --highlight-box-fill: #0000FF;
-      /* bright blue */
       --highlight-box-line-color: #FFFFFF;
-      /* white */
 
       --fade-box-fill: #333333;
-      /* dark gray */
       --fade-box-line-color: #FFFFFF;
-      /* white */
 
       --hide-box-fill: #000000;
-      /* black */
     }
 
     [data-theme="high-contrast"] text.default,
     [data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
-      /* white */
     }
 
     [data-theme="high-contrast"] text.attribute,
     [data-theme="high-contrast"] text.type,
     [data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
-      /* cyan */
     }
 
     [data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
-      /* yellow */
     }
 
     [data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
-      /* white */
     }
 
     text {
@@ -1371,50 +1267,37 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 
     [data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
-      /* white */
       --highlight-id-text-color: #FFFF00;
-      /* bright yellow */
 
       --fade-text-color: #CCCCCC;
-      /* light gray */
       --hide-text-color: #000000;
-      /* black */
 
       --highlight-box-fill: #0000FF;
-      /* bright blue */
       --highlight-box-line-color: #FFFFFF;
-      /* white */
 
       --fade-box-fill: #333333;
-      /* dark gray */
       --fade-box-line-color: #FFFFFF;
-      /* white */
 
       --hide-box-fill: #000000;
-      /* black */
     }
 
     [data-theme="high-contrast"] text.default,
     [data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
-      /* white */
     }
 
     [data-theme="high-contrast"] text.attribute,
     [data-theme="high-contrast"] text.type,
     [data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
-      /* cyan */
     }
 
     [data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
-      /* yellow */
     }
 
     [data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
-      /* white */
     }
 
     text {
@@ -1532,50 +1415,37 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 
     [data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
-      /* white */
       --highlight-id-text-color: #FFFF00;
-      /* bright yellow */
 
       --fade-text-color: #CCCCCC;
-      /* light gray */
       --hide-text-color: #000000;
-      /* black */
 
       --highlight-box-fill: #0000FF;
-      /* bright blue */
       --highlight-box-line-color: #FFFFFF;
-      /* white */
 
       --fade-box-fill: #333333;
-      /* dark gray */
       --fade-box-line-color: #FFFFFF;
-      /* white */
 
       --hide-box-fill: #000000;
-      /* black */
     }
 
     [data-theme="high-contrast"] text.default,
     [data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
-      /* white */
     }
 
     [data-theme="high-contrast"] text.attribute,
     [data-theme="high-contrast"] text.type,
     [data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
-      /* cyan */
     }
 
     [data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
-      /* yellow */
     }
 
     [data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
-      /* white */
     }
 
     text {
@@ -1693,50 +1563,37 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 
     [data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
-      /* white */
       --highlight-id-text-color: #FFFF00;
-      /* bright yellow */
 
       --fade-text-color: #CCCCCC;
-      /* light gray */
       --hide-text-color: #000000;
-      /* black */
 
       --highlight-box-fill: #0000FF;
-      /* bright blue */
       --highlight-box-line-color: #FFFFFF;
-      /* white */
 
       --fade-box-fill: #333333;
-      /* dark gray */
       --fade-box-line-color: #FFFFFF;
-      /* white */
 
       --hide-box-fill: #000000;
-      /* black */
     }
 
     [data-theme="high-contrast"] text.default,
     [data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
-      /* white */
     }
 
     [data-theme="high-contrast"] text.attribute,
     [data-theme="high-contrast"] text.type,
     [data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
-      /* cyan */
     }
 
     [data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
-      /* yellow */
     }
 
     [data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
-      /* white */
     }
 
     text {
@@ -1854,50 +1711,37 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
 
     [data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
-      /* white */
       --highlight-id-text-color: #FFFF00;
-      /* bright yellow */
 
       --fade-text-color: #CCCCCC;
-      /* light gray */
       --hide-text-color: #000000;
-      /* black */
 
       --highlight-box-fill: #0000FF;
-      /* bright blue */
       --highlight-box-line-color: #FFFFFF;
-      /* white */
 
       --fade-box-fill: #333333;
-      /* dark gray */
       --fade-box-line-color: #FFFFFF;
-      /* white */
 
       --hide-box-fill: #000000;
-      /* black */
     }
 
     [data-theme="high-contrast"] text.default,
     [data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
-      /* white */
     }
 
     [data-theme="high-contrast"] text.attribute,
     [data-theme="high-contrast"] text.type,
     [data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
-      /* cyan */
     }
 
     [data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
-      /* yellow */
     }
 
     [data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
-      /* white */
     }
 
     text {
@@ -2015,50 +1859,37 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
 
     [data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
-      /* white */
       --highlight-id-text-color: #FFFF00;
-      /* bright yellow */
 
       --fade-text-color: #CCCCCC;
-      /* light gray */
       --hide-text-color: #000000;
-      /* black */
 
       --highlight-box-fill: #0000FF;
-      /* bright blue */
       --highlight-box-line-color: #FFFFFF;
-      /* white */
 
       --fade-box-fill: #333333;
-      /* dark gray */
       --fade-box-line-color: #FFFFFF;
-      /* white */
 
       --hide-box-fill: #000000;
-      /* black */
     }
 
     [data-theme="high-contrast"] text.default,
     [data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
-      /* white */
     }
 
     [data-theme="high-contrast"] text.attribute,
     [data-theme="high-contrast"] text.type,
     [data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
-      /* cyan */
     }
 
     [data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
-      /* yellow */
     }
 
     [data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
-      /* white */
     }
 
     text {
