@@ -72,6 +72,7 @@ function drawAutomated(
         height: final_height,
         roughjs_config: configuration.roughjs_config,
         global_style: configuration.global_style,
+        theme: configuration.theme,
     });
 
     m.drawAll(StackFrames);

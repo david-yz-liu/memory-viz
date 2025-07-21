@@ -33,6 +33,7 @@ export interface DisplaySettings {
     style: Styles;
     roughjs_config: Config;
     global_style: string;
+    theme: string;
     padding: number;
     top_margin: number;
     left_margin: number;
@@ -61,6 +62,7 @@ export interface VisualizationConfig {
     font_size: number;
     browser: boolean;
     global_style: string;
+    theme: string;
     roughjs_config: Config;
 }
 

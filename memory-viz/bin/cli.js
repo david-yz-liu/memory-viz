@@ -46,6 +46,17 @@ function parseGlobalStyle(input) {
     process.exit(1);
 }
 
+function parseTheme(input) {
+    const validThemes = ["light", "dark", "high-contrast"];
+    if (!validThemes.includes(input)) {
+        console.error(
+            `Error: Invalid theme '${input}'. Available themes are: ${validThemes.join(", ")}.`
+        );
+        process.exit(1);
+    }
+    return input;
+}
+
 program
     .description(
         "Command line interface for generating memory model diagrams with MemoryViz"
@@ -72,6 +83,11 @@ program
         "-s, --global-style <path>",
         "path to a CSS file containing global styles for the SVG",
         parseGlobalStyle
+    )
+    .option(
+        "-t, --theme <name>",
+        "use themed styling for the generated SVG",
+        parseTheme
     );
 
 program.parse();
@@ -109,6 +125,7 @@ function runMemoryViz(jsonContent) {
             height: options.height,
             roughjs_config: { options: options.roughjsConfig },
             global_style: options.globalStyle,
+            theme: options.theme,
         });
     } catch (err) {
         console.error(`Error: ${err.message}`);

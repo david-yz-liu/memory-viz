@@ -22,13 +22,13 @@ const primitives: string[] = ["int", "str", "None", "bool", "float", "date"];
 const HIGHLIGHT_VALUE_TEXT: CSS.PropertiesHyphen = {
     "font-weight": "bolder",
     "font-size": "22px",
-    fill: "var(--highlight-text-color, " + config.value_color + ")",
+    fill: "var(--highlight-value-text-color)",
 };
 
 const HIGHLIGHT_ID_TEXT: CSS.PropertiesHyphen = {
     "font-weight": "bolder",
     "font-size": "22px",
-    fill: "var(--highlight-text-color, " + config.id_color + ")",
+    fill: "var(--highlight-id-text-color)",
 };
 
 const FADE_TEXT: CSS.PropertiesHyphen = {
@@ -134,11 +134,18 @@ const presets: Record<string, Style> = {
  * @param {MemoryModel} memory_model - The MemoryModel object that will have CSS set for its associated svg.
  * @param {string} global_style - An optional string containing global CSS styles to be applied to the svg.
  */
-function setStyleSheet(memory_model: MemoryModel, global_style?: string) {
+function setStyleSheet(
+    memory_model: MemoryModel,
+    global_style?: string,
+    theme?: string
+) {
     const styles = `
         :root {               
         --fade-text-color: ${config.text_color};
         --hide-text-color: white;
+        
+        --highlight-value-text-color: ${config.value_color};
+        --highlight-id-text-color: ${config.id_color};
 
         --highlight-box-fill: yellow;
         --highlight-box-line-color: ${config.rect_style?.stroke};
@@ -153,19 +160,68 @@ function setStyleSheet(memory_model: MemoryModel, global_style?: string) {
         --default-font-size: ${config.font_size}px;
     }
 
-    [data-theme="dark"] {
-        --highlight-text-color: #FFFFFF;
-        --fade-text-color: #BBBBBB;
-        --hide-text-color: #121212;
-
-        --highlight-box-fill: #EDB926;
-        --highlight-box-line-color: #FFFFFF;
-
-        --fade-box-fill: #2C2C2C;
-        --fade-box-line-color: #666666;
-
-        --hide-box-fill: #121212;
-    }
+        [data-theme="dark"] {
+            --highlight-value-text-color: #110875;
+            --highlight-id-text-color: #6e4409;
+        
+            --fade-text-color: #BBBBBB;
+            --hide-text-color: #121212;
+        
+            --highlight-box-fill: #EDB926;
+            --highlight-box-line-color: #FFFFFF;
+        
+            --fade-box-fill: #2C2C2C;
+            --fade-box-line-color: #666666;
+        
+            --hide-box-fill: #121212;
+        }
+        [data-theme="dark"] text.default,
+        [data-theme="dark"] text.variable {
+            fill: rgb(224, 224, 224);
+        }
+        [data-theme="dark"] text.attribute,
+        [data-theme="dark"] text.type,
+        [data-theme="dark"] text.value {
+            fill: rgb(144, 164, 237);
+        }
+        [data-theme="dark"] text.id {
+            fill: rgb(255, 183, 77);
+        }
+        [data-theme="dark"] path {
+            stroke: rgb(204, 204, 204);
+        }
+        
+        [data-theme="high-contrast"] {
+            --highlight-value-text-color: #FFFFFF;
+            --highlight-id-text-color: #FFFF00;
+            
+            --fade-text-color: #CCCCCC;
+            --hide-text-color: #000000;
+            
+            --highlight-box-fill: #0000FF;
+            --highlight-box-line-color: #FFFFFF;
+            
+            --fade-box-fill: #333333;
+            --fade-box-line-color: #FFFFFF;
+            
+            --hide-box-fill: #000000;
+        }
+        [data-theme="high-contrast"] text.default,
+        [data-theme="high-contrast"] text.variable {
+            fill: rgb(255, 255, 255);
+        }
+        [data-theme="high-contrast"] text.attribute,
+        [data-theme="high-contrast"] text.type,
+        [data-theme="high-contrast"] text.value {
+            fill: rgb(0, 255, 255);
+        }
+        [data-theme="high-contrast"] text.id {
+            fill: rgb(255, 255, 0);
+        }
+        [data-theme="high-contrast"] path {
+            stroke: rgb(255, 255, 255);
+        }
+   
         text {
             font-family: Consolas, Courier;
             font-size: ${config.font_size}px;
@@ -202,10 +258,19 @@ function setStyleSheet(memory_model: MemoryModel, global_style?: string) {
     const styleSheet = memory_model.document.createElement("style");
     styleSheet.textContent = styles + (global_style ? "\n" + global_style : "");
     memory_model.svg.appendChild(styleSheet);
-    const darkTheme = global_style?.includes("data-theme: dark") || false;
-    if (darkTheme) {
-        console.log("Dark theme detected on SVG element");
-        memory_model.svg.setAttribute("data-theme", "dark");
+
+    switch (theme) {
+        case "light":
+            memory_model.svg.removeAttribute("data-theme");
+            break;
+        case "dark":
+            memory_model.svg.setAttribute("data-theme", "dark");
+            break;
+        case "high-contrast":
+            memory_model.svg.setAttribute("data-theme", "high-contrast");
+            break;
+        default:
+            break;
     }
 }
 

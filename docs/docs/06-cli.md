@@ -50,6 +50,10 @@ The argument is a comma-separated list of key-value pairs in the form `<key1=val
 
 Specifies a path to a CSS file that contains global styles for the SVG. The SVG source code contains various CSS selectors within the `<style>` tag, which can be used to style the SVG elements.
 
+### `--theme=<name>` (`-t <name>`)
+
+Applies a predefined theme to the SVG. The available themes are `light`, `dark`, and `high-contrast`. If no theme is specified, the default theme is used.
+
 ## Examples
 
 This takes input from a file and prints to `stdout`.
