@@ -148,7 +148,7 @@ function setStyleSheet(
         --highlight-id-text-color: ${config.id_color};
 
         --highlight-box-fill: yellow;
-        --highlight-box-line-color: ${config.rect_style?.stroke};
+        --highlight-box-line-color: ${config.rect_style?.stroke ?? "rgb(0,0,0)"};
 
         --fade-box-fill: rgb(247, 247, 247);
         --fade-box-line-color: gray;
