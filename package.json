@@ -17,8 +17,5 @@
     },
     "lint-staged": {
         "**/*": "prettier --write --ignore-unknown"
-    },
-    "dependencies": {
-        "zod": "^4.0.5"
     }
 }
