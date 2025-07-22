@@ -64,6 +64,7 @@ export class MemoryModel {
     browser: boolean; // Whether this library is being used in a browser context
     roughjs_config: Config; // Configuration object used to pass in options to rough.js
     objectCounter: number; // Counter for tracking ids of objects drawn
+    interactive: boolean; // Whether the visualization is interactive
 
     constructor(options: Partial<VisualizationConfig> = {}) {
         if (options.browser) {
@@ -102,6 +103,10 @@ export class MemoryModel {
         }
 
         this.objectCounter = 0;
+
+        if (options.interactive ?? this.interactive) {
+            this.setInteractivityScript();
+        }
     }
 
     /**
@@ -1160,5 +1165,128 @@ export class MemoryModel {
             size.height = downmost_edge + 100;
         }
         return size;
+    }
+
+    /**
+     * Add hover interactivity to the SVG on object IDs
+     */
+    setInteractivityScript(): void {
+        const script = `
+            function objectInteractivity() {
+                const idToObjectMap = new Map();
+                
+                // Identify an object's identity id
+                function isIdInTopLeftArea(textX, textY, pathBounds) {
+                    return textX >= pathBounds.x - 10 && 
+                        textX <= pathBounds.x + pathBounds.width * 0.4 && 
+                        textY >= pathBounds.y - 10 && 
+                        textY <= pathBounds.y + pathBounds.height * 0.3;
+                }
+                
+                // Map all IDs to their corresponding object boundary boxes
+                function buildIdToObjectMapping() {
+                    const objectBoxes = document.querySelectorAll('g[id^="object-"]');
+                    const allIdTexts = document.querySelectorAll('text.id');
+                    
+                    console.log('Found', objectBoxes.length, 'object boxes and', allIdTexts.length, 'id texts');
+                    
+                    allIdTexts.forEach(idText => {
+                        const idValue = idText.textContent.trim();
+                        if (!idValue || !idValue.startsWith('id')) return;
+                        
+                        const textX = parseFloat(idText.getAttribute('x'));
+                        const textY = parseFloat(idText.getAttribute('y'));
+                        
+                        objectBoxes.forEach(objectBox => {
+                            const pathElement = objectBox.querySelector('path');
+                            if (!pathElement) return;
+                            
+                            const pathBounds = pathElement.getBBox();
+                            
+                            if (isIdInTopLeftArea(textX, textY, pathBounds)) {
+                                if (!idToObjectMap.has(idValue)) {
+                                    idToObjectMap.set(idValue, []);
+                                }
+                                idToObjectMap.get(idValue).push({ objectBox, pathElement });
+                            }
+                        });
+                    });
+                }
+                
+                function highlightObject(objectBox) {
+                    const bbox = objectBox.getBBox();
+                    const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
+                    
+                    if (existingFill) {
+                        existingFill.setAttribute('data-original-fill', existingFill.getAttribute('fill'));
+                        existingFill.setAttribute('fill', 'rgba(255, 255, 0, 0.6)');
+                    } else {
+                        const highlight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                        highlight.setAttribute("x", bbox.x);
+                        highlight.setAttribute("y", bbox.y);
+                        highlight.setAttribute("width", bbox.width);
+                        highlight.setAttribute("height", bbox.height);
+                        highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
+                        highlight.setAttribute("pointer-events", "none");
+                        highlight.setAttribute("id", objectBox.getAttribute('id') + "-highlight");
+                        
+                        objectBox.insertBefore(highlight, objectBox.firstChild);
+                    }
+                }
+                
+                function removeHighlight(objectBox) {
+                    const existingFill = objectBox.querySelector('path[data-original-fill]');
+                    
+                    if (existingFill) {
+                        existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
+                        existingFill.removeAttribute('data-original-fill');
+                    } else {
+                        const highlight = document.getElementById(objectBox.getAttribute('id') + "-highlight");
+                        if (highlight) highlight.remove();
+                    }
+                }
+                
+                function addEventListeners() {
+                    document.querySelectorAll('text.id').forEach(idText => {
+                        const idValue = idText.textContent.trim();
+                        if (!idValue || !idValue.startsWith('id')) return;
+                        
+                        idText.style.cursor = 'pointer';
+                        
+                        idText.addEventListener('mouseover', () => {
+                            console.log('Hovering over:', idValue);
+                            const objectData = idToObjectMap.get(idValue);
+                            if (objectData) {
+                                objectData.forEach(({ objectBox }) => highlightObject(objectBox));
+                            }
+                        });
+                        
+                        idText.addEventListener('mouseout', () => {
+                            const objectData = idToObjectMap.get(idValue);
+                            if (objectData) {
+                                objectData.forEach(({ objectBox }) => removeHighlight(objectBox));
+                            }
+                        });
+                    });
+                }
+                
+                buildIdToObjectMapping();
+                addEventListeners();
+            }
+            
+            // Wait for DOM to be ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', objectInteractivity);
+            } else {
+                objectInteractivity();
+            }
+        `;
+
+        const scriptElement = this.document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "script"
+        );
+        scriptElement.textContent = script;
+        this.svg.appendChild(scriptElement);
     }
 }

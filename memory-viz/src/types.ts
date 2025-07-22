@@ -62,6 +62,7 @@ export interface VisualizationConfig {
     browser: boolean;
     global_style: string;
     roughjs_config: Config;
+    interactive: boolean;
 }
 
 export interface Size {
