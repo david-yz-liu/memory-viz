@@ -19,15 +19,18 @@ const collections: string[] = ["list", "set", "tuple", "dict"];
 const primitives: string[] = ["int", "str", "None", "bool", "float", "date"];
 
 // Constants employed to establish presets for styles.
-const HIGHLIGHT_VALUE_TEXT: CSS.PropertiesHyphen = {
+const HIGHLIGHT_TEXT: CSS.PropertiesHyphen = {
     "font-weight": "bolder",
     "font-size": "22px",
+};
+
+const HIGHLIGHT_VALUE_TEXT: CSS.PropertiesHyphen = {
+    ...HIGHLIGHT_TEXT,
     fill: "var(--highlight-value-text-color)",
 };
 
 const HIGHLIGHT_ID_TEXT: CSS.PropertiesHyphen = {
-    "font-weight": "bolder",
-    "font-size": "22px",
+    ...HIGHLIGHT_TEXT,
     fill: "var(--highlight-id-text-color)",
 };
 
