@@ -50,7 +50,8 @@
         "@xmldom/xmldom": "^0.8.10",
         "commander": "^12.1.0",
         "deepmerge": "^4.3.1",
-        "roughjs": "^4.6.6"
+        "roughjs": "^4.6.6",
+        "zod": "^4.0.5"
     },
     "devDependencies": {
         "@babel/core": "^7.27.7",

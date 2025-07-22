@@ -12,6 +12,7 @@ export const config: Partial<VisualizationConfig> = {
     prop_min_width: 60, // Minimum width of type and id boxes
     prop_min_height: 50, // Minimum height of type and id boxes
     obj_x_padding: 25, // Minimum horizontal padding of object rectangle
+    canvas_padding: 25, // Minimum horizontal padding of the canvas
     double_rect_sep: 6, // Separation between double boxes around immutable objects
     list_index_sep: 20, // Vertical offset for list index labels
     font_size: 20, // Font size, in px

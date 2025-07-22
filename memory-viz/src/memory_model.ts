@@ -58,11 +58,14 @@ export class MemoryModel {
     prop_min_width: number; // Minimum width of type and id boxes
     prop_min_height: number; // Minimum height of type and id boxes
     obj_x_padding: number; // Minimum horizontal padding of object rectangle
+    canvas_padding: number; // Minimum padding of the canvas
     double_rect_sep: number; // Separation between double boxes around immutable objects
     list_index_sep: number; // Vertical offset for list index labels
     font_size: number; // Font size, in px
     browser: boolean; // Whether this library is being used in a browser context
     roughjs_config: Config; // Configuration object used to pass in options to rough.js
+    width?: number; // Width of the canvas, dynamically updated if not provided in options
+    height?: number; // Height of the canvas, dynamically updated if not provided in options
     objectCounter: number; // Counter for tracking ids of objects drawn
     interactive: boolean; // Whether the visualization is interactive
 
@@ -82,14 +85,16 @@ export class MemoryModel {
             "svg"
         );
 
-        this.svg.setAttribute(
-            "width",
-            options.width ? options.width.toString() : "800"
-        );
-        this.svg.setAttribute(
-            "height",
-            options.height ? options.height.toString() : "800"
-        );
+        if (options.width) {
+            this.svg.setAttribute("width", options.width.toString());
+        } else {
+            this.width = 0;
+        }
+        if (options.height) {
+            this.svg.setAttribute("height", options.height.toString());
+        } else {
+            this.height = 0;
+        }
         this.roughjs_config = options.roughjs_config ?? {};
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
 
@@ -343,6 +348,8 @@ export class MemoryModel {
 
         this.drawProperties(id, type, x, y, box_width, style);
 
+        this.updateDimensions(size);
+
         return size;
     }
 
@@ -530,6 +537,8 @@ export class MemoryModel {
             this.drawProperties(id, "tuple", x, y, box_width, style);
         }
 
+        this.updateDimensions(size);
+
         return size;
     }
 
@@ -650,6 +659,8 @@ export class MemoryModel {
             {},
             "default"
         );
+
+        this.updateDimensions(SIZE);
 
         return SIZE;
     }
@@ -786,6 +797,8 @@ export class MemoryModel {
         }
 
         this.drawProperties(id, "dict", x, y, box_width, style);
+
+        this.updateDimensions(SIZE);
 
         return SIZE;
     }
@@ -925,6 +938,8 @@ export class MemoryModel {
         } else {
             this.drawProperties(id, name, x, y, box_width, style);
         }
+
+        this.updateDimensions(SIZE);
 
         return SIZE;
     }
@@ -1117,54 +1132,23 @@ export class MemoryModel {
     }
 
     /**
-     * Return the dimension of the canvas.
-     * @param configuration: The configuration of the canvas.
-     * @param snapshotObjects: The objects that will be on the canvas.
+     * Updates the SVG canvas dimensions by dynamically updating its width and height
+     * to fit the given object. Only applies when dimensions are not fixed by the user.
+     *
+     * @param size - Contains the top left coordinates, width and height of the box
      */
-    static getCanvasDimensions(
-        configuration: Partial<DisplaySettings>,
-        snapshotObjects: DrawnEntity[]
-    ): Size {
-        // Dynamically determining the width of the canvas, in case one has not been provided.
-        const size = {} as Size;
+    private updateDimensions(size: Rect): void {
+        let right_edge = size.x + size.width + this.canvas_padding;
+        let bottom_edge = size.y + size.height + this.canvas_padding;
 
-        if (configuration.hasOwnProperty("width")) {
-            size.width = configuration.width!;
-        } else {
-            let rightmost_obj;
-            let rightmost_edge = 0;
-
-            for (const obj of snapshotObjects) {
-                const width = getSize(obj).width;
-                const curr_edge = obj.x! + width;
-                if (curr_edge > rightmost_edge) {
-                    rightmost_edge = curr_edge;
-                    rightmost_obj = obj;
-                }
-            }
-            size.width = rightmost_edge + 100;
+        if (this.width !== undefined && right_edge > this.width) {
+            this.width = right_edge;
+            this.svg.setAttribute("width", this.width.toString());
         }
-
-        // Dynamically determining the height of the canvas, in case one has not been provided.
-        if (configuration.hasOwnProperty("height")) {
-            size.height = configuration.height!;
-        } else {
-            let downmost_obj = snapshotObjects[0];
-            let downmost_edge = 0;
-
-            for (const obj of snapshotObjects) {
-                const height = getSize(obj).height;
-                const curr_edge = obj.y! + height;
-
-                if (curr_edge > downmost_edge) {
-                    downmost_obj = obj;
-                    downmost_edge = obj.y! + height;
-                }
-            }
-
-            size.height = downmost_edge + 100;
+        if (this.height !== undefined && bottom_edge > this.height) {
+            this.height = bottom_edge;
+            this.svg.setAttribute("height", this.height.toString());
         }
-        return size;
     }
 
     /**
