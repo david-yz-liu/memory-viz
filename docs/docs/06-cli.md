@@ -79,3 +79,15 @@ This takes an input from a file, generates the SVG with custom styles from a CSS
 ```console
 $ npx memory-viz <path-to-file> --output=<path> --global-style=<path-to-css>
 ```
+
+This takes an input from a file, generates the SVG with a dark theme, and writes the SVG to the specified path.
+
+```console
+$ npx memory-viz <path-to-file> --output=<path> --theme=dark
+```
+
+This takes an input from a file, generates the SVG with a custom theme defined in a CSS file, and writes the SVG to the specified path.
+
+```console
+$ npx memory-viz <path-to-file> --output=<path> --global-style=<path-to-css> --theme=<custom-name>
+```
