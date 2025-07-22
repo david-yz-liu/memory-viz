@@ -132,37 +132,7 @@ const presets: Record<string, Style> = {
     },
 };
 
-/**
- * Add CSS to the svg element of a MemoryModel object via style tags.
- * @param {MemoryModel} memory_model - The MemoryModel object that will have CSS set for its associated svg.
- * @param {string} global_style - An optional string containing global CSS styles to be applied to the svg.
- */
-function setStyleSheet(
-    memory_model: MemoryModel,
-    global_style?: string,
-    theme?: string
-) {
-    const styles = `
-        :root {               
-        --fade-text-color: ${config.text_color};
-        --hide-text-color: white;
-        
-        --highlight-value-text-color: ${config.value_color};
-        --highlight-id-text-color: ${config.id_color};
-
-        --highlight-box-fill: yellow;
-        --highlight-box-line-color: ${config.rect_style?.stroke ?? "rgb(0,0,0)"};
-
-        --fade-box-fill: rgb(247, 247, 247);
-        --fade-box-line-color: gray;
-
-        --hide-box-fill: white;
-
-        --primitive-value-color: ${config.value_color};
-        --id-text-color: ${config.id_color};
-        --default-font-size: ${config.font_size}px;
-    }
-
+const DARK_THEME_CSS = `
         [data-theme="dark"] {
             --highlight-value-text-color: #110875;
             --highlight-id-text-color: #6e4409;
@@ -193,7 +163,9 @@ function setStyleSheet(
         [data-theme="dark"] path {
             stroke: rgb(204, 204, 204);
         }
-        
+`;
+
+const HIGH_CONTRAST_THEME_CSS = `
         [data-theme="high-contrast"] {
             --highlight-value-text-color: #FFFFFF;
             --highlight-id-text-color: #FFFF00;
@@ -223,8 +195,38 @@ function setStyleSheet(
         }
         [data-theme="high-contrast"] path {
             stroke: rgb(255, 255, 255);
-        }
-   
+        }`;
+/**
+ * Add CSS to the svg element of a MemoryModel object via style tags.
+ * @param {MemoryModel} memory_model - The MemoryModel object that will have CSS set for its associated svg.
+ * @param {string} global_style - An optional string containing global CSS styles to be applied to the svg.
+ */
+function setStyleSheet(
+    memory_model: MemoryModel,
+    global_style?: string,
+    theme?: string
+) {
+    const styles = `
+        :root {               
+        --fade-text-color: ${config.text_color};
+        --hide-text-color: white;
+        
+        --highlight-value-text-color: ${config.value_color};
+        --highlight-id-text-color: ${config.id_color};
+
+        --highlight-box-fill: yellow;
+        --highlight-box-line-color: ${config.rect_style?.stroke ?? "rgb(0,0,0)"};
+
+        --fade-box-fill: rgb(247, 247, 247);
+        --fade-box-line-color: gray;
+
+        --hide-box-fill: white;
+
+        --primitive-value-color: ${config.value_color};
+        --id-text-color: ${config.id_color};
+        --default-font-size: ${config.font_size}px;
+    } 
+    
         text {
             font-family: Consolas, Courier;
             font-size: ${config.font_size}px;
@@ -259,7 +261,14 @@ function setStyleSheet(
     `;
 
     const styleSheet = memory_model.document.createElement("style");
-    styleSheet.textContent = styles + (global_style ? "\n" + global_style : "");
+    styleSheet.textContent =
+        styles +
+        (global_style ? "\n" + global_style : "") +
+        (theme === "dark"
+            ? DARK_THEME_CSS
+            : theme === "high-contrast"
+              ? HIGH_CONTRAST_THEME_CSS
+              : "");
     memory_model.svg.appendChild(styleSheet);
 
     if (theme) {
