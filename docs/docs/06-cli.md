@@ -52,7 +52,7 @@ Specifies a path to a CSS file that contains global styles for the SVG. The SVG 
 
 ### `--theme=<name>` (`-t <name>`)
 
-Applies a predefined theme to the SVG. The available themes are `light`, `dark`, and `high-contrast`. If no theme is specified, the default theme is used.
+Applies a theme to the SVG. Included themes are `dark` and `high-contrast`. If no theme is specified, the default light theme is used. Custom themes can be defined using a `[data-theme]` attribute selector in the CSS file specified by the `--global-style` option.
 
 ## Examples
 

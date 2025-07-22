@@ -262,18 +262,10 @@ function setStyleSheet(
     styleSheet.textContent = styles + (global_style ? "\n" + global_style : "");
     memory_model.svg.appendChild(styleSheet);
 
-    switch (theme) {
-        case "light":
-            memory_model.svg.removeAttribute("data-theme");
-            break;
-        case "dark":
-            memory_model.svg.setAttribute("data-theme", "dark");
-            break;
-        case "high-contrast":
-            memory_model.svg.setAttribute("data-theme", "high-contrast");
-            break;
-        default:
-            break;
+    if (theme) {
+        memory_model.svg.setAttribute("data-theme", theme);
+    } else {
+        memory_model.svg.removeAttribute("data-theme");
     }
 }
 
