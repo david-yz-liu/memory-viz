@@ -1178,8 +1178,9 @@ export class MemoryModel {
                 sizes_arr.push(size);
             }
         }
-
-        this.setInteractivityScript();
+        if (this.interactive) {
+            this.setInteractivityScript();
+        }
 
         return sizes_arr;
     }

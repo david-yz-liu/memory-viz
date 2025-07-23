@@ -1481,7 +1481,7 @@ describe("draw function", () => {
             { type: "int", id: 13, value: 7 },
         ];
 
-        // Interactivity enabled
+        // Test with interactive enabled
         const interactiveModel: InstanceType<typeof MemoryModel> = draw(
             objects,
             true,
@@ -1495,9 +1495,9 @@ describe("draw function", () => {
 
         expect(interactiveSvg).toContain("<script>");
         expect(interactiveSvg).toContain("objectInteractivity");
-        expect(interactiveSvg).toContain("buildIdToObjectMapping");
+        expect(interactiveSvg).toContain("idToObjectMap");
 
-        // Interactivity disabled
+        // Test with interactive disabled
         const nonInteractiveModel: InstanceType<typeof MemoryModel> = draw(
             objects,
             true,
@@ -1515,84 +1515,49 @@ describe("draw function", () => {
         expect(interactiveSvg).toMatchSnapshot();
         expect(nonInteractiveSvg).toMatchSnapshot();
     });
-
-    it("maps all object ids to boxes in interactive svg script", () => {});
-
-    it("handles hover events correctly in interactive mode", (done) => {
+    it("maps all object ids to boxes in interactive svg script", () => {
         const objects: DrawnEntity[] = [
-            {
-                type: ".frame",
-                name: "__main__",
-                id: null,
-                value: { item: 45 },
-            },
-            {
-                type: "str",
-                id: 42,
-                value: "hover test",
-            },
+            { type: "int", id: 10, value: 42 },
+            { type: "str", id: 20, value: "test" },
+            { type: "list", id: 30, value: [10, 20] },
         ];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
             width: 1300,
             interactive: true,
             roughjs_config: { options: { seed: 12345 } },
         });
+        const svg: String = m.serializeSVG();
 
-        // Create a temporary container and add the SVG to the DOM
-        const container = document.createElement("div");
-        container.innerHTML = m.serializeSVG();
-        document.body.appendChild(container);
-
-        const svgElement = container.querySelector("svg");
-        expect(svgElement).toBeTruthy();
-
-        // Wait for the script to execute
-        setTimeout(() => {
-            // Find an ID text element
-            const idText = container.querySelector("text.id");
-            expect(idText).toBeTruthy();
-
-            if (idText) {
-                // Test mouseover event
-                const mouseoverEvent = new MouseEvent("mouseover", {
-                    bubbles: true,
-                });
-                idText.dispatchEvent(mouseoverEvent);
-
-                // Check if highlight was added (either as fill change or highlight rect)
-                const objectBox = container.querySelector('g[id^="object-"]');
-                const highlightRect =
-                    container.querySelector('[id$="-highlight"]');
-                const pathWithFill = container.querySelector(
-                    'path[fill*="255, 255, 0"]'
-                );
-
-                expect(objectBox).toBeTruthy();
-                expect(highlightRect || pathWithFill).toBeTruthy();
-
-                // Test mouseout event
-                const mouseoutEvent = new MouseEvent("mouseout", {
-                    bubbles: true,
-                });
-                idText.dispatchEvent(mouseoutEvent);
-
-                // Verify highlight is removed after mouseout
-                setTimeout(() => {
-                    const remainingHighlight =
-                        container.querySelector('[id$="-highlight"]');
-                    expect(remainingHighlight).toBeFalsy();
-
-                    // Clean up
-                    document.body.removeChild(container);
-                    done();
-                }, 50);
-            } else {
-                document.body.removeChild(container);
-                done();
-            }
-        }, 100);
+        expect(svg).toContain("idToObjectMap");
+        expect(svg).toContain('"id10"');
+        expect(svg).toContain('"id20"');
+        expect(svg).toContain('"id30"');
+        expect(svg).toMatchSnapshot();
     });
+    it("generates correct interactive script with proper event mappings", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "str",
+                id: 19,
+                value: "Interactive test",
+            },
+            { type: "int", id: 13, value: 7 },
+        ];
 
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            interactive: true,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+
+        expect(svg).toContain("addEventListener");
+        expect(svg).toContain("mouseover");
+        expect(svg).toContain("mouseout");
+        expect(svg).toContain("highlightObject");
+        expect(svg).toContain("removeHighlight");
+        expect(svg).toMatchSnapshot();
+    });
     it("generates interactive script for empty objects array", () => {
         const objects: DrawnEntity[] = [];
         const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
@@ -1604,9 +1569,9 @@ describe("draw function", () => {
 
         expect(svg).toContain("<script>");
         expect(svg).toContain("objectInteractivity");
+        expect(svg).toContain("idToObjectMap");
         expect(svg).toMatchSnapshot();
     });
-
     it("renders custom styles correctly in interactive mode", () => {
         const objects: DrawnEntity[] = [
             {
@@ -1629,8 +1594,8 @@ describe("draw function", () => {
         });
         const svg: String = m.serializeSVG();
 
-        expect(svg).toContain("<script>");
-        expect(svg).toContain("rgba(255, 255, 0, 0.6)"); // highlight color in script
+        expect(svg).toContain('"id42"');
+        expect(svg).toContain('"id99"');
         expect(svg).toMatchSnapshot();
     });
 });

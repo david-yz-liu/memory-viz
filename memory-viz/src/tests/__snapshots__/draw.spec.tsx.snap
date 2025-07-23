@@ -195,6 +195,992 @@ exports[`draw function formats non-stack frame objects in automatic layout 1`] =
 </svg>
 `;
 
+exports[`draw function generates correct interactive script with proper event mappings 1`] = `
+<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text {
+      font-family: Consolas, Courier;
+      font-size: 20px;
+    }
+
+    text.default {
+      fill: rgb(0, 0, 0);
+      text-anchor: middle;
+    }
+
+    text.attribute {
+      fill: rgb(27, 14, 139);
+      text-anchor: start;
+    }
+
+    text.variable {
+      fill: rgb(0, 0, 0);
+      text-anchor: start;
+    }
+
+    text.id {
+      fill: rgb(150, 100, 28);
+      text-anchor: middle;
+    }
+
+    text.type {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    text.value {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    path {
+      stroke: rgb(0, 0, 0);
+    }
+  </style>
+  <script>
+    function objectInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const bbox = objectBox.getBBox();
+        const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
+
+        if (existingFill) {
+          existingFill.setAttribute('data-original-fill', existingFill.getAttribute('fill'));
+          existingFill.setAttribute('fill', 'rgba(255, 255, 0, 0.6)');
+        } else {
+          const highlight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          highlight.setAttribute("x", bbox.x);
+          highlight.setAttribute("y", bbox.y);
+          highlight.setAttribute("width", bbox.width);
+          highlight.setAttribute("height", bbox.height);
+          highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
+          highlight.setAttribute("pointer-events", "none");
+          highlight.setAttribute("id", objectId + "-highlight");
+
+          objectBox.insertBefore(highlight, objectBox.firstChild);
+        }
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const existingFill = objectBox.querySelector('path[data-original-fill]');
+
+        if (existingFill) {
+          existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
+          existingFill.removeAttribute('data-original-fill');
+        } else {
+          const highlight = document.getElementById(objectId + "-highlight");
+          if (highlight) highlight.remove();
+        }
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) return;
+
+          idText.style.cursor = 'pointer';
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; highlightObject(objectId));
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; removeHighlight(objectId));
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', objectInteractivity);
+    } else {
+      objectInteractivity();
+    }
+  </script>
+  <g id="object-0">
+    <path d="M49.099557020290746 24.29901925451833 C112.10647623423708 24.872340143957942, 174.2088592430931 26.339478274456827, 290.2298769949745 24.485864414374362 M50.185972138009554 25.390725059188263 C142.97727173509372 25.207905429247468, 237.97541255786757 26.365189032543558, 290.4007511466424 24.594125975521845 M289.6138933170587 24.244307739660144 C293.036963196937 59.11295747105032, 290.047526510898 94.5909650363028, 289.3120261300355 154.8133229445666 M291.8313265061006 25.96177598182112 C291.05591074684634 69.77587079815567, 290.5518674359657 114.02828291337937, 291.89466654416174 155.44875323120505 M291.69515270695683 155.8992679141779 C224.84049976103074 156.692219506355, 157.65275525610807 155.18512543009118, 49.215527767163074 153.75477512874585 M290.5002303044482 154.69090762046565 C232.29558286201268 157.70095354351344, 174.64034352846994 156.67992009101118, 49.44635586348391 155.4726734319042 M50.14214079268277 156.27820358984172 C51.21292230626568 121.20502475183457, 52.32286229869351 85.18492933362721, 51.775122391059995 23.932938857004046 M50.67811032291502 154.0633974308148 C48.08495348347351 115.83291779831052, 49.32690664781258 77.85893173422663, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M43.121213511385584 18.315878493375497 C109.15967059624488 18.895507791288054, 174.3153464129859 20.327359885275996, 296.2483991694776 18.498229853366663 M44.18149933513203 19.38132775813143 C141.6656989596868 19.248581180680272, 241.30366322603996 20.37803103701653, 296.415163638881 18.603887623282787 M295.6138933170587 18.244307739660144 C299.0423227719031 56.304614026658236, 296.05288608586415 94.97427814751863, 295.3120261300355 160.8133229445666 M297.8313265061006 19.96177598182112 C297.07137157080695 67.92298510298133, 296.5673282599263 116.3225115230307, 297.89466654416174 161.44875323120505 M297.6784336378464 161.87763968450193 C227.5070704737671 162.690837651683, 157.01062691246796 161.21999058958573, 43.23439505394015 159.7847239449875 M296.51225023042366 160.69834157965653 C235.42148216954942 163.73318816676186, 174.8669084415869 162.73671151837704, 43.459671519869 161.46130519626968 M44.14214079268277 162.27820358984172 C45.30960880378261 124.07270445320755, 46.419548796210435 84.92028873637318, 45.775122391059995 17.932938857004046 M44.67811032291502 160.0633974308148 C41.97672923320904 118.29797793291509, 43.21868239754811 76.78905200343578, 44.94233041163534 18.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="170.5" y="115" class="value">"Interactive test"</text>
+  <g>
+    <path d="M48.91726206429303 24.157105488702655 C65.96892660483718 24.47300859708339, 81.9329313095659 26.237169289775192, 109.07396535761654 24.381777508184314 M50.22362225409597 25.469827466644347 C72.3879350842908 24.40115554071963, 97.20586481969804 25.792731562629342, 109.27943303342909 24.511956655420363 M108.61389331705868 24.244307739660144 C112.00123269716278 37.83524710033089, 109.0117960111238 52.03554429486394, 108.31202613003552 74.81332294456661 M110.8313265061006 25.96177598182112 C109.952838587109 42.12844209931791, 109.44879527622834 58.73342551570386, 110.89466654416174 75.44875323120505 M110.83588658459485 76.08132497780025 C94.0346624031663 76.3041347881779, 76.83291217498481 74.49192905630916, 49.05671112425625 73.50267897360027 M109.39905177708715 74.6283317739144 C94.75285464618355 76.44149711281061, 80.7672934634611 75.21375512629747, 49.334270439110696 75.56836631242186 M50.14214079268277 76.27820358984172 C50.568345656152815 62.0871600760147, 51.67828564858064 46.949199981987476, 51.775122391059995 23.932938857004046 M50.67811032291502 74.0633974308148 C48.806448485236615 59.39918356761336, 50.04840164957568 44.991463272832334, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M229.91726206429303 24.157105488702655 C246.96892660483718 24.47300859708339, 262.9329313095659 26.237169289775192, 290.07396535761654 24.381777508184314 M231.22362225409597 25.469827466644347 C253.3879350842908 24.40115554071963, 278.20586481969804 25.792731562629342, 290.2794330334291 24.511956655420363 M289.6138933170587 24.244307739660144 C293.0012326971628 37.83524710033089, 290.0117960111238 52.03554429486394, 289.3120261300355 74.81332294456661 M291.8313265061006 25.96177598182112 C290.952838587109 42.12844209931791, 290.44879527622834 58.73342551570386, 291.89466654416174 75.44875323120505 M291.83588658459485 76.08132497780025 C275.0346624031663 76.3041347881779, 257.8329121749848 74.49192905630916, 230.05671112425625 73.50267897360027 M290.39905177708715 74.6283317739144 C275.75285464618355 76.44149711281061, 261.7672934634611 75.21375512629747, 230.3342704391107 75.56836631242186 M231.14214079268277 76.27820358984172 C231.56834565615281 62.0871600760147, 232.67828564858064 46.949199981987476, 232.77512239106 23.932938857004046 M231.67811032291502 74.0633974308148 C229.80644848523661 59.39918356761336, 231.04840164957568 44.991463272832334, 231.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="80" y="55" class="id">id19</text><text x="261" y="55" class="type">str</text>
+  <g id="object-1">
+    <path d="M327.0255640090501 24.241416855089682 C379.6747288307105 24.78571024322009, 431.3450280792927 26.373408998464704, 527.1665928987555 24.44361583115067 M328.20125421450774 25.42283250446578 C404.958478717734 25.051943962083083, 484.10388944161184 26.304326200825255, 527.3515084648274 24.560773679005287 M526.6138933170587 24.244307739660144 C530.036963196937 59.11295747105032, 527.047526510898 94.5909650363028, 526.3120261300355 154.8133229445666 M528.8313265061006 25.96177598182112 C528.0559107468464 69.77587079815567, 527.5518674359657 114.02828291337937, 528.8946665441617 155.44875323120505 M528.7522761930842 155.9731643655708 C473.2297164925149 156.68231944392923, 417.3466937635452 155.0513814025964, 327.15106453734137 153.65245000658692 M527.4591622240322 154.66550825989682 C479.1154268945954 157.554673751121, 431.3662467419869 156.4497378845508, 327.4008607041682 155.51151490365555 M328.14214079268277 156.27820358984172 C329.2129223062657 121.20502475183457, 330.3228622986935 85.18492933362721, 329.77512239106 23.932938857004046 M328.678110322915 154.0633974308148 C326.0849534834735 115.83291779831052, 327.32690664781256 77.85893173422663, 328.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M321.0472205001449 18.258276093946847 C376.7279231927182 18.81226224029811, 431.4515152491855 20.36467495903178, 533.1851150732587 18.45598127014297 M322.19678141163024 19.413435203408945 C403.6469059423271 19.100311479449005, 487.43214010978426 20.324859971231348, 533.3659209570659 18.57053532676623 M532.6138933170587 18.244307739660144 C536.0423227719032 56.304614026658236, 533.0528860858642 94.97427814751863, 532.3120261300355 160.8133229445666 M534.8313265061006 19.96177598182112 C534.071371570807 67.92298510298133, 533.5673282599263 116.3225115230307, 534.8946665441617 161.44875323120505 M534.7355571239738 161.95153613589483 C475.8962872052512 162.68755860022557, 416.704565419905 161.09286757305927, 321.16993182411846 159.68239882282856 M533.4711821500076 160.6729422190877 C482.24132620213214 163.60327584438917, 431.59281165510396 162.52289678193645, 321.4141763605533 161.50014666802102 M322.14214079268277 162.27820358984172 C323.3096088037826 124.07270445320755, 324.41954879621045 84.92028873637318, 323.77512239106 17.932938857004046 M322.678110322915 160.0633974308148 C319.976729233209 118.29797793291509, 321.2186823975481 76.78905200343578, 322.94233041163534 18.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="428" y="115" class="value">7</text>
+  <g>
+    <path d="M326.917262064293 24.157105488702655 C343.9689266048372 24.47300859708339, 359.9329313095659 26.237169289775192, 387.07396535761654 24.381777508184314 M328.223622254096 25.469827466644347 C350.3879350842908 24.40115554071963, 375.20586481969804 25.792731562629342, 387.2794330334291 24.511956655420363 M386.6138933170587 24.244307739660144 C390.0012326971628 37.83524710033089, 387.0117960111238 52.03554429486394, 386.3120261300355 74.81332294456661 M388.8313265061006 25.96177598182112 C387.952838587109 42.12844209931791, 387.44879527622834 58.73342551570386, 388.89466654416174 75.44875323120505 M388.83588658459485 76.08132497780025 C372.0346624031663 76.3041347881779, 354.8329121749848 74.49192905630916, 327.05671112425625 73.50267897360027 M387.39905177708715 74.6283317739144 C372.75285464618355 76.44149711281061, 358.7672934634611 75.21375512629747, 327.3342704391107 75.56836631242186 M328.14214079268277 76.27820358984172 C328.5683456561528 62.0871600760147, 329.67828564858064 46.949199981987476, 329.77512239106 23.932938857004046 M328.678110322915 74.0633974308148 C326.8064484852366 59.39918356761336, 328.0484016495757 44.991463272832334, 328.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M466.917262064293 24.157105488702655 C483.9689266048372 24.47300859708339, 499.9329313095659 26.237169289775192, 527.0739653576165 24.381777508184314 M468.223622254096 25.469827466644347 C490.3879350842908 24.40115554071963, 515.205864819698 25.792731562629342, 527.2794330334291 24.511956655420363 M526.6138933170587 24.244307739660144 C530.0012326971628 37.83524710033089, 527.0117960111238 52.03554429486394, 526.3120261300355 74.81332294456661 M528.8313265061006 25.96177598182112 C527.952838587109 42.12844209931791, 527.4487952762283 58.73342551570386, 528.8946665441617 75.44875323120505 M528.8358865845948 76.08132497780025 C512.0346624031663 76.3041347881779, 494.8329121749848 74.49192905630916, 467.05671112425625 73.50267897360027 M527.3990517770872 74.6283317739144 C512.7528546461836 76.44149711281061, 498.7672934634611 75.21375512629747, 467.3342704391107 75.56836631242186 M468.14214079268277 76.27820358984172 C468.5683456561528 62.0871600760147, 469.67828564858064 46.949199981987476, 469.77512239106 23.932938857004046 M468.678110322915 74.0633974308148 C466.8064484852366 59.39918356761336, 468.0484016495757 44.991463272832334, 468.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="358" y="55" class="id">id13</text><text x="498" y="55" class="type">int</text>
+  <script>
+    function objectInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"],
+        "id13": ["object-1"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const bbox = objectBox.getBBox();
+        const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
+
+        if (existingFill) {
+          existingFill.setAttribute('data-original-fill', existingFill.getAttribute('fill'));
+          existingFill.setAttribute('fill', 'rgba(255, 255, 0, 0.6)');
+        } else {
+          const highlight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          highlight.setAttribute("x", bbox.x);
+          highlight.setAttribute("y", bbox.y);
+          highlight.setAttribute("width", bbox.width);
+          highlight.setAttribute("height", bbox.height);
+          highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
+          highlight.setAttribute("pointer-events", "none");
+          highlight.setAttribute("id", objectId + "-highlight");
+
+          objectBox.insertBefore(highlight, objectBox.firstChild);
+        }
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const existingFill = objectBox.querySelector('path[data-original-fill]');
+
+        if (existingFill) {
+          existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
+          existingFill.removeAttribute('data-original-fill');
+        } else {
+          const highlight = document.getElementById(objectId + "-highlight");
+          if (highlight) highlight.remove();
+        }
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) return;
+
+          idText.style.cursor = 'pointer';
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; highlightObject(objectId));
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; removeHighlight(objectId));
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', objectInteractivity);
+    } else {
+      objectInteractivity();
+    }
+  </script>
+</svg>
+`;
+
+exports[`draw function generates interactive script for empty objects array 1`] = `
+<svg width="1300" height="125" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text {
+      font-family: Consolas, Courier;
+      font-size: 20px;
+    }
+
+    text.default {
+      fill: rgb(0, 0, 0);
+      text-anchor: middle;
+    }
+
+    text.attribute {
+      fill: rgb(27, 14, 139);
+      text-anchor: start;
+    }
+
+    text.variable {
+      fill: rgb(0, 0, 0);
+      text-anchor: start;
+    }
+
+    text.id {
+      fill: rgb(150, 100, 28);
+      text-anchor: middle;
+    }
+
+    text.type {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    text.value {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    path {
+      stroke: rgb(0, 0, 0);
+    }
+  </style>
+  <script>
+    function objectInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const bbox = objectBox.getBBox();
+        const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
+
+        if (existingFill) {
+          existingFill.setAttribute('data-original-fill', existingFill.getAttribute('fill'));
+          existingFill.setAttribute('fill', 'rgba(255, 255, 0, 0.6)');
+        } else {
+          const highlight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          highlight.setAttribute("x", bbox.x);
+          highlight.setAttribute("y", bbox.y);
+          highlight.setAttribute("width", bbox.width);
+          highlight.setAttribute("height", bbox.height);
+          highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
+          highlight.setAttribute("pointer-events", "none");
+          highlight.setAttribute("id", objectId + "-highlight");
+
+          objectBox.insertBefore(highlight, objectBox.firstChild);
+        }
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const existingFill = objectBox.querySelector('path[data-original-fill]');
+
+        if (existingFill) {
+          existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
+          existingFill.removeAttribute('data-original-fill');
+        } else {
+          const highlight = document.getElementById(objectId + "-highlight");
+          if (highlight) highlight.remove();
+        }
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) return;
+
+          idText.style.cursor = 'pointer';
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; highlightObject(objectId));
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; removeHighlight(objectId));
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', objectInteractivity);
+    } else {
+      objectInteractivity();
+    }
+  </script>
+  <script>
+    function objectInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const bbox = objectBox.getBBox();
+        const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
+
+        if (existingFill) {
+          existingFill.setAttribute('data-original-fill', existingFill.getAttribute('fill'));
+          existingFill.setAttribute('fill', 'rgba(255, 255, 0, 0.6)');
+        } else {
+          const highlight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          highlight.setAttribute("x", bbox.x);
+          highlight.setAttribute("y", bbox.y);
+          highlight.setAttribute("width", bbox.width);
+          highlight.setAttribute("height", bbox.height);
+          highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
+          highlight.setAttribute("pointer-events", "none");
+          highlight.setAttribute("id", objectId + "-highlight");
+
+          objectBox.insertBefore(highlight, objectBox.firstChild);
+        }
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const existingFill = objectBox.querySelector('path[data-original-fill]');
+
+        if (existingFill) {
+          existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
+          existingFill.removeAttribute('data-original-fill');
+        } else {
+          const highlight = document.getElementById(objectId + "-highlight");
+          if (highlight) highlight.remove();
+        }
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) return;
+
+          idText.style.cursor = 'pointer';
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; highlightObject(objectId));
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; removeHighlight(objectId));
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', objectInteractivity);
+    } else {
+      objectInteractivity();
+    }
+  </script>
+</svg>
+`;
+
+exports[`draw function includes script element in svg when interactive option is enabled 1`] = `
+<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text {
+      font-family: Consolas, Courier;
+      font-size: 20px;
+    }
+
+    text.default {
+      fill: rgb(0, 0, 0);
+      text-anchor: middle;
+    }
+
+    text.attribute {
+      fill: rgb(27, 14, 139);
+      text-anchor: start;
+    }
+
+    text.variable {
+      fill: rgb(0, 0, 0);
+      text-anchor: start;
+    }
+
+    text.id {
+      fill: rgb(150, 100, 28);
+      text-anchor: middle;
+    }
+
+    text.type {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    text.value {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    path {
+      stroke: rgb(0, 0, 0);
+    }
+  </style>
+  <script>
+    function objectInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const bbox = objectBox.getBBox();
+        const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
+
+        if (existingFill) {
+          existingFill.setAttribute('data-original-fill', existingFill.getAttribute('fill'));
+          existingFill.setAttribute('fill', 'rgba(255, 255, 0, 0.6)');
+        } else {
+          const highlight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          highlight.setAttribute("x", bbox.x);
+          highlight.setAttribute("y", bbox.y);
+          highlight.setAttribute("width", bbox.width);
+          highlight.setAttribute("height", bbox.height);
+          highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
+          highlight.setAttribute("pointer-events", "none");
+          highlight.setAttribute("id", objectId + "-highlight");
+
+          objectBox.insertBefore(highlight, objectBox.firstChild);
+        }
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const existingFill = objectBox.querySelector('path[data-original-fill]');
+
+        if (existingFill) {
+          existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
+          existingFill.removeAttribute('data-original-fill');
+        } else {
+          const highlight = document.getElementById(objectId + "-highlight");
+          if (highlight) highlight.remove();
+        }
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) return;
+
+          idText.style.cursor = 'pointer';
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; highlightObject(objectId));
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; removeHighlight(objectId));
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', objectInteractivity);
+    } else {
+      objectInteractivity();
+    }
+  </script>
+  <g id="object-0">
+    <path d="M49.099557020290746 24.29901925451833 C112.10647623423708 24.872340143957942, 174.2088592430931 26.339478274456827, 290.2298769949745 24.485864414374362 M50.185972138009554 25.390725059188263 C142.97727173509372 25.207905429247468, 237.97541255786757 26.365189032543558, 290.4007511466424 24.594125975521845 M289.6138933170587 24.244307739660144 C293.036963196937 59.11295747105032, 290.047526510898 94.5909650363028, 289.3120261300355 154.8133229445666 M291.8313265061006 25.96177598182112 C291.05591074684634 69.77587079815567, 290.5518674359657 114.02828291337937, 291.89466654416174 155.44875323120505 M291.69515270695683 155.8992679141779 C224.84049976103074 156.692219506355, 157.65275525610807 155.18512543009118, 49.215527767163074 153.75477512874585 M290.5002303044482 154.69090762046565 C232.29558286201268 157.70095354351344, 174.64034352846994 156.67992009101118, 49.44635586348391 155.4726734319042 M50.14214079268277 156.27820358984172 C51.21292230626568 121.20502475183457, 52.32286229869351 85.18492933362721, 51.775122391059995 23.932938857004046 M50.67811032291502 154.0633974308148 C48.08495348347351 115.83291779831052, 49.32690664781258 77.85893173422663, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M43.121213511385584 18.315878493375497 C109.15967059624488 18.895507791288054, 174.3153464129859 20.327359885275996, 296.2483991694776 18.498229853366663 M44.18149933513203 19.38132775813143 C141.6656989596868 19.248581180680272, 241.30366322603996 20.37803103701653, 296.415163638881 18.603887623282787 M295.6138933170587 18.244307739660144 C299.0423227719031 56.304614026658236, 296.05288608586415 94.97427814751863, 295.3120261300355 160.8133229445666 M297.8313265061006 19.96177598182112 C297.07137157080695 67.92298510298133, 296.5673282599263 116.3225115230307, 297.89466654416174 161.44875323120505 M297.6784336378464 161.87763968450193 C227.5070704737671 162.690837651683, 157.01062691246796 161.21999058958573, 43.23439505394015 159.7847239449875 M296.51225023042366 160.69834157965653 C235.42148216954942 163.73318816676186, 174.8669084415869 162.73671151837704, 43.459671519869 161.46130519626968 M44.14214079268277 162.27820358984172 C45.30960880378261 124.07270445320755, 46.419548796210435 84.92028873637318, 45.775122391059995 17.932938857004046 M44.67811032291502 160.0633974308148 C41.97672923320904 118.29797793291509, 43.21868239754811 76.78905200343578, 44.94233041163534 18.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="170.5" y="115" class="value">"Interactive test"</text>
+  <g>
+    <path d="M48.91726206429303 24.157105488702655 C65.96892660483718 24.47300859708339, 81.9329313095659 26.237169289775192, 109.07396535761654 24.381777508184314 M50.22362225409597 25.469827466644347 C72.3879350842908 24.40115554071963, 97.20586481969804 25.792731562629342, 109.27943303342909 24.511956655420363 M108.61389331705868 24.244307739660144 C112.00123269716278 37.83524710033089, 109.0117960111238 52.03554429486394, 108.31202613003552 74.81332294456661 M110.8313265061006 25.96177598182112 C109.952838587109 42.12844209931791, 109.44879527622834 58.73342551570386, 110.89466654416174 75.44875323120505 M110.83588658459485 76.08132497780025 C94.0346624031663 76.3041347881779, 76.83291217498481 74.49192905630916, 49.05671112425625 73.50267897360027 M109.39905177708715 74.6283317739144 C94.75285464618355 76.44149711281061, 80.7672934634611 75.21375512629747, 49.334270439110696 75.56836631242186 M50.14214079268277 76.27820358984172 C50.568345656152815 62.0871600760147, 51.67828564858064 46.949199981987476, 51.775122391059995 23.932938857004046 M50.67811032291502 74.0633974308148 C48.806448485236615 59.39918356761336, 50.04840164957568 44.991463272832334, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M229.91726206429303 24.157105488702655 C246.96892660483718 24.47300859708339, 262.9329313095659 26.237169289775192, 290.07396535761654 24.381777508184314 M231.22362225409597 25.469827466644347 C253.3879350842908 24.40115554071963, 278.20586481969804 25.792731562629342, 290.2794330334291 24.511956655420363 M289.6138933170587 24.244307739660144 C293.0012326971628 37.83524710033089, 290.0117960111238 52.03554429486394, 289.3120261300355 74.81332294456661 M291.8313265061006 25.96177598182112 C290.952838587109 42.12844209931791, 290.44879527622834 58.73342551570386, 291.89466654416174 75.44875323120505 M291.83588658459485 76.08132497780025 C275.0346624031663 76.3041347881779, 257.8329121749848 74.49192905630916, 230.05671112425625 73.50267897360027 M290.39905177708715 74.6283317739144 C275.75285464618355 76.44149711281061, 261.7672934634611 75.21375512629747, 230.3342704391107 75.56836631242186 M231.14214079268277 76.27820358984172 C231.56834565615281 62.0871600760147, 232.67828564858064 46.949199981987476, 232.77512239106 23.932938857004046 M231.67811032291502 74.0633974308148 C229.80644848523661 59.39918356761336, 231.04840164957568 44.991463272832334, 231.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="80" y="55" class="id">id19</text><text x="261" y="55" class="type">str</text>
+  <g id="object-1">
+    <path d="M327.0255640090501 24.241416855089682 C379.6747288307105 24.78571024322009, 431.3450280792927 26.373408998464704, 527.1665928987555 24.44361583115067 M328.20125421450774 25.42283250446578 C404.958478717734 25.051943962083083, 484.10388944161184 26.304326200825255, 527.3515084648274 24.560773679005287 M526.6138933170587 24.244307739660144 C530.036963196937 59.11295747105032, 527.047526510898 94.5909650363028, 526.3120261300355 154.8133229445666 M528.8313265061006 25.96177598182112 C528.0559107468464 69.77587079815567, 527.5518674359657 114.02828291337937, 528.8946665441617 155.44875323120505 M528.7522761930842 155.9731643655708 C473.2297164925149 156.68231944392923, 417.3466937635452 155.0513814025964, 327.15106453734137 153.65245000658692 M527.4591622240322 154.66550825989682 C479.1154268945954 157.554673751121, 431.3662467419869 156.4497378845508, 327.4008607041682 155.51151490365555 M328.14214079268277 156.27820358984172 C329.2129223062657 121.20502475183457, 330.3228622986935 85.18492933362721, 329.77512239106 23.932938857004046 M328.678110322915 154.0633974308148 C326.0849534834735 115.83291779831052, 327.32690664781256 77.85893173422663, 328.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M321.0472205001449 18.258276093946847 C376.7279231927182 18.81226224029811, 431.4515152491855 20.36467495903178, 533.1851150732587 18.45598127014297 M322.19678141163024 19.413435203408945 C403.6469059423271 19.100311479449005, 487.43214010978426 20.324859971231348, 533.3659209570659 18.57053532676623 M532.6138933170587 18.244307739660144 C536.0423227719032 56.304614026658236, 533.0528860858642 94.97427814751863, 532.3120261300355 160.8133229445666 M534.8313265061006 19.96177598182112 C534.071371570807 67.92298510298133, 533.5673282599263 116.3225115230307, 534.8946665441617 161.44875323120505 M534.7355571239738 161.95153613589483 C475.8962872052512 162.68755860022557, 416.704565419905 161.09286757305927, 321.16993182411846 159.68239882282856 M533.4711821500076 160.6729422190877 C482.24132620213214 163.60327584438917, 431.59281165510396 162.52289678193645, 321.4141763605533 161.50014666802102 M322.14214079268277 162.27820358984172 C323.3096088037826 124.07270445320755, 324.41954879621045 84.92028873637318, 323.77512239106 17.932938857004046 M322.678110322915 160.0633974308148 C319.976729233209 118.29797793291509, 321.2186823975481 76.78905200343578, 322.94233041163534 18.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="428" y="115" class="value">7</text>
+  <g>
+    <path d="M326.917262064293 24.157105488702655 C343.9689266048372 24.47300859708339, 359.9329313095659 26.237169289775192, 387.07396535761654 24.381777508184314 M328.223622254096 25.469827466644347 C350.3879350842908 24.40115554071963, 375.20586481969804 25.792731562629342, 387.2794330334291 24.511956655420363 M386.6138933170587 24.244307739660144 C390.0012326971628 37.83524710033089, 387.0117960111238 52.03554429486394, 386.3120261300355 74.81332294456661 M388.8313265061006 25.96177598182112 C387.952838587109 42.12844209931791, 387.44879527622834 58.73342551570386, 388.89466654416174 75.44875323120505 M388.83588658459485 76.08132497780025 C372.0346624031663 76.3041347881779, 354.8329121749848 74.49192905630916, 327.05671112425625 73.50267897360027 M387.39905177708715 74.6283317739144 C372.75285464618355 76.44149711281061, 358.7672934634611 75.21375512629747, 327.3342704391107 75.56836631242186 M328.14214079268277 76.27820358984172 C328.5683456561528 62.0871600760147, 329.67828564858064 46.949199981987476, 329.77512239106 23.932938857004046 M328.678110322915 74.0633974308148 C326.8064484852366 59.39918356761336, 328.0484016495757 44.991463272832334, 328.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M466.917262064293 24.157105488702655 C483.9689266048372 24.47300859708339, 499.9329313095659 26.237169289775192, 527.0739653576165 24.381777508184314 M468.223622254096 25.469827466644347 C490.3879350842908 24.40115554071963, 515.205864819698 25.792731562629342, 527.2794330334291 24.511956655420363 M526.6138933170587 24.244307739660144 C530.0012326971628 37.83524710033089, 527.0117960111238 52.03554429486394, 526.3120261300355 74.81332294456661 M528.8313265061006 25.96177598182112 C527.952838587109 42.12844209931791, 527.4487952762283 58.73342551570386, 528.8946665441617 75.44875323120505 M528.8358865845948 76.08132497780025 C512.0346624031663 76.3041347881779, 494.8329121749848 74.49192905630916, 467.05671112425625 73.50267897360027 M527.3990517770872 74.6283317739144 C512.7528546461836 76.44149711281061, 498.7672934634611 75.21375512629747, 467.3342704391107 75.56836631242186 M468.14214079268277 76.27820358984172 C468.5683456561528 62.0871600760147, 469.67828564858064 46.949199981987476, 469.77512239106 23.932938857004046 M468.678110322915 74.0633974308148 C466.8064484852366 59.39918356761336, 468.0484016495757 44.991463272832334, 468.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="358" y="55" class="id">id13</text><text x="498" y="55" class="type">int</text>
+  <script>
+    function objectInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"],
+        "id13": ["object-1"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const bbox = objectBox.getBBox();
+        const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
+
+        if (existingFill) {
+          existingFill.setAttribute('data-original-fill', existingFill.getAttribute('fill'));
+          existingFill.setAttribute('fill', 'rgba(255, 255, 0, 0.6)');
+        } else {
+          const highlight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          highlight.setAttribute("x", bbox.x);
+          highlight.setAttribute("y", bbox.y);
+          highlight.setAttribute("width", bbox.width);
+          highlight.setAttribute("height", bbox.height);
+          highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
+          highlight.setAttribute("pointer-events", "none");
+          highlight.setAttribute("id", objectId + "-highlight");
+
+          objectBox.insertBefore(highlight, objectBox.firstChild);
+        }
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const existingFill = objectBox.querySelector('path[data-original-fill]');
+
+        if (existingFill) {
+          existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
+          existingFill.removeAttribute('data-original-fill');
+        } else {
+          const highlight = document.getElementById(objectId + "-highlight");
+          if (highlight) highlight.remove();
+        }
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) return;
+
+          idText.style.cursor = 'pointer';
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; highlightObject(objectId));
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; removeHighlight(objectId));
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', objectInteractivity);
+    } else {
+      objectInteractivity();
+    }
+  </script>
+</svg>
+`;
+
+exports[`draw function includes script element in svg when interactive option is enabled 2`] = `
+<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text {
+      font-family: Consolas, Courier;
+      font-size: 20px;
+    }
+
+    text.default {
+      fill: rgb(0, 0, 0);
+      text-anchor: middle;
+    }
+
+    text.attribute {
+      fill: rgb(27, 14, 139);
+      text-anchor: start;
+    }
+
+    text.variable {
+      fill: rgb(0, 0, 0);
+      text-anchor: start;
+    }
+
+    text.id {
+      fill: rgb(150, 100, 28);
+      text-anchor: middle;
+    }
+
+    text.type {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    text.value {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    path {
+      stroke: rgb(0, 0, 0);
+    }
+  </style>
+  <g id="object-0">
+    <path d="M49.099557020290746 24.29901925451833 C112.10647623423708 24.872340143957942, 174.2088592430931 26.339478274456827, 290.2298769949745 24.485864414374362 M50.185972138009554 25.390725059188263 C142.97727173509372 25.207905429247468, 237.97541255786757 26.365189032543558, 290.4007511466424 24.594125975521845 M289.6138933170587 24.244307739660144 C293.036963196937 59.11295747105032, 290.047526510898 94.5909650363028, 289.3120261300355 154.8133229445666 M291.8313265061006 25.96177598182112 C291.05591074684634 69.77587079815567, 290.5518674359657 114.02828291337937, 291.89466654416174 155.44875323120505 M291.69515270695683 155.8992679141779 C224.84049976103074 156.692219506355, 157.65275525610807 155.18512543009118, 49.215527767163074 153.75477512874585 M290.5002303044482 154.69090762046565 C232.29558286201268 157.70095354351344, 174.64034352846994 156.67992009101118, 49.44635586348391 155.4726734319042 M50.14214079268277 156.27820358984172 C51.21292230626568 121.20502475183457, 52.32286229869351 85.18492933362721, 51.775122391059995 23.932938857004046 M50.67811032291502 154.0633974308148 C48.08495348347351 115.83291779831052, 49.32690664781258 77.85893173422663, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M43.121213511385584 18.315878493375497 C109.15967059624488 18.895507791288054, 174.3153464129859 20.327359885275996, 296.2483991694776 18.498229853366663 M44.18149933513203 19.38132775813143 C141.6656989596868 19.248581180680272, 241.30366322603996 20.37803103701653, 296.415163638881 18.603887623282787 M295.6138933170587 18.244307739660144 C299.0423227719031 56.304614026658236, 296.05288608586415 94.97427814751863, 295.3120261300355 160.8133229445666 M297.8313265061006 19.96177598182112 C297.07137157080695 67.92298510298133, 296.5673282599263 116.3225115230307, 297.89466654416174 161.44875323120505 M297.6784336378464 161.87763968450193 C227.5070704737671 162.690837651683, 157.01062691246796 161.21999058958573, 43.23439505394015 159.7847239449875 M296.51225023042366 160.69834157965653 C235.42148216954942 163.73318816676186, 174.8669084415869 162.73671151837704, 43.459671519869 161.46130519626968 M44.14214079268277 162.27820358984172 C45.30960880378261 124.07270445320755, 46.419548796210435 84.92028873637318, 45.775122391059995 17.932938857004046 M44.67811032291502 160.0633974308148 C41.97672923320904 118.29797793291509, 43.21868239754811 76.78905200343578, 44.94233041163534 18.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="170.5" y="115" class="value">"Interactive test"</text>
+  <g>
+    <path d="M48.91726206429303 24.157105488702655 C65.96892660483718 24.47300859708339, 81.9329313095659 26.237169289775192, 109.07396535761654 24.381777508184314 M50.22362225409597 25.469827466644347 C72.3879350842908 24.40115554071963, 97.20586481969804 25.792731562629342, 109.27943303342909 24.511956655420363 M108.61389331705868 24.244307739660144 C112.00123269716278 37.83524710033089, 109.0117960111238 52.03554429486394, 108.31202613003552 74.81332294456661 M110.8313265061006 25.96177598182112 C109.952838587109 42.12844209931791, 109.44879527622834 58.73342551570386, 110.89466654416174 75.44875323120505 M110.83588658459485 76.08132497780025 C94.0346624031663 76.3041347881779, 76.83291217498481 74.49192905630916, 49.05671112425625 73.50267897360027 M109.39905177708715 74.6283317739144 C94.75285464618355 76.44149711281061, 80.7672934634611 75.21375512629747, 49.334270439110696 75.56836631242186 M50.14214079268277 76.27820358984172 C50.568345656152815 62.0871600760147, 51.67828564858064 46.949199981987476, 51.775122391059995 23.932938857004046 M50.67811032291502 74.0633974308148 C48.806448485236615 59.39918356761336, 50.04840164957568 44.991463272832334, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M229.91726206429303 24.157105488702655 C246.96892660483718 24.47300859708339, 262.9329313095659 26.237169289775192, 290.07396535761654 24.381777508184314 M231.22362225409597 25.469827466644347 C253.3879350842908 24.40115554071963, 278.20586481969804 25.792731562629342, 290.2794330334291 24.511956655420363 M289.6138933170587 24.244307739660144 C293.0012326971628 37.83524710033089, 290.0117960111238 52.03554429486394, 289.3120261300355 74.81332294456661 M291.8313265061006 25.96177598182112 C290.952838587109 42.12844209931791, 290.44879527622834 58.73342551570386, 291.89466654416174 75.44875323120505 M291.83588658459485 76.08132497780025 C275.0346624031663 76.3041347881779, 257.8329121749848 74.49192905630916, 230.05671112425625 73.50267897360027 M290.39905177708715 74.6283317739144 C275.75285464618355 76.44149711281061, 261.7672934634611 75.21375512629747, 230.3342704391107 75.56836631242186 M231.14214079268277 76.27820358984172 C231.56834565615281 62.0871600760147, 232.67828564858064 46.949199981987476, 232.77512239106 23.932938857004046 M231.67811032291502 74.0633974308148 C229.80644848523661 59.39918356761336, 231.04840164957568 44.991463272832334, 231.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="80" y="55" class="id">id19</text><text x="261" y="55" class="type">str</text>
+  <g id="object-1">
+    <path d="M327.0255640090501 24.241416855089682 C379.6747288307105 24.78571024322009, 431.3450280792927 26.373408998464704, 527.1665928987555 24.44361583115067 M328.20125421450774 25.42283250446578 C404.958478717734 25.051943962083083, 484.10388944161184 26.304326200825255, 527.3515084648274 24.560773679005287 M526.6138933170587 24.244307739660144 C530.036963196937 59.11295747105032, 527.047526510898 94.5909650363028, 526.3120261300355 154.8133229445666 M528.8313265061006 25.96177598182112 C528.0559107468464 69.77587079815567, 527.5518674359657 114.02828291337937, 528.8946665441617 155.44875323120505 M528.7522761930842 155.9731643655708 C473.2297164925149 156.68231944392923, 417.3466937635452 155.0513814025964, 327.15106453734137 153.65245000658692 M527.4591622240322 154.66550825989682 C479.1154268945954 157.554673751121, 431.3662467419869 156.4497378845508, 327.4008607041682 155.51151490365555 M328.14214079268277 156.27820358984172 C329.2129223062657 121.20502475183457, 330.3228622986935 85.18492933362721, 329.77512239106 23.932938857004046 M328.678110322915 154.0633974308148 C326.0849534834735 115.83291779831052, 327.32690664781256 77.85893173422663, 328.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M321.0472205001449 18.258276093946847 C376.7279231927182 18.81226224029811, 431.4515152491855 20.36467495903178, 533.1851150732587 18.45598127014297 M322.19678141163024 19.413435203408945 C403.6469059423271 19.100311479449005, 487.43214010978426 20.324859971231348, 533.3659209570659 18.57053532676623 M532.6138933170587 18.244307739660144 C536.0423227719032 56.304614026658236, 533.0528860858642 94.97427814751863, 532.3120261300355 160.8133229445666 M534.8313265061006 19.96177598182112 C534.071371570807 67.92298510298133, 533.5673282599263 116.3225115230307, 534.8946665441617 161.44875323120505 M534.7355571239738 161.95153613589483 C475.8962872052512 162.68755860022557, 416.704565419905 161.09286757305927, 321.16993182411846 159.68239882282856 M533.4711821500076 160.6729422190877 C482.24132620213214 163.60327584438917, 431.59281165510396 162.52289678193645, 321.4141763605533 161.50014666802102 M322.14214079268277 162.27820358984172 C323.3096088037826 124.07270445320755, 324.41954879621045 84.92028873637318, 323.77512239106 17.932938857004046 M322.678110322915 160.0633974308148 C319.976729233209 118.29797793291509, 321.2186823975481 76.78905200343578, 322.94233041163534 18.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="428" y="115" class="value">7</text>
+  <g>
+    <path d="M326.917262064293 24.157105488702655 C343.9689266048372 24.47300859708339, 359.9329313095659 26.237169289775192, 387.07396535761654 24.381777508184314 M328.223622254096 25.469827466644347 C350.3879350842908 24.40115554071963, 375.20586481969804 25.792731562629342, 387.2794330334291 24.511956655420363 M386.6138933170587 24.244307739660144 C390.0012326971628 37.83524710033089, 387.0117960111238 52.03554429486394, 386.3120261300355 74.81332294456661 M388.8313265061006 25.96177598182112 C387.952838587109 42.12844209931791, 387.44879527622834 58.73342551570386, 388.89466654416174 75.44875323120505 M388.83588658459485 76.08132497780025 C372.0346624031663 76.3041347881779, 354.8329121749848 74.49192905630916, 327.05671112425625 73.50267897360027 M387.39905177708715 74.6283317739144 C372.75285464618355 76.44149711281061, 358.7672934634611 75.21375512629747, 327.3342704391107 75.56836631242186 M328.14214079268277 76.27820358984172 C328.5683456561528 62.0871600760147, 329.67828564858064 46.949199981987476, 329.77512239106 23.932938857004046 M328.678110322915 74.0633974308148 C326.8064484852366 59.39918356761336, 328.0484016495757 44.991463272832334, 328.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M466.917262064293 24.157105488702655 C483.9689266048372 24.47300859708339, 499.9329313095659 26.237169289775192, 527.0739653576165 24.381777508184314 M468.223622254096 25.469827466644347 C490.3879350842908 24.40115554071963, 515.205864819698 25.792731562629342, 527.2794330334291 24.511956655420363 M526.6138933170587 24.244307739660144 C530.0012326971628 37.83524710033089, 527.0117960111238 52.03554429486394, 526.3120261300355 74.81332294456661 M528.8313265061006 25.96177598182112 C527.952838587109 42.12844209931791, 527.4487952762283 58.73342551570386, 528.8946665441617 75.44875323120505 M528.8358865845948 76.08132497780025 C512.0346624031663 76.3041347881779, 494.8329121749848 74.49192905630916, 467.05671112425625 73.50267897360027 M527.3990517770872 74.6283317739144 C512.7528546461836 76.44149711281061, 498.7672934634611 75.21375512629747, 467.3342704391107 75.56836631242186 M468.14214079268277 76.27820358984172 C468.5683456561528 62.0871600760147, 469.67828564858064 46.949199981987476, 469.77512239106 23.932938857004046 M468.678110322915 74.0633974308148 C466.8064484852366 59.39918356761336, 468.0484016495757 44.991463272832334, 468.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="358" y="55" class="id">id13</text><text x="498" y="55" class="type">int</text>
+</svg>
+`;
+
+exports[`draw function maps all object ids to boxes in interactive svg script 1`] = `
+<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text {
+      font-family: Consolas, Courier;
+      font-size: 20px;
+    }
+
+    text.default {
+      fill: rgb(0, 0, 0);
+      text-anchor: middle;
+    }
+
+    text.attribute {
+      fill: rgb(27, 14, 139);
+      text-anchor: start;
+    }
+
+    text.variable {
+      fill: rgb(0, 0, 0);
+      text-anchor: start;
+    }
+
+    text.id {
+      fill: rgb(150, 100, 28);
+      text-anchor: middle;
+    }
+
+    text.type {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    text.value {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    path {
+      stroke: rgb(0, 0, 0);
+    }
+  </style>
+  <script>
+    function objectInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const bbox = objectBox.getBBox();
+        const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
+
+        if (existingFill) {
+          existingFill.setAttribute('data-original-fill', existingFill.getAttribute('fill'));
+          existingFill.setAttribute('fill', 'rgba(255, 255, 0, 0.6)');
+        } else {
+          const highlight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          highlight.setAttribute("x", bbox.x);
+          highlight.setAttribute("y", bbox.y);
+          highlight.setAttribute("width", bbox.width);
+          highlight.setAttribute("height", bbox.height);
+          highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
+          highlight.setAttribute("pointer-events", "none");
+          highlight.setAttribute("id", objectId + "-highlight");
+
+          objectBox.insertBefore(highlight, objectBox.firstChild);
+        }
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const existingFill = objectBox.querySelector('path[data-original-fill]');
+
+        if (existingFill) {
+          existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
+          existingFill.removeAttribute('data-original-fill');
+        } else {
+          const highlight = document.getElementById(objectId + "-highlight");
+          if (highlight) highlight.remove();
+        }
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) return;
+
+          idText.style.cursor = 'pointer';
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; highlightObject(objectId));
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; removeHighlight(objectId));
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', objectInteractivity);
+    } else {
+      objectInteractivity();
+    }
+  </script>
+  <g id="object-0">
+    <path d="M49.02556400905005 24.241416855089682 C101.67472883071045 24.78571024322009, 153.3450280792927 26.373408998464704, 249.1665928987556 24.44361583115067 M50.20125421450777 25.42283250446578 C126.958478717734 25.051943962083083, 206.10388944161187 26.304326200825255, 249.3515084648273 24.560773679005287 M248.61389331705868 24.244307739660144 C252.036963196937 59.11295747105032, 249.04752651089802 94.5909650363028, 248.31202613003552 154.8133229445666 M250.8313265061006 25.96177598182112 C250.05591074684634 69.77587079815567, 249.55186743596568 114.02828291337937, 250.89466654416174 155.44875323120505 M250.75227619308416 155.9731643655708 C195.22971649251488 156.68231944392923, 139.3466937635452 155.0513814025964, 49.1510645373414 153.65245000658692 M249.45916222403224 154.66550825989682 C201.1154268945954 157.554673751121, 153.36624674198694 156.4497378845508, 49.40086070416821 155.51151490365555 M50.14214079268277 156.27820358984172 C51.21292230626568 121.20502475183457, 52.32286229869351 85.18492933362721, 51.775122391059995 23.932938857004046 M50.67811032291502 154.0633974308148 C48.08495348347351 115.83291779831052, 49.32690664781258 77.85893173422663, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M43.04722050014489 18.258276093946847 C98.72792319271825 18.81226224029811, 153.4515152491855 20.36467495903178, 255.1851150732587 18.45598127014297 M44.19678141163024 19.413435203408945 C125.64690594232708 19.100311479449005, 209.43214010978426 20.324859971231348, 255.36592095706587 18.57053532676623 M254.61389331705868 18.244307739660144 C258.0423227719031 56.304614026658236, 255.05288608586415 94.97427814751863, 254.31202613003552 160.8133229445666 M256.8313265061006 19.96177598182112 C256.07137157080695 67.92298510298133, 255.56732825992628 116.3225115230307, 256.89466654416174 161.44875323120505 M256.7355571239737 161.95153613589483 C197.8962872052512 162.68755860022557, 138.70456541990504 161.09286757305927, 43.16993182411847 159.68239882282856 M255.47118215000765 160.6729422190877 C204.24132620213217 163.60327584438917, 153.5928116551039 162.52289678193645, 43.41417636055329 161.50014666802102 M44.14214079268277 162.27820358984172 C45.30960880378261 124.07270445320755, 46.419548796210435 84.92028873637318, 45.775122391059995 17.932938857004046 M44.67811032291502 160.0633974308148 C41.97672923320904 118.29797793291509, 43.21868239754811 76.78905200343578, 44.94233041163534 18.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="150" y="115" class="value">42</text>
+  <g>
+    <path d="M48.91726206429303 24.157105488702655 C65.96892660483718 24.47300859708339, 81.9329313095659 26.237169289775192, 109.07396535761654 24.381777508184314 M50.22362225409597 25.469827466644347 C72.3879350842908 24.40115554071963, 97.20586481969804 25.792731562629342, 109.27943303342909 24.511956655420363 M108.61389331705868 24.244307739660144 C112.00123269716278 37.83524710033089, 109.0117960111238 52.03554429486394, 108.31202613003552 74.81332294456661 M110.8313265061006 25.96177598182112 C109.952838587109 42.12844209931791, 109.44879527622834 58.73342551570386, 110.89466654416174 75.44875323120505 M110.83588658459485 76.08132497780025 C94.0346624031663 76.3041347881779, 76.83291217498481 74.49192905630916, 49.05671112425625 73.50267897360027 M109.39905177708715 74.6283317739144 C94.75285464618355 76.44149711281061, 80.7672934634611 75.21375512629747, 49.334270439110696 75.56836631242186 M50.14214079268277 76.27820358984172 C50.568345656152815 62.0871600760147, 51.67828564858064 46.949199981987476, 51.775122391059995 23.932938857004046 M50.67811032291502 74.0633974308148 C48.806448485236615 59.39918356761336, 50.04840164957568 44.991463272832334, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M188.91726206429303 24.157105488702655 C205.96892660483718 24.47300859708339, 221.9329313095659 26.237169289775192, 249.07396535761654 24.381777508184314 M190.22362225409597 25.469827466644347 C212.3879350842908 24.40115554071963, 237.20586481969804 25.792731562629342, 249.2794330334291 24.511956655420363 M248.61389331705868 24.244307739660144 C252.00123269716278 37.83524710033089, 249.0117960111238 52.03554429486394, 248.31202613003552 74.81332294456661 M250.8313265061006 25.96177598182112 C249.952838587109 42.12844209931791, 249.44879527622834 58.73342551570386, 250.89466654416174 75.44875323120505 M250.83588658459485 76.08132497780025 C234.0346624031663 76.3041347881779, 216.8329121749848 74.49192905630916, 189.05671112425625 73.50267897360027 M249.39905177708715 74.6283317739144 C234.75285464618355 76.44149711281061, 220.7672934634611 75.21375512629747, 189.3342704391107 75.56836631242186 M190.14214079268277 76.27820358984172 C190.56834565615281 62.0871600760147, 191.67828564858064 46.949199981987476, 191.77512239106 23.932938857004046 M190.67811032291502 74.0633974308148 C188.80644848523661 59.39918356761336, 190.04840164957568 44.991463272832334, 190.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="80" y="55" class="id">id10</text><text x="220" y="55" class="type">int</text>
+  <g id="object-1">
+    <path d="M286.0255640090501 24.241416855089682 C338.6747288307105 24.78571024322009, 390.3450280792927 26.373408998464704, 486.1665928987556 24.44361583115067 M287.20125421450774 25.42283250446578 C363.958478717734 25.051943962083083, 443.10388944161184 26.304326200825255, 486.3515084648273 24.560773679005287 M485.6138933170587 24.244307739660144 C489.036963196937 59.11295747105032, 486.047526510898 94.5909650363028, 485.3120261300355 154.8133229445666 M487.8313265061006 25.96177598182112 C487.05591074684634 69.77587079815567, 486.5518674359657 114.02828291337937, 487.89466654416174 155.44875323120505 M487.7522761930842 155.9731643655708 C432.2297164925149 156.68231944392923, 376.3466937635452 155.0513814025964, 286.15106453734137 153.65245000658692 M486.45916222403224 154.66550825989682 C438.1154268945954 157.554673751121, 390.3662467419869 156.4497378845508, 286.4008607041682 155.51151490365555 M287.14214079268277 156.27820358984172 C288.2129223062657 121.20502475183457, 289.3228622986935 85.18492933362721, 288.77512239106 23.932938857004046 M287.678110322915 154.0633974308148 C285.0849534834735 115.83291779831052, 286.32690664781256 77.85893173422663, 287.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M280.0472205001449 18.258276093946847 C335.7279231927182 18.81226224029811, 390.4515152491855 20.36467495903178, 492.1851150732587 18.45598127014297 M281.19678141163024 19.413435203408945 C362.6469059423271 19.100311479449005, 446.43214010978426 20.324859971231348, 492.3659209570659 18.57053532676623 M491.6138933170587 18.244307739660144 C495.0423227719031 56.304614026658236, 492.05288608586415 94.97427814751863, 491.3120261300355 160.8133229445666 M493.8313265061006 19.96177598182112 C493.07137157080695 67.92298510298133, 492.5673282599263 116.3225115230307, 493.89466654416174 161.44875323120505 M493.7355571239737 161.95153613589483 C434.8962872052512 162.68755860022557, 375.704565419905 161.09286757305927, 280.16993182411846 159.68239882282856 M492.4711821500076 160.6729422190877 C441.24132620213214 163.60327584438917, 390.59281165510396 162.52289678193645, 280.4141763605533 161.50014666802102 M281.14214079268277 162.27820358984172 C282.3096088037826 124.07270445320755, 283.41954879621045 84.92028873637318, 282.77512239106 17.932938857004046 M281.678110322915 160.0633974308148 C278.976729233209 118.29797793291509, 280.2186823975481 76.78905200343578, 281.94233041163534 18.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="387" y="115" class="value">"test"</text>
+  <g>
+    <path d="M285.917262064293 24.157105488702655 C302.9689266048372 24.47300859708339, 318.9329313095659 26.237169289775192, 346.07396535761654 24.381777508184314 M287.223622254096 25.469827466644347 C309.3879350842908 24.40115554071963, 334.20586481969804 25.792731562629342, 346.2794330334291 24.511956655420363 M345.6138933170587 24.244307739660144 C349.0012326971628 37.83524710033089, 346.0117960111238 52.03554429486394, 345.3120261300355 74.81332294456661 M347.8313265061006 25.96177598182112 C346.952838587109 42.12844209931791, 346.44879527622834 58.73342551570386, 347.89466654416174 75.44875323120505 M347.83588658459485 76.08132497780025 C331.0346624031663 76.3041347881779, 313.8329121749848 74.49192905630916, 286.05671112425625 73.50267897360027 M346.39905177708715 74.6283317739144 C331.75285464618355 76.44149711281061, 317.7672934634611 75.21375512629747, 286.3342704391107 75.56836631242186 M287.14214079268277 76.27820358984172 C287.5683456561528 62.0871600760147, 288.67828564858064 46.949199981987476, 288.77512239106 23.932938857004046 M287.678110322915 74.0633974308148 C285.8064484852366 59.39918356761336, 287.0484016495757 44.991463272832334, 287.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M425.917262064293 24.157105488702655 C442.9689266048372 24.47300859708339, 458.9329313095659 26.237169289775192, 486.07396535761654 24.381777508184314 M427.223622254096 25.469827466644347 C449.3879350842908 24.40115554071963, 474.20586481969804 25.792731562629342, 486.2794330334291 24.511956655420363 M485.6138933170587 24.244307739660144 C489.0012326971628 37.83524710033089, 486.0117960111238 52.03554429486394, 485.3120261300355 74.81332294456661 M487.8313265061006 25.96177598182112 C486.952838587109 42.12844209931791, 486.44879527622834 58.73342551570386, 487.89466654416174 75.44875323120505 M487.83588658459485 76.08132497780025 C471.0346624031663 76.3041347881779, 453.8329121749848 74.49192905630916, 426.05671112425625 73.50267897360027 M486.39905177708715 74.6283317739144 C471.75285464618355 76.44149711281061, 457.7672934634611 75.21375512629747, 426.3342704391107 75.56836631242186 M427.14214079268277 76.27820358984172 C427.5683456561528 62.0871600760147, 428.67828564858064 46.949199981987476, 428.77512239106 23.932938857004046 M427.678110322915 74.0633974308148 C425.8064484852366 59.39918356761336, 427.0484016495757 44.991463272832334, 427.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="317" y="55" class="id">id20</text><text x="457" y="55" class="type">str</text>
+  <g id="object-2">
+    <path d="M523.0255640090501 24.241416855089682 C575.6747288307105 24.78571024322009, 627.3450280792927 26.373408998464704, 723.1665928987555 24.44361583115067 M524.2012542145078 25.42283250446578 C600.958478717734 25.051943962083083, 680.1038894416118 26.304326200825255, 723.3515084648274 24.560773679005287 M722.6138933170587 24.244307739660144 C726.036963196937 59.11295747105032, 723.047526510898 94.5909650363028, 722.3120261300355 154.8133229445666 M724.8313265061006 25.96177598182112 C724.0559107468464 69.77587079815567, 723.5518674359657 114.02828291337937, 724.8946665441617 155.44875323120505 M724.7522761930842 155.9731643655708 C669.2297164925149 156.68231944392923, 613.3466937635452 155.0513814025964, 523.1510645373414 153.65245000658692 M723.4591622240322 154.66550825989682 C675.1154268945954 157.554673751121, 627.366246741987 156.4497378845508, 523.4008607041682 155.51151490365555 M524.1421407926828 156.27820358984172 C525.2129223062657 121.20502475183457, 526.3228622986935 85.18492933362721, 525.77512239106 23.932938857004046 M524.678110322915 154.0633974308148 C522.0849534834736 115.83291779831052, 523.3269066478126 77.85893173422663, 524.9423304116353 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M547.917262064293 89.15710548870265 C564.457930556871 89.4688816714473, 579.9109392136336 91.23304236413911, 606.0739653576165 89.38177750818431 M549.223622254096 90.46982746664435 C570.6097253277898 89.39177608871833, 594.649445306696 90.78335211062804, 606.2794330334291 89.51195665542036 M605.6138933170587 89.24430773966014 C609.0012326971628 102.83524710033089, 606.0117960111238 117.03554429486394, 605.3120261300355 139.8133229445666 M607.8313265061006 90.96177598182112 C606.952838587109 107.12844209931791, 606.4487952762283 123.73342551570386, 607.8946665441617 140.44875323120505 M607.8358865845948 141.08132497780025 C591.5881071029231 141.29606103045865, 574.9398015744985 139.4838552985899, 548.0567111242563 138.50267897360027 M606.3990517770872 139.6283317739144 C592.234528112039 141.42153838021682, 578.7306403951719 140.19379639370368, 548.3342704391107 140.56836631242186 M549.1421407926828 141.27820358984172 C549.5683456561528 127.0871600760147, 550.6782856485806 111.94919998198748, 550.77512239106 88.93293885700405 M549.678110322915 139.0633974308148 C547.8064484852366 124.39918356761336, 549.0484016495757 109.99146327283233, 549.9423304116353 89.23130004946142" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="578" y="120" class="id">id10</text>
+  <g>
+    <path d="M605.917262064293 89.15710548870265 C622.457930556871 89.4688816714473, 637.9109392136336 91.23304236413911, 664.0739653576165 89.38177750818431 M607.223622254096 90.46982746664435 C628.6097253277898 89.39177608871833, 652.649445306696 90.78335211062804, 664.2794330334291 89.51195665542036 M663.6138933170587 89.24430773966014 C667.0012326971628 102.83524710033089, 664.0117960111238 117.03554429486394, 663.3120261300355 139.8133229445666 M665.8313265061006 90.96177598182112 C664.952838587109 107.12844209931791, 664.4487952762283 123.73342551570386, 665.8946665441617 140.44875323120505 M665.8358865845948 141.08132497780025 C649.5881071029231 141.29606103045865, 632.9398015744985 139.4838552985899, 606.0567111242563 138.50267897360027 M664.3990517770872 139.6283317739144 C650.234528112039 141.42153838021682, 636.7306403951719 140.19379639370368, 606.3342704391107 140.56836631242186 M607.1421407926828 141.27820358984172 C607.5683456561528 127.0871600760147, 608.6782856485806 111.94919998198748, 608.77512239106 88.93293885700405 M607.678110322915 139.0633974308148 C605.8064484852366 124.39918356761336, 607.0484016495757 109.99146327283233, 607.9423304116353 89.23130004946142" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="636" y="120" class="id">id20</text>
+  <g>
+    <path d="M522.917262064293 24.157105488702655 C539.9689266048372 24.47300859708339, 555.9329313095659 26.237169289775192, 583.0739653576165 24.381777508184314 M524.223622254096 25.469827466644347 C546.3879350842908 24.40115554071963, 571.205864819698 25.792731562629342, 583.2794330334291 24.511956655420363 M582.6138933170587 24.244307739660144 C586.0012326971628 37.83524710033089, 583.0117960111238 52.03554429486394, 582.3120261300355 74.81332294456661 M584.8313265061006 25.96177598182112 C583.952838587109 42.12844209931791, 583.4487952762283 58.73342551570386, 584.8946665441617 75.44875323120505 M584.8358865845948 76.08132497780025 C568.0346624031663 76.3041347881779, 550.8329121749848 74.49192905630916, 523.0567111242563 73.50267897360027 M583.3990517770872 74.6283317739144 C568.7528546461836 76.44149711281061, 554.7672934634611 75.21375512629747, 523.3342704391107 75.56836631242186 M524.1421407926828 76.27820358984172 C524.5683456561528 62.0871600760147, 525.6782856485806 46.949199981987476, 525.77512239106 23.932938857004046 M524.678110322915 74.0633974308148 C522.8064484852366 59.39918356761336, 524.0484016495757 44.991463272832334, 524.9423304116353 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g>
+  <g>
+    <path d="M662.917262064293 24.157105488702655 C679.9689266048372 24.47300859708339, 695.9329313095659 26.237169289775192, 723.0739653576165 24.381777508184314 M664.223622254096 25.469827466644347 C686.3879350842908 24.40115554071963, 711.205864819698 25.792731562629342, 723.2794330334291 24.511956655420363 M722.6138933170587 24.244307739660144 C726.0012326971628 37.83524710033089, 723.0117960111238 52.03554429486394, 722.3120261300355 74.81332294456661 M724.8313265061006 25.96177598182112 C723.952838587109 42.12844209931791, 723.4487952762283 58.73342551570386, 724.8946665441617 75.44875323120505 M724.8358865845948 76.08132497780025 C708.0346624031663 76.3041347881779, 690.8329121749848 74.49192905630916, 663.0567111242563 73.50267897360027 M723.3990517770872 74.6283317739144 C708.7528546461836 76.44149711281061, 694.7672934634611 75.21375512629747, 663.3342704391107 75.56836631242186 M664.1421407926828 76.27820358984172 C664.5683456561528 62.0871600760147, 665.6782856485806 46.949199981987476, 665.77512239106 23.932938857004046 M664.678110322915 74.0633974308148 C662.8064484852366 59.39918356761336, 664.0484016495757 44.991463272832334, 664.9423304116353 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="554" y="55" class="id">id30</text><text x="694" y="55" class="type">list</text>
+  <script>
+    function objectInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id10": ["object-0"],
+        "id20": ["object-1"],
+        "id30": ["object-2"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const bbox = objectBox.getBBox();
+        const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
+
+        if (existingFill) {
+          existingFill.setAttribute('data-original-fill', existingFill.getAttribute('fill'));
+          existingFill.setAttribute('fill', 'rgba(255, 255, 0, 0.6)');
+        } else {
+          const highlight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          highlight.setAttribute("x", bbox.x);
+          highlight.setAttribute("y", bbox.y);
+          highlight.setAttribute("width", bbox.width);
+          highlight.setAttribute("height", bbox.height);
+          highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
+          highlight.setAttribute("pointer-events", "none");
+          highlight.setAttribute("id", objectId + "-highlight");
+
+          objectBox.insertBefore(highlight, objectBox.firstChild);
+        }
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const existingFill = objectBox.querySelector('path[data-original-fill]');
+
+        if (existingFill) {
+          existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
+          existingFill.removeAttribute('data-original-fill');
+        } else {
+          const highlight = document.getElementById(objectId + "-highlight");
+          if (highlight) highlight.remove();
+        }
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) return;
+
+          idText.style.cursor = 'pointer';
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; highlightObject(objectId));
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; removeHighlight(objectId));
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', objectInteractivity);
+    } else {
+      objectInteractivity();
+    }
+  </script>
+</svg>
+`;
+
 exports[`draw function renders 'fade' style preset 1`] = `
 <svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
@@ -3930,6 +4916,240 @@ exports[`draw function renders custom style (without presets) 1`] = `
   <g>
     <path d="MNaN NaN CNaN NaN, NaN NaN, NaN NaN MNaN NaN CNaN NaN, NaN NaN, NaN NaN MNaN NaN CNaN NaN, NaN NaN, NaN NaN MNaN NaN CNaN NaN, NaN NaN, NaN NaN MNaN NaN CNaN NaN, NaN NaN, NaN NaN MNaN NaN CNaN NaN, NaN NaN, NaN NaN MNaN NaN CNaN NaN, NaN NaN, NaN NaN MNaN NaN CNaN NaN, NaN NaN, NaN NaN" stroke="red" stroke-width="3" fill="none" />
   </g><text x="80" y="55" style="fill:yellow; " class="id">id19</text><text x="NaN" y="55" style="fill:cyan; font-size:large; " class="type">str</text>
+</svg>
+`;
+
+exports[`draw function renders custom styles correctly in interactive mode 1`] = `
+<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    text {
+      font-family: Consolas, Courier;
+      font-size: 20px;
+    }
+
+    text.default {
+      fill: rgb(0, 0, 0);
+      text-anchor: middle;
+    }
+
+    text.attribute {
+      fill: rgb(27, 14, 139);
+      text-anchor: start;
+    }
+
+    text.variable {
+      fill: rgb(0, 0, 0);
+      text-anchor: start;
+    }
+
+    text.id {
+      fill: rgb(150, 100, 28);
+      text-anchor: middle;
+    }
+
+    text.type {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    text.value {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    path {
+      stroke: rgb(0, 0, 0);
+    }
+  </style>
+  <script>
+    function objectInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const bbox = objectBox.getBBox();
+        const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
+
+        if (existingFill) {
+          existingFill.setAttribute('data-original-fill', existingFill.getAttribute('fill'));
+          existingFill.setAttribute('fill', 'rgba(255, 255, 0, 0.6)');
+        } else {
+          const highlight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          highlight.setAttribute("x", bbox.x);
+          highlight.setAttribute("y", bbox.y);
+          highlight.setAttribute("width", bbox.width);
+          highlight.setAttribute("height", bbox.height);
+          highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
+          highlight.setAttribute("pointer-events", "none");
+          highlight.setAttribute("id", objectId + "-highlight");
+
+          objectBox.insertBefore(highlight, objectBox.firstChild);
+        }
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const existingFill = objectBox.querySelector('path[data-original-fill]');
+
+        if (existingFill) {
+          existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
+          existingFill.removeAttribute('data-original-fill');
+        } else {
+          const highlight = document.getElementById(objectId + "-highlight");
+          if (highlight) highlight.remove();
+        }
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) return;
+
+          idText.style.cursor = 'pointer';
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; highlightObject(objectId));
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; removeHighlight(objectId));
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', objectInteractivity);
+    } else {
+      objectInteractivity();
+    }
+  </script>
+  <g id="object-0">
+    <path d="M50.03387502096594 24.981137046590447 L338.86637596748767 25.23432659842074 L338.9792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="yellow" />
+    <path d="M49.83723659693402 24.8732912419894 C123.93499388134431 24.99181349698812, 197.86924787431417 25.25701229387914, 338.8607931385974 24.907065234068714 M50.03361618529989 25.070627170992186 C162.30724397821103 25.07142018871679, 274.97977874914704 25.280609911808142, 338.89168022311935 24.926634513313125 M338.72277866341176 24.848861547932028 C339.4073926393874 59.483614976145326, 338.8095053021796 94.24023997113109, 338.6624052260071 154.96266458891333 M339.1662653012201 25.192355196364225 C339.01118214936923 69.89683146812021, 338.9103734871931 114.68897119965405, 339.17893330883237 155.08975064624101 M339.12565528610304 155.1625509990948 C259.123149230509 155.3350129892909, 179.06043379253705 155.06259178537138, 49.85819938285427 154.77491407874248 M338.90966200167 154.94412869144583 C269.27838336554544 155.5602298324652, 199.74641533041455 155.37566858525872, 49.89992369780485 155.0854400978732 M50.028428158536556 155.25564071796833 C50.24258446125314 121.09422902893274, 50.4645724597387 86.7434340238571, 50.355024478212 24.78658777140081 M50.135622064583 154.81267948616295 C49.61699069669471 116.53043805956841, 49.86538132956252 78.29949534665792, 50.18846608232707 24.846260009892283" stroke="#000" stroke-width="4" fill="none" />
+  </g>
+  <g>
+    <path d="M43.20783947576493 18.383315448804154 C121.37244804427606 18.978272966712183, 198.74129509255707 20.268980914656346, 344.32248786749 18.547691609335867 M44.16360812362193 19.343738553904096 C160.41940785805915 19.388771700753576, 278.6166658987296 20.406886569250517, 344.47281360783523 18.642934214326566 M343.6138933170587 18.244307739660144 C347.0423227719031 56.304614026658236, 344.05288608586415 94.97427814751863, 343.3120261300355 160.8133229445666 M345.8313265061006 19.96177598182112 C345.07137157080695 67.92298510298133, 344.5673282599263 116.3225115230307, 345.89466654416174 161.44875323120505 M345.61155736140466 161.79112676579805 C262.17335332471254 162.66593166430746, 178.44211353790743 161.34007265887638, 43.309864201048455 159.90451920995403 M344.5603299343253 160.72807741642004 C271.9250793996965 163.81422186945377, 199.7731680940548 162.91597243753873, 43.51293414540933 161.41583225373154 M44.14214079268277 162.27820358984172 C45.30960880378261 124.07270445320755, 46.419548796210435 84.92028873637318, 45.775122391059995 17.932938857004046 M44.67811032291502 160.0633974308148 C41.97672923320904 118.29797793291509, 43.21868239754811 76.78905200343578, 44.94233041163534 18.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="194.5" y="115" style="font-weight:bolder; font-size:22px; " class="value">"styled interactive"</text>
+  <g>
+    <path d="M49.78345241285861 24.83142109774053 C66.17308493930847 24.89575725859478, 82.34518549859524 25.24858939713314, 112.61479307152331 24.876355501636862 M50.044724450819196 25.09396549332887 C74.24411483198405 24.882857354704292, 98.97422859419137 25.161172559086236, 112.65588660668581 24.902391331084072 M112.52277866341173 24.848861547932028 C113.20024653943256 38.20590460542589, 112.60235920222476 51.68481922969222, 112.4624052260071 74.96266458891333 M112.96626530122012 25.192355196364225 C112.79056771742181 42.24940276928246, 112.68975905524567 59.39411380197853, 112.97893330883234 75.08975064624101 M112.96717731691896 75.21626499556005 C95.5494371068105 75.26308760979697, 78.05159168735146 74.90064646342323, 49.81134222485125 74.70053579472005 M112.67981035541743 74.92566635478288 C97.51606489650905 75.29388786768838, 82.48444662723689 75.04833947038576, 49.86685408782214 75.11367326248437 M50.028428158536556 75.25564071796835 C50.113669131230566 61.97636435311288, 50.335657129716125 48.50770467221737, 50.355024478212 24.78658777140081 M50.135622064583 74.81267948616296 C49.761289697047324 60.09670382887125, 50.009680329915135 45.432026885263625, 50.18846608232707 24.846260009892283" stroke="#000" stroke-width="4" fill="none" />
+  </g>
+  <g>
+    <path d="M278.7834524128586 24.83142109774053 C294.45769047215583 24.894601719416677, 309.9143965642899 25.247433857955038, 338.8147930715233 24.876355501636862 M279.0447244508192 25.09396549332887 C302.1546211728826 24.880231108143928, 325.79524127598853 25.15854631252587, 338.85588660668583 24.902391331084072 M338.72277866341176 24.848861547932028 C339.40024653943254 38.20590460542589, 338.80235920222475 51.68481922969222, 338.6624052260071 74.96266458891333 M339.1662653012201 25.192355196364225 C338.99056771742175 42.24940276928246, 338.88975905524563 59.39411380197853, 339.17893330883237 75.08975064624101 M339.167177316919 75.21626499556005 C322.52425968647003 75.26082695763557, 305.8012368466705 74.89838581126183, 278.8113422248513 74.70053579472005 M338.8798103554174 74.92566635478288 C324.39040774870665 75.28829942256212, 310.0331323316321 75.04275102525949, 278.86685408782216 75.11367326248437 M279.02842815853654 75.25564071796835 C279.11366913123055 61.97636435311288, 279.33565712971614 48.50770467221737, 279.355024478212 24.78658777140081 M279.135622064583 74.81267948616296 C278.7612896970473 60.09670382887125, 279.0096803299151 45.432026885263625, 279.18846608232707 24.846260009892283" stroke="#000" stroke-width="4" fill="none" />
+  </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; " class="id">id42</text><text x="309" y="55" style="font-weight:bolder; font-size:22px; " class="type">str</text>
+  <g id="object-1">
+    <path d="M376.33875020965934 24.811370465904474 L574.6637596748769 27.34326598420739 L575.7923236750066 154.25611624494195 L379.98725959286094 152.00780699029565" stroke="none" stroke-width="0" fill="rgb(247, 247, 247)" />
+    <path d="M374.0511280181001 23.482833710179367 C428.2498528648027 24.571420486440182, 480.49084656534893 27.746817996929405, 574.3331857975112 23.88723166230134 M376.40250842901554 25.845665008931558 C452.09598178536606 25.103887924166163, 532.5658275830199 27.608652401650506, 574.7030169296546 24.12154735801057 M573.2277866341174 23.488615479320288 C580.073926393874 58.649635589681566, 574.095053021796 95.02937136776745, 572.624052260071 154.62664588913321 M577.6626530122012 26.92355196364224 C576.1118214936927 69.62466996069998, 575.1037348719314 113.20242255553603, 577.7893330883235 155.8975064624101 M577.5045523861684 156.9463287311416 C521.8039029607099 158.36463888785846, 465.38232747845063 155.10276280519278, 374.3021290746828 152.30490001317386 M574.9183244480645 154.33101651979368 C526.3982003747327 160.10934750224197, 479.0671866550578 157.89947576910163, 374.80172140833645 156.0230298073111 M376.28428158536553 157.55640717968345 C378.42584461253136 121.34351940546185, 380.645724597387 83.23679847083984, 379.55024478212 22.865877714008093 M377.35622064583004 153.1267948616296 C372.169906966947 114.96101747173816, 374.6538132956251 77.30822721868752, 377.8846608232707 23.46260009892285" stroke="#000" stroke-width="0.5" fill="none" />
+  </g>
+  <g>
+    <path d="M369.0472205001449 18.258276093946847 C424.7279231927182 18.81226224029811, 479.4515152491855 20.36467495903178, 581.1851150732587 18.45598127014297 M370.19678141163024 19.413435203408945 C451.6469059423271 19.100311479449005, 535.4321401097843 20.324859971231348, 581.3659209570659 18.57053532676623 M580.6138933170587 18.244307739660144 C584.0423227719032 56.304614026658236, 581.0528860858642 94.97427814751863, 580.3120261300355 160.8133229445666 M582.8313265061006 19.96177598182112 C582.071371570807 67.92298510298133, 581.5673282599263 116.3225115230307, 582.8946665441617 161.44875323120505 M582.7355571239738 161.95153613589483 C523.8962872052513 162.68755860022557, 464.704565419905 161.09286757305927, 369.16993182411846 159.68239882282856 M581.4711821500076 160.6729422190877 C530.2413262021321 163.60327584438917, 479.59281165510396 162.52289678193645, 369.4141763605533 161.50014666802102 M370.14214079268277 162.27820358984172 C371.3096088037826 124.07270445320755, 372.41954879621045 84.92028873637318, 371.77512239106 17.932938857004046 M370.678110322915 160.0633974308148 C367.976729233209 118.29797793291509, 369.2186823975481 76.78905200343578, 370.94233041163534 18.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="476" y="115" style="fill-opacity:0.4; " class="value">999</text>
+  <g>
+    <path d="M373.83452412858605 23.31421097740531 C392.6079717706889 23.946017194166778, 409.20609974116087 27.474338579550384, 434.1479307152331 23.763555016368628 M376.44724450819194 25.939654933288693 C397.42957747355103 23.802311081439257, 423.71914424933493 26.585463125258684, 434.5588660668582 24.023913310840726 M433.22778663411736 23.488615479320288 C440.00246539432555 37.37192521896213, 434.0235920222476 52.47395062632859, 432.62405226007104 74.62664588913321 M437.6626530122012 26.92355196364224 C435.905677174218 41.97724126186222, 434.8975905524567 57.90756515786052, 437.7893330883235 75.89750646241009 M437.6717731691897 77.1626499556005 C420.6726657990366 77.60826957635581, 402.8725063353777 73.98385811261832, 374.1134222485125 72.00535794720054 M434.7981035541743 74.2566635478288 C419.9559132680297 77.88299422562122, 406.4349948782474 75.42751025259494, 374.6685408782214 76.13673262484372 M376.28428158536553 77.55640717968345 C377.13669131230563 62.225654729641974, 379.3565712971613 45.00106911920011, 379.55024478212 22.865877714008093 M377.35622064583004 73.1267948616296 C373.61289697047323 58.527283241041005, 376.09680329915136 44.440758757293224, 377.8846608232707 23.46260009892285" stroke="#000" stroke-width="0.5" fill="none" />
+  </g>
+  <g>
+    <path d="M513.834524128586 23.31421097740531 C532.6079717706889 23.946017194166778, 549.2060997411609 27.474338579550384, 574.1479307152331 23.763555016368628 M516.447244508192 25.939654933288693 C537.429577473551 23.802311081439257, 563.7191442493349 26.585463125258684, 574.5588660668582 24.023913310840726 M573.2277866341174 23.488615479320288 C580.0024653943256 37.37192521896213, 574.0235920222476 52.47395062632859, 572.624052260071 74.62664588913321 M577.6626530122012 26.92355196364224 C575.905677174218 41.97724126186222, 574.8975905524567 57.90756515786052, 577.7893330883235 75.89750646241009 M577.6717731691897 77.1626499556005 C560.6726657990366 77.60826957635581, 542.8725063353777 73.98385811261832, 514.1134222485125 72.00535794720054 M574.7981035541743 74.2566635478288 C559.9559132680297 77.88299422562122, 546.4349948782474 75.42751025259494, 514.6685408782214 76.13673262484372 M516.2842815853655 77.55640717968345 C517.1366913123056 62.225654729641974, 519.3565712971613 45.00106911920011, 519.55024478212 22.865877714008093 M517.35622064583 73.1267948616296 C513.6128969704732 58.527283241041005, 516.0968032991514 44.440758757293224, 517.8846608232707 23.46260009892285" stroke="#000" stroke-width="0.5" fill="none" />
+  </g><text x="406" y="55" style="fill-opacity:0.4; " class="id">id99</text><text x="546" y="55" style="fill-opacity:0.4; " class="type">int</text>
+  <script>
+    function objectInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id42": ["object-0"],
+        "id99": ["object-1"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const bbox = objectBox.getBBox();
+        const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
+
+        if (existingFill) {
+          existingFill.setAttribute('data-original-fill', existingFill.getAttribute('fill'));
+          existingFill.setAttribute('fill', 'rgba(255, 255, 0, 0.6)');
+        } else {
+          const highlight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+          highlight.setAttribute("x", bbox.x);
+          highlight.setAttribute("y", bbox.y);
+          highlight.setAttribute("width", bbox.width);
+          highlight.setAttribute("height", bbox.height);
+          highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
+          highlight.setAttribute("pointer-events", "none");
+          highlight.setAttribute("id", objectId + "-highlight");
+
+          objectBox.insertBefore(highlight, objectBox.firstChild);
+        }
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) return;
+
+        const existingFill = objectBox.querySelector('path[data-original-fill]');
+
+        if (existingFill) {
+          existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
+          existingFill.removeAttribute('data-original-fill');
+        } else {
+          const highlight = document.getElementById(objectId + "-highlight");
+          if (highlight) highlight.remove();
+        }
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) return;
+
+          idText.style.cursor = 'pointer';
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; highlightObject(objectId));
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(objectId = & gt; removeHighlight(objectId));
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', objectInteractivity);
+    } else {
+      objectInteractivity();
+    }
+  </script>
 </svg>
 `;
 
