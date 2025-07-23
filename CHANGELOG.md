@@ -29,6 +29,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added dependabot groups for react and babel
 - Removed getCanvasDimensions method and refactored logic into each `draw*` method
 - Refactored type definitions for `DrawnEntity` and `Styles` to use zod
+- Added validation for user input in `drawAll` using zod
 
 ## [0.6.0] - 2025-05-24
 
