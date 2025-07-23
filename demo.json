@@ -1,0 +1,69 @@
+[
+    {
+        "type": ".frame",
+        "name": "__main__",
+        "id": null,
+        "value": {
+            "lst1": 82,
+            "lst2": 84,
+            "p": 99,
+            "d": 10,
+            "t": 11
+        }
+    },
+    {
+        "type": ".blank-frame",
+        "width": 100,
+        "height": 200
+    },
+    {
+        "type": ".frame",
+        "name": "func",
+        "id": null,
+        "value": {
+            "age": 12,
+            "name": 17
+        }
+    },
+    {
+        "type": "list",
+        "id": 82,
+        "value": [19, 43, 28, 49]
+    },
+    {
+        "type": "list",
+        "id": 84,
+        "value": [32, 10, 90, 57],
+        "show_indexes": true
+    },
+    {
+        "type": "int",
+        "id": 19,
+        "value": 1969
+    },
+    {
+        "type": ".blank",
+        "width": 100,
+        "height": 200
+    },
+    {
+        "type": "bool",
+        "id": 32,
+        "value": true
+    },
+    {
+        "type": "str",
+        "id": 43,
+        "value": "David is cool"
+    },
+    {
+        "type": ".blank",
+        "width": 200,
+        "height": 150
+    },
+    {
+        "type": "tuple",
+        "id": 11,
+        "value": [82, 76]
+    }
+]
