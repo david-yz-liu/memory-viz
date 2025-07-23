@@ -67,6 +67,8 @@ export class MemoryModel {
     width?: number; // Width of the canvas, dynamically updated if not provided in options
     height?: number; // Height of the canvas, dynamically updated if not provided in options
     objectCounter: number; // Counter for tracking ids of objects drawn
+    interactive: boolean; // Whether the visualization is interactive
+    idToObjectMap: Map<string, string[]>; // Track object ids to their corresponding SVG element ids
 
     constructor(options: Partial<VisualizationConfig> = {}) {
         if (options.browser) {
@@ -107,6 +109,7 @@ export class MemoryModel {
         }
 
         this.objectCounter = 0;
+        this.idToObjectMap = new Map();
     }
 
     /**
@@ -297,7 +300,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
 
         let size: Rect = {
             width: box_width,
@@ -475,7 +486,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
 
         const size: Rect = { width: box_width, height: box_height, x: x, y: y };
 
@@ -596,7 +615,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
 
         const SIZE: Rect = {
             x,
@@ -722,7 +749,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
         // First loop, to draw the key boxes
@@ -874,7 +909,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
 
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
@@ -954,7 +997,8 @@ export class MemoryModel {
         width: number,
         height: number,
         style?: Options,
-        isBoundingBox: boolean = false
+        isBoundingBox: boolean = false,
+        objectId?: number | null
     ): void {
         if (style === undefined) {
             style = this.rect_style;
@@ -972,6 +1016,18 @@ export class MemoryModel {
 
         if (isBoundingBox) {
             rectElement.setAttribute("id", `object-${this.objectCounter}`);
+
+            // Map object id value to the object counter id
+            if (objectId !== null && objectId !== undefined) {
+                const idKey = `id${objectId}`;
+                if (!this.idToObjectMap.has(idKey)) {
+                    this.idToObjectMap.set(idKey, []);
+                }
+                this.idToObjectMap
+                    .get(idKey)!
+                    .push(`object-${this.objectCounter}`);
+            }
+
             this.objectCounter++;
         }
 
@@ -1122,6 +1178,9 @@ export class MemoryModel {
                 sizes_arr.push(size);
             }
         }
+        if (this.interactive) {
+            this.setInteractivityScript();
+        }
 
         return sizes_arr;
     }
@@ -1144,5 +1203,97 @@ export class MemoryModel {
             this.height = bottom_edge;
             this.svg.setAttribute("height", this.height.toString());
         }
+    }
+
+    /**
+     * Add hover interactivity to the SVG on object IDs
+     */
+    setInteractivityScript(): void {
+        const idToObjectMapping = Object.fromEntries(this.idToObjectMap);
+
+        const script = `
+            function objectInteractivity() {
+                // Inject the id value to object id mapping into script
+                const idToObjectMap = ${JSON.stringify(idToObjectMapping)};
+                
+                function highlightObject(objectId) {
+                    const objectBox = document.getElementById(objectId);
+                    if (!objectBox) return;
+                    
+                    const bbox = objectBox.getBBox();
+                    const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
+                    
+                    if (existingFill) {
+                        existingFill.setAttribute('data-original-fill', existingFill.getAttribute('fill'));
+                        existingFill.setAttribute('fill', 'rgba(255, 255, 0, 0.6)');
+                    } else {
+                        const highlight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                        highlight.setAttribute("x", bbox.x);
+                        highlight.setAttribute("y", bbox.y);
+                        highlight.setAttribute("width", bbox.width);
+                        highlight.setAttribute("height", bbox.height);
+                        highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
+                        highlight.setAttribute("pointer-events", "none");
+                        highlight.setAttribute("id", objectId + "-highlight");
+                        
+                        objectBox.insertBefore(highlight, objectBox.firstChild);
+                    }
+                }
+                
+                function removeHighlight(objectId) {
+                    const objectBox = document.getElementById(objectId);
+                    if (!objectBox) return;
+                    
+                    const existingFill = objectBox.querySelector('path[data-original-fill]');
+                    
+                    if (existingFill) {
+                        existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
+                        existingFill.removeAttribute('data-original-fill');
+                    } else {
+                        const highlight = document.getElementById(objectId + "-highlight");
+                        if (highlight) highlight.remove();
+                    }
+                }
+                
+                function addEventListeners() {
+                    document.querySelectorAll('text.id').forEach(idText => {
+                        const idValue = idText.textContent.trim();
+                        if (!idValue || !idValue.startsWith('id')) return;
+                        
+                        idText.style.cursor = 'pointer';
+                        
+                        idText.addEventListener('mouseover', () => {
+                            const objectIds = idToObjectMap[idValue];
+                            if (objectIds) {
+                                objectIds.forEach(objectId => highlightObject(objectId));
+                            }
+                        });
+                        
+                        idText.addEventListener('mouseout', () => {
+                            const objectIds = idToObjectMap[idValue];
+                            if (objectIds) {
+                                objectIds.forEach(objectId => removeHighlight(objectId));
+                            }
+                        });
+                    });
+                }
+                
+                addEventListeners();
+            }
+            
+            // Wait for DOM to be ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', objectInteractivity);
+            } else {
+                objectInteractivity();
+            }
+        `;
+
+        const scriptElement = this.document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "script"
+        );
+        scriptElement.textContent = script;
+        this.svg.appendChild(scriptElement);
     }
 }

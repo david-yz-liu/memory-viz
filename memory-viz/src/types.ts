@@ -48,6 +48,7 @@ export interface DisplaySettings {
     left_margin: number;
     bottom_margin: number;
     right_margin: number;
+    interactive: boolean;
 }
 
 export interface VisualizationConfig {
@@ -73,6 +74,7 @@ export interface VisualizationConfig {
     browser: boolean;
     global_style: string;
     roughjs_config: Config;
+    interactive: boolean;
 }
 
 export interface Size {
