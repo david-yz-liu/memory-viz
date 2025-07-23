@@ -50,6 +50,10 @@ The argument is a comma-separated list of key-value pairs in the form `<key1=val
 
 Specifies a path to a CSS file that contains global styles for the SVG. The SVG source code contains various CSS selectors within the `<style>` tag, which can be used to style the SVG elements.
 
+### `--theme=<name>` (`-t <name>`)
+
+Applies a theme to the SVG. Included themes are `dark` and `high-contrast`. If no theme is specified, the default light theme is used. Custom themes can be defined using a `[data-theme]` attribute selector in the CSS file specified by the `--global-style` option.
+
 ## Examples
 
 This takes input from a file and prints to `stdout`.
@@ -74,4 +78,40 @@ This takes an input from a file, generates the SVG with custom styles from a CSS
 
 ```console
 $ npx memory-viz <path-to-file> --output=<path> --global-style=<path-to-css>
+```
+
+This takes an input from a file, generates the SVG with a dark theme, and writes the SVG to the specified path.
+
+```console
+$ npx memory-viz <path-to-file> --output=<path> --theme=dark
+```
+
+This takes an input from a file, generates the SVG with a custom theme defined in a CSS file, and writes the SVG to the specified path.
+
+```console
+$ npx memory-viz <path-to-file> --output=<path> --global-style=<path-to-css> --theme=<custom-name>
+```
+
+Here is an example of a CSS file that defines a custom theme, and its usage:
+
+```css
+[data-theme="oceanic-light"] {
+    --highlight-value-text-color: #014f86;
+    --highlight-id-text-color: #008c9e; /* vibrant teal */
+
+    --fade-text-color: #5c7382; /* muted sea gray-blue */
+    --hide-text-color: #ffffff; /* white */
+
+    --highlight-box-fill: #caf0f8; /* pale aqua */
+    --highlight-box-line-color: #0077b6; /* strong ocean blue */
+
+    --fade-box-fill: #dbeeff; /* soft light blue */
+    --fade-box-line-color: #90e0ef; /* pastel aqua */
+
+    --hide-box-fill: #ffffff; /* white */
+}
+```
+
+```console
+$ npx memory-viz <path-to-file> --output=<path> --global-style=<path-to-css> --theme=oceanic-light
 ```

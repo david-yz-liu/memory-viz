@@ -69,6 +69,7 @@ function draw(
             height: configuration.height,
             roughjs_config: configuration.roughjs_config,
             global_style: configuration.global_style,
+            theme: configuration.theme,
         });
         model.drawAll(snapshotObjects);
         return model;
