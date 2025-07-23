@@ -48,6 +48,7 @@ export interface DisplaySettings {
     left_margin: number;
     bottom_margin: number;
     right_margin: number;
+    interactive: boolean;
 }
 
 export interface VisualizationConfig {

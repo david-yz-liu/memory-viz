@@ -68,6 +68,7 @@ export class MemoryModel {
     height?: number; // Height of the canvas, dynamically updated if not provided in options
     objectCounter: number; // Counter for tracking ids of objects drawn
     interactive: boolean; // Whether the visualization is interactive
+    idToObjectMap: Map<string, string[]>; // Track object ids to their corresponding SVG element ids
 
     constructor(options: Partial<VisualizationConfig> = {}) {
         if (options.browser) {
@@ -108,10 +109,7 @@ export class MemoryModel {
         }
 
         this.objectCounter = 0;
-
-        if (options.interactive ?? this.interactive) {
-            this.setInteractivityScript();
-        }
+        this.idToObjectMap = new Map();
     }
 
     /**
@@ -302,7 +300,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
 
         let size: Rect = {
             width: box_width,
@@ -480,7 +486,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
 
         const size: Rect = { width: box_width, height: box_height, x: x, y: y };
 
@@ -601,7 +615,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
 
         const SIZE: Rect = {
             x,
@@ -727,7 +749,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
         // First loop, to draw the key boxes
@@ -879,7 +909,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
 
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
@@ -959,7 +997,8 @@ export class MemoryModel {
         width: number,
         height: number,
         style?: Options,
-        isBoundingBox: boolean = false
+        isBoundingBox: boolean = false,
+        objectId?: number | null
     ): void {
         if (style === undefined) {
             style = this.rect_style;
@@ -977,6 +1016,18 @@ export class MemoryModel {
 
         if (isBoundingBox) {
             rectElement.setAttribute("id", `object-${this.objectCounter}`);
+
+            // Map object id value to the object counter id
+            if (objectId !== null && objectId !== undefined) {
+                const idKey = `id${objectId}`;
+                if (!this.idToObjectMap.has(idKey)) {
+                    this.idToObjectMap.set(idKey, []);
+                }
+                this.idToObjectMap
+                    .get(idKey)!
+                    .push(`object-${this.objectCounter}`);
+            }
+
             this.objectCounter++;
         }
 
@@ -1128,6 +1179,8 @@ export class MemoryModel {
             }
         }
 
+        this.setInteractivityScript();
+
         return sizes_arr;
     }
 
@@ -1155,49 +1208,17 @@ export class MemoryModel {
      * Add hover interactivity to the SVG on object IDs
      */
     setInteractivityScript(): void {
+        const idToObjectMapping = Object.fromEntries(this.idToObjectMap);
+
         const script = `
             function objectInteractivity() {
-                const idToObjectMap = new Map();
+                // Inject the id value to object id mapping into script
+                const idToObjectMap = ${JSON.stringify(idToObjectMapping)};
                 
-                // Identify an object's identity id
-                function isIdInTopLeftArea(textX, textY, pathBounds) {
-                    return textX >= pathBounds.x - 10 && 
-                        textX <= pathBounds.x + pathBounds.width * 0.4 && 
-                        textY >= pathBounds.y - 10 && 
-                        textY <= pathBounds.y + pathBounds.height * 0.3;
-                }
-                
-                // Map all IDs to their corresponding object boundary boxes
-                function buildIdToObjectMapping() {
-                    const objectBoxes = document.querySelectorAll('g[id^="object-"]');
-                    const allIdTexts = document.querySelectorAll('text.id');
+                function highlightObject(objectId) {
+                    const objectBox = document.getElementById(objectId);
+                    if (!objectBox) return;
                     
-                    console.log('Found', objectBoxes.length, 'object boxes and', allIdTexts.length, 'id texts');
-                    
-                    allIdTexts.forEach(idText => {
-                        const idValue = idText.textContent.trim();
-                        if (!idValue || !idValue.startsWith('id')) return;
-                        
-                        const textX = parseFloat(idText.getAttribute('x'));
-                        const textY = parseFloat(idText.getAttribute('y'));
-                        
-                        objectBoxes.forEach(objectBox => {
-                            const pathElement = objectBox.querySelector('path');
-                            if (!pathElement) return;
-                            
-                            const pathBounds = pathElement.getBBox();
-                            
-                            if (isIdInTopLeftArea(textX, textY, pathBounds)) {
-                                if (!idToObjectMap.has(idValue)) {
-                                    idToObjectMap.set(idValue, []);
-                                }
-                                idToObjectMap.get(idValue).push({ objectBox, pathElement });
-                            }
-                        });
-                    });
-                }
-                
-                function highlightObject(objectBox) {
                     const bbox = objectBox.getBBox();
                     const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
                     
@@ -1212,20 +1233,23 @@ export class MemoryModel {
                         highlight.setAttribute("height", bbox.height);
                         highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
                         highlight.setAttribute("pointer-events", "none");
-                        highlight.setAttribute("id", objectBox.getAttribute('id') + "-highlight");
+                        highlight.setAttribute("id", objectId + "-highlight");
                         
                         objectBox.insertBefore(highlight, objectBox.firstChild);
                     }
                 }
                 
-                function removeHighlight(objectBox) {
+                function removeHighlight(objectId) {
+                    const objectBox = document.getElementById(objectId);
+                    if (!objectBox) return;
+                    
                     const existingFill = objectBox.querySelector('path[data-original-fill]');
                     
                     if (existingFill) {
                         existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
                         existingFill.removeAttribute('data-original-fill');
                     } else {
-                        const highlight = document.getElementById(objectBox.getAttribute('id') + "-highlight");
+                        const highlight = document.getElementById(objectId + "-highlight");
                         if (highlight) highlight.remove();
                     }
                 }
@@ -1238,23 +1262,21 @@ export class MemoryModel {
                         idText.style.cursor = 'pointer';
                         
                         idText.addEventListener('mouseover', () => {
-                            console.log('Hovering over:', idValue);
-                            const objectData = idToObjectMap.get(idValue);
-                            if (objectData) {
-                                objectData.forEach(({ objectBox }) => highlightObject(objectBox));
+                            const objectIds = idToObjectMap[idValue];
+                            if (objectIds) {
+                                objectIds.forEach(objectId => highlightObject(objectId));
                             }
                         });
                         
                         idText.addEventListener('mouseout', () => {
-                            const objectData = idToObjectMap.get(idValue);
-                            if (objectData) {
-                                objectData.forEach(({ objectBox }) => removeHighlight(objectBox));
+                            const objectIds = idToObjectMap[idValue];
+                            if (objectIds) {
+                                objectIds.forEach(objectId => removeHighlight(objectId));
                             }
                         });
                     });
                 }
                 
-                buildIdToObjectMapping();
                 addEventListeners();
             }
             
