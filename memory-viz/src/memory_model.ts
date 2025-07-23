@@ -1075,7 +1075,7 @@ export class MemoryModel {
         for (const rawObj of objects) {
             const result = DrawnEntitySchema.safeParse(rawObj);
             if (!result.success) {
-                result.error;
+                console.error("Invalid DrawnEntity:", result.error);
                 continue;
             }
 
