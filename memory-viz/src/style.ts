@@ -260,18 +260,24 @@ function setStyleSheet(
         }
     `;
 
+    let THEME_CSS;
+    switch (config.theme) {
+        case "dark":
+            THEME_CSS = DARK_THEME_CSS;
+            break;
+        case "high-contrast":
+            THEME_CSS = HIGH_CONTRAST_THEME_CSS;
+            break;
+        default:
+            THEME_CSS = "";
+            break;
+    }
     const styleSheet = memory_model.document.createElement("style");
     styleSheet.textContent =
-        styles +
-        (global_style ? "\n" + global_style : "") +
-        (theme === "dark"
-            ? DARK_THEME_CSS
-            : theme === "high-contrast"
-              ? HIGH_CONTRAST_THEME_CSS
-              : "");
+        styles + (global_style ? "\n" + global_style : "") + THEME_CSS;
     memory_model.svg.appendChild(styleSheet);
 
-    if (theme) {
+    if (theme && typeof theme === "string") {
         memory_model.svg.setAttribute("data-theme", theme);
     } else {
         memory_model.svg.removeAttribute("data-theme");
