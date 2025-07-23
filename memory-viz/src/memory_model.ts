@@ -20,6 +20,7 @@ import { Config, Options } from "roughjs/bin/core";
 import type * as fsType from "fs";
 import type * as CSS from "csstype";
 import { getSize } from "./automate";
+import { DrawnEntitySchema } from "./types";
 
 // Dynamic import of Node fs module
 let fs: typeof fsType | undefined;
@@ -1071,7 +1072,15 @@ export class MemoryModel {
     drawAll(objects: DrawnEntity[]): Rect[] {
         const sizes_arr: Rect[] = [];
 
-        for (const obj of objects) {
+        for (const rawObj of objects) {
+            const result = DrawnEntitySchema.safeParse(rawObj);
+            if (!result.success) {
+                result.error;
+                continue;
+            }
+
+            const obj = result.data;
+
             if (Array.isArray(obj.style)) {
                 // Parsing the 'objects' array is essential, potentially converting preset keywords into the
                 // current item's 'style' object.
