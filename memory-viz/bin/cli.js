@@ -73,7 +73,7 @@ program
         "path to a CSS file containing global styles for the SVG",
         parseGlobalStyle
     )
-    .option("-t, --theme [name]", "use themed styling for the generated SVG");
+    .option("-t, --theme <name>", "use themed styling for the generated SVG");
 
 program.parse();
 const filePath = program.processedArgs[0];

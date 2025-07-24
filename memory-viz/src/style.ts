@@ -200,6 +200,7 @@ const HIGH_CONTRAST_THEME_CSS = `
  * Add CSS to the svg element of a MemoryModel object via style tags.
  * @param {MemoryModel} memory_model - The MemoryModel object that will have CSS set for its associated svg.
  * @param {string} global_style - An optional string containing global CSS styles to be applied to the svg.
+ * @param {string} theme - An optional string that overrides the default light theme for the svg.
  */
 function setStyleSheet(
     memory_model: MemoryModel,
@@ -277,7 +278,7 @@ function setStyleSheet(
         styles + (global_style ? "\n" + global_style : "") + THEME_CSS;
     memory_model.svg.appendChild(styleSheet);
 
-    if (theme && typeof theme === "string") {
+    if (theme) {
         memory_model.svg.setAttribute("data-theme", theme);
     } else {
         memory_model.svg.removeAttribute("data-theme");
