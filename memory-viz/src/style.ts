@@ -229,7 +229,7 @@ function setStyleSheet(
     } 
     
         text {
-            font-family: Consolas, Courier;
+            font-family: Consolas, Courier; w
             font-size: ${config.font_size}px;
         }
         text.default {
@@ -261,18 +261,12 @@ function setStyleSheet(
         }
     `;
 
-    let THEME_CSS;
-    switch (config.theme) {
-        case "dark":
-            THEME_CSS = DARK_THEME_CSS;
-            break;
-        case "high-contrast":
-            THEME_CSS = HIGH_CONTRAST_THEME_CSS;
-            break;
-        default:
-            THEME_CSS = "";
-            break;
-    }
+    const PREDEFINED_STYLES: Record<string, string> = {
+        dark: DARK_THEME_CSS,
+        "high-contrast": HIGH_CONTRAST_THEME_CSS,
+    };
+    const THEME_CSS = (theme && PREDEFINED_STYLES[theme]) ?? "";
+
     const styleSheet = memory_model.document.createElement("style");
     styleSheet.textContent =
         styles + (global_style ? "\n" + global_style : "") + THEME_CSS;
