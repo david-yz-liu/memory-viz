@@ -91,10 +91,6 @@ describe.each([
         command: `${filePath} --output=${outputPath} -t high-contrast --roughjs-config seed=12345`,
     },
     {
-        inputs: "filepath, output, and unspecified theme",
-        command: `${filePath} --output=${outputPath} --theme --roughjs-config seed=12345`,
-    },
-    {
         inputs: "filepath, output, custom theme, and global style",
         command: `${filePath} --output=${outputPath} --global-style=${customThemePath} --theme=oceanic-light --roughjs-config seed=12345`,
     },
@@ -192,6 +188,13 @@ describe.each([
                 process.cwd(),
                 "nonexistent.css"
             )} does not exist.\n`,
+    },
+    {
+        errorType: "unspecified theme",
+        command: `memory-viz ${filePath} --theme`,
+        expectedErrorMessage:
+            `Command failed: memory-viz ${filePath} --theme\n` +
+            `error: option '-t, --theme <name>' argument missing\n`,
     },
     {
         errorType: "invalid json",
