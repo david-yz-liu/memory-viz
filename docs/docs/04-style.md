@@ -155,5 +155,5 @@ svg {
 This example demonstrates how to define a custom theme using CSS variables. The oceanic-light theme customizes the
 appearance of preset styles such as "highlight", "fade", and "hide". Additionally, the `path` and `svg` elements,
 representing the rough.js shapes and drawing canvas respectively, are styled to have a specific stroke and background color.
-To use this theme, include your custom CSS using the --global-style flag and enable the theme by passing
---theme=oceanic-light in the [CLI](06-cli.md).
+To use this theme, include your custom CSS using the `--global-style` flag and enable the theme by passing
+`--theme=oceanic-light` in the [CLI](06-cli.md).
