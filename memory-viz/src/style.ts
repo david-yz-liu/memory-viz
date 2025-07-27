@@ -229,7 +229,7 @@ function setStyleSheet(
     } 
     
         text {
-            font-family: Consolas, Courier; w
+            font-family: Consolas, Courier;
             font-size: ${config.font_size}px;
         }
         text.default {
