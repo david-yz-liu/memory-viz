@@ -24,7 +24,7 @@ const HIGHLIGHT_TEXT: CSS.PropertiesHyphen = {
     "font-size": "22px",
 };
 const FADE_TEXT: CSS.PropertiesHyphen = {
-    /*'font-weight': "normal",*/ "fill-opacity": 0.4,
+    "fill-opacity": 0.4,
 };
 const HIDE_TEXT: CSS.PropertiesHyphen = { "fill-opacity": 0 };
 const HIGHLIGHT_BOX_LINES: Options = { roughness: 0.2, strokeWidth: 4 };
