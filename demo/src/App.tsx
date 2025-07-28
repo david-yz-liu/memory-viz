@@ -56,12 +56,9 @@ export default function App() {
                 <Box sx={{ width: "60%" }}>
                     <h2>Output</h2>
                     <ErrorBoundary
-                        fallback={
-                            <p data-testid="svg-display-error-boundary">
-                                This is valid JSON but not valid Memory Models
-                                JSON. Please refer to the repo for more details.
-                            </p>
-                        }
+                        fallbackRender={({ error }) => (
+                            <Alert severity="error">{error.message}</Alert>
+                        )}
                         resetKeys={[jsonResult]}
                     >
                         <SvgDisplay
