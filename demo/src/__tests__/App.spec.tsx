@@ -24,7 +24,7 @@ describe("App", () => {
 
         const errorBoundary = screen.getByTestId("svg-display-error-boundary");
         expect(errorBoundary.textContent).toEqual(
-            "✖ Invalid input: expected string, received number\n" +
+            '✖ Invalid input: valid inputs are "list", "set", "tuple", "dict", "int", "str", "None", "bool", "float", and "date"\n' +
                 "  → at type"
         );
     });
@@ -65,7 +65,7 @@ describe("App", () => {
 
         const errorBoundary = screen.getByTestId("svg-display-error-boundary");
         expect(errorBoundary.textContent).toEqual(
-            "✖ Invalid input: expected string, received number\n" +
+            '✖ Invalid input: valid inputs are "list", "set", "tuple", "dict", "int", "str", "None", "bool", "float", and "date"\n' +
                 "  → at type"
         );
 
