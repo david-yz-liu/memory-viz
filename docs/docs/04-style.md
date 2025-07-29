@@ -125,3 +125,35 @@ there are the texts that the user can alter its style: the text representing the
 the text representing the id number of the data type (if it's not a stack-frame) and the text representing
 the type of the data. The user can pass in configurations based on the SVG documentation for modifying these texts
 simultaneously.
+
+### Example 4
+
+```css
+[data-theme="oceanic-light"] {
+    --highlight-value-text-color: #014f86;
+    --highlight-id-text-color: #008c9e;
+
+    --fade-text-color: #5c7382;
+    --hide-text-color: #ffffff;
+
+    --highlight-box-fill: #caf0f8;
+    --highlight-box-line-color: #0077b6;
+
+    --fade-box-fill: #dbeeff;
+    --fade-box-line-color: #90e0ef;
+
+    --hide-box-fill: #ffffff;
+}
+path {
+    stroke: #113b48;
+}
+svg {
+    background-color: #ffffff;
+}
+```
+
+This example demonstrates how to define a custom theme using CSS variables. The oceanic-light theme customizes the
+appearance of preset styles such as "highlight", "fade", and "hide". Additionally, the `path` and `svg` elements,
+representing the rough.js shapes and drawing canvas respectively, are styled to have a specific stroke and background color.
+To use this theme, include your custom CSS using the `--global-style` flag and enable the theme by passing
+`--theme=oceanic-light` in the [CLI](06-cli.md).
