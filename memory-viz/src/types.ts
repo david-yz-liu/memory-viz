@@ -21,17 +21,30 @@ export const StylesSchema = z.union([
 export type Styles = z.infer<typeof StylesSchema>;
 
 export const DrawnEntitySchema = z.object({
-    name: z.string().optional(),
-    type: z.string().optional(),
-    x: z.number().optional(),
-    y: z.number().optional(),
-    id: z.union([z.number(), z.null()]).optional(),
+    name: z.string("Invalid input: valid inputs must be a string").optional(),
+    type: z
+        .string(
+            'Invalid input: valid inputs are "list", "set", "tuple", "dict", "int", "str", "None", "bool", "float", and "date"'
+        )
+        .optional(),
+    x: z.number("Invalid input: valid inputs must be a number").optional(),
+    y: z.number("Invalid input: valid inputs must be a number").optional(),
+    id: z
+        .union(
+            [z.number(), z.null()],
+            "Invalid input: valid inputs must be a number or null"
+        )
+        .optional(),
     value: z.any().optional(),
-    show_indexes: z.boolean().optional(),
+    show_indexes: z
+        .boolean("Invalid input: valid inputs must be a boolean")
+        .optional(),
     style: StylesSchema.optional(),
-    height: z.number().optional(),
-    width: z.number().optional(),
-    rowBreaker: z.boolean().optional(),
+    height: z.number("Invalid input: valid inputs must be a number").optional(),
+    width: z.number("Invalid input: valid inputs must be a number").optional(),
+    rowBreaker: z
+        .boolean("Invalid input: valid inputs must be a boolean")
+        .optional(),
 });
 
 export type DrawnEntity = z.infer<typeof DrawnEntitySchema>;
