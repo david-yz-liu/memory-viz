@@ -57,12 +57,12 @@ export default function App() {
                     <h2>Output</h2>
                     <ErrorBoundary
                         fallbackRender={({ error }) => (
-                            <Alert
-                                severity="error"
+                            <p
                                 data-testid="svg-display-error-boundary"
+                                style={{ whiteSpace: "pre-wrap" }}
                             >
                                 {error.message}
-                            </Alert>
+                            </p>
                         )}
                         resetKeys={[jsonResult]}
                     >
