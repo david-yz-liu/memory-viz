@@ -23,7 +23,6 @@ describe("App", () => {
         fireEvent.click(button);
 
         const errorBoundary = screen.getByTestId("svg-display-error-boundary");
-
         expect(errorBoundary.textContent).toEqual(
             "✖ Invalid input: expected string, received number\n" +
                 "  → at type"
@@ -65,7 +64,6 @@ describe("App", () => {
         fireEvent.click(button);
 
         const errorBoundary = screen.getByTestId("svg-display-error-boundary");
-
         expect(errorBoundary.textContent).toEqual(
             "✖ Invalid input: expected string, received number\n" +
                 "  → at type"
