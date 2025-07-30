@@ -35,7 +35,7 @@ export const DrawnEntitySchema = z.object({
                 );
             }
             return typeof val === "object" && val !== null;
-        }, '"style" must be a Style object or an array of strings or Style')
+        }, '"style" field must be a Style object or an array of strings or Style')
         .optional(),
     height: z.number('"height" field must be a number').optional(),
     width: z.number('"width" field must be a number').optional(),
