@@ -42,6 +42,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Increased timeout for CLI tests from 2 seconds to 30 seconds
 - Added appropriate icons to the buttons on the demo and webstepper pages
 - Updated demo page tests in accordance with this change
+- Added validation for user input in `drawAll` using zod, demo website now displays error for invalid inputs
 
 ### 🐛 Bug fixes
 
