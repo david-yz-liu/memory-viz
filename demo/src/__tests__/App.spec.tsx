@@ -24,8 +24,7 @@ describe("App", () => {
 
         const errorBoundary = screen.getByTestId("svg-display-error-boundary");
         expect(errorBoundary.textContent).toEqual(
-            '✖ Invalid input: valid inputs are "list", "set", "tuple", "dict", "int", "str", "None", "bool", "float", and "date"\n' +
-                "  → at type"
+            '✖ "type" field must be a string\n' + "  → at type"
         );
     });
 
@@ -65,8 +64,7 @@ describe("App", () => {
 
         const errorBoundary = screen.getByTestId("svg-display-error-boundary");
         expect(errorBoundary.textContent).toEqual(
-            '✖ Invalid input: valid inputs are "list", "set", "tuple", "dict", "int", "str", "None", "bool", "float", and "date"\n' +
-                "  → at type"
+            '✖ "type" field must be a string\n' + "  → at type"
         );
 
         // Next, reset and input valid JSON that's also valid memory-viz JSON
