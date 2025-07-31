@@ -1494,7 +1494,7 @@ describe("draw function", () => {
         const interactiveSvg: String = interactiveModel.serializeSVG();
 
         expect(interactiveSvg).toContain("<script>");
-        expect(interactiveSvg).toContain("objectInteractivity");
+        expect(interactiveSvg).toContain("enableInteractivity");
         expect(interactiveSvg).toContain("idToObjectMap");
 
         // Test with interactive disabled
@@ -1510,7 +1510,7 @@ describe("draw function", () => {
         const nonInteractiveSvg: String = nonInteractiveModel.serializeSVG();
 
         expect(nonInteractiveSvg).not.toContain("<script>");
-        expect(nonInteractiveSvg).not.toContain("objectInteractivity");
+        expect(nonInteractiveSvg).not.toContain("enableInteractivity");
 
         expect(interactiveSvg).toMatchSnapshot();
         expect(nonInteractiveSvg).toMatchSnapshot();
@@ -1568,7 +1568,7 @@ describe("draw function", () => {
         const svg: String = m.serializeSVG();
 
         expect(svg).toContain("<script>");
-        expect(svg).toContain("objectInteractivity");
+        expect(svg).toContain("enableInteractivity");
         expect(svg).toContain("idToObjectMap");
         expect(svg).toMatchSnapshot();
     });

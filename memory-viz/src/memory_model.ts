@@ -1004,14 +1004,20 @@ export class MemoryModel {
             style = this.rect_style;
         }
 
-        style = { ...style, ...this.roughjs_config?.options };
+        // Set rect style with user and config overrides
+        const rectStyle = {
+            fillStyle: "solid",
+            fill: "none",
+            ...(this.roughjs_config?.options ?? {}),
+            ...(style ?? this.rect_style),
+        };
 
         const rectElement = this.rough_svg.rectangle(
             x,
             y,
             width,
             height,
-            style
+            rectStyle
         );
 
         if (isBoundingBox) {
@@ -1212,67 +1218,46 @@ export class MemoryModel {
         const idToObjectMapping = Object.fromEntries(this.idToObjectMap);
 
         const script = `
-            function objectInteractivity() {
+            function enableInteractivity() {
                 // Inject the id value to object id mapping into script
                 const idToObjectMap = ${JSON.stringify(idToObjectMapping)};
                 
                 function highlightObject(objectId) {
                     const objectBox = document.getElementById(objectId);
-                    if (!objectBox) return;
-                    
-                    const bbox = objectBox.getBBox();
-                    const existingFill = objectBox.querySelector('path[fill]:not([fill="none"])');
-                    
-                    if (existingFill) {
-                        existingFill.setAttribute('data-original-fill', existingFill.getAttribute('fill'));
-                        existingFill.setAttribute('fill', 'rgba(255, 255, 0, 0.6)');
-                    } else {
-                        const highlight = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                        highlight.setAttribute("x", bbox.x);
-                        highlight.setAttribute("y", bbox.y);
-                        highlight.setAttribute("width", bbox.width);
-                        highlight.setAttribute("height", bbox.height);
-                        highlight.setAttribute("fill", "rgba(255, 255, 0, 0.6)");
-                        highlight.setAttribute("pointer-events", "none");
-                        highlight.setAttribute("id", objectId + "-highlight");
-                        
-                        objectBox.insertBefore(highlight, objectBox.firstChild);
+                    if (!objectBox) {
+                        return;
                     }
+                    
+                    objectBox.classList.add('highlighted');
                 }
                 
                 function removeHighlight(objectId) {
                     const objectBox = document.getElementById(objectId);
-                    if (!objectBox) return;
-                    
-                    const existingFill = objectBox.querySelector('path[data-original-fill]');
-                    
-                    if (existingFill) {
-                        existingFill.setAttribute('fill', existingFill.getAttribute('data-original-fill'));
-                        existingFill.removeAttribute('data-original-fill');
-                    } else {
-                        const highlight = document.getElementById(objectId + "-highlight");
-                        if (highlight) highlight.remove();
+                    if (!objectBox) {
+                        return;
                     }
+                    
+                    objectBox.classList.remove('highlighted');
                 }
                 
                 function addEventListeners() {
                     document.querySelectorAll('text.id').forEach(idText => {
                         const idValue = idText.textContent.trim();
-                        if (!idValue || !idValue.startsWith('id')) return;
-                        
-                        idText.style.cursor = 'pointer';
+                        if (!idValue || !idValue.startsWith('id')) {
+                            return;
+                        }
                         
                         idText.addEventListener('mouseover', () => {
                             const objectIds = idToObjectMap[idValue];
                             if (objectIds) {
-                                objectIds.forEach(objectId => highlightObject(objectId));
+                                objectIds.forEach(highlightObject);
                             }
                         });
                         
                         idText.addEventListener('mouseout', () => {
                             const objectIds = idToObjectMap[idValue];
                             if (objectIds) {
-                                objectIds.forEach(objectId => removeHighlight(objectId));
+                                objectIds.forEach(removeHighlight);
                             }
                         });
                     });
@@ -1283,9 +1268,9 @@ export class MemoryModel {
             
             // Wait for DOM to be ready
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', objectInteractivity);
+                document.addEventListener('DOMContentLoaded', enableInteractivity);
             } else {
-                objectInteractivity();
+                enableInteractivity();
             }
         `;
 

@@ -17,5 +17,5 @@ export const config: Partial<VisualizationConfig> = {
     list_index_sep: 20, // Vertical offset for list index labels
     font_size: 20, // Font size, in px
     browser: false, // Whether this library is being used in a browser context
-    interactive: true, // Whether the visualization is interactive;
+    interactive: true, // Whether the visualization is interactive
 };

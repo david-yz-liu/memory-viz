@@ -109,6 +109,7 @@ function runMemoryViz(jsonContent) {
             height: options.height,
             roughjs_config: { options: options.roughjsConfig },
             global_style: options.globalStyle,
+            interactive: true,
         });
     } catch (err) {
         console.error(`Error: ${err.message}`);
