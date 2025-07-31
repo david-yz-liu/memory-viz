@@ -50,6 +50,10 @@ The argument is a comma-separated list of key-value pairs in the form `<key1=val
 
 Specifies a path to a CSS file that contains global styles for the SVG. The SVG source code contains various CSS selectors within the `<style>` tag, which can be used to style the SVG elements.
 
+### `--theme=<name>` (`-t <name>`)
+
+Applies a theme to the SVG, overriding the default light theme. Included themes are `dark` and `high-contrast`. Custom themes can be defined using a `[data-theme]` attribute selector in the CSS file specified by the `--global-style` option.
+
 ## Examples
 
 This takes input from a file and prints to `stdout`.
@@ -74,4 +78,28 @@ This takes an input from a file, generates the SVG with custom styles from a CSS
 
 ```console
 $ npx memory-viz <path-to-file> --output=<path> --global-style=<path-to-css>
+```
+
+This takes an input from a file, generates the SVG with a dark theme, and writes the SVG to the specified path.
+
+```console
+$ npx memory-viz <path-to-file> --output=<path> --theme=dark
+```
+
+This takes an input from a file, generates the SVG with a custom theme defined in a CSS file, and writes the SVG to the specified path.
+
+```console
+$ npx memory-viz <path-to-file> --output=<path> --global-style=<path-to-css> --theme=<custom-name>
+```
+
+Here is an example of a CSS file that defines a custom theme, and its usage:
+
+```css
+[data-theme="oceanic-light"] {
+    /* theme goes here */
+}
+```
+
+```console
+$ npx memory-viz <path-to-file> --output=<path> --global-style=<path-to-css> --theme=oceanic-light
 ```
