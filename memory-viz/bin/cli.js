@@ -72,7 +72,8 @@ program
         "-s, --global-style <path>",
         "path to a CSS file containing global styles for the SVG",
         parseGlobalStyle
-    );
+    )
+    .option("-t, --theme <name>", "use themed styling for the generated SVG");
 
 program.parse();
 const filePath = program.processedArgs[0];
@@ -109,6 +110,7 @@ function runMemoryViz(jsonContent) {
             height: options.height,
             roughjs_config: { options: options.roughjsConfig },
             global_style: options.globalStyle,
+            theme: options.theme,
         });
     } catch (err) {
         console.error(`Error: ${err.message}`);

@@ -13,21 +13,18 @@ describe("App", () => {
     });
 
     it("renders ErrorBoundary fallback element when draw function throws error", () => {
-        const mockErrorMessage = "Mocked error";
-        const drawMockSpy = jest.spyOn(mem, "draw");
-        drawMockSpy.mockImplementation(() => {
-            throw new Error(mockErrorMessage);
-        });
-
         const input = screen.getByLabelText("Enter memory model JSON here");
-        // In order to get to draw function, input has to be valid json otherwise JSON.parse fails
-        fireEvent.change(input, { target: { value: "[{}]" } });
+
+        // Invalid input: 'type' should be a string, but it's a number
+        const invalidJSON = JSON.stringify([{ type: 123 }]);
+        fireEvent.change(input, { target: { value: invalidJSON } });
+
         const button = screen.getByTestId("input-submit-button");
         fireEvent.click(button);
 
         const errorBoundary = screen.getByTestId("svg-display-error-boundary");
         expect(errorBoundary.textContent).toEqual(
-            "This is valid JSON but not valid Memory Models JSON. Please refer to the repo for more details."
+            '✖ "type" field must be a string\n' + "  → at type"
         );
     });
 
@@ -56,25 +53,21 @@ describe("App", () => {
     });
 
     it("resets ErrorBoundary when valid JSON is provided after an invalid memory-viz JSON", async () => {
-        const drawMockSpy = jest.spyOn(mem, "draw");
-        drawMockSpy.mockImplementationOnce(() => {
-            throw new Error("Mocked error");
-        });
-
-        // Input valid JSON that's invalid memory-viz JSON
         const input = screen.getByLabelText("Enter memory model JSON here");
-        fireEvent.change(input, { target: { value: "[{}]" } });
+
+        // Invalid input: 'type' should be a string, but it's a number
+        const invalidJSON = JSON.stringify([{ type: 123 }]);
+        fireEvent.change(input, { target: { value: invalidJSON } });
+
         const button = screen.getByTestId("input-submit-button");
         fireEvent.click(button);
 
-        // Test that ErrorBoundary message appears
         const errorBoundary = screen.getByTestId("svg-display-error-boundary");
         expect(errorBoundary.textContent).toEqual(
-            "This is valid JSON but not valid Memory Models JSON. Please refer to the repo for more details."
+            '✖ "type" field must be a string\n' + "  → at type"
         );
 
         // Next, reset and input valid JSON that's also valid memory-viz JSON
-        drawMockSpy.mockRestore();
         const validJSON = JSON.stringify([
             {
                 type: ".frame",

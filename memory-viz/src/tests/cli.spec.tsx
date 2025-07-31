@@ -12,6 +12,7 @@ const tmpFile = tmp.fileSync({ postfix: ".json" });
 const filePath = tmpFile.name;
 const outputPath = `${tmpFile.name}.svg`;
 const globalStylePath = tmp.fileSync({ postfix: ".css" }).name;
+const customThemePath = tmp.fileSync({ postfix: ".css" }).name;
 const input = JSON.stringify(
     [
         {
@@ -33,7 +34,14 @@ const globalStyle = `
         font-size: 20px;
     }
 `;
-
+const customTheme = `
+    [data-theme="oceanic-light"] {
+        --highlight-value-text-color: #014f86;
+        --highlight-id-text-color: #008c9e;
+        --highlight-box-fill: #caf0f8;
+        --highlight-box-line-color: #0077b6;
+    }
+`;
 // Helper function for determining the output path of the SVG
 const getSVGPath = (isOutputOption: boolean) => {
     if (isOutputOption) {
@@ -74,10 +82,23 @@ describe.each([
         inputs: "filepath and (shorthand) global style",
         command: `${filePath} --output=${outputPath} -s ${globalStylePath} --roughjs-config seed=12345`,
     },
+    {
+        inputs: "filepath, output, and theme",
+        command: `${filePath} --output=${outputPath} --theme=dark --roughjs-config seed=12345`,
+    },
+    {
+        inputs: "filepath, output, and (shorthand) theme",
+        command: `${filePath} --output=${outputPath} -t high-contrast --roughjs-config seed=12345`,
+    },
+    {
+        inputs: "filepath, output, custom theme, and global style",
+        command: `${filePath} --output=${outputPath} --global-style=${customThemePath} --theme=oceanic-light --roughjs-config seed=12345`,
+    },
 ])("memory-viz cli", ({ inputs, command }) => {
     it(`produces consistent svg when provided ${inputs} option(s)`, (done) => {
         fs.writeFileSync(filePath, input);
         fs.writeFileSync(globalStylePath, globalStyle);
+        fs.writeFileSync(customThemePath, customTheme);
 
         exec(`memory-viz ${command}`, (err: ExecException | null) => {
             if (err) throw err;
@@ -167,6 +188,13 @@ describe.each([
                 process.cwd(),
                 "nonexistent.css"
             )} does not exist.\n`,
+    },
+    {
+        errorType: "unspecified theme",
+        command: `memory-viz ${filePath} --theme`,
+        expectedErrorMessage:
+            `Command failed: memory-viz ${filePath} --theme\n` +
+            `error: option '-t, --theme <name>' argument missing\n`,
     },
     {
         errorType: "invalid json",
