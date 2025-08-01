@@ -35,7 +35,7 @@ const HIGHLIGHT_ID_TEXT: CSS.PropertiesHyphen = {
 };
 
 const FADE_TEXT: CSS.PropertiesHyphen = {
-    /*'font-weight': "normal",*/ "fill-opacity": 0.4,
+    "fill-opacity": 0.4,
     fill: "var(--fade-text-color)",
 };
 
