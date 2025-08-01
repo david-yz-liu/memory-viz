@@ -71,15 +71,15 @@ describe.each([
         command: `${filePath} --output=${outputPath} --height=700 width=1200 --roughjs-config seed=12345`,
     },
     {
-        inputs: "filepath and a variety of rough-config",
+        inputs: "filepath, output, and a variety of rough-config",
         command: `${filePath} --output=${outputPath} --roughjs-config seed=12345,fill=red,fillStyle=solid`,
     },
     {
-        inputs: "filepath and global style",
+        inputs: "filepath, output, and global style",
         command: `${filePath} --output=${outputPath} --global-style=${globalStylePath} --roughjs-config seed=12345`,
     },
     {
-        inputs: "filepath and (shorthand) global style",
+        inputs: "filepath, output, and (shorthand) global style",
         command: `${filePath} --output=${outputPath} -s ${globalStylePath} --roughjs-config seed=12345`,
     },
     {
