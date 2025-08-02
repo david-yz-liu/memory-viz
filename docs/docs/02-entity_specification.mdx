@@ -1,6 +1,5 @@
----
-title: Entity Specification
----
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import ThemedImage from "@theme/ThemedImage";
 
 # Entity Specification
 
@@ -56,7 +55,13 @@ All supported entities include the following core attributes, unless explicitly 
             "value": 124
         }
         ```
-        ![Example Integer](images/entity_specification/int.svg)
+        <ThemedImage
+          alt="Example Integer"
+          sources={{
+            light: useBaseUrl('img/int.svg'),
+            dark: useBaseUrl('img/int_dark.svg'),
+          }}
+        />
 </details>
 <details>
     <summary>**Blank integer**</summary>
