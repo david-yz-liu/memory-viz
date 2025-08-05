@@ -2,44 +2,36 @@ import { Config, Options } from "roughjs/bin/core";
 import type * as CSS from "csstype";
 import { z } from "zod";
 
-export interface Style {
-    text_id?: CSS.PropertiesHyphen;
-    text_type?: CSS.PropertiesHyphen;
-    text_value?: CSS.PropertiesHyphen;
-    box_id?: Options;
-    box_type?: Options;
-    box_container?: Options;
-}
+export const StyleSchema = z.object({
+    text_id: z.custom<CSS.PropertiesHyphen>().optional(),
+    text_type: z.custom<CSS.PropertiesHyphen>().optional(),
+    text_value: z.custom<CSS.PropertiesHyphen>().optional(),
+    box_id: z.custom<Options>().optional(),
+    box_type: z.custom<Options>().optional(),
+    box_container: z.custom<Options>().optional(),
+});
 
-export type Styles = Style | (string | Style)[];
+export type Style = z.infer<typeof StyleSchema>;
+
+export const StylesSchema = z.union([
+    StyleSchema,
+    z.array(z.union([z.string(), StyleSchema])),
+]);
+
+export type Styles = z.infer<typeof StylesSchema>;
 
 export const DrawnEntitySchema = z.object({
-    name: z.string('"name" field must be a string').optional(),
-    type: z.string('"type" field must be a string').optional(),
-    x: z.number('"x" field must be a number').optional(),
-    y: z.number('"y" field must be a number').optional(),
-    id: z
-        .union([z.number(), z.null()], '"id" field must be a number or null')
-        .optional(),
+    name: z.string().optional(),
+    type: z.string().optional(),
+    x: z.number().optional(),
+    y: z.number().optional(),
+    id: z.union([z.number(), z.null()]).optional(),
     value: z.any().optional(),
-    show_indexes: z
-        .boolean('"show_indexes" field must be a boolean')
-        .optional(),
-    style: z
-        .custom<Styles>((val) => {
-            if (Array.isArray(val)) {
-                return val.every(
-                    (item) =>
-                        typeof item === "string" ||
-                        (typeof item === "object" && item !== null)
-                );
-            }
-            return typeof val === "object" && val !== null;
-        }, '"style" field must be a Style object or an array of strings or Style')
-        .optional(),
-    height: z.number('"height" field must be a number').optional(),
-    width: z.number('"width" field must be a number').optional(),
-    rowBreaker: z.boolean('"rowBreaker" field must be a boolean').optional(),
+    show_indexes: z.boolean().optional(),
+    style: StylesSchema.optional(),
+    height: z.number().optional(),
+    width: z.number().optional(),
+    rowBreaker: z.boolean().optional(),
 });
 
 export type DrawnEntity = z.infer<typeof DrawnEntitySchema>;
@@ -57,6 +49,7 @@ export interface DisplaySettings {
     left_margin: number;
     bottom_margin: number;
     right_margin: number;
+    interactive: boolean;
 }
 
 export interface VisualizationConfig {
@@ -83,6 +76,7 @@ export interface VisualizationConfig {
     global_style: string;
     theme: string;
     roughjs_config: Config;
+    interactive: boolean;
 }
 
 export interface Size {

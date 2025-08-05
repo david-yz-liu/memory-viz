@@ -247,6 +247,7 @@ function setStyleSheet(
         text.id { 
             fill: ${config.id_color};
             text-anchor: middle;
+            cursor: pointer;
         }
         text.type {
             fill: ${config.value_color};
@@ -258,6 +259,9 @@ function setStyleSheet(
         }
         path {
             stroke: ${config.rect_style?.stroke ?? "rgb(0,0,0)"};
+        }
+        .highlighted path {
+            fill: rgba(255, 255, 0, 0.6) !important;
         }
     `;
 

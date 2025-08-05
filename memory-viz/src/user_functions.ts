@@ -70,6 +70,7 @@ function draw(
             roughjs_config: configuration.roughjs_config,
             global_style: configuration.global_style,
             theme: configuration.theme,
+            interactive: configuration.interactive,
         });
         model.drawAll(snapshotObjects);
         return model;
