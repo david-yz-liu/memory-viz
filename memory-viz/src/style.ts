@@ -147,6 +147,8 @@ const DARK_THEME_CSS = `
             --fade-box-line-color: #666666;
         
             --hide-box-fill: #121212;
+
+            --highlight-object-fill: rgba(72, 207, 173, 0.3);
         }
         [data-theme="dark"] text.default,
         [data-theme="dark"] text.variable {
@@ -180,6 +182,8 @@ const HIGH_CONTRAST_THEME_CSS = `
             --fade-box-line-color: #FFFFFF;
             
             --hide-box-fill: #000000;
+
+            --highlight-object-fill: rgba(0, 0, 255, 0.5);
         }
         [data-theme="high-contrast"] text.default,
         [data-theme="high-contrast"] text.variable {
@@ -226,6 +230,8 @@ function setStyleSheet(
         --primitive-value-color: ${config.value_color};
         --id-text-color: ${config.id_color};
         --default-font-size: ${config.font_size}px;
+
+        --highlight-object-fill: rgba(255, 255, 0, 0.6);
     } 
     
         text {
@@ -261,7 +267,7 @@ function setStyleSheet(
             stroke: ${config.rect_style?.stroke ?? "rgb(0,0,0)"};
         }
         .highlighted path {
-            fill: rgba(255, 255, 0, 0.6) !important;
+            fill: var(--highlight-object-fill) !important;
         }
     `;
 

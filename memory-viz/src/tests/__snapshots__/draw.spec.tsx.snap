@@ -21,6 +21,8 @@ exports[`draw function formats a mix of stack frame/non-stack frame objects in a
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -44,9 +46,9 @@ exports[`draw function formats a mix of stack frame/non-stack frame objects in a
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -64,7 +66,7 @@ exports[`draw function formats a mix of stack frame/non-stack frame objects in a
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -155,6 +157,8 @@ exports[`draw function formats non-stack frame objects in automatic layout 1`] =
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -178,9 +182,9 @@ exports[`draw function formats non-stack frame objects in automatic layout 1`] =
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -198,7 +202,7 @@ exports[`draw function formats non-stack frame objects in automatic layout 1`] =
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -301,6 +305,8 @@ exports[`draw function generates correct interactive script with proper event ma
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -324,9 +330,9 @@ exports[`draw function generates correct interactive script with proper event ma
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -344,7 +350,7 @@ exports[`draw function generates correct interactive script with proper event ma
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <script>
@@ -524,6 +530,8 @@ exports[`draw function generates interactive script for empty objects array 1`] 
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -547,9 +555,9 @@ exports[`draw function generates interactive script for empty objects array 1`] 
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -567,7 +575,7 @@ exports[`draw function generates interactive script for empty objects array 1`] 
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <script>
@@ -712,6 +720,8 @@ exports[`draw function includes script element in svg when interactive option is
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -735,9 +745,9 @@ exports[`draw function includes script element in svg when interactive option is
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -755,7 +765,7 @@ exports[`draw function includes script element in svg when interactive option is
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <script>
@@ -935,6 +945,8 @@ exports[`draw function includes script element in svg when interactive option is
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -958,9 +970,9 @@ exports[`draw function includes script element in svg when interactive option is
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -978,7 +990,7 @@ exports[`draw function includes script element in svg when interactive option is
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -1037,6 +1049,8 @@ exports[`draw function maps all object ids to boxes in interactive svg script 1`
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1060,9 +1074,9 @@ exports[`draw function maps all object ids to boxes in interactive svg script 1`
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -1080,7 +1094,7 @@ exports[`draw function maps all object ids to boxes in interactive svg script 1`
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <script>
@@ -1281,6 +1295,8 @@ exports[`draw function renders 'fade' style preset 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1304,9 +1320,9 @@ exports[`draw function renders 'fade' style preset 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -1324,7 +1340,7 @@ exports[`draw function renders 'fade' style preset 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -1379,6 +1395,8 @@ exports[`draw function renders 'fade_id' style preset 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1402,9 +1420,9 @@ exports[`draw function renders 'fade_id' style preset 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -1422,7 +1440,7 @@ exports[`draw function renders 'fade_id' style preset 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -1477,6 +1495,8 @@ exports[`draw function renders 'fade_type' style preset 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1500,9 +1520,9 @@ exports[`draw function renders 'fade_type' style preset 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -1520,7 +1540,7 @@ exports[`draw function renders 'fade_type' style preset 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -1575,6 +1595,8 @@ exports[`draw function renders 'hide' style preset 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1598,9 +1620,9 @@ exports[`draw function renders 'hide' style preset 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -1618,7 +1640,7 @@ exports[`draw function renders 'hide' style preset 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -1673,6 +1695,8 @@ exports[`draw function renders 'hide_container' style preset 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1696,9 +1720,9 @@ exports[`draw function renders 'hide_container' style preset 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -1716,7 +1740,7 @@ exports[`draw function renders 'hide_container' style preset 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -1771,6 +1795,8 @@ exports[`draw function renders 'hide_id' style preset 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1794,9 +1820,9 @@ exports[`draw function renders 'hide_id' style preset 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -1814,7 +1840,7 @@ exports[`draw function renders 'hide_id' style preset 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -1869,6 +1895,8 @@ exports[`draw function renders 'highlight' style preset 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1892,9 +1920,9 @@ exports[`draw function renders 'highlight' style preset 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -1912,7 +1940,7 @@ exports[`draw function renders 'highlight' style preset 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -1967,6 +1995,8 @@ exports[`draw function renders 'highlight_id' style preset 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1990,9 +2020,9 @@ exports[`draw function renders 'highlight_id' style preset 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -2010,7 +2040,7 @@ exports[`draw function renders 'highlight_id' style preset 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -2065,6 +2095,8 @@ exports[`draw function renders 'highlight_type' style preset 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -2088,9 +2120,9 @@ exports[`draw function renders 'highlight_type' style preset 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -2108,7 +2140,7 @@ exports[`draw function renders 'highlight_type' style preset 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -2163,6 +2195,8 @@ exports[`draw function renders a blank space 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -2186,9 +2220,9 @@ exports[`draw function renders a blank space 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -2206,7 +2240,7 @@ exports[`draw function renders a blank space 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
 </svg>
@@ -2233,6 +2267,8 @@ exports[`draw function renders a blank stack frame 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -2256,9 +2292,9 @@ exports[`draw function renders a blank stack frame 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -2276,7 +2312,7 @@ exports[`draw function renders a blank stack frame 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -2331,6 +2367,8 @@ exports[`draw function renders a bool 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -2354,9 +2392,9 @@ exports[`draw function renders a bool 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -2374,7 +2412,7 @@ exports[`draw function renders a bool 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -2417,6 +2455,8 @@ exports[`draw function renders a bool using manual layout 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -2440,9 +2480,9 @@ exports[`draw function renders a bool using manual layout 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -2460,7 +2500,7 @@ exports[`draw function renders a bool using manual layout 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -2503,6 +2543,8 @@ exports[`draw function renders a bool with null value 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -2526,9 +2568,9 @@ exports[`draw function renders a bool with null value 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -2546,7 +2588,7 @@ exports[`draw function renders a bool with null value 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -2589,6 +2631,8 @@ exports[`draw function renders a bool without defining the value 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -2612,9 +2656,9 @@ exports[`draw function renders a bool without defining the value 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -2632,7 +2676,7 @@ exports[`draw function renders a bool without defining the value 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -2675,6 +2719,8 @@ exports[`draw function renders a class 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -2698,9 +2744,9 @@ exports[`draw function renders a class 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -2718,7 +2764,7 @@ exports[`draw function renders a class 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -2761,6 +2807,8 @@ exports[`draw function renders a class with null attribute name using empty stri
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -2784,9 +2832,9 @@ exports[`draw function renders a class with null attribute name using empty stri
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -2804,7 +2852,7 @@ exports[`draw function renders a class with null attribute name using empty stri
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -2847,6 +2895,8 @@ exports[`draw function renders a class with null attribute name using whitespace
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -2870,9 +2920,9 @@ exports[`draw function renders a class with null attribute name using whitespace
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -2890,7 +2940,7 @@ exports[`draw function renders a class with null attribute name using whitespace
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -2933,6 +2983,8 @@ exports[`draw function renders a diagram with 'small' width value and a mix stac
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -2956,9 +3008,9 @@ exports[`draw function renders a diagram with 'small' width value and a mix stac
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -2976,7 +3028,7 @@ exports[`draw function renders a diagram with 'small' width value and a mix stac
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -3067,6 +3119,8 @@ exports[`draw function renders a diagram with 'small' width value and no stack f
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -3090,9 +3144,9 @@ exports[`draw function renders a diagram with 'small' width value and no stack f
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -3110,7 +3164,7 @@ exports[`draw function renders a diagram with 'small' width value and no stack f
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -3153,6 +3207,8 @@ exports[`draw function renders a diagram with large left margins 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -3176,9 +3232,9 @@ exports[`draw function renders a diagram with large left margins 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -3196,7 +3252,7 @@ exports[`draw function renders a diagram with large left margins 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -3287,6 +3343,8 @@ exports[`draw function renders a dict 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -3310,9 +3368,9 @@ exports[`draw function renders a dict 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -3330,7 +3388,7 @@ exports[`draw function renders a dict 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -3393,6 +3451,8 @@ exports[`draw function renders a dict with large height 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -3416,9 +3476,9 @@ exports[`draw function renders a dict with large height 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -3436,7 +3496,7 @@ exports[`draw function renders a dict with large height 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -3499,6 +3559,8 @@ exports[`draw function renders a float 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -3522,9 +3584,9 @@ exports[`draw function renders a float 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -3542,7 +3604,7 @@ exports[`draw function renders a float 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -3585,6 +3647,8 @@ exports[`draw function renders a float with null value 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -3608,9 +3672,9 @@ exports[`draw function renders a float with null value 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -3628,7 +3692,7 @@ exports[`draw function renders a float with null value 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -3671,6 +3735,8 @@ exports[`draw function renders a float without defining the value 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -3694,9 +3760,9 @@ exports[`draw function renders a float without defining the value 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -3714,7 +3780,7 @@ exports[`draw function renders a float without defining the value 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -3757,6 +3823,8 @@ exports[`draw function renders a list of snapshots 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -3780,9 +3848,9 @@ exports[`draw function renders a list of snapshots 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -3800,7 +3868,7 @@ exports[`draw function renders a list of snapshots 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -3855,6 +3923,8 @@ exports[`draw function renders a list of snapshots 2`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -3878,9 +3948,9 @@ exports[`draw function renders a list of snapshots 2`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -3898,7 +3968,7 @@ exports[`draw function renders a list of snapshots 2`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -3953,6 +4023,8 @@ exports[`draw function renders a list with indexes showing 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -3976,9 +4048,9 @@ exports[`draw function renders a list with indexes showing 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -3996,7 +4068,7 @@ exports[`draw function renders a list with indexes showing 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -4047,6 +4119,8 @@ exports[`draw function renders a list with null and valid values 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -4070,9 +4144,9 @@ exports[`draw function renders a list with null and valid values 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -4090,7 +4164,7 @@ exports[`draw function renders a list with null and valid values 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -4141,6 +4215,8 @@ exports[`draw function renders a list with null values 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -4164,9 +4240,9 @@ exports[`draw function renders a list with null values 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -4184,7 +4260,7 @@ exports[`draw function renders a list with null values 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -4235,6 +4311,8 @@ exports[`draw function renders a list without indexes showing 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -4258,9 +4336,9 @@ exports[`draw function renders a list without indexes showing 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -4278,7 +4356,7 @@ exports[`draw function renders a list without indexes showing 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -4329,6 +4407,8 @@ exports[`draw function renders a set 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -4352,9 +4432,9 @@ exports[`draw function renders a set 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -4372,7 +4452,7 @@ exports[`draw function renders a set 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -4423,6 +4503,8 @@ exports[`draw function renders a set with large width 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -4446,9 +4528,9 @@ exports[`draw function renders a set with large width 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -4466,7 +4548,7 @@ exports[`draw function renders a set with large width 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -4517,6 +4599,8 @@ exports[`draw function renders a set with null and valid values 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -4540,9 +4624,9 @@ exports[`draw function renders a set with null and valid values 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -4560,7 +4644,7 @@ exports[`draw function renders a set with null and valid values 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -4611,6 +4695,8 @@ exports[`draw function renders a set with null values 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -4634,9 +4720,9 @@ exports[`draw function renders a set with null values 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -4654,7 +4740,7 @@ exports[`draw function renders a set with null values 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -4705,6 +4791,8 @@ exports[`draw function renders a stack frame and an int 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -4728,9 +4816,9 @@ exports[`draw function renders a stack frame and an int 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -4748,7 +4836,7 @@ exports[`draw function renders a stack frame and an int 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -4803,6 +4891,8 @@ exports[`draw function renders a stack frame using manual layout 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -4826,9 +4916,9 @@ exports[`draw function renders a stack frame using manual layout 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -4846,7 +4936,7 @@ exports[`draw function renders a stack frame using manual layout 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -4889,6 +4979,8 @@ exports[`draw function renders a str 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -4912,9 +5004,9 @@ exports[`draw function renders a str 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -4932,7 +5024,7 @@ exports[`draw function renders a str 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -4975,6 +5067,8 @@ exports[`draw function renders a str with null value 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -4998,9 +5092,9 @@ exports[`draw function renders a str with null value 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -5018,7 +5112,7 @@ exports[`draw function renders a str with null value 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -5061,6 +5155,8 @@ exports[`draw function renders a str without defining the value 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -5084,9 +5180,9 @@ exports[`draw function renders a str without defining the value 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -5104,7 +5200,7 @@ exports[`draw function renders a str without defining the value 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -5147,6 +5243,8 @@ exports[`draw function renders a tuple with indexes showing 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -5170,9 +5268,9 @@ exports[`draw function renders a tuple with indexes showing 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -5190,7 +5288,7 @@ exports[`draw function renders a tuple with indexes showing 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -5245,6 +5343,8 @@ exports[`draw function renders a tuple with null and valid values 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -5268,9 +5368,9 @@ exports[`draw function renders a tuple with null and valid values 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -5288,7 +5388,7 @@ exports[`draw function renders a tuple with null and valid values 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -5343,6 +5443,8 @@ exports[`draw function renders a tuple with null values 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -5366,9 +5468,9 @@ exports[`draw function renders a tuple with null values 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -5386,7 +5488,7 @@ exports[`draw function renders a tuple with null values 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -5441,6 +5543,8 @@ exports[`draw function renders a tuple without indexes showing 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -5464,9 +5568,9 @@ exports[`draw function renders a tuple without indexes showing 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -5484,7 +5588,7 @@ exports[`draw function renders a tuple without indexes showing 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -5539,6 +5643,8 @@ exports[`draw function renders an appropriately sized box for a string with the 
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -5562,9 +5668,9 @@ exports[`draw function renders an appropriately sized box for a string with the 
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -5582,7 +5688,7 @@ exports[`draw function renders an appropriately sized box for a string with the 
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -5625,6 +5731,8 @@ exports[`draw function renders an appropriately sized box for a very long string
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -5648,9 +5756,9 @@ exports[`draw function renders an appropriately sized box for a very long string
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -5668,7 +5776,7 @@ exports[`draw function renders an appropriately sized box for a very long string
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -5711,6 +5819,8 @@ exports[`draw function renders an empty dict 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -5734,9 +5844,9 @@ exports[`draw function renders an empty dict 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -5754,7 +5864,7 @@ exports[`draw function renders an empty dict 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -5793,6 +5903,8 @@ exports[`draw function renders an empty list 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -5816,9 +5928,9 @@ exports[`draw function renders an empty list 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -5836,7 +5948,7 @@ exports[`draw function renders an empty list 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -5875,6 +5987,8 @@ exports[`draw function renders an empty set 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -5898,9 +6012,9 @@ exports[`draw function renders an empty set 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -5918,7 +6032,7 @@ exports[`draw function renders an empty set 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -5957,6 +6071,8 @@ exports[`draw function renders an empty svg given an empty array 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -5980,9 +6096,9 @@ exports[`draw function renders an empty svg given an empty array 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -6000,7 +6116,7 @@ exports[`draw function renders an empty svg given an empty array 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
 </svg>
@@ -6027,6 +6143,8 @@ exports[`draw function renders an empty tuple 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -6050,9 +6168,9 @@ exports[`draw function renders an empty tuple 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -6070,7 +6188,7 @@ exports[`draw function renders an empty tuple 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -6113,6 +6231,8 @@ exports[`draw function renders an int 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -6136,9 +6256,9 @@ exports[`draw function renders an int 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -6156,7 +6276,7 @@ exports[`draw function renders an int 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -6199,6 +6319,8 @@ exports[`draw function renders an int with null value 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -6222,9 +6344,9 @@ exports[`draw function renders an int with null value 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -6242,7 +6364,7 @@ exports[`draw function renders an int with null value 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -6285,6 +6407,8 @@ exports[`draw function renders an int without defining the value 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -6308,9 +6432,9 @@ exports[`draw function renders an int without defining the value 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -6328,7 +6452,7 @@ exports[`draw function renders an int without defining the value 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -6371,6 +6495,8 @@ exports[`draw function renders an object with defined size 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -6394,9 +6520,9 @@ exports[`draw function renders an object with defined size 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -6414,7 +6540,7 @@ exports[`draw function renders an object with defined size 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -6457,6 +6583,8 @@ exports[`draw function renders an object with no type and no value 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -6480,9 +6608,9 @@ exports[`draw function renders an object with no type and no value 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -6500,7 +6628,7 @@ exports[`draw function renders an object with no type and no value 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -6543,6 +6671,8 @@ exports[`draw function renders blank spaces in automatic layout 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -6566,9 +6696,9 @@ exports[`draw function renders blank spaces in automatic layout 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -6586,7 +6716,7 @@ exports[`draw function renders blank spaces in automatic layout 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -6645,6 +6775,8 @@ exports[`draw function renders combinations of style presets 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -6668,9 +6800,9 @@ exports[`draw function renders combinations of style presets 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -6688,7 +6820,7 @@ exports[`draw function renders combinations of style presets 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -6743,6 +6875,8 @@ exports[`draw function renders custom style (without presets) 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -6766,9 +6900,9 @@ exports[`draw function renders custom style (without presets) 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -6786,7 +6920,7 @@ exports[`draw function renders custom style (without presets) 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -6829,6 +6963,8 @@ exports[`draw function renders custom styles correctly in interactive mode 1`] =
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -6852,9 +6988,9 @@ exports[`draw function renders custom styles correctly in interactive mode 1`] =
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -6872,7 +7008,7 @@ exports[`draw function renders custom styles correctly in interactive mode 1`] =
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <script>
@@ -7052,6 +7188,8 @@ exports[`draw function renders diagrams with provided mix of roughjs_config opti
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -7075,9 +7213,9 @@ exports[`draw function renders diagrams with provided mix of roughjs_config opti
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -7095,7 +7233,7 @@ exports[`draw function renders diagrams with provided mix of roughjs_config opti
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -7138,6 +7276,8 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' and 
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -7161,9 +7301,9 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' and 
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -7181,7 +7321,7 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' and 
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -7224,6 +7364,8 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' opti
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -7247,9 +7389,9 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' opti
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -7267,7 +7409,7 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' opti
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -7310,6 +7452,8 @@ exports[`draw function renders diagrams with provided roughjs_config 'roughness'
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -7333,9 +7477,9 @@ exports[`draw function renders diagrams with provided roughjs_config 'roughness'
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -7353,7 +7497,7 @@ exports[`draw function renders diagrams with provided roughjs_config 'roughness'
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -7396,6 +7540,8 @@ exports[`draw function renders dict with custom styling 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -7419,9 +7565,9 @@ exports[`draw function renders dict with custom styling 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -7439,7 +7585,7 @@ exports[`draw function renders dict with custom styling 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -7502,6 +7648,8 @@ exports[`draw function renders dict with empty string key without 'id' prefix 1`
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -7525,9 +7673,9 @@ exports[`draw function renders dict with empty string key without 'id' prefix 1`
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -7545,7 +7693,7 @@ exports[`draw function renders dict with empty string key without 'id' prefix 1`
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -7600,6 +7748,8 @@ exports[`draw function renders dict with empty/space keys and null values 1`] = 
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -7623,9 +7773,9 @@ exports[`draw function renders dict with empty/space keys and null values 1`] = 
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -7643,7 +7793,7 @@ exports[`draw function renders dict with empty/space keys and null values 1`] = 
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -7706,6 +7856,8 @@ exports[`draw function renders dict with id and box having different colours 1`]
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -7729,9 +7881,9 @@ exports[`draw function renders dict with id and box having different colours 1`]
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -7749,7 +7901,7 @@ exports[`draw function renders dict with id and box having different colours 1`]
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -7812,6 +7964,8 @@ exports[`draw function renders dict with space key without 'id' prefix 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -7835,9 +7989,9 @@ exports[`draw function renders dict with space key without 'id' prefix 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -7855,7 +8009,7 @@ exports[`draw function renders dict with space key without 'id' prefix 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -7910,6 +8064,8 @@ exports[`draw function renders range object 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -7933,9 +8089,9 @@ exports[`draw function renders range object 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -7953,7 +8109,7 @@ exports[`draw function renders range object 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -7992,6 +8148,8 @@ exports[`draw function should produce consistent svg when provided seed 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -8015,9 +8173,9 @@ exports[`draw function should produce consistent svg when provided seed 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -8035,7 +8193,7 @@ exports[`draw function should produce consistent svg when provided seed 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -8122,6 +8280,8 @@ exports[`draw function trims width when not provided width value 1`] = `
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -8145,9 +8305,9 @@ exports[`draw function trims width when not provided width value 1`] = `
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -8165,7 +8325,7 @@ exports[`draw function trims width when not provided width value 1`] = `
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
