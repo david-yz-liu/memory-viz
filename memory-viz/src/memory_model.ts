@@ -1010,8 +1010,8 @@ export class MemoryModel {
         const rectStyle = {
             fillStyle: "solid",
             fill: "none",
+            ...style,
             ...(this.roughjs_config?.options ?? {}),
-            ...(style ?? this.rect_style),
         };
 
         const rectElement = this.rough_svg.rectangle(

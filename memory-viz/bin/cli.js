@@ -73,7 +73,8 @@ program
         "path to a CSS file containing global styles for the SVG",
         parseGlobalStyle
     )
-    .option("-t, --theme <name>", "use themed styling for the generated SVG");
+    .option("-t, --theme <name>", "use themed styling for the generated SVG")
+    .option("--interactive", "enable hover interactivity for object IDs");
 
 program.parse();
 const filePath = program.processedArgs[0];
@@ -111,7 +112,7 @@ function runMemoryViz(jsonContent) {
             roughjs_config: { options: options.roughjsConfig },
             global_style: options.globalStyle,
             theme: options.theme,
-            interactive: true,
+            interactive: options.interactive,
         });
     } catch (err) {
         console.error(`Error: ${err.message}`);

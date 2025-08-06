@@ -245,9 +245,9 @@ function setStyleSheet(
             text-anchor: start;
         }
         text.id { 
+            cursor: pointer;
             fill: ${config.id_color};
             text-anchor: middle;
-            cursor: pointer;
         }
         text.type {
             fill: ${config.value_color};
