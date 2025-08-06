@@ -21,6 +21,8 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -44,9 +46,9 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -64,7 +66,7 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -107,6 +109,8 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -130,9 +134,9 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -150,7 +154,7 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -193,6 +197,8 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -216,9 +222,9 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -236,7 +242,7 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -279,6 +285,8 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -302,9 +310,9 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -322,7 +330,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -365,6 +373,8 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -388,9 +398,9 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -408,7 +418,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -451,6 +461,8 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -474,9 +486,9 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -494,7 +506,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
 
 
@@ -547,6 +559,8 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -570,9 +584,9 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -590,7 +604,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
 
     [data-theme="high-contrast"] {
@@ -607,6 +621,8 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       --fade-box-line-color: #FFFFFF;
 
       --hide-box-fill: #000000;
+
+      --highlight-object-fill: rgba(0, 0, 255, 0.5);
     }
 
     [data-theme="high-contrast"] text.default,
@@ -668,6 +684,8 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -691,9 +709,9 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -711,11 +729,11 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
-    <path d="M50.03387502096594 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
+    <path d="M50.03387502096594 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="red" />
     <path d="M49.81817888477056 24.85845511179509 C110.45594630973169 24.97255914668736, 170.911066098717 25.26880965570801, 286.04449362503465 24.89618364775549 M50.03755225183211 25.0788967959222 C141.74563796326757 25.038200955815185, 233.8993380465523 25.27188437623119, 286.0789972299494 24.918044263283495 M285.92277866341175 24.848861547932028 C286.6073926393874 59.483614976145326, 286.0095053021796 94.24023997113109, 285.86240522600707 154.96266458891333 M286.3662653012201 25.192355196364225 C286.2111821493692 69.89683146812021, 286.1103734871931 114.68897119965405, 286.37893330883236 155.08975064624101 M286.3403680669202 155.18158384120966 C220.94531906216463 155.3384459296601, 155.48301085266766 155.03412735327402, 49.84159617049045 154.74855912044984 M286.0990844668116 154.93758680735786 C229.18053557377957 155.53734367201713, 172.37292540460453 155.3311724371873, 49.888205920185975 155.0954441452316 M50.028428158536556 155.25564071796833 C50.24258446125314 121.09422902893274, 50.4645724597387 86.7434340238571, 50.355024478212 24.78658777140081 M50.135622064583 154.81267948616295 C49.61699069669471 116.53043805956841, 49.86538132956252 78.29949534665792, 50.18846608232707 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g>
   <g>
@@ -754,6 +772,8 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -777,9 +797,9 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -797,7 +817,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
 
 
@@ -850,6 +870,8 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -873,9 +895,9 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -893,7 +915,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -936,6 +958,8 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -959,9 +983,9 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -979,7 +1003,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
 
     [data-theme="dark"] {
@@ -996,6 +1020,8 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       --fade-box-line-color: #666666;
 
       --hide-box-fill: #121212;
+
+      --highlight-object-fill: rgba(72, 207, 173, 0.3);
     }
 
     [data-theme="dark"] text.default,
@@ -1057,6 +1083,8 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1080,9 +1108,9 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -1100,7 +1128,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -1143,6 +1171,8 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1166,9 +1196,9 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -1186,7 +1216,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
 
 
@@ -1237,6 +1267,8 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1260,9 +1292,9 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -1280,7 +1312,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -1323,6 +1355,8 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1346,9 +1380,9 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -1366,7 +1400,7 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
@@ -1409,6 +1443,8 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
       --primitive-value-color: rgb(27, 14, 139);
       --id-text-color: rgb(150, 100, 28);
       --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
     text {
@@ -1432,9 +1468,9 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
     }
 
     text.id {
+      cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
-      cursor: pointer;
     }
 
     text.type {
@@ -1452,7 +1488,7 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
     }
 
     .highlighted path {
-      fill: rgba(255, 255, 0, 0.6) !important;
+      fill: var(--highlight-object-fill) !important;
     }
   </style>
   <g id="object-0">
