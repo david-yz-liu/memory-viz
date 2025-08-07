@@ -1603,7 +1603,7 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
-    it("interactive highlighting works with different themes", () => {
+    it("works at highlighting interactively with different themes", () => {
         const objects: DrawnEntity[] = [
             { type: "str", id: 42, value: "themed" },
             { type: "int", id: 99, value: 5 },
