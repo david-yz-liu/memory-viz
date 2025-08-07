@@ -101,8 +101,6 @@ export class MemoryModel {
         this.roughjs_config = options.roughjs_config ?? {};
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
 
-        setStyleSheet(this, options.global_style ?? "", options.theme);
-
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
             (this as { [key: string]: any })[key] = options.hasOwnProperty(key)
@@ -112,6 +110,8 @@ export class MemoryModel {
 
         this.objectCounter = 0;
         this.idToObjectMap = new Map();
+
+        setStyleSheet(this, options.global_style ?? "", options.theme);
     }
 
     /**

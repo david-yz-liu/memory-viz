@@ -211,6 +211,8 @@ function setStyleSheet(
     global_style?: string,
     theme?: string
 ) {
+    const interactiveCursor = memory_model.interactive ? "pointer" : "auto";
+
     const styles = `
         :root {               
         --fade-text-color: ${config.text_color};
@@ -251,7 +253,7 @@ function setStyleSheet(
             text-anchor: start;
         }
         text.id { 
-            cursor: pointer;
+            cursor: ${interactiveCursor};
             fill: ${config.id_color};
             text-anchor: middle;
         }

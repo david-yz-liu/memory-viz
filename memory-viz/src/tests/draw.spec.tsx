@@ -1513,6 +1513,7 @@ describe("draw function", () => {
 
         expect(nonInteractiveSvg).not.toContain("<script>");
         expect(nonInteractiveSvg).not.toContain("enableInteractivity");
+        expect(nonInteractiveSvg).not.toContain("cursor: pointer");
 
         expect(interactiveSvg).toMatchSnapshot();
         expect(nonInteractiveSvg).toMatchSnapshot();
