@@ -69,6 +69,65 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
       fill: var(--highlight-object-fill) !important;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M49.843418531864884 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 154.76915388777851 L50.02731695696711 155.2168297596276" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.97700984417455 24.90491429391293 C98.45356964476898 25.592952625513313, 146.90039127504454 25.19380388454705, 285.98239894530747 24.68799300106102 M50.09180494428715 24.918502164863508 C132.13283649123568 24.95394683201722, 214.44019227325376 25.125903229265123, 286.33738632895177 24.995766174708777 M285.85860744193195 24.839829497784375 C285.6108726218715 76.7476857740432, 285.88193029914055 128.6928032502532, 286.5871857471764 155.24320195242763 M286.2668587591499 25.13916292525828 C285.99199180010703 50.96997084096074, 286.1995577872172 77.23471773676575, 286.0172056462616 154.93375069238246 M286.3943232789997 154.76739611544275 C206.1907872589835 154.86601806269866, 125.73632970161717 155.08273508699705, 50.03147674076057 155.0087371893848 M286.3362927895418 154.93865606826338 C221.07346407099843 155.18896853104008, 155.6178452342903 155.0232173616322, 49.943568442087766 155.10678731464137 M50.154903227835895 154.73371086642146 C50.21252727624029 113.04486663602293, 49.84796941395849 71.12155508995055, 50.056322414427996 25.339266853779556 M49.99176651500166 155.1614456448704 C49.89525366704911 117.62324508428574, 49.98948728721589 80.18961338661612, 50.17477255128324 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -85,6 +144,67 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
     <path d="M226.04341853186486 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 74.76915388777851 L226.22731695696712 75.21682975962759" stroke="none" stroke-width="0" fill="none" />
     <path d="M226.17261889651417 24.88675363585353 C238.41760956197976 25.381302431896327, 250.62718228921293 24.905919269397852, 285.94083877280354 24.628401999920605 M226.30933900140224 24.902936688438057 C246.95096010752022 24.85255611076951, 267.9097713839263 25.057354892641307, 286.36362608931955 24.994957545772195 M285.85860744193195 24.839829497784375 C285.73322026971726 44.920006989315155, 286.0042779469863 65.0374456807971, 286.5871857471764 75.24320195242763 M286.2668587591499 25.13916292525828 C286.0791138568893 34.9410581625998, 286.2866798439995 45.17689238004387, 286.0172056462616 74.93375069238246 M286.4314375706017 74.72297051474452 C266.11955742836 74.93003000937402, 245.50883161351084 75.18813836298882, 226.23748856261372 75.01040592715144 M286.36232369206846 74.92693983651698 C269.74520560242235 75.13958051741123, 252.89847592525183 74.94217211544515, 226.1327904369682 75.12718289233744 M226.35490322783588 74.73371086642146 C226.50157697107642 58.86070746146142, 226.13701910879462 42.75323674082755, 226.25632241442798 25.339266853779556 M226.19176651500163 75.1614456448704 C226.12446589600293 60.62922094166279, 226.21869951616972 46.201565101370214, 226.37477255128323 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -157,6 +277,65 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
       fill: var(--highlight-object-fill) !important;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M49.843418531864884 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 154.76915388777851 L50.02731695696711 155.2168297596276" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.97700984417455 24.90491429391293 C98.45356964476898 25.592952625513313, 146.90039127504454 25.19380388454705, 285.98239894530747 24.68799300106102 M50.09180494428715 24.918502164863508 C132.13283649123568 24.95394683201722, 214.44019227325376 25.125903229265123, 286.33738632895177 24.995766174708777 M285.85860744193195 24.839829497784375 C285.6108726218715 76.7476857740432, 285.88193029914055 128.6928032502532, 286.5871857471764 155.24320195242763 M286.2668587591499 25.13916292525828 C285.99199180010703 50.96997084096074, 286.1995577872172 77.23471773676575, 286.0172056462616 154.93375069238246 M286.3943232789997 154.76739611544275 C206.1907872589835 154.86601806269866, 125.73632970161717 155.08273508699705, 50.03147674076057 155.0087371893848 M286.3362927895418 154.93865606826338 C221.07346407099843 155.18896853104008, 155.6178452342903 155.0232173616322, 49.943568442087766 155.10678731464137 M50.154903227835895 154.73371086642146 C50.21252727624029 113.04486663602293, 49.84796941395849 71.12155508995055, 50.056322414427996 25.339266853779556 M49.99176651500166 155.1614456448704 C49.89525366704911 117.62324508428574, 49.98948728721589 80.18961338661612, 50.17477255128324 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -173,6 +352,67 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
     <path d="M226.04341853186486 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 74.76915388777851 L226.22731695696712 75.21682975962759" stroke="none" stroke-width="0" fill="none" />
     <path d="M226.17261889651417 24.88675363585353 C238.41760956197976 25.381302431896327, 250.62718228921293 24.905919269397852, 285.94083877280354 24.628401999920605 M226.30933900140224 24.902936688438057 C246.95096010752022 24.85255611076951, 267.9097713839263 25.057354892641307, 286.36362608931955 24.994957545772195 M285.85860744193195 24.839829497784375 C285.73322026971726 44.920006989315155, 286.0042779469863 65.0374456807971, 286.5871857471764 75.24320195242763 M286.2668587591499 25.13916292525828 C286.0791138568893 34.9410581625998, 286.2866798439995 45.17689238004387, 286.0172056462616 74.93375069238246 M286.4314375706017 74.72297051474452 C266.11955742836 74.93003000937402, 245.50883161351084 75.18813836298882, 226.23748856261372 75.01040592715144 M286.36232369206846 74.92693983651698 C269.74520560242235 75.13958051741123, 252.89847592525183 74.94217211544515, 226.1327904369682 75.12718289233744 M226.35490322783588 74.73371086642146 C226.50157697107642 58.86070746146142, 226.13701910879462 42.75323674082755, 226.25632241442798 25.339266853779556 M226.19176651500163 75.1614456448704 C226.12446589600293 60.62922094166279, 226.21869951616972 46.201565101370214, 226.37477255128323 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -245,6 +485,65 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
       fill: var(--highlight-object-fill) !important;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M49.843418531864884 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 154.76915388777851 L50.02731695696711 155.2168297596276" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.97700984417455 24.90491429391293 C98.45356964476898 25.592952625513313, 146.90039127504454 25.19380388454705, 285.98239894530747 24.68799300106102 M50.09180494428715 24.918502164863508 C132.13283649123568 24.95394683201722, 214.44019227325376 25.125903229265123, 286.33738632895177 24.995766174708777 M285.85860744193195 24.839829497784375 C285.6108726218715 76.7476857740432, 285.88193029914055 128.6928032502532, 286.5871857471764 155.24320195242763 M286.2668587591499 25.13916292525828 C285.99199180010703 50.96997084096074, 286.1995577872172 77.23471773676575, 286.0172056462616 154.93375069238246 M286.3943232789997 154.76739611544275 C206.1907872589835 154.86601806269866, 125.73632970161717 155.08273508699705, 50.03147674076057 155.0087371893848 M286.3362927895418 154.93865606826338 C221.07346407099843 155.18896853104008, 155.6178452342903 155.0232173616322, 49.943568442087766 155.10678731464137 M50.154903227835895 154.73371086642146 C50.21252727624029 113.04486663602293, 49.84796941395849 71.12155508995055, 50.056322414427996 25.339266853779556 M49.99176651500166 155.1614456448704 C49.89525366704911 117.62324508428574, 49.98948728721589 80.18961338661612, 50.17477255128324 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -261,6 +560,67 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
     <path d="M226.04341853186486 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 74.76915388777851 L226.22731695696712 75.21682975962759" stroke="none" stroke-width="0" fill="none" />
     <path d="M226.17261889651417 24.88675363585353 C238.41760956197976 25.381302431896327, 250.62718228921293 24.905919269397852, 285.94083877280354 24.628401999920605 M226.30933900140224 24.902936688438057 C246.95096010752022 24.85255611076951, 267.9097713839263 25.057354892641307, 286.36362608931955 24.994957545772195 M285.85860744193195 24.839829497784375 C285.73322026971726 44.920006989315155, 286.0042779469863 65.0374456807971, 286.5871857471764 75.24320195242763 M286.2668587591499 25.13916292525828 C286.0791138568893 34.9410581625998, 286.2866798439995 45.17689238004387, 286.0172056462616 74.93375069238246 M286.4314375706017 74.72297051474452 C266.11955742836 74.93003000937402, 245.50883161351084 75.18813836298882, 226.23748856261372 75.01040592715144 M286.36232369206846 74.92693983651698 C269.74520560242235 75.13958051741123, 252.89847592525183 74.94217211544515, 226.1327904369682 75.12718289233744 M226.35490322783588 74.73371086642146 C226.50157697107642 58.86070746146142, 226.13701910879462 42.75323674082755, 226.25632241442798 25.339266853779556 M226.19176651500163 75.1614456448704 C226.12446589600293 60.62922094166279, 226.21869951616972 46.201565101370214, 226.37477255128323 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -333,6 +693,65 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
       fill: var(--highlight-object-fill) !important;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M50.03387502096594 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.81817888477056 24.85845511179509 C110.45594630973169 24.97255914668736, 170.911066098717 25.26880965570801, 286.04449362503465 24.89618364775549 M50.03755225183211 25.0788967959222 C141.74563796326757 25.038200955815185, 233.8993380465523 25.27188437623119, 286.0789972299494 24.918044263283495 M285.92277866341175 24.848861547932028 C286.6073926393874 59.483614976145326, 286.0095053021796 94.24023997113109, 285.86240522600707 154.96266458891333 M286.3662653012201 25.192355196364225 C286.2111821493692 69.89683146812021, 286.1103734871931 114.68897119965405, 286.37893330883236 155.08975064624101 M286.3403680669202 155.18158384120966 C220.94531906216463 155.3384459296601, 155.48301085266766 155.03412735327402, 49.84159617049045 154.74855912044984 M286.0990844668116 154.93758680735786 C229.18053557377957 155.53734367201713, 172.37292540460453 155.3311724371873, 49.888205920185975 155.0954441452316 M50.028428158536556 155.25564071796833 C50.24258446125314 121.09422902893274, 50.4645724597387 86.7434340238571, 50.355024478212 24.78658777140081 M50.135622064583 154.81267948616295 C49.61699069669471 116.53043805956841, 49.86538132956252 78.29949534665792, 50.18846608232707 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -349,6 +768,67 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
     <path d="M226.2338750209659 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 74.9256116244942 L226.59872595928607 74.70078069902956" stroke="none" stroke-width="0" fill="none" />
     <path d="M225.98345241285858 24.83142109774053 C241.6576904721558 24.894601719416677, 257.1143965642899 25.247433857955038, 286.0147930715233 24.876355501636862 M226.24472445081918 25.09396549332887 C249.35462117288262 24.880231108143928, 272.9952412759885 25.15854631252587, 286.0558866066858 24.902391331084072 M285.92277866341175 24.848861547932028 C286.60024653943253 38.20590460542589, 286.00235920222474 51.68481922969222, 285.86240522600707 74.96266458891333 M286.3662653012201 25.192355196364225 C286.19056771742174 42.24940276928246, 286.0897590552456 59.39411380197853, 286.37893330883236 75.08975064624101 M286.36717731691897 75.21626499556005 C269.72425968647 75.26082695763557, 253.0012368466705 74.89838581126183, 226.01134222485123 74.70053579472005 M286.0798103554174 74.92566635478288 C271.59040774870664 75.28829942256212, 257.2331323316321 75.04275102525949, 226.06685408782212 75.11367326248437 M226.22842815853653 75.25564071796835 C226.31366913123054 61.97636435311288, 226.53565712971613 48.50770467221737, 226.55502447821198 24.78658777140081 M226.335622064583 74.81267948616296 C225.9612896970473 60.09670382887125, 226.20968032991513 45.432026885263625, 226.38846608232706 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -421,6 +901,65 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
       fill: var(--highlight-object-fill) !important;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M49.843418531864884 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 154.76915388777851 L50.02731695696711 155.2168297596276" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.97700984417455 24.90491429391293 C98.45356964476898 25.592952625513313, 146.90039127504454 25.19380388454705, 285.98239894530747 24.68799300106102 M50.09180494428715 24.918502164863508 C132.13283649123568 24.95394683201722, 214.44019227325376 25.125903229265123, 286.33738632895177 24.995766174708777 M285.85860744193195 24.839829497784375 C285.6108726218715 76.7476857740432, 285.88193029914055 128.6928032502532, 286.5871857471764 155.24320195242763 M286.2668587591499 25.13916292525828 C285.99199180010703 50.96997084096074, 286.1995577872172 77.23471773676575, 286.0172056462616 154.93375069238246 M286.3943232789997 154.76739611544275 C206.1907872589835 154.86601806269866, 125.73632970161717 155.08273508699705, 50.03147674076057 155.0087371893848 M286.3362927895418 154.93865606826338 C221.07346407099843 155.18896853104008, 155.6178452342903 155.0232173616322, 49.943568442087766 155.10678731464137 M50.154903227835895 154.73371086642146 C50.21252727624029 113.04486663602293, 49.84796941395849 71.12155508995055, 50.056322414427996 25.339266853779556 M49.99176651500166 155.1614456448704 C49.89525366704911 117.62324508428574, 49.98948728721589 80.18961338661612, 50.17477255128324 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -437,6 +976,67 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
     <path d="M226.04341853186486 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 74.76915388777851 L226.22731695696712 75.21682975962759" stroke="none" stroke-width="0" fill="none" />
     <path d="M226.17261889651417 24.88675363585353 C238.41760956197976 25.381302431896327, 250.62718228921293 24.905919269397852, 285.94083877280354 24.628401999920605 M226.30933900140224 24.902936688438057 C246.95096010752022 24.85255611076951, 267.9097713839263 25.057354892641307, 286.36362608931955 24.994957545772195 M285.85860744193195 24.839829497784375 C285.73322026971726 44.920006989315155, 286.0042779469863 65.0374456807971, 286.5871857471764 75.24320195242763 M286.2668587591499 25.13916292525828 C286.0791138568893 34.9410581625998, 286.2866798439995 45.17689238004387, 286.0172056462616 74.93375069238246 M286.4314375706017 74.72297051474452 C266.11955742836 74.93003000937402, 245.50883161351084 75.18813836298882, 226.23748856261372 75.01040592715144 M286.36232369206846 74.92693983651698 C269.74520560242235 75.13958051741123, 252.89847592525183 74.94217211544515, 226.1327904369682 75.12718289233744 M226.35490322783588 74.73371086642146 C226.50157697107642 58.86070746146142, 226.13701910879462 42.75323674082755, 226.25632241442798 25.339266853779556 M226.19176651500163 75.1614456448704 C226.12446589600293 60.62922094166279, 226.21869951616972 46.201565101370214, 226.37477255128323 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -519,6 +1119,65 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       font-size: 20px;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M50.03387502096594 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.81817888477056 24.85845511179509 C110.45594630973169 24.97255914668736, 170.911066098717 25.26880965570801, 286.04449362503465 24.89618364775549 M50.03755225183211 25.0788967959222 C141.74563796326757 25.038200955815185, 233.8993380465523 25.27188437623119, 286.0789972299494 24.918044263283495 M285.92277866341175 24.848861547932028 C286.6073926393874 59.483614976145326, 286.0095053021796 94.24023997113109, 285.86240522600707 154.96266458891333 M286.3662653012201 25.192355196364225 C286.2111821493692 69.89683146812021, 286.1103734871931 114.68897119965405, 286.37893330883236 155.08975064624101 M286.3403680669202 155.18158384120966 C220.94531906216463 155.3384459296601, 155.48301085266766 155.03412735327402, 49.84159617049045 154.74855912044984 M286.0990844668116 154.93758680735786 C229.18053557377957 155.53734367201713, 172.37292540460453 155.3311724371873, 49.888205920185975 155.0954441452316 M50.028428158536556 155.25564071796833 C50.24258446125314 121.09422902893274, 50.4645724597387 86.7434340238571, 50.355024478212 24.78658777140081 M50.135622064583 154.81267948616295 C49.61699069669471 116.53043805956841, 49.86538132956252 78.29949534665792, 50.18846608232707 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -535,6 +1194,67 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     <path d="M226.2338750209659 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 74.9256116244942 L226.59872595928607 74.70078069902956" stroke="none" stroke-width="0" fill="none" />
     <path d="M225.98345241285858 24.83142109774053 C241.6576904721558 24.894601719416677, 257.1143965642899 25.247433857955038, 286.0147930715233 24.876355501636862 M226.24472445081918 25.09396549332887 C249.35462117288262 24.880231108143928, 272.9952412759885 25.15854631252587, 286.0558866066858 24.902391331084072 M285.92277866341175 24.848861547932028 C286.60024653943253 38.20590460542589, 286.00235920222474 51.68481922969222, 285.86240522600707 74.96266458891333 M286.3662653012201 25.192355196364225 C286.19056771742174 42.24940276928246, 286.0897590552456 59.39411380197853, 286.37893330883236 75.08975064624101 M286.36717731691897 75.21626499556005 C269.72425968647 75.26082695763557, 253.0012368466705 74.89838581126183, 226.01134222485123 74.70053579472005 M286.0798103554174 74.92566635478288 C271.59040774870664 75.28829942256212, 257.2331323316321 75.04275102525949, 226.06685408782212 75.11367326248437 M226.22842815853653 75.25564071796835 C226.31366913123054 61.97636435311288, 226.53565712971613 48.50770467221737, 226.55502447821198 24.78658777140081 M226.335622064583 74.81267948616296 C225.9612896970473 60.09670382887125, 226.20968032991513 45.432026885263625, 226.38846608232706 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -644,6 +1364,65 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       stroke: rgb(255, 255, 255);
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M50.03387502096594 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.81817888477056 24.85845511179509 C110.45594630973169 24.97255914668736, 170.911066098717 25.26880965570801, 286.04449362503465 24.89618364775549 M50.03755225183211 25.0788967959222 C141.74563796326757 25.038200955815185, 233.8993380465523 25.27188437623119, 286.0789972299494 24.918044263283495 M285.92277866341175 24.848861547932028 C286.6073926393874 59.483614976145326, 286.0095053021796 94.24023997113109, 285.86240522600707 154.96266458891333 M286.3662653012201 25.192355196364225 C286.2111821493692 69.89683146812021, 286.1103734871931 114.68897119965405, 286.37893330883236 155.08975064624101 M286.3403680669202 155.18158384120966 C220.94531906216463 155.3384459296601, 155.48301085266766 155.03412735327402, 49.84159617049045 154.74855912044984 M286.0990844668116 154.93758680735786 C229.18053557377957 155.53734367201713, 172.37292540460453 155.3311724371873, 49.888205920185975 155.0954441452316 M50.028428158536556 155.25564071796833 C50.24258446125314 121.09422902893274, 50.4645724597387 86.7434340238571, 50.355024478212 24.78658777140081 M50.135622064583 154.81267948616295 C49.61699069669471 116.53043805956841, 49.86538132956252 78.29949534665792, 50.18846608232707 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -660,6 +1439,67 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     <path d="M226.2338750209659 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 74.9256116244942 L226.59872595928607 74.70078069902956" stroke="none" stroke-width="0" fill="none" />
     <path d="M225.98345241285858 24.83142109774053 C241.6576904721558 24.894601719416677, 257.1143965642899 25.247433857955038, 286.0147930715233 24.876355501636862 M226.24472445081918 25.09396549332887 C249.35462117288262 24.880231108143928, 272.9952412759885 25.15854631252587, 286.0558866066858 24.902391331084072 M285.92277866341175 24.848861547932028 C286.60024653943253 38.20590460542589, 286.00235920222474 51.68481922969222, 285.86240522600707 74.96266458891333 M286.3662653012201 25.192355196364225 C286.19056771742174 42.24940276928246, 286.0897590552456 59.39411380197853, 286.37893330883236 75.08975064624101 M286.36717731691897 75.21626499556005 C269.72425968647 75.26082695763557, 253.0012368466705 74.89838581126183, 226.01134222485123 74.70053579472005 M286.0798103554174 74.92566635478288 C271.59040774870664 75.28829942256212, 257.2331323316321 75.04275102525949, 226.06685408782212 75.11367326248437 M226.22842815853653 75.25564071796835 C226.31366913123054 61.97636435311288, 226.53565712971613 48.50770467221737, 226.55502447821198 24.78658777140081 M226.335622064583 74.81267948616296 C225.9612896970473 60.09670382887125, 226.20968032991513 45.432026885263625, 226.38846608232706 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -732,6 +1572,65 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       fill: var(--highlight-object-fill) !important;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M50.03387502096594 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="red" />
     <path d="M49.81817888477056 24.85845511179509 C110.45594630973169 24.97255914668736, 170.911066098717 25.26880965570801, 286.04449362503465 24.89618364775549 M50.03755225183211 25.0788967959222 C141.74563796326757 25.038200955815185, 233.8993380465523 25.27188437623119, 286.0789972299494 24.918044263283495 M285.92277866341175 24.848861547932028 C286.6073926393874 59.483614976145326, 286.0095053021796 94.24023997113109, 285.86240522600707 154.96266458891333 M286.3662653012201 25.192355196364225 C286.2111821493692 69.89683146812021, 286.1103734871931 114.68897119965405, 286.37893330883236 155.08975064624101 M286.3403680669202 155.18158384120966 C220.94531906216463 155.3384459296601, 155.48301085266766 155.03412735327402, 49.84159617049045 154.74855912044984 M286.0990844668116 154.93758680735786 C229.18053557377957 155.53734367201713, 172.37292540460453 155.3311724371873, 49.888205920185975 155.0954441452316 M50.028428158536556 155.25564071796833 C50.24258446125314 121.09422902893274, 50.4645724597387 86.7434340238571, 50.355024478212 24.78658777140081 M50.135622064583 154.81267948616295 C49.61699069669471 116.53043805956841, 49.86538132956252 78.29949534665792, 50.18846608232707 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -748,6 +1647,67 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     <path d="M226.2338750209659 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 74.9256116244942 L226.59872595928607 74.70078069902956" stroke="none" stroke-width="0" fill="red" />
     <path d="M225.98345241285858 24.83142109774053 C241.6576904721558 24.894601719416677, 257.1143965642899 25.247433857955038, 286.0147930715233 24.876355501636862 M226.24472445081918 25.09396549332887 C249.35462117288262 24.880231108143928, 272.9952412759885 25.15854631252587, 286.0558866066858 24.902391331084072 M285.92277866341175 24.848861547932028 C286.60024653943253 38.20590460542589, 286.00235920222474 51.68481922969222, 285.86240522600707 74.96266458891333 M286.3662653012201 25.192355196364225 C286.19056771742174 42.24940276928246, 286.0897590552456 59.39411380197853, 286.37893330883236 75.08975064624101 M286.36717731691897 75.21626499556005 C269.72425968647 75.26082695763557, 253.0012368466705 74.89838581126183, 226.01134222485123 74.70053579472005 M286.0798103554174 74.92566635478288 C271.59040774870664 75.28829942256212, 257.2331323316321 75.04275102525949, 226.06685408782212 75.11367326248437 M226.22842815853653 75.25564071796835 C226.31366913123054 61.97636435311288, 226.53565712971613 48.50770467221737, 226.55502447821198 24.78658777140081 M226.335622064583 74.81267948616296 C225.9612896970473 60.09670382887125, 226.20968032991513 45.432026885263625, 226.38846608232706 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -830,6 +1790,65 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       font-size: 20px;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M50.03387502096594 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.81817888477056 24.85845511179509 C110.45594630973169 24.97255914668736, 170.911066098717 25.26880965570801, 286.04449362503465 24.89618364775549 M50.03755225183211 25.0788967959222 C141.74563796326757 25.038200955815185, 233.8993380465523 25.27188437623119, 286.0789972299494 24.918044263283495 M285.92277866341175 24.848861547932028 C286.6073926393874 59.483614976145326, 286.0095053021796 94.24023997113109, 285.86240522600707 154.96266458891333 M286.3662653012201 25.192355196364225 C286.2111821493692 69.89683146812021, 286.1103734871931 114.68897119965405, 286.37893330883236 155.08975064624101 M286.3403680669202 155.18158384120966 C220.94531906216463 155.3384459296601, 155.48301085266766 155.03412735327402, 49.84159617049045 154.74855912044984 M286.0990844668116 154.93758680735786 C229.18053557377957 155.53734367201713, 172.37292540460453 155.3311724371873, 49.888205920185975 155.0954441452316 M50.028428158536556 155.25564071796833 C50.24258446125314 121.09422902893274, 50.4645724597387 86.7434340238571, 50.355024478212 24.78658777140081 M50.135622064583 154.81267948616295 C49.61699069669471 116.53043805956841, 49.86538132956252 78.29949534665792, 50.18846608232707 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -846,6 +1865,67 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     <path d="M226.2338750209659 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 74.9256116244942 L226.59872595928607 74.70078069902956" stroke="none" stroke-width="0" fill="none" />
     <path d="M225.98345241285858 24.83142109774053 C241.6576904721558 24.894601719416677, 257.1143965642899 25.247433857955038, 286.0147930715233 24.876355501636862 M226.24472445081918 25.09396549332887 C249.35462117288262 24.880231108143928, 272.9952412759885 25.15854631252587, 286.0558866066858 24.902391331084072 M285.92277866341175 24.848861547932028 C286.60024653943253 38.20590460542589, 286.00235920222474 51.68481922969222, 285.86240522600707 74.96266458891333 M286.3662653012201 25.192355196364225 C286.19056771742174 42.24940276928246, 286.0897590552456 59.39411380197853, 286.37893330883236 75.08975064624101 M286.36717731691897 75.21626499556005 C269.72425968647 75.26082695763557, 253.0012368466705 74.89838581126183, 226.01134222485123 74.70053579472005 M286.0798103554174 74.92566635478288 C271.59040774870664 75.28829942256212, 257.2331323316321 75.04275102525949, 226.06685408782212 75.11367326248437 M226.22842815853653 75.25564071796835 C226.31366913123054 61.97636435311288, 226.53565712971613 48.50770467221737, 226.55502447821198 24.78658777140081 M226.335622064583 74.81267948616296 C225.9612896970473 60.09670382887125, 226.20968032991513 45.432026885263625, 226.38846608232706 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -918,6 +1998,65 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       fill: var(--highlight-object-fill) !important;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M50.03387502096594 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.81817888477056 24.85845511179509 C110.45594630973169 24.97255914668736, 170.911066098717 25.26880965570801, 286.04449362503465 24.89618364775549 M50.03755225183211 25.0788967959222 C141.74563796326757 25.038200955815185, 233.8993380465523 25.27188437623119, 286.0789972299494 24.918044263283495 M285.92277866341175 24.848861547932028 C286.6073926393874 59.483614976145326, 286.0095053021796 94.24023997113109, 285.86240522600707 154.96266458891333 M286.3662653012201 25.192355196364225 C286.2111821493692 69.89683146812021, 286.1103734871931 114.68897119965405, 286.37893330883236 155.08975064624101 M286.3403680669202 155.18158384120966 C220.94531906216463 155.3384459296601, 155.48301085266766 155.03412735327402, 49.84159617049045 154.74855912044984 M286.0990844668116 154.93758680735786 C229.18053557377957 155.53734367201713, 172.37292540460453 155.3311724371873, 49.888205920185975 155.0954441452316 M50.028428158536556 155.25564071796833 C50.24258446125314 121.09422902893274, 50.4645724597387 86.7434340238571, 50.355024478212 24.78658777140081 M50.135622064583 154.81267948616295 C49.61699069669471 116.53043805956841, 49.86538132956252 78.29949534665792, 50.18846608232707 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -934,6 +2073,67 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     <path d="M226.2338750209659 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 74.9256116244942 L226.59872595928607 74.70078069902956" stroke="none" stroke-width="0" fill="none" />
     <path d="M225.98345241285858 24.83142109774053 C241.6576904721558 24.894601719416677, 257.1143965642899 25.247433857955038, 286.0147930715233 24.876355501636862 M226.24472445081918 25.09396549332887 C249.35462117288262 24.880231108143928, 272.9952412759885 25.15854631252587, 286.0558866066858 24.902391331084072 M285.92277866341175 24.848861547932028 C286.60024653943253 38.20590460542589, 286.00235920222474 51.68481922969222, 285.86240522600707 74.96266458891333 M286.3662653012201 25.192355196364225 C286.19056771742174 42.24940276928246, 286.0897590552456 59.39411380197853, 286.37893330883236 75.08975064624101 M286.36717731691897 75.21626499556005 C269.72425968647 75.26082695763557, 253.0012368466705 74.89838581126183, 226.01134222485123 74.70053579472005 M286.0798103554174 74.92566635478288 C271.59040774870664 75.28829942256212, 257.2331323316321 75.04275102525949, 226.06685408782212 75.11367326248437 M226.22842815853653 75.25564071796835 C226.31366913123054 61.97636435311288, 226.53565712971613 48.50770467221737, 226.55502447821198 24.78658777140081 M226.335622064583 74.81267948616296 C225.9612896970473 60.09670382887125, 226.20968032991513 45.432026885263625, 226.38846608232706 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -1043,6 +2243,65 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       stroke: rgb(204, 204, 204);
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M50.03387502096594 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.81817888477056 24.85845511179509 C110.45594630973169 24.97255914668736, 170.911066098717 25.26880965570801, 286.04449362503465 24.89618364775549 M50.03755225183211 25.0788967959222 C141.74563796326757 25.038200955815185, 233.8993380465523 25.27188437623119, 286.0789972299494 24.918044263283495 M285.92277866341175 24.848861547932028 C286.6073926393874 59.483614976145326, 286.0095053021796 94.24023997113109, 285.86240522600707 154.96266458891333 M286.3662653012201 25.192355196364225 C286.2111821493692 69.89683146812021, 286.1103734871931 114.68897119965405, 286.37893330883236 155.08975064624101 M286.3403680669202 155.18158384120966 C220.94531906216463 155.3384459296601, 155.48301085266766 155.03412735327402, 49.84159617049045 154.74855912044984 M286.0990844668116 154.93758680735786 C229.18053557377957 155.53734367201713, 172.37292540460453 155.3311724371873, 49.888205920185975 155.0954441452316 M50.028428158536556 155.25564071796833 C50.24258446125314 121.09422902893274, 50.4645724597387 86.7434340238571, 50.355024478212 24.78658777140081 M50.135622064583 154.81267948616295 C49.61699069669471 116.53043805956841, 49.86538132956252 78.29949534665792, 50.18846608232707 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -1059,6 +2318,67 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     <path d="M226.2338750209659 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 74.9256116244942 L226.59872595928607 74.70078069902956" stroke="none" stroke-width="0" fill="none" />
     <path d="M225.98345241285858 24.83142109774053 C241.6576904721558 24.894601719416677, 257.1143965642899 25.247433857955038, 286.0147930715233 24.876355501636862 M226.24472445081918 25.09396549332887 C249.35462117288262 24.880231108143928, 272.9952412759885 25.15854631252587, 286.0558866066858 24.902391331084072 M285.92277866341175 24.848861547932028 C286.60024653943253 38.20590460542589, 286.00235920222474 51.68481922969222, 285.86240522600707 74.96266458891333 M286.3662653012201 25.192355196364225 C286.19056771742174 42.24940276928246, 286.0897590552456 59.39411380197853, 286.37893330883236 75.08975064624101 M286.36717731691897 75.21626499556005 C269.72425968647 75.26082695763557, 253.0012368466705 74.89838581126183, 226.01134222485123 74.70053579472005 M286.0798103554174 74.92566635478288 C271.59040774870664 75.28829942256212, 257.2331323316321 75.04275102525949, 226.06685408782212 75.11367326248437 M226.22842815853653 75.25564071796835 C226.31366913123054 61.97636435311288, 226.53565712971613 48.50770467221737, 226.55502447821198 24.78658777140081 M226.335622064583 74.81267948616296 C225.9612896970473 60.09670382887125, 226.20968032991513 45.432026885263625, 226.38846608232706 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -1131,6 +2451,65 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       fill: var(--highlight-object-fill) !important;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M50.03387502096594 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.81817888477056 24.85845511179509 C110.45594630973169 24.97255914668736, 170.911066098717 25.26880965570801, 286.04449362503465 24.89618364775549 M50.03755225183211 25.0788967959222 C141.74563796326757 25.038200955815185, 233.8993380465523 25.27188437623119, 286.0789972299494 24.918044263283495 M285.92277866341175 24.848861547932028 C286.6073926393874 59.483614976145326, 286.0095053021796 94.24023997113109, 285.86240522600707 154.96266458891333 M286.3662653012201 25.192355196364225 C286.2111821493692 69.89683146812021, 286.1103734871931 114.68897119965405, 286.37893330883236 155.08975064624101 M286.3403680669202 155.18158384120966 C220.94531906216463 155.3384459296601, 155.48301085266766 155.03412735327402, 49.84159617049045 154.74855912044984 M286.0990844668116 154.93758680735786 C229.18053557377957 155.53734367201713, 172.37292540460453 155.3311724371873, 49.888205920185975 155.0954441452316 M50.028428158536556 155.25564071796833 C50.24258446125314 121.09422902893274, 50.4645724597387 86.7434340238571, 50.355024478212 24.78658777140081 M50.135622064583 154.81267948616295 C49.61699069669471 116.53043805956841, 49.86538132956252 78.29949534665792, 50.18846608232707 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -1147,6 +2526,67 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     <path d="M226.2338750209659 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 74.9256116244942 L226.59872595928607 74.70078069902956" stroke="none" stroke-width="0" fill="none" />
     <path d="M225.98345241285858 24.83142109774053 C241.6576904721558 24.894601719416677, 257.1143965642899 25.247433857955038, 286.0147930715233 24.876355501636862 M226.24472445081918 25.09396549332887 C249.35462117288262 24.880231108143928, 272.9952412759885 25.15854631252587, 286.0558866066858 24.902391331084072 M285.92277866341175 24.848861547932028 C286.60024653943253 38.20590460542589, 286.00235920222474 51.68481922969222, 285.86240522600707 74.96266458891333 M286.3662653012201 25.192355196364225 C286.19056771742174 42.24940276928246, 286.0897590552456 59.39411380197853, 286.37893330883236 75.08975064624101 M286.36717731691897 75.21626499556005 C269.72425968647 75.26082695763557, 253.0012368466705 74.89838581126183, 226.01134222485123 74.70053579472005 M286.0798103554174 74.92566635478288 C271.59040774870664 75.28829942256212, 257.2331323316321 75.04275102525949, 226.06685408782212 75.11367326248437 M226.22842815853653 75.25564071796835 C226.31366913123054 61.97636435311288, 226.53565712971613 48.50770467221737, 226.55502447821198 24.78658777140081 M226.335622064583 74.81267948616296 C225.9612896970473 60.09670382887125, 226.20968032991513 45.432026885263625, 226.38846608232706 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -1227,6 +2667,65 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       --highlight-box-line-color: #0077b6;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M50.03387502096594 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.81817888477056 24.85845511179509 C110.45594630973169 24.97255914668736, 170.911066098717 25.26880965570801, 286.04449362503465 24.89618364775549 M50.03755225183211 25.0788967959222 C141.74563796326757 25.038200955815185, 233.8993380465523 25.27188437623119, 286.0789972299494 24.918044263283495 M285.92277866341175 24.848861547932028 C286.6073926393874 59.483614976145326, 286.0095053021796 94.24023997113109, 285.86240522600707 154.96266458891333 M286.3662653012201 25.192355196364225 C286.2111821493692 69.89683146812021, 286.1103734871931 114.68897119965405, 286.37893330883236 155.08975064624101 M286.3403680669202 155.18158384120966 C220.94531906216463 155.3384459296601, 155.48301085266766 155.03412735327402, 49.84159617049045 154.74855912044984 M286.0990844668116 154.93758680735786 C229.18053557377957 155.53734367201713, 172.37292540460453 155.3311724371873, 49.888205920185975 155.0954441452316 M50.028428158536556 155.25564071796833 C50.24258446125314 121.09422902893274, 50.4645724597387 86.7434340238571, 50.355024478212 24.78658777140081 M50.135622064583 154.81267948616295 C49.61699069669471 116.53043805956841, 49.86538132956252 78.29949534665792, 50.18846608232707 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -1243,6 +2742,67 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     <path d="M226.2338750209659 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 74.9256116244942 L226.59872595928607 74.70078069902956" stroke="none" stroke-width="0" fill="none" />
     <path d="M225.98345241285858 24.83142109774053 C241.6576904721558 24.894601719416677, 257.1143965642899 25.247433857955038, 286.0147930715233 24.876355501636862 M226.24472445081918 25.09396549332887 C249.35462117288262 24.880231108143928, 272.9952412759885 25.15854631252587, 286.0558866066858 24.902391331084072 M285.92277866341175 24.848861547932028 C286.60024653943253 38.20590460542589, 286.00235920222474 51.68481922969222, 285.86240522600707 74.96266458891333 M286.3662653012201 25.192355196364225 C286.19056771742174 42.24940276928246, 286.0897590552456 59.39411380197853, 286.37893330883236 75.08975064624101 M286.36717731691897 75.21626499556005 C269.72425968647 75.26082695763557, 253.0012368466705 74.89838581126183, 226.01134222485123 74.70053579472005 M286.0798103554174 74.92566635478288 C271.59040774870664 75.28829942256212, 257.2331323316321 75.04275102525949, 226.06685408782212 75.11367326248437 M226.22842815853653 75.25564071796835 C226.31366913123054 61.97636435311288, 226.53565712971613 48.50770467221737, 226.55502447821198 24.78658777140081 M226.335622064583 74.81267948616296 C225.9612896970473 60.09670382887125, 226.20968032991513 45.432026885263625, 226.38846608232706 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -1315,6 +2875,65 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       fill: var(--highlight-object-fill) !important;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M50.03387502096594 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.81817888477056 24.85845511179509 C110.45594630973169 24.97255914668736, 170.911066098717 25.26880965570801, 286.04449362503465 24.89618364775549 M50.03755225183211 25.0788967959222 C141.74563796326757 25.038200955815185, 233.8993380465523 25.27188437623119, 286.0789972299494 24.918044263283495 M285.92277866341175 24.848861547932028 C286.6073926393874 59.483614976145326, 286.0095053021796 94.24023997113109, 285.86240522600707 154.96266458891333 M286.3662653012201 25.192355196364225 C286.2111821493692 69.89683146812021, 286.1103734871931 114.68897119965405, 286.37893330883236 155.08975064624101 M286.3403680669202 155.18158384120966 C220.94531906216463 155.3384459296601, 155.48301085266766 155.03412735327402, 49.84159617049045 154.74855912044984 M286.0990844668116 154.93758680735786 C229.18053557377957 155.53734367201713, 172.37292540460453 155.3311724371873, 49.888205920185975 155.0954441452316 M50.028428158536556 155.25564071796833 C50.24258446125314 121.09422902893274, 50.4645724597387 86.7434340238571, 50.355024478212 24.78658777140081 M50.135622064583 154.81267948616295 C49.61699069669471 116.53043805956841, 49.86538132956252 78.29949534665792, 50.18846608232707 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -1331,6 +2950,67 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     <path d="M226.2338750209659 24.981137046590447 L286.06637596748766 25.23432659842074 L286.1792323675007 74.9256116244942 L226.59872595928607 74.70078069902956" stroke="none" stroke-width="0" fill="none" />
     <path d="M225.98345241285858 24.83142109774053 C241.6576904721558 24.894601719416677, 257.1143965642899 25.247433857955038, 286.0147930715233 24.876355501636862 M226.24472445081918 25.09396549332887 C249.35462117288262 24.880231108143928, 272.9952412759885 25.15854631252587, 286.0558866066858 24.902391331084072 M285.92277866341175 24.848861547932028 C286.60024653943253 38.20590460542589, 286.00235920222474 51.68481922969222, 285.86240522600707 74.96266458891333 M286.3662653012201 25.192355196364225 C286.19056771742174 42.24940276928246, 286.0897590552456 59.39411380197853, 286.37893330883236 75.08975064624101 M286.36717731691897 75.21626499556005 C269.72425968647 75.26082695763557, 253.0012368466705 74.89838581126183, 226.01134222485123 74.70053579472005 M286.0798103554174 74.92566635478288 C271.59040774870664 75.28829942256212, 257.2331323316321 75.04275102525949, 226.06685408782212 75.11367326248437 M226.22842815853653 75.25564071796835 C226.31366913123054 61.97636435311288, 226.53565712971613 48.50770467221737, 226.55502447821198 24.78658777140081 M226.335622064583 74.81267948616296 C225.9612896970473 60.09670382887125, 226.20968032991513 45.432026885263625, 226.38846608232706 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -1403,6 +3083,65 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
       fill: var(--highlight-object-fill) !important;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M49.843418531864884 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 154.76915388777851 L50.02731695696711 155.2168297596276" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.97700984417455 24.90491429391293 C98.45356964476898 25.592952625513313, 146.90039127504454 25.19380388454705, 285.98239894530747 24.68799300106102 M50.09180494428715 24.918502164863508 C132.13283649123568 24.95394683201722, 214.44019227325376 25.125903229265123, 286.33738632895177 24.995766174708777 M285.85860744193195 24.839829497784375 C285.6108726218715 76.7476857740432, 285.88193029914055 128.6928032502532, 286.5871857471764 155.24320195242763 M286.2668587591499 25.13916292525828 C285.99199180010703 50.96997084096074, 286.1995577872172 77.23471773676575, 286.0172056462616 154.93375069238246 M286.3943232789997 154.76739611544275 C206.1907872589835 154.86601806269866, 125.73632970161717 155.08273508699705, 50.03147674076057 155.0087371893848 M286.3362927895418 154.93865606826338 C221.07346407099843 155.18896853104008, 155.6178452342903 155.0232173616322, 49.943568442087766 155.10678731464137 M50.154903227835895 154.73371086642146 C50.21252727624029 113.04486663602293, 49.84796941395849 71.12155508995055, 50.056322414427996 25.339266853779556 M49.99176651500166 155.1614456448704 C49.89525366704911 117.62324508428574, 49.98948728721589 80.18961338661612, 50.17477255128324 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -1419,6 +3158,67 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
     <path d="M226.04341853186486 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 74.76915388777851 L226.22731695696712 75.21682975962759" stroke="none" stroke-width="0" fill="none" />
     <path d="M226.17261889651417 24.88675363585353 C238.41760956197976 25.381302431896327, 250.62718228921293 24.905919269397852, 285.94083877280354 24.628401999920605 M226.30933900140224 24.902936688438057 C246.95096010752022 24.85255611076951, 267.9097713839263 25.057354892641307, 286.36362608931955 24.994957545772195 M285.85860744193195 24.839829497784375 C285.73322026971726 44.920006989315155, 286.0042779469863 65.0374456807971, 286.5871857471764 75.24320195242763 M286.2668587591499 25.13916292525828 C286.0791138568893 34.9410581625998, 286.2866798439995 45.17689238004387, 286.0172056462616 74.93375069238246 M286.4314375706017 74.72297051474452 C266.11955742836 74.93003000937402, 245.50883161351084 75.18813836298882, 226.23748856261372 75.01040592715144 M286.36232369206846 74.92693983651698 C269.74520560242235 75.13958051741123, 252.89847592525183 74.94217211544515, 226.1327904369682 75.12718289233744 M226.35490322783588 74.73371086642146 C226.50157697107642 58.86070746146142, 226.13701910879462 42.75323674082755, 226.25632241442798 25.339266853779556 M226.19176651500163 75.1614456448704 C226.12446589600293 60.62922094166279, 226.21869951616972 46.201565101370214, 226.37477255128323 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
 
@@ -1491,6 +3291,65 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
       fill: var(--highlight-object-fill) !important;
     }
   </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
   <g id="object-0">
     <path d="M49.843418531864884 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 154.76915388777851 L50.02731695696711 155.2168297596276" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.97700984417455 24.90491429391293 C98.45356964476898 25.592952625513313, 146.90039127504454 25.19380388454705, 285.98239894530747 24.68799300106102 M50.09180494428715 24.918502164863508 C132.13283649123568 24.95394683201722, 214.44019227325376 25.125903229265123, 286.33738632895177 24.995766174708777 M285.85860744193195 24.839829497784375 C285.6108726218715 76.7476857740432, 285.88193029914055 128.6928032502532, 286.5871857471764 155.24320195242763 M286.2668587591499 25.13916292525828 C285.99199180010703 50.96997084096074, 286.1995577872172 77.23471773676575, 286.0172056462616 154.93375069238246 M286.3943232789997 154.76739611544275 C206.1907872589835 154.86601806269866, 125.73632970161717 155.08273508699705, 50.03147674076057 155.0087371893848 M286.3362927895418 154.93865606826338 C221.07346407099843 155.18896853104008, 155.6178452342903 155.0232173616322, 49.943568442087766 155.10678731464137 M50.154903227835895 154.73371086642146 C50.21252727624029 113.04486663602293, 49.84796941395849 71.12155508995055, 50.056322414427996 25.339266853779556 M49.99176651500166 155.1614456448704 C49.89525366704911 117.62324508428574, 49.98948728721589 80.18961338661612, 50.17477255128324 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -1507,5 +3366,66 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
     <path d="M226.04341853186486 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 74.76915388777851 L226.22731695696712 75.21682975962759" stroke="none" stroke-width="0" fill="none" />
     <path d="M226.17261889651417 24.88675363585353 C238.41760956197976 25.381302431896327, 250.62718228921293 24.905919269397852, 285.94083877280354 24.628401999920605 M226.30933900140224 24.902936688438057 C246.95096010752022 24.85255611076951, 267.9097713839263 25.057354892641307, 286.36362608931955 24.994957545772195 M285.85860744193195 24.839829497784375 C285.73322026971726 44.920006989315155, 286.0042779469863 65.0374456807971, 286.5871857471764 75.24320195242763 M286.2668587591499 25.13916292525828 C286.0791138568893 34.9410581625998, 286.2866798439995 45.17689238004387, 286.0172056462616 74.93375069238246 M286.4314375706017 74.72297051474452 C266.11955742836 74.93003000937402, 245.50883161351084 75.18813836298882, 226.23748856261372 75.01040592715144 M286.36232369206846 74.92693983651698 C269.74520560242235 75.13958051741123, 252.89847592525183 74.94217211544515, 226.1327904369682 75.12718289233744 M226.35490322783588 74.73371086642146 C226.50157697107642 58.86070746146142, 226.13701910879462 42.75323674082755, 226.25632241442798 25.339266853779556 M226.19176651500163 75.1614456448704 C226.12446589600293 60.62922094166279, 226.21869951616972 46.201565101370214, 226.37477255128323 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
   </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
 </svg>
 `;
