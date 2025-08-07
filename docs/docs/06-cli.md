@@ -54,9 +54,9 @@ Specifies a path to a CSS file that contains global styles for the SVG. The SVG 
 
 Applies a theme to the SVG, overriding the default light theme. Included themes are `dark` and `high-contrast`. Custom themes can be defined using a `[data-theme]` attribute selector in the CSS file specified by the `--global-style` option.
 
-### `--interactive`
+### `--no-interactive`
 
-Enables hover interactivity for object IDs in the generated SVG. When enabled, hovering over an ID reference will highlight the corresponding object box.
+Disables hover interactivity for object IDs in the generated SVG. By default, hovering over an ID reference will highlight the corresponding object box.
 
 ## Examples
 
