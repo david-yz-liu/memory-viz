@@ -1471,4 +1471,223 @@ describe("draw function", () => {
             expect(svg).toMatchSnapshot();
         });
     });
+    it("includes script element and css when interactive option is enabled", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "str",
+                id: 19,
+                value: "Interactive test",
+            },
+            { type: "int", id: 13, value: 7 },
+        ];
+
+        const interactiveModel: InstanceType<typeof MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                interactive: true,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const interactiveSvg: String = interactiveModel.serializeSVG();
+
+        expect(interactiveSvg).toContain("<script>");
+        expect(interactiveSvg).toContain("enableInteractivity");
+        expect(interactiveSvg).toContain("idToObjectMap");
+        expect(interactiveSvg).toContain(".highlighted path {");
+        expect(interactiveSvg).toContain("var(--highlight-object-fill)");
+        expect(interactiveSvg).toContain("text.id {");
+        expect(interactiveSvg).toContain("cursor: pointer;");
+
+        const nonInteractiveModel: InstanceType<typeof MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                interactive: false,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const nonInteractiveSvg: String = nonInteractiveModel.serializeSVG();
+
+        expect(nonInteractiveSvg).not.toContain("<script>");
+        expect(nonInteractiveSvg).not.toContain("enableInteractivity");
+        expect(nonInteractiveSvg).not.toContain("cursor: pointer");
+
+        expect(interactiveSvg).toMatchSnapshot();
+        expect(nonInteractiveSvg).toMatchSnapshot();
+    });
+
+    it("assigns sequential object ids to bounding boxes", () => {
+        const objects: DrawnEntity[] = [
+            { type: "int", id: 10, value: 42 },
+            { type: "str", id: 20, value: "test" },
+            { type: "list", id: 30, value: [10, 20] },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            interactive: true,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+
+        expect(svg).toContain('id="object-0"');
+        expect(svg).toContain('id="object-1"');
+        expect(svg).toContain('id="object-2"');
+        expect(svg).toContain('"id10":["object-0"]');
+        expect(svg).toContain('"id20":["object-1"]');
+        expect(svg).toContain('"id30":["object-2"]');
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("generates correct interactive script with proper event mappings", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "str",
+                id: 19,
+                value: "Interactive test",
+            },
+            { type: "int", id: 13, value: 7 },
+        ];
+
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            interactive: true,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+
+        expect(svg).toContain("addEventListener");
+        expect(svg).toContain("mouseover");
+        expect(svg).toContain("mouseout");
+        expect(svg).toContain("highlightObject");
+        expect(svg).toContain("removeHighlight");
+        expect(svg).toContain("document.querySelectorAll('text.id')");
+        expect(svg).toContain("classList.add('highlighted')");
+        expect(svg).toContain("classList.remove('highlighted')");
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("handles objects with null ids in interactive mode", () => {
+        const objects: DrawnEntity[] = [
+            { type: ".frame", name: "__main__", id: null, value: { x: 1 } },
+            { type: "int", id: 42, value: 5 },
+            { type: "str", id: 99, value: "test" },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            interactive: true,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+
+        expect(svg).toContain('"id42"');
+        expect(svg).toContain('"id99"');
+        expect(svg).not.toContain('"idnull"');
+        expect(svg).not.toContain('null":');
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("generates interactive script for empty objects array", () => {
+        const objects: DrawnEntity[] = [];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            interactive: true,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+
+        expect(svg).toContain("<script>");
+        expect(svg).toContain("enableInteractivity");
+        expect(svg).toContain("const idToObjectMap = {};");
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("works at highlighting interactively with different themes", () => {
+        const objects: DrawnEntity[] = [
+            { type: "str", id: 42, value: "themed" },
+            { type: "int", id: 99, value: 5 },
+        ];
+
+        const darkModel: InstanceType<typeof MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                interactive: true,
+                theme: "dark",
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const darkSvg: String = darkModel.serializeSVG();
+
+        expect(darkSvg).toContain('data-theme="dark"');
+        expect(darkSvg).toContain("--highlight-object-fill");
+        expect(darkSvg).toContain("enableInteractivity");
+
+        const highContrastModel: InstanceType<typeof MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                interactive: true,
+                theme: "high-contrast",
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const highContrastSvg: String = highContrastModel.serializeSVG();
+
+        expect(highContrastSvg).toContain('data-theme="high-contrast"');
+        expect(highContrastSvg).toContain("--highlight-object-fill");
+        expect(darkSvg).toMatchSnapshot();
+        expect(highContrastSvg).toMatchSnapshot();
+    });
+
+    it("renders custom styles correctly in interactive mode", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "str",
+                id: 42,
+                value: "styled interactive",
+                style: ["highlight"],
+            },
+            {
+                type: "int",
+                id: 99,
+                value: 999,
+                style: ["fade"],
+            },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            interactive: true,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+
+        expect(svg).toContain('"id42"');
+        expect(svg).toContain('"id99"');
+        expect(svg).toContain("enableInteractivity");
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("maps multiple references to same object id", () => {
+        const objects: DrawnEntity[] = [
+            { type: "list", id: 1, value: [42, 42, 42] },
+            { type: "int", id: 42, value: 5 },
+        ];
+        const m: InstanceType<typeof MemoryModel> = draw(objects, true, {
+            width: 1300,
+            interactive: true,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        const svg: String = m.serializeSVG();
+
+        expect(svg).toContain('"id42"');
+        expect(svg).toContain('"id1"');
+        expect(svg).toContain("object-0");
+        expect(svg).toContain("object-1");
+        expect(svg).toMatchSnapshot();
+    });
 });

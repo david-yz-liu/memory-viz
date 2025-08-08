@@ -15,6 +15,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added support for global CSS styling using the `--global-style` option in the CLI
 - Added optional attributes width and height for each drawn object
 - Added `--theme` option to the CLI to apply stylized themes
+- Added configurable hover interactivity feature to object ids, updated documentation
 
 ### 🐛 Bug fixes
 

@@ -69,6 +69,8 @@ export class MemoryModel {
     width?: number; // Width of the canvas, dynamically updated if not provided in options
     height?: number; // Height of the canvas, dynamically updated if not provided in options
     objectCounter: number; // Counter for tracking ids of objects drawn
+    interactive: boolean; // Whether the visualization is interactive
+    idToObjectMap: Map<string, string[]>; // Track object ids to their corresponding SVG element ids
 
     constructor(options: Partial<VisualizationConfig> = {}) {
         if (options.browser) {
@@ -99,8 +101,6 @@ export class MemoryModel {
         this.roughjs_config = options.roughjs_config ?? {};
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
 
-        setStyleSheet(this, options.global_style ?? "", options.theme);
-
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
             (this as { [key: string]: any })[key] = options.hasOwnProperty(key)
@@ -109,6 +109,9 @@ export class MemoryModel {
         }
 
         this.objectCounter = 0;
+        this.idToObjectMap = new Map();
+
+        setStyleSheet(this, options.global_style ?? "", options.theme);
     }
 
     /**
@@ -299,7 +302,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
 
         let size: Rect = {
             width: box_width,
@@ -477,7 +488,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
 
         const size: Rect = { width: box_width, height: box_height, x: x, y: y };
 
@@ -598,7 +617,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
 
         const SIZE: Rect = {
             x,
@@ -724,7 +751,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
         // First loop, to draw the key boxes
@@ -876,7 +911,15 @@ export class MemoryModel {
         let box_width = Math.max(width ?? 0, default_width);
         let box_height = Math.max(height ?? 0, default_height);
 
-        this.drawRect(x, y, box_width, box_height, style.box_container, true);
+        this.drawRect(
+            x,
+            y,
+            box_width,
+            box_height,
+            style.box_container,
+            true,
+            id
+        );
 
         const SIZE: Rect = { x, y, width: box_width, height: box_height };
 
@@ -956,24 +999,43 @@ export class MemoryModel {
         width: number,
         height: number,
         style?: Options,
-        isBoundingBox: boolean = false
+        isBoundingBox: boolean = false,
+        objectId?: number | null
     ): void {
         if (style === undefined) {
             style = this.rect_style;
         }
 
-        style = { ...style, ...this.roughjs_config?.options };
+        // Set rect style with user and config overrides
+        const rectStyle = {
+            fillStyle: "solid",
+            fill: "none",
+            ...style,
+            ...(this.roughjs_config?.options ?? {}),
+        };
 
         const rectElement = this.rough_svg.rectangle(
             x,
             y,
             width,
             height,
-            style
+            rectStyle
         );
 
         if (isBoundingBox) {
             rectElement.setAttribute("id", `object-${this.objectCounter}`);
+
+            // Map object id value to the object counter id
+            if (objectId !== null && objectId !== undefined) {
+                const idKey = `id${objectId}`;
+                if (!this.idToObjectMap.has(idKey)) {
+                    this.idToObjectMap.set(idKey, []);
+                }
+                this.idToObjectMap
+                    .get(idKey)!
+                    .push(`object-${this.objectCounter}`);
+            }
+
             this.objectCounter++;
         }
 
@@ -1132,6 +1194,9 @@ export class MemoryModel {
                 sizes_arr.push(size);
             }
         }
+        if (this.interactive) {
+            this.setInteractivityScript();
+        }
 
         return sizes_arr;
     }
@@ -1154,5 +1219,76 @@ export class MemoryModel {
             this.height = bottom_edge;
             this.svg.setAttribute("height", this.height.toString());
         }
+    }
+
+    /**
+     * Add hover interactivity to the SVG on object IDs
+     */
+    setInteractivityScript(): void {
+        const idToObjectMapping = Object.fromEntries(this.idToObjectMap);
+
+        const script = `
+            function enableInteractivity() {
+                // Inject the id value to object id mapping into script
+                const idToObjectMap = ${JSON.stringify(idToObjectMapping)};
+                
+                function highlightObject(objectId) {
+                    const objectBox = document.getElementById(objectId);
+                    if (!objectBox) {
+                        return;
+                    }
+                    
+                    objectBox.classList.add('highlighted');
+                }
+                
+                function removeHighlight(objectId) {
+                    const objectBox = document.getElementById(objectId);
+                    if (!objectBox) {
+                        return;
+                    }
+                    
+                    objectBox.classList.remove('highlighted');
+                }
+                
+                function addEventListeners() {
+                    document.querySelectorAll('text.id').forEach(idText => {
+                        const idValue = idText.textContent.trim();
+                        if (!idValue || !idValue.startsWith('id')) {
+                            return;
+                        }
+                        
+                        idText.addEventListener('mouseover', () => {
+                            const objectIds = idToObjectMap[idValue];
+                            if (objectIds) {
+                                objectIds.forEach(highlightObject);
+                            }
+                        });
+                        
+                        idText.addEventListener('mouseout', () => {
+                            const objectIds = idToObjectMap[idValue];
+                            if (objectIds) {
+                                objectIds.forEach(removeHighlight);
+                            }
+                        });
+                    });
+                }
+                
+                addEventListeners();
+            }
+            
+            // Wait for DOM to be ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', enableInteractivity);
+            } else {
+                enableInteractivity();
+            }
+        `;
+
+        const scriptElement = this.document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "script"
+        );
+        scriptElement.textContent = script;
+        this.svg.appendChild(scriptElement);
     }
 }
