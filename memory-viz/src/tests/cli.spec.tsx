@@ -28,7 +28,7 @@ const globalStyle = `
     svg {
         background-color: #121212;
     }
-    
+
     text {
         font-family: Consolas, Courier;
         font-size: 20px;
@@ -68,7 +68,7 @@ describe.each([
     },
     {
         inputs: "filepath, output, height, and width",
-        command: `${filePath} --output=${outputPath} --height=700 width=1200 --roughjs-config seed=12345`,
+        command: `${filePath} --output=${outputPath} --height=700 --width=1200 --roughjs-config seed=12345`,
     },
     {
         inputs: "filepath, output, and a variety of rough-config",
