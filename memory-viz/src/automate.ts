@@ -56,7 +56,7 @@ function drawAutomated(
     }
 
     // determining default width: should be 800 by default, but set to min_width if necessary
-    let default_width = Math.min(min_width, 800);
+    const default_width = Math.min(min_width, 800);
 
     const { objs, canvas_height, canvas_width } = drawAutomatedOtherItems(
         other_items,
@@ -104,7 +104,7 @@ function drawAutomatedStackFrames(
     requiredWidth: number;
 } {
     for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
-        if (!configuration.hasOwnProperty(req_prop)) {
+        if (!Object.prototype.hasOwnProperty.call(configuration, req_prop)) {
             (configuration[req_prop] as number | undefined) =
                 config.obj_x_padding;
         }
@@ -115,7 +115,7 @@ function drawAutomatedStackFrames(
 
     let required_width = 0;
 
-    let draw_stack_frames: DrawnEntity[] = [];
+    const draw_stack_frames: DrawnEntity[] = [];
 
     for (const stack_frame of stack_frames) {
         let width: number;
@@ -178,7 +178,7 @@ function drawAutomatedOtherItems(
     sf_endpoint: number
 ): { objs: DrawnEntity[]; canvas_height: number; canvas_width: number } {
     for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
-        if (!config_aut.hasOwnProperty(req_prop)) {
+        if (!Object.prototype.hasOwnProperty.call(config_aut, req_prop)) {
             (config_aut[req_prop] as number | undefined) = config.obj_x_padding;
         }
     }
@@ -317,8 +317,8 @@ function separateObjects(objects: DrawnEntity[]): {
     stack_frames: DrawnEntity[];
     other_items: DrawnEntity[];
 } {
-    let stackFrames: DrawnEntity[] = [];
-    let otherItems: DrawnEntity[] = [];
+    const stackFrames: DrawnEntity[] = [];
+    const otherItems: DrawnEntity[] = [];
 
     for (const item of objects) {
         const frame_types = [".frame", ".blank-frame"];
