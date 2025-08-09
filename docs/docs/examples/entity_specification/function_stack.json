@@ -1,0 +1,9 @@
+{
+    "type": ".frame",
+    "name": "func",
+    "value": {
+        "age": 12,
+        "name": 17,
+        "": null
+    }
+}
