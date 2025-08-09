@@ -1,0 +1,6 @@
+{
+    "type": "str",
+    "id": 24,
+    "value": "Fade Type",
+    "style": ["fade_type"]
+}

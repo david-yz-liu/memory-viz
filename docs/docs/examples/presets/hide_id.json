@@ -1,0 +1,6 @@
+{
+    "type": "str",
+    "id": 26,
+    "value": "Hide ID",
+    "style": ["hide_id"]
+}
