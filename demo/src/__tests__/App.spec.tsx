@@ -1,7 +1,6 @@
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import App from "../App";
-import mem from "memory-viz";
 
 describe("App", () => {
     beforeEach(() => {

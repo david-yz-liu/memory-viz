@@ -9,7 +9,7 @@ permissions:
     contents: read
 
 jobs:
-    prettier:
+    autofix:
         runs-on: ubuntu-22.04
         steps:
             - name: Checkout repo
@@ -23,6 +23,8 @@ jobs:
               run: npm ci
             - name: Run prettier
               run: npx prettier . --write
+            - name: Run eslint
+              run: npx eslint --fix .
             - name: Commit changes
               uses: autofix-ci/action@d3e591514b99d0fca6779455ff8338516663f7cc
               with:
