@@ -1,6 +1,28 @@
----
-title: Entity Specification
----
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import ThemedImage from "@theme/ThemedImage";
+import CodeBlock from "@theme/CodeBlock";
+
+import ExampleBlankFrame from "!!raw-loader!./examples/entity_specification/blank_frame.json";
+import ExampleBlankObject from "!!raw-loader!./examples/entity_specification/blank_object.json";
+import ExampleBool from "!!raw-loader!./examples/entity_specification/bool.json";
+import ExampleClassBlank from "!!raw-loader!./examples/entity_specification/class_blank.json";
+import ExampleDictBlank from "!!raw-loader!./examples/entity_specification/dict_blank.json";
+import ExampleDictTall from "!!raw-loader!./examples/entity_specification/dict_tall.json";
+import ExampleEmptyBox from "!!raw-loader!./examples/entity_specification/empty_box.json";
+import ExampleFloat from "!!raw-loader!./examples/entity_specification/float.json";
+import ExampleFloatBlank from "!!raw-loader!./examples/entity_specification/float_blank.json";
+import ExampleFunctionStack from "!!raw-loader!./examples/entity_specification/function_stack.json";
+import ExampleInt from "!!raw-loader!./examples/entity_specification/int.json";
+import ExampleIntBlank from "!!raw-loader!./examples/entity_specification/int_blank.json";
+import ExampleListBlank from "!!raw-loader!./examples/entity_specification/list_blank.json";
+import ExampleListIndices from "!!raw-loader!./examples/entity_specification/list_indices.json";
+import ExampleMainStack from "!!raw-loader!./examples/entity_specification/main_stack.json";
+import ExampleNone from "!!raw-loader!./examples/entity_specification/none.json";
+import ExampleSetBlank from "!!raw-loader!./examples/entity_specification/set_blank.json";
+import ExampleSetWide from "!!raw-loader!./examples/entity_specification/set_wide.json";
+import ExampleString from "!!raw-loader!./examples/entity_specification/string.json";
+import ExampleTupleBlank from "!!raw-loader!./examples/entity_specification/tuple_blank.json";
+import ExampleTupleIndices from "!!raw-loader!./examples/entity_specification/tuple_indices.json";
 
 # Entity Specification
 
@@ -49,91 +71,49 @@ All supported entities include the following core attributes, unless explicitly 
 
 <details>
     <summary>**Integer**</summary>
-        ```json
-        {
-            "type": "int",
-            "id": 19,
-            "value": 124
-        }
-        ```
-        ![Example Integer](images/entity_specification/int.svg)
+    <CodeBlock language="json">{ExampleInt}</CodeBlock>
+    <ThemedImage
+        alt="Example Integer"
+        sources={{
+            light: useBaseUrl("img/int.svg"),
+            //             dark: useBaseUrl("img/int_dark.svg"),
+        }}
+    />
 </details>
 <details>
     <summary>**Blank integer**</summary>
-        ```json
-        {
-            "type": "int",
-            "id": 19,
-            "value": ""
-        }
-        ```
-        ![Example Blank Integer](images/entity_specification/int_blank.svg)
+    <CodeBlock language="json">{ExampleIntBlank}</CodeBlock>
+    ![Example Blank Integer](images/entity_specification/int_blank.svg)
 </details>
 <details>
     <summary>**String**</summary>
-        ```json
-        {
-            "type": "str",
-            "id": 43,
-            "value": "David is cool"
-        }
-        ```
-        ![Example String](images/entity_specification/str.svg)
+    <CodeBlock language="json">{ExampleString}</CodeBlock>
+    ![Example String](images/entity_specification/str.svg)
 </details>
 <details>
     <summary>**Boolean**</summary>
-        ```json
-        {
-            "type": "bool",
-            "id": 32,
-            "value": true
-        }
-        ```
-        ![Example Boolean](images/entity_specification/bool.svg)
+    <CodeBlock language="json">{ExampleBool}</CodeBlock>
+    ![Example Boolean](images/entity_specification/bool.svg)
 </details>
 <details>
     <summary>**Float**</summary>
-        ```json
-        {
-            "type": "float",
-            "id": 76,
-            "value": 3.14
-        }
-        ```
-        ![Example Float](images/entity_specification/float.svg)
+    <CodeBlock language="json">{ExampleFloat}</CodeBlock>
+    ![Example Float](images/entity_specification/float.svg)
 </details>
 <details>
     <summary>**Blank float**</summary>
-        ```json
-        {
-            "type": "float",
-            "id": 76,
-            "value": ""
-        }
-        ```
-        ![Example Blank Float](images/entity_specification/float_blank.svg)
+    <CodeBlock language="json">{ExampleFloatBlank}</CodeBlock>
+    ![Example Blank Float](images/entity_specification/float_blank.svg)
 </details>
 <details>
     <summary>**None**</summary>
-        ```json
-        {
-            "type": "None",
-            "id": 0,
-            "value": "None"
-        }
-        ```
-        ![Example None](images/entity_specification/none.svg)
+    <CodeBlock language="json">{ExampleNone}</CodeBlock>
+    ![Example None](images/entity_specification/none.svg)
 </details>
 <details>
     <summary>**Empty Box**</summary>
-        ```json
-        {
-            "type": "bool",
-            "id": 0,
-            "value": null
-        }
-        ```
-        ![Example None](images/entity_specification/empty_box.svg)
+    <CodeBlock language="json">{ExampleEmptyBox}</CodeBlock>
+    ![Example None](images/entity_specification/empty_box.svg)
 </details>
 
 ## Sequences
@@ -152,49 +132,25 @@ All supported entities include the following core attributes, unless explicitly 
 
 <details>
     <summary>**List with blank boxes**</summary>
-        ```json
-        {
-            "type": "list",
-            "id": 82,
-            "value": [19, 43, null, 49]
-        }
-        ```
-        ![Example List](images/entity_specification/list_blank_boxes.svg)
+    <CodeBlock language="json">{ExampleListBlank}</CodeBlock>
+    ![Example List](images/entity_specification/list_blank_boxes.svg)
 </details>
 <details>
     <summary>**List with indices shown**</summary>
-        ```json
-        {
-            "type": "list",
-            "id": 84,
-            "value": [32, 10, 90, 57],
-            "show_indexes": true
-        }
-        ```
-        ![Example List with Indices](images/entity_specification/list_with_indices.svg)
+    <CodeBlock language="json">{ExampleListIndices}</CodeBlock>
+    ![Example List with
+    Indices](images/entity_specification/list_with_indices.svg)
 </details>
 <details>
     <summary>**Tuple with blank boxes**</summary>
-        ```json
-        {
-            "type": "tuple",
-            "id": 11,
-            "value": [82, 76, null]
-        }
-        ```
-        ![Example Tuple](images/entity_specification/tuple_blank_boxes.svg)
+    <CodeBlock language="json">{ExampleTupleBlank}</CodeBlock>
+    ![Example Tuple](images/entity_specification/tuple_blank_boxes.svg)
 </details>
 <details>
-<summary>**Tuple with indices shown**</summary>
-        ```json
-        {
-            "type": "tuple",
-            "id": 11,
-            "value": [82, 76, null],
-            "show_indexes": true
-        }
-        ```
-        ![Example Tuple with Indices](images/entity_specification/tuple_with_indices.svg)
+    <summary>**Tuple with indices shown**</summary>
+    <CodeBlock language="json">{ExampleTupleIndices}</CodeBlock>
+    ![Example Tuple with
+    Indices](images/entity_specification/tuple_with_indices.svg)
 </details>
 
 ## Sets
@@ -212,24 +168,12 @@ All supported entities include the following core attributes, unless explicitly 
 
 <details>
     <summary>**Set with blank boxes**</summary>
-        ```json
-        {
-            "type": "set",
-            "id": 90,
-            "value": [36, 49, null, 64]
-        }
-        ```
-        ![Example Set](images/entity_specification/set_blank_boxes.svg)
+    <CodeBlock language="json">{ExampleSetBlank}</CodeBlock>
+    ![Example Set](images/entity_specification/set_blank_boxes.svg)
 </details>
 <details>
     <summary>**Set with large width**</summary>
-    ```json
-        { "type": "set", 
-            "id": 32, 
-            "value": [10, 11, 12], 
-            "width": 500 
-        }
-    ```
+    <CodeBlock language="json">{ExampleSetWide}</CodeBlock>
     ![Example Set](images/entity_specification/set_large_width.svg)
 </details>
 
@@ -248,28 +192,12 @@ All supported entities include the following core attributes, unless explicitly 
 
 <details>
     <summary>**Dictionary with blank boxes**</summary>
-        ```json
-        {
-            "type": "dict",
-            "id": 10,
-            "value": {
-                "": 81,
-                "1": null,
-                "    ": 12
-            }
-        }
-        ```
-        ![Example Dictionary](images/entity_specification/dict_blank_boxes.svg)
+    <CodeBlock language="json">{ExampleDictBlank}</CodeBlock>
+    ![Example Dictionary](images/entity_specification/dict_blank_boxes.svg)
 </details>
 <details>
     <summary>**Dictionary with large height**</summary>
-    ```json
-        { "type": "dict", 
-            "id": 10, 
-            "value": { "x": 81, "y": 100, "z": 121 }, 
-            "height": 600 
-        }
-    ```
+    <CodeBlock language="json">{ExampleDictTall}</CodeBlock>
     ![Example Dictionary](images/entity_specification/dict_large_height.svg)
 </details>
 
@@ -289,19 +217,8 @@ All supported entities include the following core attributes, unless explicitly 
 
 <details>
     <summary>**Class with blank boxes**</summary>
-        ```json
-        {
-            "type": ".class",
-            "id": 82,
-            "name": "Person",
-            "value": {
-                "age": 12,
-                "name": 17,
-                "": null
-            }
-        }
-        ```
-        ![Example Class](images/entity_specification/class_blank_boxes.svg)
+    <CodeBlock language="json">{ExampleClassBlank}</CodeBlock>
+    ![Example Class](images/entity_specification/class_blank_boxes.svg)
 </details>
 
 ## Stack Frames
@@ -320,35 +237,15 @@ All supported entities include the following core attributes, unless explicitly 
 
 <details>
     <summary>**Main stack frame**</summary>
-        ```json
-        {
-            "type": ".frame",
-            "name": "__main__",
-            "value": {
-                "lst1": 82,
-                "lst2": 84,
-                "p": 99,
-                "d": 10,
-                "t": 11
-            }
-        }
-        ```
-        ![Example Main Stack Frame](images/entity_specification/stack_frame_main.svg)
+    <CodeBlock language="json">{ExampleMainStack}</CodeBlock>
+    ![Example Main Stack
+    Frame](images/entity_specification/stack_frame_main.svg)
 </details>
 <details>
     <summary>**Function stack frame with blank boxes**</summary>
-        ```json
-        {
-            "type": ".frame",
-            "name": "func",
-            "value": {
-                "age": 12,
-                "name": 17,
-                "": null
-            }
-        }
-        ```
-        ![Example Function Stack Frame](images/entity_specification/stack_frame_function.svg)
+    <CodeBlock language="json">{ExampleFunctionStack}</CodeBlock>
+    ![Example Function Stack
+    Frame](images/entity_specification/stack_frame_function.svg)
 </details>
 
 ## Blank Objects
@@ -363,21 +260,9 @@ All supported entities include the following core attributes, unless explicitly 
 
 <details>
     <summary>**Blank object**</summary>
-        ```json
-        {
-            "type": ".blank",
-            "width": 200,
-            "height": 100
-        }
-        ```
+    <CodeBlock language="json">{ExampleBlankObject}</CodeBlock>
 </details>
 <details>
     <summary>**Blank frame**</summary>
-        ```json
-        {
-            "type": ".blank-frame",
-            "width": 200,
-            "height": 100
-        }
-        ```
+    <CodeBlock language="json">{ExampleBlankFrame}</CodeBlock>
 </details>
