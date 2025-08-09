@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Link, Stack, Typography, useMediaQuery } from "@mui/material";
 import lightLogo from "../../assets/logo_square.png";
 import darkLogo from "../../assets/logo_square_dark.png";
-import { dark } from "@mui/material/styles/createPalette";
 
 export default function Header() {
     const logo = useMediaQuery("(prefers-color-scheme: dark)")

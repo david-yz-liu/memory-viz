@@ -8,10 +8,6 @@
  */
 const { draw } = require("memory-viz");
 
-const m = draw(
-    (objects = "./manual_demo.json"),
-    (automation = false),
-    (configuration = {})
-);
+const m = draw("manual_demo.json", false, {});
 
 m.save("manual_demo.svg");

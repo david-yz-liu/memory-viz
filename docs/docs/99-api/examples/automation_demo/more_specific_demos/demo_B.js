@@ -26,7 +26,7 @@ const listOfStackFrames = [
 
 const { StackFrames, requiredHeight } = drawAutomatedStackFrames(
     listOfStackFrames,
-    (config_aut = {})
+    {}
 );
 
 const m = new MemoryModel({ width: WIDTH, height: requiredHeight + 100 });

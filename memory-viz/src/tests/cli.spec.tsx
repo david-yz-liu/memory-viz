@@ -4,7 +4,6 @@ const { exec, spawn } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 const tmp = require("tmp");
-const os = require("os");
 
 tmp.setGracefulCleanup();
 

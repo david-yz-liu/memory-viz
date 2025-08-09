@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, MenuItem } from "@mui/material";
+import { MenuItem } from "@mui/material";
 import MemoryModelsMenu from "./MemoryModelsMenu";
 
 import { SAMPLES } from "./sample";
@@ -11,7 +11,7 @@ type MemoryModelsSamplePropTypes = {
 };
 
 export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
-    const [clickedBtnIndex, setClickedBtnIndex] = useState<Number>(null);
+    const [clickedBtnIndex, setClickedBtnIndex] = useState<number>(null);
 
     useEffect(() => {
         if (clickedBtnIndex !== null) {
@@ -19,7 +19,7 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
         }
     }, [clickedBtnIndex]);
 
-    const handleButtonClick = (index: Number, sample: Object) => {
+    const handleButtonClick = (index: number, sample: object) => {
         // Note: the following conversion to a string is inefficient, as the data is later parsed
         // back into JSON for rendering.
         // TODO: fix this.

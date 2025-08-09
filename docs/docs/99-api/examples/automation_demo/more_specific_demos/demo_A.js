@@ -8,8 +8,6 @@
 
 const { MemoryModel, drawAutomatedOtherItems } = require("memory-viz");
 
-const fs = require("fs");
-
 const WIDTH = 1300;
 
 const listOfObjs = [
@@ -26,9 +24,9 @@ const listOfObjs = [
 const { objs, canvas_height, canvas_width } = drawAutomatedOtherItems(
     listOfObjs,
     WIDTH,
-    (sort_by = "height"),
-    (config_aut = {}),
-    (sf_endpoint = 150) // This is the "separator", dividing the stack-frame space from the object space.
+    "height",
+    {},
+    150 // This is the "separator", dividing the stack-frame space from the object space.
 );
 
 const m = new MemoryModel({ width: canvas_width, height: canvas_height });

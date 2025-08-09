@@ -8,7 +8,7 @@ import { useMediaQuery } from "@mui/material";
 
 declare module "@mui/material/styles" {
     interface PaletteColor {
-        paper?: String;
+        paper?: string;
     }
 
     interface SimplePaletteColorOptions {

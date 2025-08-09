@@ -11,15 +11,12 @@ import {
     Rect,
     Primitive,
     Style,
-    DisplaySettings,
-    Size,
 } from "./types";
 import { isArrayOfNullableType } from "./typeguards";
 import { RoughSVG } from "roughjs/bin/svg";
 import { Config, Options } from "roughjs/bin/core";
 import type * as fsType from "fs";
 import type * as CSS from "csstype";
-import { getSize } from "./automate";
 import { DrawnEntitySchema } from "./types";
 import { prettifyError } from "zod";
 
@@ -103,9 +100,10 @@ export class MemoryModel {
 
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
-            (this as { [key: string]: any })[key] = options.hasOwnProperty(key)
-                ? options[key as keyof VisualizationConfig]
-                : config[key as keyof typeof config];
+            (this as { [key: string]: any })[key] =
+                Object.prototype.hasOwnProperty.call(options, key)
+                    ? options[key as keyof VisualizationConfig]
+                    : config[key as keyof typeof config];
         }
 
         this.objectCounter = 0;
@@ -153,8 +151,8 @@ export class MemoryModel {
      * @param canvas - the element that will be used to draw graphics
      */
     render(canvas: HTMLCanvasElement): void {
-        let image = new Image();
-        let data =
+        const image = new Image();
+        const data =
             "data:image/svg+xml;base64," + window.btoa(this.svg.toString());
         image.src = data;
         image.onload = () => {
@@ -273,12 +271,12 @@ export class MemoryModel {
         const renderedText =
             typeof value === "string" ? `"${value}"` : String(value);
 
-        let default_width = Math.max(
+        const default_width = Math.max(
             this.obj_min_width,
             this.getTextLength(renderedText, style.text_value) +
                 this.obj_x_padding
         );
-        let default_height = this.obj_min_height;
+        const default_height = this.obj_min_height;
 
         if (width !== undefined) {
             width -= 2 * this.double_rect_sep;
@@ -299,8 +297,8 @@ export class MemoryModel {
             }
         }
 
-        let box_width = Math.max(width ?? 0, default_width);
-        let box_height = Math.max(height ?? 0, default_height);
+        const box_width = Math.max(width ?? 0, default_width);
+        const box_height = Math.max(height ?? 0, default_height);
 
         this.drawRect(
             x,
@@ -380,12 +378,12 @@ export class MemoryModel {
         width: number,
         style: Style
     ) {
-        let id_box = Math.max(
+        const id_box = Math.max(
             this.prop_min_width,
             this.getTextLength(`id${id}`, style.text_id) + 10
         );
 
-        let type_box = Math.max(
+        const type_box = Math.max(
             this.prop_min_width,
             this.getTextLength(type, style.text_type) + 10
         );
@@ -485,8 +483,8 @@ export class MemoryModel {
             );
         }
 
-        let box_width = Math.max(width ?? 0, default_width);
-        let box_height = Math.max(height ?? 0, default_height);
+        const box_width = Math.max(width ?? 0, default_width);
+        const box_height = Math.max(height ?? 0, default_height);
 
         this.drawRect(
             x,
@@ -599,7 +597,7 @@ export class MemoryModel {
         });
         default_width = Math.max(this.obj_min_width, default_width);
         default_width += ((element_ids.length - 1) * this.item_min_width) / 4; // Space for separators
-        let default_height = this.obj_min_height;
+        const default_height = this.obj_min_height;
 
         if (width !== undefined && width < default_width) {
             console.warn(
@@ -614,8 +612,8 @@ export class MemoryModel {
             );
         }
 
-        let box_width = Math.max(width ?? 0, default_width);
-        let box_height = Math.max(height ?? 0, default_height);
+        const box_width = Math.max(width ?? 0, default_width);
+        const box_height = Math.max(height ?? 0, default_height);
 
         this.drawRect(
             x,
@@ -635,11 +633,11 @@ export class MemoryModel {
         };
 
         let curr_x = x + this.item_min_width / 2;
-        let item_y =
+        const item_y =
             y +
             this.prop_min_height +
             (box_height - this.prop_min_height - this.item_min_height) / 2;
-        let item_text_y =
+        const item_text_y =
             item_y + this.item_min_height / 2 + this.font_size / 4;
 
         element_ids.forEach((v, i) => {
@@ -713,14 +711,14 @@ export class MemoryModel {
         let default_height = this.prop_min_height + this.item_min_height / 2;
 
         for (const k in obj) {
-            let idk = k.trim() === "" ? "" : `id${k}`;
-            let idv = obj[k] === null ? "" : `id${obj[k]}`;
+            const idk = k.trim() === "" ? "" : `id${k}`;
+            const idv = obj[k] === null ? "" : `id${obj[k]}`;
 
-            let key_box = Math.max(
+            const key_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idk + 5, style.text_id)
             );
-            let value_box = Math.max(
+            const value_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv + 5, style.text_value)
             );
@@ -748,8 +746,8 @@ export class MemoryModel {
             );
         }
 
-        let box_width = Math.max(width ?? 0, default_width);
-        let box_height = Math.max(height ?? 0, default_height);
+        const box_width = Math.max(width ?? 0, default_width);
+        const box_height = Math.max(height ?? 0, default_height);
 
         this.drawRect(
             x,
@@ -765,9 +763,9 @@ export class MemoryModel {
         // First loop, to draw the key boxes
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
-            let idk = k.trim() === "" ? "" : `id${k}`;
+            const idk = k.trim() === "" ? "" : `id${k}`;
 
-            let key_box = Math.max(
+            const key_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idk + 5, style.text_id)
             );
@@ -794,9 +792,9 @@ export class MemoryModel {
         // A second loop, so that we can position the colon and value boxes correctly.
         curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
-            let idv = k === null || obj[k] === null ? "" : `id${obj[k]}`;
+            const idv = k === null || obj[k] === null ? "" : `id${obj[k]}`;
 
-            let value_box = Math.max(
+            const value_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv + 5, style.text_value)
             );
@@ -908,8 +906,8 @@ export class MemoryModel {
             );
         }
 
-        let box_width = Math.max(width ?? 0, default_width);
-        let box_height = Math.max(height ?? 0, default_height);
+        const box_width = Math.max(width ?? 0, default_width);
+        const box_height = Math.max(height ?? 0, default_height);
 
         this.drawRect(
             x,
@@ -927,8 +925,8 @@ export class MemoryModel {
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const attribute in attributes) {
             const val = attributes[attribute];
-            let idv = val === null ? "" : `id${val}`;
-            let attr_box = Math.max(
+            const idv = val === null ? "" : `id${val}`;
+            const attr_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv) + 10
             );
@@ -960,7 +958,7 @@ export class MemoryModel {
         }
 
         if (stack_frame) {
-            let text_length = this.getTextLength(name, style.text_type);
+            const text_length = this.getTextLength(name, style.text_type);
             this.drawRect(
                 x,
                 y,
@@ -1165,7 +1163,7 @@ export class MemoryModel {
 
             const frame_types = [".frame", ".blank-frame"];
             if (frame_types.includes(obj.type!) || obj.type === ".class") {
-                let is_frame = frame_types.includes(obj.type!);
+                const is_frame = frame_types.includes(obj.type!);
 
                 const size = this.drawClass(
                     obj.x!,
@@ -1208,8 +1206,8 @@ export class MemoryModel {
      * @param size - Contains the top left coordinates, width and height of the box
      */
     private updateDimensions(size: Rect): void {
-        let right_edge = size.x + size.width + this.canvas_padding;
-        let bottom_edge = size.y + size.height + this.canvas_padding;
+        const right_edge = size.x + size.width + this.canvas_padding;
+        const bottom_edge = size.y + size.height + this.canvas_padding;
 
         if (this.width !== undefined && right_edge > this.width) {
             this.width = right_edge;
@@ -1231,39 +1229,39 @@ export class MemoryModel {
             function enableInteractivity() {
                 // Inject the id value to object id mapping into script
                 const idToObjectMap = ${JSON.stringify(idToObjectMapping)};
-                
+
                 function highlightObject(objectId) {
                     const objectBox = document.getElementById(objectId);
                     if (!objectBox) {
                         return;
                     }
-                    
+
                     objectBox.classList.add('highlighted');
                 }
-                
+
                 function removeHighlight(objectId) {
                     const objectBox = document.getElementById(objectId);
                     if (!objectBox) {
                         return;
                     }
-                    
+
                     objectBox.classList.remove('highlighted');
                 }
-                
+
                 function addEventListeners() {
                     document.querySelectorAll('text.id').forEach(idText => {
                         const idValue = idText.textContent.trim();
                         if (!idValue || !idValue.startsWith('id')) {
                             return;
                         }
-                        
+
                         idText.addEventListener('mouseover', () => {
                             const objectIds = idToObjectMap[idValue];
                             if (objectIds) {
                                 objectIds.forEach(highlightObject);
                             }
                         });
-                        
+
                         idText.addEventListener('mouseout', () => {
                             const objectIds = idToObjectMap[idValue];
                             if (objectIds) {
@@ -1272,10 +1270,10 @@ export class MemoryModel {
                         });
                     });
                 }
-                
+
                 addEventListeners();
             }
-            
+
             // Wait for DOM to be ready
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', enableInteractivity);
