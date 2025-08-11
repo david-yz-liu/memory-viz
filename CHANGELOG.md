@@ -11,6 +11,16 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+### 🐛 Bug fixes
+
+### 📚 Documentation and demo website changes
+
+### 🔧 Internal changes
+
+## [0.7.0] - 2025-08-11
+
+### ✨ Enhancements
+
 - Added unique object ids for SVG output object tags `<g>`
 - Added support for global CSS styling using the `--global-style` option in the CLI
 - Added optional attributes width and height for each drawn object
