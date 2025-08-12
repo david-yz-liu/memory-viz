@@ -3,6 +3,9 @@ title: Home
 sidebar_position: 1
 ---
 
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import ThemedImage from "@theme/ThemedImage";
+
 # Memory model diagrams
 
 This package generates memory model diagrams for Python code in the style of CSC110/111/148 at the University of Toronto.
@@ -49,4 +52,10 @@ m.save("simple_demo.svg");
 
 Running `$ node simple_demo.js` produces the following file:
 
-![Diagram generated for simple_demo.js file.](images/simple_demo.svg)
+<ThemedImage
+    alt="Diagram of simple_demo.js example"
+    sources={{
+        light: useBaseUrl("images/simple_demo_light.svg"),
+        dark: useBaseUrl("images/simple_demo_dark.svg"),
+    }}
+/>
