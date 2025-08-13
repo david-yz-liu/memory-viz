@@ -14,7 +14,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
             try {
                 const svgString = window.svgArray[props.step].svg;
                 const image = new Image();
-                let data =
+                const data =
                     "data:image/svg+xml;base64," + window.btoa(svgString);
                 image.src = data;
                 image.onload = () => {

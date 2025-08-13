@@ -2807,7 +2807,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath, output, height, and width option(s) 1`] = `
-<svg width="323.2" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="1200" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     :root {
       --fade-text-color: rgb(0, 0, 0);

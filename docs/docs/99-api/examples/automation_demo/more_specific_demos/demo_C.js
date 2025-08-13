@@ -18,10 +18,6 @@ const WIDTH = 1300;
 const json_string = fs.readFileSync("../automation_demo.json", "utf-8");
 const objs = JSON.parse(json_string);
 
-const m = drawAutomated(
-    (objects = objs),
-    (width = WIDTH),
-    (configuration = {})
-);
+const m = drawAutomated(objs, WIDTH, {});
 
 m.save("draw_automated.svg");

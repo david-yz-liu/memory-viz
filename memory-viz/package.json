@@ -1,6 +1,6 @@
 {
     "name": "memory-viz",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "description": "Library for creating beginner-friendly memory model diagrams.",
     "main": "dist/memory-viz.bundle.js",
     "types": "dist/index.d.ts",
@@ -48,7 +48,7 @@
     },
     "dependencies": {
         "@xmldom/xmldom": "^0.8.10",
-        "commander": "^12.1.0",
+        "commander": "^14.0.0",
         "deepmerge": "^4.3.1",
         "roughjs": "^4.6.6",
         "zod": "^4.0.5"

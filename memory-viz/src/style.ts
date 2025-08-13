@@ -1,4 +1,3 @@
-import merge from "deepmerge";
 import { config } from "./config";
 import { Style } from "./types";
 import type * as CSS from "csstype";
@@ -136,16 +135,16 @@ const DARK_THEME_CSS = `
         [data-theme="dark"] {
             --highlight-value-text-color: #110875;
             --highlight-id-text-color: #6e4409;
-        
+
             --fade-text-color: #BBBBBB;
             --hide-text-color: #121212;
-        
+
             --highlight-box-fill: #EDB926;
             --highlight-box-line-color: #FFFFFF;
-        
+
             --fade-box-fill: #2C2C2C;
             --fade-box-line-color: #666666;
-        
+
             --hide-box-fill: #121212;
 
             --highlight-object-fill: rgba(72, 207, 173, 0.3);
@@ -171,16 +170,16 @@ const HIGH_CONTRAST_THEME_CSS = `
         [data-theme="high-contrast"] {
             --highlight-value-text-color: #FFFFFF;
             --highlight-id-text-color: #FFFF00;
-            
+
             --fade-text-color: #CCCCCC;
             --hide-text-color: #000000;
-            
+
             --highlight-box-fill: #0000FF;
             --highlight-box-line-color: #FFFFFF;
-            
+
             --fade-box-fill: #333333;
             --fade-box-line-color: #FFFFFF;
-            
+
             --hide-box-fill: #000000;
 
             --highlight-object-fill: rgba(0, 0, 255, 0.5);
@@ -214,10 +213,10 @@ function setStyleSheet(
     const interactiveCursor = memory_model.interactive ? "pointer" : "auto";
 
     const styles = `
-        :root {               
+        :root {
         --fade-text-color: ${config.text_color};
         --hide-text-color: white;
-        
+
         --highlight-value-text-color: ${config.value_color};
         --highlight-id-text-color: ${config.id_color};
 
@@ -234,8 +233,8 @@ function setStyleSheet(
         --default-font-size: ${config.font_size}px;
 
         --highlight-object-fill: rgba(255, 255, 0, 0.6);
-    } 
-    
+    }
+
         text {
             font-family: Consolas, Courier;
             font-size: ${config.font_size}px;
@@ -252,7 +251,7 @@ function setStyleSheet(
             fill: ${config.text_color};
             text-anchor: start;
         }
-        text.id { 
+        text.id {
             cursor: ${interactiveCursor};
             fill: ${config.id_color};
             text-anchor: middle;

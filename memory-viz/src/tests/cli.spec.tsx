@@ -4,7 +4,6 @@ const { exec, spawn } = require("child_process");
 const path = require("path");
 const fs = require("fs");
 const tmp = require("tmp");
-const os = require("os");
 
 tmp.setGracefulCleanup();
 
@@ -28,7 +27,7 @@ const globalStyle = `
     svg {
         background-color: #121212;
     }
-    
+
     text {
         font-family: Consolas, Courier;
         font-size: 20px;
@@ -68,7 +67,7 @@ describe.each([
     },
     {
         inputs: "filepath, output, height, and width",
-        command: `${filePath} --output=${outputPath} --height=700 width=1200 --roughjs-config seed=12345`,
+        command: `${filePath} --output=${outputPath} --height=700 --width=1200 --roughjs-config seed=12345`,
     },
     {
         inputs: "filepath, output, and a variety of rough-config",
