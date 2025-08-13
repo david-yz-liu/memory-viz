@@ -2,6 +2,9 @@
 title: Style Presets
 ---
 
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import ThemedImage from "@theme/ThemedImage";
+
 # Style Presets
 
 In case the user does not want to get their hands dirty with specific DOM (and RoughJS) attributes
@@ -16,7 +19,13 @@ To declare the desired preset, the user must assign it to the `style` attribute
 
 ### `highlight`
 
-![highlight demo](images/presets_md/highlight.png)
+<ThemedImage
+    alt="highlight demo"
+    sources={{
+        light: useBaseUrl("images/presets_md/highlight_light.svg"),
+        dark: useBaseUrl("images/presets_md/highlight_dark.svg"),
+    }}
+/>
 
 When the keyword `highlight` is provided as the value for the `style` attribute, there will be significant
 changes on the appearance of the container. In terms of the boxes (the container representing the data, the id box
@@ -40,17 +49,36 @@ will appear bolder than default.
 
 ### `hide`
 
-![hide demo](images/presets_md/hide.png)
-It makes all three major boxes (type box, id box, and the surrounding container box) all blank (white).
+<ThemedImage
+    alt="hide demo"
+    sources={{
+        light: useBaseUrl("images/presets_md/hide_light.svg"),
+        dark: useBaseUrl("images/presets_md/hide_dark.svg"),
+    }}
+/>
+It makes all three major boxes (type box, id box, and the surrounding container
+box) all blank (white).
 
 ### `hide_id`
 
-![hide-id demo](images/presets_md/hide_id.png)
+<ThemedImage
+    alt="hide-id demo"
+    sources={{
+        light: useBaseUrl("images/presets_md/hide_id_light.svg"),
+        dark: useBaseUrl("images/presets_md/hide_id_dark.svg"),
+    }}
+/>
 It will make the id box blank (white).
 
 ### `hide_type`
 
-![hide-id demo](images/presets_md/hide_type.png)
+<ThemedImage
+    alt="hide-id demo"
+    sources={{
+        light: useBaseUrl("images/presets_md/hide_type_light.svg"),
+        dark: useBaseUrl("images/presets_md/hide_type_dark.svg"),
+    }}
+/>
 It will make the type box blank (white).
 
 ### `hide_container`
@@ -60,12 +88,24 @@ It will make the container box blank (white), but not the `type` and `id` boxes.
 
 ### `fade`
 
-![fade demo](images/presets_md/fade.png)
+<ThemedImage
+    alt="fade demo"
+    sources={{
+        light: useBaseUrl("images/presets_md/fade_light.svg"),
+        dark: useBaseUrl("images/presets_md/fade_dark.svg"),
+    }}
+/>
 It will "fade" the box.
 
 ### `fade_type`
 
-![fade-type demo](images/presets_md/fade_type.png)
+<ThemedImage
+    alt="fade-type demo"
+    sources={{
+        light: useBaseUrl("images/presets_md/fade_type_light.svg"),
+        dark: useBaseUrl("images/presets_md/fade_type_dark.svg"),
+    }}
+/>
 It will "fade" the type sub-box.
 
 ### `fade_id`
@@ -74,8 +114,13 @@ It will "fade" the id sub-box.
 
 ## A combination of various presets and user-defined styles, with `style: ["highlight", "hide_type", {"text_id" : {"font-style" : "italic"}}]`
 
-![combo demo](images/presets_md/combo.png)
-
+<ThemedImage
+    alt="combo demo"
+    sources={{
+        light: useBaseUrl("images/presets_md/combo_light.svg"),
+        dark: useBaseUrl("images/presets_md/combo_dark.svg"),
+    }}
+/>
 ## Implementation Note
 
 In regard to implementation, the array of "presets" is resolved into a single JS style object, with the help of the

@@ -1,3 +1,7 @@
+---
+title: Entity Specification
+---
+
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import ThemedImage from "@theme/ThemedImage";
 import CodeBlock from "@theme/CodeBlock";
@@ -75,45 +79,95 @@ All supported entities include the following core attributes, unless explicitly 
     <ThemedImage
         alt="Example Integer"
         sources={{
-            light: useBaseUrl("img/int.svg"),
-            //             dark: useBaseUrl("img/int_dark.svg"),
+            light: useBaseUrl("images/entity_specification/int.svg"),
+            dark: useBaseUrl("images/entity_specification/int_dark.svg"),
         }}
     />
 </details>
 <details>
     <summary>**Blank integer**</summary>
     <CodeBlock language="json">{ExampleIntBlank}</CodeBlock>
-    ![Example Blank Integer](images/entity_specification/int_blank.svg)
+    <ThemedImage
+        alt="Example Blank Integer"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/int_blank_light.svg"
+            ),
+            dark: useBaseUrl("images/entity_specification/int_blank_dark.svg"),
+        }}
+    />
 </details>
 <details>
     <summary>**String**</summary>
     <CodeBlock language="json">{ExampleString}</CodeBlock>
-    ![Example String](images/entity_specification/str.svg)
+    <ThemedImage
+        alt="Example String"
+        sources={{
+            light: useBaseUrl("images/entity_specification/str_light.svg"),
+            dark: useBaseUrl("images/entity_specification/str_dark.svg"),
+        }}
+    />
 </details>
 <details>
     <summary>**Boolean**</summary>
     <CodeBlock language="json">{ExampleBool}</CodeBlock>
-    ![Example Boolean](images/entity_specification/bool.svg)
+    <ThemedImage
+        alt="Example Boolean"
+        sources={{
+            light: useBaseUrl("images/entity_specification/bool_light.svg"),
+            dark: useBaseUrl("images/entity_specification/bool_dark.svg"),
+        }}
+    />
 </details>
 <details>
     <summary>**Float**</summary>
     <CodeBlock language="json">{ExampleFloat}</CodeBlock>
-    ![Example Float](images/entity_specification/float.svg)
+    <ThemedImage
+        alt="Example Float"
+        sources={{
+            light: useBaseUrl("images/entity_specification/float_light.svg"),
+            dark: useBaseUrl("images/entity_specification/float_dark.svg"),
+        }}
+    />
 </details>
 <details>
     <summary>**Blank float**</summary>
     <CodeBlock language="json">{ExampleFloatBlank}</CodeBlock>
-    ![Example Blank Float](images/entity_specification/float_blank.svg)
+    <ThemedImage
+        alt="Example Blank Float"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/float_blank_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/float_blank_dark.svg"
+            ),
+        }}
+    />
 </details>
 <details>
     <summary>**None**</summary>
     <CodeBlock language="json">{ExampleNone}</CodeBlock>
-    ![Example None](images/entity_specification/none.svg)
+    <ThemedImage
+        alt="Example None"
+        sources={{
+            light: useBaseUrl("images/entity_specification/none_light.svg"),
+            dark: useBaseUrl("images/entity_specification/none_dark.svg"),
+        }}
+    />
 </details>
 <details>
     <summary>**Empty Box**</summary>
     <CodeBlock language="json">{ExampleEmptyBox}</CodeBlock>
-    ![Example None](images/entity_specification/empty_box.svg)
+    <ThemedImage
+        alt="Example Empty Box"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/empty_box_light.svg"
+            ),
+            dark: useBaseUrl("images/entity_specification/empty_box_dark.svg"),
+        }}
+    />
 </details>
 
 ## Sequences
@@ -133,24 +187,62 @@ All supported entities include the following core attributes, unless explicitly 
 <details>
     <summary>**List with blank boxes**</summary>
     <CodeBlock language="json">{ExampleListBlank}</CodeBlock>
-    ![Example List](images/entity_specification/list_blank_boxes.svg)
+    <ThemedImage
+        alt="Example List"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/list_blank_boxes_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/list_blank_boxes_dark.svg"
+            ),
+        }}
+    />
 </details>
 <details>
     <summary>**List with indices shown**</summary>
     <CodeBlock language="json">{ExampleListIndices}</CodeBlock>
-    ![Example List with
-    Indices](images/entity_specification/list_with_indices.svg)
+    <ThemedImage
+        alt="Example List with Indices"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/list_with_indices_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/list_with_indices_dark.svg"
+            ),
+        }}
+    />
 </details>
 <details>
     <summary>**Tuple with blank boxes**</summary>
     <CodeBlock language="json">{ExampleTupleBlank}</CodeBlock>
-    ![Example Tuple](images/entity_specification/tuple_blank_boxes.svg)
+    <ThemedImage
+        alt="Example Tuple"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/tuple_blank_boxes_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/tuple_blank_boxes_dark.svg"
+            ),
+        }}
+    />
 </details>
 <details>
     <summary>**Tuple with indices shown**</summary>
     <CodeBlock language="json">{ExampleTupleIndices}</CodeBlock>
-    ![Example Tuple with
-    Indices](images/entity_specification/tuple_with_indices.svg)
+    <ThemedImage
+        alt="Example Tuple with Indices"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/tuple_with_indices_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/tuple_with_indices_dark.svg"
+            ),
+        }}
+    />
 </details>
 
 ## Sets
@@ -169,12 +261,32 @@ All supported entities include the following core attributes, unless explicitly 
 <details>
     <summary>**Set with blank boxes**</summary>
     <CodeBlock language="json">{ExampleSetBlank}</CodeBlock>
-    ![Example Set](images/entity_specification/set_blank_boxes.svg)
+    <ThemedImage
+        alt="Example Set"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/set_blank_boxes_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/set_blank_boxes_dark.svg"
+            ),
+        }}
+    />
 </details>
 <details>
     <summary>**Set with large width**</summary>
     <CodeBlock language="json">{ExampleSetWide}</CodeBlock>
-    ![Example Set](images/entity_specification/set_large_width.svg)
+    <ThemedImage
+        alt="Example Set"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/set_large_width_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/set_large_width_dark.svg"
+            ),
+        }}
+    />
 </details>
 
 ## Dictionaries
@@ -193,12 +305,32 @@ All supported entities include the following core attributes, unless explicitly 
 <details>
     <summary>**Dictionary with blank boxes**</summary>
     <CodeBlock language="json">{ExampleDictBlank}</CodeBlock>
-    ![Example Dictionary](images/entity_specification/dict_blank_boxes.svg)
+    <ThemedImage
+        alt="Example Dictionary"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/dict_blank_boxes_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/dict_blank_boxes_dark.svg"
+            ),
+        }}
+    />
 </details>
 <details>
     <summary>**Dictionary with large height**</summary>
     <CodeBlock language="json">{ExampleDictTall}</CodeBlock>
-    ![Example Dictionary](images/entity_specification/dict_large_height.svg)
+    <ThemedImage
+        alt="Example Dictionary"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/dict_large_height_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/dict_large_height_dark.svg"
+            ),
+        }}
+    />
 </details>
 
 ## Classes
@@ -218,7 +350,17 @@ All supported entities include the following core attributes, unless explicitly 
 <details>
     <summary>**Class with blank boxes**</summary>
     <CodeBlock language="json">{ExampleClassBlank}</CodeBlock>
-    ![Example Class](images/entity_specification/class_blank_boxes.svg)
+    <ThemedImage
+        alt="Example Class"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/class_blank_boxes_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/class_blank_boxes_dark.svg"
+            ),
+        }}
+    />
 </details>
 
 ## Stack Frames
@@ -238,14 +380,32 @@ All supported entities include the following core attributes, unless explicitly 
 <details>
     <summary>**Main stack frame**</summary>
     <CodeBlock language="json">{ExampleMainStack}</CodeBlock>
-    ![Example Main Stack
-    Frame](images/entity_specification/stack_frame_main.svg)
+    <ThemedImage
+        alt="Example Main Stack Frame"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/stack_frame_main_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/stack_frame_main_dark.svg"
+            ),
+        }}
+    />
 </details>
 <details>
     <summary>**Function stack frame with blank boxes**</summary>
     <CodeBlock language="json">{ExampleFunctionStack}</CodeBlock>
-    ![Example Function Stack
-    Frame](images/entity_specification/stack_frame_function.svg)
+    <ThemedImage
+        alt="Example Function Stack Frame"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/stack_frame_function_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/stack_frame_function_dark.svg"
+            ),
+        }}
+    />
 </details>
 
 ## Blank Objects
