@@ -17,6 +17,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🔧 Internal changes
 
+- Disabled `no-empty-keys` rule in ESLint config.
+
 ## [0.7.0] - 2025-08-11
 
 ### ✨ Enhancements
