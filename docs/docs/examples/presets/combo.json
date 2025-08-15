@@ -1,0 +1,12 @@
+[
+    {
+        "type": "str",
+        "id": 43,
+        "value": "David is cool",
+        "style": [
+            "highlight",
+            "hide_type",
+            { "text_id": { "font-style": "italic" } }
+        ]
+    }
+]
