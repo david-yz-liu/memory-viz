@@ -1,6 +1,8 @@
-{
-    "type": "str",
-    "id": 25,
-    "value": "Hide",
-    "style": ["hide"]
-}
+[
+    {
+        "type": "str",
+        "id": 25,
+        "value": "Hide",
+        "style": ["hide"]
+    }
+]

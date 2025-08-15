@@ -1,6 +1,8 @@
-{
-    "type": "str",
-    "id": 24,
-    "value": "Fade Type",
-    "style": ["fade_type"]
-}
+[
+    {
+        "type": "str",
+        "id": 24,
+        "value": "Fade Type",
+        "style": ["fade_type"]
+    }
+]

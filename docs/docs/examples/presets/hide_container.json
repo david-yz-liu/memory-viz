@@ -1,6 +1,8 @@
-{
-    "type": "str",
-    "id": 28,
-    "value": "Hide Container",
-    "style": ["hide_container"]
-}
+[
+    {
+        "type": "str",
+        "id": 28,
+        "value": "Hide Container",
+        "style": ["hide_container"]
+    }
+]

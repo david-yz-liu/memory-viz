@@ -1,5 +1,7 @@
-{
-    "type": ".blank",
-    "width": 200,
-    "height": 100
-}
+[
+    {
+        "type": ".blank",
+        "width": 200,
+        "height": 100
+    }
+]

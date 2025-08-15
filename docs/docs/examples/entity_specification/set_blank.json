@@ -1,5 +1,7 @@
-{
-    "type": "set",
-    "id": 90,
-    "value": [36, 49, null, 64]
-}
+[
+    {
+        "type": "set",
+        "id": 90,
+        "value": [36, 49, null, 64]
+    }
+]

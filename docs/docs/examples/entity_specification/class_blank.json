@@ -1,10 +1,12 @@
-{
-    "type": ".class",
-    "id": 82,
-    "name": "Person",
-    "value": {
-        "age": 12,
-        "name": 17,
-        "": null
+[
+    {
+        "type": ".class",
+        "id": 82,
+        "name": "Person",
+        "value": {
+            "age": 12,
+            "name": 17,
+            "": null
+        }
     }
-}
+]

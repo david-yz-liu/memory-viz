@@ -1,6 +1,8 @@
-{
-    "type": "tuple",
-    "id": 11,
-    "value": [82, 76, null],
-    "show_indexes": true
-}
+[
+    {
+        "type": "tuple",
+        "id": 11,
+        "value": [82, 76, null],
+        "show_indexes": true
+    }
+]
