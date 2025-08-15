@@ -10,6 +10,7 @@ fs.readdirSync(jsonDirectory).forEach((directory) => {
 
     if (fs.statSync(jsonSubDirectory).isDirectory()) {
         const svgSubDirectory = path.join(svgDirectory, directory);
+        fs.mkdirSync(svgSubDirectory, { recursive: true });
 
         fs.readdirSync(jsonSubDirectory).forEach((file) => {
             if (path.extname(file) === ".json") {
