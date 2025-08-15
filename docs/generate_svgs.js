@@ -5,11 +5,6 @@ const { draw } = require("memory-viz");
 const jsonDirectory = path.resolve(__dirname, "docs/examples");
 const svgDirectory = path.resolve(__dirname, "static/images");
 
-// Ensure the SVG root directory exists
-if (!fs.existsSync(svgDirectory)) {
-    fs.mkdirSync(svgDirectory, { recursive: true });
-}
-
 fs.readdirSync(jsonDirectory).forEach((directory) => {
     const jsonSubDirectory = path.join(jsonDirectory, directory);
 
