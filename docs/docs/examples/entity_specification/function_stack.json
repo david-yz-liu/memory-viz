@@ -7,5 +7,10 @@
             "name": 17,
             "": null
         }
+    },
+    {
+        "type": ".blank",
+        "width": 200,
+        "height": 100
     }
 ]
