@@ -24,8 +24,7 @@
         "jiti": "^2.5.1",
         "lint-staged": "^16.1.2",
         "prettier": "3.4.1",
-        "typescript-eslint": "^8.39.0",
-        "raw-loader": "^4.0.2"
+        "typescript-eslint": "^8.39.0"
     },
     "lint-staged": {
         "*.{js,ts,jsx,tsx,json}": [
