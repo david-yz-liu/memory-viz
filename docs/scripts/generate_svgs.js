@@ -1,9 +1,24 @@
+#!/usr/bin/env node
+
+// This script scans JSON files in docs/examples, to generate light and dark mode SVGs into static/images
+// The script only generates SVGs if the JSON file is newer than the SVG file
+// Usage: npm run generate-svgs
+
 const fs = require("fs");
 const path = require("path");
 const { draw } = require("memory-viz");
 
 const jsonDirectory = path.resolve(__dirname, "docs/examples");
 const svgDirectory = path.resolve(__dirname, "static/images");
+
+function needsRebuild(json, svg) {
+    if (!fs.existsSync(svg)) {
+        return true;
+    }
+    const jsonTime = fs.statSync(json).mtime;
+    const svgTime = fs.statSync(svg).mtime;
+    return jsonTime > svgTime;
+}
 
 fs.readdirSync(jsonDirectory).forEach((directory) => {
     const jsonSubDirectory = path.join(jsonDirectory, directory);
@@ -22,7 +37,7 @@ fs.readdirSync(jsonDirectory).forEach((directory) => {
                         svgSubDirectory,
                         `${baseName}_light.svg`
                     );
-                    if (!fs.existsSync(svgPathLight)) {
+                    if (needsRebuild(jsonPath, svgPathLight)) {
                         const svgLight = draw(jsonPath, true, {});
                         svgLight.save(svgPathLight);
                         console.log(`Created: ${svgPathLight}`);
@@ -32,7 +47,7 @@ fs.readdirSync(jsonDirectory).forEach((directory) => {
                         svgSubDirectory,
                         `${baseName}_dark.svg`
                     );
-                    if (!fs.existsSync(svgPathDark)) {
+                    if (needsRebuild(jsonPath, svgPathDark)) {
                         const svgDark = draw(jsonPath, true, { theme: "dark" });
                         svgDark.save(svgPathDark);
                         console.log(`Created: ${svgPathDark}`);
