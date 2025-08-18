@@ -2,7 +2,7 @@
 
 // This script scans JSON files in docs/examples, to generate light and dark mode SVGs into static/images.
 // The script only generates SVGs if the JSON file is newer than the SVG file.
-// Usage: npm run generate-svgs.
+// Usage: npm run generate-svgs
 
 const fs = require("fs");
 const path = require("path");
