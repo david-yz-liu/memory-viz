@@ -1,0 +1,422 @@
+---
+title: Entity Specification
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import ThemedImage from "@theme/ThemedImage";
+import CodeBlock from "@theme/CodeBlock";
+
+import ExampleBool from "!!raw-loader!./examples/entity_specification/bool.json";
+import ExampleClassBlank from "!!raw-loader!./examples/entity_specification/class_blank.json";
+import ExampleDictBlank from "!!raw-loader!./examples/entity_specification/dict_blank.json";
+import ExampleDictTall from "!!raw-loader!./examples/entity_specification/dict_tall.json";
+import ExampleEmptyBox from "!!raw-loader!./examples/entity_specification/empty_box.json";
+import ExampleFloat from "!!raw-loader!./examples/entity_specification/float.json";
+import ExampleFloatBlank from "!!raw-loader!./examples/entity_specification/float_blank.json";
+import ExampleFunctionStack from "!!raw-loader!./examples/entity_specification/function_stack.json";
+import ExampleInt from "!!raw-loader!./examples/entity_specification/int.json";
+import ExampleIntBlank from "!!raw-loader!./examples/entity_specification/int_blank.json";
+import ExampleListBlank from "!!raw-loader!./examples/entity_specification/list_blank.json";
+import ExampleListIndices from "!!raw-loader!./examples/entity_specification/list_indices.json";
+import ExampleMainStack from "!!raw-loader!./examples/entity_specification/main_stack.json";
+import ExampleNone from "!!raw-loader!./examples/entity_specification/none.json";
+import ExampleSetBlank from "!!raw-loader!./examples/entity_specification/set_blank.json";
+import ExampleSetWide from "!!raw-loader!./examples/entity_specification/set_wide.json";
+import ExampleString from "!!raw-loader!./examples/entity_specification/string.json";
+import ExampleTupleBlank from "!!raw-loader!./examples/entity_specification/tuple_blank.json";
+import ExampleTupleIndices from "!!raw-loader!./examples/entity_specification/tuple_indices.json";
+
+# Entity Specification
+
+The `draw` function has an `objects` argument which is used to define the array of entities (type `DrawnEntity`) to be rendered on the canvas.
+This page documents the attributes of the `DrawnEntity` object type and provides examples for the different kinds of entities supported by MemoryViz.
+
+## Core Attributes
+
+All supported entities include the following core attributes, unless explicitly stated otherwise:
+
+| Attribute         | Type                | Required | Description                                                                                                                                 |
+| :---------------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`            | `string`            | Yes      | Specifies the type of object to be drawn. (e.g., `.class`, `.frame`, `int`, `str`). See [Entity Type](#entity-type) for more details.       |
+| `id`              | `number` or `null`  | Yes      | A unique identifier for the object. May be `null` anywhere to render a blank ID box.                                                        |
+| `value`           | `any`               | Yes      | The content of the object to be drawn. Format depends on the [entity type](#entity-type).                                                   |
+| `x`, `y`          | `number`            | No       | The x and y coordinates for the object on the canvas. Required only if the `automation` parameter of `draw` is `false`.                     |
+| `style`           | `object` or `array` | No       | Custom visual styling. See [Style API](04-style.md) for more details.                                                                       |
+| `width`, `height` | `number`            | No       | The height and width for the object. If defined height and width is smaller than the automatically calculated, then it will be overwritten. |
+
+### Entity Type
+
+| Type Value                            | Description                     |
+| :------------------------------------ | :------------------------------ |
+| `int`, `float`, `str`, `bool`, `None` | [Primitives](#primitives)       |
+| `list`, `tuple`                       | [Sequences](#sequences)         |
+| `set`                                 | [Sets](#sets)                   |
+| `dict`                                | [Dictionaries](#dictionaries)   |
+| `.class`                              | [Classes](#classes)             |
+| `.frame`                              | [Stack Frames](#stack-frames)   |
+| `.blank` `.blank-frame`               | [Blank Objects](#blank-objects) |
+
+## Primitives
+
+| Attribute         | Type                | Required | Description                                                                                                               |
+| :---------------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------ |
+| `type`            | `string`            | Yes      | Must be set to one of `int`, `str`, `bool`, `float`, or `None` to indicate a primitive object.                            |
+| `id`              | `number`            | Yes      | Unique identifier for the primitive object.                                                                               |
+| `value`           | `any`               | No       | The actual value represented by the primitive object. To render an empty box, set the value as `null` or don't define it. |
+| `x`, `y`          | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                   |
+| `style`           | `object` or `array` | No       | Custom visual styling.                                                                                                    |
+| `width`, `height` | `number`            | No       | The height and width for the primitive object.                                                                            |
+
+#### Examples
+
+<details>
+    <summary>**Integer**</summary>
+    <CodeBlock language="json">{ExampleInt}</CodeBlock>
+    <ThemedImage
+        alt="Example Integer"
+        sources={{
+            light: useBaseUrl("images/entity_specification/int_light.svg"),
+            dark: useBaseUrl("images/entity_specification/int_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Blank integer**</summary>
+    <CodeBlock language="json">{ExampleIntBlank}</CodeBlock>
+    <ThemedImage
+        alt="Example Blank Integer"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/int_blank_light.svg"
+            ),
+            dark: useBaseUrl("images/entity_specification/int_blank_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**String**</summary>
+    <CodeBlock language="json">{ExampleString}</CodeBlock>
+    <ThemedImage
+        alt="Example String"
+        sources={{
+            light: useBaseUrl("images/entity_specification/string_light.svg"),
+            dark: useBaseUrl("images/entity_specification/string_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Boolean**</summary>
+    <CodeBlock language="json">{ExampleBool}</CodeBlock>
+    <ThemedImage
+        alt="Example Boolean"
+        sources={{
+            light: useBaseUrl("images/entity_specification/bool_light.svg"),
+            dark: useBaseUrl("images/entity_specification/bool_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Float**</summary>
+    <CodeBlock language="json">{ExampleFloat}</CodeBlock>
+    <ThemedImage
+        alt="Example Float"
+        sources={{
+            light: useBaseUrl("images/entity_specification/float_light.svg"),
+            dark: useBaseUrl("images/entity_specification/float_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Blank float**</summary>
+    <CodeBlock language="json">{ExampleFloatBlank}</CodeBlock>
+    <ThemedImage
+        alt="Example Blank Float"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/float_blank_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/float_blank_dark.svg"
+            ),
+        }}
+    />
+</details>
+<details>
+    <summary>**None**</summary>
+    <CodeBlock language="json">{ExampleNone}</CodeBlock>
+    <ThemedImage
+        alt="Example None"
+        sources={{
+            light: useBaseUrl("images/entity_specification/none_light.svg"),
+            dark: useBaseUrl("images/entity_specification/none_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Empty Box**</summary>
+    <CodeBlock language="json">{ExampleEmptyBox}</CodeBlock>
+    <ThemedImage
+        alt="Example Empty Box"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/empty_box_light.svg"
+            ),
+            dark: useBaseUrl("images/entity_specification/empty_box_dark.svg"),
+        }}
+    />
+</details>
+
+## Sequences
+
+| Attribute         | Type                | Required | Description                                                                             |
+| :---------------- | :------------------ | :------- | :-------------------------------------------------------------------------------------- |
+| `type`            | `string`            | Yes      | Must be set to `list` to indicate a list object, or `tuple` to indicate a tuple object. |
+| `id`              | `number`            | Yes      | Unique identifier for the sequence.                                                     |
+| `value`           | `array`             | Yes      | List of object ids. Values can be made `null` to draw blank boxes.                      |
+| `show_indexes`    | `boolean`           | No       | Indicates whether to show indices in the memory box. Defaults to `false`.               |
+| `x`, `y`          | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                 |
+| `style`           | `object` or `array` | No       | Custom visual styling.                                                                  |
+| `width`, `height` | `number`            | No       | The height and width for the sequence.                                                  |
+
+#### Examples
+
+<details>
+    <summary>**List with blank boxes**</summary>
+    <CodeBlock language="json">{ExampleListBlank}</CodeBlock>
+    <ThemedImage
+        alt="Example List"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/list_blank_light.svg"
+            ),
+            dark: useBaseUrl("images/entity_specification/list_blank_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**List with indices shown**</summary>
+    <CodeBlock language="json">{ExampleListIndices}</CodeBlock>
+    <ThemedImage
+        alt="Example List with Indices"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/list_indices_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/list_indices_dark.svg"
+            ),
+        }}
+    />
+</details>
+<details>
+    <summary>**Tuple with blank boxes**</summary>
+    <CodeBlock language="json">{ExampleTupleBlank}</CodeBlock>
+    <ThemedImage
+        alt="Example Tuple"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/tuple_blank_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/tuple_blank_dark.svg"
+            ),
+        }}
+    />
+</details>
+<details>
+    <summary>**Tuple with indices shown**</summary>
+    <CodeBlock language="json">{ExampleTupleIndices}</CodeBlock>
+    <ThemedImage
+        alt="Example Tuple with Indices"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/tuple_indices_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/tuple_indices_dark.svg"
+            ),
+        }}
+    />
+</details>
+
+## Sets
+
+| Attribute         | Type                | Required | Description                                                             |
+| :---------------- | :------------------ | :------- | :---------------------------------------------------------------------- |
+| `type`            | `string`            | Yes      | Must be set to `set` to indicate a set object.                          |
+| `id`              | `number`            | Yes      | Unique identifier for the set.                                          |
+| `value`           | `array`             | Yes      | List of object ids. Values can be made `null` to draw blank boxes.      |
+| `x`, `y`          | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled. |
+| `style`           | `object` or `array` | No       | Custom visual styling.                                                  |
+| `width`, `height` | `number`            | No       | The height and width for the set.                                       |
+
+#### Examples
+
+<details>
+    <summary>**Set with blank boxes**</summary>
+    <CodeBlock language="json">{ExampleSetBlank}</CodeBlock>
+    <ThemedImage
+        alt="Example Set"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/set_blank_light.svg"
+            ),
+            dark: useBaseUrl("images/entity_specification/set_blank_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Set with large width**</summary>
+    <CodeBlock language="json">{ExampleSetWide}</CodeBlock>
+    <ThemedImage
+        alt="Example Set"
+        sources={{
+            light: useBaseUrl("images/entity_specification/set_wide_light.svg"),
+            dark: useBaseUrl("images/entity_specification/set_wide_dark.svg"),
+        }}
+    />
+</details>
+
+## Dictionaries
+
+| Attribute         | Type                | Required | Description                                                                                                                                                               |
+| :---------------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`            | `string`            | Yes      | Must be set to `dict` to indicate a dictionary object.                                                                                                                    |
+| `id`              | `number`            | Yes      | Unique identifier for the dictionary.                                                                                                                                     |
+| `value`           | `dict`              | Yes      | Dictionary of `string` object id keys to `int` object id value pairs. Keys can be made empty or all-whitespace strings and values can be made `null` to draw blank boxes. |
+| `x`, `y`          | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                   |
+| `style`           | `object` or `array` | No       | Custom visual styling.                                                                                                                                                    |
+| `width`, `height` | `number`            | No       | The height and width for the dictionary.                                                                                                                                  |
+
+#### Examples
+
+<details>
+    <summary>**Dictionary with blank boxes**</summary>
+    <CodeBlock language="json">{ExampleDictBlank}</CodeBlock>
+    <ThemedImage
+        alt="Example Dictionary"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/dict_blank_light.svg"
+            ),
+            dark: useBaseUrl("images/entity_specification/dict_blank_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Dictionary with large height**</summary>
+    <CodeBlock language="json">{ExampleDictTall}</CodeBlock>
+    <ThemedImage
+        alt="Example Dictionary"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/dict_tall_light.svg"
+            ),
+            dark: useBaseUrl("images/entity_specification/dict_tall_dark.svg"),
+        }}
+    />
+</details>
+
+## Classes
+
+| Attribute         | Type                | Required | Description                                                                                                                                                                                      |
+| :---------------- | :------------------ | :------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`            | `string`            | Yes      | Must be set to `.class` to indicate a class object.                                                                                                                                              |
+| `id`              | `number`            | Yes      | Unique identifier for the class object.                                                                                                                                                          |
+| `name`            | `string`            | Yes      | The name of the class being drawn.                                                                                                                                                               |
+| `value`           | `object`            | Yes      | A mapping of attribute names (as keys) to object IDs (as values). Attribute names may be empty or all-whitespace strings and attribute values may be `null` to render blank boxes, respectively. |
+| `x`, `y`          | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                                          |
+| `style`           | `object` or `array` | No       | Custom visual styling.                                                                                                                                                                           |
+| `width`, `height` | `number`            | No       | The height and width for the class.                                                                                                                                                              |
+
+#### Examples
+
+<details>
+    <summary>**Class with blank boxes**</summary>
+    <CodeBlock language="json">{ExampleClassBlank}</CodeBlock>
+    <ThemedImage
+        alt="Example Class"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/class_blank_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/class_blank_dark.svg"
+            ),
+        }}
+    />
+</details>
+
+## Stack Frames
+
+| Attribute         | Type                | Required | Description                                                                                                                                                                                                                                                   |
+| :---------------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`            | `string`            | Yes      | Must be `.frame` to indicate a stack frame.                                                                                                                                                                                                                   |
+| `id`              | `null`              | No       | Ignored for stack frames and not rendered regardless of value.                                                                                                                                                                                                |
+| `name`            | `string`            | Yes      | The name of the stack frame (e.g., `__main__`, `foo`)                                                                                                                                                                                                         |
+| `value`           | `object`            | Yes      | A mapping of variable names (as keys) to object IDs (as values). These represent the local variables in the scope of the frame. Variable names may be empty or all-whitespace strings and attribute values may be `null` to render blank boxes, respectively. |
+| `x`, `y`          | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                                                                                                       |
+| `style`           | `object` or `array` | No       | Custom visual styling.                                                                                                                                                                                                                                        |
+| `width`, `height` | `number`            | No       | The height and width for the class.                                                                                                                                                                                                                           |
+
+#### Examples
+
+<details>
+    <summary>**Main stack frame**</summary>
+    <CodeBlock language="json">{ExampleMainStack}</CodeBlock>
+    <ThemedImage
+        alt="Example Main Stack Frame"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/main_stack_light.svg"
+            ),
+            dark: useBaseUrl("images/entity_specification/main_stack_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Function stack frame with blank boxes**</summary>
+    <CodeBlock language="json">{ExampleFunctionStack}</CodeBlock>
+    <ThemedImage
+        alt="Example Function Stack Frame"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/function_stack_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/function_stack_dark.svg"
+            ),
+        }}
+    />
+</details>
+
+## Blank Objects
+
+| Attribute | Type     | Required | Description                                                                                      |
+| :-------- | :------- | :------- | :----------------------------------------------------------------------------------------------- |
+| `type`    | `string` | Yes      | Must be set to `.blank` to indicate a blank object, or `.blank-frame` to indicate a blank frame. |
+| `width`   | `number` | Yes      | The width of the blank object/frame.                                                             |
+| `height`  | `number` | Yes      | The height of the blank object/frame.                                                            |
+
+#### Examples
+
+<details>
+    <summary>**Blank object**</summary>
+        ```json
+        {
+            "type": ".blank",
+            "width": 200,
+            "height": 100
+        }
+        ```
+</details>
+<details>
+    <summary>**Blank frame**</summary>
+        ```json
+        {
+            "type": ".blank-frame",
+            "width": 200,
+            "height": 100
+        }
+        ```
+</details>

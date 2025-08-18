@@ -1,0 +1,18 @@
+[
+    {
+        "type": ".frame",
+        "name": "__main__",
+        "value": {
+            "lst1": 82,
+            "lst2": 84,
+            "p": 99,
+            "d": 10,
+            "t": 11
+        }
+    },
+    {
+        "type": ".blank",
+        "width": 200,
+        "height": 100
+    }
+]
