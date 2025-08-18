@@ -16,7 +16,7 @@ const svgDirectory = path.resolve(__dirname, "../static/images");
  *
  * @param json - Path to the json file
  * @param svg - Path to the svg file
- * @returns True if the target does not exist or is older than the source.
+ * @returns True if the svg does not exist or is older than the source.
  */
 function needsRebuild(json, svg) {
     if (!fs.existsSync(svg)) {
