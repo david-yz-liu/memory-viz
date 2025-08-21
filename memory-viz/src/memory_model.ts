@@ -46,27 +46,27 @@ export class MemoryModel {
     document: Document;
     svg: SVGSVGElement;
     rough_svg: RoughSVG;
-    rect_style: Options;
-    text_color: string; // Default text color
-    value_color: string; // Text color for primitive values
-    id_color: string; // Text color for object ids
-    item_min_width: number; // Minimum width of an item box in a collection
-    item_min_height: number; // Minimum height of an item box in a collection
-    obj_min_width: number; // Minimum width of object rectangle
-    obj_min_height: number; // Minimum height of object rectangle
-    prop_min_width: number; // Minimum width of type and id boxes
-    prop_min_height: number; // Minimum height of type and id boxes
-    obj_x_padding: number; // Minimum horizontal padding of object rectangle
-    canvas_padding: number; // Minimum padding of the canvas
-    double_rect_sep: number; // Separation between double boxes around immutable objects
-    list_index_sep: number; // Vertical offset for list index labels
-    font_size: number; // Font size, in px
-    browser: boolean; // Whether this library is being used in a browser context
+    rect_style: Options = { stroke: "rgb(0, 0, 0)" };
+    text_color: string = "rgb(0, 0, 0)"; // Default text color
+    value_color: string = "rgb(27, 14, 139)"; // Text color for primitive values
+    id_color: string = "rgb(150, 100, 28)"; // Text color for object ids
+    item_min_width: number = 50; // Minimum width of an item box in a collection
+    item_min_height: number = 50; // Minimum height of an item box in a collection
+    obj_min_width: number = 200; // Minimum width of object rectangle
+    obj_min_height: number = 130; // Minimum height of object rectangle
+    prop_min_width: number = 60; // Minimum width of type and id boxes
+    prop_min_height: number = 50; // Minimum height of type and id boxes
+    obj_x_padding: number = 25; // Minimum horizontal padding of object rectangle
+    canvas_padding: number = 25; // Minimum padding of the canvas
+    double_rect_sep: number = 6; // Separation between double boxes around immutable objects
+    list_index_sep: number = 20; // Vertical offset for list index labels
+    font_size: number = 20; // Font size, in px
+    browser: boolean = false; // Whether this library is being used in a browser context
     roughjs_config: Config; // Configuration object used to pass in options to rough.js
     width?: number; // Width of the canvas, dynamically updated if not provided in options
     height?: number; // Height of the canvas, dynamically updated if not provided in options
     objectCounter: number; // Counter for tracking ids of objects drawn
-    interactive: boolean; // Whether the visualization is interactive
+    interactive: boolean = true; // Whether the visualization is interactive
     idToObjectMap: Map<string, string[]>; // Track object ids to their corresponding SVG element ids
 
     constructor(options: Partial<VisualizationConfig> = {}) {
@@ -138,7 +138,7 @@ export class MemoryModel {
                     `Could not load path ${path} in this environment.`
                 );
             }
-            fs.writeFile(path, xml, (err: Error) => {
+            fs.writeFile(path, xml, (err: NodeJS.ErrnoException | null) => {
                 if (err) {
                     console.error(err);
                 }

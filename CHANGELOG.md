@@ -20,6 +20,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 🔧 Internal changes
 
 - Disabled `no-empty-keys` rule in ESLint config.
+- Enabled Typescript `strict` option and fixed compilation errors
 
 ## [0.7.0] - 2025-08-11
 
