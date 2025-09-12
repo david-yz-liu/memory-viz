@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, useMediaQuery } from "@mui/material";
 import SvgDisplay from "./SvgDisplay";
 import MemoryModelsUserInput from "./MemoryModelsUserInput";
 import { ErrorBoundary } from "react-error-boundary";
@@ -20,6 +20,14 @@ export default function App() {
     const [svgResult, setSvgResult] = useState(null);
     const [failureBanner, setFailureBanner] = useState("");
 
+    const [isDarkMode, setIsDarkMode] = useState(
+        useMediaQuery("(prefers-color-scheme: dark)")
+    );
+
+    const toggleTheme = () => {
+        setIsDarkMode(!isDarkMode);
+    };
+
     const onTextDataSubmit = (event?) => {
         event?.preventDefault();
         try {
@@ -35,7 +43,7 @@ export default function App() {
 
     return (
         <main className="container">
-            <Header />
+            <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
             {failureBanner && (
                 <Alert severity="error" data-testid="json-parse-alert">
                     {failureBanner}
