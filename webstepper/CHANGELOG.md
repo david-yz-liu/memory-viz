@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
+- Fixed bug where there are console.error outputs when running tests even though tests pass
+
 ### 🚨 Breaking changes
 
 ### 📚 Documentation changes
