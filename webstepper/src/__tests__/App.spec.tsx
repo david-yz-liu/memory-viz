@@ -29,6 +29,13 @@ describe("App", () => {
             })
         ) as jest.Mock;
         render(<App />);
+        jest.spyOn(console, 'error');
+    });
+
+    afterEach(() => {
+        // Verify that there are no console.error outputs
+        expect(console.error).not.toHaveBeenCalled();
+        jest.restoreAllMocks();
     });
 
     it("renders initial state correctly", async () => {
