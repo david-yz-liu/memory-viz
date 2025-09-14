@@ -29,7 +29,7 @@ describe("App", () => {
             })
         ) as jest.Mock;
         render(<App />);
-        jest.spyOn(console, 'error');
+        jest.spyOn(console, "error");
     });
 
     afterEach(() => {
