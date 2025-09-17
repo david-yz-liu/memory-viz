@@ -7,8 +7,15 @@ describe("App", () => {
         render(<App />);
     });
 
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
     it("renders Output heading", () => {
+        jest.spyOn(console, "error");
+
         expect(screen.getByText("Output").nodeName).toEqual("H2");
+        expect(console.error).not.toHaveBeenCalled();
     });
 
     it("renders ErrorBoundary fallback element when draw function throws error", () => {
