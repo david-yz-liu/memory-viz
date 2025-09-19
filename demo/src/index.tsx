@@ -19,11 +19,19 @@ declare module "@mui/material/styles" {
 
 const lightTheme = createTheme({
     palette: {
+        mode: "light",
         primary: {
-            main: "#2a6b2c",
-            dark: "#005ea5",
-            light: "#72ac56",
-            paper: "#ffffff",
+            main: "#2e8555",
+            dark: "#29784c",
+            light: "#33925d",
+        },
+        background: {
+            default: "#ffffff",
+            paper: "#f5f5f5",
+        },
+        text: {
+            primary: "#222222",
+            secondary: "#555555",
         },
     },
 });
@@ -32,8 +40,17 @@ const darkTheme = createTheme({
     palette: {
         mode: "dark",
         primary: {
-            main: "#89c48c",
-            paper: "#cacaca",
+            main: "#25c2a0",
+            dark: "#21af90",
+            light: "#29d5b0",
+        },
+        background: {
+            default: "#121212",
+            paper: "#1e1e1e",
+        },
+        text: {
+            primary: "#e0e0e0",
+            secondary: "#aaaaaa",
         },
     },
 });
