@@ -8,7 +8,12 @@ import { Alert } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
 import Header from "./Header";
 
-export default function App() {
+interface AppProps {
+    isDarkMode: boolean;
+    toggleTheme: () => void;
+}
+
+export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const [textData, setTextData] = useState("");
     const [configData, setConfigData] = useState<configDataPropTypes>({
         useAutomation: true,
@@ -35,7 +40,7 @@ export default function App() {
 
     return (
         <main className="container">
-            <Header />
+            <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
             {failureBanner && (
                 <Alert severity="error" data-testid="json-parse-alert">
                     {failureBanner}
