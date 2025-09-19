@@ -23,8 +23,6 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                         sx={{
                             fontSize: "34px",
                             fontWeight: 700,
-                            fontFamily:
-                                'system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif',
                         }}
                     >
                         MemoryViz Demo

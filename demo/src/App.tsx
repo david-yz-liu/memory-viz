@@ -55,8 +55,6 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         sx={{
                             fontSize: "29.75px",
                             fontWeight: 700,
-                            fontFamily:
-                                'system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif',
                         }}
                     >
                         Input
@@ -78,8 +76,6 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         sx={{
                             fontSize: "29.75px",
                             fontWeight: 700,
-                            fontFamily:
-                                'system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif',
                         }}
                     >
                         Output
