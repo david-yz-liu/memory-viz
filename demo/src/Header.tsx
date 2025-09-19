@@ -23,6 +23,7 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                         sx={{
                             fontSize: "34px",
                             fontWeight: 700,
+                            mt: 2,
                         }}
                     >
                         MemoryViz Demo
