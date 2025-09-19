@@ -62,11 +62,11 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                         }}
                     >
                         {isDarkMode ? (
-                            <SunIcon
+                            <MoonIcon
                                 style={{ width: "30px", height: "30px" }}
                             />
                         ) : (
-                            <MoonIcon
+                            <SunIcon
                                 style={{ width: "30px", height: "30px" }}
                             />
                         )}

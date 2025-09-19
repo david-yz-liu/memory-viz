@@ -55,6 +55,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         sx={{
                             fontSize: "29.75px",
                             fontWeight: 700,
+                            mt: 2,
                         }}
                     >
                         Input
@@ -76,6 +77,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         sx={{
                             fontSize: "29.75px",
                             fontWeight: 700,
+                            mt: 2,
                         }}
                     >
                         Output
