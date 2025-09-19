@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Stack, useMediaQuery } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import SvgDisplay from "./SvgDisplay";
 import MemoryModelsUserInput from "./MemoryModelsUserInput";
 import { ErrorBoundary } from "react-error-boundary";
@@ -8,7 +8,12 @@ import { Alert } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
 import Header from "./Header";
 
-export default function App() {
+interface AppProps {
+    isDarkMode: boolean;
+    toggleTheme: () => void;
+}
+
+export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const [textData, setTextData] = useState("");
     const [configData, setConfigData] = useState<configDataPropTypes>({
         useAutomation: true,
@@ -19,14 +24,6 @@ export default function App() {
     const [jsonResult, setJsonResult] = useState(null);
     const [svgResult, setSvgResult] = useState(null);
     const [failureBanner, setFailureBanner] = useState("");
-
-    const [isDarkMode, setIsDarkMode] = useState(
-        useMediaQuery("(prefers-color-scheme: dark)")
-    );
-
-    const toggleTheme = () => {
-        setIsDarkMode(!isDarkMode);
-    };
 
     const onTextDataSubmit = (event?) => {
         event?.preventDefault();

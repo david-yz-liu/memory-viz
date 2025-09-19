@@ -1,4 +1,4 @@
-import React, { StrictMode } from "react";
+import React, { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "@picocss/pico";
@@ -39,10 +39,16 @@ const darkTheme = createTheme({
 });
 
 function Root() {
-    const usingDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+    const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+    const [isDarkMode, setIsDarkMode] = useState(prefersDark);
+
+    const toggleTheme = () => setIsDarkMode((prev) => !prev);
+
+    const theme = isDarkMode ? darkTheme : lightTheme;
+
     return (
-        <ThemeProvider theme={usingDarkMode ? darkTheme : lightTheme}>
-            <App />
+        <ThemeProvider theme={theme}>
+            <App isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
         </ThemeProvider>
     );
 }
