@@ -5,7 +5,7 @@ import "@picocss/pico";
 import "./css/styles";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useMediaQuery } from "@mui/material";
+import { useMediaQuery, CssBaseline } from "@mui/material";
 
 declare module "@mui/material/styles" {
     interface PaletteColor {
@@ -48,6 +48,7 @@ function Root() {
 
     return (
         <ThemeProvider theme={theme}>
+            <CssBaseline />
             <App isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
         </ThemeProvider>
     );
