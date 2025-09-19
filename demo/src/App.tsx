@@ -52,7 +52,12 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         variant="h2"
                         color="textPrimary"
                         gutterBottom
-                        sx={{ fontSize: "29.75px" }}
+                        sx={{
+                            fontSize: "29.75px",
+                            fontWeight: 700,
+                            fontFamily:
+                                'system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif',
+                        }}
                     >
                         Input
                     </Typography>
@@ -70,7 +75,12 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         variant="h2"
                         color="textPrimary"
                         gutterBottom
-                        sx={{ fontSize: "29.75px" }}
+                        sx={{
+                            fontSize: "29.75px",
+                            fontWeight: 700,
+                            fontFamily:
+                                'system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif',
+                        }}
                     >
                         Output
                     </Typography>

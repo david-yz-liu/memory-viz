@@ -20,7 +20,12 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                         variant="h1"
                         color="textPrimary"
                         gutterBottom
-                        sx={{ fontSize: "34px" }}
+                        sx={{
+                            fontSize: "34px",
+                            fontWeight: 700,
+                            fontFamily:
+                                'system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, "Noto Sans", sans-serif',
+                        }}
                     >
                         MemoryViz Demo
                     </Typography>
