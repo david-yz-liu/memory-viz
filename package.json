@@ -31,8 +31,5 @@
             "eslint --fix"
         ],
         "**/*": "prettier --write --ignore-unknown"
-    },
-    "dependencies": {
-        "@heroicons/react": "^2.2.0"
     }
 }
