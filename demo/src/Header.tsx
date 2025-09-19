@@ -16,7 +16,9 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
         <header className="container">
             <Stack direction={"row"} justifyContent={"space-between"}>
                 <Box>
-                    <h1 style={{ marginBottom: 0 }}>MemoryViz Demo</h1>
+                    <Typography variant="h1" gutterBottom>
+                        MemoryViz Demo
+                    </Typography>
                     <Typography variant="subtitle1">
                         Demos of the{" "}
                         <Link

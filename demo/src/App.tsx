@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import SvgDisplay from "./SvgDisplay";
 import MemoryModelsUserInput from "./MemoryModelsUserInput";
 import { ErrorBoundary } from "react-error-boundary";
@@ -48,7 +48,9 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
             )}
             <Stack direction="row" spacing={2}>
                 <Box sx={{ width: "40%" }}>
-                    <h2>Input</h2>
+                    <Typography variant="h2" gutterBottom>
+                        Input
+                    </Typography>
                     <MemoryModelsUserInput
                         textData={textData}
                         setTextData={setTextData}
@@ -59,7 +61,9 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                     />
                 </Box>
                 <Box sx={{ width: "60%" }}>
-                    <h2>Output</h2>
+                    <Typography variant="h2" gutterBottom>
+                        Output
+                    </Typography>
                     <ErrorBoundary
                         fallbackRender={({ error }) => (
                             <Alert
