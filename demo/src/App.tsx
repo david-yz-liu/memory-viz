@@ -48,7 +48,12 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
             )}
             <Stack direction="row" spacing={2}>
                 <Box sx={{ width: "40%" }}>
-                    <Typography variant="h2" color="textPrimary" gutterBottom>
+                    <Typography
+                        variant="h2"
+                        color="textPrimary"
+                        gutterBottom
+                        sx={{ fontSize: "29.75px" }}
+                    >
                         Input
                     </Typography>
                     <MemoryModelsUserInput
@@ -61,7 +66,12 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                     />
                 </Box>
                 <Box sx={{ width: "60%" }}>
-                    <Typography variant="h2" color="textPrimary" gutterBottom>
+                    <Typography
+                        variant="h2"
+                        color="textPrimary"
+                        gutterBottom
+                        sx={{ fontSize: "29.75px" }}
+                    >
                         Output
                     </Typography>
                     <ErrorBoundary
