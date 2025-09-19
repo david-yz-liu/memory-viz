@@ -47,6 +47,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Removed getCanvasDimensions method and refactored logic into each `draw*` method
 - Refactored type definitions for `DrawnEntity` and `Styles` to use zod
 - Added eslint and ran it on all files
+- Converted CLI from JavaScript to TypeScript and added dedicated webpack configuration for bundling it during builds.
 
 ## [0.6.0] - 2025-05-24
 

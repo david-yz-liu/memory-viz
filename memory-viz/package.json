@@ -9,8 +9,8 @@
         "test": "jest --no-cache",
         "test-cov": "jest --no-cache --coverage",
         "watch": "webpack --watch --config webpack.dev.js",
-        "build-dev": "tsc && webpack --config webpack.dev.js",
-        "build": "tsc && webpack --config webpack.prod.js",
+        "build-dev": "tsc && webpack --config webpack.dev.js && webpack --config webpack.cli.js --mode development",
+        "build": "tsc && webpack --config webpack.prod.js && webpack --config webpack.cli.js --mode production",
         "prepare": "npm run build"
     },
     "keywords": [
@@ -44,7 +44,7 @@
         "url": "https://github.com/david-yz-liu/memory-viz/issues"
     },
     "bin": {
-        "memory-viz": "bin/cli.js"
+        "memory-viz": "dist/cli.js"
     },
     "dependencies": {
         "@xmldom/xmldom": "^0.8.10",

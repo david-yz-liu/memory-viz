@@ -18,5 +18,5 @@
         "types": ["node", "@types/jest"]
     },
     "extends": "@docusaurus/tsconfig",
-    "include": ["memory-viz/src/**/*"]
+    "include": ["memory-viz/src/**/*", "memory-viz/src/cli.ts"]
 }
