@@ -99,16 +99,19 @@ describe.each([
         fs.writeFileSync(globalStylePath, globalStyle);
         fs.writeFileSync(customThemePath, customTheme);
 
-        exec(`node memory-viz/dist/cli.js ${command}`, (err: ExecException | null) => {
-            if (err) throw err;
+        exec(
+            `node memory-viz/dist/cli.js ${command}`,
+            (err: ExecException | null) => {
+                if (err) throw err;
 
-            const svgFilePath = getSVGPath(command.includes("--output"));
-            const fileContent = fs.readFileSync(svgFilePath, "utf8");
-            expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(svgFilePath);
+                const svgFilePath = getSVGPath(command.includes("--output"));
+                const fileContent = fs.readFileSync(svgFilePath, "utf8");
+                expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(svgFilePath);
 
-            done();
-        });
+                done();
+            }
+        );
     });
 });
 
@@ -127,7 +130,11 @@ describe("memory-viz cli", () => {
     });
 
     it("produces consistent svg when provided stdin and stdout", (done) => {
-        const args = ["memory-viz/dist/cli.js", `--output=${outputPath}`, "--roughjs-config seed=1234"];
+        const args = [
+            "memory-viz/dist/cli.js",
+            `--output=${outputPath}`,
+            "--roughjs-config seed=1234",
+        ];
         const child = spawn("node", args, { shell: true });
 
         child.stdin.write(input);
@@ -249,7 +256,9 @@ describe("memory-viz CLI output path", () => {
 
     function runProgram(outputPath: string) {
         const args = [`--output=${outputPath}`, "--roughjs-config seed=1234"];
-        const child = spawn("node", ["memory-viz/dist/cli.js", ...args], { shell: true });
+        const child = spawn("node", ["memory-viz/dist/cli.js", ...args], {
+            shell: true,
+        });
         child.stdin.write(input);
         child.stdin.end();
         return child;
