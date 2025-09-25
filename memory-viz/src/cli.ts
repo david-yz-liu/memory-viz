@@ -110,7 +110,7 @@ function runMemoryViz(
             interactive: options.interactive,
         });
     } catch (err: any) {
-        if (err.message && err.message.includes("not valid JSON")) {
+        if (err instanceof SyntaxError) {
             console.error(`Error: Invalid JSON`);
         } else {
             console.error(`Error: ${err.message}`);
