@@ -1,4 +1,5 @@
 const path = require("path");
+const nodeExternals = require("webpack-node-externals");
 
 const libConfig = {
     // target: "web",
@@ -52,6 +53,7 @@ const cliConfig = {
     },
     module: libConfig.module,
     externalsPresets: { node: true },
+    externals: [nodeExternals()],
     resolve: libConfig.resolve,
 };
 
