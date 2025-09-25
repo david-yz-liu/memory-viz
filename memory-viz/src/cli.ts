@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
-const { draw } = require("memory-viz");
-const { program } = require("commander");
-const { json } = require("node:stream/consumers");
+import * as fs from "fs";
+import * as path from "path";
+import { program } from "commander";
+import { json } from "node:stream/consumers";
+import type { DrawnEntity } from "./types";
+import memoryViz from "./index";
 
-function parseFilePath(input) {
+const { draw } = memoryViz;
+
+function parseFilePath(input: string): string {
     const fullPath = path.resolve(process.cwd(), input);
     if (fs.existsSync(fullPath)) {
         return fullPath;
@@ -15,7 +18,7 @@ function parseFilePath(input) {
     process.exit(1);
 }
 
-function parseOutputPath(input) {
+function parseOutputPath(input: string): string {
     if (fs.existsSync(input) && fs.statSync(input).isDirectory()) {
         console.error(`Error: Output path ${input} must be a file.`);
         process.exit(1);
@@ -31,13 +34,13 @@ function parseOutputPath(input) {
     return path.join(outputDir, parsedPath.base);
 }
 
-function parseRoughjsConfig(input) {
+function parseRoughjsConfig(input: string): Record<string, string> {
     const pairs = input.split(",");
     const keyValuePairs = pairs.map((pair) => pair.split("="));
     return Object.fromEntries(keyValuePairs);
 }
 
-function parseGlobalStyle(input) {
+function parseGlobalStyle(input: string): string {
     const fullPath = path.resolve(process.cwd(), input);
     if (fs.existsSync(fullPath)) {
         return fs.readFileSync(fullPath, "utf8");
@@ -77,36 +80,28 @@ program
     .option("--no-interactive", "disable hover interactivity for object IDs");
 
 program.parse();
-const filePath = program.processedArgs[0];
+const filePath: string | undefined = program.processedArgs[0];
 const options = program.opts();
 
 if (filePath) {
-    const fileContent = fs.readFileSync(filePath, "utf8");
-
-    let jsonContent;
-    try {
-        jsonContent = JSON.parse(fileContent);
-    } catch (err) {
-        console.error(`Error: Invalid JSON\n${err.message}.`);
-        process.exit(1);
-    }
-
-    runMemoryViz(jsonContent);
+    runMemoryViz(filePath);
 } else {
     json(process.stdin)
         .then((jsonContent) => {
-            runMemoryViz(jsonContent);
+            runMemoryViz(jsonContent as DrawnEntity[] | DrawnEntity[][]);
         })
-        .catch((err) => {
+        .catch((err: any) => {
             console.error(`Error: ${err.message}.`);
             process.exit(1);
         });
 }
 
-function runMemoryViz(jsonContent) {
-    let m;
+function runMemoryViz(
+    jsonContent: string | DrawnEntity[] | DrawnEntity[][]
+): void {
+    let m: any;
     try {
-        m = draw(jsonContent, true, {
+        m = draw(jsonContent as any, true, {
             width: options.width,
             height: options.height,
             roughjs_config: { options: options.roughjsConfig },
@@ -114,8 +109,12 @@ function runMemoryViz(jsonContent) {
             theme: options.theme,
             interactive: options.interactive,
         });
-    } catch (err) {
-        console.error(`Error: ${err.message}`);
+    } catch (err: any) {
+        if (err instanceof SyntaxError) {
+            console.error(`Error: Invalid JSON`);
+        } else {
+            console.error(`Error: ${err.message}`);
+        }
         process.exit(1);
     }
 
@@ -125,7 +124,7 @@ function runMemoryViz(jsonContent) {
         } else {
             m.save();
         }
-    } catch (err) {
+    } catch (err: any) {
         console.error(`Error: ${err.message}`);
         process.exit(1);
     }

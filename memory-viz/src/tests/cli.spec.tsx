@@ -99,16 +99,19 @@ describe.each([
         fs.writeFileSync(globalStylePath, globalStyle);
         fs.writeFileSync(customThemePath, customTheme);
 
-        exec(`memory-viz ${command}`, (err: ExecException | null) => {
-            if (err) throw err;
+        exec(
+            `node memory-viz/dist/cli.js ${command}`,
+            (err: ExecException | null) => {
+                if (err) throw err;
 
-            const svgFilePath = getSVGPath(command.includes("--output"));
-            const fileContent = fs.readFileSync(svgFilePath, "utf8");
-            expect(fileContent).toMatchSnapshot();
-            fs.unlinkSync(svgFilePath);
+                const svgFilePath = getSVGPath(command.includes("--output"));
+                const fileContent = fs.readFileSync(svgFilePath, "utf8");
+                expect(fileContent).toMatchSnapshot();
+                fs.unlinkSync(svgFilePath);
 
-            done();
-        });
+                done();
+            }
+        );
     });
 });
 
@@ -117,7 +120,7 @@ describe("memory-viz cli", () => {
         fs.writeFileSync(filePath, input);
 
         exec(
-            `memory-viz ${filePath} --roughjs-config seed=1234`,
+            `node memory-viz/dist/cli.js ${filePath} --roughjs-config seed=1234`,
             (err: unknown | null, stdout: string) => {
                 if (err) throw err;
                 expect(stdout).toMatchSnapshot();
@@ -127,10 +130,8 @@ describe("memory-viz cli", () => {
     });
 
     it("produces consistent svg when provided stdin and stdout", (done) => {
-        const command = "memory-viz";
-        const args = ["--roughjs-config seed=1234"];
-
-        const child = spawn(command, args, { shell: true });
+        const args = ["memory-viz/dist/cli.js", "--roughjs-config seed=1234"];
+        const child = spawn("node", args, { shell: true });
 
         child.stdin.write(input);
         child.stdin.end();
@@ -148,10 +149,12 @@ describe("memory-viz cli", () => {
     });
 
     it("produces consistent svg when provided stdin and output", (done) => {
-        const command = "memory-viz";
-        const args = [`--output=${outputPath}`, "--roughjs-config seed=1234"];
-
-        const child = spawn(command, args, { shell: true });
+        const args = [
+            "memory-viz/dist/cli.js",
+            `--output=${outputPath}`,
+            "--roughjs-config seed=1234",
+        ];
+        const child = spawn("node", args, { shell: true });
 
         child.stdin.write(input);
         child.stdin.end();
@@ -170,9 +173,9 @@ describe("memory-viz cli", () => {
 describe.each([
     {
         errorType: "nonexistent file",
-        command: "memory-viz cli-test.json",
+        command: "node memory-viz/dist/cli.js cli-test.json",
         expectedErrorMessage:
-            `Command failed: memory-viz cli-test.json\n` +
+            `Command failed: node memory-viz/dist/cli.js cli-test.json\n` +
             `Error: File ${path.resolve(
                 process.cwd(),
                 "cli-test.json"
@@ -180,9 +183,9 @@ describe.each([
     },
     {
         errorType: "nonexistent css file",
-        command: `memory-viz ${filePath} --global-style=nonexistent.css`,
+        command: `node memory-viz/dist/cli.js ${filePath} --global-style=nonexistent.css`,
         expectedErrorMessage:
-            `Command failed: memory-viz ${filePath} --global-style=nonexistent.css\n` +
+            `Command failed: node memory-viz/dist/cli.js ${filePath} --global-style=nonexistent.css\n` +
             `Error: CSS file ${path.resolve(
                 process.cwd(),
                 "nonexistent.css"
@@ -190,9 +193,9 @@ describe.each([
     },
     {
         errorType: "unspecified theme",
-        command: `memory-viz ${filePath} --theme`,
+        command: `node memory-viz/dist/cli.js ${filePath} --theme`,
         expectedErrorMessage:
-            `Command failed: memory-viz ${filePath} --theme\n` +
+            `Command failed: node memory-viz/dist/cli.js ${filePath} --theme\n` +
             `error: option '-t, --theme <name>' argument missing\n`,
     },
     {
@@ -232,7 +235,7 @@ describe.each([
                         '[{ "name": "int", "id": 13, "value": 7 }]'
                     );
                 }
-                command = `memory-viz ${filePath}`;
+                command = `node memory-viz/dist/cli.js ${filePath}`;
             }
 
             exec(command, (err: ExecException | null) => {
@@ -253,7 +256,9 @@ describe("memory-viz CLI output path", () => {
 
     function runProgram(outputPath: string) {
         const args = [`--output=${outputPath}`, "--roughjs-config seed=1234"];
-        const child = spawn("memory-viz", args, { shell: true });
+        const child = spawn("node", ["memory-viz/dist/cli.js", ...args], {
+            shell: true,
+        });
         child.stdin.write(input);
         child.stdin.end();
         return child;
