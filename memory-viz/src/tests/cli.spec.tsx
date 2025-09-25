@@ -130,11 +130,7 @@ describe("memory-viz cli", () => {
     });
 
     it("produces consistent svg when provided stdin and stdout", (done) => {
-        const args = [
-            "memory-viz/dist/cli.js",
-            `--output=${outputPath}`,
-            "--roughjs-config seed=1234",
-        ];
+        const args = ["memory-viz/dist/cli.js", "--roughjs-config seed=1234"];
         const child = spawn("node", args, { shell: true });
 
         child.stdin.write(input);
@@ -153,7 +149,11 @@ describe("memory-viz cli", () => {
     });
 
     it("produces consistent svg when provided stdin and output", (done) => {
-        const args = ["memory-viz/dist/cli.js", "--roughjs-config seed=1234"];
+        const args = [
+            "memory-viz/dist/cli.js",
+            `--output=${outputPath}`,
+            "--roughjs-config seed=1234",
+        ];
         const child = spawn("node", args, { shell: true });
 
         child.stdin.write(input);

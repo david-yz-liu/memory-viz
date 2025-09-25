@@ -3222,4 +3222,210 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
 </svg>
 `;
 
-exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1`] = `""`;
+exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1`] = `
+<svg width="323.2" height="292" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    :root {
+      --fade-text-color: rgb(0, 0, 0);
+      --hide-text-color: white;
+
+      --highlight-value-text-color: rgb(27, 14, 139);
+      --highlight-id-text-color: rgb(150, 100, 28);
+
+      --highlight-box-fill: yellow;
+      --highlight-box-line-color: rgb(0, 0, 0);
+
+      --fade-box-fill: rgb(247, 247, 247);
+      --fade-box-line-color: gray;
+
+      --hide-box-fill: white;
+
+      --primitive-value-color: rgb(27, 14, 139);
+      --id-text-color: rgb(150, 100, 28);
+      --default-font-size: 20px;
+
+      --highlight-object-fill: rgba(255, 255, 0, 0.6);
+    }
+
+    text {
+      font-family: Consolas, Courier;
+      font-size: 20px;
+    }
+
+    text.default {
+      fill: rgb(0, 0, 0);
+      text-anchor: middle;
+    }
+
+    text.attribute {
+      fill: rgb(27, 14, 139);
+      text-anchor: start;
+    }
+
+    text.variable {
+      fill: rgb(0, 0, 0);
+      text-anchor: start;
+    }
+
+    text.id {
+      cursor: pointer;
+      fill: rgb(150, 100, 28);
+      text-anchor: middle;
+    }
+
+    text.type {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    text.value {
+      fill: rgb(27, 14, 139);
+      text-anchor: middle;
+    }
+
+    path {
+      stroke: rgb(0, 0, 0);
+    }
+
+    .highlighted path {
+      fill: var(--highlight-object-fill) !important;
+    }
+  </style>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {};
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
+  <g id="object-0">
+    <path d="M49.843418531864884 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 154.76915388777851 L50.02731695696711 155.2168297596276" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
+    <path d="M49.97700984417455 24.90491429391293 C98.45356964476898 25.592952625513313, 146.90039127504454 25.19380388454705, 285.98239894530747 24.68799300106102 M50.09180494428715 24.918502164863508 C132.13283649123568 24.95394683201722, 214.44019227325376 25.125903229265123, 286.33738632895177 24.995766174708777 M285.85860744193195 24.839829497784375 C285.6108726218715 76.7476857740432, 285.88193029914055 128.6928032502532, 286.5871857471764 155.24320195242763 M286.2668587591499 25.13916292525828 C285.99199180010703 50.96997084096074, 286.1995577872172 77.23471773676575, 286.0172056462616 154.93375069238246 M286.3943232789997 154.76739611544275 C206.1907872589835 154.86601806269866, 125.73632970161717 155.08273508699705, 50.03147674076057 155.0087371893848 M286.3362927895418 154.93865606826338 C221.07346407099843 155.18896853104008, 155.6178452342903 155.0232173616322, 49.943568442087766 155.10678731464137 M50.154903227835895 154.73371086642146 C50.21252727624029 113.04486663602293, 49.84796941395849 71.12155508995055, 50.056322414427996 25.339266853779556 M49.99176651500166 155.1614456448704 C49.89525366704911 117.62324508428574, 49.98948728721589 80.18961338661612, 50.17477255128324 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
+  </g>
+  <g>
+    <path d="M43.21709265932441 19.279758248478174 L292.41041228994726 19.811648044735193 L291.2627674125135 159.8457694388926 L44.13658478483558 162.0841487981379" stroke="none" stroke-width="0" fill="none" />
+    <path d="M43.88778755027018 18.53589701195022 C94.54461458195213 21.984817941944403, 145.0562928392066 20.036616356428237, 291.13791292254683 17.47712777809703 M44.448089946583494 18.60221793198022 C129.84531415698294 18.801063069729206, 216.54243798818013 19.64036353939128, 292.87056772681814 18.97933515930629 M290.4930372096598 18.19914748892188 C289.16260237347336 75.6326685871929, 290.5178907598183 133.25249568521977, 294.13592873588203 162.21600976213813 M292.53429379574953 19.695814626291394 C291.09461745794863 47.066258697211744, 292.1324473934993 76.60639766864479, 291.28602823130785 160.66875346191227 M293.1484707864378 159.86468574197517 C209.12197985257367 160.32104063899587, 123.87076818998511 161.37881286025947, 44.15363454763297 161.04264527096134 M292.8652302799126 160.70058694214657 C224.12765635259487 161.94619250503615, 154.4490948300983 161.1371790774607, 43.72456370441852 161.52121726651 M44.77451613917947 159.6685543321073 C44.99584911007434 115.15492242164909, 43.17305979866534 69.46895393282173, 44.28161207213998 20.696334268897772 M43.95883257500827 161.807228224352 C43.45435916353017 120.20417211577296, 43.925527264364064 79.12396032176912, 44.8738627564162 19.229114966467023" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
+  </g><text x="168.1" y="115" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="value">"David is cool!"</text>
+  <g>
+    <path d="M49.843418531864884 25.055951649695636 L112.84208245798945 25.16232960894704 L112.61255348250269 74.76915388777851 L50.02731695696711 75.21682975962759" stroke="none" stroke-width="0" fill="none" />
+    <path d="M49.97261889651418 24.88675363585353 C62.79314271487296 25.386465423823893, 75.57824859499931 24.91108226132542, 112.54083877280354 24.628401999920605 M50.10933900140226 24.902936688438057 C71.72601682484151 24.854027539546788, 93.65988481856883 25.058826321418586, 112.96362608931959 24.994957545772195 M112.45860744193196 24.839829497784375 C112.33322026971727 44.920006989315155, 112.60427794698624 65.0374456807971, 113.1871857471764 75.24320195242763 M112.8668587591499 25.13916292525828 C112.6791138568893 34.9410581625998, 112.88667984399943 45.17689238004387, 112.61720564626157 74.93375069238246 M113.0314375706017 74.72297051474452 C91.7680166374892 74.92860614908786, 70.20575003176927 75.18671450270266, 50.037488562613724 75.01040592715144 M112.96232369206845 74.92693983651698 C95.572048933357 75.14093887636513, 77.95216258712112 74.94353047439904, 49.932790436968205 75.12718289233744 M50.154903227835895 74.73371086642146 C50.30157697107643 58.86070746146142, 49.93701910879463 42.75323674082755, 50.056322414427996 25.339266853779556 M49.99176651500166 75.1614456448704 C49.92446589600295 60.62922094166279, 50.018699516169725 46.201565101370214, 50.17477255128324 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
+  </g>
+  <g>
+    <path d="M226.04341853186486 25.055951649695636 L286.24208245798945 25.16232960894704 L286.0125534825027 74.76915388777851 L226.22731695696712 75.21682975962759" stroke="none" stroke-width="0" fill="none" />
+    <path d="M226.17261889651417 24.88675363585353 C238.41760956197976 25.381302431896327, 250.62718228921293 24.905919269397852, 285.94083877280354 24.628401999920605 M226.30933900140224 24.902936688438057 C246.95096010752022 24.85255611076951, 267.9097713839263 25.057354892641307, 286.36362608931955 24.994957545772195 M285.85860744193195 24.839829497784375 C285.73322026971726 44.920006989315155, 286.0042779469863 65.0374456807971, 286.5871857471764 75.24320195242763 M286.2668587591499 25.13916292525828 C286.0791138568893 34.9410581625998, 286.2866798439995 45.17689238004387, 286.0172056462616 74.93375069238246 M286.4314375706017 74.72297051474452 C266.11955742836 74.93003000937402, 245.50883161351084 75.18813836298882, 226.23748856261372 75.01040592715144 M286.36232369206846 74.92693983651698 C269.74520560242235 75.13958051741123, 252.89847592525183 74.94217211544515, 226.1327904369682 75.12718289233744 M226.35490322783588 74.73371086642146 C226.50157697107642 58.86070746146142, 226.13701910879462 42.75323674082755, 226.25632241442798 25.339266853779556 M226.19176651500163 75.1614456448704 C226.12446589600293 60.62922094166279, 226.21869951616972 46.201565101370214, 226.37477255128323 25.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
+  </g><text x="81.4" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-id-text-color); " class="id">id19</text><text x="256.2" y="55" style="font-weight:bolder; font-size:22px; fill:var(--highlight-value-text-color); " class="type">str</text>
+  <script>
+    function enableInteractivity() {
+      // Inject the id value to object id mapping into script
+      const idToObjectMap = {
+        "id19": ["object-0"]
+      };
+
+      function highlightObject(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.add('highlighted');
+      }
+
+      function removeHighlight(objectId) {
+        const objectBox = document.getElementById(objectId);
+        if (!objectBox) {
+          return;
+        }
+
+        objectBox.classList.remove('highlighted');
+      }
+
+      function addEventListeners() {
+        document.querySelectorAll('text.id').forEach(idText = & gt;
+        {
+          const idValue = idText.textContent.trim();
+          if (!idValue || !idValue.startsWith('id')) {
+            return;
+          }
+
+          idText.addEventListener('mouseover', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(highlightObject);
+            }
+          });
+
+          idText.addEventListener('mouseout', () = & gt;
+          {
+            const objectIds = idToObjectMap[idValue];
+            if (objectIds) {
+              objectIds.forEach(removeHighlight);
+            }
+          });
+        });
+      }
+
+      addEventListeners();
+    }
+
+    // Wait for DOM to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', enableInteractivity);
+    } else {
+      enableInteractivity();
+    }
+  </script>
+</svg>
+`;

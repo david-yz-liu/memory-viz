@@ -4,7 +4,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { program } from "commander";
 import { json } from "node:stream/consumers";
-import { DrawnEntity } from "./types";
+import type { DrawnEntity } from "./types";
 import memoryViz from "./index";
 
 const { draw } = memoryViz;
@@ -84,21 +84,11 @@ const filePath: string | undefined = program.processedArgs[0];
 const options = program.opts();
 
 if (filePath) {
-    const fileContent = fs.readFileSync(filePath, "utf8");
-
-    let jsonContent: string | DrawnEntity[];
-    try {
-        jsonContent = JSON.parse(fileContent);
-    } catch (err: any) {
-        console.error(`Error: Invalid JSON\n${err.message}.`);
-        process.exit(1);
-    }
-
-    runMemoryViz(jsonContent);
+    runMemoryViz(filePath);
 } else {
     json(process.stdin)
         .then((jsonContent) => {
-            runMemoryViz(jsonContent as string | DrawnEntity[]);
+            runMemoryViz(jsonContent as DrawnEntity[] | DrawnEntity[][]);
         })
         .catch((err: any) => {
             console.error(`Error: ${err.message}.`);
@@ -106,10 +96,12 @@ if (filePath) {
         });
 }
 
-function runMemoryViz(jsonContent: string | DrawnEntity[]): void {
+function runMemoryViz(
+    jsonContent: string | DrawnEntity[] | DrawnEntity[][]
+): void {
     let m: any;
     try {
-        m = draw(jsonContent, true, {
+        m = draw(jsonContent as any, true, {
             width: options.width,
             height: options.height,
             roughjs_config: { options: options.roughjsConfig },
@@ -118,7 +110,11 @@ function runMemoryViz(jsonContent: string | DrawnEntity[]): void {
             interactive: options.interactive,
         });
     } catch (err: any) {
-        console.error(`Error: ${err.message}`);
+        if (err.message && err.message.includes("not valid JSON")) {
+            console.error(`Error: Invalid JSON`);
+        } else {
+            console.error(`Error: ${err.message}`);
+        }
         process.exit(1);
     }
 

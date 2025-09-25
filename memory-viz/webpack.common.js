@@ -1,6 +1,6 @@
 const path = require("path");
 
-module.exports = {
+const libConfig = {
     // target: "web",
     entry: path.resolve(__dirname, "src/index.ts"),
     output: {
@@ -41,3 +41,18 @@ module.exports = {
         },
     },
 };
+
+const cliConfig = {
+    target: "node",
+    entry: "./src/cli.ts",
+    output: {
+        path: path.resolve(__dirname, "dist"),
+        filename: "cli.js",
+        clean: false,
+    },
+    module: libConfig.module,
+    externalsPresets: { node: true },
+    resolve: libConfig.resolve,
+};
+
+module.exports = [libConfig, cliConfig];
