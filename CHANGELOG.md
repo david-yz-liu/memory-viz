@@ -11,7 +11,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
-- added light/dark theme toggle button to demo website
+- Added light/dark theme toggle button to demo website
 
 ### 🐛 Bug fixes
 
