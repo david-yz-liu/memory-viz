@@ -48,7 +48,16 @@ export default function MemoryModelsMenu(props: MemoryModelsMenuPropTypes) {
                 {props.menuName}
                 <ExpandMoreRoundedIcon />
             </Button>
-            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+            <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                sx={{
+                    "& .MuiMenuItem-root": {
+                        color: "text.primary",
+                    },
+                }}
+            >
                 <Box>{props.menuItems}</Box>
             </Menu>
         </>
