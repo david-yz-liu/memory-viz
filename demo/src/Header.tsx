@@ -28,7 +28,7 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                     >
                         MemoryViz Demo
                     </Typography>
-                    <Typography variant="subtitle1">
+                    <Typography variant="subtitle1" color="textSecondary">
                         Demos of the{" "}
                         <Link
                             href="https://github.com/david-yz-liu/memory-viz"

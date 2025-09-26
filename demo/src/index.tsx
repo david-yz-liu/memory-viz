@@ -31,7 +31,7 @@ const lightTheme = createTheme({
         },
         text: {
             primary: "#222222",
-            secondary: "#555555",
+            secondary: "#333333",
         },
     },
 });
