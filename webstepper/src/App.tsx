@@ -12,7 +12,12 @@ if (typeof window === "object" && process.env.NODE_ENV !== "production") {
     window.codeText = placeholder.codeText;
 }
 
-export default function App() {
+interface AppProps {
+    isDarkMode: boolean;
+    toggleTheme: () => void;
+}
+
+export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const [step, setStep] = useState<number>(0);
     const codeText = window.codeText;
     const limit = window.svgArray.length;
@@ -40,11 +45,22 @@ export default function App() {
 
     return (
         <>
-            <Header />
+            <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
             <main className="container-fluid">
                 <Stack direction="row" spacing={2} sx={{ height: "100%" }}>
                     <Stack direction="column" sx={{ width: "45%" }}>
-                        <h2>Code</h2>
+                        <Typography
+                            variant="h2"
+                            color="textPrimary"
+                            gutterBottom
+                            sx={{
+                                fontSize: "29.75px",
+                                fontWeight: 700,
+                                mt: 2,
+                            }}
+                        >
+                            Code
+                        </Typography>
                         <Stack direction="row" className="code-controls">
                             <Typography>
                                 Step {step + 1}/{limit}
@@ -75,7 +91,18 @@ export default function App() {
                         </Box>
                     </Stack>
                     <Stack direction="column" sx={{ width: "55%" }}>
-                        <h2>Memory visualization</h2>
+                        <Typography
+                            variant="h2"
+                            color="textPrimary"
+                            gutterBottom
+                            sx={{
+                                fontSize: "29.75px",
+                                fontWeight: 700,
+                                mt: 2,
+                            }}
+                        >
+                            Memory Visualization
+                        </Typography>
                         <SvgDisplay step={step} />
                     </Stack>
                 </Stack>
