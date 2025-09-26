@@ -17,7 +17,35 @@ declare module "@mui/material/styles" {
     }
 }
 
+const baseTheme = {
+    typography: {
+        h1: {
+            fontSize: "34.px",
+            fontWeight: 700,
+        },
+        h2: {
+            fontSize: "29.75px",
+            fontWeight: 700,
+        },
+    },
+    components: {
+        MuiTypography: {
+            styleOverrides: {
+                h1: {
+                    marginTop: "16px",
+                    marginBottom: "12px",
+                },
+                h2: {
+                    marginTop: "16px",
+                    marginBottom: "10px",
+                },
+            },
+        },
+    },
+};
+
 const lightTheme = createTheme({
+    ...baseTheme,
     palette: {
         mode: "light",
         primary: {
@@ -37,6 +65,7 @@ const lightTheme = createTheme({
 });
 
 const darkTheme = createTheme({
+    ...baseTheme,
     palette: {
         mode: "dark",
         primary: {
