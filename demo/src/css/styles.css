@@ -20,3 +20,10 @@ input[type="number"]::-webkit-outer-spin-button {
     transition: transform 0.2s ease-in-out;
     transform: rotate(180deg);
 }
+
+.section-title {
+    font-size: 29.75px !important;
+    font-weight: 700 !important;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}

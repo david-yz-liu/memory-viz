@@ -51,12 +51,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                     <Typography
                         variant="h2"
                         color="textPrimary"
-                        gutterBottom
-                        sx={{
-                            fontSize: "29.75px",
-                            fontWeight: 700,
-                            mt: 2,
-                        }}
+                        className="section-title"
                     >
                         Input
                     </Typography>
@@ -73,12 +68,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                     <Typography
                         variant="h2"
                         color="textPrimary"
-                        gutterBottom
-                        sx={{
-                            fontSize: "29.75px",
-                            fontWeight: 700,
-                            mt: 2,
-                        }}
+                        className="section-title"
                     >
                         Output
                     </Typography>
