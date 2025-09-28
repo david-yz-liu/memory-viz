@@ -47,14 +47,7 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                     >
                         {isDarkMode ? <MoonIcon /> : <SunIcon />}
                     </IconButton>
-                    <img
-                        src={logo}
-                        alt="MemoryViz Logo"
-                        style={{
-                            width: "100px",
-                            objectFit: "contain",
-                        }}
-                    />
+                    <img src={logo} alt="MemoryViz Logo" />
                 </Stack>
             </Stack>
         </header>

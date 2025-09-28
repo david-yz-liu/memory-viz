@@ -58,6 +58,21 @@ const baseTheme = {
                 },
             },
         },
+        MuiCssBaseline: {
+            styleOverrides: {
+                img: {
+                    width: "100px",
+                    objectFit: "contain",
+                },
+            },
+        },
+        MuiMenuItem: {
+            styleOverrides: {
+                root: ({ theme }) => ({
+                    color: theme.palette.text.primary,
+                }),
+            },
+        },
     },
 };
 
