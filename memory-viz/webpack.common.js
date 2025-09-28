@@ -57,4 +57,4 @@ const cliConfig = {
     resolve: libConfig.resolve,
 };
 
-module.exports = [libConfig, cliConfig];
+module.exports = { libConfig, cliConfig };

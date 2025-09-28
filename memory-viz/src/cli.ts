@@ -6,6 +6,7 @@ import { program } from "commander";
 import { json } from "node:stream/consumers";
 import type { DrawnEntity } from "./types";
 import memoryViz from "./index";
+import { MemoryModel } from "./memory_model";
 
 const { draw } = memoryViz;
 
@@ -99,16 +100,28 @@ if (filePath) {
 function runMemoryViz(
     jsonContent: string | DrawnEntity[] | DrawnEntity[][]
 ): void {
-    let m: any;
+    let m: MemoryModel | MemoryModel[];
     try {
-        m = draw(jsonContent as any, true, {
+        const config = {
             width: options.width,
             height: options.height,
             roughjs_config: { options: options.roughjsConfig },
             global_style: options.globalStyle,
             theme: options.theme,
             interactive: options.interactive,
-        });
+        };
+
+        if (typeof jsonContent === "string") {
+            m = draw(jsonContent, true, config);
+        } else if (
+            Array.isArray(jsonContent) &&
+            jsonContent.length > 0 &&
+            Array.isArray(jsonContent[0])
+        ) {
+            m = draw(jsonContent as DrawnEntity[], true, config);
+        } else {
+            m = draw(jsonContent as DrawnEntity[][], true, config);
+        }
     } catch (err: any) {
         if (err instanceof SyntaxError) {
             console.error(`Error: Invalid JSON`);
@@ -119,10 +132,20 @@ function runMemoryViz(
     }
 
     try {
-        if (options.output) {
-            m.save(options.output);
+        if (Array.isArray(m)) {
+            m.forEach((model) => {
+                if (options.output) {
+                    model.save(options.output);
+                } else {
+                    model.save();
+                }
+            });
         } else {
-            m.save();
+            if (options.output) {
+                m.save(options.output);
+            } else {
+                m.save();
+            }
         }
     } catch (err: any) {
         console.error(`Error: ${err.message}`);
