@@ -49,20 +49,11 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
             <main className="container-fluid">
                 <Stack direction="row" spacing={2} sx={{ height: "100%" }}>
                     <Stack direction="column" sx={{ width: "45%" }}>
-                        <Typography
-                            variant="h2"
-                            color="textPrimary"
-                            gutterBottom
-                            sx={{
-                                fontSize: "29.75px",
-                                fontWeight: 700,
-                                mt: 2,
-                            }}
-                        >
+                        <Typography variant="h2" color="textPrimary">
                             Code
                         </Typography>
                         <Stack direction="row" className="code-controls">
-                            <Typography>
+                            <Typography color="textSecondary">
                                 Step {step + 1}/{limit}
                             </Typography>
                             <Button
@@ -91,16 +82,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         </Box>
                     </Stack>
                     <Stack direction="column" sx={{ width: "55%" }}>
-                        <Typography
-                            variant="h2"
-                            color="textPrimary"
-                            gutterBottom
-                            sx={{
-                                fontSize: "29.75px",
-                                fontWeight: 700,
-                                mt: 2,
-                            }}
-                        >
+                        <Typography variant="h2" color="textPrimary">
                             Memory Visualization
                         </Typography>
                         <SvgDisplay step={step} />

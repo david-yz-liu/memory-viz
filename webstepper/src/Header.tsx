@@ -16,19 +16,10 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
         <header className="container-fluid">
             <Stack direction={"row"} justifyContent={"space-between"}>
                 <Box>
-                    <Typography
-                        variant="h1"
-                        color="textPrimary"
-                        gutterBottom
-                        sx={{
-                            fontSize: "34px",
-                            fontWeight: 700,
-                            mt: 2,
-                        }}
-                    >
+                    <Typography variant="h1" color="textPrimary">
                         MemoryViz Webstepper
                     </Typography>
-                    <Typography variant="subtitle1">
+                    <Typography variant="subtitle1" color="textSecondary">
                         A web-based interactive tool for visualizing Python
                         memory, based on the{" "}
                         <Link
@@ -46,32 +37,10 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                         onClick={toggleTheme}
                         color="inherit"
                         aria-label="Toggle theme"
-                        size="small"
-                        sx={{
-                            padding: "2px",
-                            minWidth: "auto",
-                            width: "auto",
-                            height: "auto",
-                        }}
                     >
-                        {isDarkMode ? (
-                            <MoonIcon
-                                style={{ width: "30px", height: "30px" }}
-                            />
-                        ) : (
-                            <SunIcon
-                                style={{ width: "30px", height: "30px" }}
-                            />
-                        )}
+                        {isDarkMode ? <MoonIcon /> : <SunIcon />}
                     </IconButton>
-                    <img
-                        src={logo}
-                        alt="MemoryViz Logo"
-                        style={{
-                            width: "100px",
-                            objectFit: "contain",
-                        }}
-                    />
+                    <img src={logo} alt="MemoryViz Logo" />
                 </Stack>
             </Stack>
         </header>
