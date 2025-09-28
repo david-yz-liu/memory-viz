@@ -41,6 +41,23 @@ const baseTheme = {
                 },
             },
         },
+        MuiIconButton: {
+            styleOverrides: {
+                root: {
+                    padding: "2px",
+                    width: "34px",
+                    height: "34px",
+                },
+            },
+        },
+        MuiSvgIcon: {
+            styleOverrides: {
+                root: {
+                    width: "30px",
+                    height: "30px",
+                },
+            },
+        },
     },
 };
 

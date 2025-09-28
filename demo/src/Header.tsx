@@ -44,23 +44,8 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                         onClick={toggleTheme}
                         color="inherit"
                         aria-label="Toggle theme"
-                        size="small"
-                        sx={{
-                            padding: "2px",
-                            minWidth: "auto",
-                            width: "auto",
-                            height: "auto",
-                        }}
                     >
-                        {isDarkMode ? (
-                            <MoonIcon
-                                style={{ width: "30px", height: "30px" }}
-                            />
-                        ) : (
-                            <SunIcon
-                                style={{ width: "30px", height: "30px" }}
-                            />
-                        )}
+                        {isDarkMode ? <MoonIcon /> : <SunIcon />}
                     </IconButton>
                     <img
                         src={logo}
