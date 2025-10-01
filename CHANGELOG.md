@@ -23,6 +23,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Enabled Typescript `strict` option and fixed compilation errors
 - Fixed bug where there are console.error outputs when running tests for the webstepper and demo sites even though tests pass
 - Updated `autofix.ci` to v1
+- Converted CLI from JavaScript to TypeScript and added dedicated webpack configuration for bundling it during builds.
+- Migrated CLI tests from `child_process` to `execa`, converting all tests to async/await pattern
 
 ## [0.7.0] - 2025-08-11
 
