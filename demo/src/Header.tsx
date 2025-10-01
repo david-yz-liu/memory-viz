@@ -1,19 +1,25 @@
 import React from "react";
-import { Box, Link, Stack, Typography, useMediaQuery } from "@mui/material";
+import { Box, Link, Stack, Typography, IconButton } from "@mui/material";
+import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 import lightLogo from "../../assets/logo_square.png";
 import darkLogo from "../../assets/logo_square_dark.png";
 
-export default function Header() {
-    const logo = useMediaQuery("(prefers-color-scheme: dark)")
-        ? darkLogo
-        : lightLogo;
+interface HeaderProps {
+    isDarkMode: boolean;
+    toggleTheme: () => void;
+}
+
+export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
+    const logo = isDarkMode ? darkLogo : lightLogo;
 
     return (
         <header className="container">
             <Stack direction={"row"} justifyContent={"space-between"}>
                 <Box>
-                    <h1 style={{ marginBottom: 0 }}>MemoryViz Demo</h1>
-                    <Typography variant="subtitle1">
+                    <Typography variant="h1" color="textPrimary">
+                        MemoryViz Demo
+                    </Typography>
+                    <Typography variant="subtitle1" color="textSecondary">
                         Demos of the{" "}
                         <Link
                             href="https://github.com/david-yz-liu/memory-viz"
@@ -33,14 +39,16 @@ export default function Header() {
                         for documentation.
                     </Typography>
                 </Box>
-                <img
-                    src={logo}
-                    alt="MemoryViz Logo"
-                    style={{
-                        width: "100px",
-                        objectFit: "contain",
-                    }}
-                />
+                <Stack direction="row" alignItems="center" spacing={1}>
+                    <IconButton
+                        onClick={toggleTheme}
+                        color="inherit"
+                        aria-label="Toggle theme"
+                    >
+                        {isDarkMode ? <MoonIcon /> : <SunIcon />}
+                    </IconButton>
+                    <img src={logo} alt="MemoryViz Logo" />
+                </Stack>
             </Stack>
         </header>
     );
