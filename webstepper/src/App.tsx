@@ -83,7 +83,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                     </Stack>
                     <Stack direction="column" sx={{ width: "55%" }}>
                         <Typography variant="h2" color="textPrimary">
-                            Memory Visualization
+                            Memory visualization
                         </Typography>
                         <SvgDisplay step={step} />
                     </Stack>
