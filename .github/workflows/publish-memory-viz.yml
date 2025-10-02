@@ -12,7 +12,7 @@ jobs:
         environment:
             name: publish-npm
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v5
             # Setup .npmrc file to publish to npm
             - uses: actions/setup-node@v5
               with:
