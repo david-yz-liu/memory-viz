@@ -7,17 +7,18 @@ import { config } from "./config";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
 import {
     DrawnEntity,
-    VisualizationConfig,
-    Rect,
+    DrawnEntitySchema,
+    DrawnEntityStrict,
     Primitive,
+    Rect,
     Style,
+    VisualizationConfig,
 } from "./types";
 import { isArrayOfNullableType } from "./typeguards";
 import { RoughSVG } from "roughjs/bin/svg";
 import { Config, Options } from "roughjs/bin/core";
 import type * as fsType from "fs";
 import type * as CSS from "csstype";
-import { DrawnEntitySchema } from "./types";
 import { prettifyError } from "zod";
 
 // Dynamic import of Node fs module
@@ -196,8 +197,8 @@ export class MemoryModel {
         value: object | number[] | string | boolean | null,
         show_indexes: boolean = false,
         style: Style,
-        width?: number,
-        height?: number
+        width: number,
+        height: number
     ): Rect {
         if (id === undefined) {
             id = null;
@@ -265,54 +266,14 @@ export class MemoryModel {
         id: number | null,
         value: Primitive,
         style: Style,
-        width?: number,
-        height?: number
+        width: number,
+        height: number
     ): Rect {
-        const renderedText =
-            typeof value === "string" ? `"${value}"` : String(value);
-
-        const default_width = Math.max(
-            this.obj_min_width,
-            this.getTextLength(renderedText, style.text_value) +
-                this.obj_x_padding
-        );
-        const default_height = this.obj_min_height;
-
-        if (width !== undefined) {
-            width -= 2 * this.double_rect_sep;
-            if (width < default_width) {
-                console.warn(
-                    `WARNING: provided width of object (${width}) is smaller than the required width` +
-                        ` (${default_width}). The provided width has been overwritten in the generated diagram.`
-                );
-            }
-        }
-        if (height !== undefined) {
-            height -= 2 * this.double_rect_sep;
-            if (height < default_height) {
-                console.warn(
-                    `WARNING: provided height of object (${height}) is smaller than the required height` +
-                        ` (${default_height}). The provided height has been overwritten in the generated diagram.`
-                );
-            }
-        }
-
-        const box_width = Math.max(width ?? 0, default_width);
-        const box_height = Math.max(height ?? 0, default_height);
-
-        this.drawRect(
-            x,
-            y,
-            box_width,
-            box_height,
-            style.box_container,
-            true,
-            id
-        );
+        this.drawRect(x, y, width, height, style.box_container, true, id);
 
         let size: Rect = {
-            width: box_width,
-            height: box_height,
+            width: width,
+            height: height,
             x: x,
             y: y,
         };
@@ -322,12 +283,12 @@ export class MemoryModel {
                 // While no style argument is provided, the drawRect method manages this scenario automatically.
                 x - this.double_rect_sep,
                 y - this.double_rect_sep,
-                box_width + 2 * this.double_rect_sep,
-                box_height + 2 * this.double_rect_sep
+                width + 2 * this.double_rect_sep,
+                height + 2 * this.double_rect_sep
             );
             size = {
-                width: box_width + 2 * this.double_rect_sep,
-                height: box_height + 2 * this.double_rect_sep,
+                width: width + 2 * this.double_rect_sep,
+                height: height + 2 * this.double_rect_sep,
                 x: x - this.double_rect_sep,
                 y: y - this.double_rect_sep,
             };
@@ -345,14 +306,14 @@ export class MemoryModel {
         if (value !== null && value !== undefined) {
             this.drawText(
                 display_text,
-                x + box_width / 2,
-                y + (box_height + this.prop_min_height) / 2,
+                x + width / 2,
+                y + (height + this.prop_min_height) / 2,
                 style.text_value,
                 "value"
             );
         }
 
-        this.drawProperties(id, type, x, y, box_width, style);
+        this.drawProperties(id, type, x, y, width, style);
 
         this.updateDimensions(size);
 
@@ -453,57 +414,19 @@ export class MemoryModel {
         element_ids: (number | null)[],
         show_idx: boolean,
         style: Style,
-        width?: number,
-        height?: number
+        width: number,
+        height: number
     ): Rect {
-        let default_width = this.obj_x_padding * 2;
-        element_ids.forEach((v) => {
-            default_width += Math.max(
-                this.item_min_width,
-                this.getTextLength(v === null ? "" : `id${v}`, style.text_id) +
-                    10
-            );
-        });
-        default_width = Math.max(this.obj_min_width, default_width);
-        let default_height = this.obj_min_height;
-        if (show_idx) {
-            default_height += this.list_index_sep;
-        }
+        this.drawRect(x, y, width, height, style.box_container, true, id);
 
-        if (width !== undefined && width < default_width) {
-            console.warn(
-                `WARNING: provided width of object (${width}) is smaller than the required width` +
-                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
-            );
-        }
-        if (height !== undefined && height < default_height) {
-            console.warn(
-                `WARNING: provided height of object (${height}) is smaller than the required height` +
-                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
-            );
-        }
-
-        const box_width = Math.max(width ?? 0, default_width);
-        const box_height = Math.max(height ?? 0, default_height);
-
-        this.drawRect(
-            x,
-            y,
-            box_width,
-            box_height,
-            style.box_container,
-            true,
-            id
-        );
-
-        const size: Rect = { width: box_width, height: box_height, x: x, y: y };
+        const size: Rect = { width: width, height: height, x: x, y: y };
 
         if (immutable.includes(type)) {
             this.drawRect(
                 x - this.double_rect_sep,
                 y - this.double_rect_sep,
-                box_width + 2 * this.double_rect_sep,
-                box_height + 2 * this.double_rect_sep
+                width + 2 * this.double_rect_sep,
+                height + 2 * this.double_rect_sep
             );
         }
 
@@ -546,9 +469,9 @@ export class MemoryModel {
         });
 
         if (type === "list") {
-            this.drawProperties(id, "list", x, y, box_width, style);
+            this.drawProperties(id, "list", x, y, width, style);
         } else {
-            this.drawProperties(id, "tuple", x, y, box_width, style);
+            this.drawProperties(id, "tuple", x, y, width, style);
         }
 
         this.updateDimensions(size);
@@ -584,59 +507,23 @@ export class MemoryModel {
         id: number | null,
         element_ids: (number | null)[],
         style: Style,
-        width?: number,
-        height?: number
+        width: number,
+        height: number
     ): Rect {
-        let default_width = this.obj_x_padding * 2;
-        element_ids.forEach((v) => {
-            default_width += Math.max(
-                this.item_min_width,
-                this.getTextLength(v === null ? "" : `id${v}`, style.text_id) +
-                    10
-            );
-        });
-        default_width = Math.max(this.obj_min_width, default_width);
-        default_width += ((element_ids.length - 1) * this.item_min_width) / 4; // Space for separators
-        const default_height = this.obj_min_height;
-
-        if (width !== undefined && width < default_width) {
-            console.warn(
-                `WARNING: provided width of object (${width}) is smaller than the required width` +
-                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
-            );
-        }
-        if (height !== undefined && height < default_height) {
-            console.warn(
-                `WARNING: provided height of object (${height}) is smaller than the required height` +
-                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
-            );
-        }
-
-        const box_width = Math.max(width ?? 0, default_width);
-        const box_height = Math.max(height ?? 0, default_height);
-
-        this.drawRect(
-            x,
-            y,
-            box_width,
-            box_height,
-            style.box_container,
-            true,
-            id
-        );
+        this.drawRect(x, y, width, height, style.box_container, true, id);
 
         const SIZE: Rect = {
             x,
             y,
-            width: box_width,
-            height: box_height,
+            width: width,
+            height: height,
         };
 
         let curr_x = x + this.item_min_width / 2;
         const item_y =
             y +
             this.prop_min_height +
-            (box_height - this.prop_min_height - this.item_min_height) / 2;
+            (height - this.prop_min_height - this.item_min_height) / 2;
         const item_text_y =
             item_y + this.item_min_height / 2 + this.font_size / 4;
 
@@ -666,7 +553,7 @@ export class MemoryModel {
             curr_x += item_length + this.item_min_height / 4;
         });
 
-        this.drawProperties(id, "set", x, y, box_width, style);
+        this.drawProperties(id, "set", x, y, width, style);
         this.drawText(
             "{",
             x + this.item_min_width / 4,
@@ -676,7 +563,7 @@ export class MemoryModel {
         );
         this.drawText(
             "}",
-            x + box_width - this.item_min_width / 4,
+            x + width - this.item_min_width / 4,
             item_text_y,
             {},
             "default"
@@ -695,6 +582,8 @@ export class MemoryModel {
      * @param obj - the object that will be drawn
      * @param style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
+     * @param width - The width of the object
+     * @param height - The height of the object
      *
      * @returns the top-left coordinates, width, and height of the outermost box
      */
@@ -704,61 +593,11 @@ export class MemoryModel {
         id: number | null,
         obj: { [key: string]: any } | null,
         style: Style,
-        width?: number,
-        height?: number
+        width: number,
+        height: number
     ): Rect {
-        let default_width = this.obj_min_width;
-        let default_height = this.prop_min_height + this.item_min_height / 2;
-
-        for (const k in obj) {
-            const idk = k.trim() === "" ? "" : `id${k}`;
-            const idv = obj[k] === null ? "" : `id${obj[k]}`;
-
-            const key_box = Math.max(
-                this.item_min_width,
-                this.getTextLength(idk + 5, style.text_id)
-            );
-            const value_box = Math.max(
-                this.item_min_width,
-                this.getTextLength(idv + 5, style.text_value)
-            );
-
-            default_width = Math.max(
-                default_width,
-                this.obj_x_padding * 2 +
-                    key_box +
-                    value_box +
-                    2 * this.font_size
-            );
-            default_height += 1.5 * this.item_min_height;
-        }
-
-        if (width !== undefined && width < default_width) {
-            console.warn(
-                `WARNING: provided width of object (${width}) is smaller than the required width` +
-                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
-            );
-        }
-        if (height !== undefined && height < default_height) {
-            console.warn(
-                `WARNING: provided height of object (${height}) is smaller than the required height` +
-                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
-            );
-        }
-
-        const box_width = Math.max(width ?? 0, default_width);
-        const box_height = Math.max(height ?? 0, default_height);
-
-        this.drawRect(
-            x,
-            y,
-            box_width,
-            box_height,
-            style.box_container,
-            true,
-            id
-        );
-        const SIZE: Rect = { x, y, width: box_width, height: box_height };
+        this.drawRect(x, y, width, height, style.box_container, true, id);
+        const SIZE: Rect = { x, y, width: width, height: height };
 
         // First loop, to draw the key boxes
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
@@ -801,7 +640,7 @@ export class MemoryModel {
 
             // Draw the rectangle for values.
             this.drawRect(
-                x + box_width / 2 + this.font_size,
+                x + width / 2 + this.font_size,
                 curr_y,
                 value_box,
                 this.item_min_height
@@ -809,7 +648,7 @@ export class MemoryModel {
 
             this.drawText(
                 ":",
-                x + box_width / 2,
+                x + width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 {},
                 "default"
@@ -817,7 +656,7 @@ export class MemoryModel {
 
             this.drawText(
                 idv,
-                x + box_width / 2 + this.font_size + value_box / 2,
+                x + width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 style.text_value,
                 "id"
@@ -826,7 +665,7 @@ export class MemoryModel {
             curr_y += this.item_min_height * 1.5;
         }
 
-        this.drawProperties(id, "dict", x, y, box_width, style);
+        this.drawProperties(id, "dict", x, y, width, style);
 
         this.updateDimensions(SIZE);
 
@@ -856,8 +695,8 @@ export class MemoryModel {
         attributes: { [key: string]: any },
         stack_frame: boolean,
         style: Style,
-        width?: number,
-        height?: number
+        width: number,
+        height: number
     ): Rect {
         if (id === undefined) {
             id = null;
@@ -866,60 +705,9 @@ export class MemoryModel {
             name = "";
         }
 
-        let default_width = this.obj_min_width;
-        let longest = 0;
-        for (const attribute in attributes) {
-            longest = Math.max(
-                longest,
-                this.getTextLength(attribute, style.text_value)
-            );
-        }
-        if (longest > 0) {
-            default_width = longest + this.item_min_width * 3;
-        }
-        default_width = Math.max(
-            default_width,
-            this.prop_min_width + this.getTextLength(name, style.text_type) + 10
-        );
+        this.drawRect(x, y, width, height, style.box_container, true, id);
 
-        let default_height = 0;
-        if (Object.keys(attributes).length > 0) {
-            default_height =
-                ((this.item_min_width * 3) / 2) *
-                    Object.keys(attributes).length +
-                this.item_min_width / 2 +
-                this.prop_min_height;
-        } else {
-            default_height = this.obj_min_height;
-        }
-
-        if (width !== undefined && width < default_width) {
-            console.warn(
-                `WARNING: provided width of object (${width}) is smaller than the required width` +
-                    ` (${default_width}). The provided width has been overwritten in the generated diagram.`
-            );
-        }
-        if (height !== undefined && height < default_height) {
-            console.warn(
-                `WARNING: provided height of object (${height}) is smaller than the required height` +
-                    ` (${default_height}). The provided height has been overwritten in the generated diagram.`
-            );
-        }
-
-        const box_width = Math.max(width ?? 0, default_width);
-        const box_height = Math.max(height ?? 0, default_height);
-
-        this.drawRect(
-            x,
-            y,
-            box_width,
-            box_height,
-            style.box_container,
-            true,
-            id
-        );
-
-        const SIZE: Rect = { x, y, width: box_width, height: box_height };
+        const SIZE: Rect = { x, y, width: width, height: height };
 
         // Draw element boxes.
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
@@ -931,7 +719,7 @@ export class MemoryModel {
                 this.getTextLength(idv) + 10
             );
             this.drawRect(
-                x + box_width - this.item_min_width * 1.5,
+                x + width - this.item_min_width * 1.5,
                 curr_y,
                 attr_box,
                 this.item_min_height
@@ -949,7 +737,7 @@ export class MemoryModel {
 
             this.drawText(
                 idv,
-                x + box_width - this.item_min_width * 1.5 + attr_box / 2,
+                x + width - this.item_min_width * 1.5 + attr_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 style.text_id,
                 "id"
@@ -974,7 +762,7 @@ export class MemoryModel {
                 "type"
             );
         } else {
-            this.drawProperties(id, name, x, y, box_width, style);
+            this.drawProperties(id, name, x, y, width, style);
         }
 
         this.updateDimensions(SIZE);
@@ -1132,35 +920,10 @@ export class MemoryModel {
      */
     drawAll(objects: DrawnEntity[]): Rect[] {
         const sizes_arr: Rect[] = [];
+        const strict_objects = this.setDimensions(objects);
 
-        for (const rawObj of objects) {
-            const result = DrawnEntitySchema.safeParse(rawObj);
-            if (!result.success) {
-                const pretty = prettifyError(result.error);
-                throw new Error(pretty);
-            }
-
-            const obj = result.data;
-
-            if (Array.isArray(obj.style)) {
-                // Parsing the 'objects' array is essential, potentially converting preset keywords into the
-                // current item's 'style' object.
-                let styleSoFar = {};
-
-                for (let el of obj.style) {
-                    if (typeof el === "string") {
-                        el = presets[el];
-                    }
-
-                    // Note that, the later will take precedence over styleSoFar.
-                    styleSoFar = merge(styleSoFar, el);
-                }
-
-                obj.style = styleSoFar;
-            }
-
-            obj.style = { ...obj.style, ...this.roughjs_config?.options };
-
+        for (const obj of strict_objects) {
+            obj.style = obj.style as Style;
             const frame_types = [".frame", ".blank-frame"];
             if (frame_types.includes(obj.type!) || obj.type === ".class") {
                 const is_frame = frame_types.includes(obj.type!);
@@ -1217,6 +980,345 @@ export class MemoryModel {
             this.height = bottom_edge;
             this.svg.setAttribute("height", this.height.toString());
         }
+    }
+
+    /**
+     * Returns a copy of the input objects with width and height set properly.
+     *
+     * @param objects - the list of objects (including stack-frames) to be drawn.
+     */
+    private setDimensions(objects: DrawnEntity[]): DrawnEntityStrict[] {
+        const strict_objects: DrawnEntityStrict[] = [];
+
+        for (const object of objects) {
+            // Parse object
+            const parsed_object = this.parseRawDrawnEntity(object);
+
+            // Get default width and height
+            const default_dims = this.getDefaultDimensions(parsed_object);
+
+            // Validate width and height, overwriting if necessary
+            const strict_object = this.validateDimensions(
+                parsed_object,
+                default_dims.default_width,
+                default_dims.default_height
+            );
+
+            strict_objects.push(strict_object);
+        }
+
+        return strict_objects;
+    }
+
+    /**
+     * Parses a DrawnEntity object and returns the parsed DrawnEntity.
+     * @param object The raw DrawnEntity to parse.
+     *
+     * @returns The validated and normalized DrawnEntity.
+     * @throws Error if validation against DrawnEntitySchema fails.
+     */
+    private parseRawDrawnEntity(object: DrawnEntity): DrawnEntity {
+        const result = DrawnEntitySchema.safeParse(object);
+        if (!result.success) {
+            const pretty = prettifyError(result.error);
+            throw new Error(pretty);
+        }
+
+        const obj = result.data;
+
+        if (Array.isArray(obj.style)) {
+            // Parsing the 'objects' array is essential, potentially converting preset keywords into the
+            // current item's 'style' object.
+            let styleSoFar = {};
+
+            for (let el of obj.style) {
+                if (typeof el === "string") {
+                    el = presets[el];
+                }
+
+                // Note that, the later will take precedence over styleSoFar.
+                styleSoFar = merge(styleSoFar, el);
+            }
+
+            obj.style = styleSoFar;
+        }
+
+        obj.style = { ...obj.style, ...this.roughjs_config?.options };
+        return obj;
+    }
+
+    /**
+     * Returns the default width and height for a given DrawnEntity object,
+     * based on its type and value. Delegates to the appropriate helper method
+     * depending on whether the object is a class, collection, or primitive.
+     *
+     * @param object - The DrawnEntity to compute default dimensions for.
+     * @returns An object with default_width and default_height properties.
+     * @throws Error if the type or value is invalid.
+     */
+    private getDefaultDimensions(object: DrawnEntity): {
+        default_width: number;
+        default_height: number;
+    } {
+        const type = object.type as string;
+        const value = object.value;
+
+        const frame_types = [".frame", ".blank-frame"];
+        if (frame_types.includes(type) || type === ".class") {
+            return this.getDefaultClassDimensions(object);
+        } else if (collections.includes(type)) {
+            if (type === "dict" && typeof value === "object") {
+                return this.getDefaultDictDimensions(object);
+            } else if (
+                type === "set" &&
+                isArrayOfNullableType<number>(value, "number")
+            ) {
+                return this.getDefaultSetDimensions(object);
+            } else if (
+                (type === "list" || type === "tuple") &&
+                isArrayOfNullableType<number>(value, "number")
+            ) {
+                return this.getDefaultSequenceDimensions(object);
+            }
+        } else {
+            if (typeof value !== "object" || value === null) {
+                return this.getDefaultPrimitiveDimensions(object);
+            }
+        }
+        throw new Error(
+            `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${type}" with value "${value}".`
+        );
+    }
+
+    /**
+     * Returns the default width and height for a primitive DrawnEntity object.
+     * The width is determined by the rendered text length and minimum object width,
+     * and the height is set to the minimum object height.
+     *
+     * @param object - The DrawnEntity representing a primitive value.
+     * @returns An object with default_width and default_height properties.
+     */
+    private getDefaultPrimitiveDimensions(object: DrawnEntity): {
+        default_width: number;
+        default_height: number;
+    } {
+        const style = object.style as Style;
+
+        const renderedText =
+            typeof object.value === "string"
+                ? `"${object.value}"`
+                : String(object.value);
+
+        const text_value = style.text_value ?? {};
+        const default_width = Math.max(
+            this.obj_min_width,
+            this.getTextLength(renderedText, text_value) + this.obj_x_padding
+        );
+        const default_height = this.obj_min_height;
+        return { default_width, default_height };
+    }
+
+    /**
+     * Returns the default width and height for a sequence DrawnEntity object (list or tuple).
+     * The width is based on the number and size of elements, and the height may include
+     * extra space if indexes are shown.
+     *
+     * @param object - The DrawnEntity representing a sequence.
+     * @returns An object with default_width and default_height properties.
+     */
+    private getDefaultSequenceDimensions(object: DrawnEntity): {
+        default_width: number;
+        default_height: number;
+    } {
+        const style = object.style as Style;
+        const element_ids = object.value as (number | null)[];
+
+        let default_width = this.obj_x_padding * 2;
+        element_ids.forEach((v) => {
+            default_width += Math.max(
+                this.item_min_width,
+                this.getTextLength(v === null ? "" : `id${v}`, style.text_id) +
+                    10
+            );
+        });
+        default_width = Math.max(this.obj_min_width, default_width);
+        let default_height = this.obj_min_height;
+        if (object.show_indexes) {
+            default_height += this.list_index_sep;
+        }
+        return { default_width, default_height };
+    }
+
+    /**
+     * Returns the default width and height for a set DrawnEntity object.
+     * The width is based on the number and size of elements, including space for separators,
+     * and the height is set to the minimum object height.
+     *
+     * @param object - The DrawnEntity representing a set.
+     * @returns An object with default_width and default_height properties.
+     */
+    private getDefaultSetDimensions(object: DrawnEntity): {
+        default_width: number;
+        default_height: number;
+    } {
+        const style = object.style as Style;
+        const element_ids = object.value as (number | null)[];
+
+        let default_width = this.obj_x_padding * 2;
+        element_ids.forEach((v) => {
+            default_width += Math.max(
+                this.item_min_width,
+                this.getTextLength(v === null ? "" : `id${v}`, style.text_id) +
+                    10
+            );
+        });
+        default_width = Math.max(this.obj_min_width, default_width);
+        default_width += ((element_ids.length - 1) * this.item_min_width) / 4; // Space for separators
+        const default_height = this.obj_min_height;
+        return { default_width, default_height };
+    }
+
+    /**
+     * Returns the default width and height for a dictionary DrawnEntity object.
+     * The width is determined by the widest key-value pair, and the height is based on
+     * the number of entries.
+     *
+     * @param object - The DrawnEntity representing a dictionary.
+     * @returns An object with default_width and default_height properties.
+     */
+    private getDefaultDictDimensions(object: DrawnEntity): {
+        default_width: number;
+        default_height: number;
+    } {
+        const style = object.style as Style;
+        const dict_obj = object.value as { [key: string]: any } | null;
+
+        let default_width = this.obj_min_width;
+        let default_height = this.prop_min_height + this.item_min_height / 2;
+
+        for (const k in dict_obj) {
+            const idk = k.trim() === "" ? "" : `id${k}`;
+            const idv = dict_obj[k] === null ? "" : `id${dict_obj[k]}`;
+
+            const key_box = Math.max(
+                this.item_min_width,
+                this.getTextLength(idk + 5, style.text_id)
+            );
+            const value_box = Math.max(
+                this.item_min_width,
+                this.getTextLength(idv + 5, style.text_value)
+            );
+
+            default_width = Math.max(
+                default_width,
+                this.obj_x_padding * 2 +
+                    key_box +
+                    value_box +
+                    2 * this.font_size
+            );
+            default_height += 1.5 * this.item_min_height;
+        }
+        return { default_width, default_height };
+    }
+
+    /**
+     * Returns the default width and height for a class or stack frame DrawnEntity object.
+     * The width is determined by the longest attribute name or class name, and the height
+     * is based on the number of attributes.
+     *
+     * @param object - The DrawnEntity representing a class or stack frame.
+     * @returns An object with default_width and default_height properties.
+     */
+    private getDefaultClassDimensions(object: DrawnEntity): {
+        default_width: number;
+        default_height: number;
+    } {
+        const style = object.style as Style;
+        const attributes = object.value as { [key: string]: any };
+        let name = object.name;
+        if (name === undefined || name === null) {
+            name = "";
+        }
+
+        let default_width = this.obj_min_width;
+        let longest = 0;
+        for (const attribute in attributes) {
+            longest = Math.max(
+                longest,
+                this.getTextLength(attribute, style.text_value)
+            );
+        }
+        if (longest > 0) {
+            default_width = longest + this.item_min_width * 3;
+        }
+        default_width = Math.max(
+            default_width,
+            this.prop_min_width + this.getTextLength(name, style.text_type) + 10
+        );
+
+        let default_height = 0;
+        if (Object.keys(attributes).length > 0) {
+            default_height =
+                ((this.item_min_width * 3) / 2) *
+                    Object.keys(attributes).length +
+                this.item_min_width / 2 +
+                this.prop_min_height;
+        } else {
+            default_height = this.obj_min_height;
+        }
+        return { default_width, default_height };
+    }
+
+    /**
+     * Validate and set the width and height of the given object.
+     * If width and/or height are not provided, set them to default values.
+     * If provided width and/or height are smaller than the default values, log a warning message
+     * and set them to the default values.
+     * @param object
+     * @param default_width
+     * @param default_height
+     */
+    private validateDimensions(
+        object: DrawnEntity,
+        default_width: number,
+        default_height: number
+    ): DrawnEntityStrict {
+        // For primitive objects, object width and height accounts for the double rectangle separation
+        if (
+            object.type == "int" ||
+            object.type == "float" ||
+            object.type == "str" ||
+            object.type == "bool" ||
+            object.type == "None"
+        ) {
+            if (object.width !== undefined) {
+                object.width -= 2 * this.double_rect_sep;
+            }
+            if (object.height !== undefined) {
+                object.height -= 2 * this.double_rect_sep;
+            }
+        }
+
+        if (object.width == undefined || object.width < default_width) {
+            if (object.width !== undefined && object.width < default_width) {
+                console.warn(
+                    `WARNING: provided width of object (${object.width}) is smaller than the required width` +
+                        ` (${default_width}). The provided width has been overwritten in the generated diagram.`
+                );
+            }
+            object.width = default_width;
+        }
+        if (object.height == undefined || object.height < default_height) {
+            if (object.height !== undefined && object.height < default_height) {
+                console.warn(
+                    `WARNING: provided height of object (${object.height}) is smaller than the required height` +
+                        ` (${default_height}). The provided height has been overwritten in the generated diagram.`
+                );
+            }
+            object.height = default_height;
+        }
+
+        return object as DrawnEntityStrict;
     }
 
     /**

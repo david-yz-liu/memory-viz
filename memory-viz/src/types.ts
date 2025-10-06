@@ -44,6 +44,11 @@ export const DrawnEntitySchema = z.object({
 
 export type DrawnEntity = z.infer<typeof DrawnEntitySchema>;
 
+export type DrawnEntityStrict = Omit<DrawnEntity, "width" | "height"> & {
+    width: number;
+    height: number;
+};
+
 export interface DisplaySettings {
     width: number;
     height: number;
