@@ -1289,7 +1289,9 @@ export class MemoryModel {
             object.type == "float" ||
             object.type == "str" ||
             object.type == "bool" ||
-            object.type == "None"
+            object.type == "None" ||
+            typeof object.value !== "object" ||
+            object.value === null
         ) {
             if (object.width !== undefined) {
                 object.width -= 2 * this.double_rect_sep;
