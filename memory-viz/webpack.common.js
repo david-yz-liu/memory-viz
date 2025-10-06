@@ -1,6 +1,7 @@
 const path = require("path");
+const nodeExternals = require("webpack-node-externals");
 
-module.exports = {
+const libConfig = {
     // target: "web",
     entry: path.resolve(__dirname, "src/index.ts"),
     output: {
@@ -41,3 +42,19 @@ module.exports = {
         },
     },
 };
+
+const cliConfig = {
+    target: "node",
+    entry: "./src/cli.ts",
+    output: {
+        path: path.resolve(__dirname, "dist"),
+        filename: "cli.js",
+        clean: false,
+    },
+    module: libConfig.module,
+    externalsPresets: { node: true },
+    externals: [nodeExternals()],
+    resolve: libConfig.resolve,
+};
+
+module.exports = { libConfig, cliConfig };

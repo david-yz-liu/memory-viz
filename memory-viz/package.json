@@ -45,18 +45,18 @@
         "url": "https://github.com/david-yz-liu/memory-viz/issues"
     },
     "bin": {
-        "memory-viz": "bin/cli.js"
+        "memory-viz": "dist/cli.js"
     },
     "dependencies": {
-        "@xmldom/xmldom": "^0.8.10",
+        "@xmldom/xmldom": "^0.8.11",
         "commander": "^14.0.0",
         "deepmerge": "^4.3.1",
         "roughjs": "^4.6.6",
         "zod": "^4.0.5"
     },
     "devDependencies": {
-        "@babel/core": "^7.28.0",
-        "@babel/preset-env": "^7.28.0",
+        "@babel/core": "^7.28.4",
+        "@babel/preset-env": "^7.28.3",
         "@babel/preset-typescript": "^7.27.1",
         "@types/jest": "^29.5.12",
         "@types/node": "^22.10.3",
