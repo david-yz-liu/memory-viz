@@ -169,7 +169,7 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
         });
     };
 
-    const handleThemeChange = (event) => {
+    const handleDarkThemeChange = (event) => {
         props.setConfigData({
             ...props.configData,
             overallDrawConfig: {
@@ -223,10 +223,10 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                                         props.configData.overallDrawConfig
                                             ?.theme === "dark"
                                     }
-                                    onChange={handleThemeChange}
+                                    onChange={handleDarkThemeChange}
                                 />
                             }
-                            label="Dark Theme"
+                            label="Dark theme"
                         />
                     </MenuItem>
                 </>
