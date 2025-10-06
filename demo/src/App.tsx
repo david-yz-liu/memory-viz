@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import SvgDisplay from "./SvgDisplay";
 import MemoryModelsUserInput from "./MemoryModelsUserInput";
 import { ErrorBoundary } from "react-error-boundary";
@@ -8,7 +8,12 @@ import { Alert } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput";
 import Header from "./Header";
 
-export default function App() {
+interface AppProps {
+    isDarkMode: boolean;
+    toggleTheme: () => void;
+}
+
+export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const [textData, setTextData] = useState("");
     const [configData, setConfigData] = useState<configDataPropTypes>({
         useAutomation: true,
@@ -35,7 +40,7 @@ export default function App() {
 
     return (
         <main className="container">
-            <Header />
+            <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
             {failureBanner && (
                 <Alert severity="error" data-testid="json-parse-alert">
                     {failureBanner}
@@ -43,7 +48,9 @@ export default function App() {
             )}
             <Stack direction="row" spacing={2}>
                 <Box sx={{ width: "40%" }}>
-                    <h2>Input</h2>
+                    <Typography variant="h2" color="textPrimary">
+                        Input
+                    </Typography>
                     <MemoryModelsUserInput
                         textData={textData}
                         setTextData={setTextData}
@@ -54,7 +61,9 @@ export default function App() {
                     />
                 </Box>
                 <Box sx={{ width: "60%" }}>
-                    <h2>Output</h2>
+                    <Typography variant="h2" color="textPrimary">
+                        Output
+                    </Typography>
                     <ErrorBoundary
                         fallbackRender={({ error }) => (
                             <Alert

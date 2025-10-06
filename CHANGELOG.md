@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- Added light/dark theme toggle button to demo website
+
 ### 🐛 Bug fixes
 
 ### 📚 Documentation and demo website changes
@@ -23,6 +25,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Enabled Typescript `strict` option and fixed compilation errors
 - Fixed bug where there are console.error outputs when running tests for the webstepper and demo sites even though tests pass
 - Updated `autofix.ci` to v1
+- Updated GitHub Actions workflows to `setup-node@v5` and Node.js v24
+- Enabled Dependabot updates for GitHub Actions
 - Introduced `DrawnEntityStrict` type and refactored `drawAll` to obtain an array of strict objects before drawing each object
 
 ## [0.7.0] - 2025-08-11
@@ -50,6 +54,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Removed getCanvasDimensions method and refactored logic into each `draw*` method
 - Refactored type definitions for `DrawnEntity` and `Styles` to use zod
 - Added eslint and ran it on all files
+- Converted CLI from JavaScript to TypeScript and added dedicated webpack configuration for bundling it during builds.
 
 ## [0.6.0] - 2025-05-24
 

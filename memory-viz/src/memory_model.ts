@@ -129,7 +129,7 @@ export class MemoryModel {
      * @param path - The repository (local location that the image
      * will be saved).
      */
-    save(path: string): void {
+    save(path?: string): void {
         const xml = this.serializeSVG();
         if (path === undefined) {
             console.log(xml);

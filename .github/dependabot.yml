@@ -25,3 +25,8 @@ updates:
           babel:
               patterns:
                   - "@babel/*"
+
+    - package-ecosystem: "github-actions"
+      directory: "/"
+      schedule:
+          interval: "monthly"
