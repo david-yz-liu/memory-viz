@@ -80,6 +80,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                             jsonResult={jsonResult}
                             configData={configData}
                             setSvgResult={setSvgResult}
+                            isDarkMode={isDarkMode}
                         />
                     </ErrorBoundary>
                     <DownloadSVGButton svgResult={svgResult} />
