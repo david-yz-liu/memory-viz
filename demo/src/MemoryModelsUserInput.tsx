@@ -169,18 +169,6 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
         });
     };
 
-    const handleDarkThemeChange = (event) => {
-        props.setConfigData({
-            ...props.configData,
-            overallDrawConfig: {
-                ...props.configData.overallDrawConfig,
-                ...(event.target.checked
-                    ? { theme: "dark" }
-                    : { theme: undefined }),
-            },
-        });
-    };
-
     return (
         <MemoryModelsMenu
             menuName="Rendering Options"
@@ -213,20 +201,6 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                                 />
                             }
                             label="Use automatic layout"
-                        />
-                    </MenuItem>
-                    <MenuItem>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={
-                                        props.configData.overallDrawConfig
-                                            ?.theme === "dark"
-                                    }
-                                    onChange={handleDarkThemeChange}
-                                />
-                            }
-                            label="Dark theme"
                         />
                     </MenuItem>
                 </>
