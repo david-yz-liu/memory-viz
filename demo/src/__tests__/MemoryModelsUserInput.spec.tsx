@@ -307,5 +307,35 @@ describe("MemoryModelsUserInput", () => {
                 useAutomation: false,
             });
         });
+
+        it("handles dark theme change", () => {
+            fireEvent.click(screen.getByText("Rendering Options"));
+            const theme = screen.getByLabelText("Theme");
+            fireEvent.mouseDown(theme);
+            const dark = screen.getByRole("option", { name: "Dark" });
+            fireEvent.click(dark);
+            expect(setConfigDataMock).toHaveBeenNthCalledWith(1, {
+                ...configDataMock,
+                overallDrawConfig: {
+                    ...configDataMock.overallDrawConfig,
+                    theme: "dark",
+                },
+            });
+        });
+
+        it("handles match website theme change", () => {
+            fireEvent.click(screen.getByText("Rendering Options"));
+            const theme = screen.getByLabelText("Theme");
+            fireEvent.mouseDown(theme);
+            const dark = screen.getByRole("option", { name: "Match website" });
+            fireEvent.click(dark);
+            expect(setConfigDataMock).toHaveBeenNthCalledWith(1, {
+                ...configDataMock,
+                overallDrawConfig: {
+                    ...configDataMock.overallDrawConfig,
+                    theme: "match",
+                },
+            });
+        });
     });
 });
