@@ -1,5 +1,11 @@
 import React from "react";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+    fireEvent,
+    render,
+    screen,
+    waitFor,
+    act,
+} from "@testing-library/react";
 import MemoryModelsUserInput from "../MemoryModelsUserInput";
 
 describe("MemoryModelsUserInput", () => {
@@ -308,12 +314,21 @@ describe("MemoryModelsUserInput", () => {
             });
         });
 
-        it("handles dark theme change", () => {
-            fireEvent.click(screen.getByText("Rendering Options"));
-            const theme = screen.getByLabelText("Theme");
-            fireEvent.mouseDown(theme);
-            const dark = screen.getByRole("option", { name: "Dark" });
-            fireEvent.click(dark);
+        it("handles dark theme change", async () => {
+            await act(async () => {
+                fireEvent.click(screen.getByText("Rendering Options"));
+            });
+
+            await act(async () => {
+                const theme = screen.getByLabelText("Theme");
+                fireEvent.mouseDown(theme);
+            });
+
+            await act(async () => {
+                const dark = screen.getByRole("option", { name: "Dark" });
+                fireEvent.click(dark);
+            });
+
             expect(setConfigDataMock).toHaveBeenNthCalledWith(1, {
                 ...configDataMock,
                 overallDrawConfig: {
@@ -323,12 +338,23 @@ describe("MemoryModelsUserInput", () => {
             });
         });
 
-        it("handles match website theme change", () => {
-            fireEvent.click(screen.getByText("Rendering Options"));
-            const theme = screen.getByLabelText("Theme");
-            fireEvent.mouseDown(theme);
-            const dark = screen.getByRole("option", { name: "Match website" });
-            fireEvent.click(dark);
+        it("handles match website theme change", async () => {
+            await act(async () => {
+                fireEvent.click(screen.getByText("Rendering Options"));
+            });
+
+            await act(async () => {
+                const theme = screen.getByLabelText("Theme");
+                fireEvent.mouseDown(theme);
+            });
+
+            await act(async () => {
+                const dark = screen.getByRole("option", {
+                    name: "Match website",
+                });
+                fireEvent.click(dark);
+            });
+
             expect(setConfigDataMock).toHaveBeenNthCalledWith(1, {
                 ...configDataMock,
                 overallDrawConfig: {
