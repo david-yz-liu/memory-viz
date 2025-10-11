@@ -2004,4 +2004,58 @@ describe("draw function", () => {
         expect(svg).toContain("object-1");
         expect(svg).toMatchSnapshot();
     });
+
+    it("logs a warning when DrawnEntity is provided with a 'small' width value", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "str",
+                id: 19,
+                value: "David is cool!",
+                style: ["highlight"],
+                width: 50,
+            },
+        ];
+        const spy = jest.spyOn(global.console, "warn");
+        draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        expect(spy).toHaveBeenCalled();
+        console.log(spy.mock.calls[0][0]);
+
+        const message = new RegExp(
+            "^WARNING: provided width of object \\(\\d+\\) is smaller than " +
+                "the required width \\(\\d+(\\.\\d+)?\\). The provided width has been overwritten " +
+                "in the generated diagram.$"
+        );
+        expect(message.test(spy.mock.calls[0][0])).toBe(true);
+        spy.mockRestore();
+    });
+
+    it("logs a warning when DrawnEntity is provided with a 'small' height value", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "str",
+                id: 19,
+                value: "David is cool!",
+                style: ["highlight"],
+                height: 50,
+            },
+        ];
+        const spy = jest.spyOn(global.console, "warn");
+        draw(objects, true, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        expect(spy).toHaveBeenCalled();
+        console.log(spy.mock.calls[0][0]);
+
+        const message = new RegExp(
+            "^WARNING: provided height of object \\(\\d+\\) is smaller than " +
+                "the required height \\(\\d+\\). The provided height has been overwritten " +
+                "in the generated diagram.$"
+        );
+        expect(message.test(spy.mock.calls[0][0])).toBe(true);
+        spy.mockRestore();
+    });
 });
