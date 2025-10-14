@@ -8,6 +8,7 @@ type SvgDisplayPropTypes = {
     jsonResult: object | null;
     configData: configDataPropTypes;
     setSvgResult: React.Dispatch<React.SetStateAction<string>>;
+    isDarkMode: boolean;
 };
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
@@ -15,18 +16,27 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasWidth = 1300;
     const canvasHeight = 1000;
 
-    useEffect(() => {
+    const rawTheme = props.configData.overallDrawConfig?.theme;
+
+    const draw = () => {
         if (props.jsonResult !== null) {
             try {
                 // deep copy jsonResult as mem.draw mutates input JSON
                 // https://github.com/david-yz-liu/memory-viz/pull/20#discussion_r1513235452
                 const jsonResultCopy = structuredClone(props.jsonResult);
+                let resolvedTheme;
+                if (rawTheme === "match") {
+                    resolvedTheme = props.isDarkMode ? "dark" : undefined;
+                } else {
+                    resolvedTheme = rawTheme;
+                }
                 const m = mem.draw(
                     jsonResultCopy,
                     props.configData.useAutomation,
                     {
                         ...props.configData.overallDrawConfig,
                         width: canvasWidth,
+                        ...(resolvedTheme ? { theme: resolvedTheme } : {}),
                     }
                 );
                 props.setSvgResult(m.serializeSVG());
@@ -39,7 +49,17 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
         } else {
             props.setSvgResult(null);
         }
-    }, [props.jsonResult]);
+    };
+
+    useEffect(() => {
+        draw();
+    }, [props.jsonResult, props.configData.useAutomation]);
+
+    useEffect(() => {
+        if (rawTheme === "match") {
+            draw();
+        }
+    }, [rawTheme, props.isDarkMode]);
 
     return (
         <Paper
