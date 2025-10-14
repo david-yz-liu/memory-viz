@@ -2021,7 +2021,6 @@ describe("draw function", () => {
             roughjs_config: { options: { seed: 12345 } },
         });
         expect(spy).toHaveBeenCalled();
-        console.log(spy.mock.calls[0][0]);
 
         const message = new RegExp(
             "^WARNING: provided width of object \\(\\d+\\) is smaller than " +
@@ -2048,7 +2047,6 @@ describe("draw function", () => {
             roughjs_config: { options: { seed: 12345 } },
         });
         expect(spy).toHaveBeenCalled();
-        console.log(spy.mock.calls[0][0]);
 
         const message = new RegExp(
             "^WARNING: provided height of object \\(\\d+\\) is smaller than " +
