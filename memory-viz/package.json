@@ -6,8 +6,8 @@
     "types": "dist/index.d.ts",
     "homepage": "https://www.cs.toronto.edu/~david/memory-viz",
     "scripts": {
-        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --no-cache",
-        "test-cov": "node --experimental-vm-modules node_modules/jest/bin/jest.js --no-cache --coverage",
+        "test": "jest --no-cache",
+        "test-cov": "jest --no-cache --coverage",
         "watch": "webpack --watch --config webpack.dev.js",
         "build-dev": "tsc && webpack --config webpack.dev.js",
         "build": "tsc && webpack --config webpack.prod.js",
