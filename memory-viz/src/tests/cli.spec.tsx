@@ -1,4 +1,6 @@
-const { execa } = require("execa");
+const { execa, ExecaError } = require("execa");
+type ExecaErrorInstance = InstanceType<typeof ExecaError>;
+
 const path = require("path");
 const fs = require("fs");
 const tmp = require("tmp");
@@ -50,6 +52,18 @@ const getSVGPath = (isOutputOption: boolean) => {
     return path.resolve(directoryPath, fileName);
 };
 
+function runProgram(
+    args: string[],
+    options: { input?: string; shell?: boolean } = {}
+) {
+    if (options.shell) {
+        return execa(args.join(" "), { shell: true, input: options.input });
+    }
+    return execa("node", ["memory-viz/dist/cli.js", ...args], {
+        input: options.input,
+    });
+}
+
 describe.each([
     {
         inputs: "filepath and output",
@@ -97,7 +111,9 @@ describe.each([
         fs.writeFileSync(globalStylePath, globalStyle);
         fs.writeFileSync(customThemePath, customTheme);
 
-        await execa(`node memory-viz/dist/cli.js ${command}`, { shell: true });
+        await runProgram([`node memory-viz/dist/cli.js ${command}`], {
+            shell: true,
+        });
 
         const svgFilePath = getSVGPath(command.includes("--output"));
         const fileContent = fs.readFileSync(svgFilePath, "utf8");
@@ -110,8 +126,7 @@ describe("memory-viz cli", () => {
     it("produces consistent svg when provided filepath and stdout", async () => {
         fs.writeFileSync(filePath, input);
 
-        const { stdout } = await execa("node", [
-            "memory-viz/dist/cli.js",
+        const { stdout } = await runProgram([
             filePath,
             "--roughjs-config",
             "seed=1234",
@@ -120,29 +135,17 @@ describe("memory-viz cli", () => {
     });
 
     it("produces consistent svg when provided stdin and stdout", async () => {
-        const { stdout } = await execa(
-            "node",
-            ["memory-viz/dist/cli.js", "--roughjs-config", "seed=1234"],
-            {
-                input: input,
-            }
+        const { stdout } = await runProgram(
+            [filePath, "--roughjs-config", "seed=1234"],
+            { input: input }
         );
-
         expect(stdout).toMatchSnapshot();
     });
 
     it("produces consistent svg when provided stdin and output", async () => {
-        await execa(
-            "node",
-            [
-                "memory-viz/dist/cli.js",
-                `--output=${outputPath}`,
-                "--roughjs-config",
-                "seed=1234",
-            ],
-            {
-                input: input,
-            }
+        await runProgram(
+            [`--output=${outputPath}`, "--roughjs-config", "seed=1234"],
+            { input: input }
         );
 
         const fileContent = fs.readFileSync(outputPath, "utf8");
@@ -220,12 +223,19 @@ describe.each([
             }
 
             try {
-                await execa(command, { shell: true });
+                if (!command) {
+                    throw new Error("Command is undefined");
+                }
+                await runProgram([command], { shell: true });
                 throw new Error("Expected command to fail");
             } catch (err) {
-                const error = err as any;
-                expect(error.exitCode).toBe(1);
-                expect(error.message).toContain(expectedErrorMessage);
+                if (!(err instanceof ExecaError)) {
+                    throw err;
+                }
+                expect((err as ExecaErrorInstance).exitCode).toBe(1);
+                expect((err as ExecaErrorInstance).message).toContain(
+                    expectedErrorMessage
+                );
             }
         });
     }
@@ -236,31 +246,21 @@ describe("memory-viz CLI output path", () => {
 
     const timeout = 3000;
 
-    function runProgram(outputPath: string) {
-        return execa(
-            "node",
-            [
-                "memory-viz/dist/cli.js",
-                `--output=${outputPath}`,
-                "--roughjs-config",
-                "seed=1234",
-            ],
-            {
-                input: input,
-            }
-        );
-    }
-
     it(
         "should throw an error when the output path is a folder",
         async () => {
             const folderPath = `${tempDir}/`;
             try {
-                await runProgram(folderPath);
+                await runProgram(
+                    [`--output=${folderPath}`, "--roughjs-config", "seed=1234"],
+                    { input: input }
+                );
                 throw new Error("Expected command to fail");
             } catch (err) {
-                const error = err as any;
-                expect(error.exitCode).toBe(1);
+                if (!(err instanceof ExecaError)) {
+                    throw err;
+                }
+                expect((err as ExecaErrorInstance).exitCode).toBe(1);
             }
         },
         timeout
@@ -271,11 +271,16 @@ describe("memory-viz CLI output path", () => {
         async () => {
             const outputPath = "nonexistent/file.svg";
             try {
-                await runProgram(outputPath);
+                await runProgram(
+                    [`--output=${outputPath}`, "--roughjs-config", "seed=1234"],
+                    { input: input }
+                );
                 throw new Error("Expected command to fail");
             } catch (err) {
-                const error = err as any;
-                expect(error.exitCode).toBe(1);
+                if (!(err instanceof ExecaError)) {
+                    throw err;
+                }
+                expect((err as ExecaErrorInstance).exitCode).toBe(1);
             }
         },
         timeout
@@ -285,7 +290,10 @@ describe("memory-viz CLI output path", () => {
         "should produce consistent svg when the output path is a file in a directory",
         async () => {
             const outputPath = `${tempDir}/file.svg`;
-            await runProgram(outputPath);
+            await runProgram(
+                [`--output=${outputPath}`, "--roughjs-config", "seed=1234"],
+                { input: input }
+            );
 
             const fileContent = fs.readFileSync(outputPath, "utf8");
             expect(fileContent).toMatchSnapshot();
@@ -298,7 +306,14 @@ describe("memory-viz CLI output path", () => {
         "should overwrite existing svg when the output path is a file that exists",
         async () => {
             const outputPath = tmp.fileSync({ postfix: ".svg" });
-            await runProgram(outputPath.name);
+            await runProgram(
+                [
+                    `--output=${outputPath.name}`,
+                    "--roughjs-config",
+                    "seed=1234",
+                ],
+                { input: input }
+            );
 
             const fileContent = fs.readFileSync(outputPath.name, "utf8");
             expect(fileContent).toMatchSnapshot();
@@ -311,7 +326,10 @@ describe("memory-viz CLI output path", () => {
         async () => {
             const outputPath = "file.svg";
 
-            await runProgram(outputPath);
+            await runProgram(
+                [`--output=${outputPath}`, "--roughjs-config", "seed=1234"],
+                { input: input }
+            );
 
             const fileContent = fs.readFileSync(outputPath, "utf8");
             expect(fileContent).toMatchSnapshot();

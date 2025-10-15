@@ -32,8 +32,5 @@
             "eslint --fix"
         ],
         "**/*": "prettier --write --ignore-unknown"
-    },
-    "dependencies": {
-        "execa": "npm:@esm2cjs/execa@^6.1.1-cjs.1"
     }
 }
