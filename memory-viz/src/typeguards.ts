@@ -26,10 +26,41 @@ export function isStyle(value: any): value is Style {
         "box_type",
         "box_container",
     ];
+    const roughjs_options = [
+        "maxRandomnessOffset",
+        "roughness",
+        "bowing",
+        "stroke",
+        "strokeWidth",
+        "curveFitting",
+        "curveTightness",
+        "curveStepCount",
+        "fill",
+        "fillStyle",
+        "fillWeight",
+        "hachureAngle",
+        "hachureGap",
+        "simplification",
+        "dashOffset",
+        "dashGap",
+        "zigzagOffset",
+        "seed",
+        "strokeLineDash",
+        "strokeLineDashOffset",
+        "fillLineDash",
+        "fillLineDashOffset",
+        "disableMultiStroke",
+        "disableMultiStrokeFill",
+        "preserveVertices",
+        "fixedDecimalPlaceDigits",
+        "fillShapeRoughnessGain",
+    ];
     return (
         value !== null &&
         typeof value === "object" &&
         !Array.isArray(value) &&
-        attributes.some((key) => key in value)
+        (attributes.some((key) => key in value) ||
+            roughjs_options.some((key) => key in value) ||
+            Object.keys(value).length === 0)
     );
 }

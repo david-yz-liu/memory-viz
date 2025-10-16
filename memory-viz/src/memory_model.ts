@@ -14,7 +14,7 @@ import {
     Style,
     VisualizationConfig,
 } from "./types";
-import { isArrayOfNullableType } from "./typeguards";
+import { isArrayOfNullableType, isStyle } from "./typeguards";
 import { RoughSVG } from "roughjs/bin/svg";
 import { Config, Options } from "roughjs/bin/core";
 import type * as fsType from "fs";
@@ -920,10 +920,47 @@ export class MemoryModel {
      */
     drawAll(objects: DrawnEntity[]): Rect[] {
         const sizes_arr: Rect[] = [];
-        const strict_objects = this.setDimensions(objects);
+        const parsed_objects: DrawnEntity[] = [];
+
+        for (const rawObj of objects) {
+            const result = DrawnEntitySchema.safeParse(rawObj);
+            if (!result.success) {
+                const pretty = prettifyError(result.error);
+                throw new Error(pretty);
+            }
+
+            const obj = result.data;
+
+            if (Array.isArray(obj.style)) {
+                // Parsing the 'objects' array is essential, potentially converting preset keywords into the
+                // current item's 'style' object.
+                let styleSoFar = {};
+
+                for (let el of obj.style) {
+                    if (typeof el === "string") {
+                        el = presets[el];
+                    }
+
+                    // Note that, the later will take precedence over styleSoFar.
+                    styleSoFar = merge(styleSoFar, el);
+                }
+
+                obj.style = styleSoFar;
+            }
+
+            obj.style = { ...obj.style, ...this.roughjs_config?.options };
+            parsed_objects.push(obj);
+        }
+
+        const strict_objects = this.setDimensionsAll(parsed_objects);
 
         for (const obj of strict_objects) {
-            obj.style = obj.style as Style;
+            if (!isStyle(obj.style)) {
+                throw new Error(
+                    "The 'style' property of this DrawnEntity must be of type Style."
+                );
+            }
+
             const frame_types = [".frame", ".blank-frame"];
             if (frame_types.includes(obj.type!) || obj.type === ".class") {
                 const is_frame = frame_types.includes(obj.type!);
@@ -987,19 +1024,16 @@ export class MemoryModel {
      *
      * @param objects - the list of objects (including stack-frames) to be drawn.
      */
-    private setDimensions(objects: DrawnEntity[]): DrawnEntityStrict[] {
+    private setDimensionsAll(objects: DrawnEntity[]): DrawnEntityStrict[] {
         const strict_objects: DrawnEntityStrict[] = [];
 
         for (const object of objects) {
-            // Parse object
-            const parsed_object = this.parseRawDrawnEntity(object);
-
             // Get default width and height
-            const default_dims = this.getDefaultDimensions(parsed_object);
+            const default_dims = this.getDefaultDimensions(object);
 
-            // Validate width and height, overwriting if necessary
-            const strict_object = this.validateDimensions(
-                parsed_object,
+            // Overwrite width and height if necessary
+            const strict_object = this.setDimensions(
+                object,
                 default_dims.default_width,
                 default_dims.default_height
             );
@@ -1008,43 +1042,6 @@ export class MemoryModel {
         }
 
         return strict_objects;
-    }
-
-    /**
-     * Parses a DrawnEntity object and returns the parsed DrawnEntity.
-     * @param object The raw DrawnEntity to parse.
-     *
-     * @returns The validated and normalized DrawnEntity.
-     * @throws Error if validation against DrawnEntitySchema fails.
-     */
-    private parseRawDrawnEntity(object: DrawnEntity): DrawnEntity {
-        const result = DrawnEntitySchema.safeParse(object);
-        if (!result.success) {
-            const pretty = prettifyError(result.error);
-            throw new Error(pretty);
-        }
-
-        const obj = result.data;
-
-        if (Array.isArray(obj.style)) {
-            // Parsing the 'objects' array is essential, potentially converting preset keywords into the
-            // current item's 'style' object.
-            let styleSoFar = {};
-
-            for (let el of obj.style) {
-                if (typeof el === "string") {
-                    el = presets[el];
-                }
-
-                // Note that, the later will take precedence over styleSoFar.
-                styleSoFar = merge(styleSoFar, el);
-            }
-
-            obj.style = styleSoFar;
-        }
-
-        obj.style = { ...obj.style, ...this.roughjs_config?.options };
-        return obj;
     }
 
     /**
@@ -1060,33 +1057,56 @@ export class MemoryModel {
         default_width: number;
         default_height: number;
     } {
-        const type = object.type as string;
-        const value = object.value;
+        if (object.type === undefined) {
+            throw new Error(
+                "The 'type' property of this DrawnEntity is undefined."
+            );
+        }
+
+        if (!isStyle(object.style)) {
+            throw new Error(
+                "The 'style' property of this DrawnEntity must be of type Style."
+            );
+        }
 
         const frame_types = [".frame", ".blank-frame"];
-        if (frame_types.includes(type) || type === ".class") {
-            return this.getDefaultClassDimensions(object);
-        } else if (collections.includes(type)) {
-            if (type === "dict" && typeof value === "object") {
-                return this.getDefaultDictDimensions(object);
+        if (frame_types.includes(object.type) || object.type === ".class") {
+            return this.getDefaultClassDimensions(
+                object.name,
+                object.value,
+                object.style
+            );
+        } else if (collections.includes(object.type)) {
+            if (object.type === "dict" && typeof object.value === "object") {
+                return this.getDefaultDictDimensions(
+                    object.value,
+                    object.style
+                );
             } else if (
-                type === "set" &&
-                isArrayOfNullableType<number>(value, "number")
+                object.type === "set" &&
+                isArrayOfNullableType<number>(object.value, "number")
             ) {
-                return this.getDefaultSetDimensions(object);
+                return this.getDefaultSetDimensions(object.value, object.style);
             } else if (
-                (type === "list" || type === "tuple") &&
-                isArrayOfNullableType<number>(value, "number")
+                (object.type === "list" || object.type === "tuple") &&
+                isArrayOfNullableType<number>(object.value, "number")
             ) {
-                return this.getDefaultSequenceDimensions(object);
+                return this.getDefaultSequenceDimensions(
+                    object.value,
+                    object.style,
+                    object.show_indexes ?? false
+                );
             }
         } else {
-            if (typeof value !== "object" || value === null) {
-                return this.getDefaultPrimitiveDimensions(object);
+            if (typeof object.value !== "object" || object.value === null) {
+                return this.getDefaultPrimitiveDimensions(
+                    object.value,
+                    object.style
+                );
             }
         }
         throw new Error(
-            `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${type}" with value "${value}".`
+            `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${object.type}" with value "${object.value}".`
         );
     }
 
@@ -1095,19 +1115,19 @@ export class MemoryModel {
      * The width is determined by the rendered text length and minimum object width,
      * and the height is set to the minimum object height.
      *
-     * @param object - The DrawnEntity representing a primitive value.
+     * @param value - the value of the primitive object
+     * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * @returns An object with default_width and default_height properties.
      */
-    private getDefaultPrimitiveDimensions(object: DrawnEntity): {
+    private getDefaultPrimitiveDimensions(
+        value: Primitive,
+        style: Style
+    ): {
         default_width: number;
         default_height: number;
     } {
-        const style = object.style as Style;
-
         const renderedText =
-            typeof object.value === "string"
-                ? `"${object.value}"`
-                : String(object.value);
+            typeof value === "string" ? `"${value}"` : String(value);
 
         const text_value = style.text_value ?? {};
         const default_width = Math.max(
@@ -1123,16 +1143,19 @@ export class MemoryModel {
      * The width is based on the number and size of elements, and the height may include
      * extra space if indexes are shown.
      *
-     * @param object - The DrawnEntity representing a sequence.
+     * @param element_ids - the list of id's corresponding to the values stored in this sequence.
+     * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * @param show_indexes - whether to show the indexes of each list element
      * @returns An object with default_width and default_height properties.
      */
-    private getDefaultSequenceDimensions(object: DrawnEntity): {
+    private getDefaultSequenceDimensions(
+        element_ids: (number | null)[],
+        style: Style,
+        show_indexes: boolean
+    ): {
         default_width: number;
         default_height: number;
     } {
-        const style = object.style as Style;
-        const element_ids = object.value as (number | null)[];
-
         let default_width = this.obj_x_padding * 2;
         element_ids.forEach((v) => {
             default_width += Math.max(
@@ -1143,7 +1166,7 @@ export class MemoryModel {
         });
         default_width = Math.max(this.obj_min_width, default_width);
         let default_height = this.obj_min_height;
-        if (object.show_indexes) {
+        if (show_indexes) {
             default_height += this.list_index_sep;
         }
         return { default_width, default_height };
@@ -1154,16 +1177,17 @@ export class MemoryModel {
      * The width is based on the number and size of elements, including space for separators,
      * and the height is set to the minimum object height.
      *
-     * @param object - The DrawnEntity representing a set.
+     * @param element_ids - the list of id's corresponding to the values stored in this set.
+     * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * @returns An object with default_width and default_height properties.
      */
-    private getDefaultSetDimensions(object: DrawnEntity): {
+    private getDefaultSetDimensions(
+        element_ids: (number | null)[],
+        style: Style
+    ): {
         default_width: number;
         default_height: number;
     } {
-        const style = object.style as Style;
-        const element_ids = object.value as (number | null)[];
-
         let default_width = this.obj_x_padding * 2;
         element_ids.forEach((v) => {
             default_width += Math.max(
@@ -1183,16 +1207,17 @@ export class MemoryModel {
      * The width is determined by the widest key-value pair, and the height is based on
      * the number of entries.
      *
-     * @param object - The DrawnEntity representing a dictionary.
+     * @param dict_obj - the object that will be drawn
+     * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * @returns An object with default_width and default_height properties.
      */
-    private getDefaultDictDimensions(object: DrawnEntity): {
+    private getDefaultDictDimensions(
+        dict_obj: { [key: string]: any } | null,
+        style: Style
+    ): {
         default_width: number;
         default_height: number;
     } {
-        const style = object.style as Style;
-        const dict_obj = object.value as { [key: string]: any } | null;
-
         let default_width = this.obj_min_width;
         let default_height = this.prop_min_height + this.item_min_height / 2;
 
@@ -1226,20 +1251,22 @@ export class MemoryModel {
      * The width is determined by the longest attribute name or class name, and the height
      * is based on the number of attributes.
      *
-     * @param object - The DrawnEntity representing a class or stack frame.
+     * @param name - the name of the class
+     * @param attributes - the attributes of the given class
+     * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * @returns An object with default_width and default_height properties.
      */
-    private getDefaultClassDimensions(object: DrawnEntity): {
+    private getDefaultClassDimensions(
+        name: string | undefined | null,
+        attributes: { [key: string]: any },
+        style: Style
+    ): {
         default_width: number;
         default_height: number;
     } {
-        const style = object.style as Style;
-        const attributes = object.value as { [key: string]: any };
-        let name = object.name;
         if (name === undefined || name === null) {
             name = "";
         }
-
         let default_width = this.obj_min_width;
         let longest = 0;
         for (const attribute in attributes) {
@@ -1278,18 +1305,18 @@ export class MemoryModel {
      * @param default_width
      * @param default_height
      */
-    private validateDimensions(
+    private setDimensions(
         object: DrawnEntity,
         default_width: number,
         default_height: number
     ): DrawnEntityStrict {
         // For primitive objects, object width and height accounts for the double rectangle separation
         if (
-            object.type == "int" ||
-            object.type == "float" ||
-            object.type == "str" ||
-            object.type == "bool" ||
-            object.type == "None" ||
+            object.type === "int" ||
+            object.type === "float" ||
+            object.type === "str" ||
+            object.type === "bool" ||
+            object.type === "None" ||
             typeof object.value !== "object" ||
             object.value === null
         ) {
@@ -1301,7 +1328,7 @@ export class MemoryModel {
             }
         }
 
-        if (object.width == undefined || object.width < default_width) {
+        if (object.width === undefined || object.width < default_width) {
             if (object.width !== undefined && object.width < default_width) {
                 console.warn(
                     `WARNING: provided width of object (${object.width}) is smaller than the required width` +
@@ -1310,7 +1337,7 @@ export class MemoryModel {
             }
             object.width = default_width;
         }
-        if (object.height == undefined || object.height < default_height) {
+        if (object.height === undefined || object.height < default_height) {
             if (object.height !== undefined && object.height < default_height) {
                 console.warn(
                     `WARNING: provided height of object (${object.height}) is smaller than the required height` +
