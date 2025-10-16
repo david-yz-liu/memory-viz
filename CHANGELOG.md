@@ -28,6 +28,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Updated `autofix.ci` to v1
 - Updated GitHub Actions workflows to `setup-node@v5` and Node.js v24
 - Enabled Dependabot updates for GitHub Actions
+- Introduced `DrawnEntityStrict` type and refactored `drawAll` to obtain an array of strict objects before drawing each object
 
 ## [0.7.0] - 2025-08-11
 
