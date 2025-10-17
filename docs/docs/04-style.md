@@ -25,7 +25,7 @@ corresponding to a particular component of an object with the potential
 to be styled.
 
 Also, the user can pass in an array for the style attribute. This array can be
-a mixture of presents (name of the preset in the string data format) and a user-defined
+a mixture of presets (name of the preset in the string data format) and a user-defined
 Object. To better illustrate this, here is an example:
 
 ```javascript
