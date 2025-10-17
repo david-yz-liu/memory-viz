@@ -169,6 +169,16 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
         });
     };
 
+    const handleThemeChange = (event) => {
+        props.setConfigData({
+            ...props.configData,
+            overallDrawConfig: {
+                ...props.configData.overallDrawConfig,
+                theme: event.target.value,
+            },
+        });
+    };
+
     return (
         <MemoryModelsMenu
             menuName="Rendering Options"
@@ -202,6 +212,22 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                             }
                             label="Use automatic layout"
                         />
+                    </MenuItem>
+                    <MenuItem>
+                        <TextField
+                            select
+                            label="Theme"
+                            value={
+                                props.configData.overallDrawConfig.theme ??
+                                "light"
+                            }
+                            onChange={handleThemeChange}
+                            fullWidth
+                        >
+                            <MenuItem value="match">Match website</MenuItem>
+                            <MenuItem value="light">Light</MenuItem>
+                            <MenuItem value="dark">Dark</MenuItem>
+                        </TextField>
                     </MenuItem>
                 </>
             }

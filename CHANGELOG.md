@@ -12,6 +12,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### ✨ Enhancements
 
 - Added light/dark theme toggle button to demo website
+- Added "Theme" rendering option, allowing users to change the theme of output
 
 ### 🐛 Bug fixes
 
@@ -29,6 +30,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Migrated CLI tests from `child_process` to `execa`, converting all tests to async/await pattern
 - Updated GitHub Actions workflows to `setup-node@v5` and Node.js v24
 - Enabled Dependabot updates for GitHub Actions
+- Introduced `DrawnEntityStrict` type and refactored `drawAll` to obtain an array of strict objects before drawing each object
 
 ## [0.7.0] - 2025-08-11
 
