@@ -1,5 +1,5 @@
-const { execa, ExecaError } = require("execa");
-type ExecaErrorInstance = InstanceType<typeof ExecaError>;
+const execa = require("execa");
+import type { ExecaError } from "execa";
 
 const path = require("path");
 const fs = require("fs");
@@ -229,13 +229,12 @@ describe.each([
                 await runProgram([command], { shell: true });
                 throw new Error("Expected command to fail");
             } catch (err) {
-                if (!(err instanceof ExecaError)) {
+                const error = err as ExecaError;
+                if (!error.exitCode) {
                     throw err;
                 }
-                expect((err as ExecaErrorInstance).exitCode).toBe(1);
-                expect((err as ExecaErrorInstance).message).toContain(
-                    expectedErrorMessage
-                );
+                expect(error.exitCode).toBe(1);
+                expect(error.message).toContain(expectedErrorMessage);
             }
         });
     }
@@ -257,10 +256,11 @@ describe("memory-viz CLI output path", () => {
                 );
                 throw new Error("Expected command to fail");
             } catch (err) {
-                if (!(err instanceof ExecaError)) {
+                const error = err as ExecaError;
+                if (!error.exitCode) {
                     throw err;
                 }
-                expect((err as ExecaErrorInstance).exitCode).toBe(1);
+                expect(error.exitCode).toBe(1);
             }
         },
         timeout
@@ -277,10 +277,11 @@ describe("memory-viz CLI output path", () => {
                 );
                 throw new Error("Expected command to fail");
             } catch (err) {
-                if (!(err instanceof ExecaError)) {
+                const error = err as ExecaError;
+                if (!error.exitCode) {
                     throw err;
                 }
-                expect((err as ExecaErrorInstance).exitCode).toBe(1);
+                expect(error.exitCode).toBe(1);
             }
         },
         timeout

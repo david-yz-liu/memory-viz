@@ -4,11 +4,6 @@
  */
 
 import type { Config } from "jest";
-import { createJsWithTsEsmPreset } from "ts-jest";
-
-const preset = createJsWithTsEsmPreset({
-    useESM: true, // ensures TS is treated as ESM
-});
 
 const config: Config = {
     // All imported modules in your tests should be mocked automatically
@@ -94,13 +89,6 @@ const config: Config = {
     //   "json",
     //   "node"
     // ],
-
-    ...preset,
-
-    transformIgnorePatterns: [
-        // Transform these ESM node_modules, otherwise Jest skips them
-        "/node_modules/(?!.*)",
-    ],
 
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
     moduleNameMapper: {
