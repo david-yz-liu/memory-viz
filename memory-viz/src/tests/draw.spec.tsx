@@ -1067,6 +1067,31 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders custom style with CSS keyword font-sizes without crashing", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "list",
+                id: 54,
+                value: [19, 43, 28, 49],
+                style: {
+                    text_id: {
+                        "font-size": "x-large",
+                    },
+                },
+            },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders 'highlight' style preset", () => {
         const objects: DrawnEntity[] = [
             {

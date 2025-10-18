@@ -884,7 +884,6 @@ export class MemoryModel {
         if (!isNaN(parsed) && parsed > 0) {
             return s.length * parsed * 0.6;
         }
-
         return s.length * 12;
     }
 
