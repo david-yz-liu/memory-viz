@@ -16,6 +16,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
+- Resolved demo site style preset rendering failures by handling CSS font-size keywords and updating sample data.
+
 ### 📚 Documentation and demo website changes
 
 - Updated the demo website to use `ThemedImages` for all image examples, supporting dark mode.

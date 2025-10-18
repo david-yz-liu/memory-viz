@@ -24,7 +24,7 @@
         "type": "str",
         "id": 43,
         "value": "David is cool",
-        "style": "highlight"
+        "style": ["highlight"]
     },
     {
         "x": 1050,
