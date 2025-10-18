@@ -878,10 +878,13 @@ export class MemoryModel {
      * @param textStyle - The style configuration for the text.
      */
     getTextLength(s: string, textStyle?: CSS.PropertiesHyphen): number {
-        if (textStyle?.["font-size"]) {
-            // Note: this assumes font size is in px
-            return s.length * parseInt(textStyle["font-size"]) * 0.6;
+        const fontSize = textStyle?.["font-size"];
+        const parsed = parseInt(String(fontSize));
+
+        if (!isNaN(parsed) && parsed > 0) {
+            return s.length * parsed * 0.6;
         }
+
         return s.length * 12;
     }
 
