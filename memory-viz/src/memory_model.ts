@@ -953,13 +953,12 @@ export class MemoryModel {
                 let styleSoFar = {};
 
                 for (let el of obj.style) {
-                    if (el === undefined) {
-                        throw new Error(
-                            `Style preset "${obj.style}" not found. Please refer to the documentation for available presets.`
-                        );
-                    }
-
                     if (typeof el === "string") {
+                        if (!(el in presets)) {
+                            throw new Error(
+                                `Style preset "${obj.style}" not found. Please refer to the documentation for available presets.`
+                            );
+                        }
                         el = presets[el];
                     }
 
