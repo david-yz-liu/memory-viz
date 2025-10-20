@@ -16,7 +16,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
-- Resolved demo site style preset rendering failures by handling CSS font-size keywords and updating sample data.
+- Resolved CSS font-size keyword handling in text length calculations
+- Updated the Style data type definition to allow for bare strings, along with error handling for invalid Style attribute strings.
 
 ### 📚 Documentation and demo website changes
 

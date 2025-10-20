@@ -879,11 +879,25 @@ export class MemoryModel {
      */
     getTextLength(s: string, textStyle?: CSS.PropertiesHyphen): number {
         const fontSize = textStyle?.["font-size"];
+        const sizeMapping: { [key: string]: number } = {
+            "xx-small": 0.6,
+            "x-small": 0.75,
+            small: 0.89,
+            medium: 1,
+            large: 1.2,
+            "x-large": 1.5,
+            "xx-large": 2,
+            "xxx-large": 3,
+        };
+
         const parsed = parseInt(String(fontSize));
 
         if (!isNaN(parsed) && parsed > 0) {
             return s.length * parsed * 0.6;
+        } else if (fontSize && String(fontSize) in sizeMapping) {
+            return s.length * 12 * sizeMapping[fontSize as string];
         }
+
         return s.length * 12;
     }
 
@@ -939,6 +953,12 @@ export class MemoryModel {
                 let styleSoFar = {};
 
                 for (let el of obj.style) {
+                    if (el === undefined) {
+                        throw new Error(
+                            `Style preset "${obj.style}" not found. Please refer to the documentation for available presets.`
+                        );
+                    }
+
                     if (typeof el === "string") {
                         el = presets[el];
                     }
@@ -948,6 +968,14 @@ export class MemoryModel {
                 }
 
                 obj.style = styleSoFar;
+            } else if (typeof obj.style === "string") {
+                if (!(obj.style in presets)) {
+                    throw new Error(
+                        `Style preset "${obj.style}" not found. Please refer to the documentation for available presets.`
+                    );
+                }
+
+                obj.style = presets[obj.style];
             }
 
             obj.style = { ...obj.style, ...this.roughjs_config?.options };
