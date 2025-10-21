@@ -16,6 +16,9 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
+- Resolved CSS font-size keyword handling in text length calculations
+- Updated the Style data type definition to allow for bare strings, along with error handling for invalid Style attribute strings.
+
 ### 📚 Documentation and demo website changes
 
 - Updated the demo website to use `ThemedImages` for all image examples, supporting dark mode.

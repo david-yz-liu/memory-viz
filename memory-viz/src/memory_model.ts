@@ -878,10 +878,26 @@ export class MemoryModel {
      * @param textStyle - The style configuration for the text.
      */
     getTextLength(s: string, textStyle?: CSS.PropertiesHyphen): number {
-        if (textStyle?.["font-size"]) {
-            // Note: this assumes font size is in px
-            return s.length * parseInt(textStyle["font-size"]) * 0.6;
+        const fontSize = textStyle?.["font-size"];
+        const sizeMapping: { [key: string]: number } = {
+            "xx-small": 0.6,
+            "x-small": 0.75,
+            small: 0.89,
+            medium: 1,
+            large: 1.2,
+            "x-large": 1.5,
+            "xx-large": 2,
+            "xxx-large": 3,
+        };
+
+        const parsed = parseInt(String(fontSize));
+
+        if (!isNaN(parsed) && parsed > 0) {
+            return s.length * parsed * 0.6;
+        } else if (fontSize && String(fontSize) in sizeMapping) {
+            return s.length * 12 * sizeMapping[fontSize as string];
         }
+
         return s.length * 12;
     }
 
@@ -938,6 +954,11 @@ export class MemoryModel {
 
                 for (let el of obj.style) {
                     if (typeof el === "string") {
+                        if (!(el in presets)) {
+                            throw new Error(
+                                `Style preset "${obj.style}" not found. Please refer to the documentation for available presets.`
+                            );
+                        }
                         el = presets[el];
                     }
 
@@ -946,6 +967,14 @@ export class MemoryModel {
                 }
 
                 obj.style = styleSoFar;
+            } else if (typeof obj.style === "string") {
+                if (!(obj.style in presets)) {
+                    throw new Error(
+                        `Style preset "${obj.style}" not found. Please refer to the documentation for available presets.`
+                    );
+                }
+
+                obj.style = presets[obj.style];
             }
 
             obj.style = { ...obj.style, ...this.roughjs_config?.options };

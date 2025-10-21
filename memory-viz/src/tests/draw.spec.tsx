@@ -1067,6 +1067,126 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders custom style with CSS keyword font-sizes without crashing", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "list",
+                id: 54,
+                value: [19, 43, 28, 49],
+                style: {
+                    text_id: {
+                        "font-size": "x-large",
+                    },
+                },
+            },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders custom style with bare string preset", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "str",
+                id: 42,
+                value: "highlight with string",
+                style: "highlight",
+            },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("throws error for invalid bare string style preset", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "str",
+                id: 42,
+                value: "test",
+                style: "nonsense",
+            },
+        ];
+
+        expect(() =>
+            draw(objects, true, {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            })
+        ).toThrow(
+            'Style preset "nonsense" not found. Please refer to the documentation for available presets.'
+        );
+    });
+
+    it("throws error for invalid style preset in array", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "str",
+                id: 42,
+                value: "test",
+                style: ["nonsense"],
+            },
+        ];
+
+        expect(() =>
+            draw(objects, true, {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            })
+        ).toThrow(
+            'Style preset "nonsense" not found. Please refer to the documentation for available presets.'
+        );
+    });
+
+    it("calculates text length correctly for CSS keyword font-sizes", () => {
+        const testString = "test";
+        const m: InstanceType<typeof exports.MemoryModel> =
+            new exports.MemoryModel();
+
+        const mediumLength = m.getTextLength(testString, {
+            "font-size": "medium",
+        });
+        expect(mediumLength).toBe(48);
+
+        const xlargeLength = m.getTextLength(testString, {
+            "font-size": "x-large",
+        });
+        expect(xlargeLength).toBe(72);
+
+        const xxsmallLength = m.getTextLength(testString, {
+            "font-size": "xx-small",
+        });
+        expect(xxsmallLength).toBeCloseTo(28.8);
+
+        const pixelLength = m.getTextLength(testString, {
+            "font-size": "16px",
+        });
+        expect(pixelLength).toBeCloseTo(38.4);
+
+        const defaultLength = m.getTextLength(testString);
+        expect(defaultLength).toBe(48);
+
+        const invalidLength = m.getTextLength(testString, {
+            "font-size": "invalid",
+        });
+        expect(invalidLength).toBe(48);
+    });
+
     it("renders 'highlight' style preset", () => {
         const objects: DrawnEntity[] = [
             {
