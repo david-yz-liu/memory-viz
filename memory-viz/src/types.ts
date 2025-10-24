@@ -11,7 +11,7 @@ export interface Style {
     box_container?: Options;
 }
 
-export type Styles = Style | (string | Style)[];
+export type Styles = Style | (string | Style)[] | string;
 
 export const DrawnEntitySchema = z.object({
     name: z.string('"name" field must be a string').optional(),
@@ -34,8 +34,11 @@ export const DrawnEntitySchema = z.object({
                         (typeof item === "object" && item !== null)
                 );
             }
-            return typeof val === "object" && val !== null;
-        }, '"style" field must be a Style object or an array of strings or Style')
+            return (
+                (typeof val === "object" || typeof val === "string") &&
+                val !== null
+            );
+        }, '"style" field must be a Style object, a bare string, or an array of strings or Style')
         .optional(),
     height: z.number('"height" field must be a number').optional(),
     width: z.number('"width" field must be a number').optional(),
