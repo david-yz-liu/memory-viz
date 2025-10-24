@@ -1,15 +1,14 @@
-{
-    "id": "10",
-    "type": "class",
-    "value": {
-        "name": "Alice"
-    },
-    "style": [
-        "highlight",
-        "fade",
-        {
-            "text_id": { "font-style": "italic" },
-            "box_container": { "stroke": "red" }
-        }
-    ]
-}
+[
+    {
+        "type": "str",
+        "id": 10,
+        "value": "Hello",
+        "style": [
+            "highlight",
+            "fade",
+            {
+                "text_id": { "font-style": "italic" }
+            }
+        ]
+    }
+]

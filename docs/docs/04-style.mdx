@@ -11,6 +11,7 @@ import ExampleType from "!!raw-loader!./examples/style/text_type_and_box_type.js
 import ExampleValue from "!!raw-loader!./examples/style/text_value.json";
 import ExampleContainer from "!!raw-loader!./examples/style/box_container.json";
 import ExampleMixed from "!!raw-loader!./examples/style/box_mixed.json";
+import ExampleCascading from "!!raw-loader!./examples/style/cascading.json";
 
 # Style API
 
@@ -165,6 +166,8 @@ To illustrate, here is an example:
         dark: useBaseUrl("images/style/cascading_dark.svg"),
     }}
 />
+
+Notice that the `highlight` preset was overrode by the `hide` preset, but the user-supplied stylings are still present since they are applied last.
 
 ### Defining a custom theme
 
