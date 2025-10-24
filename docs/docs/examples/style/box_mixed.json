@@ -1,0 +1,12 @@
+[
+    {
+        "type": "int",
+        "id": 54,
+        "value": 4,
+        "style": {
+            "box_id": { "fill": "red" },
+            "box_type": { "fill": "yellow" },
+            "box_container": { "fill": "black" }
+        }
+    }
+]

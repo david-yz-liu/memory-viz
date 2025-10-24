@@ -1,0 +1,14 @@
+[
+    {
+        "type": "str",
+        "id": 10,
+        "value": "Hello",
+        "style": [
+            "highlight",
+            "fade",
+            {
+                "text_id": { "font-style": "italic" }
+            }
+        ]
+    }
+]
