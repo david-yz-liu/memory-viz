@@ -2,6 +2,16 @@
 title: Style API
 ---
 
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import ThemedImage from "@theme/ThemedImage";
+import CodeBlock from "@theme/CodeBlock";
+
+import ExampleId from "!!raw-loader!./examples/style/text_id_and_box_id.json";
+import ExampleType from "!!raw-loader!./examples/style/text_type_and_box_type.json";
+import ExampleValue from "!!raw-loader!./examples/style/text_value.json";
+import ExampleContainer from "!!raw-loader!./examples/style/box_container.json";
+import ExampleMixed from "!!raw-loader!./examples/style/box_mixed.json";
+
 # Style API
 
 A user is able to add custom styling to an object
@@ -24,7 +34,71 @@ The object has up to six attributes (the ones observed above), each
 corresponding to a particular component of an object with the potential
 to be styled.
 
-Also, the user can pass in an array for the style attribute. This array can be
+## Id
+
+The text in the id box can be styled with `text_id`, and the colour of the box can be styled with `box_id`.
+
+<CodeBlock language="json">{ExampleId}</CodeBlock>
+<ThemedImage
+    alt="Example id"
+    sources={{
+        light: useBaseUrl("images/style/text_id_and_box_id_light.svg"),
+        dark: useBaseUrl("images/style/text_id_and_box_id_dark.svg"),
+    }}
+/>
+
+## Type
+
+Similarly, the text in the type box can be styled with `text_type` and the colour of the box can be styled with `box_type`.
+
+<CodeBlock language="json">{ExampleType}</CodeBlock>
+<ThemedImage
+    alt="Example type"
+    sources={{
+        light: useBaseUrl("images/style/text_type_and_box_type_light.svg"),
+        dark: useBaseUrl("images/style/text_type_and_box_type_dark.svg"),
+    }}
+/>
+
+## Value
+
+You can also style the value itself, using `text_value`.
+
+<CodeBlock language="json">{ExampleValue}</CodeBlock>
+<ThemedImage
+    alt="Example value"
+    sources={{
+        light: useBaseUrl("images/style/text_value_light.svg"),
+        dark: useBaseUrl("images/style/text_value_dark.svg"),
+    }}
+/>
+
+## Box
+
+Finally, you can style the colour of the entire box using `box_container`.
+
+<CodeBlock language="json">{ExampleContainer}</CodeBlock>
+<ThemedImage
+    alt="Example container"
+    sources={{
+        light: useBaseUrl("images/style/box_container_light.svg"),
+        dark: useBaseUrl("images/style/box_container_dark.svg"),
+    }}
+/>
+Note that this can be used in combination with other styling.
+<CodeBlock language="json">{ExampleMixed}</CodeBlock>
+<ThemedImage
+    alt="Example value"
+    sources={{
+        light: useBaseUrl("images/style/box_mixed_light.svg"),
+        dark: useBaseUrl("images/style/box_mixed_dark.svg"),
+    }}
+/>
+
+The user is also able to pass in a preset to style an object, as the Style data type could also be a String.
+See the [Style Presets](./05-presets.mdx) page for more information.
+
+Additionally, the user can pass in an array for the style attribute. This array can be
 a mixture of presets (name of the preset in the string data format) and a user-defined
 Object. To better illustrate this, here is an example:
 
@@ -81,52 +155,18 @@ Thus, the style is cascaded down from user to drawText/drawRect as follows:
 
 user-defined style --> drawAll --> drawClass/drawObject --> drawText/drawRect
 
-## Examples
+To illustrate, here is an example:
 
-### Example 1
+<CodeBlock language="json">{ExampleCascading}</CodeBlock>
+<ThemedImage
+    alt="Example cascading"
+    sources={{
+        light: useBaseUrl("images/style/cascading_light.svg"),
+        dark: useBaseUrl("images/style/cascading_dark.svg"),
+    }}
+/>
 
-```
-style:
-        {"text_value" : {"font-style" : "italic"},
-        'box_id': {fill: 'blue', fillStyle: "dots"}}
-```
-
-In this example, it is important to note that for box styles
-(the ones which uses rough.js module), `fill` must be passed in if
-fillStyle argument will be passed in by the user. Otherwise, the behavior of the style will be in the default format
-(refer to the rough.js module for the default style). Also, it points outs that the user has the
-flexibility for defining the styles related to both boxes and text drawn on the canvas.
-
-### Example 2
-
-```
-style: {
-        "box_container": {fill:"green", fillStyle: "zigzag"},
-        "box_id": {fill: 'red', fillWeight: 3},
-        "box_type": {bowing: 8, stroke: "green", strokeWidth: 3}}
-```
-
-This example illustrates that our implementation for box styles are defined on
-three boxes: the container, the box that represents the id and the box that represents
-the data type. Therefore, the user can utilize the rough.js module for these three boxes that
-are drawn on the canvas (two for stack-frames, as they do not have ids associated with them)
-
-### Example 3
-
-```
-style:{
-      "text_id" : {fill : "yellow", stroke: "green"},
-      "text_value": {"font-style" : "italic"},
-      "text_type": {"font-size: "xx-large"}}
-```
-
-This example shows that for each container (for each data that is represented on the canvas)
-there are the texts that the user can alter its style: the text representing the value and/or values,
-the text representing the id number of the data type (if it's not a stack-frame) and the text representing
-the type of the data. The user can pass in configurations based on the SVG documentation for modifying these texts
-simultaneously.
-
-### Example 4
+### Defining a custom theme
 
 ```css
 [data-theme="oceanic-light"] {
