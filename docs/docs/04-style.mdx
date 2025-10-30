@@ -35,68 +35,85 @@ The object has up to six attributes (the ones observed above), each
 corresponding to a particular component of an object with the potential
 to be styled.
 
-## Id
+## Styling the id
 
-The text in the id box can be styled with `text_id`, and the colour of the box can be styled with `box_id`.
+The text in the id box can be styled with `text_id`, and the box can be styled with `box_id`.
 
-<CodeBlock language="json">{ExampleId}</CodeBlock>
-<ThemedImage
-    alt="Example id"
-    sources={{
-        light: useBaseUrl("images/style/text_id_and_box_id_light.svg"),
-        dark: useBaseUrl("images/style/text_id_and_box_id_dark.svg"),
-    }}
-/>
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleId}</CodeBlock>
+    <ThemedImage
+        alt="Example id"
+        sources={{
+            light: useBaseUrl("images/style/text_id_and_box_id_light.svg"),
+            dark: useBaseUrl("images/style/text_id_and_box_id_dark.svg"),
+        }}
+    />
+</details>
 
-## Type
+## Styling the type
 
-Similarly, the text in the type box can be styled with `text_type` and the colour of the box can be styled with `box_type`.
+Similarly, the text in the type box can be styled with `text_type` and the box can be styled with `box_type`.
 
-<CodeBlock language="json">{ExampleType}</CodeBlock>
-<ThemedImage
-    alt="Example type"
-    sources={{
-        light: useBaseUrl("images/style/text_type_and_box_type_light.svg"),
-        dark: useBaseUrl("images/style/text_type_and_box_type_dark.svg"),
-    }}
-/>
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleType}</CodeBlock>
+    <ThemedImage
+        alt="Example type"
+        sources={{
+            light: useBaseUrl("images/style/text_type_and_box_type_light.svg"),
+            dark: useBaseUrl("images/style/text_type_and_box_type_dark.svg"),
+        }}
+    />
+</details>
 
-## Value
+## Styling the value
 
 You can also style the value itself, using `text_value`.
 
-<CodeBlock language="json">{ExampleValue}</CodeBlock>
-<ThemedImage
-    alt="Example value"
-    sources={{
-        light: useBaseUrl("images/style/text_value_light.svg"),
-        dark: useBaseUrl("images/style/text_value_dark.svg"),
-    }}
-/>
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleValue}</CodeBlock>
+    <ThemedImage
+        alt="Example value"
+        sources={{
+            light: useBaseUrl("images/style/text_value_light.svg"),
+            dark: useBaseUrl("images/style/text_value_dark.svg"),
+        }}
+    />
+</details>
 
-## Box
+## Styling the box
 
-Finally, you can style the colour of the entire box using `box_container`.
+Finally, you can style the entire box using `box_container`.
 
-<CodeBlock language="json">{ExampleContainer}</CodeBlock>
-<ThemedImage
-    alt="Example container"
-    sources={{
-        light: useBaseUrl("images/style/box_container_light.svg"),
-        dark: useBaseUrl("images/style/box_container_dark.svg"),
-    }}
-/>
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleContainer}</CodeBlock>
+    <ThemedImage
+        alt="Example container"
+        sources={{
+            light: useBaseUrl("images/style/box_container_light.svg"),
+            dark: useBaseUrl("images/style/box_container_dark.svg"),
+        }}
+    />
+</details>
+
 Note that this can be used in combination with other styling.
-<CodeBlock language="json">{ExampleMixed}</CodeBlock>
-<ThemedImage
-    alt="Example value"
-    sources={{
-        light: useBaseUrl("images/style/box_mixed_light.svg"),
-        dark: useBaseUrl("images/style/box_mixed_dark.svg"),
-    }}
-/>
 
-The user is also able to pass in a preset to style an object, as the Style data type could also be a String.
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleMixed}</CodeBlock>
+    <ThemedImage
+        alt="Example value"
+        sources={{
+            light: useBaseUrl("images/style/box_mixed_light.svg"),
+            dark: useBaseUrl("images/style/box_mixed_dark.svg"),
+        }}
+    />
+</details>
+
+The user is also able to pass in a string that refers to a style.
 See the [Style Presets](./05-presets.mdx) page for more information.
 
 Additionally, the user can pass in an array for the style attribute. This array can be
@@ -158,14 +175,17 @@ user-defined style --> drawAll --> drawClass/drawObject --> drawText/drawRect
 
 To illustrate, here is an example:
 
-<CodeBlock language="json">{ExampleCascading}</CodeBlock>
-<ThemedImage
-    alt="Example cascading"
-    sources={{
-        light: useBaseUrl("images/style/cascading_light.svg"),
-        dark: useBaseUrl("images/style/cascading_dark.svg"),
-    }}
-/>
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleCascading}</CodeBlock>
+    <ThemedImage
+        alt="Example cascading"
+        sources={{
+            light: useBaseUrl("images/style/cascading_light.svg"),
+            dark: useBaseUrl("images/style/cascading_dark.svg"),
+        }}
+    />
+</details>
 
 Notice that the `highlight` preset was overrode by the `hide` preset, but the user-supplied stylings are still present since they are applied last.
 
