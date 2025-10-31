@@ -1,0 +1,424 @@
+---
+title: Style API
+---
+
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import ThemedImage from "@theme/ThemedImage";
+import CodeBlock from "@theme/CodeBlock";
+
+import ExampleId from "!!raw-loader!./examples/style/text_id_and_box_id.json";
+import ExampleType from "!!raw-loader!./examples/style/text_type_and_box_type.json";
+import ExampleValue from "!!raw-loader!./examples/style/text_value.json";
+import ExampleContainer from "!!raw-loader!./examples/style/box_container.json";
+import ExampleMixed from "!!raw-loader!./examples/style/box_mixed.json";
+import ExampleCascading from "!!raw-loader!./examples/style/cascading.json";
+import ExampleHighlight from "!!raw-loader!./examples/style/highlight.json";
+import ExampleHighlightId from "!!raw-loader!./examples/style/highlight_id.json";
+import ExampleHighlightType from "!!raw-loader!./examples/style/highlight_type.json";
+import ExampleHide from "!!raw-loader!./examples/style/hide.json";
+import ExampleHideId from "!!raw-loader!./examples/style/hide_id.json";
+import ExampleHideType from "!!raw-loader!./examples/style/hide_type.json";
+import ExampleHideContainer from "!!raw-loader!./examples/style/hide_container.json";
+import ExampleFade from "!!raw-loader!./examples/style/fade.json";
+import ExampleFadeId from "!!raw-loader!./examples/style/fade_id.json";
+import ExampleFadeType from "!!raw-loader!./examples/style/fade_type.json";
+import ExampleCombo from "!!raw-loader!./examples/style/combo.json";
+
+# Style API
+
+A user is able to add custom styling to an object
+(of the list of objects to be drawn on canvas) by
+adding an attribute named `style` which maps to an object of the
+following format:
+
+```javascript
+style : {
+    "text_id" : {},
+    "text_type" : {},
+    "text_value" : {},
+    "box_id" : {},
+    "box_type" : {},
+    "box_container" : {},
+}
+```
+
+The object has up to six attributes (the ones observed above), each
+corresponding to a particular component of an object with the potential
+to be styled.
+
+Crucially, each of the attributes in the `style` object (if user passes in an Object)
+refer themselves to another object:
+
+- Text-related attributes can contain any attribute specified in the
+  documentation of the text element for svg graphics, found on
+  https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
+- Box-related attributes can contain any styling attributes specified in the
+  documentation of the rough library, found on https://roughjs.com/ and
+  https://github.com/rough-stuff/rough/wiki.
+
+## Custom styling
+
+### Styling the id
+
+The text in the id box can be styled with `text_id`, and the box can be styled with `box_id`.
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleId}</CodeBlock>
+    <ThemedImage
+        alt="Example id"
+        sources={{
+            light: useBaseUrl("images/style/text_id_and_box_id_light.svg"),
+            dark: useBaseUrl("images/style/text_id_and_box_id_dark.svg"),
+        }}
+    />
+</details>
+
+### Styling the type
+
+Similarly, the text in the type box can be styled with `text_type` and the box can be styled with `box_type`.
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleType}</CodeBlock>
+    <ThemedImage
+        alt="Example type"
+        sources={{
+            light: useBaseUrl("images/style/text_type_and_box_type_light.svg"),
+            dark: useBaseUrl("images/style/text_type_and_box_type_dark.svg"),
+        }}
+    />
+</details>
+
+### Styling the value
+
+You can also style the value itself, using `text_value`.
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleValue}</CodeBlock>
+    <ThemedImage
+        alt="Example value"
+        sources={{
+            light: useBaseUrl("images/style/text_value_light.svg"),
+            dark: useBaseUrl("images/style/text_value_dark.svg"),
+        }}
+    />
+</details>
+
+### Styling the box
+
+Finally, you can style the entire box using `box_container`.
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleContainer}</CodeBlock>
+    <ThemedImage
+        alt="Example container"
+        sources={{
+            light: useBaseUrl("images/style/box_container_light.svg"),
+            dark: useBaseUrl("images/style/box_container_dark.svg"),
+        }}
+    />
+</details>
+
+Note that this can be used in combination with other styling.
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleMixed}</CodeBlock>
+    <ThemedImage
+        alt="Example value"
+        sources={{
+            light: useBaseUrl("images/style/box_mixed_light.svg"),
+            dark: useBaseUrl("images/style/box_mixed_dark.svg"),
+        }}
+    />
+</details>
+
+## Presets
+
+In case the user does not want to get their hands dirty with specific DOM (and RoughJS) attributes
+for configuring the style of an object, they have the option specify a preset, which represents
+an umbrella of different styling attributes that are combined to produce a particular effect, such
+as "highlighting" an object, or "hiding" a particular component of it.
+
+To declare the desired preset, the user must assign it to the `style` attribute
+(e.g. `style: "highlight"`).
+
+### `highlight`
+
+When the keyword `highlight` is provided as the value for the `style` attribute, there will be significant
+changes on the appearance of the container. In terms of the boxes (the container representing the data, the id box
+if applicable and the type box), the lines will be bolder, and there will be less roughness (lines would be more still
+than usual). In terms of the texts (the text representing the id, type and the value), the font size will be bigger,
+and they will appear bolder than default.
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleHighlight}</CodeBlock>
+    <ThemedImage
+        alt="highlight demo"
+        sources={{
+            light: useBaseUrl("images/style/highlight_light.svg"),
+            dark: useBaseUrl("images/style/highlight_dark.svg"),
+        }}
+    />
+</details>
+
+### `highlight_id`
+
+When the keyword `highlight_id` is provided as the value for the `style` attribute, there will be significant
+changes on the appearance of the container. In terms of the id box the lines will be bolder, and there will be
+less roughness (lines would be more still than usual). In terms of the id text, the font size will be bigger, and it
+will appear bolder than default.
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleHighlightId}</CodeBlock>
+    <ThemedImage
+        alt="highlight id demo"
+        sources={{
+            light: useBaseUrl("images/style/highlight_id_light.svg"),
+            dark: useBaseUrl("images/style/highlight_id_dark.svg"),
+        }}
+    />
+</details>
+
+### `highlight_type`
+
+When the keyword `highlight_type` is provided as the value for the `style` attribute, there will be significant
+changes on the appearance of the container. In terms of the type box the lines will be bolder, and there will be
+less roughness (lines would be more still than usual). In terms of the type text, the font size will be bigger, and it
+will appear bolder than default.
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleHighlightType}</CodeBlock>
+    <ThemedImage
+        alt="highlight type demo"
+        sources={{
+            light: useBaseUrl("images/style/highlight_type_light.svg"),
+            dark: useBaseUrl("images/style/highlight_type_dark.svg"),
+        }}
+    />
+</details>
+
+### `hide`
+
+It makes all three major boxes (type box, id box, and the surrounding container
+box) all blank (white).
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleHide}</CodeBlock>
+    <ThemedImage
+        alt="hide demo"
+        sources={{
+            light: useBaseUrl("images/style/hide_light.svg"),
+            dark: useBaseUrl("images/style/hide_dark.svg"),
+        }}
+    />
+</details>
+
+### `hide_id`
+
+It will make the id box blank (white).
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleHideId}</CodeBlock>
+    <ThemedImage
+        alt="hide id demo"
+        sources={{
+            light: useBaseUrl("images/style/hide_id_light.svg"),
+            dark: useBaseUrl("images/style/hide_id_dark.svg"),
+        }}
+    />
+</details>
+
+### `hide_type`
+
+It will make the type box blank (white).
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleHideType}</CodeBlock>
+    <ThemedImage
+        alt="hide type demo"
+        sources={{
+            light: useBaseUrl("images/style/hide_type_light.svg"),
+            dark: useBaseUrl("images/style/hide_type_dark.svg"),
+        }}
+    />
+</details>
+
+### `hide_container`
+
+It will make the container box blank (white), but not the `type` and `id` boxes.
+(NOTE: this is not currently supported for sequences).
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleHideContainer}</CodeBlock>
+    <ThemedImage
+        alt="hide container demo"
+        sources={{
+            light: useBaseUrl("images/style/hide_container_light.svg"),
+            dark: useBaseUrl("images/style/hide_container_dark.svg"),
+        }}
+    />
+</details>
+
+### `fade`
+
+It will "fade" the box.
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleFade}</CodeBlock>
+    <ThemedImage
+        alt="fade demo"
+        sources={{
+            light: useBaseUrl("images/style/fade_light.svg"),
+            dark: useBaseUrl("images/style/fade_dark.svg"),
+        }}
+    />
+</details>
+
+### `fade_id`
+
+It will "fade" the id sub-box.
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleFadeId}</CodeBlock>
+    <ThemedImage
+        alt="fade id demo"
+        sources={{
+            light: useBaseUrl("images/style/fade_id_light.svg"),
+            dark: useBaseUrl("images/style/fade_id_dark.svg"),
+        }}
+    />
+</details>
+
+### `fade_type`
+
+It will "fade" the type sub-box.
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleFadeType}</CodeBlock>
+    <ThemedImage
+        alt="fade type demo"
+        sources={{
+            light: useBaseUrl("images/style/fade_type_light.svg"),
+            dark: useBaseUrl("images/style/fade_type_dark.svg"),
+        }}
+    />
+</details>
+
+## Mixture of style and custom styling
+
+Additionally, the user can pass in an array for the style attribute. This array can be
+a mixture of presets (name of the preset in the string data format) and a user-defined
+Object. To better illustrate this, here is an example:
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleCombo}</CodeBlock>
+    <ThemedImage
+        alt="combo demo"
+        sources={{
+            light: useBaseUrl("images/style/combo_light.svg"),
+            dark: useBaseUrl("images/style/combo_dark.svg"),
+        }}
+    />
+</details>
+
+### Insights for the Implementation
+
+The user specifies a desired style for each of the objects in the list.
+
+### Merging
+
+First, there is a default object that contains all key-value pairs of style attributes
+that (be default) are common across objects of all types. This object is called `common_style`.
+
+Then we use a list objects to represent some styling properties specific to certain type categories
+(for instance, `text_value` for collections need to have the id color by default, which
+is not true for primitive types). The `deepmerge` library is used to merge the common styles
+mentioned above with these category-specific styles.
+
+Finally, any user-supplied styling attributes are merged to the current style object.
+This is the second and final merge.
+
+### Cascade
+
+The above "merging" procedure takes place inside the `drawAll` method (using the
+`populateDefaultStyle` helper function).
+
+Then, inside the `drawClass` and `drawObject` methods (which are called from within
+`drawAll`), for every invocation of `drawText` and `drawRect` (responsible for drawing
+text and boxes, respectively), the corresponding attribute of the object's style
+object is passed (for instance, in the case where `drawText` is called to draw the id value
+inside the id box, `style.text_id` is passed as an argument to `drawText`).
+
+Finally, inside drawText and drawRect, we loop through all the attributes of the
+passed style object, and apply each of those in the appropriate manner (
+for drawRect, you simply pass the style when initializing a rectangle by doing
+`this.rough_svg.rectangle(x, y, width, height, style)`, and with the text element you
+use the DOM method `setAttribute` by doing `newElement.setAttribute(style_attribute, style[style_attribute])`
+).
+
+Thus, the style is cascaded down from user to drawText/drawRect as follows:
+
+user-defined style --> drawAll --> drawClass/drawObject --> drawText/drawRect
+
+To illustrate, here is an example:
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleCascading}</CodeBlock>
+    <ThemedImage
+        alt="Example cascading"
+        sources={{
+            light: useBaseUrl("images/style/cascading_light.svg"),
+            dark: useBaseUrl("images/style/cascading_dark.svg"),
+        }}
+    />
+</details>
+
+Notice that the `highlight` preset was overrode by the `hide` preset, but the user-supplied stylings are still present since they are applied last.
+
+## Defining a custom theme
+
+```css
+[data-theme="oceanic-light"] {
+    --highlight-value-text-color: #014f86;
+    --highlight-id-text-color: #008c9e;
+
+    --fade-text-color: #5c7382;
+    --hide-text-color: #ffffff;
+
+    --highlight-box-fill: #caf0f8;
+    --highlight-box-line-color: #0077b6;
+
+    --fade-box-fill: #dbeeff;
+    --fade-box-line-color: #90e0ef;
+
+    --hide-box-fill: #ffffff;
+}
+path {
+    stroke: #113b48;
+}
+svg {
+    background-color: #ffffff;
+}
+```
+
+This example demonstrates how to define a custom theme using CSS variables. The oceanic-light theme customizes the
+appearance of preset styles such as "highlight", "fade", and "hide". Additionally, the `path` and `svg` elements,
+representing the rough.js shapes and drawing canvas respectively, are styled to have a specific stroke and background color.
+To use this theme, include your custom CSS using the `--global-style` flag and enable the theme by passing
+`--theme=oceanic-light` in the [CLI](06-cli.md).

@@ -22,6 +22,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 📚 Documentation and demo website changes
 
 - Updated the demo website to use `ThemedImages` for all image examples, supporting dark mode.
+- Rewrote the `Style API` page of documentation to include JSON inputs and SVG outputs
 
 ### 🔧 Internal changes
 

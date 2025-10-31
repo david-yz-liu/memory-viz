@@ -1,0 +1,14 @@
+[
+    {
+        "type": "str",
+        "id": 54,
+        "value": "Hello",
+        "style": {
+            "text_value": {
+                "font-style": "italic",
+                "font-weight": "bold",
+                "fill": "black"
+            }
+        }
+    }
+]
