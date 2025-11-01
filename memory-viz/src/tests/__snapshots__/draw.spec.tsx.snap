@@ -69,65 +69,6 @@ exports[`draw function assigns sequential object ids to bounding boxes 1`] = `
       fill: var(--highlight-object-fill) !important;
     }
   </style>
-  <script>
-    function enableInteractivity() {
-      // Inject the id value to object id mapping into script
-      const idToObjectMap = {};
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
-      }
-
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
-      }
-
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
-        {
-          const idValue = idText.textContent.trim();
-          if (!idValue || !idValue.startsWith('id')) {
-            return;
-          }
-
-          idText.addEventListener('mouseover', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
-          });
-
-          idText.addEventListener('mouseout', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
-          });
-        });
-      }
-
-      addEventListeners();
-    }
-
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
-    } else {
-      enableInteractivity();
-    }
-  </script>
   <g id="object-0">
     <path d="M50.16937510482967 24.905685232952237 L249.33187983743846 26.171632992103696 L249.8961618375033 154.62805812247097 L51.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
     <path d="M49.02556400905005 24.241416855089682 C101.67472883071045 24.78571024322009, 153.3450280792927 26.373408998464704, 249.1665928987556 24.44361583115067 M50.20125421450777 25.42283250446578 C126.958478717734 25.051943962083083, 206.10388944161187 26.304326200825255, 249.3515084648273 24.560773679005287 M248.61389331705868 24.244307739660144 C252.036963196937 59.11295747105032, 249.04752651089802 94.5909650363028, 248.31202613003552 154.8133229445666 M250.8313265061006 25.96177598182112 C250.05591074684634 69.77587079815567, 249.55186743596568 114.02828291337937, 250.89466654416174 155.44875323120505 M250.75227619308416 155.9731643655708 C195.22971649251488 156.68231944392923, 139.3466937635452 155.0513814025964, 49.1510645373414 153.65245000658692 M249.45916222403224 154.66550825989682 C201.1154268945954 157.554673751121, 153.36624674198694 156.4497378845508, 49.40086070416821 155.51151490365555 M50.14214079268277 156.27820358984172 C51.21292230626568 121.20502475183457, 52.32286229869351 85.18492933362721, 51.775122391059995 23.932938857004046 M50.67811032291502 154.0633974308148 C48.08495348347351 115.83291779831052, 49.32690664781258 77.85893173422663, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
@@ -599,65 +540,6 @@ exports[`draw function generates correct interactive script with proper event ma
       fill: var(--highlight-object-fill) !important;
     }
   </style>
-  <script>
-    function enableInteractivity() {
-      // Inject the id value to object id mapping into script
-      const idToObjectMap = {};
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
-      }
-
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
-      }
-
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
-        {
-          const idValue = idText.textContent.trim();
-          if (!idValue || !idValue.startsWith('id')) {
-            return;
-          }
-
-          idText.addEventListener('mouseover', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
-          });
-
-          idText.addEventListener('mouseout', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
-          });
-        });
-      }
-
-      addEventListeners();
-    }
-
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
-    } else {
-      enableInteractivity();
-    }
-  </script>
   <g id="object-0">
     <path d="M50.16937510482967 24.905685232952237 L290.33187983743846 26.171632992103696 L290.8961618375033 154.62805812247097 L51.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
     <path d="M49.099557020290746 24.29901925451833 C112.10647623423708 24.872340143957942, 174.2088592430931 26.339478274456827, 290.2298769949745 24.485864414374362 M50.185972138009554 25.390725059188263 C142.97727173509372 25.207905429247468, 237.97541255786757 26.365189032543558, 290.4007511466424 24.594125975521845 M289.6138933170587 24.244307739660144 C293.036963196937 59.11295747105032, 290.047526510898 94.5909650363028, 289.3120261300355 154.8133229445666 M291.8313265061006 25.96177598182112 C291.05591074684634 69.77587079815567, 290.5518674359657 114.02828291337937, 291.89466654416174 155.44875323120505 M291.69515270695683 155.8992679141779 C224.84049976103074 156.692219506355, 157.65275525610807 155.18512543009118, 49.215527767163074 153.75477512874585 M290.5002303044482 154.69090762046565 C232.29558286201268 157.70095354351344, 174.64034352846994 156.67992009101118, 49.44635586348391 155.4726734319042 M50.14214079268277 156.27820358984172 C51.21292230626568 121.20502475183457, 52.32286229869351 85.18492933362721, 51.775122391059995 23.932938857004046 M50.67811032291502 154.0633974308148 C48.08495348347351 115.83291779831052, 49.32690664781258 77.85893173422663, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
@@ -883,65 +765,6 @@ exports[`draw function generates interactive script for empty objects array 1`] 
       enableInteractivity();
     }
   </script>
-  <script>
-    function enableInteractivity() {
-      // Inject the id value to object id mapping into script
-      const idToObjectMap = {};
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
-      }
-
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
-      }
-
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
-        {
-          const idValue = idText.textContent.trim();
-          if (!idValue || !idValue.startsWith('id')) {
-            return;
-          }
-
-          idText.addEventListener('mouseover', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
-          });
-
-          idText.addEventListener('mouseout', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
-          });
-        });
-      }
-
-      addEventListeners();
-    }
-
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
-    } else {
-      enableInteractivity();
-    }
-  </script>
 </svg>
 `;
 
@@ -1026,65 +849,6 @@ exports[`draw function handles objects with null ids in interactive mode 1`] = `
     <path d="M25.16937510482967 24.905685232952237 L130.33187983743846 26.171632992103696 L130.8961618375033 74.62805812247097 L26.99362979643047 73.50390349514782" stroke="none" stroke-width="0" fill="none" />
     <path d="M23.917262064293027 24.157105488702655 C52.72183570805937 24.567927886713296, 80.43874951601029 26.3320885794051, 130.07396535761654 24.381777508184314 M25.22362225409597 25.469827466644347 C65.28675948381425 24.616882936749608, 108.00351361874492 26.008458958659322, 130.2794330334291 24.511956655420363 M129.61389331705868 24.244307739660144 C133.00123269716278 37.83524710033089, 130.0117960111238 52.03554429486394, 129.31202613003552 74.81332294456661 M131.8313265061006 25.96177598182112 C130.952838587109 42.12844209931791, 130.44879527622834 58.73342551570386, 131.89466654416174 75.44875323120505 M131.83588658459485 76.08132497780025 C102.30543430875986 76.48983121572063, 72.37445598617195 74.67762548385188, 24.056711124256253 73.50267897360027 M130.39905177708715 74.6283317739144 C104.6743649315089 76.90054796246812, 79.6103140341118 75.67280597595499, 24.334270439110696 75.56836631242186 M25.142140792682767 76.27820358984172 C25.568345656152815 62.0871600760147, 26.67828564858064 46.949199981987476, 26.775122391059995 23.932938857004046 M25.678110322915018 74.0633974308148 C23.806448485236615 59.39918356761336, 25.04840164957568 44.991463272832334, 25.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
   </g><text x="78" y="55" class="type">__main__</text>
-  <script>
-    function enableInteractivity() {
-      // Inject the id value to object id mapping into script
-      const idToObjectMap = {};
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
-      }
-
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
-      }
-
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
-        {
-          const idValue = idText.textContent.trim();
-          if (!idValue || !idValue.startsWith('id')) {
-            return;
-          }
-
-          idText.addEventListener('mouseover', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
-          });
-
-          idText.addEventListener('mouseout', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
-          });
-        });
-      }
-
-      addEventListeners();
-    }
-
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
-    } else {
-      enableInteractivity();
-    }
-  </script>
   <g id="object-1">
     <path d="M216.16937510482967 24.905685232952237 L415.33187983743846 26.171632992103696 L415.8961618375033 154.62805812247097 L217.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
     <path d="M215.02556400905004 24.241416855089682 C267.6747288307105 24.78571024322009, 319.3450280792927 26.373408998464704, 415.1665928987556 24.44361583115067 M216.20125421450777 25.42283250446578 C292.958478717734 25.051943962083083, 372.10388944161184 26.304326200825255, 415.3515084648273 24.560773679005287 M414.6138933170587 24.244307739660144 C418.036963196937 59.11295747105032, 415.047526510898 94.5909650363028, 414.3120261300355 154.8133229445666 M416.8313265061006 25.96177598182112 C416.05591074684634 69.77587079815567, 415.5518674359657 114.02828291337937, 416.89466654416174 155.44875323120505 M416.7522761930842 155.9731643655708 C361.2297164925149 156.68231944392923, 305.3466937635452 155.0513814025964, 215.1510645373414 153.65245000658692 M415.45916222403224 154.66550825989682 C367.1154268945954 157.554673751121, 319.3662467419869 156.4497378845508, 215.40086070416822 155.51151490365555 M216.14214079268277 156.27820358984172 C217.21292230626568 121.20502475183457, 218.3228622986935 85.18492933362721, 217.77512239106 23.932938857004046 M216.67811032291502 154.0633974308148 C214.0849534834735 115.83291779831052, 215.32690664781256 77.85893173422663, 216.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
@@ -1251,65 +1015,6 @@ exports[`draw function includes script element and css when interactive option i
       fill: var(--highlight-object-fill) !important;
     }
   </style>
-  <script>
-    function enableInteractivity() {
-      // Inject the id value to object id mapping into script
-      const idToObjectMap = {};
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
-      }
-
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
-      }
-
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
-        {
-          const idValue = idText.textContent.trim();
-          if (!idValue || !idValue.startsWith('id')) {
-            return;
-          }
-
-          idText.addEventListener('mouseover', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
-          });
-
-          idText.addEventListener('mouseout', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
-          });
-        });
-      }
-
-      addEventListeners();
-    }
-
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
-    } else {
-      enableInteractivity();
-    }
-  </script>
   <g id="object-0">
     <path d="M50.16937510482967 24.905685232952237 L290.33187983743846 26.171632992103696 L290.8961618375033 154.62805812247097 L51.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
     <path d="M49.099557020290746 24.29901925451833 C112.10647623423708 24.872340143957942, 174.2088592430931 26.339478274456827, 290.2298769949745 24.485864414374362 M50.185972138009554 25.390725059188263 C142.97727173509372 25.207905429247468, 237.97541255786757 26.365189032543558, 290.4007511466424 24.594125975521845 M289.6138933170587 24.244307739660144 C293.036963196937 59.11295747105032, 290.047526510898 94.5909650363028, 289.3120261300355 154.8133229445666 M291.8313265061006 25.96177598182112 C291.05591074684634 69.77587079815567, 290.5518674359657 114.02828291337937, 291.89466654416174 155.44875323120505 M291.69515270695683 155.8992679141779 C224.84049976103074 156.692219506355, 157.65275525610807 155.18512543009118, 49.215527767163074 153.75477512874585 M290.5002303044482 154.69090762046565 C232.29558286201268 157.70095354351344, 174.64034352846994 156.67992009101118, 49.44635586348391 155.4726734319042 M50.14214079268277 156.27820358984172 C51.21292230626568 121.20502475183457, 52.32286229869351 85.18492933362721, 51.775122391059995 23.932938857004046 M50.67811032291502 154.0633974308148 C48.08495348347351 115.83291779831052, 49.32690664781258 77.85893173422663, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
@@ -1580,65 +1285,6 @@ exports[`draw function maps multiple references to same object id 1`] = `
       fill: var(--highlight-object-fill) !important;
     }
   </style>
-  <script>
-    function enableInteractivity() {
-      // Inject the id value to object id mapping into script
-      const idToObjectMap = {};
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
-      }
-
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
-      }
-
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
-        {
-          const idValue = idText.textContent.trim();
-          if (!idValue || !idValue.startsWith('id')) {
-            return;
-          }
-
-          idText.addEventListener('mouseover', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
-          });
-
-          idText.addEventListener('mouseout', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
-          });
-        });
-      }
-
-      addEventListeners();
-    }
-
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
-    } else {
-      enableInteractivity();
-    }
-  </script>
   <g id="object-0">
     <path d="M50.16937510482967 24.905685232952237 L273.33187983743846 26.171632992103696 L273.8961618375033 154.62805812247097 L51.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
     <path d="M49.068876991239726 24.275135332804012 C107.78111755472605 24.8378236959865, 165.55800241907832 26.354950378209224, 273.2036372477618 24.46834670913527 M50.19230860875272 25.404037902352112 C136.33533316692018 25.146427748249135, 224.76039077795667 26.34314249307165, 273.38033344930443 24.580296974527172 M272.6138933170587 24.244307739660144 C276.036963196937 59.11295747105032, 273.047526510898 94.5909650363028, 272.3120261300355 154.8133229445666 M274.8313265061006 25.96177598182112 C274.05591074684634 69.77587079815567, 273.5518674359657 114.02828291337937, 274.89466654416174 155.44875323120505 M274.7188380548633 155.92990790621886 C212.56285791798757 156.6908598996531, 150.0624370762649 155.13241588665335, 49.18879911089555 153.7123476390702 M273.48320207598306 154.68037617827858 C219.3672255096689 157.64708745862723, 165.8193765682209 156.59126520029193, 49.42749201693837 155.48877843238648 M50.14214079268277 156.27820358984172 C51.21292230626568 121.20502475183457, 52.32286229869351 85.18492933362721, 51.775122391059995 23.932938857004046 M50.67811032291502 154.0633974308148 C48.08495348347351 115.83291779831052, 49.32690664781258 77.85893173422663, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
@@ -7669,65 +7315,6 @@ exports[`draw function renders custom styles correctly in interactive mode 1`] =
       fill: var(--highlight-object-fill) !important;
     }
   </style>
-  <script>
-    function enableInteractivity() {
-      // Inject the id value to object id mapping into script
-      const idToObjectMap = {};
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
-      }
-
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
-      }
-
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
-        {
-          const idValue = idText.textContent.trim();
-          if (!idValue || !idValue.startsWith('id')) {
-            return;
-          }
-
-          idText.addEventListener('mouseover', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
-          });
-
-          idText.addEventListener('mouseout', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
-          });
-        });
-      }
-
-      addEventListeners();
-    }
-
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
-    } else {
-      enableInteractivity();
-    }
-  </script>
   <g id="object-0">
     <path d="M50.03387502096594 24.981137046590447 L338.86637596748767 25.23432659842074 L338.9792323675007 154.9256116244942 L50.3987259592861 154.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
     <path d="M49.83723659693402 24.8732912419894 C123.93499388134431 24.99181349698812, 197.86924787431417 25.25701229387914, 338.8607931385974 24.907065234068714 M50.03361618529989 25.070627170992186 C162.30724397821103 25.07142018871679, 274.97977874914704 25.280609911808142, 338.89168022311935 24.926634513313125 M338.72277866341176 24.848861547932028 C339.4073926393874 59.483614976145326, 338.8095053021796 94.24023997113109, 338.6624052260071 154.96266458891333 M339.1662653012201 25.192355196364225 C339.01118214936923 69.89683146812021, 338.9103734871931 114.68897119965405, 339.17893330883237 155.08975064624101 M339.12565528610304 155.1625509990948 C259.123149230509 155.3350129892909, 179.06043379253705 155.06259178537138, 49.85819938285427 154.77491407874248 M338.90966200167 154.94412869144583 C269.27838336554544 155.5602298324652, 199.74641533041455 155.37566858525872, 49.89992369780485 155.0854400978732 M50.028428158536556 155.25564071796833 C50.24258446125314 121.09422902893274, 50.4645724597387 86.7434340238571, 50.355024478212 24.78658777140081 M50.135622064583 154.81267948616295 C49.61699069669471 116.53043805956841, 49.86538132956252 78.29949534665792, 50.18846608232707 24.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
@@ -9018,7 +8605,7 @@ exports[`draw function trims width when not provided width value 1`] = `
 `;
 
 exports[`draw function works at highlighting interactively with different themes 1`] = `
-<svg width="1300" height="292" data-theme="dark" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" data-theme="dark" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     :root {
       --fade-text-color: rgb(0, 0, 0);
@@ -9123,65 +8710,6 @@ exports[`draw function works at highlighting interactively with different themes
       stroke: rgb(204, 204, 204);
     }
   </style>
-  <script>
-    function enableInteractivity() {
-      // Inject the id value to object id mapping into script
-      const idToObjectMap = {};
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
-      }
-
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
-      }
-
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
-        {
-          const idValue = idText.textContent.trim();
-          if (!idValue || !idValue.startsWith('id')) {
-            return;
-          }
-
-          idText.addEventListener('mouseover', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
-          });
-
-          idText.addEventListener('mouseout', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
-          });
-        });
-      }
-
-      addEventListeners();
-    }
-
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
-    } else {
-      enableInteractivity();
-    }
-  </script>
   <g id="object-0">
     <path d="M50.16937510482967 24.905685232952237 L249.33187983743846 26.171632992103696 L249.8961618375033 154.62805812247097 L51.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
     <path d="M49.02556400905005 24.241416855089682 C101.67472883071045 24.78571024322009, 153.3450280792927 26.373408998464704, 249.1665928987556 24.44361583115067 M50.20125421450777 25.42283250446578 C126.958478717734 25.051943962083083, 206.10388944161187 26.304326200825255, 249.3515084648273 24.560773679005287 M248.61389331705868 24.244307739660144 C252.036963196937 59.11295747105032, 249.04752651089802 94.5909650363028, 248.31202613003552 154.8133229445666 M250.8313265061006 25.96177598182112 C250.05591074684634 69.77587079815567, 249.55186743596568 114.02828291337937, 250.89466654416174 155.44875323120505 M250.75227619308416 155.9731643655708 C195.22971649251488 156.68231944392923, 139.3466937635452 155.0513814025964, 49.1510645373414 153.65245000658692 M249.45916222403224 154.66550825989682 C201.1154268945954 157.554673751121, 153.36624674198694 156.4497378845508, 49.40086070416821 155.51151490365555 M50.14214079268277 156.27820358984172 C51.21292230626568 121.20502475183457, 52.32286229869351 85.18492933362721, 51.775122391059995 23.932938857004046 M50.67811032291502 154.0633974308148 C48.08495348347351 115.83291779831052, 49.32690664781258 77.85893173422663, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
@@ -9280,7 +8808,7 @@ exports[`draw function works at highlighting interactively with different themes
 `;
 
 exports[`draw function works at highlighting interactively with different themes 2`] = `
-<svg width="1300" height="292" data-theme="high-contrast" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" data-theme="high-contrast" height="292" xmlns="http://www.w3.org/2000/svg">
   <style>
     :root {
       --fade-text-color: rgb(0, 0, 0);
@@ -9385,65 +8913,6 @@ exports[`draw function works at highlighting interactively with different themes
       stroke: rgb(255, 255, 255);
     }
   </style>
-  <script>
-    function enableInteractivity() {
-      // Inject the id value to object id mapping into script
-      const idToObjectMap = {};
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
-      }
-
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
-      }
-
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
-        {
-          const idValue = idText.textContent.trim();
-          if (!idValue || !idValue.startsWith('id')) {
-            return;
-          }
-
-          idText.addEventListener('mouseover', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
-          });
-
-          idText.addEventListener('mouseout', () = & gt;
-          {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
-          });
-        });
-      }
-
-      addEventListeners();
-    }
-
-    // Wait for DOM to be ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
-    } else {
-      enableInteractivity();
-    }
-  </script>
   <g id="object-0">
     <path d="M50.16937510482967 24.905685232952237 L249.33187983743846 26.171632992103696 L249.8961618375033 154.62805812247097 L51.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
     <path d="M49.02556400905005 24.241416855089682 C101.67472883071045 24.78571024322009, 153.3450280792927 26.373408998464704, 249.1665928987556 24.44361583115067 M50.20125421450777 25.42283250446578 C126.958478717734 25.051943962083083, 206.10388944161187 26.304326200825255, 249.3515084648273 24.560773679005287 M248.61389331705868 24.244307739660144 C252.036963196937 59.11295747105032, 249.04752651089802 94.5909650363028, 248.31202613003552 154.8133229445666 M250.8313265061006 25.96177598182112 C250.05591074684634 69.77587079815567, 249.55186743596568 114.02828291337937, 250.89466654416174 155.44875323120505 M250.75227619308416 155.9731643655708 C195.22971649251488 156.68231944392923, 139.3466937635452 155.0513814025964, 49.1510645373414 153.65245000658692 M249.45916222403224 154.66550825989682 C201.1154268945954 157.554673751121, 153.36624674198694 156.4497378845508, 49.40086070416821 155.51151490365555 M50.14214079268277 156.27820358984172 C51.21292230626568 121.20502475183457, 52.32286229869351 85.18492933362721, 51.775122391059995 23.932938857004046 M50.67811032291502 154.0633974308148 C48.08495348347351 115.83291779831052, 49.32690664781258 77.85893173422663, 50.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />

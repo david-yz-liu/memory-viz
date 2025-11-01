@@ -9,8 +9,10 @@ import {
     DrawnEntity,
     DrawnEntitySchema,
     DrawnEntityStrict,
+    DrawnEntityWithDimensions,
     Primitive,
     Rect,
+    SortOptions,
     Style,
     VisualizationConfig,
 } from "./types";
@@ -26,6 +28,14 @@ let fs: typeof fsType | undefined;
 if (typeof window === "undefined") {
     fs = require("fs");
 }
+
+const REQUIRED_DISPLAY_PROPERTIES: (keyof MemoryModel)[] = [
+    "padding",
+    "top_margin",
+    "left_margin",
+    "bottom_margin",
+    "right_margin",
+];
 
 /** The class representing the memory model diagram of the given block of code. */
 export class MemoryModel {
@@ -68,6 +78,12 @@ export class MemoryModel {
     height?: number; // Height of the canvas, dynamically updated if not provided in options
     objectCounter: number; // Counter for tracking ids of objects drawn
     interactive: boolean = true; // Whether the visualization is interactive
+    sort_by?: SortOptions;
+    padding?: number;
+    top_margin?: number;
+    left_margin?: number;
+    bottom_margin?: number;
+    right_margin?: number;
     idToObjectMap: Map<string, string[]>; // Track object ids to their corresponding SVG element ids
 
     constructor(options: Partial<VisualizationConfig> = {}) {
@@ -88,13 +104,11 @@ export class MemoryModel {
 
         if (options.width) {
             this.svg.setAttribute("width", options.width.toString());
-        } else {
-            this.width = 0;
+            this.width = options.width;
         }
         if (options.height) {
             this.svg.setAttribute("height", options.height.toString());
-        } else {
-            this.height = 0;
+            this.height = options.height;
         }
         this.roughjs_config = options.roughjs_config ?? {};
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
@@ -109,6 +123,25 @@ export class MemoryModel {
 
         this.objectCounter = 0;
         this.idToObjectMap = new Map();
+
+        if (options.sort_by) {
+            this.sort_by = options.sort_by;
+        }
+        if (options.padding !== undefined) {
+            this.padding = options.padding;
+        }
+        if (options.top_margin !== undefined) {
+            this.top_margin = options.top_margin;
+        }
+        if (options.left_margin !== undefined) {
+            this.left_margin = options.left_margin;
+        }
+        if (options.bottom_margin !== undefined) {
+            this.bottom_margin = options.bottom_margin;
+        }
+        if (options.right_margin !== undefined) {
+            this.right_margin = options.right_margin;
+        }
 
         setStyleSheet(this, options.global_style ?? "", options.theme);
     }
@@ -1049,28 +1082,94 @@ export class MemoryModel {
     }
 
     /**
-     * Returns a copy of the input objects with width and height set properly.
+     * Returns a copy of the input objects with width, height, x and y coordinates set properly.
      *
      * @param objects - the list of objects (including stack-frames) to be drawn.
      */
     private setDimensionsAll(objects: DrawnEntity[]): DrawnEntityStrict[] {
-        const strict_objects: DrawnEntityStrict[] = [];
+        const objects_with_dimensions: DrawnEntityWithDimensions[] = [];
 
+        // Set width and height for all objects
         for (const object of objects) {
             // Get default width and height
             const default_dims = this.getDefaultDimensions(object);
 
             // Overwrite width and height if necessary
-            const strict_object = this.setDimensions(
+            const object_with_dimensions = this.setDimensions(
                 object,
                 default_dims.default_width,
                 default_dims.default_height
             );
 
-            strict_objects.push(strict_object);
+            objects_with_dimensions.push(object_with_dimensions);
         }
 
-        return strict_objects;
+        const { stack_frames, other_items } = this.separateObjects(
+            objects_with_dimensions
+        );
+
+        // Set x and y coordinates for all stack frames
+        const { StackFrames, requiredHeight, requiredWidth } =
+            this.setStackFrameCoordinates(stack_frames);
+
+        // Determining the minimum width of the canvas.
+        let min_width = 0;
+        let item_width: number;
+        for (const item of other_items) {
+            if (
+                (item.type === "int" ||
+                    item.type === "float" ||
+                    item.type === "str" ||
+                    item.type === "bool" ||
+                    item.type === "None" ||
+                    typeof item.value !== "object" ||
+                    item.value === null) &&
+                item.type !== ".blank-frame"
+            ) {
+                item_width = item.width + 2 * this.double_rect_sep;
+            } else {
+                item_width = item.width;
+            }
+            if (item_width > min_width) {
+                min_width = item_width;
+            }
+        }
+
+        min_width +=
+            requiredWidth + 2 * (this.padding ?? config.canvas_padding!) + 1;
+
+        if (this.width !== undefined && this.width < min_width) {
+            console.warn(
+                `WARNING: provided width (${this.width}) is smaller than the required width` +
+                    ` (${min_width}). The provided width has been overwritten` +
+                    ` in the generated diagram.`
+            );
+            this.width = min_width;
+        }
+
+        // determining default width: should be 800 by default, but set to min_width if necessary
+        const default_width = Math.min(min_width, 800);
+
+        // Set x and y coordinates for all other objects
+        const { objs, canvas_height, canvas_width } =
+            this.setOtherItemsCoordinates(
+                other_items,
+                this.width || default_width,
+                this.sort_by ?? null,
+                requiredWidth
+            );
+
+        // Update canvas width and height
+        const final_height = Math.max(canvas_height, requiredHeight) + 100;
+        this.width = this.width ? this.width : canvas_width;
+        this.height = final_height;
+        this.svg.setAttribute(
+            "width",
+            (this.width ? this.width : canvas_width).toString()
+        );
+        this.svg.setAttribute("height", final_height.toString());
+
+        return [...StackFrames, ...objs];
     }
 
     /**
@@ -1098,8 +1197,11 @@ export class MemoryModel {
             );
         }
 
-        const frame_types = [".frame", ".blank-frame"];
-        if (frame_types.includes(object.type) || object.type === ".class") {
+        if (object.type === ".blank" || object.type === ".blank-frame") {
+            // User must define dimensions for object with type=".blank" or ".blank-frame"
+            return { default_width: 0, default_height: 0 };
+        }
+        if (object.type === ".frame" || object.type === ".class") {
             return this.getDefaultClassDimensions(
                 object.name,
                 object.value,
@@ -1338,16 +1440,18 @@ export class MemoryModel {
         object: DrawnEntity,
         default_width: number,
         default_height: number
-    ): DrawnEntityStrict {
+    ): DrawnEntityWithDimensions {
         // For primitive objects, object width and height accounts for the double rectangle separation
         if (
-            object.type === "int" ||
-            object.type === "float" ||
-            object.type === "str" ||
-            object.type === "bool" ||
-            object.type === "None" ||
-            typeof object.value !== "object" ||
-            object.value === null
+            (object.type === "int" ||
+                object.type === "float" ||
+                object.type === "str" ||
+                object.type === "bool" ||
+                object.type === "None" ||
+                typeof object.value !== "object" ||
+                object.value === null) &&
+            object.type !== ".blank-frame" &&
+            object.type !== "range"
         ) {
             if (object.width !== undefined) {
                 object.width -= 2 * this.double_rect_sep;
@@ -1376,7 +1480,309 @@ export class MemoryModel {
             object.height = default_height;
         }
 
-        return object as DrawnEntityStrict;
+        return object as DrawnEntityWithDimensions;
+    }
+
+    /**
+     * Separates the items that were given into two categories as stack frames and objects.
+     * The returned object has two attributes as 'stack_frames' and 'other_items'.
+     * Each of these attributes are a list of objects that were originally given by the user.
+     *
+     * @param objects - The list of objects, including stack-frames (if any) and other items, that
+     * will be drawn
+     * @returns an object separating between stack-frames and the rest of the items.
+     */
+    private separateObjects(objects: DrawnEntityWithDimensions[]): {
+        stack_frames: DrawnEntityWithDimensions[];
+        other_items: DrawnEntityWithDimensions[];
+    } {
+        const stackFrames: DrawnEntityWithDimensions[] = [];
+        const otherItems: DrawnEntityWithDimensions[] = [];
+
+        for (const item of objects) {
+            const frame_types = [".frame", ".blank-frame"];
+
+            if (item.type === undefined) {
+                otherItems.push(item);
+            } else if (
+                item.type === ".blank" &&
+                (item.width === undefined || item.height === undefined)
+            ) {
+                console.log(
+                    "WARNING :: An object with type='.blank' or '.blank-frame' exists with missing dimension information " +
+                        "(either the width or the height is missing). This object will be omitted in the memory model" +
+                        " diagram."
+                );
+            } else if (frame_types.includes(item.type)) {
+                stackFrames.push(item);
+            } else {
+                otherItems.push(item);
+            }
+        }
+
+        return { stack_frames: stackFrames, other_items: otherItems };
+    }
+
+    /**
+     * Return the stack-frames with generated x and y coordinates, as well as the minimum required
+     * height for drawing the stack-frames. The returned collection of stack-frames is the augmented version
+     * of the input such that the x and y coordinates of the stack-frames are determined automatically.
+     *
+     * @param stack_frames - The list of stack-frames that will be drawn
+     * (without the specified x and y coordinates)
+     * @returns - Returns the object consisting of three attributes as follows: stack-frames which will be drawn,
+     * the minimum required height of the canvas for drawing stack frames and required width for drawing all the stack
+     * frames. Notably, the last two attributes will be useful in terms of dynamically deciding the width and the height
+     * of the canvas.
+     */
+    private setStackFrameCoordinates(
+        stack_frames: DrawnEntityWithDimensions[]
+    ): {
+        StackFrames: DrawnEntityStrict[];
+        requiredHeight: number;
+        requiredWidth: number;
+    } {
+        for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
+            if (!Object.prototype.hasOwnProperty.call(this, req_prop)) {
+                (this[req_prop] as number | undefined) = config.obj_x_padding;
+            }
+        }
+
+        let min_required_height = this.top_margin ?? config.canvas_padding!;
+        let required_width = 0;
+        const draw_stack_frames: DrawnEntityStrict[] = [];
+
+        for (const stack_frame of stack_frames) {
+            const width: number = stack_frame.width;
+            const height: number = stack_frame.height;
+
+            if (width > required_width) {
+                required_width = width;
+            }
+
+            if (stack_frame.type !== ".blank-frame") {
+                if (stack_frame.x === undefined) {
+                    stack_frame.x = this.left_margin;
+                }
+                if (stack_frame.y === undefined) {
+                    stack_frame.y = min_required_height;
+                }
+                draw_stack_frames.push(stack_frame as DrawnEntityStrict);
+            }
+
+            min_required_height = height + min_required_height;
+        }
+        if (this.left_margin !== undefined) {
+            required_width += this.left_margin;
+        }
+
+        return {
+            StackFrames: draw_stack_frames,
+            requiredHeight: min_required_height,
+            requiredWidth: required_width,
+        };
+    }
+
+    /**
+     * Automatic generation of coordinates for passed objects.
+     *
+     * Given a list of objects in the format described in MemoryModel.drawAll --but WITHOUT SPECIFIED COORDINATES-- and a
+     * desired canvas width, this function mutates the passed list to equip each object with coordinates (corresponding to
+     * the top-left corner of the object's box in the canvas).
+     *
+     * @param objs - list of objects in the format described in MemoryModel.drawAll
+     * @param max_width - the desired width of the canvas
+     * @param sort_by - the sorting criterion; must be "height" or "id", otherwise no sorting takes place.
+     * @param sf_endpoint - the x-coordinate of the right edge of the stackframe column; this will determine
+     *                              where the object space begins.
+     * @returns the mutates list of objects (where each object is now equipped with x-y coordinates) and the
+     * dynamically determined height the canvas will need to be.
+     */
+    private setOtherItemsCoordinates(
+        objs: DrawnEntityWithDimensions[],
+        max_width: number,
+        sort_by: SortOptions | null,
+        sf_endpoint: number
+    ): {
+        objs: DrawnEntityStrict[];
+        canvas_height: number;
+        canvas_width: number;
+    } {
+        for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
+            if (!Object.prototype.hasOwnProperty.call(this, req_prop)) {
+                (this[req_prop] as number | undefined) = config.obj_x_padding;
+            }
+        }
+
+        const PADDING = this.padding ?? config.canvas_padding!;
+
+        // The object space begins where the stackframe column ends (plus padding).
+        if (sf_endpoint === undefined) {
+            sf_endpoint = max_width * 0.2;
+        }
+        const START_X = sf_endpoint + PADDING;
+
+        for (const item of objs) {
+            if (
+                item.type === ".blank" &&
+                (item.width === undefined || item.height === undefined)
+            ) {
+                console.warn(
+                    "WARNING :: An object with type='.blank' or '.blank-frame' exists with missing dimension information " +
+                        "(either the width or the height is missing). This object will be omitted in the memory model" +
+                        " diagram."
+                );
+            }
+
+            // Dimensions of primitive objects are updated in the calculation of coordinates
+            if (
+                (item.type === "int" ||
+                    item.type === "float" ||
+                    item.type === "str" ||
+                    item.type === "bool" ||
+                    item.type === "None" ||
+                    typeof item.value !== "object" ||
+                    item.value === null) &&
+                item.type !== "range"
+            ) {
+                item.width += 2 * this.double_rect_sep;
+                item.height += 2 * this.double_rect_sep;
+            }
+        }
+
+        /**
+         * The 'sort' function optionally accepts a "compare" function used to determine the basis upon which to sort the array.
+         * This "compare" function is created and assigned to the variable 'compareFunc' in the following switch statement.
+         * @param a - an object in objs
+         * @param b - another object in objs
+         * @returns negative if 'a' is taller, 0 if they have the same height, and positive if 'b' is taller.
+         */
+        let compareFunc: (a: DrawnEntity, b: DrawnEntity) => number;
+
+        if (sort_by !== null) {
+            switch (sort_by) {
+                case SortOptions.Height:
+                    compareFunc = compareByHeight;
+                    break;
+                case SortOptions.Id:
+                    compareFunc = compareByID;
+                    break;
+            }
+            objs.sort(compareFunc);
+        }
+
+        let strict_objects: DrawnEntityStrict[] = [];
+
+        let x_coord = START_X;
+        let y_coord = this.top_margin ?? config.canvas_padding!;
+        let is_manual = false;
+
+        // Once a row is occupied, we must establish its height to determine the y-coordinate of the next row's boxes.
+        let row_height: number;
+        let curr_row_objects: DrawnEntity[] = [];
+        for (const item of objs) {
+            let hor_reach = x_coord + item.width! + PADDING;
+
+            if (hor_reach < max_width) {
+                // Assume manual layout is enabled if at least one item has x and y coordinates already set
+                if (item.x !== undefined && item.y !== undefined) {
+                    is_manual = true;
+                }
+                if (item.x === undefined) {
+                    item.x = x_coord;
+                }
+                if (item.y === undefined) {
+                    item.y = y_coord;
+                }
+
+                curr_row_objects.push(item);
+            } else {
+                // In this case, we cannot fit this object in the current row, and must move to a new row.
+                // Based on how objs is initialized, every item will have attributes width and height
+                const tallest_object = curr_row_objects.reduce((p, c) =>
+                    p.height! >= c.height! ? p : c
+                );
+                row_height = tallest_object.height! + PADDING;
+
+                curr_row_objects = [];
+
+                x_coord = START_X;
+                y_coord = y_coord + row_height;
+
+                if (item.x === undefined) {
+                    item.x = x_coord;
+                }
+                if (item.y === undefined) {
+                    item.y = y_coord;
+                }
+
+                item.rowBreaker = true;
+
+                hor_reach = x_coord + item.width! + PADDING;
+
+                curr_row_objects.push(item);
+            }
+
+            x_coord = hor_reach;
+            strict_objects.push(item as DrawnEntityStrict);
+        }
+
+        const defaultObject: DrawnEntity = {
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0,
+        };
+        const right_most_obj = objs.reduce(
+            (prev, curr) => (compareByRightness(prev, curr) <= 0 ? prev : curr),
+            defaultObject
+        );
+        const down_most_obj = objs.reduce(
+            (prev, curr) =>
+                compareByBottomness(prev, curr) <= 0 ? prev : curr,
+            defaultObject
+        );
+
+        // compareByRightness and compareByBottomness didn't throw error, so right_most_obj and down_most_obj has attributes x, y, width, height
+        let canvas_width =
+            right_most_obj.x! +
+            right_most_obj.width! +
+            (this.right_margin ?? config.canvas_padding!);
+        let canvas_height =
+            down_most_obj.y! +
+            down_most_obj.height! +
+            (this.bottom_margin ?? config.canvas_padding!);
+
+        // Set dimensions of primitive objects back to original values
+        for (const strict_obj of strict_objects) {
+            if (
+                (strict_obj.type === "int" ||
+                    strict_obj.type === "float" ||
+                    strict_obj.type === "str" ||
+                    strict_obj.type === "bool" ||
+                    strict_obj.type === "None" ||
+                    typeof strict_obj.value !== "object" ||
+                    strict_obj.value === null) &&
+                strict_obj.type !== "range"
+            ) {
+                strict_obj.width -= 2 * this.double_rect_sep;
+                strict_obj.height -= 2 * this.double_rect_sep;
+            }
+        }
+
+        // Additional -- to extend the program for the .blank option.
+        const objs_filtered = strict_objects.filter((item) => {
+            return item.type !== ".blank";
+        });
+        strict_objects = objs_filtered;
+
+        // Maintain backwards compatibility for canvas height and width if manual layout is enabled
+        if (is_manual) {
+            canvas_height = 0;
+            canvas_width = 0;
+        }
+
+        return { objs: strict_objects, canvas_height, canvas_width };
     }
 
     /**
@@ -1449,4 +1855,84 @@ export class MemoryModel {
         scriptElement.textContent = script;
         this.svg.appendChild(scriptElement);
     }
+}
+
+/**
+ * Compares objects 'a' and 'b' by their height (assuming they both have the "height" property).
+ * This function returns a negative integer if 'a' is taller (so, by definition of how sort uses the comparison
+ * function, it will prioritize 'a' over 'b'), 0 if they are equally tall, and positive if 'b' is taller.
+ * @param a - an object
+ * @param b - another object
+ * @returns negative if 'a' is taller, 0 if they have the same height, and positive if 'b' is taller.
+ */
+function compareByHeight(a: DrawnEntity, b: DrawnEntity): number {
+    if (a.height === undefined || b.height === undefined) {
+        throw new Error("Both objects must have 'height' property.");
+    }
+    return -(a.height - b.height);
+}
+
+/**
+ * Compares objects 'a' and 'b' by their id.
+ * Returns a negative integer if 'a.id' is larger than 'b.id' (so, by definition of how sort uses the comparison
+ * function, it will prioritize 'a' over 'b'), 0 if 'a' and 'b' have the same id's (WHICH SHOULD NOT HAPPEN),
+ * and positive if 'b.id' is larger.
+ * @param a - an object
+ * @param b - another object
+ * @returns negative if 'a.id' is larger, 0 if a.id == b.id, and positive if 'b.id' is larger.
+ */
+function compareByID(a: DrawnEntity, b: DrawnEntity): number {
+    if (
+        a.id === undefined ||
+        b.id === undefined ||
+        a.id === null ||
+        b.id === null
+    ) {
+        throw new Error("Both objects must have 'id' property.");
+    }
+    return a.id - b.id;
+}
+
+/**
+ * Compares objects 'a' and 'b' by their "rightness". The metric for rightness is the x-coord of the object plus its width.
+ * Returns a negative integer if 'a' is righter than 'b.id', 0 if 'a' and 'b' are equally right, and positive if
+ * 'b' is righter.
+ * @param a - an object
+ * @param b - another object
+ * @returns negative if 'a' is righter, 0 if 'a' and 'b' are equally right, and positive if b' is righter.
+ */
+function compareByRightness(a: DrawnEntity, b: DrawnEntity): number {
+    if (
+        a.x === undefined ||
+        a.width === undefined ||
+        b.x === undefined ||
+        b.width === undefined
+    ) {
+        throw new Error("Both objects must have 'x' and 'width' property.");
+    }
+    const a_right_edge = a.x + a.width;
+    const b_right_edge = b.x + b.width;
+    return -(a_right_edge - b_right_edge);
+}
+
+/**
+ * Compares objects 'a' and 'b' by their "bottomness". The metric for rightness is the y-coord of the object plus its height.
+ * Returns a negative integer if 'a' is bottomer than 'b.id', 0 if 'a' and 'b' are equally bottom, and positive if
+ * 'b' is bottomer.
+ * @param a - an object
+ * @param b - another object
+ * @returns negative if 'a' is bottomer, 0 if 'a' and 'b' are equally bottom, and positive if b' is bottomer.
+ */
+function compareByBottomness(a: DrawnEntity, b: DrawnEntity): number {
+    if (
+        a.y === undefined ||
+        a.height === undefined ||
+        b.y === undefined ||
+        b.height === undefined
+    ) {
+        throw new Error("Both objects must have 'y' and 'height' property.");
+    }
+    const a_bottom_edge = a.y + a.height;
+    const b_bottom_edge = b.y + b.height;
+    return -(a_bottom_edge - b_bottom_edge);
 }

@@ -47,9 +47,22 @@ export const DrawnEntitySchema = z.object({
 
 export type DrawnEntity = z.infer<typeof DrawnEntitySchema>;
 
-export type DrawnEntityStrict = Omit<DrawnEntity, "width" | "height"> & {
+export type DrawnEntityWithDimensions = Omit<
+    DrawnEntity,
+    "width" | "height"
+> & {
     width: number;
     height: number;
+};
+
+export type DrawnEntityStrict = Omit<
+    DrawnEntity,
+    "width" | "height" | "x" | "y"
+> & {
+    width: number;
+    height: number;
+    x: number;
+    y: number;
 };
 
 export interface DisplaySettings {
@@ -93,6 +106,12 @@ export interface VisualizationConfig {
     theme: string;
     roughjs_config: Config;
     interactive: boolean;
+    sort_by: SortOptions;
+    padding: number;
+    top_margin: number;
+    left_margin: number;
+    bottom_margin: number;
+    right_margin: number;
 }
 
 export interface Size {
