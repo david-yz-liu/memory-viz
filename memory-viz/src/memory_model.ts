@@ -69,6 +69,7 @@ export class MemoryModel {
     roughjs_config: Config; // Configuration object used to pass in options to rough.js
     width?: number; // Width of the canvas, dynamically updated if not provided in options
     height?: number; // Height of the canvas, dynamically updated if not provided in options
+    manual_height: boolean = false;
     objectCounter: number; // Counter for tracking ids of objects drawn
     interactive: boolean = true; // Whether the visualization is interactive
     sort_by?: SortOptions;
@@ -101,6 +102,7 @@ export class MemoryModel {
         if (options.height) {
             this.svg.setAttribute("height", options.height.toString());
             this.height = options.height;
+            this.manual_height = true;
         }
         this.roughjs_config = options.roughjs_config ?? {};
         this.rough_svg = rough.svg(this.svg, this.roughjs_config);
@@ -1069,6 +1071,7 @@ export class MemoryModel {
         }
         if (this.height !== undefined && bottom_edge > this.height) {
             this.height = bottom_edge;
+            this.manual_height = false;
             this.svg.setAttribute("height", this.height.toString());
         }
     }
@@ -1509,6 +1512,7 @@ export class MemoryModel {
         required_width += this.left_margin;
         if (this.height === undefined || this.height < min_required_height) {
             this.height = min_required_height;
+            this.manual_height = false;
         }
 
         return {
@@ -1740,10 +1744,15 @@ export class MemoryModel {
 
         // Update canvas width and height
         this.width = this.width ? this.width : canvas_width;
-        this.height =
-            Math.max(this.height!, canvas_height) + this.canvas_bottom_padding;
+        if (!this.manual_height) {
+            this.height =
+                Math.max(this.height!, canvas_height) +
+                this.canvas_bottom_padding;
+        } else if (this.height! < canvas_height + this.canvas_bottom_padding) {
+            this.height = canvas_height + this.canvas_bottom_padding;
+        }
         this.svg.setAttribute("width", this.width.toString());
-        this.svg.setAttribute("height", this.height.toString());
+        this.svg.setAttribute("height", this.height!.toString());
 
         return strict_objects;
     }
