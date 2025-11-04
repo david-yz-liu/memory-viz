@@ -29,14 +29,6 @@ if (typeof window === "undefined") {
     fs = require("fs");
 }
 
-const REQUIRED_DISPLAY_PROPERTIES: (keyof MemoryModel)[] = [
-    "padding",
-    "top_margin",
-    "left_margin",
-    "bottom_margin",
-    "right_margin",
-];
-
 /** The class representing the memory model diagram of the given block of code. */
 export class MemoryModel {
     /**
@@ -69,6 +61,7 @@ export class MemoryModel {
     prop_min_height: number = 50; // Minimum height of type and id boxes
     obj_x_padding: number = 25; // Minimum horizontal padding of object rectangle
     canvas_padding: number = 25; // Minimum padding of the canvas
+    canvas_bottom_padding: number = 100; // Minimum padding of the bottom of the canvas
     double_rect_sep: number = 6; // Separation between double boxes around immutable objects
     list_index_sep: number = 20; // Vertical offset for list index labels
     font_size: number = 20; // Font size, in px
@@ -79,11 +72,10 @@ export class MemoryModel {
     objectCounter: number; // Counter for tracking ids of objects drawn
     interactive: boolean = true; // Whether the visualization is interactive
     sort_by?: SortOptions;
-    padding?: number;
-    top_margin?: number;
-    left_margin?: number;
-    bottom_margin?: number;
-    right_margin?: number;
+    top_margin: number = 25;
+    left_margin: number = 25;
+    bottom_margin: number = 25;
+    right_margin: number = 25;
     idToObjectMap: Map<string, string[]>; // Track object ids to their corresponding SVG element ids
 
     constructor(options: Partial<VisualizationConfig> = {}) {
@@ -128,7 +120,7 @@ export class MemoryModel {
             this.sort_by = options.sort_by;
         }
         if (options.padding !== undefined) {
-            this.padding = options.padding;
+            this.canvas_padding = options.padding;
         }
         if (options.top_margin !== undefined) {
             this.top_margin = options.top_margin;
@@ -1084,7 +1076,7 @@ export class MemoryModel {
     /**
      * Returns a copy of the input objects with width, height, x and y coordinates set properly.
      *
-     * @param objects - the list of objects (including stack-frames) to be drawn.
+     * @param objects - the list of objects (including stack frames) to be drawn.
      */
     private setDimensionsAll(objects: DrawnEntity[]): DrawnEntityStrict[] {
         const objects_with_dimensions: DrawnEntityWithDimensions[] = [];
@@ -1109,65 +1101,15 @@ export class MemoryModel {
         );
 
         // Set x and y coordinates for all stack frames
-        const { StackFrames, requiredHeight, requiredWidth } =
+        const { StackFrames, requiredWidth } =
             this.setStackFrameCoordinates(stack_frames);
 
-        // Determining the minimum width of the canvas.
-        let min_width = 0;
-        let item_width: number;
-        for (const item of other_items) {
-            if (
-                (item.type === "int" ||
-                    item.type === "float" ||
-                    item.type === "str" ||
-                    item.type === "bool" ||
-                    item.type === "None" ||
-                    typeof item.value !== "object" ||
-                    item.value === null) &&
-                item.type !== ".blank-frame"
-            ) {
-                item_width = item.width + 2 * this.double_rect_sep;
-            } else {
-                item_width = item.width;
-            }
-            if (item_width > min_width) {
-                min_width = item_width;
-            }
-        }
-
-        min_width +=
-            requiredWidth + 2 * (this.padding ?? config.canvas_padding!) + 1;
-
-        if (this.width !== undefined && this.width < min_width) {
-            console.warn(
-                `WARNING: provided width (${this.width}) is smaller than the required width` +
-                    ` (${min_width}). The provided width has been overwritten` +
-                    ` in the generated diagram.`
-            );
-            this.width = min_width;
-        }
-
-        // determining default width: should be 800 by default, but set to min_width if necessary
-        const default_width = Math.min(min_width, 800);
-
         // Set x and y coordinates for all other objects
-        const { objs, canvas_height, canvas_width } =
-            this.setOtherItemsCoordinates(
-                other_items,
-                this.width || default_width,
-                this.sort_by ?? null,
-                requiredWidth
-            );
-
-        // Update canvas width and height
-        const final_height = Math.max(canvas_height, requiredHeight) + 100;
-        this.width = this.width ? this.width : canvas_width;
-        this.height = final_height;
-        this.svg.setAttribute(
-            "width",
-            (this.width ? this.width : canvas_width).toString()
+        const objs = this.setOtherItemsCoordinates(
+            other_items,
+            this.sort_by ?? null,
+            requiredWidth
         );
-        this.svg.setAttribute("height", final_height.toString());
 
         return [...StackFrames, ...objs];
     }
@@ -1198,7 +1140,6 @@ export class MemoryModel {
         }
 
         if (object.type === ".blank" || object.type === ".blank-frame") {
-            // User must define dimensions for object with type=".blank" or ".blank-frame"
             return { default_width: 0, default_height: 0 };
         }
         if (object.type === ".frame" || object.type === ".class") {
@@ -1488,9 +1429,9 @@ export class MemoryModel {
      * The returned object has two attributes as 'stack_frames' and 'other_items'.
      * Each of these attributes are a list of objects that were originally given by the user.
      *
-     * @param objects - The list of objects, including stack-frames (if any) and other items, that
+     * @param objects - The list of objects, including stack frames (if any) and other items, that
      * will be drawn
-     * @returns an object separating between stack-frames and the rest of the items.
+     * @returns an object separating between stack frames and the rest of the items.
      */
     private separateObjects(objects: DrawnEntityWithDimensions[]): {
         stack_frames: DrawnEntityWithDimensions[];
@@ -1499,21 +1440,22 @@ export class MemoryModel {
         const stackFrames: DrawnEntityWithDimensions[] = [];
         const otherItems: DrawnEntityWithDimensions[] = [];
 
-        for (const item of objects) {
-            const frame_types = [".frame", ".blank-frame"];
+        const frame_types = [".frame", ".blank-frame"];
 
-            if (item.type === undefined) {
-                otherItems.push(item);
-            } else if (
+        for (const item of objects) {
+            if (
                 item.type === ".blank" &&
                 (item.width === undefined || item.height === undefined)
             ) {
-                console.log(
+                console.warn(
                     "WARNING :: An object with type='.blank' or '.blank-frame' exists with missing dimension information " +
                         "(either the width or the height is missing). This object will be omitted in the memory model" +
                         " diagram."
                 );
-            } else if (frame_types.includes(item.type)) {
+            } else if (
+                item.type !== undefined &&
+                frame_types.includes(item.type)
+            ) {
                 stackFrames.push(item);
             } else {
                 otherItems.push(item);
@@ -1524,31 +1466,23 @@ export class MemoryModel {
     }
 
     /**
-     * Return the stack-frames with generated x and y coordinates, as well as the minimum required
-     * height for drawing the stack-frames. The returned collection of stack-frames is the augmented version
-     * of the input such that the x and y coordinates of the stack-frames are determined automatically.
+     * Return the stack frames with generated x and y coordinates, as well as the minimum required
+     * height for drawing the stack frames. The returned collection of stack frames is the augmented version
+     * of the input such that the x and y coordinates of the stack frames are determined automatically.
      *
-     * @param stack_frames - The list of stack-frames that will be drawn
+     * @param stack_frames - The list of stack frames that will be drawn
      * (without the specified x and y coordinates)
-     * @returns - Returns the object consisting of three attributes as follows: stack-frames which will be drawn,
-     * the minimum required height of the canvas for drawing stack frames and required width for drawing all the stack
-     * frames. Notably, the last two attributes will be useful in terms of dynamically deciding the width and the height
-     * of the canvas.
+     * @returns - Returns the object consisting of two attributes as follows: stack frames which will be drawn
+     * and required width for drawing all the stack frames. Notably, the last attribute will be useful
+     * in terms of dynamically deciding the width and the height of the canvas.
      */
     private setStackFrameCoordinates(
         stack_frames: DrawnEntityWithDimensions[]
     ): {
         StackFrames: DrawnEntityStrict[];
-        requiredHeight: number;
         requiredWidth: number;
     } {
-        for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
-            if (!Object.prototype.hasOwnProperty.call(this, req_prop)) {
-                (this[req_prop] as number | undefined) = config.obj_x_padding;
-            }
-        }
-
-        let min_required_height = this.top_margin ?? config.canvas_padding!;
+        let min_required_height = this.top_margin;
         let required_width = 0;
         const draw_stack_frames: DrawnEntityStrict[] = [];
 
@@ -1572,13 +1506,13 @@ export class MemoryModel {
 
             min_required_height = height + min_required_height;
         }
-        if (this.left_margin !== undefined) {
-            required_width += this.left_margin;
+        required_width += this.left_margin;
+        if (this.height === undefined || this.height < min_required_height) {
+            this.height = min_required_height;
         }
 
         return {
             StackFrames: draw_stack_frames,
-            requiredHeight: min_required_height,
             requiredWidth: required_width,
         };
     }
@@ -1595,26 +1529,52 @@ export class MemoryModel {
      * @param sort_by - the sorting criterion; must be "height" or "id", otherwise no sorting takes place.
      * @param sf_endpoint - the x-coordinate of the right edge of the stackframe column; this will determine
      *                              where the object space begins.
-     * @returns the mutates list of objects (where each object is now equipped with x-y coordinates) and the
-     * dynamically determined height the canvas will need to be.
+     * @returns the mutated list of objects (where each object is now equipped with x-y coordinates).
      */
     private setOtherItemsCoordinates(
         objs: DrawnEntityWithDimensions[],
-        max_width: number,
         sort_by: SortOptions | null,
         sf_endpoint: number
-    ): {
-        objs: DrawnEntityStrict[];
-        canvas_height: number;
-        canvas_width: number;
-    } {
-        for (const req_prop of REQUIRED_DISPLAY_PROPERTIES) {
-            if (!Object.prototype.hasOwnProperty.call(this, req_prop)) {
-                (this[req_prop] as number | undefined) = config.obj_x_padding;
+    ): DrawnEntityStrict[] {
+        // Determining the minimum width of the canvas.
+        let min_width = 0;
+        let item_width: number;
+        for (const item of objs) {
+            if (
+                (item.type === "int" ||
+                    item.type === "float" ||
+                    item.type === "str" ||
+                    item.type === "bool" ||
+                    item.type === "None" ||
+                    typeof item.value !== "object" ||
+                    item.value === null) &&
+                item.type !== ".blank-frame"
+            ) {
+                item_width = item.width + 2 * this.double_rect_sep;
+            } else {
+                item_width = item.width;
+            }
+            if (item_width > min_width) {
+                min_width = item_width;
             }
         }
 
-        const PADDING = this.padding ?? config.canvas_padding!;
+        min_width += sf_endpoint + 2 * this.canvas_padding + 1;
+
+        if (this.width !== undefined && this.width < min_width) {
+            console.warn(
+                `WARNING: provided width (${this.width}) is smaller than the required width` +
+                    ` (${min_width}). The provided width has been overwritten` +
+                    ` in the generated diagram.`
+            );
+            this.width = min_width;
+        }
+
+        // determining default width: should be 800 by default, but set to min_width if necessary
+        const default_width = Math.min(min_width, 800);
+        const max_width = this.width || default_width;
+
+        const PADDING = this.canvas_padding;
 
         // The object space begins where the stackframe column ends (plus padding).
         if (sf_endpoint === undefined) {
@@ -1674,7 +1634,7 @@ export class MemoryModel {
         let strict_objects: DrawnEntityStrict[] = [];
 
         let x_coord = START_X;
-        let y_coord = this.top_margin ?? config.canvas_padding!;
+        let y_coord = this.top_margin;
         let is_manual = false;
 
         // Once a row is occupied, we must establish its height to determine the y-coordinate of the next row's boxes.
@@ -1745,13 +1705,9 @@ export class MemoryModel {
 
         // compareByRightness and compareByBottomness didn't throw error, so right_most_obj and down_most_obj has attributes x, y, width, height
         let canvas_width =
-            right_most_obj.x! +
-            right_most_obj.width! +
-            (this.right_margin ?? config.canvas_padding!);
+            right_most_obj.x! + right_most_obj.width! + this.right_margin;
         let canvas_height =
-            down_most_obj.y! +
-            down_most_obj.height! +
-            (this.bottom_margin ?? config.canvas_padding!);
+            down_most_obj.y! + down_most_obj.height! + this.bottom_margin;
 
         // Set dimensions of primitive objects back to original values
         for (const strict_obj of strict_objects) {
@@ -1782,7 +1738,14 @@ export class MemoryModel {
             canvas_width = 0;
         }
 
-        return { objs: strict_objects, canvas_height, canvas_width };
+        // Update canvas width and height
+        this.width = this.width ? this.width : canvas_width;
+        this.height =
+            Math.max(this.height!, canvas_height) + this.canvas_bottom_padding;
+        this.svg.setAttribute("width", this.width.toString());
+        this.svg.setAttribute("height", this.height.toString());
+
+        return strict_objects;
     }
 
     /**
