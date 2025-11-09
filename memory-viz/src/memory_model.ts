@@ -1506,8 +1506,11 @@ export class MemoryModel {
             min_required_height = height + min_required_height;
         }
         stack_endpoint += this.left_margin;
-        if (this.height === undefined || this.height < min_required_height) {
-            this.height = min_required_height;
+        if (
+            this.height === undefined ||
+            this.height < min_required_height + this.canvas_padding_bottom
+        ) {
+            this.height = min_required_height + this.canvas_padding_bottom;
         }
 
         return {
@@ -1527,7 +1530,7 @@ export class MemoryModel {
      * @param sort_by - the sorting criterion; must be "height" or "id", otherwise no sorting takes place.
      * @param sf_endpoint - the x-coordinate of the right edge of the stackframe column; this will determine
      *                              where the object space begins.
-     * @returns the mutated list of objects (where each object is now equipped with x-y coordinates).
+     * @returns list of DrawnEntityStrict objects (where each object is now equipped with x-y coordinates).
      */
     private setOtherItemsCoordinates(
         objs: DrawnEntityWithDimensions[],
@@ -1740,11 +1743,10 @@ export class MemoryModel {
 
         // Update canvas width and height
         this.width = this.width ? this.width : canvas_width;
-        if (this.height === undefined) {
-            this.height =
-                Math.max(this.height!, canvas_height) +
-                this.canvas_padding_bottom;
-        } else if (this.height < canvas_height + this.canvas_padding_bottom) {
+        if (
+            this.height === undefined ||
+            this.height < canvas_height + this.canvas_padding_bottom
+        ) {
             this.height = canvas_height + this.canvas_padding_bottom;
         }
         this.svg.setAttribute("width", this.width.toString());
