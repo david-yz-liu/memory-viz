@@ -7501,7 +7501,7 @@ exports[`draw function renders diagrams with provided mix of roughjs_config opti
 `;
 
 exports[`draw function renders diagrams with provided roughjs_config 'fill' and 'fillStyle' options 1`] = `
-<svg width="1300" height="292" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" height="217" xmlns="http://www.w3.org/2000/svg">
   <style>
     :root {
       --fade-text-color: rgb(0, 0, 0);
