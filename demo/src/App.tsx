@@ -24,17 +24,20 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const [jsonResult, setJsonResult] = useState(null);
     const [svgResult, setSvgResult] = useState(null);
     const [failureBanner, setFailureBanner] = useState("");
+    const [isValidJson, setIsValidJson] = useState(null);
 
     const onTextDataSubmit = (event?) => {
         event?.preventDefault();
         try {
             setJsonResult(JSON.parse(textData));
             setFailureBanner("");
+            setIsValidJson(true);
         } catch (error) {
             const errorMessage = `Error parsing inputted JSON: ${error.message}`;
             console.error(errorMessage);
             setFailureBanner(errorMessage);
             setJsonResult(null);
+            setIsValidJson(false);
         }
     };
 
@@ -58,6 +61,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         setConfigData={setConfigData}
                         onTextDataSubmit={onTextDataSubmit}
                         setFailureBanner={setFailureBanner}
+                        isValidJson={isValidJson}
                     />
                 </Box>
                 <Box sx={{ width: "60%" }}>
