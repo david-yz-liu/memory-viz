@@ -124,6 +124,13 @@ function Root() {
 
     const theme = isDarkMode ? darkTheme : lightTheme;
 
+    React.useEffect(() => {
+        document.documentElement.setAttribute(
+            "data-theme",
+            isDarkMode ? "dark" : "light"
+        );
+    }, [isDarkMode]);
+
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

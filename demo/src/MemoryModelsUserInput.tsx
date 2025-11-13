@@ -41,6 +41,7 @@ type MemoryModelsFileInputPropTypes = {
 type MemoryModelsTextInputPropTypes = {
     setTextData: React.Dispatch<React.SetStateAction<string>>;
     textData: string;
+    isValidJson?: boolean;
 };
 
 type MemoryModelsUserInputPropTypes = MemoryModelsFileInputPropTypes &
@@ -141,6 +142,7 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
             variant="outlined"
             value={props.textData}
             onChange={handleTextFieldChange}
+            error={props.isValidJson === false}
             slotProps={{ input: { style: { fontFamily: "monospace" } } }}
         />
     );
@@ -260,6 +262,7 @@ export default function MemoryModelsUserInput(
                 <MemoryModelsTextInput
                     textData={props.textData}
                     setTextData={props.setTextData}
+                    isValidJson={props.isValidJson}
                 />
                 <Stack
                     direction="row"
