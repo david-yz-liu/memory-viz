@@ -13,6 +13,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Added light/dark theme toggle button to demo website
 - Added "Theme" rendering option, allowing users to change the theme of output
+- Updated the default canvas bottom padding from 100 to 25
 
 ### 🐛 Bug fixes
 
@@ -22,6 +23,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 📚 Documentation and demo website changes
 
 - Updated the demo website to use `ThemedImages` for all image examples, supporting dark mode.
+- Rewrote the `Style API` page of documentation to include JSON inputs and SVG outputs
+- Updated the demo website main container height to full height of viewport
 
 ### 🔧 Internal changes
 
@@ -34,6 +37,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Updated GitHub Actions workflows to `setup-node@v5` and Node.js v24
 - Enabled Dependabot updates for GitHub Actions
 - Introduced `DrawnEntityStrict` type and refactored `drawAll` to obtain an array of strict objects before drawing each object
+- Moved logic for setting `x` and `y` coordinates from `automate.ts` to the `MemoryModel` class, deleted `automate.ts`
 
 ## [0.7.0] - 2025-08-11
 

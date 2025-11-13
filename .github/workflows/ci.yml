@@ -14,7 +14,7 @@ jobs:
             - name: Checkout repo
               uses: actions/checkout@v5
             - name: Set up node and cache packages
-              uses: actions/setup-node@v5
+              uses: actions/setup-node@v6
               with:
                   node-version: 24
                   cache: npm
@@ -35,7 +35,7 @@ jobs:
         steps:
             - uses: actions/checkout@v5
             - name: Set up node and cache packages
-              uses: actions/setup-node@v5
+              uses: actions/setup-node@v6
               with:
                   node-version: 24
                   cache: npm
@@ -50,7 +50,7 @@ jobs:
                   mkdir docs/build/demo
                   cp -r demo/dist/* docs/build/demo
             - name: Archive documentation website artifact
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v5
               with:
                   name: docs
                   path: docs/build
@@ -63,7 +63,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         steps:
             - name: Download documentation website artifact
-              uses: actions/download-artifact@v5
+              uses: actions/download-artifact@v6
               with:
                   name: docs
                   path: docs
