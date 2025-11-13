@@ -61,7 +61,7 @@ export class MemoryModel {
     prop_min_height: number = 50; // Minimum height of type and id boxes
     obj_x_padding: number = 25; // Minimum horizontal padding of object rectangle
     canvas_padding: number = 25; // Minimum padding of the canvas
-    canvas_padding_bottom: number = 100; // Minimum padding of the bottom of the canvas
+    canvas_padding_bottom: number = 25; // Minimum padding of the bottom of the canvas
     double_rect_sep: number = 6; // Separation between double boxes around immutable objects
     list_index_sep: number = 20; // Vertical offset for list index labels
     font_size: number = 20; // Font size, in px
