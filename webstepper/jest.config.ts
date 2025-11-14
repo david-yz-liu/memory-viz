@@ -6,6 +6,7 @@
 import type { Config } from "jest";
 
 const config: Config = {
+    extensionsToTreatAsEsm: [".ts", ".tsx"],
     // All imported modules in your tests should be mocked automatically
     // automock: false,
 
@@ -90,12 +91,16 @@ const config: Config = {
 
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
     moduleNameMapper: {
+        "^roughjs$": "<rootDir>/../node_modules/roughjs/bundled/rough.cjs.js",
+        "^memory-viz$": "<rootDir>/../memory-viz/src",
+        "^(\\.{1,2}/.*)\\.js$": "$1",
         // Mocks the website logo each time the logo image is imported
-        "\\/logo_square(.*).png": "./mocks/logoMock.js",
+        "\\/logo_square(.*).png": "<rootDir>/src/mocks/logoMock.js",
         // Mocks a file (see fileMock.js) each time any of the below file types are imported.
         "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|css|less|sass|scss)$":
-            "./mocks/fileMock.js",
-        "react-syntax-highlighter/dist/esm/styles/hljs": "./mocks/fileMock.js",
+            "<rootDir>/src/mocks/fileMock.js",
+        "react-syntax-highlighter/dist/esm/styles/hljs":
+            "<rootDir>/src/mocks/fileMock.js",
     },
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

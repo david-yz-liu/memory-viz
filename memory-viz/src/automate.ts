@@ -1,6 +1,6 @@
-import { MemoryModel } from "./memory_model";
-import { config } from "./config";
-import { DisplaySettings, DrawnEntity, Size, SortOptions } from "./types";
+import { MemoryModel } from "./memory_model.js";
+import { config } from "./config.js";
+import { DisplaySettings, DrawnEntity, Size, SortOptions } from "./types.js";
 
 /**
  * Draws the objects given in the path in an automated fashion.

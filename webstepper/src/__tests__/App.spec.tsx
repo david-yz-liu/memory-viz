@@ -1,6 +1,7 @@
+import { jest } from "@jest/globals";
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import App from "../App";
+import App from "../App.js";
 import "@testing-library/jest-dom";
 
 global.fetch = jest.fn(() =>

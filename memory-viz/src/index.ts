@@ -1,12 +1,12 @@
-import { MemoryModel } from "./memory_model";
-import { config } from "./config";
+import { MemoryModel } from "./memory_model.js";
+import { config } from "./config.js";
 import {
     drawAutomated,
     drawAutomatedOtherItems,
     drawAutomatedStackFrames,
     getSize,
-} from "./automate";
-import { draw } from "./user_functions";
+} from "./automate.js";
+import { draw } from "./user_functions.js";
 
 export default {
     MemoryModel,

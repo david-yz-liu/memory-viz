@@ -1,5 +1,9 @@
-const path = require("path");
-const nodeExternals = require("webpack-node-externals");
+import path from "path";
+import { fileURLToPath } from "url";
+import nodeExternals from "webpack-node-externals";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const libConfig = {
     // target: "web",
@@ -37,6 +41,9 @@ const libConfig = {
     },
     resolve: {
         extensions: [".ts", ".js"],
+        extensionAlias: {
+            ".js": [".ts", ".js"],
+        },
         alias: {
             roughjs: "roughjs/bundled/rough.esm.js",
         },
@@ -50,6 +57,12 @@ const cliConfig = {
         path: path.resolve(__dirname, "dist"),
         filename: "cli.js",
         clean: false,
+        library: {
+            type: "module",
+        },
+    },
+    experiments: {
+        outputModule: true,
     },
     module: libConfig.module,
     externalsPresets: { node: true },
@@ -57,4 +70,4 @@ const cliConfig = {
     resolve: libConfig.resolve,
 };
 
-module.exports = { libConfig, cliConfig };
+export { libConfig, cliConfig };

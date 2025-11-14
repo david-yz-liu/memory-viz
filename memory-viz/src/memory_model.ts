@@ -2,8 +2,8 @@ import rough from "roughjs";
 
 import merge from "deepmerge";
 
-import { collections, immutable, presets, setStyleSheet } from "./style";
-import { config } from "./config";
+import { collections, immutable, presets, setStyleSheet } from "./style.js";
+import { config } from "./config.js";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
 import {
     DrawnEntity,
@@ -13,10 +13,10 @@ import {
     Rect,
     Style,
     VisualizationConfig,
-} from "./types";
-import { isArrayOfNullableType, isStyle } from "./typeguards";
-import { RoughSVG } from "roughjs/bin/svg";
-import { Config, Options } from "roughjs/bin/core";
+} from "./types.js";
+import { isArrayOfNullableType, isStyle } from "./typeguards.js";
+import { RoughSVG } from "roughjs/bin/svg.js";
+import { Config, Options } from "roughjs/bin/core.js";
 import type * as fsType from "fs";
 import type * as CSS from "csstype";
 import { prettifyError } from "zod";
@@ -24,7 +24,7 @@ import { prettifyError } from "zod";
 // Dynamic import of Node fs module
 let fs: typeof fsType | undefined;
 if (typeof window === "undefined") {
-    fs = require("fs");
+    fs = await import("fs");
 }
 
 /** The class representing the memory model diagram of the given block of code. */

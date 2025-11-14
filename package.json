@@ -3,8 +3,8 @@
         "lint": "eslint",
         "lint:fix": "eslint --fix",
         "prepare": "husky",
-        "test": "jest --no-cache",
-        "test-cov": "jest --no-cache --coverage"
+        "test": "NODE_OPTIONS='--experimental-vm-modules' jest --no-cache",
+        "test-cov": "NODE_OPTIONS='--experimental-vm-modules' jest --no-cache --coverage"
     },
     "workspaces": [
         "memory-viz",
