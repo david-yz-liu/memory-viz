@@ -19,13 +19,13 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Resolved CSS font-size keyword handling in text length calculations
 - Updated the Style data type definition to allow for bare strings, along with error handling for invalid Style attribute strings.
-- Enabled demo website's checkmark in input text box to dynamically match light/dark theme
 
 ### 📚 Documentation and demo website changes
 
 - Updated the demo website to use `ThemedImages` for all image examples, supporting dark mode.
 - Rewrote the `Style API` page of documentation to include JSON inputs and SVG outputs
 - Updated the demo website main container height to full height of viewport
+- Enabled demo website's checkmark in input text box to dynamically match light/dark theme
 
 ### 🔧 Internal changes
 
