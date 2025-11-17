@@ -1,4 +1,14 @@
 /* Custom CSS goes here */
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+main.container {
+    min-height: 100vh;
+}
+
 /* Hides the arrows that come by default with MUI Textfield of type 'number'*/
 /* https://stackoverflow.com/a/50824080 */
 input[type="number"]::-webkit-inner-spin-button,

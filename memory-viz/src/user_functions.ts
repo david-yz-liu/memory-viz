@@ -1,5 +1,4 @@
 import { MemoryModel } from "./memory_model.js";
-import { drawAutomated } from "./automate.js";
 import { DrawnEntity, DisplaySettings } from "./types.js";
 import type * as fsType from "fs";
 export * from "./types.js";
@@ -71,6 +70,12 @@ function draw(
             global_style: configuration.global_style,
             theme: configuration.theme,
             interactive: configuration.interactive,
+            sort_by: configuration.sort_by,
+            padding: configuration.padding,
+            top_margin: configuration.top_margin,
+            left_margin: configuration.left_margin,
+            bottom_margin: configuration.bottom_margin,
+            right_margin: configuration.right_margin,
         });
         model.drawAll(snapshotObjects);
         return model;
@@ -78,21 +83,11 @@ function draw(
 
     if (isArrayOfArrays) {
         const snapshots = objs as DrawnEntity[][];
-        return automation
-            ? snapshots.map((snapshotObjects) =>
-                  drawAutomated(
-                      snapshotObjects,
-                      configuration.width,
-                      configuration
-                  )
-              )
-            : snapshots.map(processSnapshot);
+        return snapshots.map(processSnapshot);
     }
 
     const snapshotObjects = objs as DrawnEntity[];
-    return automation
-        ? drawAutomated(snapshotObjects, configuration.width, configuration)
-        : processSnapshot(snapshotObjects);
+    return processSnapshot(snapshotObjects);
 }
 
 export { draw };
