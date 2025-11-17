@@ -1,22 +1,21 @@
 import { jest } from "@jest/globals";
 
-jest.mock(
-    "../sample/automated-layout/data.json",
-    () => ({ sample: "automation" }),
-    { virtual: true }
-);
-jest.mock(
-    "../sample/automated-layout/config.json",
-    () => ({ config: "config" }),
-    {
-        virtual: true,
-    }
-);
+jest.unstable_mockModule("./sample/automated-layout/data", () => ({
+    default: { sample: "automation" },
+}));
 
-import React from "react";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import MemoryModelsSample from "../MemoryModelsSample.js";
-import { SAMPLES } from "../sample/index.js";
+jest.unstable_mockModule("./sample/automated-layout/config", () => ({
+    default: { config: "config" },
+}));
+
+const { default: React } = await import("react");
+const { fireEvent, render, screen, waitFor } = await import(
+    "@testing-library/react"
+);
+const { default: MemoryModelsSample } = await import(
+    "../MemoryModelsSample.js"
+);
+const { SAMPLES } = await import("../sample/index.js");
 
 describe("MemoryModelsSample", () => {
     // submit button by default resets the form https://stackoverflow.com/a/62404526

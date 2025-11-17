@@ -1,15 +1,62 @@
 import { jest } from "@jest/globals";
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import App from "../App.js";
+
+// Mock react-syntax-highlighter before any imports that use it
+jest.unstable_mockModule("react-syntax-highlighter", async () => {
+    const React = await import("react");
+    return {
+        default: ({ children, ...props }: any) => {
+            // Split text into lines and create spans for each
+            const lines = String(children).split("\n");
+            const startingLineNumber = props.startingLineNumber || 1;
+
+            const lineElements = lines.map((line: string, index: number) => {
+                const lineNumber = startingLineNumber + index;
+                let lineProps: any = {};
+
+                // Apply lineProps callback if present
+                if (props.lineProps && typeof props.lineProps === "function") {
+                    const result = props.lineProps(lineNumber);
+                    if (result) {
+                        lineProps = result;
+                    }
+                }
+
+                return React.default.createElement(
+                    "span",
+                    { key: index, ...lineProps },
+                    line,
+                    "\n"
+                );
+            });
+
+            const codeProps: any = {};
+            if (props["data-testid"]) {
+                codeProps["data-testid"] = props["data-testid"];
+            }
+
+            return React.default.createElement("code", codeProps, lineElements);
+        },
+    };
+});
+
+jest.unstable_mockModule(
+    "react-syntax-highlighter/dist/esm/styles/hljs",
+    () => ({
+        a11yLight: {},
+    })
+);
+
 import "@testing-library/jest-dom";
+const { default: React } = await import("react");
+const { render, screen, fireEvent } = await import("@testing-library/react");
+const { default: App } = await import("../App.js");
 
 global.fetch = jest.fn(() =>
     Promise.resolve({
         ok: true,
         blob: () => Promise.resolve(new Blob()),
     })
-) as jest.Mock;
+) as any;
 
 URL.createObjectURL = jest.fn(() => "mock-url");
 
@@ -28,8 +75,8 @@ describe("App", () => {
                 ok: true,
                 blob: () => Promise.resolve(new Blob()),
             })
-        ) as jest.Mock;
-        render(<App />);
+        ) as any;
+        render(<App isDarkMode={false} toggleTheme={() => {}} />);
         jest.spyOn(console, "error");
     });
 
