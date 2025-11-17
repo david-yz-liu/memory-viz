@@ -1,5 +1,6 @@
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
+const webpack = require("webpack");
 
 const libConfig = {
     // target: "web",
@@ -55,6 +56,13 @@ const cliConfig = {
     externalsPresets: { node: true },
     externals: [nodeExternals()],
     resolve: libConfig.resolve,
+    plugins: [
+        new webpack.BannerPlugin({
+            banner: "#!/usr/bin/env node",
+            raw: true,
+            entryOnly: true,
+        }),
+    ],
 };
 
 module.exports = { libConfig, cliConfig };
