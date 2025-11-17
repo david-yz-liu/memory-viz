@@ -14,7 +14,7 @@
  *      - ~/examples/style_demo/style_demo.svg"
  */
 
-const { draw } = require("memory-viz");
+import { draw } from "memory-viz";
 
 const configuration = {
     width: 1300,
