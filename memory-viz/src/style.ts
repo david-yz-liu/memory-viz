@@ -1,8 +1,8 @@
-import { config } from "./config";
-import { Style } from "./types";
+import { config } from "./config.js";
+import { Style } from "./types.js";
 import type * as CSS from "csstype";
-import { MemoryModel } from "./memory_model";
-import { Options } from "roughjs/bin/core";
+import { MemoryModel } from "./memory_model.js";
+import { Options } from "roughjs/bin/core.js";
 
 const immutable: string[] = [
     "int",

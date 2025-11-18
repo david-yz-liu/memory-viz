@@ -1,9 +1,12 @@
-const execa = require("execa");
 import type { ExecaError } from "execa";
+import execa from "execa";
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs";
+import tmp from "tmp";
 
-const path = require("path");
-const fs = require("fs");
-const tmp = require("tmp");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 tmp.setGracefulCleanup();
 
@@ -59,7 +62,7 @@ function runProgram(
     if (options.shell) {
         return execa(args.join(" "), { shell: true, input: options.input });
     }
-    return execa("node", ["memory-viz/dist/cli.js", ...args], {
+    return execa("node", [path.join(__dirname, "../../dist/cli.js"), ...args], {
         input: options.input,
     });
 }
@@ -111,9 +114,12 @@ describe.each([
         fs.writeFileSync(globalStylePath, globalStyle);
         fs.writeFileSync(customThemePath, customTheme);
 
-        await runProgram([`node memory-viz/dist/cli.js ${command}`], {
-            shell: true,
-        });
+        await runProgram(
+            [`node ${path.join(__dirname, "../../dist/cli.js")} ${command}`],
+            {
+                shell: true,
+            }
+        );
 
         const svgFilePath = getSVGPath(command.includes("--output"));
         const fileContent = fs.readFileSync(svgFilePath, "utf8");
@@ -157,9 +163,9 @@ describe("memory-viz cli", () => {
 describe.each([
     {
         errorType: "nonexistent file",
-        command: "node memory-viz/dist/cli.js cli-test.json",
+        command: `node ${path.join(__dirname, "../../dist/cli.js")} cli-test.json`,
         expectedErrorMessage:
-            `Command failed with exit code 1: node memory-viz/dist/cli.js cli-test.json\n` +
+            `Command failed with exit code 1: node ${path.join(__dirname, "../../dist/cli.js")} cli-test.json\n` +
             `Error: File ${path.resolve(
                 process.cwd(),
                 "cli-test.json"
@@ -167,9 +173,9 @@ describe.each([
     },
     {
         errorType: "nonexistent css file",
-        command: `node memory-viz/dist/cli.js ${filePath} --global-style=nonexistent.css`,
+        command: `node ${path.join(__dirname, "../../dist/cli.js")} ${filePath} --global-style=nonexistent.css`,
         expectedErrorMessage:
-            `Command failed with exit code 1: node memory-viz/dist/cli.js ${filePath} --global-style=nonexistent.css\n` +
+            `Command failed with exit code 1: node ${path.join(__dirname, "../../dist/cli.js")} ${filePath} --global-style=nonexistent.css\n` +
             `Error: CSS file ${path.resolve(
                 process.cwd(),
                 "nonexistent.css"
@@ -177,9 +183,9 @@ describe.each([
     },
     {
         errorType: "unspecified theme",
-        command: `node memory-viz/dist/cli.js ${filePath} --theme`,
+        command: `node ${path.join(__dirname, "../../dist/cli.js")} ${filePath} --theme`,
         expectedErrorMessage:
-            `Command failed with exit code 1: node memory-viz/dist/cli.js ${filePath} --theme\n` +
+            `Command failed with exit code 1: node ${path.join(__dirname, "../../dist/cli.js")} ${filePath} --theme\n` +
             `error: option '-t, --theme <name>' argument missing`,
     },
     {
@@ -219,7 +225,7 @@ describe.each([
                         '[{ "name": "int", "id": 13, "value": 7 }]'
                     );
                 }
-                command = `node memory-viz/dist/cli.js ${filePath}`;
+                command = `node ${path.join(__dirname, "../../dist/cli.js")} ${filePath}`;
             }
 
             try {

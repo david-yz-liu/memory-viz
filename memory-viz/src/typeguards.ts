@@ -1,4 +1,4 @@
-import { Style } from "./types";
+import { Style } from "./types.js";
 
 export function isArrayOfType<T>(value: any, type: string): value is T[] {
     return (

@@ -6,7 +6,7 @@
  *      - ~/examples/automation_demo/more_specific_demos/other_objects.svg"
  */
 
-const { MemoryModel, drawAutomatedOtherItems } = require("memory-viz");
+import { MemoryModel, drawAutomatedOtherItems } from "memory-viz";
 
 const WIDTH = 1300;
 

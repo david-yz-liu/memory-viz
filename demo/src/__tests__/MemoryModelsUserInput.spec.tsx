@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import React from "react";
 import {
     fireEvent,
@@ -6,7 +7,7 @@ import {
     waitFor,
     act,
 } from "@testing-library/react";
-import MemoryModelsUserInput from "../MemoryModelsUserInput";
+import MemoryModelsUserInput from "../MemoryModelsUserInput.js";
 
 describe("MemoryModelsUserInput", () => {
     // submit button by default resets the form https://stackoverflow.com/a/62404526

@@ -1,2 +1,2 @@
 // Mock file for Jest tests which include images or imported styling
-module.exports = "";
+export default "test-file-stub";

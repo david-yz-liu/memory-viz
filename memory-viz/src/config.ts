@@ -1,4 +1,4 @@
-import { VisualizationConfig } from "./types";
+import { VisualizationConfig } from "./types.js";
 
 export const config: Partial<VisualizationConfig> = {
     rect_style: { stroke: "rgb(0, 0, 0)" },

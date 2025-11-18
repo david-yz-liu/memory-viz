@@ -1,7 +1,11 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const path = require("path");
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import path from "path";
+import { fileURLToPath } from "url";
 
-module.exports = {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default {
     entry: path.resolve(__dirname, "src/index.tsx"),
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -51,6 +55,9 @@ module.exports = {
     ],
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".css"],
+        extensionAlias: {
+            ".js": [".ts", ".tsx", ".js", ".jsx"],
+        },
         alias: {
             "memory-viz": path.resolve(__dirname, "../memory-viz"),
         },

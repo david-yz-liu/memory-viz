@@ -1,6 +1,6 @@
 import React, { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
+import App from "./App.js";
 import "@picocss/pico";
 import "./css/styles";
 
