@@ -99,8 +99,6 @@ const config: Config = {
         // Mocks a file (see fileMock.js) each time any of the below file types are imported.
         "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|css|less|sass|scss)$":
             "<rootDir>/src/mocks/fileMock.js",
-        "react-syntax-highlighter/dist/esm/styles/hljs":
-            "<rootDir>/src/mocks/fileMock.js",
     },
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader

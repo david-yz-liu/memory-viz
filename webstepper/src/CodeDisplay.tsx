@@ -1,6 +1,6 @@
 import React from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { a11yLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import { a11yLight } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 import { Box } from "@mui/material";
 
 type CodeDisplayPropTypes = {

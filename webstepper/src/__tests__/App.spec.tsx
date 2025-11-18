@@ -40,7 +40,7 @@ jest.unstable_mockModule("react-syntax-highlighter", async () => {
 });
 
 jest.unstable_mockModule(
-    "react-syntax-highlighter/dist/esm/styles/hljs",
+    "react-syntax-highlighter/dist/cjs/styles/hljs",
     () => ({
         a11yLight: {},
     })
