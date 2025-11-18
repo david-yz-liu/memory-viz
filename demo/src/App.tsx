@@ -26,6 +26,16 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const [failureBanner, setFailureBanner] = useState("");
     const [isValidJson, setIsValidJson] = useState(null);
 
+    React.useEffect(() => {
+        const root = document.documentElement;
+
+        if (isValidJson === null) {
+            root.style.setProperty("--icon-valid", "none", "important");
+        } else {
+            root.style.removeProperty("--icon-valid");
+        }
+    }, [isValidJson]);
+
     const onTextDataSubmit = (event?) => {
         event?.preventDefault();
         try {
