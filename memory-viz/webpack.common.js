@@ -4,6 +4,7 @@ import nodeExternals from "webpack-node-externals";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+import webpack from "webpack";
 
 const libConfig = {
     // target: "web",
@@ -68,6 +69,13 @@ const cliConfig = {
     externalsPresets: { node: true },
     externals: [nodeExternals()],
     resolve: libConfig.resolve,
+    plugins: [
+        new webpack.BannerPlugin({
+            banner: "#!/usr/bin/env node",
+            raw: true,
+            entryOnly: true,
+        }),
+    ],
 };
 
 export { libConfig, cliConfig };
