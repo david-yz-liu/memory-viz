@@ -1,10 +1,9 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import nodeExternals from "webpack-node-externals";
-
+import webpack from "webpack";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-import webpack from "webpack";
 
 const libConfig = {
     // target: "web",
