@@ -57,9 +57,6 @@ const cliConfig = {
         path: path.resolve(__dirname, "dist"),
         filename: "cli.js",
         clean: false,
-        library: {
-            type: "module",
-        },
     },
     experiments: {
         outputModule: true,

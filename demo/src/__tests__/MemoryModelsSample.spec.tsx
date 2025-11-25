@@ -8,10 +8,9 @@ jest.unstable_mockModule("./sample/automated-layout/config", () => ({
     default: { config: "config" },
 }));
 
-const { default: React } = await import("react");
-const { fireEvent, render, screen, waitFor } = await import(
-    "@testing-library/react"
-);
+import React from "react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+
 const { default: MemoryModelsSample } = await import(
     "../MemoryModelsSample.js"
 );

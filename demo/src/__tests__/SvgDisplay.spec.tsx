@@ -12,8 +12,9 @@ jest.unstable_mockModule("memory-viz", () => ({
     },
 }));
 
-const { default: React } = await import("react");
-const { render, screen } = await import("@testing-library/react");
+import React from "react";
+import { render, screen } from "@testing-library/react";
+
 const { default: SvgDisplay } = await import("../SvgDisplay.js");
 const mem = await import("memory-viz");
 const { draw } = mem.default;

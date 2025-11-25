@@ -148,6 +148,7 @@ const config: Config = {
     // slowTestThreshold: 5,
 
     // A list of paths to snapshot serializer modules Jest should use for snapshot testing
+    // Commented out to avoid issues; this option isn't currently compatible with ESM modules (see https://github.com/jestjs/jest/pull/12014)
     // snapshotSerializers: ["./src/tests/plugins/pretty_svg.ts"],
 
     // The test environment that will be used for testing
@@ -180,7 +181,7 @@ const config: Config = {
     // testRunner: "jest-circus/runner",
 
     // A map from regular expressions to paths to transformers
-    // transform: {},
+    // transform: undefined,
 
     // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
     // transformIgnorePatterns: [

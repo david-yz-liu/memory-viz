@@ -47,16 +47,17 @@ jest.unstable_mockModule(
 );
 
 import "@testing-library/jest-dom";
-const { default: React } = await import("react");
-const { render, screen, fireEvent } = await import("@testing-library/react");
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+
 const { default: App } = await import("../App.js");
 
 global.fetch = jest.fn(() =>
     Promise.resolve({
         ok: true,
         blob: () => Promise.resolve(new Blob()),
-    })
-) as any;
+    } as Response)
+) as unknown as typeof fetch;
 
 URL.createObjectURL = jest.fn(() => "mock-url");
 
@@ -74,8 +75,8 @@ describe("App", () => {
             Promise.resolve({
                 ok: true,
                 blob: () => Promise.resolve(new Blob()),
-            })
-        ) as any;
+            } as Response)
+        ) as unknown as typeof fetch;
         render(<App isDarkMode={false} toggleTheme={() => {}} />);
         jest.spyOn(console, "error");
     });
