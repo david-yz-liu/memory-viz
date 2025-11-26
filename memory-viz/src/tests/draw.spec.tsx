@@ -587,6 +587,31 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders dict with list value", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 3,
+                value: [
+                    ["", null],
+                    ["", 1],
+                    ["x", 2],
+                    [" ", 3],
+                ],
+            },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders dict with custom styling", () => {
         const objects: DrawnEntity[] = [
             {
