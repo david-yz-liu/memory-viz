@@ -468,7 +468,7 @@ export class MemoryModel {
         }
         element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`;
-            const indexKey = `index ${v}`;
+            const indexKey = `index ${i}`;
 
             const element_box_style =
                 style.compound_box?.[indexKey] ?? style.box_container;
@@ -567,7 +567,7 @@ export class MemoryModel {
 
         element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`;
-            const indexKey = `index ${v}`;
+            const indexKey = `index ${i}`;
 
             const element_box_style =
                 style.compound_box?.[indexKey] ?? style.box_container;
