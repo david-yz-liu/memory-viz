@@ -599,6 +599,7 @@ describe("draw function", () => {
                     [" ", 3],
                     [null, 4],
                     [undefined, 5],
+                    [0, 6],
                 ],
             },
         ];
@@ -611,6 +612,7 @@ describe("draw function", () => {
             }
         );
         const svg: string = m.serializeSVG();
+        m.save("dist_list4.svg");
         expect(svg).toMatchSnapshot();
     });
 
