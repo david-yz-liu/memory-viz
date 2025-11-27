@@ -25,6 +25,8 @@ export function isStyle(value: any): value is Style {
         "box_id",
         "box_type",
         "box_container",
+        "compound_text",
+        "compound_box",
     ];
     const roughjs_options = [
         "maxRandomnessOffset",
