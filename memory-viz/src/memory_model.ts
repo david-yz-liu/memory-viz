@@ -468,16 +468,29 @@ export class MemoryModel {
         }
         element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`;
+            const indexKey = `index ${v}`;
+
+            const element_box_style =
+                style.compound_box?.[indexKey] ?? style.box_container;
+            const element_text_style =
+                style.compound_text?.[indexKey] ?? style.text_value;
+
             const item_length = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv, style.text_id) + 10
             );
-            this.drawRect(curr_x, item_y, item_length, this.item_min_height);
+            this.drawRect(
+                curr_x,
+                item_y,
+                item_length,
+                this.item_min_height,
+                element_box_style
+            );
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text_value,
+                element_text_style,
                 "id"
             );
             if (show_idx) {
@@ -554,16 +567,29 @@ export class MemoryModel {
 
         element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`;
+            const indexKey = `index ${v}`;
+
+            const element_box_style =
+                style.compound_box?.[indexKey] ?? style.box_container;
+            const element_text_style =
+                style.compound_text?.[indexKey] ?? style.text_value;
+
             const item_length = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv, style.text_id) + 10
             );
-            this.drawRect(curr_x, item_y, item_length, this.item_min_height);
+            this.drawRect(
+                curr_x,
+                item_y,
+                item_length,
+                this.item_min_height,
+                element_box_style
+            );
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
-                style.text_value,
+                element_text_style,
                 "id"
             );
             if (i > 0) {
@@ -628,6 +654,12 @@ export class MemoryModel {
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
             const idk = k.trim() === "" ? "" : `id${k}`;
+            const key = `key ${k}`;
+
+            const key_box_style =
+                style.compound_box?.[key] ?? style.box_container;
+            const key_text_style =
+                style.compound_text?.[key] ?? style.text_value;
 
             const key_box = Math.max(
                 this.item_min_width,
@@ -639,14 +671,15 @@ export class MemoryModel {
                 x + this.obj_x_padding,
                 curr_y,
                 key_box,
-                this.item_min_height
+                this.item_min_height,
+                key_box_style
             );
 
             this.drawText(
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
-                style.text_value,
+                key_text_style,
                 "id"
             );
 
@@ -657,6 +690,12 @@ export class MemoryModel {
         curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const k in obj) {
             const idv = k === null || obj[k] === null ? "" : `id${obj[k]}`;
+            const value = `value ${k}`;
+
+            const value_box_style =
+                style.compound_box?.[value] ?? style.box_container;
+            const value_text_style =
+                style.compound_text?.[value] ?? style.text_value;
 
             const value_box = Math.max(
                 this.item_min_width,
@@ -668,7 +707,8 @@ export class MemoryModel {
                 x + width / 2 + this.font_size,
                 curr_y,
                 value_box,
-                this.item_min_height
+                this.item_min_height,
+                value_box_style
             );
 
             this.drawText(
@@ -683,7 +723,7 @@ export class MemoryModel {
                 idv,
                 x + width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text_value,
+                value_text_style,
                 "id"
             );
 
