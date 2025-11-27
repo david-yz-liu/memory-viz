@@ -616,7 +616,7 @@ export class MemoryModel {
         x: number,
         y: number,
         id: number | null,
-        obj: { [key: string]: any } | [string, any][] | null,
+        obj: { [key: string]: any } | [any, any][] | null,
         style: Style,
         width: number,
         height: number
@@ -624,16 +624,12 @@ export class MemoryModel {
         this.drawRect(x, y, width, height, style.box_container, true, id);
         const SIZE: Rect = { x, y, width: width, height: height };
 
-        const entries: [string, any][] = [];
+        const entries: [any, any][] = [];
         if (Array.isArray(obj)) {
             for (const item of obj) {
-                if (
-                    !Array.isArray(item) ||
-                    item.length !== 2 ||
-                    typeof item[0] !== "string"
-                ) {
+                if (!Array.isArray(item) || item.length !== 2) {
                     throw new Error(
-                        "Invalid dict value: Expected a list of [string, any] pairs."
+                        "Invalid dict value: Expected a list of [key id, value id] pairs."
                     );
                 }
                 entries.push([item[0], item[1]]);
@@ -647,7 +643,15 @@ export class MemoryModel {
         // First loop, to draw the key boxes
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const entry of entries) {
-            const idk = entry[0].trim() === "" ? "" : `id${entry[0]}`;
+            let key_string: string;
+            if (entry[0] === null || entry[0] === undefined) {
+                key_string = "";
+            } else if (typeof entry[0] === "string") {
+                key_string = entry[0];
+            } else {
+                key_string = String(entry[0]);
+            }
+            const idk = key_string.trim() === "" ? "" : `id${key_string}`;
 
             const key_box = Math.max(
                 this.item_min_width,
@@ -1304,7 +1308,7 @@ export class MemoryModel {
      * @returns An object with default_width and default_height properties.
      */
     private getDefaultDictDimensions(
-        dict_obj: { [key: string]: any } | [string, any][] | null,
+        dict_obj: { [key: string]: any } | [any, any][] | null,
         style: Style
     ): {
         default_width: number;
@@ -1313,16 +1317,12 @@ export class MemoryModel {
         let default_width = this.obj_min_width;
         let default_height = this.prop_min_height + this.item_min_height / 2;
 
-        const entries: [string, any][] = [];
+        const entries: [any, any][] = [];
         if (Array.isArray(dict_obj)) {
             for (const item of dict_obj) {
-                if (
-                    !Array.isArray(item) ||
-                    item.length !== 2 ||
-                    typeof item[0] !== "string"
-                ) {
+                if (!Array.isArray(item) || item.length !== 2) {
                     throw new Error(
-                        "Invalid dict value: Expected a list of [string, any] pairs."
+                        "Invalid dict value: Expected a list of [key id, value id] pairs."
                     );
                 }
                 entries.push([item[0], item[1]]);
@@ -1334,7 +1334,15 @@ export class MemoryModel {
         }
 
         for (const entry of entries) {
-            const idk = entry[0].trim() === "" ? "" : `id${entry[0]}`;
+            let key_string: string;
+            if (entry[0] === null || entry[0] === undefined) {
+                key_string = "";
+            } else if (typeof entry[0] === "string") {
+                key_string = entry[0];
+            } else {
+                key_string = String(entry[0]);
+            }
+            const idk = key_string.trim() === "" ? "" : `id${key_string}`;
             const idv = entry[1] === null ? "" : `id${entry[1]}`;
 
             const key_box = Math.max(

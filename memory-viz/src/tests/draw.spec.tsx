@@ -597,6 +597,8 @@ describe("draw function", () => {
                     ["", 1],
                     ["x", 2],
                     [" ", 3],
+                    [null, 4],
+                    [undefined, 5],
                 ],
             },
         ];
