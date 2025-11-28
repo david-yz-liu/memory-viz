@@ -39,16 +39,9 @@ jest.unstable_mockModule("react-syntax-highlighter", async () => {
     };
 });
 
-jest.unstable_mockModule(
-    "react-syntax-highlighter/dist/cjs/styles/hljs",
-    () => ({
-        a11yLight: {},
-    })
-);
-
-import "@testing-library/jest-dom";
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
 const { default: App } = await import("../App.js");
 
