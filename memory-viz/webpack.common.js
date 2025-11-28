@@ -12,12 +12,12 @@ const libConfig = {
         path: path.resolve(__dirname, "dist"),
         filename: "memory-viz.bundle.js",
         library: {
-            name: "memoryViz",
-            type: "umd",
-            export: "default",
+            type: "module",
         },
-        globalObject: "this",
         clean: false, // Prevent deletion of type declaration files under dist/
+    },
+    experiments: {
+        outputModule: true,
     },
     module: {
         rules: [
