@@ -470,10 +470,8 @@ export class MemoryModel {
             const idv = v === null ? "" : `id${v}`;
             const indexKey = `index ${i}`;
 
-            const element_box_style =
-                style.compound_box?.[indexKey] ?? style.box_container;
-            const element_text_style =
-                style.compound_text?.[indexKey] ?? style.text_value;
+            const element_box_style = style.compound_box?.[indexKey];
+            const element_text_style = style.compound_text?.[indexKey];
 
             const item_length = Math.max(
                 this.item_min_width,
@@ -569,10 +567,8 @@ export class MemoryModel {
             const idv = v === null ? "" : `id${v}`;
             const indexKey = `index ${i}`;
 
-            const element_box_style =
-                style.compound_box?.[indexKey] ?? style.box_container;
-            const element_text_style =
-                style.compound_text?.[indexKey] ?? style.text_value;
+            const element_box_style = style.compound_box?.[indexKey];
+            const element_text_style = style.compound_text?.[indexKey];
 
             const item_length = Math.max(
                 this.item_min_width,
@@ -656,10 +652,8 @@ export class MemoryModel {
             const idk = k.trim() === "" ? "" : `id${k}`;
             const key = `key ${k}`;
 
-            const key_box_style =
-                style.compound_box?.[key] ?? style.box_container;
-            const key_text_style =
-                style.compound_text?.[key] ?? style.text_value;
+            const key_box_style = style.compound_box?.[key];
+            const key_text_style = style.compound_text?.[key];
 
             const key_box = Math.max(
                 this.item_min_width,
@@ -692,10 +686,8 @@ export class MemoryModel {
             const idv = k === null || obj[k] === null ? "" : `id${obj[k]}`;
             const value = `value ${k}`;
 
-            const value_box_style =
-                style.compound_box?.[value] ?? style.box_container;
-            const value_text_style =
-                style.compound_text?.[value] ?? style.text_value;
+            const value_box_style = style.compound_box?.[value];
+            const value_text_style = style.compound_text?.[value];
 
             const value_box = Math.max(
                 this.item_min_width,
