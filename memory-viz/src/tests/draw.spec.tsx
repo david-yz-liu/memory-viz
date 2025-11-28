@@ -281,6 +281,34 @@ describe("draw function", () => {
         ).toThrow(errorMessage);
     });
 
+    it("renders a set with styling specific indices", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "set",
+                id: 32,
+                value: [5, 10, 20],
+                style: {
+                    compound_box: {
+                        "index 0": { fill: "red" },
+                    },
+                    compound_text: {
+                        "index 1": { "font-style": "italic" },
+                    },
+                },
+            },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders a list with indexes showing", () => {
         const objects: DrawnEntity[] = [
             {
@@ -380,6 +408,34 @@ describe("draw function", () => {
                 roughjs_config: { options: { seed: 12345 } },
             })
         ).toThrow(errorMessage);
+    });
+
+    it("renders a list with styling specific indices", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "list",
+                id: 32,
+                value: [null, 10, 20],
+                style: {
+                    compound_box: {
+                        "index 2": { fill: "red" },
+                    },
+                    compound_text: {
+                        "index 1": { "font-style": "italic" },
+                    },
+                },
+            },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
     });
 
     it("renders a tuple with indexes showing", () => {
@@ -627,6 +683,36 @@ describe("draw function", () => {
                 style: {
                     box_id: { fill: "black", fillStyle: "solid" },
                     box_container: { fill: "green", fillStyle: "solid" },
+                },
+            },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a dict with styling specific keys and values", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 32,
+                value: { "0": 10, "1": 20, "2": 30 },
+                style: {
+                    compound_box: {
+                        "key 1": { fill: "red" },
+                        "value 2": { fill: "green" },
+                    },
+                    compound_text: {
+                        "key 0": { "font-style": "italic" },
+                        "value 1": { "font-style": "italic" },
+                    },
                 },
             },
         ];
