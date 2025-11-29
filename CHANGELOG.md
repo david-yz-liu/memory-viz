@@ -15,17 +15,20 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added "Theme" rendering option, allowing users to change the theme of output
 - Updated the default canvas bottom padding from 100 to 25
 - Added styling for compound objects (lists, tuples, sets, and dictionaries)
+- Extended dict `value` to accept a list of two-element lists, where each inner list is in the form `[key id, value id]`
 
 ### 🐛 Bug fixes
 
 - Resolved CSS font-size keyword handling in text length calculations
 - Updated the Style data type definition to allow for bare strings, along with error handling for invalid Style attribute strings.
+- Updated `cliConfig` in webpack configuration to make CLI run correctly after being bundled
 
 ### 📚 Documentation and demo website changes
 
 - Updated the demo website to use `ThemedImages` for all image examples, supporting dark mode.
 - Rewrote the `Style API` page of documentation to include JSON inputs and SVG outputs
 - Updated the demo website main container height to full height of viewport
+- Enabled demo website's checkmark in input text box to dynamically match light/dark theme
 
 ### 🔧 Internal changes
 
