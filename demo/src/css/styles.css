@@ -30,3 +30,12 @@ input[type="number"]::-webkit-outer-spin-button {
     transition: transform 0.2s ease-in-out;
     transform: rotate(180deg);
 }
+
+/* Overrides Pico’s default checkmark icon so its color matches the light and dark theme palettes. */
+:root {
+    --icon-valid: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27rgb%2846, 133, 85%29%27 stroke-width=%273%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpolyline points=%2720 6 9 17 4 12%27%3E%3C/polyline%3E%3C/svg%3E") !important;
+}
+
+[data-theme="dark"] {
+    --icon-valid: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27rgb%2837, 194, 160%29%27 stroke-width=%273%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpolyline points=%2720 6 9 17 4 12%27%3E%3C/polyline%3E%3C/svg%3E") !important;
+}

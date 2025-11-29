@@ -468,27 +468,16 @@ export class MemoryModel {
         }
         element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`;
-            const indexKey = `index ${i}`;
-
-            const element_box_style = style.compound_box?.[indexKey];
-            const element_text_style = style.compound_text?.[indexKey];
-
             const item_length = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv, style.text_id) + 10
             );
-            this.drawRect(
-                curr_x,
-                item_y,
-                item_length,
-                this.item_min_height,
-                element_box_style
-            );
+            this.drawRect(curr_x, item_y, item_length, this.item_min_height);
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
-                element_text_style,
+                style.text_value,
                 "id"
             );
             if (show_idx) {
@@ -565,27 +554,16 @@ export class MemoryModel {
 
         element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`;
-            const indexKey = `index ${i}`;
-
-            const element_box_style = style.compound_box?.[indexKey];
-            const element_text_style = style.compound_text?.[indexKey];
-
             const item_length = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv, style.text_id) + 10
             );
-            this.drawRect(
-                curr_x,
-                item_y,
-                item_length,
-                this.item_min_height,
-                element_box_style
-            );
+            this.drawRect(curr_x, item_y, item_length, this.item_min_height);
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
-                element_text_style,
+                style.text_value,
                 "id"
             );
             if (i > 0) {
@@ -638,7 +616,7 @@ export class MemoryModel {
         x: number,
         y: number,
         id: number | null,
-        obj: { [key: string]: any } | null,
+        obj: { [key: string]: any } | [any, any][] | null,
         style: Style,
         width: number,
         height: number
@@ -646,14 +624,34 @@ export class MemoryModel {
         this.drawRect(x, y, width, height, style.box_container, true, id);
         const SIZE: Rect = { x, y, width: width, height: height };
 
+        const entries: [any, any][] = [];
+        if (Array.isArray(obj)) {
+            for (const item of obj) {
+                if (!Array.isArray(item) || item.length !== 2) {
+                    throw new Error(
+                        "Invalid dict value: Expected a list of [key id, value id] pairs."
+                    );
+                }
+                entries.push([item[0], item[1]]);
+            }
+        } else {
+            for (const k in obj) {
+                entries.push([k, obj[k]]);
+            }
+        }
+
         // First loop, to draw the key boxes
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
-        for (const k in obj) {
-            const idk = k.trim() === "" ? "" : `id${k}`;
-            const key = `key ${k}`;
-
-            const key_box_style = style.compound_box?.[key];
-            const key_text_style = style.compound_text?.[key];
+        for (const entry of entries) {
+            let key_string: string;
+            if (entry[0] === null || entry[0] === undefined) {
+                key_string = "";
+            } else if (typeof entry[0] === "string") {
+                key_string = entry[0];
+            } else {
+                key_string = String(entry[0]);
+            }
+            const idk = key_string.trim() === "" ? "" : `id${key_string}`;
 
             const key_box = Math.max(
                 this.item_min_width,
@@ -665,15 +663,14 @@ export class MemoryModel {
                 x + this.obj_x_padding,
                 curr_y,
                 key_box,
-                this.item_min_height,
-                key_box_style
+                this.item_min_height
             );
 
             this.drawText(
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
-                key_text_style,
+                style.text_value,
                 "id"
             );
 
@@ -682,12 +679,8 @@ export class MemoryModel {
 
         // A second loop, so that we can position the colon and value boxes correctly.
         curr_y = y + this.prop_min_height + this.item_min_height / 2;
-        for (const k in obj) {
-            const idv = k === null || obj[k] === null ? "" : `id${obj[k]}`;
-            const value = `value ${k}`;
-
-            const value_box_style = style.compound_box?.[value];
-            const value_text_style = style.compound_text?.[value];
+        for (const entry of entries) {
+            const idv = entry[1] === null ? "" : `id${entry[1]}`;
 
             const value_box = Math.max(
                 this.item_min_width,
@@ -699,8 +692,7 @@ export class MemoryModel {
                 x + width / 2 + this.font_size,
                 curr_y,
                 value_box,
-                this.item_min_height,
-                value_box_style
+                this.item_min_height
             );
 
             this.drawText(
@@ -715,7 +707,7 @@ export class MemoryModel {
                 idv,
                 x + width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                value_text_style,
+                style.text_value,
                 "id"
             );
 
@@ -1316,7 +1308,7 @@ export class MemoryModel {
      * @returns An object with default_width and default_height properties.
      */
     private getDefaultDictDimensions(
-        dict_obj: { [key: string]: any } | null,
+        dict_obj: { [key: string]: any } | [any, any][] | null,
         style: Style
     ): {
         default_width: number;
@@ -1325,9 +1317,33 @@ export class MemoryModel {
         let default_width = this.obj_min_width;
         let default_height = this.prop_min_height + this.item_min_height / 2;
 
-        for (const k in dict_obj) {
-            const idk = k.trim() === "" ? "" : `id${k}`;
-            const idv = dict_obj[k] === null ? "" : `id${dict_obj[k]}`;
+        const entries: [any, any][] = [];
+        if (Array.isArray(dict_obj)) {
+            for (const item of dict_obj) {
+                if (!Array.isArray(item) || item.length !== 2) {
+                    throw new Error(
+                        "Invalid dict value: Expected a list of [key id, value id] pairs."
+                    );
+                }
+                entries.push([item[0], item[1]]);
+            }
+        } else {
+            for (const k in dict_obj) {
+                entries.push([k, dict_obj[k]]);
+            }
+        }
+
+        for (const entry of entries) {
+            let key_string: string;
+            if (entry[0] === null || entry[0] === undefined) {
+                key_string = "";
+            } else if (typeof entry[0] === "string") {
+                key_string = entry[0];
+            } else {
+                key_string = String(entry[0]);
+            }
+            const idk = key_string.trim() === "" ? "" : `id${key_string}`;
+            const idv = entry[1] === null ? "" : `id${entry[1]}`;
 
             const key_box = Math.max(
                 this.item_min_width,
