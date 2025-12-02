@@ -468,16 +468,27 @@ export class MemoryModel {
         }
         element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`;
+            const indexKey = `index ${i}`;
+
+            const element_box_style = style.compound_box?.[indexKey];
+            const element_text_style = style.compound_text?.[indexKey];
+
             const item_length = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv, style.text_id) + 10
             );
-            this.drawRect(curr_x, item_y, item_length, this.item_min_height);
+            this.drawRect(
+                curr_x,
+                item_y,
+                item_length,
+                this.item_min_height,
+                element_box_style
+            );
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text_value,
+                element_text_style,
                 "id"
             );
             if (show_idx) {
@@ -554,16 +565,27 @@ export class MemoryModel {
 
         element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`;
+            const indexKey = `index ${i}`;
+
+            const element_box_style = style.compound_box?.[indexKey];
+            const element_text_style = style.compound_text?.[indexKey];
+
             const item_length = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv, style.text_id) + 10
             );
-            this.drawRect(curr_x, item_y, item_length, this.item_min_height);
+            this.drawRect(
+                curr_x,
+                item_y,
+                item_length,
+                this.item_min_height,
+                element_box_style
+            );
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
-                style.text_value,
+                element_text_style,
                 "id"
             );
             if (i > 0) {
@@ -652,6 +674,10 @@ export class MemoryModel {
                 key_string = String(entry[0]);
             }
             const idk = key_string.trim() === "" ? "" : `id${key_string}`;
+            const key = `key ${key_string}`;
+
+            const key_box_style = style.compound_box?.[key];
+            const key_text_style = style.compound_text?.[key];
 
             const key_box = Math.max(
                 this.item_min_width,
@@ -663,14 +689,15 @@ export class MemoryModel {
                 x + this.obj_x_padding,
                 curr_y,
                 key_box,
-                this.item_min_height
+                this.item_min_height,
+                key_box_style
             );
 
             this.drawText(
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
-                style.text_value,
+                key_text_style,
                 "id"
             );
 
@@ -681,6 +708,10 @@ export class MemoryModel {
         curr_y = y + this.prop_min_height + this.item_min_height / 2;
         for (const entry of entries) {
             const idv = entry[1] === null ? "" : `id${entry[1]}`;
+            const value = `value ${entry[1]}`;
+
+            const value_box_style = style.compound_box?.[value];
+            const value_text_style = style.compound_text?.[value];
 
             const value_box = Math.max(
                 this.item_min_width,
@@ -692,7 +723,8 @@ export class MemoryModel {
                 x + width / 2 + this.font_size,
                 curr_y,
                 value_box,
-                this.item_min_height
+                this.item_min_height,
+                value_box_style
             );
 
             this.drawText(
@@ -707,7 +739,7 @@ export class MemoryModel {
                 idv,
                 x + width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text_value,
+                value_text_style,
                 "id"
             );
 

@@ -732,15 +732,15 @@ describe("draw function", () => {
             {
                 type: "dict",
                 id: 32,
-                value: { "0": 10, "1": 20, "2": 30 },
+                value: { "5": 10, "6": 20, "7": 30 },
                 style: {
                     compound_box: {
-                        "key 1": { fill: "red" },
-                        "value 2": { fill: "green" },
+                        "key 5": { fill: "red" },
+                        "value 20": { fill: "green" },
                     },
                     compound_text: {
-                        "key 0": { "font-style": "italic" },
-                        "value 1": { "font-style": "italic" },
+                        "key 7": { "font-style": "italic" },
+                        "value 30": { "font-style": "italic" },
                     },
                 },
             },
