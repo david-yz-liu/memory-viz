@@ -1,13 +1,7 @@
+import fs from "fs";
 import { MemoryModel } from "./memory_model.js";
 import { DrawnEntity, DisplaySettings } from "./types.js";
-import type * as fsType from "fs";
 export * from "./types.js";
-
-// Dynamic import of Node fs module
-let fs: typeof fsType | undefined;
-if (typeof window === "undefined") {
-    fs = await import("fs");
-}
 
 function draw(
     objects: string | DrawnEntity[][],

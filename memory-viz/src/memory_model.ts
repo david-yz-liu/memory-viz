@@ -1,3 +1,5 @@
+import fs from "fs";
+
 import rough from "roughjs";
 
 import merge from "deepmerge";
@@ -19,15 +21,8 @@ import {
 import { isArrayOfNullableType, isStyle } from "./typeguards.js";
 import { RoughSVG } from "roughjs/bin/svg.js";
 import { Config, Options } from "roughjs/bin/core.js";
-import type * as fsType from "fs";
 import type * as CSS from "csstype";
 import { prettifyError } from "zod";
-
-// Dynamic import of Node fs module
-let fs: typeof fsType | undefined;
-if (typeof window === "undefined") {
-    fs = await import("fs");
-}
 
 /** The class representing the memory model diagram of the given block of code. */
 export class MemoryModel {

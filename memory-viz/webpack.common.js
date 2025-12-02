@@ -36,9 +36,6 @@ const libConfig = {
             },
         ],
     },
-    externals: {
-        fs: "fs",
-    },
     resolve: {
         extensions: [".ts", ".js"],
         extensionAlias: {
