@@ -1,8 +1,10 @@
 import React, { useRef, useEffect } from "react";
-import mem from "memory-viz";
+import memoryViz from "memory-viz";
 import { Paper } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput.js";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+
+const { draw: drawMemoryModel } = memoryViz;
 
 type SvgDisplayPropTypes = {
     jsonResult: object | null;
@@ -30,7 +32,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                 } else {
                     resolvedTheme = rawTheme;
                 }
-                const m = mem.draw(
+                const m = drawMemoryModel(
                     jsonResultCopy,
                     props.configData.useAutomation,
                     {
