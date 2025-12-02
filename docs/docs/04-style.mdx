@@ -23,6 +23,10 @@ import ExampleFade from "!!raw-loader!./examples/style/fade.json";
 import ExampleFadeId from "!!raw-loader!./examples/style/fade_id.json";
 import ExampleFadeType from "!!raw-loader!./examples/style/fade_type.json";
 import ExampleCombo from "!!raw-loader!./examples/style/combo.json";
+import ExampleList from "!!raw-loader!./examples/style/list.json";
+import ExampleTuple from "!!raw-loader!./examples/style/tuple.json";
+import ExampleSet from "!!raw-loader!./examples/style/set.json";
+import ExampleDictionary from "!!raw-loader!./examples/style/dictionary.json";
 
 # Style API
 
@@ -132,6 +136,66 @@ Note that this can be used in combination with other styling.
         sources={{
             light: useBaseUrl("images/style/box_mixed_light.svg"),
             dark: useBaseUrl("images/style/box_mixed_dark.svg"),
+        }}
+    />
+</details>
+
+## Styling for compound objects
+
+For compound objects such as lists, tuples, sets, and dictionaries, the user is able to style specific smaller boxes
+
+### Lists/Tuples/Sets
+
+For lists, tuples, and sets, the user is able to style the smaller, inner boxes by referring to its id.
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleList}</CodeBlock>
+    <ThemedImage
+        alt="Example list"
+        sources={{
+            light: useBaseUrl("images/style/list_light.svg"),
+            dark: useBaseUrl("images/style/list_dark.svg"),
+        }}
+    />
+</details>
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleTuple}</CodeBlock>
+    <ThemedImage
+        alt="Example tuple"
+        sources={{
+            light: useBaseUrl("images/style/tuple_light.svg"),
+            dark: useBaseUrl("images/style/tuple_dark.svg"),
+        }}
+    />
+</details>
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleSet}</CodeBlock>
+    <ThemedImage
+        alt="Example set"
+        sources={{
+            light: useBaseUrl("images/style/set_light.svg"),
+            dark: useBaseUrl("images/style/set_dark.svg"),
+        }}
+    />
+</details>
+
+### Dictionaries
+
+For dictionaries, the user is able to style the specific key or value by specifying whether they want to style a key or value, followed by its id.
+
+<details>
+    <summary>**Example**</summary>
+    <CodeBlock language="json">{ExampleDictionary}</CodeBlock>
+    <ThemedImage
+        alt="Example dictionary"
+        sources={{
+            light: useBaseUrl("images/style/dictionary_light.svg"),
+            dark: useBaseUrl("images/style/dictionary_dark.svg"),
         }}
     />
 </details>

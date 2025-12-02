@@ -1,0 +1,15 @@
+[
+    {
+        "type": "tuple",
+        "id": 32,
+        "value": [10, 30],
+        "style": {
+            "compound_box": {
+                "index 0": { "fill": "green" }
+            },
+            "compound_text": {
+                "index 1": { "font-style": "italic" }
+            }
+        }
+    }
+]
