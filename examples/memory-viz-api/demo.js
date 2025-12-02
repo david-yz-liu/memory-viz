@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // Import draw function
-const { draw } = require("memory-viz");
+import { draw } from "memory-viz";
 
 // Define the data to visualize
 const objects = [

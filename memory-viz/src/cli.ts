@@ -4,9 +4,9 @@ import * as fs from "fs";
 import * as path from "path";
 import { program } from "commander";
 import { json } from "node:stream/consumers";
-import type { DrawnEntity } from "./types";
-import memoryViz from "./index";
-import { MemoryModel } from "./memory_model";
+import type { DrawnEntity } from "./types.js";
+import memoryViz from "./index.js";
+import { MemoryModel } from "./memory_model.js";
 
 const { draw } = memoryViz;
 

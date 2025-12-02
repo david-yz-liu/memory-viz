@@ -1,5 +1,6 @@
-import exports from "../index";
-import { DrawnEntity } from "../types";
+import { jest } from "@jest/globals";
+import exports from "../index.js";
+import { DrawnEntity } from "../types.js";
 const { draw } = exports;
 
 describe("draw function", () => {

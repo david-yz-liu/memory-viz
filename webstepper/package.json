@@ -2,9 +2,10 @@
     "name": "memory-viz-webstepper",
     "version": "0.7.0",
     "description": "An interactive web stepper for memory-viz",
+    "type": "module",
     "scripts": {
-        "test": "jest --no-cache",
-        "test-cov": "jest --no-cache --coverage",
+        "test": "NODE_OPTIONS='--experimental-vm-modules' jest --no-cache",
+        "test-cov": "NODE_OPTIONS='--experimental-vm-modules' jest --no-cache --coverage",
         "build-dev": "webpack --config webpack.dev.js",
         "build": "webpack --config webpack.prod.js",
         "build-copy": "webpack --config webpack.prod.js && cp -r dist/*",
@@ -60,7 +61,7 @@
         "react": "^19.2.0",
         "react-dom": "^19.2.0",
         "react-error-boundary": "^5.0.0",
-        "react-syntax-highlighter": "^15.6.1",
+        "react-syntax-highlighter": "^16.1.0",
         "react-zoom-pan-pinch": "^3.7.0"
     }
 }

@@ -6,6 +6,7 @@
 import type { Config } from "jest";
 
 const config: Config = {
+    extensionsToTreatAsEsm: [".ts", ".tsx"],
     // All imported modules in your tests should be mocked automatically
     // automock: false,
 
@@ -92,8 +93,8 @@ const config: Config = {
 
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
     moduleNameMapper: {
-        // Force module roughjs to resolve with the CJS entry point, because Jest does not support package.json.exports. Elaborated in PR#15.
-        roughjs: require.resolve("roughjs"),
+        // Map .js imports to .ts files for ESM compatibility
+        "^(\\.{1,2}/.*)\\.js$": "$1",
     },
 
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
@@ -141,13 +142,14 @@ const config: Config = {
     // setupFiles: [],
 
     // A list of paths to modules that run some code to configure or set up the testing framework before each test
-    // setupFilesAfterEnv: [],
+    setupFilesAfterEnv: ["./src/tests/setup-jest.ts"],
 
     // The number of seconds after which a test is considered as slow and reported as such in the results.
     // slowTestThreshold: 5,
 
     // A list of paths to snapshot serializer modules Jest should use for snapshot testing
-    snapshotSerializers: ["./src/tests/plugins/pretty_svg.ts"],
+    // Commented out to avoid issues; this option isn't currently compatible with ESM modules (see https://github.com/jestjs/jest/pull/12014)
+    // snapshotSerializers: ["./src/tests/plugins/pretty_svg.ts"],
 
     // The test environment that will be used for testing
     testEnvironment: "node",

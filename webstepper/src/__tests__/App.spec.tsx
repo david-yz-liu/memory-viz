@@ -1,14 +1,56 @@
+import { jest } from "@jest/globals";
+
+// Mock react-syntax-highlighter before any imports that use it
+jest.unstable_mockModule("react-syntax-highlighter", async () => {
+    const React = await import("react");
+    return {
+        default: ({ children, ...props }: any) => {
+            // Split text into lines and create spans for each
+            const lines = String(children).split("\n");
+            const startingLineNumber = props.startingLineNumber || 1;
+
+            const lineElements = lines.map((line: string, index: number) => {
+                const lineNumber = startingLineNumber + index;
+                let lineProps: any = {};
+
+                // Apply lineProps callback if present
+                if (props.lineProps && typeof props.lineProps === "function") {
+                    const result = props.lineProps(lineNumber);
+                    if (result) {
+                        lineProps = result;
+                    }
+                }
+
+                return React.default.createElement(
+                    "span",
+                    { key: index, ...lineProps },
+                    line,
+                    "\n"
+                );
+            });
+
+            const codeProps: any = {};
+            if (props["data-testid"]) {
+                codeProps["data-testid"] = props["data-testid"];
+            }
+
+            return React.default.createElement("code", codeProps, lineElements);
+        },
+    };
+});
+
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import App from "../App";
 import "@testing-library/jest-dom";
+
+const { default: App } = await import("../App.js");
 
 global.fetch = jest.fn(() =>
     Promise.resolve({
         ok: true,
         blob: () => Promise.resolve(new Blob()),
-    })
-) as jest.Mock;
+    } as Response)
+) as unknown as typeof fetch;
 
 URL.createObjectURL = jest.fn(() => "mock-url");
 
@@ -26,9 +68,9 @@ describe("App", () => {
             Promise.resolve({
                 ok: true,
                 blob: () => Promise.resolve(new Blob()),
-            })
-        ) as jest.Mock;
-        render(<App />);
+            } as Response)
+        ) as unknown as typeof fetch;
+        render(<App isDarkMode={false} toggleTheme={() => {}} />);
         jest.spyOn(console, "error");
     });
 

@@ -10,8 +10,8 @@
  *      - ~/examples/automation_demo/more_specific_demos/draw_automated.svg
  */
 
-const { drawAutomated } = require("memory-viz");
-const fs = require("fs");
+import { drawAutomated } from "memory-viz";
+import fs from "fs";
 
 const WIDTH = 1300;
 
