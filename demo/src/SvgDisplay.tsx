@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import memoryViz from "memory-viz";
+import memoryViz from "../../memory-viz/src"; // Load local version of memory-viz
 import { Paper } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput.js";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";

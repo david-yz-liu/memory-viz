@@ -1,8 +1,26 @@
 import { merge } from "webpack-merge";
-import { libConfig, cliConfig } from "./webpack.common.js";
+import {
+    browserConfig,
+    browserEsmConfig,
+    cjsConfig,
+    esmConfig,
+    cliConfig,
+} from "./webpack.common.js";
 
 export default [
-    merge(libConfig, {
+    merge(browserConfig, {
+        mode: "production",
+        devtool: "source-map",
+    }),
+    merge(browserEsmConfig, {
+        mode: "production",
+        devtool: "source-map",
+    }),
+    merge(cjsConfig, {
+        mode: "production",
+        devtool: "source-map",
+    }),
+    merge(esmConfig, {
         mode: "production",
         devtool: "source-map",
     }),

@@ -3,11 +3,16 @@
     <head>
         <meta charset="UTF-8" />
         <title>MemoryViz in the Browser!</title>
-        <!-- Load MemoryViz from a CDN. You can substitute a local memory-viz.bundle.js. -->
+        <!-- Load local version of MemoryViz. Requires building the library. -->
         <script
             type="text/javascript"
-            src="https://cdn.jsdelivr.net/npm/memory-viz@latest/dist/memory-viz.bundle.js"
+            src="../../memory-viz/dist/memory-viz.umd.js"
         ></script>
+        <!-- You can instead load MemoryViz from a CDN. -->
+        <!-- script
+            type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/memory-viz@latest/dist/memory-viz.umd.js"
+        ></script -->
         <!-- Visualize the canvas. -->
         <script type="text/javascript">
             document.addEventListener("DOMContentLoaded", () => {

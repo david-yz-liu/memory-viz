@@ -54,8 +54,5 @@ export default {
         extensionAlias: {
             ".js": [".ts", ".tsx", ".js", ".jsx"],
         },
-        alias: {
-            "memory-viz": path.resolve(__dirname, "../memory-viz"),
-        },
     },
 };
