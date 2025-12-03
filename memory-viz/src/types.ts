@@ -9,8 +9,12 @@ export interface Style {
     box_id?: Options;
     box_type?: Options;
     box_container?: Options;
-    text_compound?: { [key: string]: CSS.PropertiesHyphen };
-    box_compound?: { [key: string]: Options };
+    text_compound?:
+        | { [key: string]: CSS.PropertiesHyphen }
+        | { [key: string]: { [key: string]: CSS.PropertiesHyphen } };
+    box_compound?:
+        | { [key: string]: Options }
+        | { [key: string]: { [key: string]: Options } };
 }
 
 export type Styles = Style | (string | Style)[] | string;
