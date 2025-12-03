@@ -1,4 +1,5 @@
-import React, { StrictMode, useState } from "react";
+import "./i18n";
+import React, { StrictMode, useState, Suspense } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./css/styles.scss";
@@ -134,6 +135,8 @@ const root = createRoot(document.getElementById("root"));
 
 root.render(
     <StrictMode>
-        <Root />
+        <Suspense fallback={<div>Loading...</div>}>
+            <Root />
+        </Suspense>
     </StrictMode>
 );

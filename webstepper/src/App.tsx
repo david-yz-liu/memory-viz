@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import Header from "./Header";
 import { Button, Box, Typography, Stack } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -18,6 +19,7 @@ interface AppProps {
 }
 
 export default function App({ isDarkMode, toggleTheme }: AppProps) {
+    const { t } = useTranslation();
     const [step, setStep] = useState<number>(0);
     const codeText = window.codeText;
     const limit = window.svgArray.length;
@@ -50,25 +52,25 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                 <Stack direction="row" spacing={2} sx={{ height: "100%" }}>
                     <Stack direction="column" sx={{ width: "45%" }}>
                         <Typography variant="h2" color="textPrimary">
-                            Code
+                            {t("code.title")}
                         </Typography>
                         <Stack direction="row" className="code-controls">
                             <Typography color="textSecondary">
-                                Step {step + 1}/{limit}
+                                {t("code.step")} {step + 1}/{limit}
                             </Typography>
                             <Button
                                 disabled={step === 0}
                                 onClick={() => handleStep(-1)}
                                 startIcon={<ArrowBackIcon />}
                             >
-                                Back
+                                {t("code.back")}
                             </Button>
                             <Button
                                 disabled={step === limit - 1}
                                 onClick={() => handleStep(1)}
                                 endIcon={<ArrowForwardIcon />}
                             >
-                                Next
+                                {t("code.next")}
                             </Button>
                         </Stack>
                         <Box className="code-display">
@@ -83,7 +85,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                     </Stack>
                     <Stack direction="column" sx={{ width: "55%" }}>
                         <Typography variant="h2" color="textPrimary">
-                            Memory visualization
+                            {t("memory.title")}
                         </Typography>
                         <SvgDisplay step={step} />
                     </Stack>

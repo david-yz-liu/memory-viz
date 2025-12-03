@@ -1,10 +1,13 @@
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import App from "../App";
+import { renderWithI18n } from "./i18n-test-utils";
 
 describe("App", () => {
     beforeEach(() => {
-        render(<App />);
+        render(
+            renderWithI18n(<App isDarkMode={false} toggleTheme={() => {}} />)
+        );
     });
 
     afterEach(() => {

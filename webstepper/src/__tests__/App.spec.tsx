@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import App from "../App";
 import "@testing-library/jest-dom";
+import { renderWithI18n } from "./i18n-test-utils";
 
 global.fetch = jest.fn(() =>
     Promise.resolve({
@@ -28,7 +29,9 @@ describe("App", () => {
                 blob: () => Promise.resolve(new Blob()),
             })
         ) as jest.Mock;
-        render(<App />);
+        render(
+            renderWithI18n(<App isDarkMode={false} toggleTheme={() => {}} />)
+        );
         jest.spyOn(console, "error");
     });
 

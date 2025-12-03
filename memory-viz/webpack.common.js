@@ -1,6 +1,7 @@
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
 const webpack = require("webpack");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const libConfig = {
     // target: "web",
@@ -51,6 +52,9 @@ const cliConfig = {
         path: path.resolve(__dirname, "dist"),
         filename: "cli.js",
         clean: false,
+        library: {
+            type: "commonjs2",
+        },
     },
     module: libConfig.module,
     externalsPresets: { node: true },
@@ -61,6 +65,14 @@ const cliConfig = {
             banner: "#!/usr/bin/env node",
             raw: true,
             entryOnly: true,
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, "src/locales"),
+                    to: path.resolve(__dirname, "dist/locales"),
+                },
+            ],
         }),
     ],
 };

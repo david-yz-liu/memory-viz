@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MenuItem } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import MemoryModelsMenu from "./MemoryModelsMenu";
 
 import { SAMPLES } from "./sample";
@@ -11,6 +12,7 @@ type MemoryModelsSamplePropTypes = {
 };
 
 export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
+    const { t } = useTranslation();
     const [clickedBtnIndex, setClickedBtnIndex] = useState<number>(null);
 
     useEffect(() => {
@@ -33,14 +35,14 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
 
     return (
         <MemoryModelsMenu
-            menuName="Sample Inputs"
+            menuName={t("samples.title")}
             testId="sample-inputs-menu"
             menuItems={SAMPLES.map((sample, index) => (
                 <MenuItem
                     key={index}
                     onClick={() => handleButtonClick(index, sample)}
                 >
-                    {sample["name"]}
+                    {t(sample["nameKey"])}
                 </MenuItem>
             ))}
         />

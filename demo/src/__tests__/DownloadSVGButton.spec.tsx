@@ -1,11 +1,12 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import DownloadSVGButton from "../DownloadSVGButton";
+import { renderWithI18n } from "./i18n-test-utils";
 
 describe("DownloadSVGButton", () => {
     const mockSvgStr = "<svg>...</svg>";
     beforeEach(() => {
-        render(<DownloadSVGButton svgResult={mockSvgStr} />);
+        render(renderWithI18n(<DownloadSVGButton svgResult={mockSvgStr} />));
     });
 
     test("renders with correct text", () => {

@@ -1,0 +1,20 @@
+{
+    "description": "Interface en ligne de commande pour générer des diagrammes de modèles de mémoire avec MemoryViz",
+    "filePathArgument": "chemin vers un fichier contenant du JSON compatible avec MemoryViz",
+    "outputOption": "écrit le SVG généré dans le chemin spécifié",
+    "widthOption": "largeur du SVG généré",
+    "heightOption": "hauteur du SVG généré",
+    "roughjsConfigOption": "options pour configurer la façon dont le SVG est dessiné - consultez la documentation de rough.js pour les options disponibles",
+    "globalStyleOption": "chemin vers un fichier CSS contenant des styles globaux pour le SVG",
+    "themeOption": "utiliser un style thématique pour le SVG généré",
+    "noInteractiveOption": "désactiver l'interactivité au survol pour les ID d'objets",
+    "errors": {
+        "fileNotExist": "Erreur : Le fichier {{path}} n'existe pas.",
+        "outputMustBeFile": "Erreur : Le chemin de sortie {{path}} doit être un fichier.",
+        "outputDirNotExist": "Erreur : Le répertoire de sortie {{dir}} n'existe pas ou est un fichier.",
+        "cssFileNotExist": "Erreur : Le fichier CSS {{path}} n'existe pas.",
+        "invalidJSON": "Erreur : JSON invalide",
+        "generic": "Erreur : {{message}}",
+        "stdinError": "Erreur : {{message}}."
+    }
+}

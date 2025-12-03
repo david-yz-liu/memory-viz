@@ -15,6 +15,7 @@ import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import MemoryModelsSample from "../MemoryModelsSample";
 import { SAMPLES } from "../sample";
+import { renderWithI18n } from "./i18n-test-utils";
 
 describe("MemoryModelsSample", () => {
     // submit button by default resets the form https://stackoverflow.com/a/62404526
@@ -29,11 +30,13 @@ describe("MemoryModelsSample", () => {
         });
 
         render(
-            <MemoryModelsSample
-                onTextDataSubmit={onSubmitMock}
-                setTextData={setTextDataMock}
-                setConfigData={setConfigDataMock}
-            />
+            renderWithI18n(
+                <MemoryModelsSample
+                    onTextDataSubmit={onSubmitMock}
+                    setTextData={setTextDataMock}
+                    setConfigData={setConfigDataMock}
+                />
+            )
         );
     });
 

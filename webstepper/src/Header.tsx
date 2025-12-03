@@ -1,8 +1,10 @@
 import React from "react";
 import { Box, Link, Stack, Typography, IconButton } from "@mui/material";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
+import { useTranslation } from "react-i18next";
 import lightLogo from "../../assets/logo_square.png";
 import darkLogo from "../../assets/logo_square_dark.png";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 interface HeaderProps {
     isDarkMode: boolean;
@@ -10,6 +12,7 @@ interface HeaderProps {
 }
 
 export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
+    const { t } = useTranslation();
     const logo = isDarkMode ? darkLogo : lightLogo;
 
     return (
@@ -17,26 +20,26 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
             <Stack direction={"row"} justifyContent={"space-between"}>
                 <Box>
                     <Typography variant="h1" color="textPrimary">
-                        MemoryViz Webstepper
+                        {t("header.title")}
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary">
-                        A web-based interactive tool for visualizing Python
-                        memory, based on the{" "}
+                        {t("header.subtitle")}{" "}
                         <Link
                             href="https://github.com/david-yz-liu/memory-viz"
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            MemoryViz
+                            {t("header.library")}
                         </Link>{" "}
-                        Javascript library.
+                        {t("header.libraryText")}
                     </Typography>
                 </Box>
                 <Stack direction="row" alignItems="center" spacing={1}>
+                    <LanguageSwitcher />
                     <IconButton
                         onClick={toggleTheme}
                         color="inherit"
-                        aria-label="Toggle theme"
+                        aria-label={t("header.toggleTheme")}
                     >
                         {isDarkMode ? <MoonIcon /> : <SunIcon />}
                     </IconButton>

@@ -7,6 +7,7 @@ import {
     act,
 } from "@testing-library/react";
 import MemoryModelsUserInput from "../MemoryModelsUserInput";
+import { renderWithI18n } from "./i18n-test-utils";
 
 describe("MemoryModelsUserInput", () => {
     // submit button by default resets the form https://stackoverflow.com/a/62404526
@@ -29,15 +30,17 @@ describe("MemoryModelsUserInput", () => {
 
     it("renders Menu for MemoryModelsConfigInput", () => {
         render(
-            <MemoryModelsUserInput
-                onTextDataSubmit={onSubmitMock}
-                setTextData={setTextDataMock}
-                textData={textDataMock}
-                setFailureBanner={setFailureBannerMock}
-                jsonResult={jsonResult}
-                configData={configDataMock}
-                setConfigData={setConfigDataMock}
-            />
+            renderWithI18n(
+                <MemoryModelsUserInput
+                    onTextDataSubmit={onSubmitMock}
+                    setTextData={setTextDataMock}
+                    textData={textDataMock}
+                    setFailureBanner={setFailureBannerMock}
+                    jsonResult={jsonResult}
+                    configData={configDataMock}
+                    setConfigData={setConfigDataMock}
+                />
+            )
         );
         expect(
             screen.getByTestId("rendering-options-menu").textContent
@@ -46,15 +49,17 @@ describe("MemoryModelsUserInput", () => {
 
     it("does not submit the form or enable the submit button with empty textData", () => {
         render(
-            <MemoryModelsUserInput
-                onTextDataSubmit={onSubmitMock}
-                setTextData={setTextDataMock}
-                textData={textDataMock}
-                setFailureBanner={setFailureBannerMock}
-                jsonResult={jsonResult}
-                configData={configDataMock}
-                setConfigData={setConfigDataMock}
-            />
+            renderWithI18n(
+                <MemoryModelsUserInput
+                    onTextDataSubmit={onSubmitMock}
+                    setTextData={setTextDataMock}
+                    textData={textDataMock}
+                    setFailureBanner={setFailureBannerMock}
+                    jsonResult={jsonResult}
+                    configData={configDataMock}
+                    setConfigData={setConfigDataMock}
+                />
+            )
         );
 
         const button = screen.getByTestId("input-submit-button");
@@ -66,15 +71,17 @@ describe("MemoryModelsUserInput", () => {
 
     it("accepts changes to formData", () => {
         render(
-            <MemoryModelsUserInput
-                onTextDataSubmit={onSubmitMock}
-                setTextData={setTextDataMock}
-                textData={textDataMock}
-                setFailureBanner={setFailureBannerMock}
-                jsonResult={jsonResult}
-                configData={configDataMock}
-                setConfigData={setConfigDataMock}
-            />
+            renderWithI18n(
+                <MemoryModelsUserInput
+                    onTextDataSubmit={onSubmitMock}
+                    setTextData={setTextDataMock}
+                    textData={textDataMock}
+                    setFailureBanner={setFailureBannerMock}
+                    jsonResult={jsonResult}
+                    configData={configDataMock}
+                    setConfigData={setConfigDataMock}
+                />
+            )
         );
 
         const updateFormData = "Updated form data";
@@ -88,15 +95,17 @@ describe("MemoryModelsUserInput", () => {
         beforeEach(() => {
             textDataMock = "Form data";
             render(
-                <MemoryModelsUserInput
-                    onTextDataSubmit={onSubmitMock}
-                    setTextData={setTextDataMock}
-                    textData={textDataMock}
-                    setFailureBanner={setFailureBannerMock}
-                    jsonResult={jsonResult}
-                    configData={configDataMock}
-                    setConfigData={setConfigDataMock}
-                />
+                renderWithI18n(
+                    <MemoryModelsUserInput
+                        onTextDataSubmit={onSubmitMock}
+                        setTextData={setTextDataMock}
+                        textData={textDataMock}
+                        setFailureBanner={setFailureBannerMock}
+                        jsonResult={jsonResult}
+                        configData={configDataMock}
+                        setConfigData={setConfigDataMock}
+                    />
+                )
             );
         });
 
@@ -116,15 +125,17 @@ describe("MemoryModelsUserInput", () => {
     describe("MemoryModelsFileInput", () => {
         beforeEach(() => {
             render(
-                <MemoryModelsUserInput
-                    onTextDataSubmit={onSubmitMock}
-                    setTextData={setTextDataMock}
-                    textData={textDataMock}
-                    setFailureBanner={setFailureBannerMock}
-                    jsonResult={jsonResult}
-                    configData={configDataMock}
-                    setConfigData={setConfigDataMock}
-                />
+                renderWithI18n(
+                    <MemoryModelsUserInput
+                        onTextDataSubmit={onSubmitMock}
+                        setTextData={setTextDataMock}
+                        textData={textDataMock}
+                        setFailureBanner={setFailureBannerMock}
+                        jsonResult={jsonResult}
+                        configData={configDataMock}
+                        setConfigData={setConfigDataMock}
+                    />
+                )
             );
         });
 
@@ -255,15 +266,17 @@ describe("MemoryModelsUserInput", () => {
     describe("MemoryModelsConfigInput", () => {
         beforeEach(() => {
             render(
-                <MemoryModelsUserInput
-                    onTextDataSubmit={onSubmitMock}
-                    setTextData={setTextDataMock}
-                    textData={textDataMock}
-                    setFailureBanner={setFailureBannerMock}
-                    jsonResult={jsonResult}
-                    configData={configDataMock}
-                    setConfigData={setConfigDataMock}
-                />
+                renderWithI18n(
+                    <MemoryModelsUserInput
+                        onTextDataSubmit={onSubmitMock}
+                        setTextData={setTextDataMock}
+                        textData={textDataMock}
+                        setFailureBanner={setFailureBannerMock}
+                        jsonResult={jsonResult}
+                        configData={configDataMock}
+                        setConfigData={setConfigDataMock}
+                    />
+                )
             );
         });
 

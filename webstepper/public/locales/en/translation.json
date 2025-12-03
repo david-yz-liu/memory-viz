@@ -1,0 +1,18 @@
+{
+    "header": {
+        "title": "MemoryViz Webstepper",
+        "subtitle": "A web-based interactive tool for visualizing Python memory, based on the",
+        "library": "MemoryViz",
+        "libraryText": "Javascript library.",
+        "toggleTheme": "Toggle theme"
+    },
+    "code": {
+        "title": "Code",
+        "step": "Step",
+        "back": "Back",
+        "next": "Next"
+    },
+    "memory": {
+        "title": "Memory visualization"
+    }
+}

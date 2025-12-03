@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import SvgDisplay from "./SvgDisplay";
 import MemoryModelsUserInput from "./MemoryModelsUserInput";
 import { ErrorBoundary } from "react-error-boundary";
@@ -14,6 +15,7 @@ interface AppProps {
 }
 
 export default function App({ isDarkMode, toggleTheme }: AppProps) {
+    const { t } = useTranslation();
     const [textData, setTextData] = useState("");
     const [configData, setConfigData] = useState<configDataPropTypes>({
         useAutomation: true,
@@ -62,7 +64,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
             <Stack direction="row" spacing={2}>
                 <Box sx={{ width: "40%" }}>
                     <Typography variant="h2" color="textPrimary">
-                        Input
+                        {t("input.title")}
                     </Typography>
                     <MemoryModelsUserInput
                         textData={textData}
@@ -76,7 +78,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                 </Box>
                 <Box sx={{ width: "60%" }}>
                     <Typography variant="h2" color="textPrimary">
-                        Output
+                        {t("output.title")}
                     </Typography>
                     <ErrorBoundary
                         fallbackRender={({ error }) => (

@@ -1,12 +1,17 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import DownloadJSONButton from "../DownloadJSONButton";
+import { renderWithI18n } from "./i18n-test-utils";
 
 describe("DownloadJSONButton", () => {
     const mockJsonStr = "[{}]";
     const mockSx = {};
     beforeEach(() => {
-        render(<DownloadJSONButton jsonResult={mockJsonStr} sx={mockSx} />);
+        render(
+            renderWithI18n(
+                <DownloadJSONButton jsonResult={mockJsonStr} sx={mockSx} />
+            )
+        );
     });
 
     test("renders with correct text", () => {
