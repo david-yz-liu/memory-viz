@@ -4,11 +4,11 @@
         "id": 32,
         "value": [null, 10, 20],
         "style": {
-            "compound_box": {
-                "index 2": { "fill": "red" }
+            "box_compound": {
+                "2": { "fill": "red" }
             },
-            "compound_text": {
-                "index 1": { "font-style": "italic" }
+            "text_compound": {
+                "1": { "font-style": "italic" }
             }
         }
     }
