@@ -42,7 +42,7 @@ jest.unstable_mockModule("react-syntax-highlighter", async () => {
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { renderWithI18n } from "./i18n-test-utils";
+import { renderWithI18n } from "../setup-jest";
 
 const { default: App } = await import("../App.js");
 

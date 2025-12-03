@@ -2,7 +2,7 @@ import { jest } from "@jest/globals";
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import App from "../App.js";
-import { renderWithI18n } from "./i18n-test-utils";
+import { renderWithI18n, testI18n } from "../setup-jest";
 
 describe("App", () => {
     beforeEach(() => {
@@ -96,5 +96,29 @@ describe("App", () => {
             ).toBeNull();
         });
         expect(screen.getByTestId("memory-models-canvas")).toBeTruthy();
+    });
+
+    it("renders translated text in English by default", () => {
+        expect(screen.getByText("Output")).toBeDefined();
+        expect(screen.getByText("Input")).toBeDefined();
+    });
+});
+
+describe("App i18n", () => {
+    afterEach(() => {
+        // Reset to English after i18n tests
+        testI18n.changeLanguage("en");
+    });
+
+    it("renders translated text in French when language is changed", async () => {
+        await testI18n.changeLanguage("fr");
+        render(
+            renderWithI18n(<App isDarkMode={false} toggleTheme={() => {}} />)
+        );
+
+        await waitFor(() => {
+            expect(screen.getByText("Sortie")).toBeDefined();
+            expect(screen.getByText("Entrée")).toBeDefined();
+        });
     });
 });

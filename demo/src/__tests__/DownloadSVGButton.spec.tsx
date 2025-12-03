@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import DownloadSVGButton from "../DownloadSVGButton";
-import { renderWithI18n } from "./i18n-test-utils";
+import { renderWithI18n } from "../setup-jest";
 
 describe("DownloadSVGButton", () => {
     const mockSvgStr = "<svg>...</svg>";

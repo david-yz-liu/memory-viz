@@ -8,7 +8,7 @@ import {
     act,
 } from "@testing-library/react";
 import MemoryModelsUserInput from "../MemoryModelsUserInput.js";
-import { renderWithI18n } from "./i18n-test-utils";
+import { renderWithI18n } from "../setup-jest";
 
 describe("MemoryModelsUserInput", () => {
     // submit button by default resets the form https://stackoverflow.com/a/62404526

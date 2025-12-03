@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import DownloadJSONButton from "../DownloadJSONButton.js";
-import { renderWithI18n } from "./i18n-test-utils";
+import { renderWithI18n } from "../setup-jest";
 
 describe("DownloadJSONButton", () => {
     const mockJsonStr = "[{}]";
