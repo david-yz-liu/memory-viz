@@ -470,8 +470,8 @@ export class MemoryModel {
             const idv = v === null ? "" : `id${v}`;
             const indexKey = `index ${i}`;
 
-            const element_box_style = style.compound_box?.[indexKey];
-            const element_text_style = style.compound_text?.[indexKey];
+            const element_box_style = style.box_compound?.[indexKey];
+            const element_text_style = style.text_compound?.[indexKey];
 
             const item_length = Math.max(
                 this.item_min_width,
@@ -567,8 +567,8 @@ export class MemoryModel {
             const idv = v === null ? "" : `id${v}`;
             const indexKey = `index ${i}`;
 
-            const element_box_style = style.compound_box?.[indexKey];
-            const element_text_style = style.compound_text?.[indexKey];
+            const element_box_style = style.box_compound?.[indexKey];
+            const element_text_style = style.text_compound?.[indexKey];
 
             const item_length = Math.max(
                 this.item_min_width,
@@ -676,8 +676,8 @@ export class MemoryModel {
             const idk = key_string.trim() === "" ? "" : `id${key_string}`;
             const key = `key ${key_string}`;
 
-            const key_box_style = style.compound_box?.[key];
-            const key_text_style = style.compound_text?.[key];
+            const key_box_style = style.box_compound?.[key];
+            const key_text_style = style.text_compound?.[key];
 
             const key_box = Math.max(
                 this.item_min_width,
@@ -710,8 +710,8 @@ export class MemoryModel {
             const idv = entry[1] === null ? "" : `id${entry[1]}`;
             const value = `value ${entry[1]}`;
 
-            const value_box_style = style.compound_box?.[value];
-            const value_text_style = style.compound_text?.[value];
+            const value_box_style = style.box_compound?.[value];
+            const value_text_style = style.text_compound?.[value];
 
             const value_box = Math.max(
                 this.item_min_width,

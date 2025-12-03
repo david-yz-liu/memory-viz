@@ -9,8 +9,8 @@ export interface Style {
     box_id?: Options;
     box_type?: Options;
     box_container?: Options;
-    compound_text?: { [key: string]: CSS.PropertiesHyphen };
-    compound_box?: { [key: string]: Options };
+    text_compound?: { [key: string]: CSS.PropertiesHyphen };
+    box_compound?: { [key: string]: Options };
 }
 
 export type Styles = Style | (string | Style)[] | string;
