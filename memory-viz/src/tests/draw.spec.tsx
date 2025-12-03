@@ -288,11 +288,11 @@ describe("draw function", () => {
                 id: 32,
                 value: [5, 10, 20],
                 style: {
-                    compound_box: {
-                        "index 0": { fill: "red" },
+                    box_compound: {
+                        "0": { fill: "red" },
                     },
-                    compound_text: {
-                        "index 1": { "font-style": "italic" },
+                    text_compound: {
+                        "1": { "font-style": "italic" },
                     },
                 },
             },
@@ -417,11 +417,11 @@ describe("draw function", () => {
                 id: 32,
                 value: [null, 10, 20],
                 style: {
-                    compound_box: {
-                        "index 2": { fill: "red" },
+                    box_compound: {
+                        "2": { fill: "red" },
                     },
-                    compound_text: {
-                        "index 1": { "font-style": "italic" },
+                    text_compound: {
+                        "1": { "font-style": "italic" },
                     },
                 },
             },
@@ -734,13 +734,15 @@ describe("draw function", () => {
                 id: 32,
                 value: { "5": 10, "6": 20, "7": 30 },
                 style: {
-                    compound_box: {
-                        "key 5": { fill: "red" },
-                        "value 20": { fill: "green" },
+                    box_compound: {
+                        "0": { key: { fill: "red" } },
+                        "1": { value: { fill: "green" } },
                     },
-                    compound_text: {
-                        "key 7": { "font-style": "italic" },
-                        "value 30": { "font-style": "italic" },
+                    text_compound: {
+                        "2": {
+                            key: { "font-style": "italic" },
+                            value: { "font-style": "italic" },
+                        },
                     },
                 },
             },
