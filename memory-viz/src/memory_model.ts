@@ -468,10 +468,11 @@ export class MemoryModel {
         }
         element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`;
-            const indexKey = `index ${i}`;
 
-            const element_box_style = style.box_compound?.[indexKey];
-            const element_text_style = style.text_compound?.[indexKey];
+            const element_box_style = style.box_compound?.[i] as Options;
+            const element_text_style = style.text_compound?.[
+                i
+            ] as CSS.PropertiesHyphen;
 
             const item_length = Math.max(
                 this.item_min_width,
@@ -565,10 +566,11 @@ export class MemoryModel {
 
         element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`;
-            const indexKey = `index ${i}`;
 
-            const element_box_style = style.box_compound?.[indexKey];
-            const element_text_style = style.text_compound?.[indexKey];
+            const element_box_style = style.box_compound?.[i] as Options;
+            const element_text_style = style.text_compound?.[
+                i
+            ] as CSS.PropertiesHyphen;
 
             const item_length = Math.max(
                 this.item_min_width,
@@ -664,6 +666,7 @@ export class MemoryModel {
 
         // First loop, to draw the key boxes
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
+        let index = 0;
         for (const entry of entries) {
             let key_string: string;
             if (entry[0] === null || entry[0] === undefined) {
@@ -674,10 +677,20 @@ export class MemoryModel {
                 key_string = String(entry[0]);
             }
             const idk = key_string.trim() === "" ? "" : `id${key_string}`;
-            const key = `key ${key_string}`;
 
-            const key_box_style = style.box_compound?.[key];
-            const key_text_style = style.text_compound?.[key];
+            const raw_box = style.box_compound?.[index];
+            const raw_text = style.text_compound?.[index];
+
+            let key_box_style: Options | undefined;
+            let key_text_style: CSS.PropertiesHyphen | undefined;
+
+            if (raw_box !== undefined && "key" in raw_box) {
+                key_box_style = raw_box.key;
+            }
+
+            if (raw_text !== undefined && "key" in raw_text) {
+                key_text_style = raw_text.key;
+            }
 
             const key_box = Math.max(
                 this.item_min_width,
@@ -702,16 +715,28 @@ export class MemoryModel {
             );
 
             curr_y += this.item_min_height * 1.5;
+            index++;
         }
 
         // A second loop, so that we can position the colon and value boxes correctly.
         curr_y = y + this.prop_min_height + this.item_min_height / 2;
+        index = 0;
         for (const entry of entries) {
             const idv = entry[1] === null ? "" : `id${entry[1]}`;
-            const value = `value ${entry[1]}`;
 
-            const value_box_style = style.box_compound?.[value];
-            const value_text_style = style.text_compound?.[value];
+            const raw_box = style.box_compound?.[index];
+            const raw_text = style.text_compound?.[index];
+
+            let value_box_style: Options | undefined;
+            let value_text_style: CSS.PropertiesHyphen | undefined;
+
+            if (raw_box !== undefined && "value" in raw_box) {
+                value_box_style = raw_box.value;
+            }
+
+            if (raw_text !== undefined && "value" in raw_text) {
+                value_text_style = raw_text.value;
+            }
 
             const value_box = Math.max(
                 this.item_min_width,
@@ -744,6 +769,7 @@ export class MemoryModel {
             );
 
             curr_y += this.item_min_height * 1.5;
+            index++;
         }
 
         this.drawProperties(id, "dict", x, y, width, style);
