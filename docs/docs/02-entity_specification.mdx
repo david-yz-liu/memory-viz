@@ -9,6 +9,7 @@ import CodeBlock from "@theme/CodeBlock";
 import ExampleBool from "!!raw-loader!./examples/entity_specification/bool.json";
 import ExampleClassBlank from "!!raw-loader!./examples/entity_specification/class_blank.json";
 import ExampleDictBlank from "!!raw-loader!./examples/entity_specification/dict_blank.json";
+import ExampleDictListValue from "!!raw-loader!./examples/entity_specification/dict_list_value.json";
 import ExampleDictTall from "!!raw-loader!./examples/entity_specification/dict_tall.json";
 import ExampleEmptyBox from "!!raw-loader!./examples/entity_specification/empty_box.json";
 import ExampleFloat from "!!raw-loader!./examples/entity_specification/float.json";
@@ -279,14 +280,14 @@ All supported entities include the following core attributes, unless explicitly 
 
 ## Dictionaries
 
-| Attribute         | Type                | Required | Description                                                                                                                                                               |
-| :---------------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `type`            | `string`            | Yes      | Must be set to `dict` to indicate a dictionary object.                                                                                                                    |
-| `id`              | `number`            | Yes      | Unique identifier for the dictionary.                                                                                                                                     |
-| `value`           | `dict`              | Yes      | Dictionary of `string` object id keys to `int` object id value pairs. Keys can be made empty or all-whitespace strings and values can be made `null` to draw blank boxes. |
-| `x`, `y`          | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                   |
-| `style`           | `object` or `array` | No       | Custom visual styling.                                                                                                                                                    |
-| `width`, `height` | `number`            | No       | The height and width for the dictionary.                                                                                                                                  |
+| Attribute         | Type                | Required | Description                                                                                                                                                                                                                                                         |
+| :---------------- | :------------------ | :------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`            | `string`            | Yes      | Must be set to `dict` to indicate a dictionary object.                                                                                                                                                                                                              |
+| `id`              | `number`            | Yes      | Unique identifier for the dictionary.                                                                                                                                                                                                                               |
+| `value`           | `dict` or `array`   | Yes      | Dictionary of `string` object id keys to `int` object id value pairs or a list of two-element lists, where each inner list is in the form `[key id, value id]`. Keys can be made empty or all-whitespace strings and values can be made `null` to draw blank boxes. |
+| `x`, `y`          | `number`            | No       | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                                                                                                             |
+| `style`           | `object` or `array` | No       | Custom visual styling.                                                                                                                                                                                                                                              |
+| `width`, `height` | `number`            | No       | The height and width for the dictionary.                                                                                                                                                                                                                            |
 
 #### Examples
 
@@ -313,6 +314,21 @@ All supported entities include the following core attributes, unless explicitly 
                 "images/entity_specification/dict_tall_light.svg"
             ),
             dark: useBaseUrl("images/entity_specification/dict_tall_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Dictionary with value specified using a list**</summary>
+    <CodeBlock language="json">{ExampleDictListValue}</CodeBlock>
+    <ThemedImage
+        alt="Example Dictionary"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/dict_list_value_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/dict_list_value_dark.svg"
+            ),
         }}
     />
 </details>

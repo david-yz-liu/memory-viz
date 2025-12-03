@@ -1,20 +1,20 @@
-jest.mock(
-    "../sample/automated-layout/data.json",
-    () => ({ sample: "automation" }),
-    { virtual: true }
-);
-jest.mock(
-    "../sample/automated-layout/config.json",
-    () => ({ config: "config" }),
-    {
-        virtual: true,
-    }
-);
+import { jest } from "@jest/globals";
+
+jest.unstable_mockModule("./sample/automated-layout/data", () => ({
+    default: { sample: "automation" },
+}));
+
+jest.unstable_mockModule("./sample/automated-layout/config", () => ({
+    default: { config: "config" },
+}));
 
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import MemoryModelsSample from "../MemoryModelsSample";
-import { SAMPLES } from "../sample";
+
+const { default: MemoryModelsSample } = await import(
+    "../MemoryModelsSample.js"
+);
+const { SAMPLES } = await import("../sample/index.js");
 import { renderWithI18n } from "./i18n-test-utils";
 
 describe("MemoryModelsSample", () => {

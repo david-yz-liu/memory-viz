@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import DownloadJSONButton from "../DownloadJSONButton";
+import DownloadJSONButton from "../DownloadJSONButton.js";
 import { renderWithI18n } from "./i18n-test-utils";
 
 describe("DownloadJSONButton", () => {

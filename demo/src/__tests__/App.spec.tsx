@@ -1,6 +1,7 @@
+import { jest } from "@jest/globals";
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import App from "../App";
+import App from "../App.js";
 import { renderWithI18n } from "./i18n-test-utils";
 
 describe("App", () => {

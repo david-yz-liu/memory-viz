@@ -1,8 +1,5 @@
+import { jest } from "@jest/globals";
 import React from "react";
-import { render, screen } from "@testing-library/react";
-import SvgDisplay from "../SvgDisplay";
-import mem from "memory-viz";
-const { draw } = mem;
 
 const mockMemoryModels = {
     serializeSVG: jest.fn(),
@@ -10,9 +7,17 @@ const mockMemoryModels = {
     render: jest.fn(),
 };
 
-jest.mock("memory-viz", () => ({
-    draw: jest.fn(() => mockMemoryModels),
+jest.unstable_mockModule("memory-viz", () => ({
+    default: {
+        draw: jest.fn(() => mockMemoryModels),
+    },
 }));
+
+import { render, screen } from "@testing-library/react";
+
+const { default: SvgDisplay } = await import("../SvgDisplay.js");
+const mem = await import("memory-viz");
+const { draw } = mem.default;
 
 describe("SvgDisplay", () => {
     const setSvgResultMock = jest.fn();

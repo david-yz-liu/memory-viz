@@ -1,9 +1,11 @@
+import fs from "fs";
+
 import rough from "roughjs";
 
 import merge from "deepmerge";
 
-import { collections, immutable, presets, setStyleSheet } from "./style";
-import { config } from "./config";
+import { collections, immutable, presets, setStyleSheet } from "./style.js";
+import { config } from "./config.js";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
 import {
     DrawnEntity,
@@ -15,19 +17,12 @@ import {
     SortOptions,
     Style,
     VisualizationConfig,
-} from "./types";
-import { isArrayOfNullableType, isStyle } from "./typeguards";
-import { RoughSVG } from "roughjs/bin/svg";
-import { Config, Options } from "roughjs/bin/core";
-import type * as fsType from "fs";
+} from "./types.js";
+import { isArrayOfNullableType, isStyle } from "./typeguards.js";
+import { RoughSVG } from "roughjs/bin/svg.js";
+import { Config, Options } from "roughjs/bin/core.js";
 import type * as CSS from "csstype";
 import { prettifyError } from "zod";
-
-// Dynamic import of Node fs module
-let fs: typeof fsType | undefined;
-if (typeof window === "undefined") {
-    fs = require("fs");
-}
 
 /** The class representing the memory model diagram of the given block of code. */
 export class MemoryModel {
@@ -616,7 +611,7 @@ export class MemoryModel {
         x: number,
         y: number,
         id: number | null,
-        obj: { [key: string]: any } | null,
+        obj: { [key: string]: any } | [any, any][] | null,
         style: Style,
         width: number,
         height: number
@@ -624,10 +619,34 @@ export class MemoryModel {
         this.drawRect(x, y, width, height, style.box_container, true, id);
         const SIZE: Rect = { x, y, width: width, height: height };
 
+        const entries: [any, any][] = [];
+        if (Array.isArray(obj)) {
+            for (const item of obj) {
+                if (!Array.isArray(item) || item.length !== 2) {
+                    throw new Error(
+                        "Invalid dict value: Expected a list of [key id, value id] pairs."
+                    );
+                }
+                entries.push([item[0], item[1]]);
+            }
+        } else {
+            for (const k in obj) {
+                entries.push([k, obj[k]]);
+            }
+        }
+
         // First loop, to draw the key boxes
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
-        for (const k in obj) {
-            const idk = k.trim() === "" ? "" : `id${k}`;
+        for (const entry of entries) {
+            let key_string: string;
+            if (entry[0] === null || entry[0] === undefined) {
+                key_string = "";
+            } else if (typeof entry[0] === "string") {
+                key_string = entry[0];
+            } else {
+                key_string = String(entry[0]);
+            }
+            const idk = key_string.trim() === "" ? "" : `id${key_string}`;
 
             const key_box = Math.max(
                 this.item_min_width,
@@ -655,8 +674,8 @@ export class MemoryModel {
 
         // A second loop, so that we can position the colon and value boxes correctly.
         curr_y = y + this.prop_min_height + this.item_min_height / 2;
-        for (const k in obj) {
-            const idv = k === null || obj[k] === null ? "" : `id${obj[k]}`;
+        for (const entry of entries) {
+            const idv = entry[1] === null ? "" : `id${entry[1]}`;
 
             const value_box = Math.max(
                 this.item_min_width,
@@ -1284,7 +1303,7 @@ export class MemoryModel {
      * @returns An object with default_width and default_height properties.
      */
     private getDefaultDictDimensions(
-        dict_obj: { [key: string]: any } | null,
+        dict_obj: { [key: string]: any } | [any, any][] | null,
         style: Style
     ): {
         default_width: number;
@@ -1293,9 +1312,33 @@ export class MemoryModel {
         let default_width = this.obj_min_width;
         let default_height = this.prop_min_height + this.item_min_height / 2;
 
-        for (const k in dict_obj) {
-            const idk = k.trim() === "" ? "" : `id${k}`;
-            const idv = dict_obj[k] === null ? "" : `id${dict_obj[k]}`;
+        const entries: [any, any][] = [];
+        if (Array.isArray(dict_obj)) {
+            for (const item of dict_obj) {
+                if (!Array.isArray(item) || item.length !== 2) {
+                    throw new Error(
+                        "Invalid dict value: Expected a list of [key id, value id] pairs."
+                    );
+                }
+                entries.push([item[0], item[1]]);
+            }
+        } else {
+            for (const k in dict_obj) {
+                entries.push([k, dict_obj[k]]);
+            }
+        }
+
+        for (const entry of entries) {
+            let key_string: string;
+            if (entry[0] === null || entry[0] === undefined) {
+                key_string = "";
+            } else if (typeof entry[0] === "string") {
+                key_string = entry[0];
+            } else {
+                key_string = String(entry[0]);
+            }
+            const idk = key_string.trim() === "" ? "" : `id${key_string}`;
+            const idv = entry[1] === null ? "" : `id${entry[1]}`;
 
             const key_box = Math.max(
                 this.item_min_width,

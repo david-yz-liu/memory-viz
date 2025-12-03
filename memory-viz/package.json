@@ -2,12 +2,20 @@
     "name": "memory-viz",
     "version": "0.7.0",
     "description": "Library for creating beginner-friendly memory model diagrams.",
-    "main": "dist/memory-viz.bundle.js",
-    "types": "dist/index.d.ts",
+    "type": "module",
+    "exports": {
+        "types": "./dist/index.d.ts",
+        "require": "./dist/memory-viz.node.cjs",
+        "import": {
+            "node": "./dist/memory-viz.node.js",
+            "default": "./dist/memory-viz.browser.js"
+        },
+        "default": "./dist/memory-viz.umd.js"
+    },
     "homepage": "https://www.cs.toronto.edu/~david/memory-viz",
     "scripts": {
-        "test": "jest --no-cache",
-        "test-cov": "jest --no-cache --coverage",
+        "test": "NODE_OPTIONS='--experimental-vm-modules' jest --no-cache",
+        "test-cov": "NODE_OPTIONS='--experimental-vm-modules' jest --no-cache --coverage",
         "watch": "webpack --watch --config webpack.dev.js",
         "build-dev": "tsc && webpack --config webpack.dev.js",
         "build": "tsc && webpack --config webpack.prod.js",
@@ -63,6 +71,7 @@
         "@types/jest": "^29.5.12",
         "@types/node": "^22.10.3",
         "@types/pretty": "^2.0.3",
+        "@types/tmp": "^0.2.6",
         "babel-loader": "^9.1.0",
         "copy-webpack-plugin": "^12.0.2",
         "csstype": "^3.1.3",

@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 
 // Import draw function
-const { draw } = require("memory-viz");
+const memoryViz = require("memory-viz");
+
+// Or, using ESM import:
+// import memoryViz from "memory-viz";
 
 // Define the data to visualize
 const objects = [
@@ -25,7 +28,7 @@ const objects = [
 ];
 
 // Visualize the data, using an automated layout, and with an image width of 1300px
-const model = draw(objects, true, { width: 1300 });
+const model = memoryViz.draw(objects, true, { width: 1300 });
 
 // Save the visualization to demo_output.svg
 model.save("demo_output.svg");

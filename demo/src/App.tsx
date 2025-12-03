@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import SvgDisplay from "./SvgDisplay";
-import MemoryModelsUserInput from "./MemoryModelsUserInput";
+import SvgDisplay from "./SvgDisplay.js";
+import MemoryModelsUserInput from "./MemoryModelsUserInput.js";
 import { ErrorBoundary } from "react-error-boundary";
-import DownloadSVGButton from "./DownloadSVGButton";
+import DownloadSVGButton from "./DownloadSVGButton.js";
 import { Alert } from "@mui/material";
-import { configDataPropTypes } from "./MemoryModelsUserInput";
-import Header from "./Header";
+import { configDataPropTypes } from "./MemoryModelsUserInput.js";
+import Header from "./Header.js";
 
 interface AppProps {
     isDarkMode: boolean;

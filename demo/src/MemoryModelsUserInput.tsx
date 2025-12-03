@@ -17,9 +17,9 @@ import { useTranslation } from "react-i18next";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import DrawIcon from "@mui/icons-material/Draw";
-import DownloadJSONButton from "./DownloadJSONButton";
-import MemoryModelsMenu from "./MemoryModelsMenu";
-import MemoryModelsSample from "./MemoryModelsSample";
+import DownloadJSONButton from "./DownloadJSONButton.js";
+import MemoryModelsMenu from "./MemoryModelsMenu.js";
+import MemoryModelsSample from "./MemoryModelsSample.js";
 
 interface configDataPropTypes {
     useAutomation: boolean;

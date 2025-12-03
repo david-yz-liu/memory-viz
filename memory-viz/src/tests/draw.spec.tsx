@@ -1,5 +1,6 @@
-import exports from "../index";
-import { DrawnEntity } from "../types";
+import { jest } from "@jest/globals";
+import exports from "../index.js";
+import { DrawnEntity } from "../types.js";
 const { draw } = exports;
 
 describe("draw function", () => {
@@ -584,6 +585,35 @@ describe("draw function", () => {
             }
         );
         const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders dict with list value", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "dict",
+                id: 3,
+                value: [
+                    ["", null],
+                    ["", 1],
+                    ["x", 2],
+                    [" ", 3],
+                    [null, 4],
+                    [undefined, 5],
+                    [0, 6],
+                ],
+            },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        m.save("dist_list4.svg");
         expect(svg).toMatchSnapshot();
     });
 

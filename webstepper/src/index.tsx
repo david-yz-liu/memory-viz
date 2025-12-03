@@ -1,7 +1,7 @@
 import "./i18n";
 import React, { StrictMode, useState, Suspense } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App";
+import App from "./App.js";
 import "./css/styles.scss";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";

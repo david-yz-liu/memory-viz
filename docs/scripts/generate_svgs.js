@@ -4,9 +4,13 @@
 // The script only generates SVGs if the JSON file is newer than the SVG file.
 // Usage: npm run generate-svgs
 
-const fs = require("fs");
-const path = require("path");
-const { draw } = require("memory-viz");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { draw } from "memory-viz";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const jsonDirectory = path.resolve(__dirname, "../docs/examples");
 const svgDirectory = path.resolve(__dirname, "../static/images");

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { MenuItem } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import MemoryModelsMenu from "./MemoryModelsMenu";
+import MemoryModelsMenu from "./MemoryModelsMenu.js";
 
-import { SAMPLES } from "./sample";
+import { SAMPLES } from "./sample/index.js";
 
 type MemoryModelsSamplePropTypes = {
     setTextData: React.Dispatch<React.SetStateAction<string>>;

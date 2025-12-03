@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import Header from "./Header";
+import Header from "./Header.js";
 import { Button, Box, Typography, Stack } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import SvgDisplay from "./SvgDisplay";
-import CodeDisplay from "./CodeDisplay";
-import placeholder from "./placeholder";
+import SvgDisplay from "./SvgDisplay.js";
+import CodeDisplay from "./CodeDisplay.js";
+import placeholder from "./placeholder.js";
 
 if (typeof window === "object" && process.env.NODE_ENV !== "production") {
     window.svgArray = placeholder.svgArray;

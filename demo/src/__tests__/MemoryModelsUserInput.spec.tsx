@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import React from "react";
 import {
     fireEvent,
@@ -6,7 +7,7 @@ import {
     waitFor,
     act,
 } from "@testing-library/react";
-import MemoryModelsUserInput from "../MemoryModelsUserInput";
+import MemoryModelsUserInput from "../MemoryModelsUserInput.js";
 import { renderWithI18n } from "./i18n-test-utils";
 
 describe("MemoryModelsUserInput", () => {
