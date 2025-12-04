@@ -84,9 +84,6 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                         <MenuItem onClick={() => changeLanguage("en")}>
                             English
                         </MenuItem>
-                        <MenuItem onClick={() => changeLanguage("fr")}>
-                            Français
-                        </MenuItem>
                     </Menu>
                     <IconButton
                         onClick={toggleTheme}

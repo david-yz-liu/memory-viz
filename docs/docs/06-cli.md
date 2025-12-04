@@ -110,8 +110,8 @@ $ npx memory-viz <path-to-file> --output=<path> --global-style=<path-to-css> --t
 
 ## Language Support
 
-The CLI supports English and French, automatically detecting your system locale via the `LANG` environment variable. Override by setting `LANG` before the command:
+The CLI can automatically detect your system locale via the `LANG` environment variable. Override by setting `LANG` before the command:
 
 ```console
-$ LANG=fr npx memory-viz --help
+$ LANG=en npx memory-viz --help
 ```

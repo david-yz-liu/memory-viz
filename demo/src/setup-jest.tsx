@@ -4,8 +4,7 @@ import React, { ReactElement } from "react";
 import { I18nextProvider } from "react-i18next";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import enTranslations from "../public/locales/en/translation.json";
-import frTranslations from "../public/locales/fr/translation.json";
+import enTranslations from "./locales/en/translation.json";
 
 // jsdom issue. Usable solution from https://stackoverflow.com/a/74063955
 if (typeof window.URL.createObjectURL === "undefined") {
@@ -28,9 +27,6 @@ testI18n.use(initReactI18next).init({
     resources: {
         en: {
             translation: enTranslations,
-        },
-        fr: {
-            translation: frTranslations,
         },
     },
 });
