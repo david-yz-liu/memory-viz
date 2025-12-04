@@ -1,15 +1,42 @@
-const { merge } = require("webpack-merge");
-const common = require("./webpack.common.js");
+import { merge } from "webpack-merge";
+import {
+    browserConfig,
+    browserEsmConfig,
+    cjsConfig,
+    esmConfig,
+    cliConfig,
+} from "./webpack.common.js";
 
-module.exports = [
-    merge(common.libConfig, {
+export default [
+    merge(browserConfig, {
         mode: "development",
         devtool: "inline-source-map",
         devServer: {
             static: "./dist",
         },
     }),
-    merge(common.cliConfig, {
+    merge(browserEsmConfig, {
+        mode: "development",
+        devtool: "inline-source-map",
+        devServer: {
+            static: "./dist",
+        },
+    }),
+    merge(cjsConfig, {
+        mode: "development",
+        devtool: "inline-source-map",
+        devServer: {
+            static: "./dist",
+        },
+    }),
+    merge(esmConfig, {
+        mode: "development",
+        devtool: "inline-source-map",
+        devServer: {
+            static: "./dist",
+        },
+    }),
+    merge(cliConfig, {
         mode: "development",
         devtool: "inline-source-map",
         devServer: {

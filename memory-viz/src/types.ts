@@ -1,4 +1,4 @@
-import { Config, Options } from "roughjs/bin/core";
+import { Config, Options } from "roughjs/bin/core.js";
 import type * as CSS from "csstype";
 import { z } from "zod";
 

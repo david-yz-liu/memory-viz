@@ -59,7 +59,7 @@ Call the `draw` function on an array that encodes a state of Python memory and s
 Here's a complete example, which produces the same SVG output as above.
 
 ```js
-const { draw } = require("memory-viz");
+import { draw } from "memory-viz";
 
 const objects = [
     {

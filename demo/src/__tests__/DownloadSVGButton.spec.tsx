@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import DownloadSVGButton from "../DownloadSVGButton";
+import DownloadSVGButton from "../DownloadSVGButton.js";
 
 describe("DownloadSVGButton", () => {
     const mockSvgStr = "<svg>...</svg>";

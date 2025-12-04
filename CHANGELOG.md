@@ -42,6 +42,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Enabled Dependabot updates for GitHub Actions
 - Introduced `DrawnEntityStrict` type and refactored `drawAll` to obtain an array of strict objects before drawing each object
 - Moved logic for setting `x` and `y` coordinates from `automate.ts` to the `MemoryModel` class, deleted `automate.ts`
+- Converted the entire monorepo from CommonJS to native ESM, including package/module configuration, TypeScript and Webpack builds, experimental Jest ESM setup, and full migration of all imports, mocks, and tests.
+- Split output files to have CJS and ESM versions for Node and the browser
 
 ## [0.7.0] - 2025-08-11
 

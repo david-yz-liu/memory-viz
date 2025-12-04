@@ -6,7 +6,7 @@
  *
  * OUTPUT FILE: ~/examples/manuel_demo/manual_demo.svg
  */
-const { draw } = require("memory-viz");
+import { draw } from "memory-viz";
 
 const m = draw("manual_demo.json", false, {});
 
