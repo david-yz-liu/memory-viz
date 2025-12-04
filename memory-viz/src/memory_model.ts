@@ -463,16 +463,28 @@ export class MemoryModel {
         }
         element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`;
+
+            const element_box_style = style.box_compound?.[i] as Options;
+            const element_text_style = style.text_compound?.[
+                i
+            ] as CSS.PropertiesHyphen;
+
             const item_length = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv, style.text_id) + 10
             );
-            this.drawRect(curr_x, item_y, item_length, this.item_min_height);
+            this.drawRect(
+                curr_x,
+                item_y,
+                item_length,
+                this.item_min_height,
+                element_box_style
+            );
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text_value,
+                element_text_style,
                 "id"
             );
             if (show_idx) {
@@ -549,16 +561,28 @@ export class MemoryModel {
 
         element_ids.forEach((v, i) => {
             const idv = v === null ? "" : `id${v}`;
+
+            const element_box_style = style.box_compound?.[i] as Options;
+            const element_text_style = style.text_compound?.[
+                i
+            ] as CSS.PropertiesHyphen;
+
             const item_length = Math.max(
                 this.item_min_width,
                 this.getTextLength(idv, style.text_id) + 10
             );
-            this.drawRect(curr_x, item_y, item_length, this.item_min_height);
+            this.drawRect(
+                curr_x,
+                item_y,
+                item_length,
+                this.item_min_height,
+                element_box_style
+            );
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
-                style.text_value,
+                element_text_style,
                 "id"
             );
             if (i > 0) {
@@ -637,6 +661,7 @@ export class MemoryModel {
 
         // First loop, to draw the key boxes
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
+        let index = 0;
         for (const entry of entries) {
             let key_string: string;
             if (entry[0] === null || entry[0] === undefined) {
@@ -648,6 +673,20 @@ export class MemoryModel {
             }
             const idk = key_string.trim() === "" ? "" : `id${key_string}`;
 
+            const raw_box = style.box_compound?.[index];
+            const raw_text = style.text_compound?.[index];
+
+            let key_box_style: Options | undefined;
+            let key_text_style: CSS.PropertiesHyphen | undefined;
+
+            if (raw_box !== undefined && "key" in raw_box) {
+                key_box_style = raw_box.key;
+            }
+
+            if (raw_text !== undefined && "key" in raw_text) {
+                key_text_style = raw_text.key;
+            }
+
             const key_box = Math.max(
                 this.item_min_width,
                 this.getTextLength(idk + 5, style.text_id)
@@ -658,24 +697,41 @@ export class MemoryModel {
                 x + this.obj_x_padding,
                 curr_y,
                 key_box,
-                this.item_min_height
+                this.item_min_height,
+                key_box_style
             );
 
             this.drawText(
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
-                style.text_value,
+                key_text_style,
                 "id"
             );
 
             curr_y += this.item_min_height * 1.5;
+            index++;
         }
 
         // A second loop, so that we can position the colon and value boxes correctly.
         curr_y = y + this.prop_min_height + this.item_min_height / 2;
+        index = 0;
         for (const entry of entries) {
             const idv = entry[1] === null ? "" : `id${entry[1]}`;
+
+            const raw_box = style.box_compound?.[index];
+            const raw_text = style.text_compound?.[index];
+
+            let value_box_style: Options | undefined;
+            let value_text_style: CSS.PropertiesHyphen | undefined;
+
+            if (raw_box !== undefined && "value" in raw_box) {
+                value_box_style = raw_box.value;
+            }
+
+            if (raw_text !== undefined && "value" in raw_text) {
+                value_text_style = raw_text.value;
+            }
 
             const value_box = Math.max(
                 this.item_min_width,
@@ -687,7 +743,8 @@ export class MemoryModel {
                 x + width / 2 + this.font_size,
                 curr_y,
                 value_box,
-                this.item_min_height
+                this.item_min_height,
+                value_box_style
             );
 
             this.drawText(
@@ -702,11 +759,12 @@ export class MemoryModel {
                 idv,
                 x + width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                style.text_value,
+                value_text_style,
                 "id"
             );
 
             curr_y += this.item_min_height * 1.5;
+            index++;
         }
 
         this.drawProperties(id, "dict", x, y, width, style);

@@ -1,0 +1,15 @@
+[
+    {
+        "type": "list",
+        "id": 32,
+        "value": [null, 10, 20],
+        "style": {
+            "box_compound": {
+                "2": { "fill": "red" }
+            },
+            "text_compound": {
+                "1": { "font-style": "italic" }
+            }
+        }
+    }
+]
