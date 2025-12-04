@@ -107,3 +107,11 @@ Here is an example of a CSS file that defines a custom theme, and its usage:
 ```console
 $ npx memory-viz <path-to-file> --output=<path> --global-style=<path-to-css> --theme=oceanic-light
 ```
+
+## Language Support
+
+The CLI can automatically detect your system locale via the `LANG` environment variable. Override by setting `LANG` before the command:
+
+```console
+$ LANG=en npx memory-viz --help
+```

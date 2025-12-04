@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.js";
 import "@picocss/pico";
 import "./css/styles";
+import "./i18n";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useMediaQuery, CssBaseline } from "@mui/material";

@@ -2,6 +2,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import nodeExternals from "webpack-node-externals";
 import webpack from "webpack";
+import CopyWebpackPlugin from "copy-webpack-plugin";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -134,6 +135,14 @@ export const cliConfig = {
             banner: "#!/usr/bin/env node",
             raw: true,
             entryOnly: true,
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: path.resolve(__dirname, "src/locales"),
+                    to: path.resolve(__dirname, "dist/locales"),
+                },
+            ],
         }),
     ],
 };

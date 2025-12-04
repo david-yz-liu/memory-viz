@@ -15,6 +15,7 @@ const { default: MemoryModelsSample } = await import(
     "../MemoryModelsSample.js"
 );
 const { SAMPLES } = await import("../sample/index.js");
+import { renderWithI18n } from "../setup-jest";
 
 describe("MemoryModelsSample", () => {
     // submit button by default resets the form https://stackoverflow.com/a/62404526
@@ -29,11 +30,13 @@ describe("MemoryModelsSample", () => {
         });
 
         render(
-            <MemoryModelsSample
-                onTextDataSubmit={onSubmitMock}
-                setTextData={setTextDataMock}
-                setConfigData={setConfigDataMock}
-            />
+            renderWithI18n(
+                <MemoryModelsSample
+                    onTextDataSubmit={onSubmitMock}
+                    setTextData={setTextDataMock}
+                    setConfigData={setConfigDataMock}
+                />
+            )
         );
     });
 

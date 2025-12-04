@@ -16,6 +16,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Updated the default canvas bottom padding from 100 to 25
 - Added styling for compound objects (lists, tuples, sets, and dictionaries)
 - Extended dict `value` to accept a list of two-element lists, where each inner list is in the form `[key id, value id]`
+- Added internationalization (i18n) support for translations across demo, webstepper, and CLI.
 
 ### 🐛 Bug fixes
 

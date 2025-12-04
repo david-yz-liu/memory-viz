@@ -2,10 +2,13 @@ import { jest } from "@jest/globals";
 import React from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import App from "../App.js";
+import { renderWithI18n } from "../setup-jest";
 
 describe("App", () => {
     beforeEach(() => {
-        render(<App />);
+        render(
+            renderWithI18n(<App isDarkMode={false} toggleTheme={() => {}} />)
+        );
     });
 
     afterEach(() => {
@@ -93,5 +96,10 @@ describe("App", () => {
             ).toBeNull();
         });
         expect(screen.getByTestId("memory-models-canvas")).toBeTruthy();
+    });
+
+    it("renders translated text in English by default", () => {
+        expect(screen.getByText("Output")).toBeDefined();
+        expect(screen.getByText("Input")).toBeDefined();
     });
 });

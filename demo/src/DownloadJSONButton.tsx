@@ -1,11 +1,13 @@
 import React from "react";
 import { Button } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import DownloadIcon from "@mui/icons-material/Download";
 
 type DownloadJSONButtonPropTypes = {
     textData: string;
 };
 export default function DownloadJSONButton(props: DownloadJSONButtonPropTypes) {
+    const { t } = useTranslation();
     const file = new Blob([props.textData], {
         type: "application/JSON",
     });
@@ -23,7 +25,7 @@ export default function DownloadJSONButton(props: DownloadJSONButtonPropTypes) {
             startIcon={<DownloadIcon />}
             sx={{ textTransform: "none" }}
         >
-            Download JSON
+            {t("input.downloadJSON")}
         </Button>
     );
 }

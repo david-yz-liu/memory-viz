@@ -13,6 +13,7 @@ import {
     DialogActions,
     DialogContent,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
 import DrawIcon from "@mui/icons-material/Draw";
@@ -51,6 +52,7 @@ type MemoryModelsUserInputPropTypes = MemoryModelsFileInputPropTypes &
     };
 
 function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
+    const { t } = useTranslation();
     const [uploadedFileString, setUploadedFileString] = useState("");
     const [open, setOpen] = useState(false);
 
@@ -70,7 +72,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                 setUploadedFileString(fileString);
             };
         } catch (error) {
-            const errorMessage = `Error reading uploaded file as text. Please ensure it's in UTF-8 encoding: ${error.message}`;
+            const errorMessage = `${t("errors.fileReading")} ${error.message}`;
             console.error(errorMessage);
             props.setTextData(null);
             props.setFailureBanner(errorMessage);
@@ -89,7 +91,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                 startIcon={<UploadFileIcon />}
                 sx={{ textTransform: "none" }}
             >
-                Upload JSON File
+                {t("input.uploadButton")}
             </Button>
             <Dialog
                 open={open}
@@ -118,7 +120,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
                         sx={{ textTransform: "none" }}
                         startIcon={<FolderOpenIcon />}
                     >
-                        Load file data
+                        {t("input.loadFileData")}
                     </Button>
                 </DialogActions>
             </Dialog>
@@ -127,6 +129,7 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
 }
 
 function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
+    const { t } = useTranslation();
     const handleTextFieldChange = (event) => {
         props.setTextData(event.target.value);
     };
@@ -135,7 +138,7 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
         <TextField
             id="multiline-memory-models-textfield"
             data-testid="textfield-input"
-            label="Enter memory model JSON here"
+            label={t("input.textFieldLabel")}
             multiline
             fullWidth
             rows={10}
@@ -150,6 +153,7 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
 
 //TODO: Retrieve min and max seeds from memory-viz
 function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
+    const { t } = useTranslation();
     const handleSeedChange = (event) => {
         event.preventDefault();
         props.setConfigData({
@@ -183,13 +187,13 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
 
     return (
         <MemoryModelsMenu
-            menuName="Rendering Options"
+            menuName={t("rendering.title")}
             testId="rendering-options-menu"
             menuItems={
                 <>
                     <MenuItem>
                         <TextField
-                            label="Seed"
+                            label={t("rendering.seed")}
                             id="config-seed"
                             variant="outlined"
                             value={props.configData.overallDrawConfig.seed}
@@ -212,13 +216,13 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                                     onChange={handleAutomationChange}
                                 />
                             }
-                            label="Use automatic layout"
+                            label={t("rendering.useAutomaticLayout")}
                         />
                     </MenuItem>
                     <MenuItem>
                         <TextField
                             select
-                            label="Theme"
+                            label={t("rendering.theme")}
                             value={
                                 props.configData.overallDrawConfig.theme ??
                                 "light"
@@ -226,9 +230,15 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                             onChange={handleThemeChange}
                             fullWidth
                         >
-                            <MenuItem value="match">Match website</MenuItem>
-                            <MenuItem value="light">Light</MenuItem>
-                            <MenuItem value="dark">Dark</MenuItem>
+                            <MenuItem value="match">
+                                {t("rendering.matchWebsite")}
+                            </MenuItem>
+                            <MenuItem value="light">
+                                {t("rendering.light")}
+                            </MenuItem>
+                            <MenuItem value="dark">
+                                {t("rendering.dark")}
+                            </MenuItem>
                         </TextField>
                     </MenuItem>
                 </>
@@ -240,6 +250,7 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
 export default function MemoryModelsUserInput(
     props: MemoryModelsUserInputPropTypes
 ) {
+    const { t } = useTranslation();
     return (
         <form data-testid="input-form" onSubmit={props.onTextDataSubmit}>
             <Stack spacing={2}>
@@ -270,7 +281,7 @@ export default function MemoryModelsUserInput(
                     sx={{ justifyContent: "space-between" }}
                 >
                     <DownloadJSONButton textData={props.textData} />
-                    <Tooltip title="Input JSON to draw diagram">
+                    <Tooltip title={t("input.drawTooltip")}>
                         <span>
                             <Button
                                 type="submit"
@@ -281,7 +292,7 @@ export default function MemoryModelsUserInput(
                                 style={{ textTransform: "none" }}
                                 startIcon={<DrawIcon />}
                             >
-                                Draw Diagram
+                                {t("input.drawDiagram")}
                             </Button>
                         </span>
                     </Tooltip>

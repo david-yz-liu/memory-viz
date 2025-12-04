@@ -42,6 +42,7 @@ jest.unstable_mockModule("react-syntax-highlighter", async () => {
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { renderWithI18n } from "../setup-jest";
 
 const { default: App } = await import("../App.js");
 
@@ -70,7 +71,9 @@ describe("App", () => {
                 blob: () => Promise.resolve(new Blob()),
             } as Response)
         ) as unknown as typeof fetch;
-        render(<App isDarkMode={false} toggleTheme={() => {}} />);
+        render(
+            renderWithI18n(<App isDarkMode={false} toggleTheme={() => {}} />)
+        );
         jest.spyOn(console, "error");
     });
 

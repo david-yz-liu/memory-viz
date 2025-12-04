@@ -1,0 +1,45 @@
+{
+    "header": {
+        "title": "MemoryViz Demo",
+        "subtitle": "Demos of the",
+        "library": "MemoryViz",
+        "documentation": "Javascript library for visualizing Python memory. Click",
+        "here": "here",
+        "forDocs": "for documentation.",
+        "toggleTheme": "Toggle theme"
+    },
+    "input": {
+        "title": "Input",
+        "uploadButton": "Upload JSON File",
+        "loadFileData": "Load file data",
+        "textFieldLabel": "Enter memory model JSON here",
+        "drawDiagram": "Draw Diagram",
+        "drawTooltip": "Input JSON to draw diagram",
+        "downloadJSON": "Download JSON"
+    },
+    "output": {
+        "title": "Output",
+        "downloadSVG": "Download SVG"
+    },
+    "samples": {
+        "title": "Sample Inputs",
+        "simple": "Simple",
+        "manualLayout": "Manual Layout",
+        "automatedLayout": "Automated Layout",
+        "blankSpaces": "Blank spaces",
+        "customStyling": "Custom styling"
+    },
+    "rendering": {
+        "title": "Rendering Options",
+        "seed": "Seed",
+        "useAutomaticLayout": "Use automatic layout",
+        "theme": "Theme",
+        "matchWebsite": "Match website",
+        "light": "Light",
+        "dark": "Dark"
+    },
+    "errors": {
+        "parsing": "Error parsing inputted JSON:",
+        "fileReading": "Error reading uploaded file as text. Please ensure it's in UTF-8 encoding:"
+    }
+}
