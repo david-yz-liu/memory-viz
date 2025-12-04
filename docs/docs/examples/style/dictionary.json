@@ -1,0 +1,19 @@
+[
+    {
+        "type": "dict",
+        "id": 32,
+        "value": { "5": 10, "6": 20, "7": 30 },
+        "style": {
+            "box_compound": {
+                "0": { "key": { "fill": "red" } },
+                "1": { "value": { "fill": "green" } }
+            },
+            "text_compound": {
+                "2": {
+                    "key": { "font-style": "italic" },
+                    "value": { "font-style": "italic" }
+                }
+            }
+        }
+    }
+]

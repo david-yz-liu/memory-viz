@@ -1,0 +1,15 @@
+[
+    {
+        "type": "set",
+        "id": 32,
+        "value": [5, 10, 20],
+        "style": {
+            "box_compound": {
+                "1": { "fill": "blue" }
+            },
+            "text_compound": {
+                "0": { "font-style": "italic" }
+            }
+        }
+    }
+]
