@@ -9,13 +9,19 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
-- Added light/dark theme toggle button to webstepper website
-
 ### 🐛 Bug fixes
 
 ### 🚨 Breaking changes
 
 ### 📚 Documentation changes
+
+### 🔧 Internal changes
+
+## [0.8.0] - 2025-12-04
+
+### ✨ Enhancements
+
+- Added light/dark theme toggle button to webstepper website
 
 ### 🔧 Internal changes
 
