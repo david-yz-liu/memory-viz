@@ -63,7 +63,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         steps:
             - name: Download documentation website artifact
-              uses: actions/download-artifact@v6
+              uses: actions/download-artifact@v7
               with:
                   name: docs
                   path: docs
