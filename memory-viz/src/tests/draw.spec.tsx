@@ -2295,51 +2295,51 @@ describe("draw function", () => {
         spy.mockRestore();
     });
 
-    // it("renders a complex", () => {
-    //     const objects: DrawnEntity[] = [
-    //         { type: "complex", id: 32, value: "(3+1j)" },
-    //     ];
-    //     const m: InstanceType<typeof exports.MemoryModel> = draw(
-    //         objects,
-    //         true,
-    //         {
-    //             width: 1300,
-    //             roughjs_config: { options: { seed: 12345 } },
-    //         }
-    //     );
-    //     const svg: string = m.serializeSVG();
-    //     expect(svg).toMatchSnapshot();
-    // });
+    it("renders a complex", () => {
+        const objects: DrawnEntity[] = [
+            { type: "complex", id: 32, value: "(3+1j)" },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
 
-    // it("renders a range", () => {
-    //     const objects: DrawnEntity[] = [
-    //         { type: "range", id: 32, value: "range(0, 5)" },
-    //     ];
-    //     const m: InstanceType<typeof exports.MemoryModel> = draw(
-    //         objects,
-    //         true,
-    //         {
-    //             width: 1300,
-    //             roughjs_config: { options: { seed: 12345 } },
-    //         }
-    //     );
-    //     const svg: string = m.serializeSVG();
-    //     expect(svg).toMatchSnapshot();
-    // });
+    it("renders a range", () => {
+        const objects: DrawnEntity[] = [
+            { type: "range", id: 32, value: "range(0, 5)" },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
 
-    // it("renders a bytes", () => {
-    //     const objects: DrawnEntity[] = [
-    //         { type: "bytes", id: 32, value: "b'\x00\x00'" },
-    //     ];
-    //     const m: InstanceType<typeof exports.MemoryModel> = draw(
-    //         objects,
-    //         true,
-    //         {
-    //             width: 1300,
-    //             roughjs_config: { options: { seed: 12345 } },
-    //         }
-    //     );
-    //     const svg: string = m.serializeSVG();
-    //     expect(svg).toMatchSnapshot();
-    // });
+    it("renders a bytes", () => {
+        const objects: DrawnEntity[] = [
+            { type: "bytes", id: 32, value: "b'\x00\x00'" },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
 });
