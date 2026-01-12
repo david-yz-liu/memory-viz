@@ -11,9 +11,13 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- Added the built in immutable Python types (complex, bytes, range) to the memory-viz immutable types
+
 ### 🐛 Bug fixes
 
 ### 📚 Documentation and demo website changes
+
+- Preprocess the input JSON to allow the Python class, bytes, to be parsed
 
 ### 🔧 Internal changes
 
