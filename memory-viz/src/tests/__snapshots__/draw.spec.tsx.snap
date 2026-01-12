@@ -2814,7 +2814,7 @@ exports[`draw function renders a bool without defining the value 1`] = `
 </svg>
 `;
 
-exports[`draw function renders a bytes 1`] = `
+exports[`draw function renders a bytes object 1`] = `
 <svg width="1300" height="217" xmlns="http://www.w3.org/2000/svg">
   <style>
     :root {
@@ -3166,7 +3166,7 @@ exports[`draw function renders a class with null attribute name using whitespace
 </svg>
 `;
 
-exports[`draw function renders a complex 1`] = `
+exports[`draw function renders a complex object 1`] = `
 <svg width="1300" height="217" xmlns="http://www.w3.org/2000/svg">
   <style>
     :root {
