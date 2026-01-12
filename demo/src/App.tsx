@@ -41,7 +41,8 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const onTextDataSubmit = (event?) => {
         event?.preventDefault();
         try {
-            setJsonResult(JSON.parse(textData));
+            const preProcessBytes = textData.replace(/\\x/g, '\\\\x');
+            setJsonResult(JSON.parse(preProcessBytes));
             setFailureBanner("");
             setIsValidJson(true);
         } catch (error) {
