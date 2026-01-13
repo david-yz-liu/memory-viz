@@ -17,6 +17,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🔧 Internal changes
 
+- Added `cross-env` dev dependency to enable setting environment variables in npm `"scripts"` commands on Windows
+
 ## [0.8.0] - 2025-12-04
 
 ### ✨ Enhancements

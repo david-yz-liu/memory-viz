@@ -3,8 +3,8 @@
         "lint": "eslint",
         "lint:fix": "eslint --fix",
         "prepare": "husky",
-        "test": "NODE_OPTIONS='--experimental-vm-modules' jest --no-cache",
-        "test-cov": "NODE_OPTIONS='--experimental-vm-modules' jest --no-cache --coverage"
+        "test": "cross-env NODE_OPTIONS='--experimental-vm-modules' jest --no-cache",
+        "test-cov": "cross-env NODE_OPTIONS='--experimental-vm-modules' jest --no-cache --coverage"
     },
     "workspaces": [
         "memory-viz",
@@ -15,6 +15,7 @@
     "devDependencies": {
         "@eslint/js": "^9.33.0",
         "@eslint/json": "^0.13.1",
+        "cross-env": "^10.1.0",
         "eslint": "^9.36.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-jest": "^29.0.1",
