@@ -319,6 +319,12 @@ export class MemoryModel {
             display_text = value ? "True" : "False";
         } else if (type === "str") {
             display_text = JSON.stringify(value);
+        } else if (
+            type === "float" &&
+            typeof value === "number" &&
+            Number.isInteger(value)
+        ) {
+            display_text = value.toFixed(1);
         } else {
             display_text = String(value);
         }
