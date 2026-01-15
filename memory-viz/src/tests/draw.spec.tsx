@@ -2328,9 +2328,7 @@ describe("draw function", () => {
     });
 
     it("renders a range object, given a null input value", () => {
-        const objects: DrawnEntity[] = [
-            { type: "range", id: 32, value: null },
-        ];
+        const objects: DrawnEntity[] = [{ type: "range", id: 32, value: null }];
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             true,
@@ -2360,9 +2358,7 @@ describe("draw function", () => {
     });
 
     it("renders a bytes object, when given a null value", () => {
-        const objects: DrawnEntity[] = [
-            { type: "bytes", id: 32, value: null },
-        ];
+        const objects: DrawnEntity[] = [{ type: "bytes", id: 32, value: null }];
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             true,
