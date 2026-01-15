@@ -43,6 +43,7 @@ export class MemoryModel {
      */
     document: Document;
     svg: SVGSVGElement;
+    drawn_elements_svg: SVGGElement;
     rough_svg: RoughSVG;
     rect_style: Options = { stroke: "rgb(0, 0, 0)" };
     text_color: string = "rgb(0, 0, 0)"; // Default text color
@@ -87,6 +88,11 @@ export class MemoryModel {
         this.svg = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
             "svg"
+        );
+
+        this.drawn_elements_svg = this.document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "g"
         );
 
         if (options.width) {
@@ -927,7 +933,7 @@ export class MemoryModel {
             this.objectCounter++;
         }
 
-        this.svg.appendChild(rectElement);
+        this.drawn_elements_svg.appendChild(rectElement);
     }
 
     /**
@@ -971,7 +977,7 @@ export class MemoryModel {
             newElement.setAttribute("class", `${text_class}`);
         }
 
-        this.svg.appendChild(newElement);
+        this.drawn_elements_svg.appendChild(newElement);
     }
 
     /**
@@ -1123,6 +1129,9 @@ export class MemoryModel {
                 sizes_arr.push(size);
             }
         }
+
+        this.svg.appendChild(this.drawn_elements_svg);
+
         if (this.interactive) {
             this.setInteractivityScript();
         }
