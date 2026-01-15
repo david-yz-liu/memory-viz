@@ -669,7 +669,6 @@ describe("draw function", () => {
             }
         );
         const svg: string = m.serializeSVG();
-        m.save("dist_list4.svg");
         expect(svg).toMatchSnapshot();
     });
 
