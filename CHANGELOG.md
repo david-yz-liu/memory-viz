@@ -13,6 +13,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
+- Added trailing zeroes to values for objects of type `float`
+
 ### 📚 Documentation and demo website changes
 
 ### 🔧 Internal changes
@@ -33,7 +35,6 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Resolved CSS font-size keyword handling in text length calculations
 - Updated the Style data type definition to allow for bare strings, along with error handling for invalid Style attribute strings.
 - Updated `cliConfig` in webpack configuration to make CLI run correctly after being bundled
-- Added trailing zeroes to values for objects of type `float`
 
 ### 📚 Documentation and demo website changes
 
