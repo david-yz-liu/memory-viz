@@ -17,8 +17,6 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 📚 Documentation and demo website changes
 
-- Preprocess the input JSON to allow the Python class, bytes, to be parsed
-
 ### 🔧 Internal changes
 
 ## [0.8.0] - 2025-12-04

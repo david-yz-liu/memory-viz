@@ -2311,9 +2311,57 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a complex object, given a null input value", () => {
+        const objects: DrawnEntity[] = [
+            { type: "complex", id: 32, value: null },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a range object, given a null input value", () => {
+        const objects: DrawnEntity[] = [
+            { type: "range", id: 32, value: null },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders a bytes object", () => {
         const objects: DrawnEntity[] = [
             { type: "bytes", id: 32, value: "b'\x00\x00'" },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a bytes object, when given a null value", () => {
+        const objects: DrawnEntity[] = [
+            { type: "bytes", id: 32, value: null },
         ];
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
