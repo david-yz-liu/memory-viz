@@ -174,6 +174,22 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a float preserving all decimals", () => {
+        const objects: DrawnEntity[] = [
+            { type: "float", id: 10, value: 1.234 },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders a str with null value", () => {
         const objects: DrawnEntity[] = [{ type: "str", id: 10, value: null }];
         const m: InstanceType<typeof exports.MemoryModel> = draw(
