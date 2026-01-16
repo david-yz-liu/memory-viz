@@ -26,6 +26,9 @@ import ExampleSetWide from "!!raw-loader!./examples/entity_specification/set_wid
 import ExampleString from "!!raw-loader!./examples/entity_specification/string.json";
 import ExampleTupleBlank from "!!raw-loader!./examples/entity_specification/tuple_blank.json";
 import ExampleTupleIndices from "!!raw-loader!./examples/entity_specification/tuple_indices.json";
+import ExampleBytes from "!!raw-loader!./examples/entity_specification/bytes.json";
+import ExampleComplex from "!!raw-loader!./examples/entity_specification/complex.json"; 
+import ExampleRange from "!!raw-loader!./examples/entity_specification/range.json"; 
 
 # Entity Specification
 
@@ -48,14 +51,14 @@ All supported entities include the following core attributes, unless explicitly 
 ### Entity Type
 
 | Type Value                                                                 | Description                     |
-| :------------------------------------------------------------------------- | :------------------------------ |
-| `int`, `float`, `str`, `bool`, `None`, `complex`, `bytes`, `range`, `date` | [Primitives](#primitives)       |
-| `list`, `tuple`                                                            | [Sequences](#sequences)         |
-| `set`                                                                      | [Sets](#sets)                   |
-| `dict`                                                                     | [Dictionaries](#dictionaries)   |
-| `.class`                                                                   | [Classes](#classes)             |
-| `.frame`                                                                   | [Stack Frames](#stack-frames)   |
-| `.blank` `.blank-frame`                                                    | [Blank Objects](#blank-objects) |
+| :----------------------------------------------------------------- | :------------------------------ |
+| `int`, `float`, `str`, `bool`, `None`, `complex`, `bytes`, `range` | [Primitives](#primitives)       |
+| `list`, `tuple`                                                    | [Sequences](#sequences)         |
+| `set`                                                              | [Sets](#sets)                   |
+| `dict`                                                             | [Dictionaries](#dictionaries)   |
+| `.class`                                                           | [Classes](#classes)             |
+| `.frame`                                                           | [Stack Frames](#stack-frames)   |
+| `.blank` `.blank-frame`                                            | [Blank Objects](#blank-objects) |
 
 ## Primitives
 
@@ -150,6 +153,39 @@ All supported entities include the following core attributes, unless explicitly 
         sources={{
             light: useBaseUrl("images/entity_specification/none_light.svg"),
             dark: useBaseUrl("images/entity_specification/none_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Complex**</summary>
+    <CodeBlock language="json">{ExampleComplex}</CodeBlock>
+    <ThemedImage
+        alt="Example Complex"
+        sources={{
+            light: useBaseUrl("images/entity_specification/complex_light.svg"),
+            dark: useBaseUrl("images/entity_specification/complex_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Range**</summary>
+    <CodeBlock language="json">{ExampleRange}</CodeBlock>
+    <ThemedImage
+        alt="Range"
+        sources={{
+            light: useBaseUrl("images/entity_specification/range_light.svg"),
+            dark: useBaseUrl("images/entity_specification/range_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Bytes**</summary>
+    <CodeBlock language="json">{ExampleBytes}</CodeBlock>
+    <ThemedImage
+        alt="Bytes"
+        sources={{
+            light: useBaseUrl("images/entity_specification/bytes_light.svg"),
+            dark: useBaseUrl("images/entity_specification/bytes_dark.svg"),
         }}
     />
 </details>
