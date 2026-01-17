@@ -29,6 +29,7 @@ import ExampleTupleIndices from "!!raw-loader!./examples/entity_specification/tu
 import ExampleBytes from "!!raw-loader!./examples/entity_specification/bytes.json";
 import ExampleComplex from "!!raw-loader!./examples/entity_specification/complex.json";
 import ExampleRange from "!!raw-loader!./examples/entity_specification/range.json";
+import ExampleDate from "!!raw-loader!./examples/entity_specification/date.json";
 
 # Entity Specification
 
@@ -50,15 +51,15 @@ All supported entities include the following core attributes, unless explicitly 
 
 ### Entity Type
 
-| Type Value                                                         | Description                     |
-| :----------------------------------------------------------------- | :------------------------------ |
-| `int`, `float`, `str`, `bool`, `None`, `complex`, `bytes`, `range` | [Primitives](#primitives)       |
-| `list`, `tuple`                                                    | [Sequences](#sequences)         |
-| `set`                                                              | [Sets](#sets)                   |
-| `dict`                                                             | [Dictionaries](#dictionaries)   |
-| `.class`                                                           | [Classes](#classes)             |
-| `.frame`                                                           | [Stack Frames](#stack-frames)   |
-| `.blank` `.blank-frame`                                            | [Blank Objects](#blank-objects) |
+| Type Value                                                                          | Description                     |
+| :---------------------------------------------------------------------------------- | :------------------------------ |
+| `int`, `float`, `str`, `bool`, `None`, `complex`, `bytes`, `range`, `datetime.date` | [Primitives](#primitives)       |
+| `list`, `tuple`                                                                     | [Sequences](#sequences)         |
+| `set`                                                                               | [Sets](#sets)                   |
+| `dict`                                                                              | [Dictionaries](#dictionaries)   |
+| `.class`                                                                            | [Classes](#classes)             |
+| `.frame`                                                                            | [Stack Frames](#stack-frames)   |
+| `.blank` `.blank-frame`                                                             | [Blank Objects](#blank-objects) |
 
 ## Primitives
 
@@ -186,6 +187,17 @@ All supported entities include the following core attributes, unless explicitly 
         sources={{
             light: useBaseUrl("images/entity_specification/bytes_light.svg"),
             dark: useBaseUrl("images/entity_specification/bytes_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Date**</summary>
+    <CodeBlock language="json">{ExampleDate}</CodeBlock>
+    <ThemedImage
+        alt="Bytes"
+        sources={{
+            light: useBaseUrl("images/entity_specification/date_light.svg"),
+            dark: useBaseUrl("images/entity_specification/date_dark.svg"),
         }}
     />
 </details>
