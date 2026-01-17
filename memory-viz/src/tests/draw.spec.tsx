@@ -2388,7 +2388,9 @@ describe("draw function", () => {
     });
 
     it("renders a date object", () => {
-        const objects: DrawnEntity[] = [{ type: "date", id: 32, value: "2019-12-04" }];
+        const objects: DrawnEntity[] = [
+            { type: "date", id: 32, value: "2019-12-04" },
+        ];
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             true,
