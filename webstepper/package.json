@@ -4,8 +4,8 @@
     "description": "An interactive web stepper for memory-viz",
     "type": "module",
     "scripts": {
-        "test": "NODE_OPTIONS='--experimental-vm-modules' jest --no-cache",
-        "test-cov": "NODE_OPTIONS='--experimental-vm-modules' jest --no-cache --coverage",
+        "test": "cross-env NODE_OPTIONS='--experimental-vm-modules' jest --no-cache",
+        "test-cov": "cross-env NODE_OPTIONS='--experimental-vm-modules' jest --no-cache --coverage",
         "build-dev": "webpack --config webpack.dev.js",
         "build": "webpack --config webpack.prod.js",
         "build-copy": "webpack --config webpack.prod.js && cp -r dist/*",
@@ -38,6 +38,7 @@
         "@types/react-dom": "^19.2.3",
         "babel-jest": "^29.7.0",
         "babel-loader": "^10.0.0",
+        "cross-env": "^10.1.0",
         "css-loader": "^7.1.2",
         "html-webpack-plugin": "^5.6.3",
         "jest-canvas-mock": "^2.5.2",

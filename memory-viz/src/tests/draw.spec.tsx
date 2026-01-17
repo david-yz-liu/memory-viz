@@ -174,6 +174,22 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a float preserving all decimals", () => {
+        const objects: DrawnEntity[] = [
+            { type: "float", id: 10, value: 1.234 },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders a str with null value", () => {
         const objects: DrawnEntity[] = [{ type: "str", id: 10, value: null }];
         const m: InstanceType<typeof exports.MemoryModel> = draw(
@@ -2293,5 +2309,81 @@ describe("draw function", () => {
         );
         expect(message.test(spy.mock.calls[0][0])).toBe(true);
         spy.mockRestore();
+    });
+
+    it("renders a complex object", () => {
+        const objects: DrawnEntity[] = [
+            { type: "complex", id: 32, value: "(3+1j)" },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a complex object, given a null input value", () => {
+        const objects: DrawnEntity[] = [
+            { type: "complex", id: 32, value: null },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a range object, given a null input value", () => {
+        const objects: DrawnEntity[] = [{ type: "range", id: 32, value: null }];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a bytes object", () => {
+        const objects: DrawnEntity[] = [
+            { type: "bytes", id: 32, value: "b'\x00\x00'" },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a bytes object, when given a null value", () => {
+        const objects: DrawnEntity[] = [{ type: "bytes", id: 32, value: null }];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
     });
 });
