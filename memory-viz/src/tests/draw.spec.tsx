@@ -29,6 +29,8 @@ describe("draw function", () => {
             }
         );
         const svg: string = m.serializeSVG();
+        // TODO: remove this line
+        m.save("svg1_1.svg");
         expect(svg).toMatchSnapshot();
     });
 
@@ -43,6 +45,8 @@ describe("draw function", () => {
             }
         );
         const svg: string = m.serializeSVG();
+        // TODO: remove
+        // m.save("svg0_1.svg");
         expect(svg).toMatchSnapshot();
     });
 
