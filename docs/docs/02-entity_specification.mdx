@@ -29,6 +29,8 @@ import ExampleTupleIndices from "!!raw-loader!./examples/entity_specification/tu
 import ExampleBytes from "!!raw-loader!./examples/entity_specification/bytes.json";
 import ExampleComplex from "!!raw-loader!./examples/entity_specification/complex.json";
 import ExampleRange from "!!raw-loader!./examples/entity_specification/range.json";
+import ExampleFrozenset from "!!raw-loader!./examples/entity_specification/frozenset.json";
+import ExampleFrozensetBlank from "!!raw-loader!./examples/entity_specification/frozenset_blank.json";
 
 # Entity Specification
 
@@ -54,7 +56,7 @@ All supported entities include the following core attributes, unless explicitly 
 | :----------------------------------------------------------------- | :------------------------------ |
 | `int`, `float`, `str`, `bool`, `None`, `complex`, `bytes`, `range` | [Primitives](#primitives)       |
 | `list`, `tuple`                                                    | [Sequences](#sequences)         |
-| `set`                                                              | [Sets](#sets)                   |
+| `set`, `frozenset`                                                 | [Sets](#sets)                   |
 | `dict`                                                             | [Dictionaries](#dictionaries)   |
 | `.class`                                                           | [Classes](#classes)             |
 | `.frame`                                                           | [Stack Frames](#stack-frames)   |
@@ -310,6 +312,28 @@ All supported entities include the following core attributes, unless explicitly 
         sources={{
             light: useBaseUrl("images/entity_specification/set_wide_light.svg"),
             dark: useBaseUrl("images/entity_specification/set_wide_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Frozenset**</summary>
+    <CodeBlock language="json">{ExampleFrozenset}</CodeBlock>
+    <ThemedImage
+        alt="Example Frozenset"
+        sources={{
+            light: useBaseUrl("images/entity_specification/frozenset_light.svg"),
+            dark: useBaseUrl("images/entity_specification/frozenset_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Frozenset with blank boxes**</summary>
+    <CodeBlock language="json">{ExampleFrozensetBlank}</CodeBlock>
+    <ThemedImage
+        alt="Example Frozenset"
+        sources={{
+            light: useBaseUrl("images/entity_specification/frozenset_blank_light.svg"),
+            dark: useBaseUrl("images/entity_specification/frozenset_blank_dark.svg"),
         }}
     />
 </details>

@@ -289,7 +289,7 @@ describe("draw function", () => {
             },
         ];
 
-        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
         expect(() =>
             draw(objects, true, {
                 width: 1300,
@@ -418,7 +418,7 @@ describe("draw function", () => {
             },
         ];
 
-        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
         expect(() =>
             draw(objects, true, {
                 width: 1300,
@@ -547,7 +547,7 @@ describe("draw function", () => {
             },
         ];
 
-        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
         expect(() =>
             draw(objects, true, {
                 width: 1300,
@@ -1880,7 +1880,7 @@ describe("draw function", () => {
             },
         ];
 
-        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
         expect(() =>
             draw(objects, true, {
                 width: 100,
@@ -2375,6 +2375,114 @@ describe("draw function", () => {
 
     it("renders a bytes object, when given a null value", () => {
         const objects: DrawnEntity[] = [{ type: "bytes", id: 32, value: null }];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a frozenset", () => {
+        const objects: DrawnEntity[] = [
+            { type: "frozenset", id: 32, value: [10, 11, 12] },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders an empty frozenset", () => {
+        const objects: DrawnEntity[] = [{ type: "frozenset", id: 32, value: [] }];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a frozenset with null values", () => {
+        const objects: DrawnEntity[] = [
+            { type: "frozenset", id: 32, value: [null, null, null] },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a frozenset with null and valid values", () => {
+        const objects: DrawnEntity[] = [
+            { type: "frozenset", id: 32, value: [null, 1, 2] },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("does not render a frozenset containing strings", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "frozenset",
+                id: 32,
+                value: ["hello", "world"],
+            },
+        ];
+
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        expect(() =>
+            draw(objects, true, {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            })
+        ).toThrow(errorMessage);
+    });
+
+    it("renders a frozenset with styling specific indices", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "frozenset",
+                id: 32,
+                value: [5, 10, 20],
+                style: {
+                    box_compound: {
+                        "0": { fill: "red" },
+                    },
+                    text_compound: {
+                        "1": { "font-style": "italic" },
+                    },
+                },
+            },
+        ];
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             true,
