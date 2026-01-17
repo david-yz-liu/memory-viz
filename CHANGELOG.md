@@ -12,6 +12,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### ✨ Enhancements
 
 - Added the built in immutable Python types (complex, bytes, range) to the memory-viz immutable types
+- Added documentation and tests for the pre-existingly supported immutable Python type `datetime.date`
 
 ### 🐛 Bug fixes
 
