@@ -12,6 +12,9 @@ const immutable: string[] = [
     "bool",
     "float",
     "date",
+    "complex",
+    "range",
+    "bytes",
 ];
 const collections: string[] = ["list", "set", "tuple", "dict"];
 
