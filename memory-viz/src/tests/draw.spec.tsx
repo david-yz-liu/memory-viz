@@ -2404,7 +2404,9 @@ describe("draw function", () => {
     });
 
     it("renders an empty frozenset", () => {
-        const objects: DrawnEntity[] = [{ type: "frozenset", id: 32, value: [] }];
+        const objects: DrawnEntity[] = [
+            { type: "frozenset", id: 32, value: [] },
+        ];
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             true,
