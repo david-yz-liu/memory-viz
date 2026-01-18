@@ -2387,6 +2387,36 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
+    it("renders a date object", () => {
+        const objects: DrawnEntity[] = [
+            { type: "date", id: 32, value: "2019-12-04" },
+        ];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
+    it("renders a date object, when given a null value", () => {
+        const objects: DrawnEntity[] = [{ type: "date", id: 32, value: null }];
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+        expect(svg).toMatchSnapshot();
+    });
+
     it("renders a frozenset", () => {
         const objects: DrawnEntity[] = [
             { type: "frozenset", id: 32, value: [10, 11, 12] },

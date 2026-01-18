@@ -552,7 +552,7 @@ export class MemoryModel {
     drawSet(
         x: number,
         y: number,
-        type: string,
+        type: "set" | "frozenset",
         id: number | null,
         element_ids: (number | null)[],
         style: Style,
@@ -623,11 +623,7 @@ export class MemoryModel {
             curr_x += item_length + this.item_min_height / 4;
         });
 
-        if (type === "set") {
-            this.drawProperties(id, "set", x, y, width, style);
-        } else {
-            this.drawProperties(id, "frozenset", x, y, width, style);
-        }
+        this.drawProperties(id, type, x, y, width, style);
 
         this.drawText(
             "{",

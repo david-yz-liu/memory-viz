@@ -29,6 +29,7 @@ import ExampleTupleIndices from "!!raw-loader!./examples/entity_specification/tu
 import ExampleBytes from "!!raw-loader!./examples/entity_specification/bytes.json";
 import ExampleComplex from "!!raw-loader!./examples/entity_specification/complex.json";
 import ExampleRange from "!!raw-loader!./examples/entity_specification/range.json";
+import ExampleDate from "!!raw-loader!./examples/entity_specification/date.json";
 import ExampleFrozenset from "!!raw-loader!./examples/entity_specification/frozenset.json";
 import ExampleFrozensetBlank from "!!raw-loader!./examples/entity_specification/frozenset_blank.json";
 
@@ -188,6 +189,17 @@ All supported entities include the following core attributes, unless explicitly 
         sources={{
             light: useBaseUrl("images/entity_specification/bytes_light.svg"),
             dark: useBaseUrl("images/entity_specification/bytes_dark.svg"),
+        }}
+    />
+</details>
+<details>
+    <summary>**Date**</summary>
+    <CodeBlock language="json">{ExampleDate}</CodeBlock>
+    <ThemedImage
+        alt="Bytes"
+        sources={{
+            light: useBaseUrl("images/entity_specification/date_light.svg"),
+            dark: useBaseUrl("images/entity_specification/date_dark.svg"),
         }}
     />
 </details>
