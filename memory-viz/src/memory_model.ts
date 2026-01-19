@@ -624,7 +624,6 @@ export class MemoryModel {
         });
 
         this.drawProperties(id, type, x, y, width, style);
-
         this.drawText(
             "{",
             x + this.item_min_width / 4,
