@@ -530,7 +530,7 @@ export class MemoryModel {
      * Draw a set object (must be either a set or a frozenset).
      * @param x - value for x coordinate of top left corner
      * @param y - value for y coordinate of top left corner
-     * @param type - the data type of the given object (tuple or list)
+     * @param type - the data type of the given object (set or frozenset)
      * @param id - the hypothetical memory address number
      * @param element_ids - the list of id's corresponding to the values stored in this set.
      *      NOTE:
