@@ -23,7 +23,9 @@ describe("App", () => {
     });
 
     it("renders ErrorBoundary fallback element when draw function throws error", () => {
-        const spy = jest.spyOn(global.console, "error").mockImplementation(() => {});
+        const spy = jest
+            .spyOn(global.console, "error")
+            .mockImplementation(() => {});
         const input = screen.getByLabelText("Enter memory model JSON here");
 
         // Invalid input: 'type' should be a string, but it's a number
@@ -65,7 +67,9 @@ describe("App", () => {
     });
 
     it("resets ErrorBoundary when valid JSON is provided after an invalid memory-viz JSON", async () => {
-        const spy = jest.spyOn(global.console, "error").mockImplementation(() => {});
+        const spy = jest
+            .spyOn(global.console, "error")
+            .mockImplementation(() => {});
         const input = screen.getByLabelText("Enter memory model JSON here");
 
         // Invalid input: 'type' should be a string, but it's a number

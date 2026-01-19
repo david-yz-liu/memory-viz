@@ -163,7 +163,9 @@ describe("MemoryModelsUserInput", () => {
         });
 
         it("calls console error and setTextData when file upload fails", async () => {
-            const spy = jest.spyOn(global.console, "error").mockImplementation(() => {});
+            const spy = jest
+                .spyOn(global.console, "error")
+                .mockImplementation(() => {});
             const mockErrorMessage = "Mock error message";
             jest.spyOn(global, "FileReader").mockImplementationOnce(() => {
                 throw new Error(mockErrorMessage);
