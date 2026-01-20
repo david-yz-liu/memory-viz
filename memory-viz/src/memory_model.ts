@@ -1260,7 +1260,6 @@ export class MemoryModel {
                 sizes_arr.push(size);
             }
         }
-
         if (this.interactive) {
             this.setInteractivityScript();
         }
