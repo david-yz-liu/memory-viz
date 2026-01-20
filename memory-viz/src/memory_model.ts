@@ -634,7 +634,8 @@ export class MemoryModel {
                 x - this.double_rect_sep,
                 y - this.double_rect_sep,
                 width + 2 * this.double_rect_sep,
-                height + 2 * this.double_rect_sep
+                height + 2 * this.double_rect_sep,
+                svg_group
             );
         }
 
@@ -1167,7 +1168,6 @@ export class MemoryModel {
     drawAll(objects: DrawnEntity[]): Rect[] {
         const sizes_arr: Rect[] = [];
         const parsed_objects: DrawnEntity[] = [];
-        const drawn_elements_svg_arr: SVGGElement[] = [];
 
         for (const rawObj of objects) {
             const result = DrawnEntitySchema.safeParse(rawObj);
@@ -1225,7 +1225,7 @@ export class MemoryModel {
                 "http://www.w3.org/2000/svg",
                 "g"
             );
-            drawn_elements_svg_arr.push(svg_group);
+            this.svg.appendChild(svg_group);
 
             const frame_types = [".frame", ".blank-frame"];
             if (frame_types.includes(obj.type!) || obj.type === ".class") {
@@ -1259,10 +1259,6 @@ export class MemoryModel {
                 );
                 sizes_arr.push(size);
             }
-        }
-
-        for (const g of drawn_elements_svg_arr) {
-            this.svg.appendChild(g);
         }
 
         if (this.interactive) {
