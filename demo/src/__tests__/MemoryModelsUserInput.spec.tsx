@@ -163,14 +163,13 @@ describe("MemoryModelsUserInput", () => {
         });
 
         it("calls console error and setTextData when file upload fails", async () => {
-            const spy = jest
-                .spyOn(global.console, "error")
-                .mockImplementation(() => {});
             const mockErrorMessage = "Mock error message";
             jest.spyOn(global, "FileReader").mockImplementationOnce(() => {
                 throw new Error(mockErrorMessage);
             });
-            const consoleErrorSpy = jest.spyOn(console, "error");
+            const consoleErrorSpy = jest
+                .spyOn(console, "error")
+                .mockImplementation(() => {});
 
             const file = new File(
                 [JSON.stringify({ id: 1, uuid: 2 })],
@@ -191,7 +190,6 @@ describe("MemoryModelsUserInput", () => {
                 `Error reading uploaded file as text. Please ensure it's in UTF-8 encoding: ${mockErrorMessage}`
             );
             expect(setTextDataMock).toHaveBeenNthCalledWith(1, null);
-            spy.mockRestore();
         });
 
         describe("when a file is uploaded", () => {
