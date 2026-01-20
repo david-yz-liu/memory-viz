@@ -444,7 +444,7 @@ export class MemoryModel {
     drawSequence(
         x: number,
         y: number,
-        type: string,
+        type: "list" | "tuple",
         id: number | null,
         element_ids: (number | null)[],
         show_idx: boolean,
@@ -515,11 +515,7 @@ export class MemoryModel {
             curr_x += item_length;
         });
 
-        if (type === "list") {
-            this.drawProperties(id, "list", x, y, width, style);
-        } else {
-            this.drawProperties(id, "tuple", x, y, width, style);
-        }
+        this.drawProperties(id, type, x, y, width, style);
 
         this.updateDimensions(size);
 
