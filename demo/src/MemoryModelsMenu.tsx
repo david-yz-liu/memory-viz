@@ -18,7 +18,7 @@ export default function MemoryModelsMenu(props: MemoryModelsMenuPropTypes) {
     const getIcon = () => {
         const name = props.menuName.toLowerCase();
         if (name.includes("sample")) {
-            return <LightbulbIcon className="non-flip-icon"/>;
+            return <LightbulbIcon className="non-rotating-icon"/>;
         } else if (name.includes("rendering") || name.includes("options")) {
             return <SettingsIcon />;
         } else {

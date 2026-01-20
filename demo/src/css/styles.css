@@ -31,7 +31,7 @@ input[type="number"]::-webkit-outer-spin-button {
     transform: rotate(180deg);
 }
 
-.menu-button.open .non-flip-icon {
+.menu-button.open .non-rotating-icon {
     transform: rotate(0deg);
 }
 
