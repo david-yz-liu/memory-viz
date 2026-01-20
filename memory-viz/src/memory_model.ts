@@ -238,12 +238,13 @@ export class MemoryModel {
                     svg_group
                 );
             } else if (
-                type === "set" &&
+                (type === "set" || type === "frozenset") &&
                 isArrayOfNullableType<number>(value, "number")
             ) {
                 return this.drawSet(
                     x,
                     y,
+                    type,
                     id,
                     value,
                     style,
@@ -284,7 +285,7 @@ export class MemoryModel {
             }
         }
         throw new Error(
-            `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${type}" with value "${value}".`
+            `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${type}" with value "${value}".`
         );
     }
 
@@ -483,7 +484,7 @@ export class MemoryModel {
     drawSequence(
         x: number,
         y: number,
-        type: string,
+        type: "list" | "tuple",
         id: number | null,
         element_ids: (number | null)[],
         show_idx: boolean,
@@ -568,11 +569,7 @@ export class MemoryModel {
             curr_x += item_length;
         });
 
-        if (type === "list") {
-            this.drawProperties(id, "list", x, y, width, style, svg_group);
-        } else {
-            this.drawProperties(id, "tuple", x, y, width, style, svg_group);
-        }
+        this.drawProperties(id, type, x, y, width, style, svg_group);
 
         this.updateDimensions(size);
 
@@ -580,9 +577,10 @@ export class MemoryModel {
     }
 
     /**
-     * Draw a set object.
+     * Draw a set object (must be either a set or a frozenset).
      * @param x - value for x coordinate of top left corner
      * @param y - value for y coordinate of top left corner
+     * @param type - the data type of the given object (set or frozenset)
      * @param id - the hypothetical memory address number
      * @param element_ids - the list of id's corresponding to the values stored in this set.
      *      NOTE:
@@ -605,6 +603,7 @@ export class MemoryModel {
     drawSet(
         x: number,
         y: number,
+        type: "set" | "frozenset",
         id: number | null,
         element_ids: (number | null)[],
         style: Style,
@@ -629,6 +628,15 @@ export class MemoryModel {
             width: width,
             height: height,
         };
+
+        if (immutable.includes(type)) {
+            this.drawRect(
+                x - this.double_rect_sep,
+                y - this.double_rect_sep,
+                width + 2 * this.double_rect_sep,
+                height + 2 * this.double_rect_sep
+            );
+        }
 
         let curr_x = x + this.item_min_width / 2;
         const item_y =
@@ -679,7 +687,7 @@ export class MemoryModel {
             curr_x += item_length + this.item_min_height / 4;
         });
 
-        this.drawProperties(id, "set", x, y, width, style, svg_group);
+        this.drawProperties(id, type, x, y, width, style, svg_group);
         this.drawText(
             "{",
             x + this.item_min_width / 4,
@@ -1366,7 +1374,7 @@ export class MemoryModel {
                     object.style
                 );
             } else if (
-                object.type === "set" &&
+                (object.type === "set" || object.type === "frozenset") &&
                 isArrayOfNullableType<number>(object.value, "number")
             ) {
                 return this.getDefaultSetDimensions(object.value, object.style);
@@ -1389,7 +1397,7 @@ export class MemoryModel {
             }
         }
         throw new Error(
-            `Invalid type or value: Expected a collection type (dict, set, list, tuple) or a primitive value, but received type "${object.type}" with value "${object.value}".`
+            `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${object.type}" with value "${object.value}".`
         );
     }
 
