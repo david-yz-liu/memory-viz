@@ -15,8 +15,9 @@ const immutable: string[] = [
     "complex",
     "range",
     "bytes",
+    "frozenset",
 ];
-const collections: string[] = ["list", "set", "tuple", "dict"];
+const collections: string[] = ["list", "set", "tuple", "dict", "frozenset"];
 
 const primitives: string[] = ["int", "str", "None", "bool", "float", "date"];
 
