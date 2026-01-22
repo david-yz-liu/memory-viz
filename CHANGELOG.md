@@ -22,6 +22,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 📚 Documentation and demo website changes
 
+- Updated the `LightbulbIcon` in the `MemoryModelsMenu` so that it no longer rotates on click
+
 ### 🔧 Internal changes
 
 - Added `cross-env` dev dependency to enable setting environment variables in npm `"scripts"` commands on Windows
