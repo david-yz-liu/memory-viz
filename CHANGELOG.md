@@ -25,6 +25,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 🔧 Internal changes
 
 - Added `cross-env` dev dependency to enable setting environment variables in npm `"scripts"` commands on Windows
+- Wrapped rect and text elements for each `DrawnEntity` into parent `<g>` tag before appending to root `<svg>` element
 
 ## [0.8.0] - 2025-12-04
 
