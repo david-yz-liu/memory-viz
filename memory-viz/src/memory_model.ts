@@ -206,6 +206,7 @@ export class MemoryModel {
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * @param width - The width of the object
      * @param height - The height of the object
+     * @param svg_group - The parent <g> tag that rect and text elements will be appended to
      * For style, firstly refer to `style.md` and `presets.md`. For the styling options in terms of texts, refer to
      * the SVG documentation. For the styling options in terms of boxes, refer to the Rough.js documentation.
      */
@@ -218,14 +219,24 @@ export class MemoryModel {
         show_indexes: boolean = false,
         style: Style,
         width: number,
-        height: number
+        height: number,
+        svg_group: SVGGElement
     ): Rect {
         if (id === undefined) {
             id = null;
         }
         if (collections.includes(type)) {
             if (type === "dict" && typeof value === "object") {
-                return this.drawDict(x, y, id, value, style, width, height);
+                return this.drawDict(
+                    x,
+                    y,
+                    id,
+                    value,
+                    style,
+                    width,
+                    height,
+                    svg_group
+                );
             } else if (
                 (type === "set" || type === "frozenset") &&
                 isArrayOfNullableType<number>(value, "number")
@@ -238,7 +249,8 @@ export class MemoryModel {
                     value,
                     style,
                     width,
-                    height
+                    height,
+                    svg_group
                 );
             } else if (
                 (type === "list" || type === "tuple") &&
@@ -253,7 +265,8 @@ export class MemoryModel {
                     show_indexes,
                     style,
                     width,
-                    height
+                    height,
+                    svg_group
                 );
             }
         } else {
@@ -266,7 +279,8 @@ export class MemoryModel {
                     value,
                     style,
                     width,
-                    height
+                    height,
+                    svg_group
                 );
             }
         }
@@ -285,6 +299,7 @@ export class MemoryModel {
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * @param width - The width of the object
      * @param height - The height of the object
+     * @param svg_group - The parent <g> tag that rect and text elements will be appended to
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      */
@@ -296,9 +311,19 @@ export class MemoryModel {
         value: Primitive,
         style: Style,
         width: number,
-        height: number
+        height: number,
+        svg_group: SVGGElement
     ): Rect {
-        this.drawRect(x, y, width, height, style.box_container, true, id);
+        this.drawRect(
+            x,
+            y,
+            width,
+            height,
+            svg_group,
+            style.box_container,
+            true,
+            id
+        );
 
         let size: Rect = {
             width: width,
@@ -313,7 +338,8 @@ export class MemoryModel {
                 x - this.double_rect_sep,
                 y - this.double_rect_sep,
                 width + 2 * this.double_rect_sep,
-                height + 2 * this.double_rect_sep
+                height + 2 * this.double_rect_sep,
+                svg_group
             );
             size = {
                 width: width + 2 * this.double_rect_sep,
@@ -343,12 +369,13 @@ export class MemoryModel {
                 display_text,
                 x + width / 2,
                 y + (height + this.prop_min_height) / 2,
+                svg_group,
                 style.text_value,
                 "value"
             );
         }
 
-        this.drawProperties(id, type, x, y, width, style);
+        this.drawProperties(id, type, x, y, width, style, svg_group);
 
         this.updateDimensions(size);
 
@@ -363,6 +390,7 @@ export class MemoryModel {
      * @param y - value for y coordinate of top left corner
      * @param width - The width of the given box (rectangle)
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
+     * @param svg_group - The parent <g> tag that rect and text elements will be appended to
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      */
@@ -372,7 +400,8 @@ export class MemoryModel {
         x: number,
         y: number,
         width: number,
-        style: Style
+        style: Style,
+        svg_group: SVGGElement
     ) {
         const id_box = Math.max(
             this.prop_min_width,
@@ -384,12 +413,20 @@ export class MemoryModel {
             this.getTextLength(type, style.text_type) + 10
         );
 
-        this.drawRect(x, y, id_box, this.prop_min_height, style.box_id);
+        this.drawRect(
+            x,
+            y,
+            id_box,
+            this.prop_min_height,
+            svg_group,
+            style.box_id
+        );
         this.drawRect(
             x + width - type_box,
             y,
             type_box,
             this.prop_min_height,
+            svg_group,
             style.box_type
         );
 
@@ -397,6 +434,7 @@ export class MemoryModel {
             id === null ? "" : `id${id}`,
             x + id_box / 2,
             y + this.font_size * 1.5,
+            svg_group,
             style.text_id,
             "id"
         );
@@ -405,6 +443,7 @@ export class MemoryModel {
             type,
             x + width - type_box / 2,
             y + this.font_size * 1.5,
+            svg_group,
             style.text_type,
             "type"
         );
@@ -439,7 +478,8 @@ export class MemoryModel {
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      * @param width - The width of the object
-     * @param height - The height of the object-
+     * @param height - The height of the object
+     * @param svg_group - The parent <g> tag that rect and text elements will be appended to
      */
     drawSequence(
         x: number,
@@ -450,9 +490,19 @@ export class MemoryModel {
         show_idx: boolean,
         style: Style,
         width: number,
-        height: number
+        height: number,
+        svg_group: SVGGElement
     ): Rect {
-        this.drawRect(x, y, width, height, style.box_container, true, id);
+        this.drawRect(
+            x,
+            y,
+            width,
+            height,
+            svg_group,
+            style.box_container,
+            true,
+            id
+        );
 
         const size: Rect = { width: width, height: height, x: x, y: y };
 
@@ -461,7 +511,8 @@ export class MemoryModel {
                 x - this.double_rect_sep,
                 y - this.double_rect_sep,
                 width + 2 * this.double_rect_sep,
-                height + 2 * this.double_rect_sep
+                height + 2 * this.double_rect_sep,
+                svg_group
             );
         }
 
@@ -493,12 +544,14 @@ export class MemoryModel {
                 item_y,
                 item_length,
                 this.item_min_height,
+                svg_group,
                 element_box_style
             );
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
+                svg_group,
                 element_text_style,
                 "id"
             );
@@ -507,6 +560,7 @@ export class MemoryModel {
                     i.toString(),
                     curr_x + item_length / 2,
                     item_y - this.item_min_height / 4,
+                    svg_group,
                     style.text_id,
                     "id"
                 );
@@ -515,7 +569,7 @@ export class MemoryModel {
             curr_x += item_length;
         });
 
-        this.drawProperties(id, type, x, y, width, style);
+        this.drawProperties(id, type, x, y, width, style, svg_group);
 
         this.updateDimensions(size);
 
@@ -539,6 +593,7 @@ export class MemoryModel {
      *            in 'drawAll'.
      * @param width - The width of the object
      * @param height - The height of the object
+     * @param svg_group - The parent <g> tag that rect and text elements will be appended to
      *
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
@@ -553,9 +608,19 @@ export class MemoryModel {
         element_ids: (number | null)[],
         style: Style,
         width: number,
-        height: number
+        height: number,
+        svg_group: SVGGElement
     ): Rect {
-        this.drawRect(x, y, width, height, style.box_container, true, id);
+        this.drawRect(
+            x,
+            y,
+            width,
+            height,
+            svg_group,
+            style.box_container,
+            true,
+            id
+        );
 
         const SIZE: Rect = {
             x,
@@ -569,7 +634,8 @@ export class MemoryModel {
                 x - this.double_rect_sep,
                 y - this.double_rect_sep,
                 width + 2 * this.double_rect_sep,
-                height + 2 * this.double_rect_sep
+                height + 2 * this.double_rect_sep,
+                svg_group
             );
         }
 
@@ -598,12 +664,14 @@ export class MemoryModel {
                 item_y,
                 item_length,
                 this.item_min_height,
+                svg_group,
                 element_box_style
             );
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
+                svg_group,
                 element_text_style,
                 "id"
             );
@@ -612,6 +680,7 @@ export class MemoryModel {
                     ",",
                     curr_x - this.item_min_width / 8,
                     item_text_y,
+                    svg_group,
                     {},
                     "default"
                 );
@@ -619,11 +688,12 @@ export class MemoryModel {
             curr_x += item_length + this.item_min_height / 4;
         });
 
-        this.drawProperties(id, type, x, y, width, style);
+        this.drawProperties(id, type, x, y, width, style, svg_group);
         this.drawText(
             "{",
             x + this.item_min_width / 4,
             item_text_y,
+            svg_group,
             {},
             "default"
         );
@@ -631,6 +701,7 @@ export class MemoryModel {
             "}",
             x + width - this.item_min_width / 4,
             item_text_y,
+            svg_group,
             {},
             "default"
         );
@@ -650,6 +721,7 @@ export class MemoryModel {
      *            in 'drawAll'.
      * @param width - The width of the object
      * @param height - The height of the object
+     * @param svg_group - The parent <g> tag that rect and text elements will be appended to
      *
      * @returns the top-left coordinates, width, and height of the outermost box
      */
@@ -660,9 +732,19 @@ export class MemoryModel {
         obj: { [key: string]: any } | [any, any][] | null,
         style: Style,
         width: number,
-        height: number
+        height: number,
+        svg_group: SVGGElement
     ): Rect {
-        this.drawRect(x, y, width, height, style.box_container, true, id);
+        this.drawRect(
+            x,
+            y,
+            width,
+            height,
+            svg_group,
+            style.box_container,
+            true,
+            id
+        );
         const SIZE: Rect = { x, y, width: width, height: height };
 
         const entries: [any, any][] = [];
@@ -720,6 +802,7 @@ export class MemoryModel {
                 curr_y,
                 key_box,
                 this.item_min_height,
+                svg_group,
                 key_box_style
             );
 
@@ -727,6 +810,7 @@ export class MemoryModel {
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
+                svg_group,
                 key_text_style,
                 "id"
             );
@@ -766,6 +850,7 @@ export class MemoryModel {
                 curr_y,
                 value_box,
                 this.item_min_height,
+                svg_group,
                 value_box_style
             );
 
@@ -773,6 +858,7 @@ export class MemoryModel {
                 ":",
                 x + width / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
+                svg_group,
                 {},
                 "default"
             );
@@ -781,6 +867,7 @@ export class MemoryModel {
                 idv,
                 x + width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
+                svg_group,
                 value_text_style,
                 "id"
             );
@@ -789,7 +876,7 @@ export class MemoryModel {
             index++;
         }
 
-        this.drawProperties(id, "dict", x, y, width, style);
+        this.drawProperties(id, "dict", x, y, width, style, svg_group);
 
         this.updateDimensions(SIZE);
 
@@ -808,6 +895,7 @@ export class MemoryModel {
      *            in 'drawAll'.
      * @param width - The width of the object
      * @param height - The height of the object
+     * @param svg_group - The parent <g> tag that rect and text elements will be appended to
      *
      * @returns the top-left coordinates, width, and height of the outermost box
      */
@@ -820,7 +908,8 @@ export class MemoryModel {
         stack_frame: boolean,
         style: Style,
         width: number,
-        height: number
+        height: number,
+        svg_group: SVGGElement
     ): Rect {
         if (id === undefined) {
             id = null;
@@ -829,7 +918,16 @@ export class MemoryModel {
             name = "";
         }
 
-        this.drawRect(x, y, width, height, style.box_container, true, id);
+        this.drawRect(
+            x,
+            y,
+            width,
+            height,
+            svg_group,
+            style.box_container,
+            true,
+            id
+        );
 
         const SIZE: Rect = { x, y, width: width, height: height };
 
@@ -846,7 +944,8 @@ export class MemoryModel {
                 x + width - this.item_min_width * 1.5,
                 curr_y,
                 attr_box,
-                this.item_min_height
+                this.item_min_height,
+                svg_group
             );
 
             if (attribute.trim() !== "") {
@@ -854,6 +953,7 @@ export class MemoryModel {
                     attribute,
                     x + this.item_min_width / 2,
                     curr_y + this.item_min_height / 2 + this.font_size / 4,
+                    svg_group,
                     style.text_value,
                     stack_frame ? "variable" : "attribute"
                 );
@@ -863,6 +963,7 @@ export class MemoryModel {
                 idv,
                 x + width - this.item_min_width * 1.5 + attr_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
+                svg_group,
                 style.text_id,
                 "id"
             );
@@ -876,17 +977,19 @@ export class MemoryModel {
                 y,
                 text_length + 10,
                 this.prop_min_height,
+                svg_group,
                 style.box_container
             );
             this.drawText(
                 name,
                 x + text_length / 2 + 5,
                 y + this.prop_min_height * 0.6,
+                svg_group,
                 style.text_type,
                 "type"
             );
         } else {
-            this.drawProperties(id, name, x, y, width, style);
+            this.drawProperties(id, name, x, y, width, style, svg_group);
         }
 
         this.updateDimensions(SIZE);
@@ -900,6 +1003,7 @@ export class MemoryModel {
      * @param y - value for y coordinate of top left corner
      * @param width - the width of the rectangle
      * @param height - the height of the rectangle
+     * @param svg_group - the parent <g> tag that the rectangle will be appended to
      * @param style - 1-D object with style properties for a Rough.js object, as per the
      *                        Rough.js API. For instance, {fill: 'blue', stroke: 'red'}.
      */
@@ -908,6 +1012,7 @@ export class MemoryModel {
         y: number,
         width: number,
         height: number,
+        svg_group: SVGGElement,
         style?: Options,
         isBoundingBox: boolean = false,
         objectId?: number | null
@@ -949,7 +1054,7 @@ export class MemoryModel {
             this.objectCounter++;
         }
 
-        this.svg.appendChild(rectElement);
+        svg_group.appendChild(rectElement);
     }
 
     /**
@@ -957,6 +1062,7 @@ export class MemoryModel {
      * @param text - The text message that will be displayed
      * @param x - value for x coordinate of top left corner
      * @param y - value for y coordinate of top left corner
+     * @param svg_group - the parent <g> tag that the text element will be appended to
      * @param style -  1-D object with style properties for a svg object, as per the
      *                        standard SVG attributes, documented on
      *                        https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
@@ -968,6 +1074,7 @@ export class MemoryModel {
         text: string,
         x: number,
         y: number,
+        svg_group: SVGGElement,
         style?: CSS.Properties,
         text_class?: string
     ): void {
@@ -993,7 +1100,7 @@ export class MemoryModel {
             newElement.setAttribute("class", `${text_class}`);
         }
 
-        this.svg.appendChild(newElement);
+        svg_group.appendChild(newElement);
     }
 
     /**
@@ -1114,6 +1221,12 @@ export class MemoryModel {
                 );
             }
 
+            const svg_group = this.document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "g"
+            );
+            this.svg.appendChild(svg_group);
+
             const frame_types = [".frame", ".blank-frame"];
             if (frame_types.includes(obj.type!) || obj.type === ".class") {
                 const is_frame = frame_types.includes(obj.type!);
@@ -1127,7 +1240,8 @@ export class MemoryModel {
                     is_frame,
                     obj.style,
                     obj.width,
-                    obj.height
+                    obj.height,
+                    svg_group
                 );
                 sizes_arr.push(size);
             } else {
@@ -1140,7 +1254,8 @@ export class MemoryModel {
                     obj.show_indexes,
                     obj.style,
                     obj.width,
-                    obj.height
+                    obj.height,
+                    svg_group
                 );
                 sizes_arr.push(size);
             }
