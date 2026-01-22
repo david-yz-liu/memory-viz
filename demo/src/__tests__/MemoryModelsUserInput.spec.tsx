@@ -167,7 +167,9 @@ describe("MemoryModelsUserInput", () => {
             jest.spyOn(global, "FileReader").mockImplementationOnce(() => {
                 throw new Error(mockErrorMessage);
             });
-            const consoleErrorSpy = jest.spyOn(console, "error");
+            const consoleErrorSpy = jest
+                .spyOn(console, "error")
+                .mockImplementation(() => {});
 
             const file = new File(
                 [JSON.stringify({ id: 1, uuid: 2 })],

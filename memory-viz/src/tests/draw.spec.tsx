@@ -1743,13 +1743,14 @@ describe("draw function", () => {
                 style: ["highlight"],
             },
         ];
-        const spy = jest.spyOn(global.console, "warn");
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation(() => {});
         draw(objects, true, {
             width: 13,
             roughjs_config: { options: { seed: 12345 } },
         });
         expect(spy).toHaveBeenCalledTimes(1);
-        console.log(spy.mock.calls[0][0]);
 
         const message = new RegExp(
             "^WARNING: provided width \\(\\d+\\) is smaller than " +
@@ -1773,7 +1774,7 @@ describe("draw function", () => {
             objects,
             true,
             {
-                width: 13,
+                width: 324.2,
                 roughjs_config: { options: { seed: 12345 } },
             }
         );
@@ -1817,7 +1818,7 @@ describe("draw function", () => {
             objects,
             true,
             {
-                width: 13,
+                width: 490.2,
                 roughjs_config: { options: { seed: 12345 } },
             }
         );
@@ -1861,7 +1862,7 @@ describe("draw function", () => {
             objects,
             true,
             {
-                width: 13,
+                width: 615.2,
                 left_margin: 150,
                 roughjs_config: { options: { seed: 12345 } },
             }
@@ -1899,7 +1900,7 @@ describe("draw function", () => {
             objects,
             true,
             {
-                width: 100,
+                width: 1973,
                 roughjs_config: {
                     options: {
                         seed: 12345,
@@ -1923,7 +1924,7 @@ describe("draw function", () => {
             objects,
             true,
             {
-                width: 100,
+                width: 2159,
                 roughjs_config: {
                     options: {
                         seed: 12345,
@@ -2268,7 +2269,9 @@ describe("draw function", () => {
                 width: 50,
             },
         ];
-        const spy = jest.spyOn(global.console, "warn");
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation(() => {});
         draw(objects, true, {
             width: 1300,
             roughjs_config: { options: { seed: 12345 } },
@@ -2294,7 +2297,9 @@ describe("draw function", () => {
                 height: 50,
             },
         ];
-        const spy = jest.spyOn(global.console, "warn");
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation(() => {});
         draw(objects, true, {
             width: 1300,
             roughjs_config: { options: { seed: 12345 } },
