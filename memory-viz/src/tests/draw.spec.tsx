@@ -295,7 +295,6 @@ describe("draw function", () => {
             test: "renders a set with large width",
             input: [{ type: "set", id: 32, value: [10, 11, 12], width: 500 }],
         },
-
         {
             test: "renders a stack frame and an int",
             input: [
@@ -414,7 +413,6 @@ describe("draw function", () => {
                 },
             ],
         },
-
         {
             test: "renders 'highlight' style preset",
             input: [
@@ -575,7 +573,6 @@ describe("draw function", () => {
                 },
             ],
         },
-
         {
             test: "renders range object",
             input: [{ type: "range", id: 42, value: "range(1, 5)" }],
@@ -1138,6 +1135,7 @@ describe("draw function", () => {
         const svg = output.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
+
     it("renders an appropriately sized box for a string with the highlight style", () => {
         const objects: DrawnEntity[] = [
             {
@@ -1162,6 +1160,7 @@ describe("draw function", () => {
         const svg = output.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
+
     it("renders an empty svg given an empty array", () => {
         const objects: DrawnEntity[] = [];
         const output: InstanceType<typeof exports.MemoryModel> = draw(
@@ -1179,6 +1178,7 @@ describe("draw function", () => {
         const svg = output.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
+
     it("trims width when not provided width value", () => {
         const objects: DrawnEntity[] = [
             {
@@ -1206,6 +1206,7 @@ describe("draw function", () => {
         const svg: string = m.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
+
     it("renders a list of snapshots", () => {
         const snapshots: DrawnEntity[][] = [
             [
@@ -1248,6 +1249,7 @@ describe("draw function", () => {
             expect(svg).toMatchSnapshot();
         });
     });
+
     it("includes script element and css when interactive option is enabled", () => {
         const objects: DrawnEntity[] = [
             {
