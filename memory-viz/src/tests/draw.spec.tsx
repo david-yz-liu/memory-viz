@@ -649,13 +649,14 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
-    it("does not render a set containing strings", () => {
+    test.each([
+        { type: "set" },
+        { type: "list" },
+        { type: "tuple" },
+        { type: "frozenset" },
+    ])("does not render a $type containing strings", ({ type }) => {
         const objects: DrawnEntity[] = [
-            {
-                type: "set",
-                id: 32,
-                value: ["hello", "world"],
-            },
+            { type, id: 32, value: ["hello", "world"] },
         ];
 
         const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
@@ -667,40 +668,53 @@ describe("draw function", () => {
         ).toThrow(errorMessage);
     });
 
-    it("does not render a list containing strings", () => {
+    test.each([
+        {
+            test: "logs a warning when provided 'small' width value",
+            drawConfig: { width: 13 },
+            warning:
+                "^WARNING: provided width \\(\\d+\\) is smaller than " +
+                "the required width \\(\\d+(\\.\\d+)?\\). The provided width has been overwritten " +
+                "in the generated diagram.$",
+        },
+        {
+            test: "logs a warning when DrawnEntity is provided with a 'small' width value",
+            drawnEntityConfig: { width: 50 },
+            warning:
+                "^WARNING: provided width of object \\(\\d+\\) is smaller than " +
+                "the required width \\(\\d+(\\.\\d+)?\\). The provided width has been overwritten " +
+                "in the generated diagram.$",
+        },
+        {
+            test: "logs a warning when DrawnEntity is provided with a 'small' height value",
+            drawnEntityConfig: { height: 50 },
+            warning:
+                "^WARNING: provided height of object \\(\\d+\\) is smaller than " +
+                "the required height \\(\\d+\\). The provided height has been overwritten " +
+                "in the generated diagram.$",
+        },
+    ])("$test", ({ drawnEntityConfig = {}, drawConfig = {}, warning }) => {
         const objects: DrawnEntity[] = [
             {
-                type: "list",
-                id: 32,
-                value: ["hello", "world"],
+                type: "str",
+                id: 19,
+                value: "David is cool!",
+                style: ["highlight"],
+                ...drawnEntityConfig,
             },
         ];
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation(() => {});
+        draw(objects, true, {
+            ...drawConfig,
+            roughjs_config: { options: { seed: 12345 } },
+        });
+        expect(spy).toHaveBeenCalledTimes(1);
 
-        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
-        expect(() =>
-            draw(objects, true, {
-                width: 1300,
-                roughjs_config: { options: { seed: 12345 } },
-            })
-        ).toThrow(errorMessage);
-    });
-
-    it("does not render a tuple containing strings", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "tuple",
-                id: 32,
-                value: ["hello", "world"],
-            },
-        ];
-
-        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
-        expect(() =>
-            draw(objects, true, {
-                width: 1300,
-                roughjs_config: { options: { seed: 12345 } },
-            })
-        ).toThrow(errorMessage);
+        const message = new RegExp(warning);
+        expect(message.test(spy.mock.calls[0][0])).toBe(true);
+        spy.mockRestore();
     });
 
     it("renders a stack frame using manual layout", () => {
@@ -956,33 +970,6 @@ describe("draw function", () => {
         );
         const svg: string = m.serializeSVG();
         expect(svg).toMatchSnapshot();
-    });
-
-    it("logs a warning when provided 'small' width value", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "str",
-                id: 19,
-                value: "David is cool!",
-                style: ["highlight"],
-            },
-        ];
-        const spy = jest
-            .spyOn(global.console, "warn")
-            .mockImplementation(() => {});
-        draw(objects, true, {
-            width: 13,
-            roughjs_config: { options: { seed: 12345 } },
-        });
-        expect(spy).toHaveBeenCalledTimes(1);
-
-        const message = new RegExp(
-            "^WARNING: provided width \\(\\d+\\) is smaller than " +
-                "the required width \\(\\d+(\\.\\d+)?\\). The provided width has been overwritten " +
-                "in the generated diagram.$"
-        );
-        expect(message.test(spy.mock.calls[0][0])).toBe(true);
-        spy.mockRestore();
     });
 
     it("renders a diagram with 'small' width value and no stack frames", () => {
@@ -1486,79 +1473,5 @@ describe("draw function", () => {
         expect(svg).toContain("object-0");
         expect(svg).toContain("object-1");
         expect(svg).toMatchSnapshot();
-    });
-
-    it("logs a warning when DrawnEntity is provided with a 'small' width value", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "str",
-                id: 19,
-                value: "David is cool!",
-                style: ["highlight"],
-                width: 50,
-            },
-        ];
-        const spy = jest
-            .spyOn(global.console, "warn")
-            .mockImplementation(() => {});
-        draw(objects, true, {
-            width: 1300,
-            roughjs_config: { options: { seed: 12345 } },
-        });
-        expect(spy).toHaveBeenCalled();
-
-        const message = new RegExp(
-            "^WARNING: provided width of object \\(\\d+\\) is smaller than " +
-                "the required width \\(\\d+(\\.\\d+)?\\). The provided width has been overwritten " +
-                "in the generated diagram.$"
-        );
-        expect(message.test(spy.mock.calls[0][0])).toBe(true);
-        spy.mockRestore();
-    });
-
-    it("logs a warning when DrawnEntity is provided with a 'small' height value", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "str",
-                id: 19,
-                value: "David is cool!",
-                style: ["highlight"],
-                height: 50,
-            },
-        ];
-        const spy = jest
-            .spyOn(global.console, "warn")
-            .mockImplementation(() => {});
-        draw(objects, true, {
-            width: 1300,
-            roughjs_config: { options: { seed: 12345 } },
-        });
-        expect(spy).toHaveBeenCalled();
-
-        const message = new RegExp(
-            "^WARNING: provided height of object \\(\\d+\\) is smaller than " +
-                "the required height \\(\\d+\\). The provided height has been overwritten " +
-                "in the generated diagram.$"
-        );
-        expect(message.test(spy.mock.calls[0][0])).toBe(true);
-        spy.mockRestore();
-    });
-
-    it("does not render a frozenset containing strings", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "frozenset",
-                id: 32,
-                value: ["hello", "world"],
-            },
-        ];
-
-        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
-        expect(() =>
-            draw(objects, true, {
-                width: 1300,
-                roughjs_config: { options: { seed: 12345 } },
-            })
-        ).toThrow(errorMessage);
     });
 });
