@@ -1770,16 +1770,20 @@ describe("draw function", () => {
                 style: ["highlight"],
             },
         ];
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation(() => {});
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             true,
             {
-                width: 324.2,
+                width: 13,
                 roughjs_config: { options: { seed: 12345 } },
             }
         );
         const svg: string = m.serializeSVG();
         expect(svg).toMatchSnapshot();
+        spy.mockRestore();
     });
 
     it("renders a diagram with 'small' width value and a mix stack frame/non-stack frame objects", () => {
@@ -1814,16 +1818,20 @@ describe("draw function", () => {
                 style: ["highlight"],
             },
         ];
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation(() => {});
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             true,
             {
-                width: 490.2,
+                width: 13,
                 roughjs_config: { options: { seed: 12345 } },
             }
         );
         const svg: string = m.serializeSVG();
         expect(svg).toMatchSnapshot();
+        spy.mockRestore();
     });
 
     it("renders a diagram with large left margins", () => {
@@ -1858,17 +1866,21 @@ describe("draw function", () => {
                 style: ["highlight"],
             },
         ];
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation(() => {});
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             true,
             {
-                width: 615.2,
+                width: 13,
                 left_margin: 150,
                 roughjs_config: { options: { seed: 12345 } },
             }
         );
         const svg: string = m.serializeSVG();
         expect(svg).toMatchSnapshot();
+        spy.mockRestore();
     });
 
     it("throws an error when object type is not a collection and value is not a primitive", () => {
@@ -1896,11 +1908,14 @@ describe("draw function", () => {
                 value: "I am a very very very very very very very very very very very very very very very very very very very very very very very very very very very long string",
             },
         ];
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation(() => {});
         const output: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             true,
             {
-                width: 1973,
+                width: 100,
                 roughjs_config: {
                     options: {
                         seed: 12345,
@@ -1910,6 +1925,7 @@ describe("draw function", () => {
         );
         const svg = output.serializeSVG();
         expect(svg).toMatchSnapshot();
+        spy.mockRestore();
     });
     it("renders an appropriately sized box for a string with the highlight style", () => {
         const objects: DrawnEntity[] = [
@@ -1920,11 +1936,14 @@ describe("draw function", () => {
                 style: ["highlight"],
             },
         ];
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation(() => {});
         const output: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             true,
             {
-                width: 2159,
+                width: 100,
                 roughjs_config: {
                     options: {
                         seed: 12345,
@@ -1934,6 +1953,7 @@ describe("draw function", () => {
         );
         const svg = output.serializeSVG();
         expect(svg).toMatchSnapshot();
+        spy.mockRestore();
     });
     it("renders an empty svg given an empty array", () => {
         const objects: DrawnEntity[] = [];
