@@ -668,10 +668,51 @@ describe("draw function", () => {
         ).toThrow(errorMessage);
     });
 
+    it("throws an error when object type is not a collection and value is not a primitive", () => {
+        const objects: DrawnEntity[] = [
+            {
+                type: "invalid collection",
+                id: 0,
+                value: [1, 2],
+            },
+        ];
+
+        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
+        expect(() =>
+            draw(objects, true, {
+                width: 100,
+            })
+        ).toThrow(errorMessage);
+    });
+
+    test.each([
+        {
+            test: "throws error for invalid bare string style preset",
+            style: "nonsense",
+        },
+        {
+            test: "throws error for invalid style preset in array",
+            style: ["nonsense"],
+        },
+    ])("$test", ({ style }) => {
+        const objects: DrawnEntity[] = [
+            { type: "str", id: 42, value: "test", style },
+        ];
+
+        expect(() =>
+            draw(objects, true, {
+                width: 1300,
+                roughjs_config: { options: { seed: 12345 } },
+            })
+        ).toThrow(
+            'Style preset "nonsense" not found. Please refer to the documentation for available presets.'
+        );
+    });
+
     test.each([
         {
             test: "logs a warning when provided 'small' width value",
-            drawConfig: { width: 13 },
+            draw_config: { width: 13 },
             warning:
                 "^WARNING: provided width \\(\\d+\\) is smaller than " +
                 "the required width \\(\\d+(\\.\\d+)?\\). The provided width has been overwritten " +
@@ -679,7 +720,7 @@ describe("draw function", () => {
         },
         {
             test: "logs a warning when DrawnEntity is provided with a 'small' width value",
-            drawnEntityConfig: { width: 50 },
+            drawn_entity_config: { width: 50 },
             warning:
                 "^WARNING: provided width of object \\(\\d+\\) is smaller than " +
                 "the required width \\(\\d+(\\.\\d+)?\\). The provided width has been overwritten " +
@@ -687,27 +728,27 @@ describe("draw function", () => {
         },
         {
             test: "logs a warning when DrawnEntity is provided with a 'small' height value",
-            drawnEntityConfig: { height: 50 },
+            drawn_entity_config: { height: 50 },
             warning:
                 "^WARNING: provided height of object \\(\\d+\\) is smaller than " +
                 "the required height \\(\\d+\\). The provided height has been overwritten " +
                 "in the generated diagram.$",
         },
-    ])("$test", ({ drawnEntityConfig = {}, drawConfig = {}, warning }) => {
+    ])("$test", ({ drawn_entity_config = {}, draw_config = {}, warning }) => {
         const objects: DrawnEntity[] = [
             {
                 type: "str",
                 id: 19,
                 value: "David is cool!",
                 style: ["highlight"],
-                ...drawnEntityConfig,
+                ...drawn_entity_config,
             },
         ];
         const spy = jest
             .spyOn(global.console, "warn")
             .mockImplementation(() => {});
         draw(objects, true, {
-            ...drawConfig,
+            ...draw_config,
             roughjs_config: { options: { seed: 12345 } },
         });
         expect(spy).toHaveBeenCalledTimes(1);
@@ -717,20 +758,37 @@ describe("draw function", () => {
         spy.mockRestore();
     });
 
-    it("renders a stack frame using manual layout", () => {
-        const objects: DrawnEntity[] = [
-            {
-                x: 200,
-                y: 200,
-                name: "__main__",
-                type: ".frame",
-                id: null,
-                value: {
-                    lst1: 82,
-                    lst2: 84,
+    test.each([
+        {
+            test: "renders a stack frame using manual layout",
+            input: [
+                {
+                    x: 200,
+                    y: 200,
+                    name: "__main__",
+                    type: ".frame",
+                    id: null,
+                    value: {
+                        lst1: 82,
+                        lst2: 84,
+                    },
                 },
-            },
-        ];
+            ],
+        },
+        {
+            test: "renders a bool using manual layout",
+            input: [
+                {
+                    x: 750,
+                    y: 250,
+                    type: "bool",
+                    id: 32,
+                    value: true,
+                },
+            ],
+        },
+    ])("$test", ({ input }) => {
+        const objects: DrawnEntity[] = input;
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             false,
@@ -742,21 +800,42 @@ describe("draw function", () => {
         expect(svg).toMatchSnapshot();
     });
 
-    it("renders a bool using manual layout", () => {
+    test.each([
+        {
+            test: "renders diagrams with provided roughjs_config 'fill' option",
+            config_options: { fill: "red" },
+        },
+        {
+            test: "renders diagrams with provided roughjs_config 'fill' and 'fillStyle' options",
+            config_options: { fill: "green", fillStyle: "dashed" },
+        },
+        {
+            test: "renders diagrams with provided roughjs_config 'roughness' option",
+            config_options: { roughness: 4 },
+        },
+        {
+            test: "renders diagrams with provided mix of roughjs_config options",
+            config_options: {
+                roughness: 4,
+                bowing: 5,
+                fill: "blue",
+                fillWeight: 5,
+            },
+        },
+    ])("$test", ({ config_options }) => {
         const objects: DrawnEntity[] = [
             {
-                x: 750,
-                y: 250,
-                type: "bool",
-                id: 32,
-                value: true,
+                type: "str",
+                id: 42,
+                value: "hello",
             },
         ];
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
-            false,
+            true,
             {
-                roughjs_config: { options: { seed: 12345 } },
+                width: 1300,
+                roughjs_config: { options: { ...config_options, seed: 12345 } },
             }
         );
         const svg: string = m.serializeSVG();
@@ -804,46 +883,6 @@ describe("draw function", () => {
         expect(objectIdMatches.length).toBe(3);
     });
 
-    it("throws error for invalid bare string style preset", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "str",
-                id: 42,
-                value: "test",
-                style: "nonsense",
-            },
-        ];
-
-        expect(() =>
-            draw(objects, true, {
-                width: 1300,
-                roughjs_config: { options: { seed: 12345 } },
-            })
-        ).toThrow(
-            'Style preset "nonsense" not found. Please refer to the documentation for available presets.'
-        );
-    });
-
-    it("throws error for invalid style preset in array", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "str",
-                id: 42,
-                value: "test",
-                style: ["nonsense"],
-            },
-        ];
-
-        expect(() =>
-            draw(objects, true, {
-                width: 1300,
-                roughjs_config: { options: { seed: 12345 } },
-            })
-        ).toThrow(
-            'Style preset "nonsense" not found. Please refer to the documentation for available presets.'
-        );
-    });
-
     it("calculates text length correctly for CSS keyword font-sizes", () => {
         const testString = "test";
         const m: InstanceType<typeof exports.MemoryModel> =
@@ -878,163 +917,75 @@ describe("draw function", () => {
         expect(invalidLength).toBe(48);
     });
 
-    it("renders diagrams with provided roughjs_config 'fill' option", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "str",
-                id: 42,
-                value: "hello",
-            },
-        ];
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1300,
-                roughjs_config: { options: { fill: "red", seed: 12345 } },
-            }
-        );
-        const svg: string = m.serializeSVG();
-        expect(svg).toMatchSnapshot();
-    });
-
-    it("renders diagrams with provided roughjs_config 'fill' and 'fillStyle' options", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "str",
-                id: 42,
-                value: "hello",
-            },
-        ];
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1300,
-                roughjs_config: {
-                    options: {
-                        fill: "green",
-                        fillStyle: "dashed",
-                        seed: 12345,
-                    },
+    test.each([
+        {
+            test: "renders a diagram with 'small' width value and no stack frames",
+            input: [
+                {
+                    type: "str",
+                    id: 19,
+                    value: "David is cool!",
+                    style: ["highlight"],
                 },
-            }
-        );
-        const svg: string = m.serializeSVG();
-        expect(svg).toMatchSnapshot();
-    });
-
-    it("renders diagrams with provided roughjs_config 'roughness' option", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "str",
-                id: 42,
-                value: "hello",
-            },
-        ];
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1300,
-                roughjs_config: { options: { roughness: 4, seed: 12345 } },
-            }
-        );
-        const svg: string = m.serializeSVG();
-        expect(svg).toMatchSnapshot();
-    });
-
-    it("renders diagrams with provided mix of roughjs_config options", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "str",
-                id: 42,
-                value: "hello",
-            },
-        ];
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1300,
-                roughjs_config: {
-                    options: {
-                        roughness: 4,
-                        bowing: 5,
-                        fill: "blue",
-                        fillWeight: 5,
-                        seed: 12345,
-                    },
+            ],
+        },
+        {
+            test: "renders a diagram with 'small' width value and a mix stack frame/non-stack frame objects",
+            input: [
+                { type: ".frame", name: "__main__", id: null, value: { a: 7 } },
+                {
+                    type: ".frame",
+                    name: "func",
+                    id: null,
+                    value: { x: 1, y: 17 },
                 },
-            }
-        );
-        const svg: string = m.serializeSVG();
-        expect(svg).toMatchSnapshot();
-    });
+                { type: "list", id: 84, value: [17, 8], show_indexes: true },
+                {
+                    type: "str",
+                    id: 19,
+                    value: "David is cool!",
+                    style: ["highlight"],
+                },
+            ],
+        },
+        {
+            test: "renders an appropriately sized box for a very long string",
+            input: [
+                {
+                    id: 1,
+                    type: "str",
+                    value: "I am a very very very very very very very very very very very very very very very very very very very very very very very very very very very long string",
+                },
+            ],
+        },
+        {
+            test: "renders an appropriately sized box for a string with the highlight style",
+            input: [
+                {
+                    id: 1,
+                    type: "str",
+                    value: "I am a very very very very very very very very very very very very very very very very very very very very very very very very very very very long string",
+                    style: ["highlight"],
+                },
+            ],
+        },
+    ])("$test", ({ input }) => {
+        const objects: DrawnEntity[] = input;
 
-    it("renders a diagram with 'small' width value and no stack frames", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "str",
-                id: 19,
-                value: "David is cool!",
-                style: ["highlight"],
-            },
-        ];
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation(() => {});
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             true,
             {
-                width: 324.2,
+                width: 13,
                 roughjs_config: { options: { seed: 12345 } },
             }
         );
         const svg: string = m.serializeSVG();
         expect(svg).toMatchSnapshot();
-    });
-
-    it("renders a diagram with 'small' width value and a mix stack frame/non-stack frame objects", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: ".frame",
-                name: "__main__",
-                id: null,
-                value: {
-                    a: 7,
-                },
-            },
-            {
-                type: ".frame",
-                name: "func",
-                id: null,
-                value: {
-                    x: 1,
-                    y: 17,
-                },
-            },
-            {
-                type: "list",
-                id: 84,
-                value: [17, 8],
-                show_indexes: true,
-            },
-            {
-                type: "str",
-                id: 19,
-                value: "David is cool!",
-                style: ["highlight"],
-            },
-        ];
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 490.2,
-                roughjs_config: { options: { seed: 12345 } },
-            }
-        );
-        const svg: string = m.serializeSVG();
-        expect(svg).toMatchSnapshot();
+        spy.mockRestore();
     });
 
     it("renders a diagram with large left margins", () => {
@@ -1069,83 +1020,21 @@ describe("draw function", () => {
                 style: ["highlight"],
             },
         ];
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation(() => {});
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             true,
             {
-                width: 615.2,
+                width: 13,
                 left_margin: 150,
                 roughjs_config: { options: { seed: 12345 } },
             }
         );
         const svg: string = m.serializeSVG();
         expect(svg).toMatchSnapshot();
-    });
-
-    it("throws an error when object type is not a collection and value is not a primitive", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "invalid collection",
-                id: 0,
-                value: [1, 2],
-            },
-        ];
-
-        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
-        expect(() =>
-            draw(objects, true, {
-                width: 100,
-            })
-        ).toThrow(errorMessage);
-    });
-
-    it("renders an appropriately sized box for a very long string", () => {
-        const objects: DrawnEntity[] = [
-            {
-                id: 1,
-                type: "str",
-                value: "I am a very very very very very very very very very very very very very very very very very very very very very very very very very very very long string",
-            },
-        ];
-        const output: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1973,
-                roughjs_config: {
-                    options: {
-                        seed: 12345,
-                    },
-                },
-            }
-        );
-        const svg = output.serializeSVG();
-        expect(svg).toMatchSnapshot();
-    });
-
-    it("renders an appropriately sized box for a string with the highlight style", () => {
-        const objects: DrawnEntity[] = [
-            {
-                id: 1,
-                type: "str",
-                value: "I am a very very very very very very very very very very very very very very very very very very very very very very very very very very very long string",
-                style: ["highlight"],
-            },
-        ];
-        const output: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 2159,
-                roughjs_config: {
-                    options: {
-                        seed: 12345,
-                    },
-                },
-            }
-        );
-        const svg = output.serializeSVG();
-        expect(svg).toMatchSnapshot();
+        spy.mockRestore();
     });
 
     it("renders an empty svg given an empty array", () => {
@@ -1282,106 +1171,105 @@ describe("draw function", () => {
         expect(nonInteractiveSvg).toMatchSnapshot();
     });
 
-    it("assigns sequential object ids to bounding boxes", () => {
-        const objects: DrawnEntity[] = [
-            { type: "int", id: 10, value: 42 },
-            { type: "str", id: 20, value: "test" },
-            { type: "list", id: 30, value: [10, 20] },
-        ];
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1300,
-                interactive: true,
-                roughjs_config: { options: { seed: 12345 } },
+    test.each([
+        {
+            test: "assigns sequential object ids to bounding boxes",
+            input: [
+                { type: "int", id: 10, value: 42 },
+                { type: "str", id: 20, value: "test" },
+                { type: "list", id: 30, value: [10, 20] },
+            ],
+            expected_substrings: [
+                'id="object-0"',
+                'id="object-1"',
+                'id="object-2"',
+                '"id10":["object-0"]',
+                '"id20":["object-1"]',
+                '"id30":["object-2"]',
+            ],
+        },
+        {
+            test: "generates correct interactive script with proper event mappings",
+            input: [
+                { type: "str", id: 19, value: "Interactive test" },
+                { type: "int", id: 13, value: 7 },
+            ],
+            expected_substrings: [
+                "addEventListener",
+                "mouseover",
+                "mouseout",
+                "highlightObject",
+                "removeHighlight",
+                "document.querySelectorAll('text.id')",
+                "classList.add('highlighted')",
+                "classList.remove('highlighted')",
+            ],
+        },
+        {
+            test: "handles objects with null ids in interactive mode",
+            input: [
+                { type: ".frame", name: "__main__", id: null, value: { x: 1 } },
+                { type: "int", id: 42, value: 5 },
+                { type: "str", id: 99, value: "test" },
+            ],
+            expected_substrings: ['"id42"', '"id99"'],
+            unexpected_substrings: ['"idnull"', 'null":'],
+        },
+        {
+            test: "generates interactive script for empty objects array",
+            input: [],
+            expected_substrings: [
+                "<script>",
+                "enableInteractivity",
+                "const idToObjectMap = {};",
+            ],
+        },
+        {
+            test: "renders custom styles correctly in interactive mode",
+            input: [
+                {
+                    type: "str",
+                    id: 42,
+                    value: "styled interactive",
+                    style: ["highlight"],
+                },
+                { type: "int", id: 99, value: 999, style: ["fade"] },
+            ],
+            expected_substrings: ['"id42"', '"id99"', "enableInteractivity"],
+        },
+        {
+            test: "maps multiple references to same object id",
+            input: [
+                { type: "list", id: 1, value: [42, 42, 42] },
+                { type: "int", id: 42, value: 5 },
+            ],
+            expected_substrings: ['"id42"', '"id1"', "object-0", "object-1"],
+        },
+    ])(
+        "$test",
+        ({ input, expected_substrings = [], unexpected_substrings = [] }) => {
+            const objects: DrawnEntity[] = input;
+
+            const m: InstanceType<typeof exports.MemoryModel> = draw(
+                objects,
+                true,
+                {
+                    width: 1300,
+                    interactive: true,
+                    roughjs_config: { options: { seed: 12345 } },
+                }
+            );
+            const svg: string = m.serializeSVG();
+
+            for (const substring of expected_substrings) {
+                expect(svg).toContain(substring);
             }
-        );
-        const svg: string = m.serializeSVG();
-
-        expect(svg).toContain('id="object-0"');
-        expect(svg).toContain('id="object-1"');
-        expect(svg).toContain('id="object-2"');
-        expect(svg).toContain('"id10":["object-0"]');
-        expect(svg).toContain('"id20":["object-1"]');
-        expect(svg).toContain('"id30":["object-2"]');
-        expect(svg).toMatchSnapshot();
-    });
-
-    it("generates correct interactive script with proper event mappings", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "str",
-                id: 19,
-                value: "Interactive test",
-            },
-            { type: "int", id: 13, value: 7 },
-        ];
-
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1300,
-                interactive: true,
-                roughjs_config: { options: { seed: 12345 } },
+            for (const substring of unexpected_substrings) {
+                expect(svg).not.toContain(substring);
             }
-        );
-        const svg: string = m.serializeSVG();
-
-        expect(svg).toContain("addEventListener");
-        expect(svg).toContain("mouseover");
-        expect(svg).toContain("mouseout");
-        expect(svg).toContain("highlightObject");
-        expect(svg).toContain("removeHighlight");
-        expect(svg).toContain("document.querySelectorAll('text.id')");
-        expect(svg).toContain("classList.add('highlighted')");
-        expect(svg).toContain("classList.remove('highlighted')");
-        expect(svg).toMatchSnapshot();
-    });
-
-    it("handles objects with null ids in interactive mode", () => {
-        const objects: DrawnEntity[] = [
-            { type: ".frame", name: "__main__", id: null, value: { x: 1 } },
-            { type: "int", id: 42, value: 5 },
-            { type: "str", id: 99, value: "test" },
-        ];
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1300,
-                interactive: true,
-                roughjs_config: { options: { seed: 12345 } },
-            }
-        );
-        const svg: string = m.serializeSVG();
-
-        expect(svg).toContain('"id42"');
-        expect(svg).toContain('"id99"');
-        expect(svg).not.toContain('"idnull"');
-        expect(svg).not.toContain('null":');
-        expect(svg).toMatchSnapshot();
-    });
-
-    it("generates interactive script for empty objects array", () => {
-        const objects: DrawnEntity[] = [];
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1300,
-                interactive: true,
-                roughjs_config: { options: { seed: 12345 } },
-            }
-        );
-        const svg: string = m.serializeSVG();
-
-        expect(svg).toContain("<script>");
-        expect(svg).toContain("enableInteractivity");
-        expect(svg).toContain("const idToObjectMap = {};");
-        expect(svg).toMatchSnapshot();
-    });
+            expect(svg).toMatchSnapshot();
+        }
+    );
 
     it("works at highlighting interactively with different themes", () => {
         const objects: DrawnEntity[] = [
@@ -1418,60 +1306,5 @@ describe("draw function", () => {
         expect(highContrastSvg).toContain("--highlight-object-fill");
         expect(darkSvg).toMatchSnapshot();
         expect(highContrastSvg).toMatchSnapshot();
-    });
-
-    it("renders custom styles correctly in interactive mode", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "str",
-                id: 42,
-                value: "styled interactive",
-                style: ["highlight"],
-            },
-            {
-                type: "int",
-                id: 99,
-                value: 999,
-                style: ["fade"],
-            },
-        ];
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1300,
-                interactive: true,
-                roughjs_config: { options: { seed: 12345 } },
-            }
-        );
-        const svg: string = m.serializeSVG();
-
-        expect(svg).toContain('"id42"');
-        expect(svg).toContain('"id99"');
-        expect(svg).toContain("enableInteractivity");
-        expect(svg).toMatchSnapshot();
-    });
-
-    it("maps multiple references to same object id", () => {
-        const objects: DrawnEntity[] = [
-            { type: "list", id: 1, value: [42, 42, 42] },
-            { type: "int", id: 42, value: 5 },
-        ];
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1300,
-                interactive: true,
-                roughjs_config: { options: { seed: 12345 } },
-            }
-        );
-        const svg: string = m.serializeSVG();
-
-        expect(svg).toContain('"id42"');
-        expect(svg).toContain('"id1"');
-        expect(svg).toContain("object-0");
-        expect(svg).toContain("object-1");
-        expect(svg).toMatchSnapshot();
     });
 });
