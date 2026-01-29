@@ -29,6 +29,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added `cross-env` dev dependency to enable setting environment variables in npm `"scripts"` commands on Windows
 - Resolved warnings and errors that printed to terminal when test suites were ran
 - Wrapped rect and text elements for each `DrawnEntity` into parent `<g>` tag before appending to root `<svg>` element
+- Fix diagram width tests to correctly test for small input widths
 
 ## [0.8.0] - 2025-12-04
 
