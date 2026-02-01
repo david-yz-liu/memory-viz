@@ -55,7 +55,7 @@
     "dependencies": {
         "@emotion/styled": "^11.11.0",
         "@heroicons/react": "^2.2.0",
-        "@mui/icons-material": "^7.3.6",
+        "@mui/icons-material": "^7.3.7",
         "@mui/material": "^7.1.1",
         "@picocss/pico": "^1.5.10",
         "i18next": "^23.15.0",
