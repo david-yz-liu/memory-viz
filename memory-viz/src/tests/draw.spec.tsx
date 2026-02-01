@@ -635,19 +635,116 @@ describe("draw function", () => {
                 },
             ],
         },
-    ])("$test", ({ input }) => {
-        const objects: DrawnEntity[] = input;
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
+        {
+            test: "renders a stack frame using manual layout",
+            input: [
+                {
+                    x: 200,
+                    y: 200,
+                    name: "__main__",
+                    type: ".frame",
+                    id: null,
+                    value: {
+                        lst1: 82,
+                        lst2: 84,
+                    },
+                    width: 198,
+                },
+            ],
+            config: {
+                roughjs_config: { options: { seed: 12345 } },
+            },
+        },
+        {
+            test: "renders a bool using manual layout",
+            input: [
+                {
+                    x: 750,
+                    y: 250,
+                    type: "bool",
+                    id: 32,
+                    value: true,
+                },
+            ],
+            config: {
+                roughjs_config: { options: { seed: 12345 } },
+            },
+        },
+        {
+            test: "renders diagrams with provided roughjs_config 'fill' option",
+            input: [{ type: "str", id: 42, value: "hello" }],
+            config: {
+                width: 1300,
+                roughjs_config: {
+                    options: {
+                        fill: "red",
+                        seed: 12345,
+                    },
+                },
+            },
+        },
+        {
+            test: "renders diagrams with provided roughjs_config 'fill' and 'fillStyle' options",
+            input: [{ type: "str", id: 42, value: "hello" }],
+            config: {
+                width: 1300,
+                roughjs_config: {
+                    options: {
+                        fill: "green",
+                        fillStyle: "dashed",
+                        seed: 12345,
+                    },
+                },
+            },
+        },
+        {
+            test: "renders diagrams with provided roughjs_config 'roughness' option",
+            input: [{ type: "str", id: 42, value: "hello" }],
+            config: {
+                width: 1300,
+                roughjs_config: {
+                    options: {
+                        roughness: 4,
+                        seed: 12345,
+                    },
+                },
+            },
+        },
+        {
+            test: "renders diagrams with provided mix of roughjs_config options",
+            input: [{ type: "str", id: 42, value: "hello" }],
+            config: {
+                width: 1300,
+                roughjs_config: {
+                    options: {
+                        roughness: 4,
+                        bowing: 5,
+                        fill: "blue",
+                        fillWeight: 5,
+                        seed: 12345,
+                    },
+                },
+            },
+        },
+    ])(
+        "$test",
+        ({
+            input,
+            config = {
                 width: 1300,
                 roughjs_config: { options: { seed: 12345 } },
-            }
-        );
-        const svg: string = m.serializeSVG();
-        expect(svg).toMatchSnapshot();
-    });
+            },
+        }) => {
+            const objects: DrawnEntity[] = input;
+            const m: InstanceType<typeof exports.MemoryModel> = draw(
+                objects,
+                true,
+                config
+            );
+            const svg: string = m.serializeSVG();
+            expect(svg).toMatchSnapshot();
+        }
+    );
 
     test.each([
         { type: "set" },
@@ -756,90 +853,6 @@ describe("draw function", () => {
         const message = new RegExp(warning);
         expect(message.test(spy.mock.calls[0][0])).toBe(true);
         spy.mockRestore();
-    });
-
-    test.each([
-        {
-            test: "renders a stack frame using manual layout",
-            input: [
-                {
-                    x: 200,
-                    y: 200,
-                    name: "__main__",
-                    type: ".frame",
-                    id: null,
-                    value: {
-                        lst1: 82,
-                        lst2: 84,
-                    },
-                },
-            ],
-        },
-        {
-            test: "renders a bool using manual layout",
-            input: [
-                {
-                    x: 750,
-                    y: 250,
-                    type: "bool",
-                    id: 32,
-                    value: true,
-                },
-            ],
-        },
-    ])("$test", ({ input }) => {
-        const objects: DrawnEntity[] = input;
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            false,
-            {
-                roughjs_config: { options: { seed: 12345 } },
-            }
-        );
-        const svg: string = m.serializeSVG();
-        expect(svg).toMatchSnapshot();
-    });
-
-    test.each([
-        {
-            test: "renders diagrams with provided roughjs_config 'fill' option",
-            config_options: { fill: "red" },
-        },
-        {
-            test: "renders diagrams with provided roughjs_config 'fill' and 'fillStyle' options",
-            config_options: { fill: "green", fillStyle: "dashed" },
-        },
-        {
-            test: "renders diagrams with provided roughjs_config 'roughness' option",
-            config_options: { roughness: 4 },
-        },
-        {
-            test: "renders diagrams with provided mix of roughjs_config options",
-            config_options: {
-                roughness: 4,
-                bowing: 5,
-                fill: "blue",
-                fillWeight: 5,
-            },
-        },
-    ])("$test", ({ config_options }) => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "str",
-                id: 42,
-                value: "hello",
-            },
-        ];
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1300,
-                roughjs_config: { options: { ...config_options, seed: 12345 } },
-            }
-        );
-        const svg: string = m.serializeSVG();
-        expect(svg).toMatchSnapshot();
     });
 
     it("adds unique IDs to object boxes in SVG output", () => {
