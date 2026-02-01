@@ -44,7 +44,6 @@ describe("draw function", () => {
             test: "renders a bool without defining the value",
             input: [{ type: "bool", id: 10 }],
         },
-
         {
             test: "renders an int with null value",
             input: [{ type: "int", id: 10, value: null }],
