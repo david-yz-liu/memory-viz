@@ -1169,6 +1169,12 @@ export class MemoryModel {
         const sizes_arr: Rect[] = [];
         const parsed_objects: DrawnEntity[] = [];
 
+        const root_title = this.document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "title"
+        );
+        this.svg.insertBefore(root_title, this.svg.firstChild);
+
         for (const rawObj of objects) {
             const result = DrawnEntitySchema.safeParse(rawObj);
             if (!result.success) {
@@ -1226,6 +1232,16 @@ export class MemoryModel {
                 "g"
             );
             this.svg.appendChild(svg_group);
+            svg_group.setAttribute("role", "img");
+
+            const object_title = this.document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "title"
+            );
+            svg_group.appendChild(object_title);
+            object_title.appendChild(
+                this.document.createTextNode(this.getGroupTitle(obj))
+            );
 
             const frame_types = [".frame", ".blank-frame"];
             if (frame_types.includes(obj.type!) || obj.type === ".class") {
@@ -1264,7 +1280,154 @@ export class MemoryModel {
             this.setInteractivityScript();
         }
 
+        const has_stack_frames = strict_objects.some(
+            (o) => o.type === ".frame"
+        );
+        const has_objects = strict_objects.some(
+            (o) =>
+                o.type !== ".frame" &&
+                o.type !== ".blank" &&
+                o.type !== ".blank-frame"
+        );
+        let root_title_string: string;
+        if (has_stack_frames && has_objects) {
+            root_title_string =
+                "Python memory model diagram showing stack frames and objects";
+        } else if (has_stack_frames) {
+            root_title_string =
+                "Python memory model diagram showing stack frames";
+        } else if (has_objects) {
+            root_title_string = "Python memory model diagram showing objects";
+        } else {
+            root_title_string = "Blank Python memory model diagram";
+        }
+        root_title.appendChild(this.document.createTextNode(root_title_string));
+
         return sizes_arr;
+    }
+
+    /**
+     * Returns a descriptive title for a DrawnEntity object.
+     *
+     * @param object - the DrawnEntity object to be drawn.
+     */
+    private getGroupTitle(object: DrawnEntity): string {
+        const MAX_ELEMENTS = 10;
+
+        if (object.type === ".frame") {
+            const name = object.name ? object.name : "unnamed object";
+            return `Stack frame for ${name}`;
+        } else if (object.type === ".class") {
+            const name = object.name ? object.name : "unnamed class";
+            const count =
+                object.value && typeof object.value === "object"
+                    ? Object.keys(object.value).length
+                    : 0;
+
+            if (count > MAX_ELEMENTS) {
+                return `Class ${name} with ${count} attributes`;
+            } else {
+                const attributes = Object.keys(object.value)
+                    .map((k) => (k.trim() === "" ? "blank attribute" : k))
+                    .join(", ");
+                return attributes
+                    ? `Class ${name} with attributes ${attributes}`
+                    : `Class ${name}`;
+            }
+        }
+
+        const idLabel =
+            object.id === undefined || object.id === null
+                ? ""
+                : `id${object.id}`;
+
+        if (object.type === "list" || object.type === "tuple") {
+            const elements = Array.isArray(object.value)
+                ? object.value
+                      .map((v) => (v === null ? "null" : `id${v}`))
+                      .join(", ")
+                : "";
+            const count = Array.isArray(object.value) ? object.value.length : 0;
+            const object_type = object.type === "list" ? "List" : "Tuple";
+
+            if (count > MAX_ELEMENTS) {
+                return `${object_type} ${idLabel} with ${count} elements`;
+            } else {
+                return elements
+                    ? `${object_type} ${idLabel} with elements ${elements}`
+                    : `${object_type} ${idLabel}`;
+            }
+        } else if (object.type === "dict") {
+            let entries = "";
+            let count = 0;
+            if (Array.isArray(object.value)) {
+                count = object.value.length;
+                entries = object.value
+                    .map((e) => {
+                        const key =
+                            e &&
+                            e[0] !== undefined &&
+                            e[0] !== null &&
+                            String(e[0]).trim() !== ""
+                                ? `id${e[0]}`
+                                : "blank key";
+                        const string =
+                            e && e[1] !== undefined && e[1] !== null
+                                ? `id${e[1]}`
+                                : "null";
+                        return `${key}: ${string}`;
+                    })
+                    .join(", ");
+            } else if (object.value && typeof object.value === "object") {
+                count = Object.keys(object.value).length;
+                entries = Object.entries(object.value)
+                    .map(([k, v]) => {
+                        const key =
+                            k !== undefined &&
+                            k !== null &&
+                            String(k).trim() !== ""
+                                ? `id${k}`
+                                : "blank key";
+                        const string =
+                            v !== undefined && v !== null ? `id${v}` : "null";
+                        return `${key}: ${string}`;
+                    })
+                    .join(", ");
+            }
+
+            if (count > MAX_ELEMENTS) {
+                return `Dict ${idLabel} with ${count} entries`;
+            } else {
+                return entries
+                    ? `Dict ${idLabel} with entries ${entries}`
+                    : `Dict ${idLabel}`;
+            }
+        } else if (object.type === "set" || object.type === "frozenset") {
+            const elements = Array.isArray(object.value)
+                ? object.value
+                      .map((v) => (v === null ? "null" : `id${v}`))
+                      .join(", ")
+                : "";
+            const count = Array.isArray(object.value) ? object.value.length : 0;
+            const object_type =
+                object.type === "frozenset" ? "Frozenset" : "Set";
+
+            if (count > MAX_ELEMENTS) {
+                return `${object_type} ${idLabel} with ${count} elements`;
+            } else {
+                return elements
+                    ? `${object_type} ${idLabel} with elements ${elements}`
+                    : `${object_type} ${idLabel}`;
+            }
+        }
+
+        const value =
+            object.type === "str" &&
+            object.value !== null &&
+            object.value !== undefined
+                ? `"${object.value}"`
+                : String(object.value);
+        return `Object ${idLabel} of type ${object.type} with value ${value}`;
     }
 
     /**
