@@ -1212,6 +1212,7 @@ export class MemoryModel {
             parsed_objects.push(obj);
         }
 
+        this.validateIds(parsed_objects);
         const strict_objects = this.setDimensionsAll(parsed_objects);
 
         for (const obj of strict_objects) {
@@ -2062,6 +2063,71 @@ export class MemoryModel {
         );
         scriptElement.textContent = script;
         this.svg.appendChild(scriptElement);
+    }
+
+    /**
+     * Print warnings to console for invalid ids.
+     *
+     * Given a list of DrawnEntity objects, this function checks for duplicate ids and references
+     * to ids without a corresponding object, and prints a warning for each issue found.
+     * Blank ids are ignored.
+     *
+     * @param objs - list of DrawnEntity objects to validate
+     */
+    private validateIds(objs: DrawnEntity[]): void {
+        // Counts the number of objects given each id
+        const id_count: Map<number, number> = new Map();
+        for (const obj of objs) {
+            if (
+                obj.id !== null &&
+                obj.id !== undefined &&
+                !(
+                    obj.type === ".frame" ||
+                    obj.type === ".blank" ||
+                    obj.type === ".blank-frame"
+                )
+            ) {
+                id_count.set(obj.id, (id_count.get(obj.id) ?? 0) + 1);
+            }
+        }
+
+        for (const [id, count] of id_count) {
+            if (count > 1) {
+                console.warn(
+                    `WARNING: id='${id}' is used by ${count} objects.`
+                );
+            }
+        }
+
+        // Checks if all ids referenced in composite objects have corresponding object with that id
+        for (const obj of objs) {
+            if (obj.value && typeof obj.value === "object") {
+                let referenced_ids: (number | string | null)[];
+                if (obj.type === ".class" || obj.type === ".frame") {
+                    referenced_ids = Object.values(obj.value);
+                } else if (obj.type === "dict") {
+                    referenced_ids = Object.entries(obj.value).flat() as (
+                        | number
+                        | string
+                        | null
+                    )[];
+                } else {
+                    referenced_ids = obj.value;
+                }
+
+                for (const id of referenced_ids) {
+                    if (
+                        id !== null &&
+                        !(typeof id === "string" && id.trim() === "") &&
+                        !id_count.has(Number(id))
+                    ) {
+                        console.warn(
+                            `WARNING: id='${id}' is referenced by an object of type='${obj.type}', but has no corresponding object.`
+                        );
+                    }
+                }
+            }
+        }
     }
 }
 
