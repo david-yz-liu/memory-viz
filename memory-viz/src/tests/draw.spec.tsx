@@ -1319,4 +1319,163 @@ describe("draw function", () => {
         expect(darkSvg).toMatchSnapshot();
         expect(highContrastSvg).toMatchSnapshot();
     });
+
+    test.each([
+        {
+            test: "generates correct title for MemoryModel with stack frames and objects",
+            input: [
+                {
+                    type: ".frame",
+                    name: "__main__",
+                    value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
+                },
+                { type: "str", id: 19, value: "Title test" },
+                { type: "int", id: 13, value: 7 },
+            ],
+            expected_substrings: [
+                "<title>",
+                "Python memory model diagram showing stack frames and objects",
+                "Stack frame for __main__",
+                'Object id19 of type str with value "Title test"',
+                "Object id13 of type int with value 7",
+            ],
+        },
+        {
+            test: "generates correct title for MemoryModel with only objects",
+            input: [
+                { type: "int", id: 10, value: 42 },
+                { type: "str", id: 20, value: "test" },
+                { type: "list", id: 30, value: [10, 20] },
+                { type: "tuple", id: 40, value: [10, 20, null] },
+                {
+                    type: "dict",
+                    id: 50,
+                    value: [
+                        [10, 20],
+                        ["", 30],
+                    ],
+                },
+                { type: "set", id: 60, value: [10, 20, null] },
+                { type: "frozenset", id: 70, value: [10, 20] },
+                {
+                    type: ".class",
+                    name: "fruit",
+                    id: 80,
+                    value: { name: 12, color: 34 },
+                },
+                { type: ".blank", width: 100, height: 200 },
+            ],
+            expected_substrings: [
+                "<title>",
+                "Python memory model diagram showing objects",
+                "Object id10 of type int with value 42",
+                'Object id20 of type str with value "test"',
+                "List id30 with elements id10, id20",
+                "Tuple id40 with elements id10, id20, null",
+                "Dict id50 with entries id10: id20, blank key: id30",
+                "Set id60 with elements id10, id20, null",
+                "Frozenset id70 with elements id10, id20",
+                "Class fruit with attributes name, color",
+            ],
+        },
+        {
+            test: "generates correct title for MemoryModel with only stack frames",
+            input: [
+                {
+                    type: ".frame",
+                    name: "__main__",
+                    id: null,
+                    value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
+                },
+                {
+                    type: ".frame",
+                    name: "foo",
+                    id: null,
+                    value: { my_int: 13 },
+                },
+            ],
+            expected_substrings: [
+                "<title>",
+                "Python memory model diagram showing stack frames",
+                "Stack frame for __main__",
+                "Stack frame for foo",
+            ],
+        },
+        {
+            test: "generates title with number of elements for objects with over 10 elements",
+            input: [
+                {
+                    type: "list",
+                    id: 10,
+                    value: Array.from({ length: 11 }, () => 0),
+                },
+                {
+                    type: "set",
+                    id: 20,
+                    value: Array.from({ length: 11 }, () => 0),
+                },
+                {
+                    type: "dict",
+                    id: 30,
+                    value: {
+                        "0": 0,
+                        "1": 1,
+                        "2": 2,
+                        "3": 3,
+                        "4": 4,
+                        "5": 5,
+                        "6": 6,
+                        "7": 7,
+                        "8": 8,
+                        "9": 9,
+                        "10": 10,
+                    },
+                },
+                {
+                    type: ".class",
+                    name: "person",
+                    id: 40,
+                    value: {
+                        name: 0,
+                        age: 1,
+                        height: 2,
+                        address: 3,
+                        phone: 4,
+                        hobby: 5,
+                        school: 6,
+                        program: 7,
+                        year: 8,
+                        likes: 9,
+                        dislikes: 10,
+                    },
+                },
+            ],
+            expected_substrings: [
+                "<title>",
+                "Python memory model diagram showing objects",
+                "List id10 with 11 elements",
+                "Set id20 with 11 elements",
+                "Dict id30 with 11 entries",
+                "Class person with 11 attributes",
+            ],
+        },
+    ])("$test", ({ input, expected_substrings = [] }) => {
+        const objects: DrawnEntity[] = input;
+
+        const m: InstanceType<typeof exports.MemoryModel> = draw(
+            objects,
+            true,
+            {
+                width: 1300,
+                interactive: true,
+                roughjs_config: { options: { seed: 12345 } },
+            }
+        );
+        const svg: string = m.serializeSVG();
+
+        for (const substring of expected_substrings) {
+            expect(svg).toContain(substring);
+        }
+        expect(svg).toMatchSnapshot();
+    });
 });
