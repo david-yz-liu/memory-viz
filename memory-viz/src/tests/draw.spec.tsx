@@ -854,6 +854,174 @@ describe("draw function", () => {
         spy.mockRestore();
     });
 
+    test.each([
+        {
+            test: "logs a warning when all objects are given the same id",
+            input: [
+                { type: "int", id: 100, value: 5 },
+                { type: "bool", id: 100, value: true },
+                { type: "list", id: 100, value: [null] },
+            ],
+            warnings: ["WARNING: id='100' is used by 3 objects."],
+        },
+        {
+            test: "logs multiple warnings when objects are given different duplicate ids",
+            input: [
+                { type: "int", id: 100, value: 5 },
+                { type: "int", id: 7, value: 10 },
+                { type: "float", id: 100, value: 7.3 },
+                { type: "str", id: 100, value: "hello" },
+                { type: "bool", id: 7, value: true },
+                { type: "bool", id: 0, value: false },
+            ],
+            warnings: [
+                "WARNING: id='100' is used by 3 objects.",
+                "WARNING: id='7' is used by 2 objects.",
+            ],
+        },
+        {
+            test: "logs no warning when all objects are given distinct ids",
+            input: [
+                { type: "int", id: 1, value: 5 },
+                { type: "bool", id: 2, value: true },
+                { type: "float", id: 3, value: 7.3 },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs no warning when multiple objects are given null ids",
+            input: [
+                { type: "int", id: null, value: 5 },
+                { type: "int", id: null, value: 5 },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs no warning when multiple objects are not given ids",
+            input: [
+                { type: "int", value: 5 },
+                { type: "int", value: 5 },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs no warning when an object is given the same id as a stack frame",
+            input: [
+                { type: ".frame", id: 100, value: { "": null } },
+                { type: "int", id: 100, value: 5 },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs a warning when a list references an id that doesn't correspond to any object",
+            input: [
+                { type: "list", id: 1, value: [20, 50] },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [
+                "WARNING: id='50' is referenced by an object of type='list', but has no corresponding object.",
+            ],
+        },
+        {
+            test: "logs a warning when a tuple references an id that doesn't correspond to any object",
+            input: [
+                { type: "tuple", id: 1, value: [20, 50] },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [
+                "WARNING: id='50' is referenced by an object of type='tuple', but has no corresponding object.",
+            ],
+        },
+        {
+            test: "logs a warning when a set references an id that doesn't correspond to any object",
+            input: [
+                { type: "set", id: 1, value: [20, 50] },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [
+                "WARNING: id='50' is referenced by an object of type='set', but has no corresponding object.",
+            ],
+        },
+        {
+            test: "logs a warning when a dict references an id that doesn't correspond to any object",
+            input: [
+                { type: "dict", id: 1, value: { x: 10, "50": 20 } },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [
+                "WARNING: id='x' is referenced by an object of type='dict', but has no corresponding object.",
+                "WARNING: id='10' is referenced by an object of type='dict', but has no corresponding object.",
+                "WARNING: id='50' is referenced by an object of type='dict', but has no corresponding object.",
+            ],
+        },
+        {
+            test: "logs a warning when a class references an id that doesn't correspond to any object",
+            input: [
+                { type: ".class", id: 1, value: { x: 10, "50": 20 } },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [
+                "WARNING: id='10' is referenced by an object of type='.class', but has no corresponding object.",
+            ],
+        },
+        {
+            test: "logs a warning when a stack frame references an id that doesn't correspond to any object",
+            input: [
+                { type: ".frame", id: 1, value: { x: 10, "50": 20 } },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [
+                "WARNING: id='10' is referenced by an object of type='.frame', but has no corresponding object.",
+            ],
+        },
+        {
+            test: "logs no warning when a dict references a blank id",
+            input: [
+                { type: "dict", id: 1, value: { "": 20, "    ": 20 } },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs no warning when a dict references an existing id as a string representation",
+            input: [
+                { type: "dict", id: 1, value: { "20": null } },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs no warning when objects reference a null id",
+            input: [
+                { type: "list", id: 1, value: [null] },
+                { type: ".frame", id: 2, value: { x: null } },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs a warning when objects reference a stack frame",
+            input: [
+                { type: "list", id: 1, value: [2] },
+                { type: ".frame", id: 2, value: { "": null } },
+            ],
+            warnings: [
+                "WARNING: id='2' is referenced by an object of type='list', but has no corresponding object.",
+            ],
+        },
+    ])("$test", ({ input, warnings }) => {
+        const objects: DrawnEntity[] = input;
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation(() => {});
+        draw(objects, true, {
+            roughjs_config: { options: { seed: 12345 } },
+        });
+
+        expect(spy).toHaveBeenCalledTimes(warnings.length);
+        expect(spy.mock.calls.flat()).toEqual(expect.arrayContaining(warnings));
+        spy.mockRestore();
+    });
+
     it("adds unique IDs to object boxes in SVG output", () => {
         const objects: DrawnEntity[] = [
             {
