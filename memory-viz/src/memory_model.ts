@@ -1336,26 +1336,30 @@ export class MemoryModel {
             }
         }
 
-        const idLabel =
+        const id_label =
             object.id === undefined || object.id === null
                 ? ""
                 : `id${object.id}`;
 
-        if (object.type === "list" || object.type === "tuple") {
+        const sequence_set_types = ["list", "tuple", "set", "frozenset"];
+        if (sequence_set_types.includes(object.type!)) {
             const elements = Array.isArray(object.value)
                 ? object.value
-                      .map((v) => (v === null ? "null" : `id${v}`))
+                      .map((v) =>
+                          v !== undefined && v !== null ? `id${v}` : "null"
+                      )
                       .join(", ")
                 : "";
             const count = Array.isArray(object.value) ? object.value.length : 0;
-            const object_type = object.type === "list" ? "List" : "Tuple";
+            const object_type =
+                object.type!.charAt(0).toUpperCase() + object.type!.slice(1);
 
             if (count > MAX_ELEMENTS) {
-                return `${object_type} ${idLabel} with ${count} elements`;
+                return `${object_type} ${id_label} with ${count} elements`;
             } else {
                 return elements
-                    ? `${object_type} ${idLabel} with elements ${elements}`
-                    : `${object_type} ${idLabel}`;
+                    ? `${object_type} ${id_label} with elements ${elements}`
+                    : `${object_type} ${id_label}`;
             }
         } else if (object.type === "dict") {
             let entries = "";
@@ -1396,28 +1400,11 @@ export class MemoryModel {
             }
 
             if (count > MAX_ELEMENTS) {
-                return `Dict ${idLabel} with ${count} entries`;
+                return `Dict ${id_label} with ${count} entries`;
             } else {
                 return entries
-                    ? `Dict ${idLabel} with entries ${entries}`
-                    : `Dict ${idLabel}`;
-            }
-        } else if (object.type === "set" || object.type === "frozenset") {
-            const elements = Array.isArray(object.value)
-                ? object.value
-                      .map((v) => (v === null ? "null" : `id${v}`))
-                      .join(", ")
-                : "";
-            const count = Array.isArray(object.value) ? object.value.length : 0;
-            const object_type =
-                object.type === "frozenset" ? "Frozenset" : "Set";
-
-            if (count > MAX_ELEMENTS) {
-                return `${object_type} ${idLabel} with ${count} elements`;
-            } else {
-                return elements
-                    ? `${object_type} ${idLabel} with elements ${elements}`
-                    : `${object_type} ${idLabel}`;
+                    ? `Dict ${id_label} with entries ${entries}`
+                    : `Dict ${id_label}`;
             }
         }
 
@@ -1427,7 +1414,7 @@ export class MemoryModel {
             object.value !== undefined
                 ? `"${object.value}"`
                 : String(object.value);
-        return `Object ${idLabel} of type ${object.type} with value ${value}`;
+        return `Object ${id_label} of type ${object.type} with value ${value}`;
     }
 
     /**
