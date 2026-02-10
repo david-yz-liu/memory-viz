@@ -2081,11 +2081,7 @@ export class MemoryModel {
             if (
                 obj.id !== null &&
                 obj.id !== undefined &&
-                !(
-                    obj.type === ".frame" ||
-                    obj.type === ".blank" ||
-                    obj.type === ".blank-frame"
-                )
+                !(obj.type === ".frame" || obj.type === ".blank-frame")
             ) {
                 id_count.set(obj.id, (id_count.get(obj.id) ?? 0) + 1);
             }
@@ -2102,15 +2098,20 @@ export class MemoryModel {
         // Checks if all ids referenced in composite objects have corresponding object with that id
         for (const obj of objs) {
             if (obj.value && typeof obj.value === "object") {
-                let referenced_ids: (number | string | null)[];
+                let referenced_ids: (number | string | null | undefined)[];
                 if (obj.type === ".class" || obj.type === ".frame") {
                     referenced_ids = Object.values(obj.value);
                 } else if (obj.type === "dict") {
-                    referenced_ids = Object.entries(obj.value).flat() as (
-                        | number
-                        | string
-                        | null
-                    )[];
+                    if (Array.isArray(obj.value)) {
+                        referenced_ids = obj.value.flat();
+                    } else {
+                        referenced_ids = Object.entries(obj.value).flat() as (
+                            | number
+                            | string
+                            | null
+                            | undefined
+                        )[];
+                    }
                 } else {
                     referenced_ids = obj.value;
                 }
@@ -2118,6 +2119,7 @@ export class MemoryModel {
                 for (const id of referenced_ids) {
                     if (
                         id !== null &&
+                        id !== undefined &&
                         !(typeof id === "string" && id.trim() === "") &&
                         !id_count.has(Number(id))
                     ) {
