@@ -80,7 +80,9 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                                 startingLineNumber={
                                     window.jsonArray[0].lineNumber
                                 }
-                                highlightLine={window.jsonArray[step].lineNumber}
+                                highlightLine={
+                                    window.jsonArray[step].lineNumber
+                                }
                             />
                         </Box>
                     </Stack>
@@ -88,10 +90,12 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         <Typography variant="h2" color="textPrimary">
                             {t("memory.title")}
                         </Typography>
-                        <SvgDisplay 
-                            memoryVizInput={window.jsonArray[step].memoryVizInput}
-                            configuration={window.jsonArray[step].configuration} 
-                            />
+                        <SvgDisplay
+                            memoryVizInput={
+                                window.jsonArray[step].memoryVizInput
+                            }
+                            configuration={window.jsonArray[step].configuration}
+                        />
                     </Stack>
                 </Stack>
             </main>

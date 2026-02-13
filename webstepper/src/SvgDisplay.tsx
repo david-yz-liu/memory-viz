@@ -28,7 +28,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
             } catch (error) {
                 console.error(error);
             }
-        };
+        }
     }, [props.memoryVizInput, props.configuration]);
 
     return (
