@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import Header from "./Header.js";
 import { Button, Box, Typography, Stack } from "@mui/material";
@@ -9,8 +9,8 @@ import CodeDisplay from "./CodeDisplay.js";
 import placeholder from "./placeholder.js";
 
 if (typeof window === "object" && process.env.NODE_ENV !== "production") {
-    window.svgArray = placeholder.svgArray;
     window.codeText = placeholder.codeText;
+    window.jsonArray = placeholder.jsonArray;
 }
 
 interface AppProps {
@@ -22,7 +22,9 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const { t } = useTranslation();
     const [step, setStep] = useState<number>(0);
     const codeText = window.codeText;
-    const limit = window.svgArray.length;
+
+    console.log(jsonArray);
+    const limit = window.jsonArray.length;
 
     const handleStep = (offset: number) => {
         setStep((step) => Math.min(Math.max(step + offset, 0), limit - 1));
@@ -77,9 +79,9 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                             <CodeDisplay
                                 text={codeText}
                                 startingLineNumber={
-                                    window.svgArray[0].lineNumber
+                                    window.jsonArray[0].lineNumber
                                 }
-                                highlightLine={window.svgArray[step].lineNumber}
+                                highlightLine={window.jsonArray[step].lineNumber}
                             />
                         </Box>
                     </Stack>
@@ -87,7 +89,10 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         <Typography variant="h2" color="textPrimary">
                             {t("memory.title")}
                         </Typography>
-                        <SvgDisplay step={step} />
+                        <SvgDisplay 
+                            memoryVizInput={window.jsonArray[step].memoryVizInput}
+                            configuration={window.jsonArray[step].configuration} 
+                            />
                     </Stack>
                 </Stack>
             </main>

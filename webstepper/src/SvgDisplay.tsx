@@ -1,36 +1,35 @@
 import React, { useRef, useEffect } from "react";
 import { Paper } from "@mui/material";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import memoryViz from "../../memory-viz/src"; // Load local version of memory-viz
+
+const { draw: drawMemoryModel } = memoryViz;
 
 type SvgDisplayPropTypes = {
-    step: number;
+    memoryVizInput: object[];
+    configuration?: object;
 };
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
+    const canvasWidth = 1300;
+    const canvasHeight = 1000;
 
     useEffect(() => {
-        const loadAndDrawSvg = async () => {
+        if (props.memoryVizInput && canvasRef.current) {
             try {
-                const svgString = window.svgArray[props.step].svg;
-                const image = new Image();
-                const data =
-                    "data:image/svg+xml;base64," + window.btoa(svgString);
-                image.src = data;
-                image.onload = () => {
-                    const canvas = canvasRef.current;
-                    const context = canvas.getContext("2d");
-                    context.clearRect(0, 0, image.width, image.height);
-                    canvas.width = image.width;
-                    canvas.height = image.height;
-                    context.drawImage(image, 0, 0);
-                };
+                const m = drawMemoryModel(
+                    structuredClone(props.memoryVizInput),
+                    true,
+                    { width: canvasWidth, ...props.configuration }
+                );
+                m.clear(canvasRef.current);
+                m.render(canvasRef.current);
             } catch (error) {
                 console.error(error);
             }
         };
-        loadAndDrawSvg();
-    }, [props.step]);
+    }, [props.memoryVizInput, props.configuration]);
 
     return (
         <Paper
@@ -45,8 +44,14 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
             >
                 <TransformComponent>
                     <canvas
+                        style={{
+                            height: "100%",
+                            width: "100%",
+                        }}
                         data-testid="memory-models-canvas"
                         ref={canvasRef}
+                        width={canvasWidth}
+                        height={canvasHeight}
                     />
                 </TransformComponent>
             </TransformWrapper>
