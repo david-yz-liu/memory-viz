@@ -23,7 +23,6 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const [step, setStep] = useState<number>(0);
     const codeText = window.codeText;
 
-    console.log(jsonArray);
     const limit = window.jsonArray.length;
 
     const handleStep = (offset: number) => {
