@@ -22,7 +22,6 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const { t } = useTranslation();
     const [step, setStep] = useState<number>(0);
     const codeText = window.codeText;
-
     const limit = window.jsonArray.length;
 
     const handleStep = (offset: number) => {
