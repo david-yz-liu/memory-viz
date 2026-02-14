@@ -9,6 +9,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- Changed SvgDisplay to expect a list of JSONs (valid MemoryViz Inputs) and parse these inputs into an svgArray
+
 ### 🐛 Bug fixes
 
 ### 🚨 Breaking changes
