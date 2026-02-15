@@ -1292,18 +1292,9 @@ export class MemoryModel {
             this.setInteractivityScript();
         }
 
-        const has_stack_frames = strict_objects.some(
-            (o) => o.type === ".frame"
-        );
-        const has_objects = strict_objects.some(
-            (o) =>
-                o.type !== ".frame" &&
-                o.type !== ".blank" &&
-                o.type !== ".blank-frame"
-        );
         root_title.appendChild(
             this.document.createTextNode(
-                this.getMemoryModelTitle(has_stack_frames, has_objects)
+                this.getMemoryModelTitle(strict_objects)
             )
         );
 
@@ -1313,13 +1304,19 @@ export class MemoryModel {
     /**
      * Returns a descriptive title for a MemoryModel diagram.
      *
-     * @param has_stack_frames - whether this MemoryModel contains stack frames.
-     * @param has_objects - whether this MemoryModel contains objects.
+     * @param strict_objects - a list of DrawnEntityStrict objects to be drawn.
      */
-    private getMemoryModelTitle(
-        has_stack_frames: boolean,
-        has_objects: boolean
-    ): string {
+    private getMemoryModelTitle(strict_objects: DrawnEntityStrict[]): string {
+        const has_stack_frames = strict_objects.some(
+            (o) => o.type === ".frame"
+        );
+        const has_objects = strict_objects.some(
+            (o) =>
+                o.type !== ".frame" &&
+                o.type !== ".blank" &&
+                o.type !== ".blank-frame"
+        );
+
         let root_title_string: string;
         if (has_stack_frames && has_objects) {
             root_title_string = i18n.t(
