@@ -1,0 +1,8 @@
+{
+    "titles": {
+        "stackFramesAndObjects": "Python memory model diagram showing stack frames and objects",
+        "stackFramesOnly": "Python memory model diagram showing stack frames",
+        "objectsOnly": "Python memory model diagram showing objects",
+        "blank": "Blank Python memory model diagram"
+    }
+}

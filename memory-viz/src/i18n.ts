@@ -1,4 +1,6 @@
 import i18n from "i18next";
+import memoryModelEn from "./locales/en/memory_model.json";
+import cliEn from "./locales/en/cli.json";
 
 const getSystemLanguage = () => {
     const language = process.env.LANG?.split("_")[0] || "en";
@@ -30,6 +32,14 @@ i18n.use(webpackBackend).init({
     debug: false,
     interpolation: {
         escapeValue: false,
+    },
+    ns: ["memory_model", "cli"],
+    defaultNS: "memory_model",
+    resources: {
+        en: {
+            memory_model: memoryModelEn,
+            cli: cliEn,
+        },
     },
 });
 
