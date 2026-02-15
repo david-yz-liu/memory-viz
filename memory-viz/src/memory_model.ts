@@ -1317,19 +1317,15 @@ export class MemoryModel {
                 o.type !== ".blank-frame"
         );
 
-        let root_title_string: string;
         if (has_stack_frames && has_objects) {
-            root_title_string = i18n.t(
-                "memory_model:titles.stackFramesAndObjects"
-            );
+            return i18n.t("memory_model:titles.stackFramesAndObjects");
         } else if (has_stack_frames) {
-            root_title_string = i18n.t("memory_model:titles.stackFramesOnly");
+            return i18n.t("memory_model:titles.stackFramesOnly");
         } else if (has_objects) {
-            root_title_string = i18n.t("memory_model:titles.objectsOnly");
+            return i18n.t("memory_model:titles.objectsOnly");
         } else {
-            root_title_string = i18n.t("memory_model:titles.blank");
+            return i18n.t("memory_model:titles.blank");
         }
-        return root_title_string;
     }
 
     /**
