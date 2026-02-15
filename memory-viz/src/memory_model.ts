@@ -23,6 +23,7 @@ import { RoughSVG } from "roughjs/bin/svg.js";
 import { Config, Options } from "roughjs/bin/core.js";
 import type * as CSS from "csstype";
 import { prettifyError } from "zod";
+import i18n from "./i18n.js";
 
 /** The class representing the memory model diagram of the given block of code. */
 export class MemoryModel {
@@ -1232,7 +1233,7 @@ export class MemoryModel {
                 "g"
             );
             this.svg.appendChild(svg_group);
-            svg_group.setAttribute("role", "img");
+            svg_group.setAttribute("role", "graphics-object");
 
             const object_title = this.document.createElementNS(
                 "http://www.w3.org/2000/svg",
@@ -1242,6 +1243,17 @@ export class MemoryModel {
             object_title.appendChild(
                 this.document.createTextNode(this.getGroupTitle(obj))
             );
+            const object_description_str = this.getGroupDescription(obj);
+            if (object_description_str !== null) {
+                const object_description = this.document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "desc"
+                );
+                svg_group.appendChild(object_description);
+                object_description.appendChild(
+                    this.document.createTextNode(object_description_str)
+                );
+            }
 
             const frame_types = [".frame", ".blank-frame"];
             if (frame_types.includes(obj.type!) || obj.type === ".class") {
@@ -1289,21 +1301,38 @@ export class MemoryModel {
                 o.type !== ".blank" &&
                 o.type !== ".blank-frame"
         );
-        let root_title_string: string;
-        if (has_stack_frames && has_objects) {
-            root_title_string =
-                "Python memory model diagram showing stack frames and objects";
-        } else if (has_stack_frames) {
-            root_title_string =
-                "Python memory model diagram showing stack frames";
-        } else if (has_objects) {
-            root_title_string = "Python memory model diagram showing objects";
-        } else {
-            root_title_string = "Blank Python memory model diagram";
-        }
-        root_title.appendChild(this.document.createTextNode(root_title_string));
+        root_title.appendChild(
+            this.document.createTextNode(
+                this.getMemoryModelTitle(has_stack_frames, has_objects)
+            )
+        );
 
         return sizes_arr;
+    }
+
+    /**
+     * Returns a descriptive title for a MemoryModel diagram.
+     *
+     * @param has_stack_frames - whether this MemoryModel contains stack frames.
+     * @param has_objects - whether this MemoryModel contains objects.
+     */
+    private getMemoryModelTitle(
+        has_stack_frames: boolean,
+        has_objects: boolean
+    ): string {
+        let root_title_string: string;
+        if (has_stack_frames && has_objects) {
+            root_title_string = i18n.t(
+                "memory_model:titles.stackFramesAndObjects"
+            );
+        } else if (has_stack_frames) {
+            root_title_string = i18n.t("memory_model:titles.stackFramesOnly");
+        } else if (has_objects) {
+            root_title_string = i18n.t("memory_model:titles.objectsOnly");
+        } else {
+            root_title_string = i18n.t("memory_model:titles.blank");
+        }
+        return root_title_string;
     }
 
     /**
@@ -1312,10 +1341,8 @@ export class MemoryModel {
      * @param object - the DrawnEntity object to be drawn.
      */
     private getGroupTitle(object: DrawnEntity): string {
-        const MAX_ELEMENTS = 10;
-
         if (object.type === ".frame") {
-            const name = object.name ? object.name : "unnamed object";
+            const name = object.name ? object.name : "unnamed function";
             return `Stack frame for ${name}`;
         } else if (object.type === ".class") {
             const name = object.name ? object.name : "unnamed class";
@@ -1323,17 +1350,7 @@ export class MemoryModel {
                 object.value && typeof object.value === "object"
                     ? Object.keys(object.value).length
                     : 0;
-
-            if (count > MAX_ELEMENTS) {
-                return `Class ${name} with ${count} attributes`;
-            } else {
-                const attributes = Object.keys(object.value)
-                    .map((k) => (k.trim() === "" ? "blank attribute" : k))
-                    .join(", ");
-                return attributes
-                    ? `Class ${name} with attributes ${attributes}`
-                    : `Class ${name}`;
-            }
+            return `Class ${name} with ${count} attributes`;
         }
 
         const id_label =
@@ -1343,29 +1360,58 @@ export class MemoryModel {
 
         const sequence_set_types = ["list", "tuple", "set", "frozenset"];
         if (sequence_set_types.includes(object.type!)) {
-            const elements = Array.isArray(object.value)
-                ? object.value
-                      .map((v) =>
-                          v !== undefined && v !== null ? `id${v}` : "null"
-                      )
-                      .join(", ")
-                : "";
             const count = Array.isArray(object.value) ? object.value.length : 0;
             const object_type =
                 object.type!.charAt(0).toUpperCase() + object.type!.slice(1);
-
-            if (count > MAX_ELEMENTS) {
-                return `${object_type} ${id_label} with ${count} elements`;
-            } else {
-                return elements
-                    ? `${object_type} ${id_label} with elements ${elements}`
-                    : `${object_type} ${id_label}`;
-            }
+            return `${object_type} ${id_label} with ${count} elements`;
         } else if (object.type === "dict") {
-            let entries = "";
             let count = 0;
             if (Array.isArray(object.value)) {
                 count = object.value.length;
+            } else if (object.value && typeof object.value === "object") {
+                count = Object.keys(object.value).length;
+            }
+            return `Dict ${id_label} with ${count} entries`;
+        }
+
+        const object_type =
+            object.type!.charAt(0).toUpperCase() + object.type!.slice(1);
+        let value: string;
+        if (object.value === null || object.value === undefined) {
+            value = "blank";
+        } else if (object.type === "str") {
+            value = `"${object.value}"`;
+        } else {
+            value = String(object.value);
+        }
+        return `${object_type} ${id_label} with value ${value}`;
+    }
+
+    /**
+     * Returns a description for a container DrawnEntity object.
+     * If the object does not need a description, return null.
+     *
+     * @param object - the DrawnEntity object to be drawn.
+     */
+    private getGroupDescription(object: DrawnEntity): string | null {
+        const sequence_set_types = ["list", "tuple", "set", "frozenset"];
+        if (object.type === ".class") {
+            const attributes = Object.keys(object.value)
+                .map((k) => (k.trim() === "" ? "blank attribute name" : k))
+                .join(", ");
+            return attributes ? `Attributes: ${attributes}` : null;
+        } else if (sequence_set_types.includes(object.type!)) {
+            const elements = Array.isArray(object.value)
+                ? object.value
+                      .map((v) =>
+                          v !== undefined && v !== null ? `id${v}` : "blank"
+                      )
+                      .join(", ")
+                : "";
+            return elements ? `Elements: ${elements}` : null;
+        } else if (object.type === "dict") {
+            let entries = "";
+            if (Array.isArray(object.value)) {
                 entries = object.value
                     .map((e) => {
                         const key =
@@ -1378,12 +1424,11 @@ export class MemoryModel {
                         const string =
                             e && e[1] !== undefined && e[1] !== null
                                 ? `id${e[1]}`
-                                : "null";
+                                : "blank";
                         return `${key}: ${string}`;
                     })
                     .join(", ");
             } else if (object.value && typeof object.value === "object") {
-                count = Object.keys(object.value).length;
                 entries = Object.entries(object.value)
                     .map(([k, v]) => {
                         const key =
@@ -1398,23 +1443,9 @@ export class MemoryModel {
                     })
                     .join(", ");
             }
-
-            if (count > MAX_ELEMENTS) {
-                return `Dict ${id_label} with ${count} entries`;
-            } else {
-                return entries
-                    ? `Dict ${id_label} with entries ${entries}`
-                    : `Dict ${id_label}`;
-            }
+            return entries ? `Entries: ${entries}` : null;
         }
-
-        const value =
-            object.type === "str" &&
-            object.value !== null &&
-            object.value !== undefined
-                ? `"${object.value}"`
-                : String(object.value);
-        return `Object ${id_label} of type ${object.type} with value ${value}`;
+        return null;
     }
 
     /**

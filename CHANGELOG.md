@@ -31,7 +31,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Wrapped rect and text elements for each `DrawnEntity` into parent `<g>` tag before appending to root `<svg>` element
 - Fix diagram width tests to correctly test for small input widths
 - Parameterized snapshot tests for the 'draw' function
-- Added `<title>` attributes to root `<svg>` element and each `DrawnEntity` within generated SVG diagrams
+- Added `<title>` and `<desc>` attributes to describe the root `<svg>` element and each `DrawnEntity` within generated SVG diagrams, and added `role="graphics-object"` attribute to `<g>` tags
 
 ## [0.8.0] - 2025-12-04
 
