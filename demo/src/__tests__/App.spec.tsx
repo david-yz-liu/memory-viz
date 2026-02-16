@@ -92,11 +92,11 @@ describe("App", () => {
                 id: null,
                 value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
             },
-            { type: ".blank", id: 82 },
-            { type: ".blank", id: 84 },
-            { type: ".blank", id: 99 },
-            { type: ".blank", id: 10 },
-            { type: ".blank", id: 11 },
+            { type: "int", id: 82 },
+            { type: "int", id: 84 },
+            { type: "int", id: 99 },
+            { type: "int", id: 10 },
+            { type: "int", id: 11 },
         ]);
         fireEvent.change(input, { target: { value: validJSON } });
         fireEvent.click(button);
