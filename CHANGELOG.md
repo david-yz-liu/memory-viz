@@ -15,11 +15,11 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added documentation and tests for the pre-existingly supported immutable Python type `datetime.date`
 - Added the built in immutable Python type `frozenset` to the memory-viz immutable, and sequence types
 - Refactored `drawSequence` to use literal types to verify the `type` argument type validation
+- Added id validation for 'draw' input to print a warning when duplicate ids or unresolved id references are detected
 
 ### 🐛 Bug fixes
 
 - Added trailing zeroes to values for objects of type `float`
-- Added id validation for 'draw' input to print a warning when duplicate ids or unresolved id references are detected
 
 ### 📚 Documentation and demo website changes
 
