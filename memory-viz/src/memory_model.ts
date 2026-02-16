@@ -2089,9 +2089,7 @@ export class MemoryModel {
 
         for (const [id, count] of id_count) {
             if (count > 1) {
-                console.warn(
-                    `WARNING: id='${id}' is used by ${count} objects.`
-                );
+                console.warn(`WARNING: id ${id} is used by ${count} objects.`);
             }
         }
 
@@ -2124,7 +2122,7 @@ export class MemoryModel {
                         !id_count.has(Number(id))
                     ) {
                         console.warn(
-                            `WARNING: id='${id}' is referenced by an object of type='${obj.type}', but has no corresponding object.`
+                            `WARNING: id ${id} is referenced by an object of type ${obj.type}, but has no corresponding object.`
                         );
                     }
                 }
