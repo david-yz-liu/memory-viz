@@ -16,6 +16,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added the built in immutable Python type `frozenset` to the memory-viz immutable, and sequence types
 - Refactored `drawSequence` to use literal types to verify the `type` argument type validation
 - Added id validation for 'draw' input to print a warning when duplicate ids or unresolved id references are detected
+- Added `<title>` and `<desc>` attributes to describe the root `<svg>` element and each `DrawnEntity` within generated SVG diagrams, and added `role="graphics-object"` attribute to `<g>` tags
 
 ### 🐛 Bug fixes
 
@@ -32,7 +33,6 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Wrapped rect and text elements for each `DrawnEntity` into parent `<g>` tag before appending to root `<svg>` element
 - Fix diagram width tests to correctly test for small input widths
 - Parameterized snapshot tests for the 'draw' function
-- Added `<title>` and `<desc>` attributes to describe the root `<svg>` element and each `DrawnEntity` within generated SVG diagrams, and added `role="graphics-object"` attribute to `<g>` tags
 
 ## [0.8.0] - 2025-12-04
 
