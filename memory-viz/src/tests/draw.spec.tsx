@@ -16,11 +16,14 @@ describe("draw function", () => {
                 },
                 {
                     type: "str",
-                    id: 19,
+                    id: 99,
                     value: "David is cool!",
                     style: ["highlight"],
                 },
-                { type: "int", id: 13, value: 7 },
+                { type: "int", id: 10, value: 7 },
+                { type: "int", id: 82 },
+                { type: "int", id: 84 },
+                { type: "int", id: 11 },
             ],
         },
         {
@@ -74,7 +77,12 @@ describe("draw function", () => {
         },
         {
             test: "renders a set",
-            input: [{ type: "set", id: 32, value: [10, 11, 12] }],
+            input: [
+                { type: "set", id: 32, value: [10, 11, 12] },
+                { type: "int", id: 10 },
+                { type: "int", id: 11 },
+                { type: "int", id: 12 },
+            ],
         },
         {
             test: "renders an empty set",
@@ -86,7 +94,11 @@ describe("draw function", () => {
         },
         {
             test: "renders a set with null and valid values",
-            input: [{ type: "set", id: 32, value: [null, 1, 2] }],
+            input: [
+                { type: "set", id: 32, value: [null, 1, 2] },
+                { type: "int", id: 1 },
+                { type: "int", id: 2 },
+            ],
         },
         {
             test: "renders a set with styling specific indices",
@@ -100,6 +112,9 @@ describe("draw function", () => {
                         text_compound: { "1": { "font-style": "italic" } },
                     },
                 },
+                { type: "int", id: 5 },
+                { type: "int", id: 10 },
+                { type: "int", id: 20 },
             ],
         },
         {
@@ -111,11 +126,19 @@ describe("draw function", () => {
                     value: [10, 11, 12],
                     show_indexes: true,
                 },
+                { type: "int", id: 10 },
+                { type: "int", id: 11 },
+                { type: "int", id: 12 },
             ],
         },
         {
             test: "renders a list without indexes showing",
-            input: [{ type: "list", id: 32, value: [10, 11, 12] }],
+            input: [
+                { type: "list", id: 32, value: [10, 11, 12] },
+                { type: "int", id: 10 },
+                { type: "int", id: 11 },
+                { type: "int", id: 12 },
+            ],
         },
         {
             test: "renders an empty list",
@@ -127,7 +150,11 @@ describe("draw function", () => {
         },
         {
             test: "renders a list with null and valid values",
-            input: [{ type: "list", id: 32, value: [null, 1, 2] }],
+            input: [
+                { type: "list", id: 32, value: [null, 1, 2] },
+                { type: "int", id: 1 },
+                { type: "int", id: 2 },
+            ],
         },
         {
             test: "renders a list with styling specific indices",
@@ -141,6 +168,8 @@ describe("draw function", () => {
                         text_compound: { "1": { "font-style": "italic" } },
                     },
                 },
+                { type: "int", id: 10 },
+                { type: "int", id: 20 },
             ],
         },
         {
@@ -152,11 +181,19 @@ describe("draw function", () => {
                     value: [10, 11, 12],
                     show_indexes: true,
                 },
+                { type: "int", id: 10 },
+                { type: "int", id: 11 },
+                { type: "int", id: 12 },
             ],
         },
         {
             test: "renders a tuple without indexes showing",
-            input: [{ type: "tuple", id: 32, value: [10, 11, 12] }],
+            input: [
+                { type: "tuple", id: 32, value: [10, 11, 12] },
+                { type: "int", id: 10 },
+                { type: "int", id: 11 },
+                { type: "int", id: 12 },
+            ],
         },
         {
             test: "renders an empty tuple",
@@ -168,11 +205,20 @@ describe("draw function", () => {
         },
         {
             test: "renders a tuple with null and valid values",
-            input: [{ type: "tuple", id: 32, value: [null, 1, 2] }],
+            input: [
+                { type: "tuple", id: 32, value: [null, 1, 2] },
+                { type: "int", id: 1 },
+                { type: "int", id: 2 },
+            ],
         },
         {
             test: "renders a dict",
-            input: [{ type: "dict", id: 10, value: { x: 81, y: 100, z: 121 } }],
+            input: [
+                { type: "dict", id: 10, value: { 81: 81, 100: 100, 121: 121 } },
+                { type: "int", id: 81 },
+                { type: "int", id: 100 },
+                { type: "int", id: 121 },
+            ],
         },
         {
             test: "renders an empty dict",
@@ -181,13 +227,17 @@ describe("draw function", () => {
         {
             test: "renders dict with empty string key without 'id' prefix",
             input: [
-                { type: "dict", id: 10, value: { "": 100, another_key: 200 } },
+                { type: "dict", id: 10, value: { "": 100, 100: 200 } },
+                { type: "int", id: 100 },
+                { type: "int", id: 200 },
             ],
         },
         {
             test: "renders dict with space key without 'id' prefix",
             input: [
-                { type: "dict", id: 2, value: { " ": 300, another_key: 400 } },
+                { type: "dict", id: 2, value: { " ": 300, 300: 400 } },
+                { type: "int", id: 300 },
+                { type: "int", id: 400 },
             ],
         },
         {
@@ -196,8 +246,9 @@ describe("draw function", () => {
                 {
                     type: "dict",
                     id: 3,
-                    value: { "": null, " ": null, key_with_null: null },
+                    value: { "": null, " ": null, 1: null },
                 },
+                { type: "int", id: 1 },
             ],
         },
         {
@@ -209,13 +260,19 @@ describe("draw function", () => {
                     value: [
                         ["", null],
                         ["", 1],
-                        ["x", 2],
+                        ["0", 2],
                         [" ", 3],
                         [null, 4],
                         [undefined, 5],
                         [0, 6],
                     ],
                 },
+                { type: "int", id: 0 },
+                { type: "int", id: 1 },
+                { type: "int", id: 2 },
+                { type: "int", id: 4 },
+                { type: "int", id: 5 },
+                { type: "int", id: 6 },
             ],
         },
         {
@@ -229,6 +286,9 @@ describe("draw function", () => {
                         box_container: { fill: "green", fillStyle: "solid" },
                     },
                 },
+                { type: "int", id: 0 },
+                { type: "int", id: 1 },
+                { type: "int", id: 2 },
             ],
         },
         {
@@ -243,6 +303,9 @@ describe("draw function", () => {
                         box_container: { fill: "green", fillStyle: "solid" },
                     },
                 },
+                { type: "int", id: 0 },
+                { type: "int", id: 1 },
+                { type: "int", id: 2 },
             ],
         },
         {
@@ -265,6 +328,12 @@ describe("draw function", () => {
                         },
                     },
                 },
+                { type: "int", id: 5 },
+                { type: "int", id: 6 },
+                { type: "int", id: 7 },
+                { type: "int", id: 10 },
+                { type: "int", id: 20 },
+                { type: "int", id: 30 },
             ],
         },
         {
@@ -285,14 +354,22 @@ describe("draw function", () => {
                 {
                     type: "dict",
                     id: 10,
-                    value: { x: 81, y: 100, z: 121 },
+                    value: { 81: 81, 100: 100, 121: 121 },
                     height: 600,
                 },
+                { type: "int", id: 81 },
+                { type: "int", id: 100 },
+                { type: "int", id: 121 },
             ],
         },
         {
             test: "renders a set with large width",
-            input: [{ type: "set", id: 32, value: [10, 11, 12], width: 500 }],
+            input: [
+                { type: "set", id: 32, value: [10, 11, 12], width: 500 },
+                { type: "int", id: 10 },
+                { type: "int", id: 11 },
+                { type: "int", id: 12 },
+            ],
         },
         {
             test: "renders a stack frame and an int",
@@ -315,12 +392,14 @@ describe("draw function", () => {
                     id: 1,
                     value: { name: 10 },
                 },
+                { type: "int", id: 10 },
             ],
         },
         {
             test: "renders a class with null attribute name using empty string",
             input: [
                 { type: ".class", name: "my_class", id: 1, value: { "": 10 } },
+                { type: "int", id: 10 },
             ],
         },
         {
@@ -332,6 +411,7 @@ describe("draw function", () => {
                     id: 1,
                     value: { "      ": 10 },
                 },
+                { type: "int", id: 10 },
             ],
         },
         {
@@ -339,6 +419,10 @@ describe("draw function", () => {
             input: [
                 { type: ".blank-frame", width: 100, height: 200 },
                 { type: "list", id: 82, value: [19, 43, 28, 49] },
+                { type: "int", id: 19 },
+                { type: "int", id: 43 },
+                { type: "int", id: 28 },
+                { type: "int", id: 49 },
             ],
         },
         {
@@ -352,10 +436,13 @@ describe("draw function", () => {
         {
             test: "formats non-stack frame objects in automatic layout",
             input: [
-                { type: "int", id: 98, value: 42 },
+                { type: "int", id: 19, value: 42 },
                 { type: ".class", name: "fruit", id: 23, value: { name: 12 } },
                 { type: "list", id: 54, value: [19, 42, 22, 63] },
                 { type: "str", id: 12, value: "banana" },
+                { type: "int", id: 42 },
+                { type: "int", id: 22 },
+                { type: "int", id: 63 },
             ],
         },
         {
@@ -368,8 +455,10 @@ describe("draw function", () => {
                     id: null,
                     value: { x: 1, y: 17 },
                 },
-                { type: "list", id: 84, value: [17, 8], show_indexes: true },
-                { type: "None", id: 10, value: "None" },
+                { type: "list", id: 7, value: [17, 8], show_indexes: true },
+                { type: "None", id: 8, value: "None" },
+                { type: "int", id: 1 },
+                { type: "int", id: 17 },
             ],
         },
         {
@@ -399,6 +488,10 @@ describe("draw function", () => {
                     value: [19, 43, 28, 49],
                     style: { text_id: { "font-size": "x-large" } },
                 },
+                { type: "int", id: 19 },
+                { type: "int", id: 43 },
+                { type: "int", id: 28 },
+                { type: "int", id: 49 },
             ],
         },
         {
@@ -424,7 +517,7 @@ describe("draw function", () => {
                 },
                 {
                     type: "str",
-                    id: 42,
+                    id: 45,
                     value: "highlight!",
                     style: ["highlight"],
                 },
@@ -442,7 +535,7 @@ describe("draw function", () => {
                 },
                 {
                     type: "str",
-                    id: 42,
+                    id: 45,
                     value: "highlight id!",
                     style: ["highlight_id"],
                 },
@@ -460,7 +553,7 @@ describe("draw function", () => {
                 },
                 {
                     type: "str",
-                    id: 42,
+                    id: 45,
                     value: "highlight type!",
                     style: ["highlight_type"],
                 },
@@ -476,7 +569,7 @@ describe("draw function", () => {
                     value: { item: 45 },
                     style: ["hide"],
                 },
-                { type: "str", id: 42, value: "hide!", style: ["hide"] },
+                { type: "str", id: 45, value: "hide!", style: ["hide"] },
             ],
         },
         {
@@ -489,7 +582,7 @@ describe("draw function", () => {
                     value: { item: 45 },
                     style: ["hide_id"],
                 },
-                { type: "str", id: 42, value: "hide id!", style: ["hide_id"] },
+                { type: "str", id: 45, value: "hide id!", style: ["hide_id"] },
             ],
         },
         {
@@ -504,7 +597,7 @@ describe("draw function", () => {
                 },
                 {
                     type: "str",
-                    id: 42,
+                    id: 45,
                     value: "hide container!",
                     style: ["hide_container"],
                 },
@@ -520,7 +613,7 @@ describe("draw function", () => {
                     value: { item: 45 },
                     style: ["fade"],
                 },
-                { type: "str", id: 42, value: "fade!", style: ["fade"] },
+                { type: "str", id: 45, value: "fade!", style: ["fade"] },
             ],
         },
         {
@@ -535,7 +628,7 @@ describe("draw function", () => {
                 },
                 {
                     type: "str",
-                    id: 42,
+                    id: 45,
                     value: "fade_type!",
                     style: ["fade_type"],
                 },
@@ -551,7 +644,7 @@ describe("draw function", () => {
                     value: { item: 45 },
                     style: ["fade_id"],
                 },
-                { type: "str", id: 42, value: "fade id!", style: ["fade_id"] },
+                { type: "str", id: 45, value: "fade id!", style: ["fade_id"] },
             ],
         },
         {
@@ -566,7 +659,7 @@ describe("draw function", () => {
                 },
                 {
                     type: "str",
-                    id: 42,
+                    id: 45,
                     value: "combination!",
                     style: ["hide_id", "highlight_type"],
                 },
@@ -606,7 +699,12 @@ describe("draw function", () => {
         },
         {
             test: "renders a frozenset",
-            input: [{ type: "frozenset", id: 32, value: [10, 11, 12] }],
+            input: [
+                { type: "frozenset", id: 32, value: [10, 11, 12] },
+                { type: "int", id: 10 },
+                { type: "int", id: 11 },
+                { type: "int", id: 12 },
+            ],
         },
         {
             test: "renders an empty frozenset",
@@ -618,7 +716,11 @@ describe("draw function", () => {
         },
         {
             test: "renders a frozenset with null and valid values",
-            input: [{ type: "frozenset", id: 32, value: [null, 1, 2] }],
+            input: [
+                { type: "frozenset", id: 32, value: [null, 1, 2] },
+                { type: "int", id: 1 },
+                { type: "int", id: 2 },
+            ],
         },
         {
             test: "renders a frozenset with styling specific indices",
@@ -632,6 +734,9 @@ describe("draw function", () => {
                         text_compound: { "1": { "font-style": "italic" } },
                     },
                 },
+                { type: "int", id: 5 },
+                { type: "int", id: 10 },
+                { type: "int", id: 20 },
             ],
         },
         {
@@ -649,6 +754,8 @@ describe("draw function", () => {
                     },
                     width: 198,
                 },
+                { type: "int", id: 82 },
+                { type: "int", id: 84 },
             ],
             config: {
                 roughjs_config: { options: { seed: 12345 } },
@@ -754,6 +861,17 @@ describe("draw function", () => {
         const objects: DrawnEntity[] = [
             { type, id: 32, value: ["hello", "world"] },
         ];
+        const warning = new RegExp(
+            "^WARNING: id \\D+ is referenced by an object of type \\D+, but has no corresponding object."
+        );
+        const consoleWarn = console.warn;
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation((msg) => {
+                if (!warning.test(msg)) {
+                    consoleWarn(msg);
+                }
+            });
 
         const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
         expect(() =>
@@ -762,6 +880,7 @@ describe("draw function", () => {
                 roughjs_config: { options: { seed: 12345 } },
             })
         ).toThrow(errorMessage);
+        spy.mockRestore();
     });
 
     it("throws an error when object type is not a collection and value is not a primitive", () => {
@@ -771,6 +890,8 @@ describe("draw function", () => {
                 id: 0,
                 value: [1, 2],
             },
+            { type: "int", id: 1 },
+            { type: "int", id: 2 },
         ];
 
         const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
@@ -854,6 +975,174 @@ describe("draw function", () => {
         spy.mockRestore();
     });
 
+    test.each([
+        {
+            test: "logs a warning when all objects are given the same id",
+            input: [
+                { type: "int", id: 100, value: 5 },
+                { type: "bool", id: 100, value: true },
+                { type: "list", id: 100, value: [null] },
+            ],
+            warnings: ["WARNING: id 100 is used by 3 objects."],
+        },
+        {
+            test: "logs multiple warnings when objects are given different duplicate ids",
+            input: [
+                { type: "int", id: 100, value: 5 },
+                { type: "int", id: 7, value: 10 },
+                { type: "float", id: 100, value: 7.3 },
+                { type: "str", id: 100, value: "hello" },
+                { type: "bool", id: 7, value: true },
+                { type: "bool", id: 0, value: false },
+            ],
+            warnings: [
+                "WARNING: id 100 is used by 3 objects.",
+                "WARNING: id 7 is used by 2 objects.",
+            ],
+        },
+        {
+            test: "logs no warning when all objects are given distinct ids",
+            input: [
+                { type: "int", id: 1, value: 5 },
+                { type: "bool", id: 2, value: true },
+                { type: "float", id: 3, value: 7.3 },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs no warning when multiple objects are given null ids",
+            input: [
+                { type: "int", id: null, value: 5 },
+                { type: "int", id: null, value: 5 },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs no warning when multiple objects are not given ids",
+            input: [
+                { type: "int", value: 5 },
+                { type: "int", value: 5 },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs no warning when an object is given the same id as a stack frame",
+            input: [
+                { type: ".frame", id: 100, value: { "": null } },
+                { type: "int", id: 100, value: 5 },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs a warning when a list references an id that doesn't correspond to any object",
+            input: [
+                { type: "list", id: 1, value: [20, 50] },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [
+                "WARNING: id 50 is referenced by an object of type list, but has no corresponding object.",
+            ],
+        },
+        {
+            test: "logs a warning when a tuple references an id that doesn't correspond to any object",
+            input: [
+                { type: "tuple", id: 1, value: [20, 50] },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [
+                "WARNING: id 50 is referenced by an object of type tuple, but has no corresponding object.",
+            ],
+        },
+        {
+            test: "logs a warning when a set references an id that doesn't correspond to any object",
+            input: [
+                { type: "set", id: 1, value: [20, 50] },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [
+                "WARNING: id 50 is referenced by an object of type set, but has no corresponding object.",
+            ],
+        },
+        {
+            test: "logs a warning when a dict references an id that doesn't correspond to any object",
+            input: [
+                { type: "dict", id: 1, value: { x: 10, "50": 20 } },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [
+                "WARNING: id x is referenced by an object of type dict, but has no corresponding object.",
+                "WARNING: id 10 is referenced by an object of type dict, but has no corresponding object.",
+                "WARNING: id 50 is referenced by an object of type dict, but has no corresponding object.",
+            ],
+        },
+        {
+            test: "logs a warning when a class references an id that doesn't correspond to any object",
+            input: [
+                { type: ".class", id: 1, value: { x: 10, "50": 20 } },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [
+                "WARNING: id 10 is referenced by an object of type .class, but has no corresponding object.",
+            ],
+        },
+        {
+            test: "logs a warning when a stack frame references an id that doesn't correspond to any object",
+            input: [
+                { type: ".frame", id: 1, value: { x: 10, "50": 20 } },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [
+                "WARNING: id 10 is referenced by an object of type .frame, but has no corresponding object.",
+            ],
+        },
+        {
+            test: "logs no warning when a dict references a blank id",
+            input: [
+                { type: "dict", id: 1, value: { "": 20, "    ": 20 } },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs no warning when a dict references an existing id as a string representation",
+            input: [
+                { type: "dict", id: 1, value: { "20": null } },
+                { type: "int", id: 20, value: 5 },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs no warning when objects reference a null id",
+            input: [
+                { type: "list", id: 1, value: [null] },
+                { type: ".frame", id: 2, value: { x: null } },
+            ],
+            warnings: [],
+        },
+        {
+            test: "logs a warning when objects reference a stack frame",
+            input: [
+                { type: "list", id: 1, value: [2] },
+                { type: ".frame", id: 2, value: { "": null } },
+            ],
+            warnings: [
+                "WARNING: id 2 is referenced by an object of type list, but has no corresponding object.",
+            ],
+        },
+    ])("$test", ({ input, warnings }) => {
+        const objects: DrawnEntity[] = input;
+        const spy = jest
+            .spyOn(global.console, "warn")
+            .mockImplementation(() => {});
+        draw(objects, true, {
+            roughjs_config: { options: { seed: 12345 } },
+        });
+
+        expect(spy).toHaveBeenCalledTimes(warnings.length);
+        expect(spy.mock.calls.flat()).toEqual(expect.arrayContaining(warnings));
+        spy.mockRestore();
+    });
+
     it("adds unique IDs to object boxes in SVG output", () => {
         const objects: DrawnEntity[] = [
             {
@@ -864,10 +1153,10 @@ describe("draw function", () => {
             },
             {
                 type: "str",
-                id: 19,
+                id: 82,
                 value: "David is cool!",
             },
-            { type: "int", id: 13, value: 7 },
+            { type: "int", id: 84, value: 7 },
         ];
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
@@ -951,13 +1240,15 @@ describe("draw function", () => {
                     id: null,
                     value: { x: 1, y: 17 },
                 },
-                { type: "list", id: 84, value: [17, 8], show_indexes: true },
+                { type: "list", id: 7, value: [17, 8], show_indexes: true },
                 {
                     type: "str",
-                    id: 19,
+                    id: 8,
                     value: "David is cool!",
                     style: ["highlight"],
                 },
+                { type: "int", id: 1 },
+                { type: "int", id: 17 },
             ],
         },
         {
@@ -1021,16 +1312,18 @@ describe("draw function", () => {
             },
             {
                 type: "list",
-                id: 84,
+                id: 7,
                 value: [17, 8],
                 show_indexes: true,
             },
             {
                 type: "str",
-                id: 19,
+                id: 8,
                 value: "David is cool!",
                 style: ["highlight"],
             },
+            { type: "int", id: 1 },
+            { type: "int", id: 17 },
         ];
         const spy = jest
             .spyOn(global.console, "warn")
@@ -1079,7 +1372,7 @@ describe("draw function", () => {
             },
             {
                 type: "str",
-                id: 42,
+                id: 45,
                 value: "hi",
                 style: ["hide_id"],
             },
@@ -1223,6 +1516,7 @@ describe("draw function", () => {
                 { type: ".frame", name: "__main__", id: null, value: { x: 1 } },
                 { type: "int", id: 42, value: 5 },
                 { type: "str", id: 99, value: "test" },
+                { type: "int", id: 1 },
             ],
             expected_substrings: ['"id42"', '"id99"'],
             unexpected_substrings: ['"idnull"', 'null":'],
