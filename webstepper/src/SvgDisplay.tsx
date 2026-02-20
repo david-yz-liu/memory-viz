@@ -16,7 +16,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
     const [canvasDimensions, setCanvasDimensions] = useState({
         width: props.configuration?.width ?? 1300,
-        height: 0
+        height: 0,
     });
     useEffect(() => {
         if (props.entities && canvasRef.current) {
@@ -28,7 +28,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                 );
                 setCanvasDimensions({
                     width: canvasDimensions.width,
-                    height: props.configuration?.width ?? m.height
+                    height: props.configuration?.width ?? m.height,
                 });
                 m.clear(canvasRef.current);
                 m.render(canvasRef.current);

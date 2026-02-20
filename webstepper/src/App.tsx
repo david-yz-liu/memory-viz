@@ -90,10 +90,10 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                             {t("memory.title")}
                         </Typography>
                         <SvgDisplay
-                            entities={
-                                window.memoryVizData[step].memoryVizInput
+                            entities={window.memoryVizData[step].memoryVizInput}
+                            configuration={
+                                window.memoryVizData[step].configuration
                             }
-                            configuration={window.memoryVizData[step].configuration}
                         />
                     </Stack>
                 </Stack>
