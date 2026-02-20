@@ -59,7 +59,7 @@ export default {
             ".js": [".ts", ".tsx", ".js", ".jsx"],
         },
         alias: {
-            "memory-viz": path.resolve(__dirname, "../memory-viz/dist/index"),
+            "memory-viz": path.resolve(__dirname, "../memory-viz/src/index"),
         },
     },
 };
