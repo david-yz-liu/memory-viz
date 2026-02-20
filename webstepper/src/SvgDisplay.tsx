@@ -21,6 +21,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     useEffect(() => {
         if (props.entities && canvasRef.current) {
             try {
+                console.log("rendering");
                 const m = memoryViz.draw(
                     structuredClone(props.entities),
                     true,
@@ -36,7 +37,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                 console.error(error);
             }
         }
-    }, [props.entities, props.configuration]);
+    }, [props.entities]);
 
     return (
         <Paper
