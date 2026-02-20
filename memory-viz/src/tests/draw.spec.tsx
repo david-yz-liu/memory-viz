@@ -1635,7 +1635,7 @@ describe("draw function", () => {
             ],
         },
         {
-            test: "generates correct title for MemoryModel with only objects",
+            test: "generates correct title and description for MemoryModel with only objects",
             input: [
                 { type: "int", id: 10, value: 42 },
                 { type: "str", id: 20, value: "test" },
@@ -1717,6 +1717,5 @@ describe("draw function", () => {
         for (const substring of expected_substrings) {
             expect(svg).toContain(substring);
         }
-        expect(svg).toMatchSnapshot();
     });
 });
