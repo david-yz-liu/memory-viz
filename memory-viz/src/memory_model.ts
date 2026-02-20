@@ -19,11 +19,15 @@ import {
     VisualizationConfig,
 } from "./types.js";
 import { isArrayOfNullableType, isStyle } from "./typeguards.js";
+import {
+    getMemoryModelTitle,
+    getGroupTitle,
+    getGroupDescription,
+} from "./a11y.js";
 import { RoughSVG } from "roughjs/bin/svg.js";
 import { Config, Options } from "roughjs/bin/core.js";
 import type * as CSS from "csstype";
 import { prettifyError } from "zod";
-import i18n from "./i18n.js";
 
 /** The class representing the memory model diagram of the given block of code. */
 export class MemoryModel {
@@ -1242,9 +1246,9 @@ export class MemoryModel {
             );
             svg_group.appendChild(object_title);
             object_title.appendChild(
-                this.document.createTextNode(this.getGroupTitle(obj))
+                this.document.createTextNode(getGroupTitle(obj))
             );
-            const object_description_str = this.getGroupDescription(obj);
+            const object_description_str = getGroupDescription(obj);
             if (object_description_str !== null) {
                 const object_description = this.document.createElementNS(
                     "http://www.w3.org/2000/svg",
@@ -1294,152 +1298,10 @@ export class MemoryModel {
         }
 
         root_title.appendChild(
-            this.document.createTextNode(
-                this.getMemoryModelTitle(strict_objects)
-            )
+            this.document.createTextNode(getMemoryModelTitle(strict_objects))
         );
 
         return sizes_arr;
-    }
-
-    /**
-     * Returns a descriptive title for a MemoryModel diagram.
-     *
-     * @param strict_objects - a list of DrawnEntityStrict objects to be drawn.
-     */
-    private getMemoryModelTitle(strict_objects: DrawnEntityStrict[]): string {
-        const has_stack_frames = strict_objects.some(
-            (o) => o.type === ".frame"
-        );
-        const has_objects = strict_objects.some(
-            (o) =>
-                o.type !== ".frame" &&
-                o.type !== ".blank" &&
-                o.type !== ".blank-frame"
-        );
-
-        if (has_stack_frames && has_objects) {
-            return i18n.t("memory_model:titles.stackFramesAndObjects");
-        } else if (has_stack_frames) {
-            return i18n.t("memory_model:titles.stackFramesOnly");
-        } else if (has_objects) {
-            return i18n.t("memory_model:titles.objectsOnly");
-        } else {
-            return i18n.t("memory_model:titles.blank");
-        }
-    }
-
-    /**
-     * Returns a descriptive title for a DrawnEntity object.
-     *
-     * @param object - the DrawnEntity object to be drawn.
-     */
-    private getGroupTitle(object: DrawnEntity): string {
-        if (object.type === ".frame") {
-            const name = object.name ? object.name : "unnamed function";
-            return `Stack frame for ${name}`;
-        } else if (object.type === ".class") {
-            const name = object.name ? object.name : "unnamed class";
-            const count =
-                object.value && typeof object.value === "object"
-                    ? Object.keys(object.value).length
-                    : 0;
-            return `Class ${name} with ${count} attributes`;
-        }
-
-        const id_label =
-            object.id === undefined || object.id === null
-                ? ""
-                : `id${object.id}`;
-
-        const sequence_set_types = ["list", "tuple", "set", "frozenset"];
-        if (sequence_set_types.includes(object.type!)) {
-            const count = Array.isArray(object.value) ? object.value.length : 0;
-            const object_type =
-                object.type!.charAt(0).toUpperCase() + object.type!.slice(1);
-            return `${object_type} ${id_label} with ${count} elements`;
-        } else if (object.type === "dict") {
-            let count = 0;
-            if (Array.isArray(object.value)) {
-                count = object.value.length;
-            } else if (object.value && typeof object.value === "object") {
-                count = Object.keys(object.value).length;
-            }
-            return `Dict ${id_label} with ${count} entries`;
-        }
-
-        const object_type =
-            object.type!.charAt(0).toUpperCase() + object.type!.slice(1);
-        let value: string;
-        if (object.value === null || object.value === undefined) {
-            value = "blank";
-        } else if (object.type === "str") {
-            value = `"${object.value}"`;
-        } else {
-            value = String(object.value);
-        }
-        return `${object_type} ${id_label} with value ${value}`;
-    }
-
-    /**
-     * Returns a description for a container DrawnEntity object.
-     * If the object does not need a description, return null.
-     *
-     * @param object - the DrawnEntity object to be drawn.
-     */
-    private getGroupDescription(object: DrawnEntity): string | null {
-        const sequence_set_types = ["list", "tuple", "set", "frozenset"];
-        if (object.type === ".class") {
-            const attributes = Object.keys(object.value)
-                .map((k) => (k.trim() === "" ? "blank attribute name" : k))
-                .join(", ");
-            return attributes ? `Attributes: ${attributes}` : null;
-        } else if (sequence_set_types.includes(object.type!)) {
-            const elements = Array.isArray(object.value)
-                ? object.value
-                      .map((v) =>
-                          v !== undefined && v !== null ? `id${v}` : "blank"
-                      )
-                      .join(", ")
-                : "";
-            return elements ? `Elements: ${elements}` : null;
-        } else if (object.type === "dict") {
-            let entries = "";
-            if (Array.isArray(object.value)) {
-                entries = object.value
-                    .map((e) => {
-                        const key =
-                            e &&
-                            e[0] !== undefined &&
-                            e[0] !== null &&
-                            String(e[0]).trim() !== ""
-                                ? `id${e[0]}`
-                                : "blank key";
-                        const string =
-                            e && e[1] !== undefined && e[1] !== null
-                                ? `id${e[1]}`
-                                : "blank";
-                        return `${key}: ${string}`;
-                    })
-                    .join(", ");
-            } else if (object.value && typeof object.value === "object") {
-                entries = Object.entries(object.value)
-                    .map(([k, v]) => {
-                        const key =
-                            k !== undefined &&
-                            k !== null &&
-                            String(k).trim() !== ""
-                                ? `id${k}`
-                                : "blank key";
-                        const string =
-                            v !== undefined && v !== null ? `id${v}` : "null";
-                        return `${key}: ${string}`;
-                    })
-                    .join(", ");
-            }
-            return entries ? `Entries: ${entries}` : null;
-        }
-        return null;
     }
 
     /**

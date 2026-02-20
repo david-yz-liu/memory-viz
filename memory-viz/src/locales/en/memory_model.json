@@ -1,8 +1,29 @@
 {
-    "titles": {
+    "memoryModelTitles": {
         "stackFramesAndObjects": "Python memory model diagram showing stack frames and objects",
         "stackFramesOnly": "Python memory model diagram showing stack frames",
         "objectsOnly": "Python memory model diagram showing objects",
         "blank": "Blank Python memory model diagram"
+    },
+    "groupTitles": {
+        "stackFrame": "Stack frame for {{name}}",
+        "class": "Class {{name}} with {{count}} attributes",
+        "sequence": "{{object_type}} {{id_label}} with {{count}} elements",
+        "dict": "Dict {{id_label}} with {{count}} entries",
+        "primitive": "{{object_type}} {{id_label}} with value {{value}}"
+    },
+    "groupDescriptions": {
+        "class": "Attributes: {{attributes}}",
+        "sequence": "Elements: {{elements}}",
+        "dict": "Entries: {{entries}}"
+    },
+    "unnamedObjects": {
+        "unnamedFunction": "unnamed function",
+        "unnamedClass": "unnamed class"
+    },
+    "blanks": {
+        "blankValue": "blank",
+        "blankAttribute": "blank attribute name",
+        "blankKey": "blank key"
     }
 }
