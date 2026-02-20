@@ -9,11 +9,11 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
-- Changed SvgDisplay to expect a list of JSONs (valid MemoryViz Inputs) and parse these inputs into an svgArray
-
 ### 🐛 Bug fixes
 
 ### 🚨 Breaking changes
+
+- The webstepper now requires a list of JSONS containing line numbers, a memory-viz input and (optionally) a configuration to be provided by a global variable. Memory-Viz is then invoked directly to render these Memory-Viz inputs into SVGs for display. 
 
 ### 📚 Documentation changes
 

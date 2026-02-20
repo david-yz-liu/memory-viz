@@ -1,35 +1,42 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Paper } from "@mui/material";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import memoryViz from "../../memory-viz/src"; // Load local version of memory-viz
-
-const { draw: drawMemoryModel } = memoryViz;
+import memoryViz from "memory-viz";
 
 type SvgDisplayPropTypes = {
-    memoryVizInput: object[];
-    configuration?: object;
+    entities: object[];
+    configuration?: {
+        width?: number;
+        height?: number;
+        [key: string]: any;
+    };
 };
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
-    const canvasWidth = 1300;
-    const canvasHeight = 1000;
-
+    const [canvasDimensions, setCanvasDimensions] = useState({
+        width: props.configuration?.width ?? 1300,
+        height: 0
+    });
     useEffect(() => {
-        if (props.memoryVizInput && canvasRef.current) {
+        if (props.entities && canvasRef.current) {
             try {
-                const m = drawMemoryModel(
-                    structuredClone(props.memoryVizInput),
+                const m = memoryViz.draw(
+                    structuredClone(props.entities),
                     true,
-                    { width: canvasWidth, ...props.configuration }
+                    { width: canvasDimensions.width, ...props.configuration }
                 );
+                setCanvasDimensions({
+                    width: canvasDimensions.width,
+                    height: props.configuration?.width ?? m.height
+                });
                 m.clear(canvasRef.current);
                 m.render(canvasRef.current);
             } catch (error) {
                 console.error(error);
             }
         }
-    }, [props.memoryVizInput, props.configuration]);
+    }, [props.entities, props.configuration]);
 
     return (
         <Paper
@@ -50,8 +57,8 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                         }}
                         data-testid="memory-models-canvas"
                         ref={canvasRef}
-                        width={canvasWidth}
-                        height={canvasHeight}
+                        width={canvasDimensions.width}
+                        height={canvasDimensions.height}
                     />
                 </TransformComponent>
             </TransformWrapper>

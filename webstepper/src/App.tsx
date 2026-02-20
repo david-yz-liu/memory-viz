@@ -10,7 +10,7 @@ import placeholder from "./placeholder.js";
 
 if (typeof window === "object" && process.env.NODE_ENV !== "production") {
     window.codeText = placeholder.codeText;
-    window.jsonArray = placeholder.jsonArray;
+    window.memoryVizData = placeholder.jsonArray;
 }
 
 interface AppProps {
@@ -22,7 +22,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const { t } = useTranslation();
     const [step, setStep] = useState<number>(0);
     const codeText = window.codeText;
-    const limit = window.jsonArray.length;
+    const limit = window.memoryVizData.length;
 
     const handleStep = (offset: number) => {
         setStep((step) => Math.min(Math.max(step + offset, 0), limit - 1));
@@ -77,10 +77,10 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                             <CodeDisplay
                                 text={codeText}
                                 startingLineNumber={
-                                    window.jsonArray[0].lineNumber
+                                    window.memoryVizData[0].lineNumber
                                 }
                                 highlightLine={
-                                    window.jsonArray[step].lineNumber
+                                    window.memoryVizData[step].lineNumber
                                 }
                             />
                         </Box>
@@ -90,10 +90,10 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                             {t("memory.title")}
                         </Typography>
                         <SvgDisplay
-                            memoryVizInput={
-                                window.jsonArray[step].memoryVizInput
+                            entities={
+                                window.memoryVizData[step].memoryVizInput
                             }
-                            configuration={window.jsonArray[step].configuration}
+                            configuration={window.memoryVizData[step].configuration}
                         />
                     </Stack>
                 </Stack>
