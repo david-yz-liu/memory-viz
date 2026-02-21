@@ -9,8 +9,8 @@ import CodeDisplay from "./CodeDisplay.js";
 import placeholder from "./placeholder.js";
 
 if (typeof window === "object" && process.env.NODE_ENV !== "production") {
-    window.svgArray = placeholder.svgArray;
     window.codeText = placeholder.codeText;
+    window.memoryVizData = placeholder.jsonArray;
 }
 
 interface AppProps {
@@ -22,7 +22,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const { t } = useTranslation();
     const [step, setStep] = useState<number>(0);
     const codeText = window.codeText;
-    const limit = window.svgArray.length;
+    const limit = window.memoryVizData.length;
 
     const handleStep = (offset: number) => {
         setStep((step) => Math.min(Math.max(step + offset, 0), limit - 1));
@@ -77,9 +77,11 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                             <CodeDisplay
                                 text={codeText}
                                 startingLineNumber={
-                                    window.svgArray[0].lineNumber
+                                    window.memoryVizData[0].lineNumber
                                 }
-                                highlightLine={window.svgArray[step].lineNumber}
+                                highlightLine={
+                                    window.memoryVizData[step].lineNumber
+                                }
                             />
                         </Box>
                     </Stack>
@@ -87,7 +89,12 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         <Typography variant="h2" color="textPrimary">
                             {t("memory.title")}
                         </Typography>
-                        <SvgDisplay step={step} />
+                        <SvgDisplay
+                            entities={window.memoryVizData[step].memoryVizInput}
+                            configuration={
+                                window.memoryVizData[step].configuration
+                            }
+                        />
                     </Stack>
                 </Stack>
             </main>
