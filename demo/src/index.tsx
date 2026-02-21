@@ -1,9 +1,10 @@
 import React, { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
+import { I18nextProvider } from "react-i18next";
 import App from "./App.js";
 import "@picocss/pico";
 import "./css/styles";
-import "./i18n";
+import i18n from "./i18n";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useMediaQuery, CssBaseline } from "@mui/material";
@@ -135,11 +136,14 @@ function Root() {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <App isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+            <I18nextProvider i18n={i18n}>
+                <App isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+            </I18nextProvider>
         </ThemeProvider>
     );
 }
 
+i18n.init();
 const root = createRoot(document.getElementById("root"));
 
 root.render(

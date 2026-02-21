@@ -17,6 +17,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🔧 Internal changes
 
+- Switched webstepper website from default `i18next` instance to a separate instance
+
 ## [0.8.0] - 2025-12-04
 
 ### ✨ Enhancements
