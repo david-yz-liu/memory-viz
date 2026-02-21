@@ -1,9 +1,10 @@
-import i18n from "i18next";
+import i18next from "i18next";
+import type { i18n } from "i18next";
 import memoryModelEn from "./locales/en/memory_model.json";
 import cliEn from "./locales/en/cli.json";
 
 const getSystemLanguage = () => {
-    const language = process.env.LANG?.split("_")[0] || "en";
+    const language = navigator.language.split("-")[0] || "en";
     const supportedLanguages = ["en"];
     return supportedLanguages.includes(language) ? language : "en";
 };
@@ -26,21 +27,24 @@ const webpackBackend = {
     },
 };
 
-i18n.use(webpackBackend).init({
-    lng: getSystemLanguage(),
-    fallbackLng: "en",
-    debug: false,
-    interpolation: {
-        escapeValue: false,
-    },
-    ns: ["memory_model", "cli"],
-    defaultNS: "memory_model",
-    resources: {
-        en: {
-            memory_model: memoryModelEn,
-            cli: cliEn,
+const i18nInstance: i18n = i18next
+    .createInstance({
+        lng: getSystemLanguage(),
+        fallbackLng: "en",
+        debug: false,
+        interpolation: {
+            escapeValue: false,
         },
-    },
-});
+        ns: ["memory_model", "cli"],
+        defaultNS: "memory_model",
+        resources: {
+            en: {
+                memory_model: memoryModelEn,
+                cli: cliEn,
+            },
+        },
+    })
+    .use(webpackBackend);
 
-export default i18n;
+i18nInstance.init();
+export default i18nInstance;
