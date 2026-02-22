@@ -13,7 +13,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🚨 Breaking changes
 
-- The webstepper now requires a list of JSONS containing line numbers, a memory-viz input and (optionally) a configuration to be provided by a global variable. Memory-Viz is then invoked directly to render these Memory-Viz inputs into SVGs for display.
+- The webstepper now requires a list of JSONS containing line numbers, a MemoryViz input and (optionally) a configuration to be provided by a global variable. MemoryViz is then invoked directly to render these MemoryViz inputs into SVGs for display.
 
 ### 📚 Documentation changes
 
