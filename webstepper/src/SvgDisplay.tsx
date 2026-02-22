@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { Paper } from "@mui/material";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import memoryViz from "memory-viz";
@@ -18,24 +18,15 @@ type SvgDisplayPropTypes = {
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
     const canvasWidth = props.memoryVizData.configuration?.width ?? 1300;
-    const [canvasHeight, setCanvasHeight] = useState(
-        props.memoryVizData.configuration?.height || 1000
-    );
     useEffect(() => {
         if (props.memoryVizData.memoryVizInput && canvasRef.current) {
-            console.log(props.memoryVizData.memoryVizInput);
             try {
-                console.log("drawing");
-                console.log(canvasRef.current.height);
-                const updatedHeight = props.memoryVizData.configuration?.height || 0;
                 const m = memoryViz.draw(
                     structuredClone(props.memoryVizData.memoryVizInput),
                     true,
                     { width: canvasWidth, ...props.memoryVizData.configuration }
                 );
-                setCanvasHeight(updatedHeight || m.height);
-                canvasRef.current.height = updatedHeight || m.height;
-                console.log(canvasRef.current.height);
+                canvasRef.current.height = props.memoryVizData.configuration?.height ?? m.height;
                 m.clear(canvasRef.current);
                 m.render(canvasRef.current);
             } catch (error) {
@@ -64,7 +55,6 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                         data-testid="memory-models-canvas"
                         ref={canvasRef}
                         width={canvasWidth}
-                        height={canvasHeight}
                     />
                 </TransformComponent>
             </TransformWrapper>
