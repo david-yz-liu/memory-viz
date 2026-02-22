@@ -4,40 +4,45 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import memoryViz from "memory-viz";
 
 type SvgDisplayPropTypes = {
-    entities: object[];
-    configuration?: {
-        width?: number;
-        height?: number;
-        [key: string]: any;
-    };
+    memoryVizData:{
+        memoryVizInput: object[];
+        lineNumber: number;
+        configuration?: {
+            width?: number;
+            height?: number;
+            [key: string]: any;
+        }
+    }
 };
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
-    const [canvasDimensions, setCanvasDimensions] = useState({
-        width: props.configuration?.width ?? 1300,
-        height: 0,
-    });
+    const canvasWidth = props.memoryVizData.configuration?.width ?? 1300;
+    const [canvasHeight, setCanvasHeight] = useState(
+        props.memoryVizData.configuration?.height || 1000
+    );
     useEffect(() => {
-        if (props.entities && canvasRef.current) {
+        if (props.memoryVizData.memoryVizInput && canvasRef.current) {
+            console.log(props.memoryVizData.memoryVizInput);
             try {
-                console.log("rendering");
+                console.log("drawing");
+                console.log(canvasRef.current.height);
+                const updatedHeight = props.memoryVizData.configuration?.height || 0;
                 const m = memoryViz.draw(
-                    structuredClone(props.entities),
+                    structuredClone(props.memoryVizData.memoryVizInput),
                     true,
-                    { width: canvasDimensions.width, ...props.configuration }
+                    { width: canvasWidth, ...props.memoryVizData.configuration }
                 );
-                setCanvasDimensions({
-                    width: canvasDimensions.width,
-                    height: props.configuration?.width ?? m.height,
-                });
+                setCanvasHeight(updatedHeight || m.height);
+                canvasRef.current.height = updatedHeight || m.height;
+                console.log(canvasRef.current.height);
                 m.clear(canvasRef.current);
                 m.render(canvasRef.current);
             } catch (error) {
                 console.error(error);
             }
         }
-    }, [props.entities]);
+    }, [props.memoryVizData]);
 
     return (
         <Paper
@@ -58,8 +63,8 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                         }}
                         data-testid="memory-models-canvas"
                         ref={canvasRef}
-                        width={canvasDimensions.width}
-                        height={canvasDimensions.height}
+                        width={canvasWidth}
+                        height={canvasHeight}
                     />
                 </TransformComponent>
             </TransformWrapper>
