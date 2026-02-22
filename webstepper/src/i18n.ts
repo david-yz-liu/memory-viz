@@ -1,4 +1,5 @@
-import i18n from "i18next";
+import i18next from "i18next";
+import type { i18n } from "i18next";
 import { initReactI18next } from "react-i18next";
 
 const getBrowserLanguage = () => {
@@ -25,15 +26,16 @@ const webpackBackend = {
     },
 };
 
-i18n.use(webpackBackend)
-    .use(initReactI18next)
-    .init({
+const i18nInstance: i18n = i18next
+    .createInstance({
         lng: getBrowserLanguage(),
         fallbackLng: "en",
         debug: process.env.NODE_ENV !== "production",
         interpolation: {
             escapeValue: false,
         },
-    });
+    })
+    .use(webpackBackend)
+    .use(initReactI18next);
 
-export default i18n;
+export default i18nInstance;

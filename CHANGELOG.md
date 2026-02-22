@@ -25,6 +25,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 📚 Documentation and demo website changes
 
 - Updated the `LightbulbIcon` in the `MemoryModelsMenu` so that it no longer rotates on click
+- Switched demo website from default `i18next` instance to a separate instance
 
 ### 🔧 Internal changes
 
@@ -33,6 +34,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Wrapped rect and text elements for each `DrawnEntity` into parent `<g>` tag before appending to root `<svg>` element
 - Fix diagram width tests to correctly test for small input widths
 - Parameterized snapshot tests for the 'draw' function
+- Switched from default `i18next` instance to a separate instance
 
 ## [0.8.0] - 2025-12-04
 
