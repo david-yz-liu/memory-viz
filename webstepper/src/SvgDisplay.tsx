@@ -4,15 +4,15 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 import memoryViz from "memory-viz";
 
 type SvgDisplayPropTypes = {
-    memoryVizData:{
+    memoryVizData: {
         memoryVizInput: object[];
         lineNumber: number;
         configuration?: {
             width?: number;
             height?: number;
             [key: string]: any;
-        }
-    }
+        };
+    };
 };
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
@@ -26,7 +26,8 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                     true,
                     { width: canvasWidth, ...props.memoryVizData.configuration }
                 );
-                canvasRef.current.height = props.memoryVizData.configuration?.height ?? m.height;
+                canvasRef.current.height =
+                    props.memoryVizData.configuration?.height ?? m.height;
                 m.clear(canvasRef.current);
                 m.render(canvasRef.current);
             } catch (error) {
