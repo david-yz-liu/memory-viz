@@ -35,6 +35,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fix diagram width tests to correctly test for small input widths
 - Parameterized snapshot tests for the 'draw' function
 - Switched from default `i18next` instance to a separate instance
+- Prevented coveralls.io failure from triggering CI failure
 
 ## [0.8.0] - 2025-12-04
 
