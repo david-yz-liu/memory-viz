@@ -75,7 +75,7 @@ const config = {
                 title: "MemoryViz",
                 logo: {
                     alt: "MemoryViz Logo",
-                    src: "img/logo.svg",
+                    src: "img/memoryviz_logo.svg",
                 },
                 items: [
                     {
