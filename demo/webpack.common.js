@@ -47,6 +47,7 @@ export default {
             title: "MemoryViz Demo",
             filename: "./index.html",
             template: "./src/html/index.html",
+            favicon: "./src/images/memoryviz.ico",
         }),
     ],
     resolve: {

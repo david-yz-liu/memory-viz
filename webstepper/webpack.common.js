@@ -51,6 +51,7 @@ export default {
             title: "MemoryViz Webstepper",
             filename: "./index.html",
             template: "./src/html/index.html",
+            favicon: "./src/images/memoryviz.ico",
         }),
     ],
     resolve: {
