@@ -839,51 +839,69 @@ describe("draw function", () => {
     );
 
     test.each([
-        { type: "set" },
-        { type: "list" },
-        { type: "tuple" },
-        { type: "frozenset" },
-    ])("does not render a $type containing strings", ({ type }) => {
-        const objects: DrawnEntity[] = [
-            { type, id: 32, value: ["hello", "world"] },
-        ];
-        const warning = new RegExp(
-            "^WARNING: id \\D+ is referenced by an object of type \\D+, but has no corresponding object."
-        );
-        const consoleWarn = console.warn;
-        const spy = jest
-            .spyOn(global.console, "warn")
-            .mockImplementation((msg) => {
-                if (!warning.test(msg)) {
-                    consoleWarn(msg);
-                }
-            });
+        {
+            test: "throws error for int with invalid value",
+            input: [{ type: "int", id: 1, value: "x" }],
+            errorMessage: '✖ "value" field must be an integer\n  → at value',
+        },
+        {
+            test: "throws error for float with invalid value",
+            input: [{ type: "float", id: 1, value: "x" }],
+            errorMessage: '✖ "value" field must be a number\n  → at value',
+        },
+        {
+            test: "throws error for bool with invalid value",
+            input: [{ type: "bool", id: 1, value: 5 }],
+            errorMessage: '✖ "value" field must be a boolean\n  → at value',
+        },
+        {
+            test: "throws error for string with invalid value",
+            input: [{ type: "str", id: 1, value: true }],
+            errorMessage: '✖ "value" field must be a string\n  → at value',
+        },
+        {
+            test: "throws error for list with invalid value",
+            input: [{ type: "list", id: 1, value: ["x"] }],
+            errorMessage:
+                "✖ Invalid input: expected number, received string\n  → at value[0]",
+        },
+        {
+            test: "throws error for class with invalid value",
+            input: [{ type: ".class", id: 1, name: "", value: { x: "y" } }],
+            errorMessage:
+                "✖ Invalid input: expected number, received string\n  → at value.x",
+        },
+        {
+            test: "throws an error when object type is not a collection and value is not a primitive",
+            input: [
+                {
+                    type: "invalid collection",
+                    id: 0,
+                    value: [1, 2],
+                },
+                { type: "int", id: 1 },
+                { type: "int", id: 2 },
+            ],
+            errorMessage: "✖ Invalid input\n  → at type",
+        },
+        {
+            test: "throws error for int with missing id field",
+            input: [{ type: "int" }],
+            errorMessage:
+                "✖ Invalid input: expected number, received undefined\n  → at id",
+        },
+        {
+            test: "throws error for blank space with id field",
+            input: [{ type: ".blank", id: 1, width: 100, height: 100 }],
+            errorMessage: '✖ Unrecognized key: "id"',
+        },
+    ])("$test", ({ input, errorMessage }) => {
+        const object: DrawnEntity[] = input as DrawnEntity[];
 
-        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
         expect(() =>
-            draw(objects, true, {
+            draw(object, true, {
                 width: 1300,
                 roughjs_config: { options: { seed: 12345 } },
-            })
-        ).toThrow(errorMessage);
-        spy.mockRestore();
-    });
-
-    it("throws an error when object type is not a collection and value is not a primitive", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "invalid collection",
-                id: 0,
-                value: [1, 2],
-            },
-            { type: "int", id: 1 },
-            { type: "int", id: 2 },
-        ];
-
-        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
-        expect(() =>
-            draw(objects, true, {
-                width: 100,
             })
         ).toThrow(errorMessage);
     });
@@ -1000,22 +1018,6 @@ describe("draw function", () => {
             input: [
                 { type: "int", id: null, value: 5 },
                 { type: "int", id: null, value: 5 },
-            ],
-            warnings: [],
-        },
-        {
-            test: "logs no warning when multiple objects are not given ids",
-            input: [
-                { type: "int", value: 5 },
-                { type: "int", value: 5 },
-            ],
-            warnings: [],
-        },
-        {
-            test: "logs no warning when an object is given the same id as a stack frame",
-            input: [
-                { type: ".frame", id: 100, value: { "": null } },
-                { type: "int", id: 100, value: 5 },
             ],
             warnings: [],
         },
