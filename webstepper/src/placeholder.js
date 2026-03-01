@@ -5,7 +5,6 @@ const jsonArray = [
             {
                 type: ".frame",
                 name: "func_if_else",
-                id: null,
                 value: {},
             },
         ],
@@ -16,7 +15,6 @@ const jsonArray = [
             {
                 type: ".frame",
                 name: "func_if_else",
-                id: null,
                 value: { nums: 1 },
             },
             {
@@ -47,7 +45,6 @@ const jsonArray = [
             {
                 type: ".frame",
                 name: "func_if_else",
-                id: null,
                 value: { nums: 1, i: 5 },
             },
             {
@@ -83,7 +80,6 @@ const jsonArray = [
             {
                 type: ".frame",
                 name: "func_if_else",
-                id: null,
                 value: { nums: 1, i: 5 },
             },
             {
@@ -119,7 +115,6 @@ const jsonArray = [
             {
                 type: ".frame",
                 name: "func_if_else",
-                id: null,
                 value: { nums: 1, i: 4 },
             },
             {
@@ -150,7 +145,6 @@ const jsonArray = [
             {
                 type: ".frame",
                 name: "func_if_else",
-                id: null,
                 value: { nums: 1, i: 4 },
             },
             {
@@ -181,7 +175,6 @@ const jsonArray = [
             {
                 type: ".frame",
                 name: "func_if_else",
-                id: null,
                 value: { nums: 1, i: 4 },
             },
             {
@@ -212,7 +205,6 @@ const jsonArray = [
             {
                 type: ".frame",
                 name: "func_if_else",
-                id: null,
                 value: { nums: 1, i: 5 },
             },
             {
@@ -248,7 +240,6 @@ const jsonArray = [
             {
                 type: ".frame",
                 name: "func_if_else",
-                id: null,
                 value: { nums: 1, i: 2 },
             },
             {
@@ -279,7 +270,6 @@ const jsonArray = [
             {
                 type: ".frame",
                 name: "func_if_else",
-                id: null,
                 value: { nums: 1, i: 2 },
             },
             {
@@ -310,7 +300,6 @@ const jsonArray = [
             {
                 type: ".frame",
                 name: "func_if_else",
-                id: null,
                 value: { nums: 1, i: 2 },
             },
             {
@@ -341,7 +330,6 @@ const jsonArray = [
             {
                 type: ".frame",
                 name: "func_if_else",
-                id: null,
                 value: { nums: 1, i: 2 },
             },
             {
