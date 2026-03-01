@@ -51,6 +51,7 @@ export default {
             title: "MemoryViz Webstepper",
             filename: "./index.html",
             template: "./src/html/index.html",
+            favicon: "./src/images/memoryviz.ico",
         }),
     ],
     resolve: {
@@ -59,7 +60,7 @@ export default {
             ".js": [".ts", ".tsx", ".js", ".jsx"],
         },
         alias: {
-            "memory-viz": path.resolve(__dirname, "../memory-viz"),
+            "memory-viz": path.resolve(__dirname, "../memory-viz/src/index"),
         },
     },
 };

@@ -10,7 +10,7 @@ import { themes as prismThemes } from "prism-react-renderer";
 const config = {
     title: "MemoryViz",
     tagline: "Generator for Python memory model diagrams",
-    favicon: "img/favicon.ico",
+    favicon: "img/memoryviz.ico",
 
     // Set the production url of your site here
     url: "https://www.cs.toronto.edu/",
@@ -75,7 +75,7 @@ const config = {
                 title: "MemoryViz",
                 logo: {
                     alt: "MemoryViz Logo",
-                    src: "img/logo.svg",
+                    src: "img/memoryviz_logo.svg",
                 },
                 items: [
                     {

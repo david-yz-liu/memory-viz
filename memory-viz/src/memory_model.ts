@@ -19,6 +19,11 @@ import {
     VisualizationConfig,
 } from "./types.js";
 import { isArrayOfNullableType, isStyle } from "./typeguards.js";
+import {
+    getMemoryModelTitle,
+    getGroupTitle,
+    getGroupDescription,
+} from "./a11y.js";
 import { RoughSVG } from "roughjs/bin/svg.js";
 import { Config, Options } from "roughjs/bin/core.js";
 import type * as CSS from "csstype";
@@ -1169,6 +1174,12 @@ export class MemoryModel {
         const sizes_arr: Rect[] = [];
         const parsed_objects: DrawnEntity[] = [];
 
+        const root_title = this.document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "title"
+        );
+        this.svg.insertBefore(root_title, this.svg.firstChild);
+
         for (const rawObj of objects) {
             const result = DrawnEntitySchema.safeParse(rawObj);
             if (!result.success) {
@@ -1227,6 +1238,27 @@ export class MemoryModel {
                 "g"
             );
             this.svg.appendChild(svg_group);
+            svg_group.setAttribute("role", "graphics-object");
+
+            const object_title = this.document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "title"
+            );
+            svg_group.appendChild(object_title);
+            object_title.appendChild(
+                this.document.createTextNode(getGroupTitle(obj))
+            );
+            const object_description_str = getGroupDescription(obj);
+            if (object_description_str !== null) {
+                const object_description = this.document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "desc"
+                );
+                svg_group.appendChild(object_description);
+                object_description.appendChild(
+                    this.document.createTextNode(object_description_str)
+                );
+            }
 
             const frame_types = [".frame", ".blank-frame"];
             if (frame_types.includes(obj.type!) || obj.type === ".class") {
@@ -1264,6 +1296,10 @@ export class MemoryModel {
         if (this.interactive) {
             this.setInteractivityScript();
         }
+
+        root_title.appendChild(
+            this.document.createTextNode(getMemoryModelTitle(strict_objects))
+        );
 
         return sizes_arr;
     }

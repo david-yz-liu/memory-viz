@@ -1,36 +1,40 @@
 import React, { useRef, useEffect } from "react";
 import { Paper } from "@mui/material";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import memoryViz from "memory-viz";
 
 type SvgDisplayPropTypes = {
-    step: number;
+    memoryVizData: {
+        memoryVizInput: object[];
+        lineNumber: number;
+        configuration?: {
+            width?: number;
+            height?: number;
+            [key: string]: any;
+        };
+    };
 };
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
-
+    const canvasWidth = props.memoryVizData.configuration?.width ?? 1300;
     useEffect(() => {
-        const loadAndDrawSvg = async () => {
+        if (props.memoryVizData.memoryVizInput && canvasRef.current) {
             try {
-                const svgString = window.svgArray[props.step].svg;
-                const image = new Image();
-                const data =
-                    "data:image/svg+xml;base64," + window.btoa(svgString);
-                image.src = data;
-                image.onload = () => {
-                    const canvas = canvasRef.current;
-                    const context = canvas.getContext("2d");
-                    context.clearRect(0, 0, image.width, image.height);
-                    canvas.width = image.width;
-                    canvas.height = image.height;
-                    context.drawImage(image, 0, 0);
-                };
+                const m = memoryViz.draw(
+                    structuredClone(props.memoryVizData.memoryVizInput),
+                    true,
+                    { width: canvasWidth, ...props.memoryVizData.configuration }
+                );
+                canvasRef.current.height =
+                    props.memoryVizData.configuration?.height ?? m.height;
+                m.clear(canvasRef.current);
+                m.render(canvasRef.current);
             } catch (error) {
                 console.error(error);
             }
-        };
-        loadAndDrawSvg();
-    }, [props.step]);
+        }
+    }, [props.memoryVizData]);
 
     return (
         <Paper
@@ -45,8 +49,13 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
             >
                 <TransformComponent>
                     <canvas
+                        style={{
+                            height: "100%",
+                            width: "100%",
+                        }}
                         data-testid="memory-models-canvas"
                         ref={canvasRef}
+                        width={canvasWidth}
                     />
                 </TransformComponent>
             </TransformWrapper>

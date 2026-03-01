@@ -9,13 +9,19 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- Added the MemoryViz logo as a favicon
+
 ### 🐛 Bug fixes
 
 ### 🚨 Breaking changes
 
+- The webstepper now requires a list of JSONS containing line numbers, a MemoryViz input and (optionally) a configuration to be provided by a global variable. MemoryViz is then invoked directly to render these MemoryViz inputs into SVGs for display.
+
 ### 📚 Documentation changes
 
 ### 🔧 Internal changes
+
+- Switched webstepper website from default `i18next` instance to a separate instance
 
 ## [0.8.0] - 2025-12-04
 

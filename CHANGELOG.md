@@ -16,6 +16,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added the built in immutable Python type `frozenset` to the memory-viz immutable, and sequence types
 - Refactored `drawSequence` to use literal types to verify the `type` argument type validation
 - Added id validation for 'draw' input to print a warning when duplicate ids or unresolved id references are detected
+- Added `<title>` and `<desc>` attributes to describe the root `<svg>` element and each `DrawnEntity` within generated SVG diagrams, and added `role="graphics-object"` attribute to `<g>` tags
 
 ### 🐛 Bug fixes
 
@@ -24,6 +25,9 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 📚 Documentation and demo website changes
 
 - Updated the `LightbulbIcon` in the `MemoryModelsMenu` so that it no longer rotates on click
+- Switched demo website from default `i18next` instance to a separate instance
+- Added the MemoryViz logo as a favicon to the documentation and demo webpages
+- Replaced the Docusaurus logo with the MemoryViz logo in the header of the docs website
 
 ### 🔧 Internal changes
 
@@ -32,6 +36,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Wrapped rect and text elements for each `DrawnEntity` into parent `<g>` tag before appending to root `<svg>` element
 - Fix diagram width tests to correctly test for small input widths
 - Parameterized snapshot tests for the 'draw' function
+- Switched from default `i18next` instance to a separate instance
+- Prevented coveralls.io failure from triggering CI failure
 - Refactored `DrawnEntitySchema` to use discriminated union of schemas for each type, throwing error for invalid fields
 
 ## [0.8.0] - 2025-12-04
