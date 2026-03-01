@@ -27,6 +27,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Updated the `LightbulbIcon` in the `MemoryModelsMenu` so that it no longer rotates on click
 - Switched demo website from default `i18next` instance to a separate instance
 - Added the MemoryViz logo as a favicon to the documentation and demo webpages
+- Replaced the Docusaurus logo with the MemoryViz logo in the header of the docs website
 
 ### 🔧 Internal changes
 
