@@ -1664,13 +1664,11 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
                 },
                 {
                     type: ".frame",
                     name: "foo",
-                    id: null,
                     value: { my_int: 13 },
                 },
             ],
@@ -1682,7 +1680,7 @@ describe("draw function", () => {
             ],
         },
     ])("$test", ({ input, expected_substrings = [] }) => {
-        const objects: DrawnEntity[] = input;
+        const objects: DrawnEntity[] = input as DrawnEntity[];
 
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,

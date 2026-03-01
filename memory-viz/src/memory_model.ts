@@ -1246,9 +1246,11 @@ export class MemoryModel {
             );
             svg_group.appendChild(object_title);
             object_title.appendChild(
-                this.document.createTextNode(getGroupTitle(obj))
+                this.document.createTextNode(getGroupTitle(obj as DrawnEntity))
             );
-            const object_description_str = getGroupDescription(obj);
+            const object_description_str = getGroupDescription(
+                obj as DrawnEntity
+            );
             if (object_description_str !== null) {
                 const object_description = this.document.createElementNS(
                     "http://www.w3.org/2000/svg",
