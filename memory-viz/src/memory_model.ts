@@ -1176,7 +1176,7 @@ export class MemoryModel {
                 throw new Error(pretty);
             }
 
-            const obj = result.data;
+            const obj = result.data as DrawnEntity;
 
             if (Array.isArray(obj.style)) {
                 // Parsing the 'objects' array is essential, potentially converting preset keywords into the
@@ -1919,8 +1919,6 @@ export class MemoryModel {
                     item.y = y_coord;
                 }
 
-                item.rowBreaker = true;
-
                 hor_reach = x_coord + item.width + PADDING;
 
                 curr_row_objects.push(item);
@@ -1935,7 +1933,7 @@ export class MemoryModel {
             y: 0,
             width: 0,
             height: 0,
-        };
+        } as DrawnEntityStrict;
         const right_most_obj = strict_objects.reduce(
             (prev, curr) => (compareByRightness(prev, curr) <= 0 ? prev : curr),
             defaultObject
