@@ -11,7 +11,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
                 },
                 {
@@ -263,7 +262,7 @@ describe("draw function", () => {
                         ["0", 2],
                         [" ", 3],
                         [null, 4],
-                        [undefined, 5],
+                        [null, 5],
                         [0, 6],
                     ],
                 },
@@ -346,7 +345,7 @@ describe("draw function", () => {
         },
         {
             test: "renders an object with defined size",
-            input: [{ type: "int", width: 500, height: 500 }],
+            input: [{ type: "int", id: null, width: 500, height: 500 }],
         },
         {
             test: "renders a dict with large height",
@@ -377,7 +376,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { my_int: 13 },
                 },
                 { type: "int", id: 13, value: 7 },
@@ -448,11 +446,10 @@ describe("draw function", () => {
         {
             test: "formats a mix of stack frame/non-stack frame objects in automatic layout",
             input: [
-                { type: ".frame", name: "__main__", id: null, value: { a: 7 } },
+                { type: ".frame", name: "__main__", value: { a: 7 } },
                 {
                     type: ".frame",
                     name: "func",
-                    id: null,
                     value: { x: 1, y: 17 },
                 },
                 { type: "list", id: 7, value: [17, 8], show_indexes: true },
@@ -511,7 +508,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["highlight"],
                 },
@@ -529,7 +525,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["highlight_id"],
                 },
@@ -547,7 +542,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["highlight_type"],
                 },
@@ -565,7 +559,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["hide"],
                 },
@@ -578,7 +571,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["hide_id"],
                 },
@@ -591,7 +583,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["hide_container"],
                 },
@@ -609,7 +600,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["fade"],
                 },
@@ -622,7 +612,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["fade_type"],
                 },
@@ -640,7 +629,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["fade_id"],
                 },
@@ -653,7 +641,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["highlight", "fade", "hide_id"],
                 },
@@ -747,7 +734,6 @@ describe("draw function", () => {
                     y: 200,
                     name: "__main__",
                     type: ".frame",
-                    id: null,
                     value: {
                         lst1: 82,
                         lst2: 84,
@@ -841,7 +827,7 @@ describe("draw function", () => {
                 roughjs_config: { options: { seed: 12345 } },
             },
         }) => {
-            const objects: DrawnEntity[] = input;
+            const objects: DrawnEntity[] = input as DrawnEntity[];
             const m: InstanceType<typeof exports.MemoryModel> = draw(
                 objects,
                 true,
@@ -1078,7 +1064,7 @@ describe("draw function", () => {
         {
             test: "logs a warning when a class references an id that doesn't correspond to any object",
             input: [
-                { type: ".class", id: 1, value: { x: 10, "50": 20 } },
+                { type: ".class", id: 1, name: "", value: { x: 10, "50": 20 } },
                 { type: "int", id: 20, value: 5 },
             ],
             warnings: [
@@ -1088,7 +1074,7 @@ describe("draw function", () => {
         {
             test: "logs a warning when a stack frame references an id that doesn't correspond to any object",
             input: [
-                { type: ".frame", id: 1, value: { x: 10, "50": 20 } },
+                { type: ".frame", name: "", value: { x: 10, "50": 20 } },
                 { type: "int", id: 20, value: 5 },
             ],
             warnings: [
@@ -1115,7 +1101,7 @@ describe("draw function", () => {
             test: "logs no warning when objects reference a null id",
             input: [
                 { type: "list", id: 1, value: [null] },
-                { type: ".frame", id: 2, value: { x: null } },
+                { type: ".frame", name: "", value: { x: null } },
             ],
             warnings: [],
         },
@@ -1123,14 +1109,14 @@ describe("draw function", () => {
             test: "logs a warning when objects reference a stack frame",
             input: [
                 { type: "list", id: 1, value: [2] },
-                { type: ".frame", id: 2, value: { "": null } },
+                { type: ".frame", name: "", value: { "": null } },
             ],
             warnings: [
                 "WARNING: id 2 is referenced by an object of type list, but has no corresponding object.",
             ],
         },
     ])("$test", ({ input, warnings }) => {
-        const objects: DrawnEntity[] = input;
+        const objects: DrawnEntity[] = input as DrawnEntity[];
         const spy = jest
             .spyOn(global.console, "warn")
             .mockImplementation(() => {});
@@ -1148,7 +1134,6 @@ describe("draw function", () => {
             {
                 type: ".frame",
                 name: "__main__",
-                id: null,
                 value: { lst1: 82, lst2: 84 },
             },
             {
@@ -1233,11 +1218,10 @@ describe("draw function", () => {
         {
             test: "renders a diagram with 'small' width value and a mix stack frame/non-stack frame objects",
             input: [
-                { type: ".frame", name: "__main__", id: null, value: { a: 7 } },
+                { type: ".frame", name: "__main__", value: { a: 7 } },
                 {
                     type: ".frame",
                     name: "func",
-                    id: null,
                     value: { x: 1, y: 17 },
                 },
                 { type: "list", id: 7, value: [17, 8], show_indexes: true },
@@ -1273,7 +1257,7 @@ describe("draw function", () => {
             ],
         },
     ])("$test", ({ input }) => {
-        const objects: DrawnEntity[] = input;
+        const objects: DrawnEntity[] = input as DrawnEntity[];
 
         const spy = jest
             .spyOn(global.console, "warn")
@@ -1296,7 +1280,6 @@ describe("draw function", () => {
             {
                 type: ".frame",
                 name: "__main__",
-                id: null,
                 value: {
                     a: 7,
                 },
@@ -1304,7 +1287,6 @@ describe("draw function", () => {
             {
                 type: ".frame",
                 name: "func",
-                id: null,
                 value: {
                     x: 1,
                     y: 17,
@@ -1365,7 +1347,6 @@ describe("draw function", () => {
             {
                 type: ".frame",
                 name: "__main__",
-                id: null,
                 value: {
                     item: 45,
                 },
@@ -1394,7 +1375,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: {
                         item: 1,
                     },
@@ -1409,7 +1389,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: {
                         item: 1,
                     },
@@ -1513,7 +1492,7 @@ describe("draw function", () => {
         {
             test: "handles objects with null ids in interactive mode",
             input: [
-                { type: ".frame", name: "__main__", id: null, value: { x: 1 } },
+                { type: ".frame", name: "__main__", value: { x: 1 } },
                 { type: "int", id: 42, value: 5 },
                 { type: "str", id: 99, value: "test" },
                 { type: "int", id: 1 },
@@ -1554,7 +1533,7 @@ describe("draw function", () => {
     ])(
         "$test",
         ({ input, expected_substrings = [], unexpected_substrings = [] }) => {
-            const objects: DrawnEntity[] = input;
+            const objects: DrawnEntity[] = input as DrawnEntity[];
 
             const m: InstanceType<typeof exports.MemoryModel> = draw(
                 objects,
