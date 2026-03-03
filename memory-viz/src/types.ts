@@ -71,6 +71,7 @@ export const StringDrawnEntitySchema = BaseDrawnEntitySchema.extend({
         z.literal("range"),
         z.literal("date"),
         z.literal("None"),
+        z.literal("NoneType"),
     ]),
     value: z.string('"value" field must be a string').nullable().optional(),
 });
