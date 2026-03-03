@@ -21,7 +21,7 @@ export interface Style {
 
 export type Styles = Style | (string | Style)[] | string;
 
-export const ObjectId = z.int().nullable();
+export const ObjectId = z.int().nullable().optional();
 
 export const BaseDrawnEntitySchema = z
     .object({
@@ -77,10 +77,9 @@ export const StringDrawnEntitySchema = BaseDrawnEntitySchema.extend({
 
 export const SequenceDrawnEntitySchema = BaseDrawnEntitySchema.extend({
     type: z.union([z.literal("list"), z.literal("tuple")]),
-    value: z.array(
-        ObjectId,
-        '"value" field must be an array of integers or null'
-    ),
+    value: z
+        .array(ObjectId, '"value" field must be an array of integers or null')
+        .optional(),
     show_indexes: z
         .boolean('"show_indexes" field must be a boolean')
         .optional(),
@@ -88,50 +87,55 @@ export const SequenceDrawnEntitySchema = BaseDrawnEntitySchema.extend({
 
 export const SetDrawnEntitySchema = BaseDrawnEntitySchema.extend({
     type: z.union([z.literal("set"), z.literal("frozenset")]),
-    value: z.array(
-        ObjectId,
-        '"value" field must be an array of integers or null'
-    ),
+    value: z
+        .array(ObjectId, '"value" field must be an array of integers or null')
+        .optional(),
 });
 
 export const DictDrawnEntitySchema = BaseDrawnEntitySchema.extend({
     type: z.literal("dict"),
-    value: z.union(
-        [
-            z.record(z.string(), ObjectId),
-            z.array(z.array(z.union([z.string(), ObjectId]))),
-        ],
-        '"value" field must be a dict or an array with string, integer, or null values'
-    ),
+    value: z
+        .union(
+            [
+                z.record(z.string(), ObjectId),
+                z.array(z.array(z.union([z.string(), ObjectId]))),
+            ],
+            '"value" field must be a dict of string keys and integer or null values, or an array with pairs of string, integer, or null values'
+        )
+        .optional(),
 });
 
 export const ClassDrawnEntitySchema = BaseDrawnEntitySchema.extend({
     type: z.literal(".class"),
-    name: z.string('"name" field must be a string'),
-    value: z.record(
-        z.string(),
-        ObjectId,
-        '"value" field must be a dict with integer or null values'
-    ),
+    name: z.string('"name" field must be a string').optional(),
+    value: z
+        .record(
+            z.string(),
+            ObjectId,
+            '"value" field must be a dict with integer or null values'
+        )
+        .optional(),
 });
 
 export const FrameDrawnEntitySchema = BaseDrawnEntitySchema.omit({
     id: true,
 }).extend({
     type: z.literal(".frame"),
-    name: z.string('"name" field must be a string'),
-    value: z.record(
-        z.string(),
-        ObjectId,
-        '"value" field must be a dict with integer or null values'
-    ),
+    name: z.string('"name" field must be a string').optional(),
+    value: z
+        .record(
+            z.string(),
+            ObjectId,
+            '"value" field must be a dict with integer or null values'
+        )
+        .optional(),
 });
 
 export const BlankDrawnEntitySchema = z
     .object({
         type: z.union([z.literal(".blank"), z.literal(".blank-frame")]),
-        height: z.number('"height" field must be a number'),
-        width: z.number('"width" field must be a number'),
+        height: z.number('"height" field must be a number').optional(),
+        width: z.number('"width" field must be a number').optional(),
     })
     .strict();
 
@@ -149,7 +153,7 @@ export const DrawnEntitySchema = z.discriminatedUnion("type", [
 ]);
 
 export type DrawnEntity = z.infer<typeof DrawnEntitySchema> &
-    Partial<z.infer<typeof BaseDrawnEntitySchema>> & {
+    z.infer<typeof BaseDrawnEntitySchema> & {
         value?: any;
         name?: any;
         show_indexes?: any;

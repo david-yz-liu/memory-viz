@@ -262,7 +262,7 @@ describe("draw function", () => {
                         ["0", 2],
                         [" ", 3],
                         [null, 4],
-                        [null, 5],
+                        [undefined, 5],
                         [0, 6],
                     ],
                 },
@@ -345,7 +345,7 @@ describe("draw function", () => {
         },
         {
             test: "renders an object with defined size",
-            input: [{ type: "int", id: null, width: 500, height: 500 }],
+            input: [{ type: "int", width: 500, height: 500 }],
         },
         {
             test: "renders a dict with large height",
@@ -867,7 +867,7 @@ describe("draw function", () => {
         },
         {
             test: "throws error for class with invalid value",
-            input: [{ type: ".class", id: 1, name: "", value: { x: "y" } }],
+            input: [{ type: ".class", id: 1, value: { x: "y" } }],
             errorMessage:
                 "✖ Invalid input: expected number, received string\n  → at value.x",
         },
@@ -883,12 +883,6 @@ describe("draw function", () => {
                 { type: "int", id: 2 },
             ],
             errorMessage: "✖ Invalid input\n  → at type",
-        },
-        {
-            test: "throws error for int with missing id field",
-            input: [{ type: "int" }],
-            errorMessage:
-                "✖ Invalid input: expected number, received undefined\n  → at id",
         },
         {
             test: "throws error for blank space with id field",
@@ -1022,6 +1016,14 @@ describe("draw function", () => {
             warnings: [],
         },
         {
+            test: "logs no warning when multiple objects are not given ids",
+            input: [
+                { type: "int", value: 5 },
+                { type: "int", value: 5 },
+            ],
+            warnings: [],
+        },
+        {
             test: "logs a warning when a list references an id that doesn't correspond to any object",
             input: [
                 { type: "list", id: 1, value: [20, 50] },
@@ -1103,7 +1105,7 @@ describe("draw function", () => {
             test: "logs no warning when objects reference a null id",
             input: [
                 { type: "list", id: 1, value: [null] },
-                { type: ".frame", name: "", value: { x: null } },
+                { type: ".frame", value: { x: null } },
             ],
             warnings: [],
         },
