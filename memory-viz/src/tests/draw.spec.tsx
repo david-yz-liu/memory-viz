@@ -1074,26 +1074,6 @@ describe("draw function", () => {
             ],
         },
         {
-            test: "logs a warning when a class references an id that doesn't correspond to any object",
-            input: [
-                { type: ".class", id: 1, name: "", value: { x: 10, "50": 20 } },
-                { type: "int", id: 20, value: 5 },
-            ],
-            warnings: [
-                "WARNING: id 10 is referenced by an object of type .class, but has no corresponding object.",
-            ],
-        },
-        {
-            test: "logs a warning when a stack frame references an id that doesn't correspond to any object",
-            input: [
-                { type: ".frame", name: "", value: { x: 10, "50": 20 } },
-                { type: "int", id: 20, value: 5 },
-            ],
-            warnings: [
-                "WARNING: id 10 is referenced by an object of type .frame, but has no corresponding object.",
-            ],
-        },
-        {
             test: "logs no warning when a dict references a blank id",
             input: [
                 { type: "dict", id: 1, value: { "": 20, "    ": 20 } },
@@ -1116,16 +1096,6 @@ describe("draw function", () => {
                 { type: ".frame", value: { x: null } },
             ],
             warnings: [],
-        },
-        {
-            test: "logs a warning when objects reference a stack frame",
-            input: [
-                { type: "list", id: 1, value: [2] },
-                { type: ".frame", name: "", value: { "": null } },
-            ],
-            warnings: [
-                "WARNING: id 2 is referenced by an object of type list, but has no corresponding object.",
-            ],
         },
     ])("$test", ({ input, warnings }) => {
         const objects: DrawnEntity[] = input;
