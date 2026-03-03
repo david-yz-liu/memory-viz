@@ -4,7 +4,11 @@ import { DrawnEntity } from "../types.js";
 const { draw } = exports;
 
 describe("draw function", () => {
-    test.each([
+    test.each<{
+        test: string;
+        input: DrawnEntity[];
+        config?: object;
+    }>([
         {
             test: "should produce consistent svg when provided seed",
             input: [
@@ -827,7 +831,7 @@ describe("draw function", () => {
                 roughjs_config: { options: { seed: 12345 } },
             },
         }) => {
-            const objects: DrawnEntity[] = input as DrawnEntity[];
+            const objects: DrawnEntity[] = input;
             const m: InstanceType<typeof exports.MemoryModel> = draw(
                 objects,
                 true,
@@ -973,7 +977,11 @@ describe("draw function", () => {
         spy.mockRestore();
     });
 
-    test.each([
+    test.each<{
+        test: string;
+        input: DrawnEntity[];
+        warnings: string[];
+    }>([
         {
             test: "logs a warning when all objects are given the same id",
             input: [
@@ -1120,7 +1128,7 @@ describe("draw function", () => {
             ],
         },
     ])("$test", ({ input, warnings }) => {
-        const objects: DrawnEntity[] = input as DrawnEntity[];
+        const objects: DrawnEntity[] = input;
         const spy = jest
             .spyOn(global.console, "warn")
             .mockImplementation(() => {});
@@ -1207,7 +1215,10 @@ describe("draw function", () => {
         expect(invalidLength).toBe(48);
     });
 
-    test.each([
+    test.each<{
+        test: string;
+        input: DrawnEntity[];
+    }>([
         {
             test: "renders a diagram with 'small' width value and no stack frames",
             input: [
@@ -1261,7 +1272,7 @@ describe("draw function", () => {
             ],
         },
     ])("$test", ({ input }) => {
-        const objects: DrawnEntity[] = input as DrawnEntity[];
+        const objects: DrawnEntity[] = input;
 
         const spy = jest
             .spyOn(global.console, "warn")
@@ -1459,7 +1470,12 @@ describe("draw function", () => {
         expect(nonInteractiveSvg).toMatchSnapshot();
     });
 
-    test.each([
+    test.each<{
+        test: string;
+        input: DrawnEntity[];
+        expected_substrings?: string[];
+        unexpected_substrings?: string[];
+    }>([
         {
             test: "assigns sequential object ids to bounding boxes",
             input: [
@@ -1537,7 +1553,7 @@ describe("draw function", () => {
     ])(
         "$test",
         ({ input, expected_substrings = [], unexpected_substrings = [] }) => {
-            const objects: DrawnEntity[] = input as DrawnEntity[];
+            const objects: DrawnEntity[] = input;
 
             const m: InstanceType<typeof exports.MemoryModel> = draw(
                 objects,
@@ -1597,7 +1613,11 @@ describe("draw function", () => {
         expect(highContrastSvg).toMatchSnapshot();
     });
 
-    test.each([
+    test.each<{
+        test: string;
+        input: DrawnEntity[];
+        expected_substrings?: string[];
+    }>([
         {
             test: "generates correct title for MemoryModel with stack frames and objects",
             input: [
@@ -1682,7 +1702,7 @@ describe("draw function", () => {
             ],
         },
     ])("$test", ({ input, expected_substrings = [] }) => {
-        const objects: DrawnEntity[] = input as DrawnEntity[];
+        const objects: DrawnEntity[] = input;
 
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
