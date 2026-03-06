@@ -82,6 +82,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                                 highlightLine={
                                     window.memoryVizData[step].lineNumber
                                 }
+                                isDarkMode={isDarkMode}
                             />
                         </Box>
                     </Stack>
