@@ -10,6 +10,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### ✨ Enhancements
 
 - Added the MemoryViz logo as a favicon
+- Added dark mode syntax highlighting for the code display
 
 ### 🐛 Bug fixes
 
