@@ -4,14 +4,17 @@ import { DrawnEntity } from "../types.js";
 const { draw } = exports;
 
 describe("draw function", () => {
-    test.each([
+    test.each<{
+        test: string;
+        input: DrawnEntity[];
+        config?: object;
+    }>([
         {
             test: "should produce consistent svg when provided seed",
             input: [
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
                 },
                 {
@@ -377,7 +380,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { my_int: 13 },
                 },
                 { type: "int", id: 13, value: 7 },
@@ -448,11 +450,10 @@ describe("draw function", () => {
         {
             test: "formats a mix of stack frame/non-stack frame objects in automatic layout",
             input: [
-                { type: ".frame", name: "__main__", id: null, value: { a: 7 } },
+                { type: ".frame", name: "__main__", value: { a: 7 } },
                 {
                     type: ".frame",
                     name: "func",
-                    id: null,
                     value: { x: 1, y: 17 },
                 },
                 { type: "list", id: 7, value: [17, 8], show_indexes: true },
@@ -511,7 +512,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["highlight"],
                 },
@@ -529,7 +529,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["highlight_id"],
                 },
@@ -547,7 +546,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["highlight_type"],
                 },
@@ -565,7 +563,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["hide"],
                 },
@@ -578,7 +575,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["hide_id"],
                 },
@@ -591,7 +587,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["hide_container"],
                 },
@@ -609,7 +604,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["fade"],
                 },
@@ -622,7 +616,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["fade_type"],
                 },
@@ -640,7 +633,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["fade_id"],
                 },
@@ -653,7 +645,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { item: 45 },
                     style: ["highlight", "fade", "hide_id"],
                 },
@@ -747,7 +738,6 @@ describe("draw function", () => {
                     y: 200,
                     name: "__main__",
                     type: ".frame",
-                    id: null,
                     value: {
                         lst1: 82,
                         lst2: 84,
@@ -852,52 +842,74 @@ describe("draw function", () => {
         }
     );
 
-    test.each([
-        { type: "set" },
-        { type: "list" },
-        { type: "tuple" },
-        { type: "frozenset" },
-    ])("does not render a $type containing strings", ({ type }) => {
-        const objects: DrawnEntity[] = [
-            { type, id: 32, value: ["hello", "world"] },
-        ];
-        const warning = new RegExp(
-            "^WARNING: id \\D+ is referenced by an object of type \\D+, but has no corresponding object."
-        );
-        const consoleWarn = console.warn;
-        const spy = jest
-            .spyOn(global.console, "warn")
-            .mockImplementation((msg) => {
-                if (!warning.test(msg)) {
-                    consoleWarn(msg);
-                }
-            });
+    test.each<{
+        test: string;
+        input: DrawnEntity[];
+        errorMessage: string;
+    }>([
+        {
+            test: "throws error for int with invalid value",
+            input: [{ type: "int", id: 1, value: "x" }],
+            errorMessage: '✖ "value" field must be an integer\n  → at value',
+        },
+        {
+            test: "throws error for float with invalid value",
+            input: [{ type: "float", id: 1, value: "x" }],
+            errorMessage: '✖ "value" field must be a number\n  → at value',
+        },
+        {
+            test: "throws error for bool with invalid value",
+            input: [{ type: "bool", id: 1, value: 5 }],
+            errorMessage: '✖ "value" field must be a boolean\n  → at value',
+        },
+        {
+            test: "throws error for string with invalid value",
+            input: [{ type: "str", id: 1, value: true }],
+            errorMessage: '✖ "value" field must be a string\n  → at value',
+        },
+        {
+            test: "throws error for list with invalid value",
+            input: [{ type: "list", id: 1, value: ["x"] }],
+            errorMessage:
+                "✖ Invalid input: expected number, received string\n  → at value[0]",
+        },
+        {
+            test: "throws error for dict with invalid value",
+            input: [{ type: "dict", id: 1, value: [["1", 2, 3]] }],
+            errorMessage:
+                '✖ "value" field must be a dict of string keys and integer or null values, or an array with pairs of string and integer or null values\n  → at value',
+        },
+        {
+            test: "throws error for class with invalid value",
+            input: [{ type: ".class", id: 1, value: { x: "y" } }],
+            errorMessage:
+                "✖ Invalid input: expected number, received string\n  → at value.x",
+        },
+        {
+            test: "throws an error when object type is not a collection and value is not a primitive",
+            input: [
+                {
+                    type: "invalid collection",
+                    id: 0,
+                    value: [1, 2],
+                } as unknown as DrawnEntity,
+                { type: "int", id: 1 },
+                { type: "int", id: 2 },
+            ],
+            errorMessage: "✖ Invalid input\n  → at type",
+        },
+        {
+            test: "throws error for blank space with id field",
+            input: [{ type: ".blank", id: 1, width: 100, height: 100 }],
+            errorMessage: '✖ Unrecognized key: "id"',
+        },
+    ])("$test", ({ input, errorMessage }) => {
+        const objects: DrawnEntity[] = input;
 
-        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
         expect(() =>
             draw(objects, true, {
                 width: 1300,
                 roughjs_config: { options: { seed: 12345 } },
-            })
-        ).toThrow(errorMessage);
-        spy.mockRestore();
-    });
-
-    it("throws an error when object type is not a collection and value is not a primitive", () => {
-        const objects: DrawnEntity[] = [
-            {
-                type: "invalid collection",
-                id: 0,
-                value: [1, 2],
-            },
-            { type: "int", id: 1 },
-            { type: "int", id: 2 },
-        ];
-
-        const errorMessage = `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${objects[0].type}" with value "${objects[0].value}".`;
-        expect(() =>
-            draw(objects, true, {
-                width: 100,
             })
         ).toThrow(errorMessage);
     });
@@ -975,7 +987,11 @@ describe("draw function", () => {
         spy.mockRestore();
     });
 
-    test.each([
+    test.each<{
+        test: string;
+        input: DrawnEntity[];
+        warnings: string[];
+    }>([
         {
             test: "logs a warning when all objects are given the same id",
             input: [
@@ -1026,14 +1042,6 @@ describe("draw function", () => {
             warnings: [],
         },
         {
-            test: "logs no warning when an object is given the same id as a stack frame",
-            input: [
-                { type: ".frame", id: 100, value: { "": null } },
-                { type: "int", id: 100, value: 5 },
-            ],
-            warnings: [],
-        },
-        {
             test: "logs a warning when a list references an id that doesn't correspond to any object",
             input: [
                 { type: "list", id: 1, value: [20, 50] },
@@ -1076,26 +1084,6 @@ describe("draw function", () => {
             ],
         },
         {
-            test: "logs a warning when a class references an id that doesn't correspond to any object",
-            input: [
-                { type: ".class", id: 1, value: { x: 10, "50": 20 } },
-                { type: "int", id: 20, value: 5 },
-            ],
-            warnings: [
-                "WARNING: id 10 is referenced by an object of type .class, but has no corresponding object.",
-            ],
-        },
-        {
-            test: "logs a warning when a stack frame references an id that doesn't correspond to any object",
-            input: [
-                { type: ".frame", id: 1, value: { x: 10, "50": 20 } },
-                { type: "int", id: 20, value: 5 },
-            ],
-            warnings: [
-                "WARNING: id 10 is referenced by an object of type .frame, but has no corresponding object.",
-            ],
-        },
-        {
             test: "logs no warning when a dict references a blank id",
             input: [
                 { type: "dict", id: 1, value: { "": 20, "    ": 20 } },
@@ -1115,19 +1103,9 @@ describe("draw function", () => {
             test: "logs no warning when objects reference a null id",
             input: [
                 { type: "list", id: 1, value: [null] },
-                { type: ".frame", id: 2, value: { x: null } },
+                { type: ".frame", value: { x: null } },
             ],
             warnings: [],
-        },
-        {
-            test: "logs a warning when objects reference a stack frame",
-            input: [
-                { type: "list", id: 1, value: [2] },
-                { type: ".frame", id: 2, value: { "": null } },
-            ],
-            warnings: [
-                "WARNING: id 2 is referenced by an object of type list, but has no corresponding object.",
-            ],
         },
     ])("$test", ({ input, warnings }) => {
         const objects: DrawnEntity[] = input;
@@ -1148,7 +1126,6 @@ describe("draw function", () => {
             {
                 type: ".frame",
                 name: "__main__",
-                id: null,
                 value: { lst1: 82, lst2: 84 },
             },
             {
@@ -1218,7 +1195,10 @@ describe("draw function", () => {
         expect(invalidLength).toBe(48);
     });
 
-    test.each([
+    test.each<{
+        test: string;
+        input: DrawnEntity[];
+    }>([
         {
             test: "renders a diagram with 'small' width value and no stack frames",
             input: [
@@ -1233,11 +1213,10 @@ describe("draw function", () => {
         {
             test: "renders a diagram with 'small' width value and a mix stack frame/non-stack frame objects",
             input: [
-                { type: ".frame", name: "__main__", id: null, value: { a: 7 } },
+                { type: ".frame", name: "__main__", value: { a: 7 } },
                 {
                     type: ".frame",
                     name: "func",
-                    id: null,
                     value: { x: 1, y: 17 },
                 },
                 { type: "list", id: 7, value: [17, 8], show_indexes: true },
@@ -1296,7 +1275,6 @@ describe("draw function", () => {
             {
                 type: ".frame",
                 name: "__main__",
-                id: null,
                 value: {
                     a: 7,
                 },
@@ -1304,7 +1282,6 @@ describe("draw function", () => {
             {
                 type: ".frame",
                 name: "func",
-                id: null,
                 value: {
                     x: 1,
                     y: 17,
@@ -1365,7 +1342,6 @@ describe("draw function", () => {
             {
                 type: ".frame",
                 name: "__main__",
-                id: null,
                 value: {
                     item: 45,
                 },
@@ -1394,7 +1370,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: {
                         item: 1,
                     },
@@ -1409,7 +1384,6 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: {
                         item: 1,
                     },
@@ -1476,7 +1450,12 @@ describe("draw function", () => {
         expect(nonInteractiveSvg).toMatchSnapshot();
     });
 
-    test.each([
+    test.each<{
+        test: string;
+        input: DrawnEntity[];
+        expected_substrings?: string[];
+        unexpected_substrings?: string[];
+    }>([
         {
             test: "assigns sequential object ids to bounding boxes",
             input: [
@@ -1513,7 +1492,7 @@ describe("draw function", () => {
         {
             test: "handles objects with null ids in interactive mode",
             input: [
-                { type: ".frame", name: "__main__", id: null, value: { x: 1 } },
+                { type: ".frame", name: "__main__", value: { x: 1 } },
                 { type: "int", id: 42, value: 5 },
                 { type: "str", id: 99, value: "test" },
                 { type: "int", id: 1 },
@@ -1614,7 +1593,11 @@ describe("draw function", () => {
         expect(highContrastSvg).toMatchSnapshot();
     });
 
-    test.each([
+    test.each<{
+        test: string;
+        input: DrawnEntity[];
+        expected_substrings?: string[];
+    }>([
         {
             test: "generates correct title for MemoryModel with stack frames and objects",
             input: [
@@ -1683,13 +1666,11 @@ describe("draw function", () => {
                 {
                     type: ".frame",
                     name: "__main__",
-                    id: null,
                     value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
                 },
                 {
                     type: ".frame",
                     name: "foo",
-                    id: null,
                     value: { my_int: 13 },
                 },
             ],

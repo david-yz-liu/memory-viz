@@ -21,39 +21,140 @@ export interface Style {
 
 export type Styles = Style | (string | Style)[] | string;
 
-export const DrawnEntitySchema = z.object({
-    name: z.string('"name" field must be a string').optional(),
-    type: z.string('"type" field must be a string').optional(),
-    x: z.number('"x" field must be a number').optional(),
-    y: z.number('"y" field must be a number').optional(),
-    id: z
-        .union([z.number(), z.null()], '"id" field must be a number or null')
+export const ObjectId = z.int().nullable().optional();
+
+export const BaseDrawnEntitySchema = z
+    .object({
+        id: z.union([ObjectId], '"id" field must be an integer or null'),
+        x: z.number('"x" field must be a number').optional(),
+        y: z.number('"y" field must be a number').optional(),
+        style: z
+            .custom<Styles>((val) => {
+                if (Array.isArray(val)) {
+                    return val.every(
+                        (item) =>
+                            typeof item === "string" ||
+                            (typeof item === "object" && item !== null)
+                    );
+                }
+                return (
+                    (typeof val === "object" || typeof val === "string") &&
+                    val !== null
+                );
+            }, '"style" field must be a Style object, a bare string, or an array of strings or Style')
+            .optional(),
+        height: z.number('"height" field must be a number').optional(),
+        width: z.number('"width" field must be a number').optional(),
+    })
+    .strict();
+
+export const IntDrawnEntitySchema = BaseDrawnEntitySchema.extend({
+    type: z.literal("int"),
+    value: z.int('"value" field must be an integer').nullable().optional(),
+});
+
+export const FloatDrawnEntitySchema = BaseDrawnEntitySchema.extend({
+    type: z.literal("float"),
+    value: z.number('"value" field must be a number').nullable().optional(),
+});
+
+export const BooleanDrawnEntitySchema = BaseDrawnEntitySchema.extend({
+    type: z.literal("bool"),
+    value: z.boolean('"value" field must be a boolean').nullable().optional(),
+});
+
+export const StringDrawnEntitySchema = BaseDrawnEntitySchema.extend({
+    type: z.union([
+        z.literal("str"),
+        z.literal("complex"),
+        z.literal("bytes"),
+        z.literal("range"),
+        z.literal("date"),
+        z.literal("None"),
+        z.literal("NoneType"),
+    ]),
+    value: z.string('"value" field must be a string').nullable().optional(),
+});
+
+export const SequenceDrawnEntitySchema = BaseDrawnEntitySchema.extend({
+    type: z.union([z.literal("list"), z.literal("tuple")]),
+    value: z
+        .array(ObjectId, '"value" field must be an array of integers or null')
         .optional(),
-    value: z.any().optional(),
     show_indexes: z
         .boolean('"show_indexes" field must be a boolean')
         .optional(),
-    style: z
-        .custom<Styles>((val) => {
-            if (Array.isArray(val)) {
-                return val.every(
-                    (item) =>
-                        typeof item === "string" ||
-                        (typeof item === "object" && item !== null)
-                );
-            }
-            return (
-                (typeof val === "object" || typeof val === "string") &&
-                val !== null
-            );
-        }, '"style" field must be a Style object, a bare string, or an array of strings or Style')
-        .optional(),
-    height: z.number('"height" field must be a number').optional(),
-    width: z.number('"width" field must be a number').optional(),
-    rowBreaker: z.boolean('"rowBreaker" field must be a boolean').optional(),
 });
 
-export type DrawnEntity = z.infer<typeof DrawnEntitySchema>;
+export const SetDrawnEntitySchema = BaseDrawnEntitySchema.extend({
+    type: z.union([z.literal("set"), z.literal("frozenset")]),
+    value: z
+        .array(ObjectId, '"value" field must be an array of integers or null')
+        .optional(),
+});
+
+export const DictDrawnEntitySchema = BaseDrawnEntitySchema.extend({
+    type: z.literal("dict"),
+    value: z
+        .union(
+            [
+                z.record(z.string(), ObjectId),
+                z.array(z.tuple([z.union([z.string(), ObjectId]), ObjectId])),
+            ],
+            '"value" field must be a dict of string keys and integer or null values, or an array with pairs of string and integer or null values'
+        )
+        .optional(),
+});
+
+export const ClassDrawnEntitySchema = BaseDrawnEntitySchema.extend({
+    type: z.literal(".class"),
+    name: z.string('"name" field must be a string').optional(),
+    value: z
+        .record(
+            z.string(),
+            ObjectId,
+            '"value" field must be a dict with integer or null values'
+        )
+        .optional(),
+});
+
+export const FrameDrawnEntitySchema = BaseDrawnEntitySchema.omit({
+    id: true,
+}).extend({
+    type: z.literal(".frame"),
+    name: z.string('"name" field must be a string').optional(),
+    value: z
+        .record(
+            z.string(),
+            ObjectId,
+            '"value" field must be a dict with integer or null values'
+        )
+        .optional(),
+});
+
+export const BlankDrawnEntitySchema = z
+    .object({
+        type: z.union([z.literal(".blank"), z.literal(".blank-frame")]),
+        height: z.number('"height" field must be a number').optional(),
+        width: z.number('"width" field must be a number').optional(),
+    })
+    .strict();
+
+export const DrawnEntitySchema = z.discriminatedUnion("type", [
+    IntDrawnEntitySchema,
+    FloatDrawnEntitySchema,
+    BooleanDrawnEntitySchema,
+    StringDrawnEntitySchema,
+    SequenceDrawnEntitySchema,
+    SetDrawnEntitySchema,
+    DictDrawnEntitySchema,
+    ClassDrawnEntitySchema,
+    FrameDrawnEntitySchema,
+    BlankDrawnEntitySchema,
+]);
+
+export type DrawnEntity = z.infer<typeof DrawnEntitySchema> &
+    z.infer<typeof BaseDrawnEntitySchema> & { value?: any };
 
 export type DrawnEntityWithDimensions = Omit<
     DrawnEntity,
