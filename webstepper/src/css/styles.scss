@@ -11,6 +11,7 @@ h2 {
 
 pre > code {
     --spacing: 0.25rem;
+    color: unset;
 }
 
 html,
@@ -43,6 +44,10 @@ main {
 
 .code-box__line--highlighted {
     background-color: yellow;
+}
+
+.code-box__line--highlighted-dark {
+    background-color: #7b1b38;
 }
 
 .svg-display {
