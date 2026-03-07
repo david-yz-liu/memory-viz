@@ -1394,45 +1394,29 @@ export class MemoryModel {
 
         if (object.type === ".blank" || object.type === ".blank-frame") {
             return { default_width: 0, default_height: 0 };
-        }
-        if (object.type === ".frame" || object.type === ".class") {
+        } else if (object.type === ".frame" || object.type === ".class") {
             return this.getDefaultClassDimensions(
                 object.name,
                 object.value,
                 object.style
             );
-        } else if (collections.includes(object.type)) {
-            if (object.type === "dict" && typeof object.value === "object") {
-                return this.getDefaultDictDimensions(
-                    object.value,
-                    object.style
-                );
-            } else if (
-                (object.type === "set" || object.type === "frozenset") &&
-                isArrayOfNullableType<number>(object.value, "number")
-            ) {
-                return this.getDefaultSetDimensions(object.value, object.style);
-            } else if (
-                (object.type === "list" || object.type === "tuple") &&
-                isArrayOfNullableType<number>(object.value, "number")
-            ) {
-                return this.getDefaultSequenceDimensions(
-                    object.value,
-                    object.style,
-                    object.show_indexes ?? false
-                );
-            }
+        } else if (typeof object.value !== "object" || object.value === null) {
+            return this.getDefaultPrimitiveDimensions(
+                object.value,
+                object.style
+            );
+        } else if (object.type === "dict") {
+            return this.getDefaultDictDimensions(object.value, object.style);
+        } else if (object.type === "list" || object.type === "tuple") {
+            return this.getDefaultSequenceDimensions(
+                object.value,
+                object.style,
+                object.show_indexes ?? false
+            );
         } else {
-            if (typeof object.value !== "object" || object.value === null) {
-                return this.getDefaultPrimitiveDimensions(
-                    object.value,
-                    object.style
-                );
-            }
+            // object.type === "set" or "frozenset"
+            return this.getDefaultSetDimensions(object.value, object.style);
         }
-        throw new Error(
-            `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${object.type}" with value "${object.value}".`
-        );
     }
 
     /**
