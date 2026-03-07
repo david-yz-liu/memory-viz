@@ -1267,7 +1267,7 @@ export class MemoryModel {
                 const size = this.drawClass(
                     obj.x!,
                     obj.y!,
-                    obj.name,
+                    "name" in obj ? String(obj.name) : null,
                     obj.id,
                     obj.value,
                     is_frame,
@@ -1284,7 +1284,9 @@ export class MemoryModel {
                     obj.type!,
                     obj.id,
                     obj.value,
-                    obj.show_indexes,
+                    "show_indexes" in obj
+                        ? Boolean(obj.show_indexes)
+                        : undefined,
                     obj.style,
                     obj.width,
                     obj.height,

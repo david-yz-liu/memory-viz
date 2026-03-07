@@ -154,11 +154,7 @@ export const DrawnEntitySchema = z.discriminatedUnion("type", [
 ]);
 
 export type DrawnEntity = z.infer<typeof DrawnEntitySchema> &
-    z.infer<typeof BaseDrawnEntitySchema> & {
-        value?: any;
-        name?: any;
-        show_indexes?: any;
-    };
+    z.infer<typeof BaseDrawnEntitySchema> & { value?: any };
 
 export type DrawnEntityWithDimensions = Omit<
     DrawnEntity,
