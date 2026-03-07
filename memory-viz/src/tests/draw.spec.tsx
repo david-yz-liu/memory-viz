@@ -842,7 +842,11 @@ describe("draw function", () => {
         }
     );
 
-    test.each([
+    test.each<{
+        test: string;
+        input: DrawnEntity[];
+        errorMessage: string;
+    }>([
         {
             test: "throws error for int with invalid value",
             input: [{ type: "int", id: 1, value: "x" }],
@@ -882,7 +886,7 @@ describe("draw function", () => {
                     type: "invalid collection",
                     id: 0,
                     value: [1, 2],
-                },
+                } as unknown as DrawnEntity,
                 { type: "int", id: 1 },
                 { type: "int", id: 2 },
             ],
@@ -894,10 +898,10 @@ describe("draw function", () => {
             errorMessage: '✖ Unrecognized key: "id"',
         },
     ])("$test", ({ input, errorMessage }) => {
-        const object: DrawnEntity[] = input as DrawnEntity[];
+        const objects: DrawnEntity[] = input;
 
         expect(() =>
-            draw(object, true, {
+            draw(objects, true, {
                 width: 1300,
                 roughjs_config: { options: { seed: 12345 } },
             })
