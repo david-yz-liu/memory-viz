@@ -1700,6 +1700,57 @@ describe("draw function", () => {
                 "Stack frame for foo",
             ],
         },
+        {
+            test: "generates correct text aria-label for MemoryModel",
+            input: [
+                {
+                    type: ".frame",
+                    name: "__main__",
+                    value: { lst1: 82 },
+                },
+                { type: "int", id: 13, value: 7 },
+                {
+                    type: "list",
+                    id: 30,
+                    value: [10, null],
+                    show_indexes: true,
+                },
+                {
+                    type: "dict",
+                    id: 50,
+                    value: [["", 20]],
+                },
+                {
+                    type: ".class",
+                    name: "fruit",
+                    id: 80,
+                    value: { name: 12 },
+                },
+            ],
+            expected_substrings: [
+                "aria-label",
+                "Stack frame name: __main__",
+                "Attribute name: lst1",
+                "Attribute value: id82",
+                "Type: int",
+                "Identifier: id13",
+                "Value: 7",
+                "Type: list",
+                "Identifier: id30",
+                "Index: 0",
+                "Element: id10",
+                "Index: 1",
+                "Element: blank",
+                "Type: dict",
+                "Identifier: id50",
+                "Key: blank",
+                "Value: id20",
+                "Class name: fruit",
+                "Identifier: id80",
+                "Attribute name: name",
+                "Attribute value: id12",
+            ],
+        },
     ])("$test", ({ input, expected_substrings = [] }) => {
         const objects: DrawnEntity[] = input;
 
