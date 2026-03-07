@@ -874,6 +874,12 @@ describe("draw function", () => {
                 "✖ Invalid input: expected number, received string\n  → at value[0]",
         },
         {
+            test: "throws error for dict with invalid value",
+            input: [{ type: "dict", id: 1, value: [["1", 2, 3]] }],
+            errorMessage:
+                '✖ "value" field must be a dict of string keys and integer or null values, or an array with pairs of string and integer or null values\n  → at value',
+        },
+        {
             test: "throws error for class with invalid value",
             input: [{ type: ".class", id: 1, value: { x: "y" } }],
             errorMessage:

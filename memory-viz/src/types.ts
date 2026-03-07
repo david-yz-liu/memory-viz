@@ -99,9 +99,9 @@ export const DictDrawnEntitySchema = BaseDrawnEntitySchema.extend({
         .union(
             [
                 z.record(z.string(), ObjectId),
-                z.array(z.array(z.union([z.string(), ObjectId]))),
+                z.array(z.tuple([z.union([z.string(), ObjectId]), ObjectId])),
             ],
-            '"value" field must be a dict of string keys and integer or null values, or an array with pairs of string, integer, or null values'
+            '"value" field must be a dict of string keys and integer or null values, or an array with pairs of string and integer or null values'
         )
         .optional(),
 });
