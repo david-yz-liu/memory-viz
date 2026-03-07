@@ -1246,11 +1246,9 @@ export class MemoryModel {
             );
             svg_group.appendChild(object_title);
             object_title.appendChild(
-                this.document.createTextNode(getGroupTitle(obj as DrawnEntity))
+                this.document.createTextNode(getGroupTitle(obj))
             );
-            const object_description_str = getGroupDescription(
-                obj as DrawnEntity
-            );
+            const object_description_str = getGroupDescription(obj);
             if (object_description_str !== null) {
                 const object_description = this.document.createElementNS(
                     "http://www.w3.org/2000/svg",
@@ -1967,11 +1965,12 @@ export class MemoryModel {
         }
 
         const defaultObject: DrawnEntityStrict = {
+            type: "None",
             x: 0,
             y: 0,
             width: 0,
             height: 0,
-        } as DrawnEntityStrict;
+        };
         const right_most_obj = strict_objects.reduce(
             (prev, curr) => (compareByRightness(prev, curr) <= 0 ? prev : curr),
             defaultObject
