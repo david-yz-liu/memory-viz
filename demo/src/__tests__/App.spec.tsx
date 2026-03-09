@@ -28,7 +28,7 @@ describe("App", () => {
             .mockImplementation(() => {});
         const input = screen.getByLabelText("Enter memory model JSON here");
 
-        // Invalid input: 'type' should be a string, but it's a number
+        // Invalid input: 'type' should be a valid string type, but it's a number
         const invalidJSON = JSON.stringify([{ type: 123 }]);
         fireEvent.change(input, { target: { value: invalidJSON } });
 
@@ -37,7 +37,7 @@ describe("App", () => {
 
         const errorBoundary = screen.getByTestId("svg-display-error-boundary");
         expect(errorBoundary.textContent).toEqual(
-            '✖ "type" field must be a string\n' + "  → at type"
+            "✖ Invalid input\n" + "  → at type"
         );
         spy.mockRestore();
     });
@@ -72,7 +72,7 @@ describe("App", () => {
             .mockImplementation(() => {});
         const input = screen.getByLabelText("Enter memory model JSON here");
 
-        // Invalid input: 'type' should be a string, but it's a number
+        // Invalid input: 'type' should be a valid string type, but it's a number
         const invalidJSON = JSON.stringify([{ type: 123 }]);
         fireEvent.change(input, { target: { value: invalidJSON } });
 
@@ -81,7 +81,7 @@ describe("App", () => {
 
         const errorBoundary = screen.getByTestId("svg-display-error-boundary");
         expect(errorBoundary.textContent).toEqual(
-            '✖ "type" field must be a string\n' + "  → at type"
+            "✖ Invalid input\n" + "  → at type"
         );
 
         // Next, reset and input valid JSON that's also valid memory-viz JSON
@@ -89,7 +89,6 @@ describe("App", () => {
             {
                 type: ".frame",
                 name: "__main__",
-                id: null,
                 value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
             },
             { type: "int", id: 82 },
