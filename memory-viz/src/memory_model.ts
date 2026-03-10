@@ -20,6 +20,7 @@ import {
 } from "./types.js";
 import { isArrayOfNullableType, isStyle } from "./typeguards.js";
 import {
+    TEXT_DESCRIPTION,
     getMemoryModelTitle,
     getGroupTitle,
     getGroupDescription,
@@ -70,6 +71,7 @@ export class MemoryModel {
     width?: number; // Width of the canvas, dynamically updated if not provided in options
     height?: number; // Height of the canvas, dynamically updated if not provided in options
     objectCounter: number; // Counter for tracking ids of objects drawn
+    textCounter: number; // Counter for tracking ids of text elements drawn
     interactive: boolean = true; // Whether the visualization is interactive
     sort_by?: SortOptions;
     top_margin: number = 25;
@@ -114,6 +116,7 @@ export class MemoryModel {
         }
 
         this.objectCounter = 0;
+        this.textCounter = 0;
         this.idToObjectMap = new Map();
 
         if (options.sort_by) {
@@ -380,7 +383,7 @@ export class MemoryModel {
                 style.text_value,
                 "value",
                 false,
-                "Value"
+                TEXT_DESCRIPTION["value"]
             );
         }
 
@@ -409,8 +412,7 @@ export class MemoryModel {
         y: number,
         width: number,
         style: Style,
-        svg_group: SVGGElement,
-        type_category: string = "Type"
+        svg_group: SVGGElement
     ) {
         const id_box = Math.max(
             this.prop_min_width,
@@ -447,7 +449,7 @@ export class MemoryModel {
             style.text_id,
             "id",
             false,
-            "Identifier"
+            TEXT_DESCRIPTION["id"]
         );
 
         this.drawText(
@@ -458,7 +460,7 @@ export class MemoryModel {
             style.text_type,
             "type",
             false,
-            type_category
+            TEXT_DESCRIPTION["type"]
         );
     }
 
@@ -563,7 +565,7 @@ export class MemoryModel {
                     style.text_id,
                     "id",
                     false,
-                    "Index"
+                    TEXT_DESCRIPTION["index"]
                 );
             }
             const item_rect = this.drawRect(
@@ -582,7 +584,7 @@ export class MemoryModel {
                 element_text_style,
                 "id",
                 false,
-                "Element"
+                TEXT_DESCRIPTION["element"]
             );
 
             curr_x += item_length;
@@ -694,7 +696,7 @@ export class MemoryModel {
                 element_text_style,
                 "id",
                 false,
-                "Element"
+                TEXT_DESCRIPTION["element"]
             );
             if (i > 0) {
                 this.drawText(
@@ -821,7 +823,7 @@ export class MemoryModel {
                 this.getTextLength(idk + 5, style.text_id)
             );
 
-            // Draw the rectangles representing the keys.
+            // Draw the rectangle for keys.
             const key_rect = this.drawRect(
                 x + this.obj_x_padding,
                 curr_y,
@@ -839,7 +841,7 @@ export class MemoryModel {
                 key_text_style,
                 "id",
                 false,
-                "Key"
+                TEXT_DESCRIPTION["dict_key"]
             );
 
             const idv = entry[1] === null ? "" : `id${entry[1]}`;
@@ -888,7 +890,7 @@ export class MemoryModel {
                 value_text_style,
                 "id",
                 false,
-                "Value"
+                TEXT_DESCRIPTION["dict_value"]
             );
 
             curr_y += this.item_min_height * 1.5;
@@ -966,19 +968,10 @@ export class MemoryModel {
                 style.text_type,
                 "type",
                 false,
-                "Stack frame name"
+                TEXT_DESCRIPTION["function_name"]
             );
         } else {
-            this.drawProperties(
-                id,
-                name,
-                x,
-                y,
-                width,
-                style,
-                svg_group,
-                "Class name"
-            );
+            this.drawProperties(id, name, x, y, width, style, svg_group);
         }
 
         // Draw element boxes.
@@ -993,7 +986,7 @@ export class MemoryModel {
                     style.text_value,
                     stack_frame ? "variable" : "attribute",
                     false,
-                    "Attribute name"
+                    TEXT_DESCRIPTION["attribute_name"]
                 );
             }
 
@@ -1019,7 +1012,7 @@ export class MemoryModel {
                 style.text_id,
                 "id",
                 false,
-                "Attribute value"
+                TEXT_DESCRIPTION["attribute_value"]
             );
             curr_y += this.item_min_height * 1.5;
         }
@@ -1101,7 +1094,7 @@ export class MemoryModel {
      *                        https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
      *                        For instance, {fill: 'blue', stroke: 'red'}
      * @param text_class - The CSS class (if any) of the text message to be drawn
-     * @param hide - Whether this text should be hidden from screen readers
+     * @param decorative - Whether this text should be hidden from screen readers
      * @param category - The category (if any) of the text message
      */
 
@@ -1112,7 +1105,7 @@ export class MemoryModel {
         svg_group: SVGGElement,
         style?: CSS.Properties,
         text_class?: string,
-        hide: boolean = false,
+        decorative: boolean = false,
         category?: string
     ): void {
         const newElement = this.document.createElementNS(
@@ -1137,14 +1130,24 @@ export class MemoryModel {
             newElement.setAttribute("class", `${text_class}`);
         }
 
-        if (hide) {
+        if (decorative) {
             newElement.setAttribute("aria-hidden", "true");
-        } else {
-            const text_description = text === "" ? "blank" : text;
-            const label = category
-                ? `${category}: ${text_description}`
-                : text_description;
-            newElement.setAttribute("aria-label", label);
+        } else if (text === "") {
+            newElement.setAttribute("aria-label", "blank entry");
+        } else if (category) {
+            const desc_element = this.document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "title"
+            );
+            const desc_id = `desc-${this.textCounter}`;
+            desc_element.setAttribute("id", desc_id);
+            desc_element.appendChild(
+                this.document.createTextNode(`${category}: ${text}`)
+            );
+            svg_group.appendChild(newElement);
+            newElement.appendChild(desc_element);
+            newElement.setAttribute("aria-describedby", desc_id);
+            this.textCounter++;
         }
 
         svg_group.appendChild(newElement);
