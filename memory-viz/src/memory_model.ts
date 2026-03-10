@@ -1094,7 +1094,7 @@ export class MemoryModel {
      *                        https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
      *                        For instance, {fill: 'blue', stroke: 'red'}
      * @param text_class - The CSS class (if any) of the text message to be drawn
-     * @param decorative - Whether this text should be hidden from screen readers
+     * @param decorative - Whether this text is decorative
      * @param category - The category (if any) of the text message
      */
 
