@@ -41,6 +41,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Switched from default `i18next` instance to a separate instance
 - Prevented coveralls.io failure from triggering CI failure
 - Updated `.gitignore` to ignore vscode config files
+- Refactored `DrawnEntitySchema` to use discriminated union of schemas for each type, throwing error for invalid fields
 - Wrapped each `<text>` element under the `<g>` tag that draws its border
 
 ## [0.8.0] - 2025-12-04

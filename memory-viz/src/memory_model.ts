@@ -1232,7 +1232,7 @@ export class MemoryModel {
                 throw new Error(pretty);
             }
 
-            const obj = result.data;
+            const obj = result.data as DrawnEntity;
 
             if (Array.isArray(obj.style)) {
                 // Parsing the 'objects' array is essential, potentially converting preset keywords into the
@@ -1312,7 +1312,7 @@ export class MemoryModel {
                 const size = this.drawClass(
                     obj.x!,
                     obj.y!,
-                    obj.name,
+                    "name" in obj ? String(obj.name) : null,
                     obj.id,
                     obj.value,
                     is_frame,
@@ -1329,7 +1329,9 @@ export class MemoryModel {
                     obj.type!,
                     obj.id,
                     obj.value,
-                    obj.show_indexes,
+                    "show_indexes" in obj
+                        ? Boolean(obj.show_indexes)
+                        : undefined,
                     obj.style,
                     obj.width,
                     obj.height,
@@ -1437,45 +1439,29 @@ export class MemoryModel {
 
         if (object.type === ".blank" || object.type === ".blank-frame") {
             return { default_width: 0, default_height: 0 };
-        }
-        if (object.type === ".frame" || object.type === ".class") {
+        } else if (object.type === ".frame" || object.type === ".class") {
             return this.getDefaultClassDimensions(
                 object.name,
                 object.value,
                 object.style
             );
-        } else if (collections.includes(object.type)) {
-            if (object.type === "dict" && typeof object.value === "object") {
-                return this.getDefaultDictDimensions(
-                    object.value,
-                    object.style
-                );
-            } else if (
-                (object.type === "set" || object.type === "frozenset") &&
-                isArrayOfNullableType<number>(object.value, "number")
-            ) {
-                return this.getDefaultSetDimensions(object.value, object.style);
-            } else if (
-                (object.type === "list" || object.type === "tuple") &&
-                isArrayOfNullableType<number>(object.value, "number")
-            ) {
-                return this.getDefaultSequenceDimensions(
-                    object.value,
-                    object.style,
-                    object.show_indexes ?? false
-                );
-            }
+        } else if (typeof object.value !== "object" || object.value === null) {
+            return this.getDefaultPrimitiveDimensions(
+                object.value,
+                object.style
+            );
+        } else if (object.type === "dict") {
+            return this.getDefaultDictDimensions(object.value, object.style);
+        } else if (object.type === "list" || object.type === "tuple") {
+            return this.getDefaultSequenceDimensions(
+                object.value,
+                object.style,
+                object.show_indexes ?? false
+            );
         } else {
-            if (typeof object.value !== "object" || object.value === null) {
-                return this.getDefaultPrimitiveDimensions(
-                    object.value,
-                    object.style
-                );
-            }
+            // object.type === "set" or "frozenset"
+            return this.getDefaultSetDimensions(object.value, object.style);
         }
-        throw new Error(
-            `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${object.type}" with value "${object.value}".`
-        );
     }
 
     /**
@@ -2000,8 +1986,6 @@ export class MemoryModel {
                     item.y = y_coord;
                 }
 
-                item.rowBreaker = true;
-
                 hor_reach = x_coord + item.width + PADDING;
 
                 curr_row_objects.push(item);
@@ -2012,6 +1996,7 @@ export class MemoryModel {
         }
 
         const defaultObject: DrawnEntityStrict = {
+            type: "None",
             x: 0,
             y: 0,
             width: 0,
