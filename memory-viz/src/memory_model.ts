@@ -1132,18 +1132,18 @@ export class MemoryModel {
 
         if (decorative) {
             newElement.setAttribute("aria-hidden", "true");
-        } else if (text === "") {
+        }
+        if (text === "") {
             newElement.setAttribute("aria-label", "blank entry");
-        } else if (category) {
+        }
+        if (category) {
             const desc_element = this.document.createElementNS(
                 "http://www.w3.org/2000/svg",
                 "title"
             );
             const desc_id = `desc-${this.textCounter}`;
             desc_element.setAttribute("id", desc_id);
-            desc_element.appendChild(
-                this.document.createTextNode(`${category}: ${text}`)
-            );
+            desc_element.appendChild(this.document.createTextNode(category));
             svg_group.appendChild(newElement);
             newElement.appendChild(desc_element);
             newElement.setAttribute("aria-describedby", desc_id);
