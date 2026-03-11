@@ -1681,6 +1681,49 @@ describe("draw function", () => {
                 "Stack frame for foo",
             ],
         },
+        {
+            test: "generates correct text descriptions for MemoryModel",
+            input: [
+                {
+                    type: ".frame",
+                    name: "__main__",
+                    value: { lst1: 82 },
+                },
+                { type: "int", id: 13, value: 7 },
+                {
+                    type: "list",
+                    id: 30,
+                    value: [10, null],
+                    show_indexes: true,
+                },
+                {
+                    type: "dict",
+                    id: 50,
+                    value: [[5, 20]],
+                },
+                {
+                    type: ".class",
+                    name: "fruit",
+                    id: 80,
+                    value: { name: 12 },
+                },
+            ],
+            expected_substrings: [
+                "aria-label",
+                "aria-describedby",
+                "Function name",
+                "Attribute name",
+                "Attribute value",
+                "Object type",
+                "Object id",
+                "Value",
+                "Index",
+                "Element",
+                "Dictionary key",
+                "Dictionary value",
+                "blank entry",
+            ],
+        },
     ])("$test", ({ input, expected_substrings = [] }) => {
         const objects: DrawnEntity[] = input;
 

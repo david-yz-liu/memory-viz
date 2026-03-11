@@ -17,6 +17,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Refactored `drawSequence` to use literal types to verify the `type` argument type validation
 - Added id validation for 'draw' input to print a warning when duplicate ids or unresolved id references are detected
 - Added `<title>` and `<desc>` attributes to describe the root `<svg>` element and each `DrawnEntity` within generated SVG diagrams, and added `role="graphics-object"` attribute to `<g>` tags
+- Added category descriptions to `<text>` elements using `aria-describedby` and added `aria-hidden="true"` attribute to decorative text in memory model diagrams
+- Changed the order in which `DrawnEntity` components are drawn to improve screen reader navigation
 
 ### 🐛 Bug fixes
 
@@ -40,6 +42,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Prevented coveralls.io failure from triggering CI failure
 - Updated `.gitignore` to ignore vscode config files
 - Refactored `DrawnEntitySchema` to use discriminated union of schemas for each type, throwing error for invalid fields
+- Wrapped each `<text>` element under the `<g>` tag that draws its border
 
 ## [0.8.0] - 2025-12-04
 
