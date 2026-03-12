@@ -1,6 +1,19 @@
 import { DrawnEntity, DrawnEntityStrict } from "./types.js";
 import i18n from "./i18n.js";
 
+const TEXT_DESCRIPTION = {
+    value: "Value",
+    id: "Object id",
+    type: "Object type",
+    function_name: "Function name",
+    attribute_name: "Attribute name",
+    attribute_value: "Attribute value",
+    index: "Index",
+    element: "Element",
+    dict_key: "Dictionary key",
+    dict_value: "Dictionary value",
+};
+
 /**
  * Returns a descriptive title for a MemoryModel diagram.
  *
@@ -151,4 +164,9 @@ function getGroupDescription(object: DrawnEntity): string | null {
     return null;
 }
 
-export { getMemoryModelTitle, getGroupTitle, getGroupDescription };
+export {
+    TEXT_DESCRIPTION,
+    getMemoryModelTitle,
+    getGroupTitle,
+    getGroupDescription,
+};

@@ -20,6 +20,7 @@ import {
 } from "./types.js";
 import { isArrayOfNullableType, isStyle } from "./typeguards.js";
 import {
+    TEXT_DESCRIPTION,
     getMemoryModelTitle,
     getGroupTitle,
     getGroupDescription,
@@ -70,6 +71,7 @@ export class MemoryModel {
     width?: number; // Width of the canvas, dynamically updated if not provided in options
     height?: number; // Height of the canvas, dynamically updated if not provided in options
     objectCounter: number; // Counter for tracking ids of objects drawn
+    textCounter: number; // Counter for tracking ids of text elements drawn
     interactive: boolean = true; // Whether the visualization is interactive
     sort_by?: SortOptions;
     top_margin: number = 25;
@@ -114,6 +116,7 @@ export class MemoryModel {
         }
 
         this.objectCounter = 0;
+        this.textCounter = 0;
         this.idToObjectMap = new Map();
 
         if (options.sort_by) {
@@ -354,6 +357,8 @@ export class MemoryModel {
             };
         }
 
+        this.drawProperties(id, type, x, y, width, style, svg_group);
+
         let display_text: string;
         if (type === "bool") {
             display_text = value ? "True" : "False";
@@ -376,11 +381,11 @@ export class MemoryModel {
                 y + (height + this.prop_min_height) / 2,
                 svg_group,
                 style.text_value,
-                "value"
+                "value",
+                false,
+                TEXT_DESCRIPTION["value"]
             );
         }
-
-        this.drawProperties(id, type, x, y, width, style, svg_group);
 
         this.updateDimensions(size);
 
@@ -396,6 +401,7 @@ export class MemoryModel {
      * @param width - The width of the given box (rectangle)
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * @param svg_group - The parent <g> tag that rect and text elements will be appended to
+     * @param type_category - The label category for the text element containing type
      * For the styling options in terms of texts, refer to the SVG documentation. For the styling options in terms of
      * boxes, refer to the Rough.js documentation.
      */
@@ -418,7 +424,7 @@ export class MemoryModel {
             this.getTextLength(type, style.text_type) + 10
         );
 
-        this.drawRect(
+        const id_rect = this.drawRect(
             x,
             y,
             id_box,
@@ -426,7 +432,7 @@ export class MemoryModel {
             svg_group,
             style.box_id
         );
-        this.drawRect(
+        const type_rect = this.drawRect(
             x + width - type_box,
             y,
             type_box,
@@ -439,18 +445,22 @@ export class MemoryModel {
             id === null ? "" : `id${id}`,
             x + id_box / 2,
             y + this.font_size * 1.5,
-            svg_group,
+            id_rect,
             style.text_id,
-            "id"
+            "id",
+            false,
+            TEXT_DESCRIPTION["id"]
         );
 
         this.drawText(
             type,
             x + width - type_box / 2,
             y + this.font_size * 1.5,
-            svg_group,
+            type_rect,
             style.text_type,
-            "type"
+            "type",
+            false,
+            TEXT_DESCRIPTION["type"]
         );
     }
 
@@ -509,6 +519,8 @@ export class MemoryModel {
             id
         );
 
+        this.drawProperties(id, type, x, y, width, style, svg_group);
+
         const size: Rect = { width: width, height: height, x: x, y: y };
 
         if (immutable.includes(type)) {
@@ -544,7 +556,19 @@ export class MemoryModel {
                 this.item_min_width,
                 this.getTextLength(idv, style.text_id) + 10
             );
-            this.drawRect(
+            if (show_idx) {
+                this.drawText(
+                    i.toString(),
+                    curr_x + item_length / 2,
+                    item_y - this.item_min_height / 4,
+                    svg_group,
+                    style.text_id,
+                    "id",
+                    false,
+                    TEXT_DESCRIPTION["index"]
+                );
+            }
+            const item_rect = this.drawRect(
                 curr_x,
                 item_y,
                 item_length,
@@ -556,25 +580,15 @@ export class MemoryModel {
                 idv,
                 curr_x + item_length / 2,
                 item_y + this.item_min_height / 2 + this.font_size / 4,
-                svg_group,
+                item_rect,
                 element_text_style,
-                "id"
+                "id",
+                false,
+                TEXT_DESCRIPTION["element"]
             );
-            if (show_idx) {
-                this.drawText(
-                    i.toString(),
-                    curr_x + item_length / 2,
-                    item_y - this.item_min_height / 4,
-                    svg_group,
-                    style.text_id,
-                    "id"
-                );
-            }
 
             curr_x += item_length;
         });
-
-        this.drawProperties(id, type, x, y, width, style, svg_group);
 
         this.updateDimensions(size);
 
@@ -627,6 +641,8 @@ export class MemoryModel {
             id
         );
 
+        this.drawProperties(id, type, x, y, width, style, svg_group);
+
         const SIZE: Rect = {
             x,
             y,
@@ -664,7 +680,7 @@ export class MemoryModel {
                 this.item_min_width,
                 this.getTextLength(idv, style.text_id) + 10
             );
-            this.drawRect(
+            const item_rect = this.drawRect(
                 curr_x,
                 item_y,
                 item_length,
@@ -676,9 +692,11 @@ export class MemoryModel {
                 idv,
                 curr_x + item_length / 2,
                 item_text_y,
-                svg_group,
+                item_rect,
                 element_text_style,
-                "id"
+                "id",
+                false,
+                TEXT_DESCRIPTION["element"]
             );
             if (i > 0) {
                 this.drawText(
@@ -687,20 +705,21 @@ export class MemoryModel {
                     item_text_y,
                     svg_group,
                     {},
-                    "default"
+                    "default",
+                    true
                 );
             }
             curr_x += item_length + this.item_min_height / 4;
         });
 
-        this.drawProperties(id, type, x, y, width, style, svg_group);
         this.drawText(
             "{",
             x + this.item_min_width / 4,
             item_text_y,
             svg_group,
             {},
-            "default"
+            "default",
+            true
         );
         this.drawText(
             "}",
@@ -708,7 +727,8 @@ export class MemoryModel {
             item_text_y,
             svg_group,
             {},
-            "default"
+            "default",
+            true
         );
 
         this.updateDimensions(SIZE);
@@ -768,7 +788,9 @@ export class MemoryModel {
             }
         }
 
-        // First loop, to draw the key boxes
+        this.drawProperties(id, "dict", x, y, width, style, svg_group);
+
+        // Loop to draw the key boxes, colon and value boxes
         let curr_y = y + this.prop_min_height + this.item_min_height / 2;
         let index = 0;
         for (const entry of entries) {
@@ -801,8 +823,8 @@ export class MemoryModel {
                 this.getTextLength(idk + 5, style.text_id)
             );
 
-            // Draw the rectangles representing the keys.
-            this.drawRect(
+            // Draw the rectangle for keys.
+            const key_rect = this.drawRect(
                 x + this.obj_x_padding,
                 curr_y,
                 key_box,
@@ -815,23 +837,14 @@ export class MemoryModel {
                 idk,
                 x + this.item_min_width + 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
-                svg_group,
+                key_rect,
                 key_text_style,
-                "id"
+                "id",
+                false,
+                TEXT_DESCRIPTION["dict_key"]
             );
 
-            curr_y += this.item_min_height * 1.5;
-            index++;
-        }
-
-        // A second loop, so that we can position the colon and value boxes correctly.
-        curr_y = y + this.prop_min_height + this.item_min_height / 2;
-        index = 0;
-        for (const entry of entries) {
             const idv = entry[1] === null ? "" : `id${entry[1]}`;
-
-            const raw_box = style.box_compound?.[index];
-            const raw_text = style.text_compound?.[index];
 
             let value_box_style: Options | undefined;
             let value_text_style: CSS.PropertiesHyphen | undefined;
@@ -850,7 +863,7 @@ export class MemoryModel {
             );
 
             // Draw the rectangle for values.
-            this.drawRect(
+            const value_rect = this.drawRect(
                 x + width / 2 + this.font_size,
                 curr_y,
                 value_box,
@@ -865,23 +878,24 @@ export class MemoryModel {
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
                 svg_group,
                 {},
-                "default"
+                "default",
+                true
             );
 
             this.drawText(
                 idv,
                 x + width / 2 + this.font_size + value_box / 2,
                 curr_y + this.item_min_height / 2 + this.font_size / 4,
-                svg_group,
+                value_rect,
                 value_text_style,
-                "id"
+                "id",
+                false,
+                TEXT_DESCRIPTION["dict_value"]
             );
 
             curr_y += this.item_min_height * 1.5;
             index++;
         }
-
-        this.drawProperties(id, "dict", x, y, width, style, svg_group);
 
         this.updateDimensions(SIZE);
 
@@ -936,48 +950,9 @@ export class MemoryModel {
 
         const SIZE: Rect = { x, y, width: width, height: height };
 
-        // Draw element boxes.
-        let curr_y = y + this.prop_min_height + this.item_min_height / 2;
-        for (const attribute in attributes) {
-            const val = attributes[attribute];
-            const idv = val === null ? "" : `id${val}`;
-            const attr_box = Math.max(
-                this.item_min_width,
-                this.getTextLength(idv) + 10
-            );
-            this.drawRect(
-                x + width - this.item_min_width * 1.5,
-                curr_y,
-                attr_box,
-                this.item_min_height,
-                svg_group
-            );
-
-            if (attribute.trim() !== "") {
-                this.drawText(
-                    attribute,
-                    x + this.item_min_width / 2,
-                    curr_y + this.item_min_height / 2 + this.font_size / 4,
-                    svg_group,
-                    style.text_value,
-                    stack_frame ? "variable" : "attribute"
-                );
-            }
-
-            this.drawText(
-                idv,
-                x + width - this.item_min_width * 1.5 + attr_box / 2,
-                curr_y + this.item_min_height / 2 + this.font_size / 4,
-                svg_group,
-                style.text_id,
-                "id"
-            );
-            curr_y += this.item_min_height * 1.5;
-        }
-
         if (stack_frame) {
             const text_length = this.getTextLength(name, style.text_type);
-            this.drawRect(
+            const name_rect = this.drawRect(
                 x,
                 y,
                 text_length + 10,
@@ -989,12 +964,57 @@ export class MemoryModel {
                 name,
                 x + text_length / 2 + 5,
                 y + this.prop_min_height * 0.6,
-                svg_group,
+                name_rect,
                 style.text_type,
-                "type"
+                "type",
+                false,
+                TEXT_DESCRIPTION["function_name"]
             );
         } else {
             this.drawProperties(id, name, x, y, width, style, svg_group);
+        }
+
+        // Draw element boxes.
+        let curr_y = y + this.prop_min_height + this.item_min_height / 2;
+        for (const attribute in attributes) {
+            if (attribute.trim() !== "") {
+                this.drawText(
+                    attribute,
+                    x + this.item_min_width / 2,
+                    curr_y + this.item_min_height / 2 + this.font_size / 4,
+                    svg_group,
+                    style.text_value,
+                    stack_frame ? "variable" : "attribute",
+                    false,
+                    TEXT_DESCRIPTION["attribute_name"]
+                );
+            }
+
+            const val = attributes[attribute];
+            const idv = val === null ? "" : `id${val}`;
+            const attr_box = Math.max(
+                this.item_min_width,
+                this.getTextLength(idv) + 10
+            );
+            const value_rect = this.drawRect(
+                x + width - this.item_min_width * 1.5,
+                curr_y,
+                attr_box,
+                this.item_min_height,
+                svg_group
+            );
+
+            this.drawText(
+                idv,
+                x + width - this.item_min_width * 1.5 + attr_box / 2,
+                curr_y + this.item_min_height / 2 + this.font_size / 4,
+                value_rect,
+                style.text_id,
+                "id",
+                false,
+                TEXT_DESCRIPTION["attribute_value"]
+            );
+            curr_y += this.item_min_height * 1.5;
         }
 
         this.updateDimensions(SIZE);
@@ -1021,7 +1041,7 @@ export class MemoryModel {
         style?: Options,
         isBoundingBox: boolean = false,
         objectId?: number | null
-    ): void {
+    ): SVGGElement {
         if (style === undefined) {
             style = this.rect_style;
         }
@@ -1060,6 +1080,7 @@ export class MemoryModel {
         }
 
         svg_group.appendChild(rectElement);
+        return rectElement;
     }
 
     /**
@@ -1073,6 +1094,8 @@ export class MemoryModel {
      *                        https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text.
      *                        For instance, {fill: 'blue', stroke: 'red'}
      * @param text_class - The CSS class (if any) of the text message to be drawn
+     * @param decorative - Whether this text is decorative
+     * @param category - The category (if any) of the text message
      */
 
     drawText(
@@ -1081,7 +1104,9 @@ export class MemoryModel {
         y: number,
         svg_group: SVGGElement,
         style?: CSS.Properties,
-        text_class?: string
+        text_class?: string,
+        decorative: boolean = false,
+        category?: string
     ): void {
         const newElement = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
@@ -1103,6 +1128,26 @@ export class MemoryModel {
 
         if (text_class !== null) {
             newElement.setAttribute("class", `${text_class}`);
+        }
+
+        if (decorative) {
+            newElement.setAttribute("aria-hidden", "true");
+        }
+        if (text === "") {
+            newElement.setAttribute("aria-label", "blank entry");
+        }
+        if (category) {
+            const desc_element = this.document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "title"
+            );
+            const desc_id = `desc-${this.textCounter}`;
+            desc_element.setAttribute("id", desc_id);
+            desc_element.appendChild(this.document.createTextNode(category));
+            svg_group.appendChild(newElement);
+            newElement.appendChild(desc_element);
+            newElement.setAttribute("aria-describedby", desc_id);
+            this.textCounter++;
         }
 
         svg_group.appendChild(newElement);
