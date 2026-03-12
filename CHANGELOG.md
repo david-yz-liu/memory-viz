@@ -30,6 +30,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Switched demo website from default `i18next` instance to a separate instance
 - Added the MemoryViz logo as a favicon to the documentation and demo webpages
 - Replaced the Docusaurus logo with the MemoryViz logo in the header of the docs website
+- Removed unneeded `id: null` for `.frame` objects in demo JSON inputs
 
 ### 🔧 Internal changes
 
