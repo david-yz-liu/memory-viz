@@ -23,14 +23,12 @@ const listOfObjs = [
     {
         type: ".frame",
         name: "__main__",
-        id: null,
         value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
     },
     { type: ".frame", width: 100, height: 200 },
     {
         type: ".frame",
         name: "func",
-        id: null,
         value: { age: 12, name: 17 },
     },
     { type: "list", id: 82, value: [19, 43, 28, 49] },
