@@ -58,7 +58,6 @@ describe("SvgDisplay", () => {
                     jsonResult={jsonResult}
                     setSvgResult={setSvgResultMock}
                     configData={configDataMock}
-                    isDarkMode={false}
                 />
             );
         });
@@ -89,7 +88,6 @@ describe("SvgDisplay", () => {
                 jsonResult={null}
                 setSvgResult={setSvgResultMock}
                 configData={configDataMock}
-                isDarkMode={false}
             />
         );
         const canvasElement = screen.getByTestId("memory-models-canvas");

@@ -7,13 +7,16 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 const { draw: drawMemoryModel } = memoryViz;
 
 type SvgDisplayPropTypes = {
-    jsonResult: object | null;
+    jsonResult: object[] | null;
     configData: configDataPropTypes;
     setSvgResult: React.Dispatch<React.SetStateAction<string>>;
-    isDarkMode: boolean;
+    isDarkMode?: boolean;
 };
 
-export default function SvgDisplay(props: SvgDisplayPropTypes) {
+export default function SvgDisplay({
+    isDarkMode = false,
+    ...props
+}: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
     const canvasWidth = 1300;
     const canvasHeight = 1000;
@@ -25,12 +28,10 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
             try {
                 // deep copy jsonResult as mem.draw mutates input JSON
                 // https://github.com/david-yz-liu/memory-viz/pull/20#discussion_r1513235452
-                const jsonResultCopy = structuredClone(
-                    props.jsonResult
-                ) as object[];
+                const jsonResultCopy = structuredClone(props.jsonResult);
                 let resolvedTheme;
                 if (rawTheme === "match") {
-                    resolvedTheme = props.isDarkMode ? "dark" : undefined;
+                    resolvedTheme = isDarkMode ? "dark" : undefined;
                 } else {
                     resolvedTheme = rawTheme;
                 }
@@ -63,7 +64,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
         if (rawTheme === "match") {
             draw();
         }
-    }, [rawTheme, props.isDarkMode]);
+    }, [rawTheme, isDarkMode]);
 
     return (
         <Paper
