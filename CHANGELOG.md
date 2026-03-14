@@ -44,6 +44,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Updated `.gitignore` to ignore vscode config files
 - Refactored `DrawnEntitySchema` to use discriminated union of schemas for each type, throwing error for invalid fields
 - Wrapped each `<text>` element under the `<g>` tag that draws its border
+- Corrected prop type annotation and the isDarkMode default value in `demo/src/SvgDisplay.tsx` to eliminate related Typescript Errors
 
 ## [0.8.0] - 2025-12-04
 
