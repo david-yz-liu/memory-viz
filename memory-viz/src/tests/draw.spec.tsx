@@ -842,11 +842,7 @@ describe("draw function", () => {
         }
     );
 
-    test.each<{
-        test: string;
-        input: DrawnEntity[];
-        errorMessage: string;
-    }>([
+    test.each([
         {
             test: "throws error for int with invalid value",
             input: [{ type: "int", id: 1, value: "x" }],
@@ -892,7 +888,7 @@ describe("draw function", () => {
                     type: "invalid collection",
                     id: 0,
                     value: [1, 2],
-                } as unknown as DrawnEntity,
+                },
                 { type: "int", id: 1 },
                 { type: "int", id: 2 },
             ],
@@ -904,7 +900,7 @@ describe("draw function", () => {
             errorMessage: '✖ Unrecognized key: "id"',
         },
     ])("$test", ({ input, errorMessage }) => {
-        const objects: DrawnEntity[] = input;
+        const objects: DrawnEntity[] = input as DrawnEntity[];
 
         expect(() =>
             draw(objects, true, {
