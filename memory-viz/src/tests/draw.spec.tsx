@@ -92,6 +92,10 @@ describe("draw function", () => {
             input: [{ type: "set", id: 32, value: [] }],
         },
         {
+            test: "renders a set without defining the value",
+            input: [{ type: "set", id: 32 }],
+        },
+        {
             test: "renders a set with null values",
             input: [{ type: "set", id: 32, value: [null, null, null] }],
         },
@@ -146,6 +150,10 @@ describe("draw function", () => {
         {
             test: "renders an empty list",
             input: [{ type: "list", id: 32, value: [] }],
+        },
+        {
+            test: "renders a list without defining the value",
+            input: [{ type: "list", id: 32 }],
         },
         {
             test: "renders a list with null values",
@@ -226,6 +234,10 @@ describe("draw function", () => {
         {
             test: "renders an empty dict",
             input: [{ type: "dict", id: 10, value: {} }],
+        },
+        {
+            test: "renders a dict without defining the value",
+            input: [{ type: "dict", id: 10 }],
         },
         {
             test: "renders dict with empty string key without 'id' prefix",
@@ -403,6 +415,10 @@ describe("draw function", () => {
                 { type: ".class", name: "my_class", id: 1, value: { "": 10 } },
                 { type: "int", id: 10 },
             ],
+        },
+        {
+            test: "renders a class without defining the value",
+            input: [{ type: ".class", name: "my_class", id: 1 }],
         },
         {
             test: "renders a class with null attribute name using whitespaces",
