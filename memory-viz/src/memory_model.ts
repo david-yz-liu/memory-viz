@@ -1334,7 +1334,13 @@ export class MemoryModel {
                     obj.id,
                     "value" in obj && obj.value !== undefined
                         ? obj.value
-                        : null,
+                        : obj.type === "list" ||
+                            obj.type === "tuple" ||
+                            obj.type === "set" ||
+                            obj.type === "frozenset" ||
+                            obj.type === "dict"
+                          ? []
+                          : null,
                     "show_indexes" in obj
                         ? Boolean(obj.show_indexes)
                         : undefined,
