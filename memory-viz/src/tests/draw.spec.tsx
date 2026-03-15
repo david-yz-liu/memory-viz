@@ -92,6 +92,10 @@ describe("draw function", () => {
             input: [{ type: "set", id: 32, value: [] }],
         },
         {
+            test: "renders a set without defining the value",
+            input: [{ type: "set", id: 32 }],
+        },
+        {
             test: "renders a set with null values",
             input: [{ type: "set", id: 32, value: [null, null, null] }],
         },
@@ -146,6 +150,10 @@ describe("draw function", () => {
         {
             test: "renders an empty list",
             input: [{ type: "list", id: 32, value: [] }],
+        },
+        {
+            test: "renders a list without defining the value",
+            input: [{ type: "list", id: 32 }],
         },
         {
             test: "renders a list with null values",
@@ -226,6 +234,10 @@ describe("draw function", () => {
         {
             test: "renders an empty dict",
             input: [{ type: "dict", id: 10, value: {} }],
+        },
+        {
+            test: "renders a dict without defining the value",
+            input: [{ type: "dict", id: 10 }],
         },
         {
             test: "renders dict with empty string key without 'id' prefix",
@@ -403,6 +415,10 @@ describe("draw function", () => {
                 { type: ".class", name: "my_class", id: 1, value: { "": 10 } },
                 { type: "int", id: 10 },
             ],
+        },
+        {
+            test: "renders a class without defining the value",
+            input: [{ type: ".class", name: "my_class", id: 1 }],
         },
         {
             test: "renders a class with null attribute name using whitespaces",
@@ -842,11 +858,7 @@ describe("draw function", () => {
         }
     );
 
-    test.each<{
-        test: string;
-        input: DrawnEntity[];
-        errorMessage: string;
-    }>([
+    test.each([
         {
             test: "throws error for int with invalid value",
             input: [{ type: "int", id: 1, value: "x" }],
@@ -892,7 +904,7 @@ describe("draw function", () => {
                     type: "invalid collection",
                     id: 0,
                     value: [1, 2],
-                } as unknown as DrawnEntity,
+                },
                 { type: "int", id: 1 },
                 { type: "int", id: 2 },
             ],
@@ -904,7 +916,7 @@ describe("draw function", () => {
             errorMessage: '✖ Unrecognized key: "id"',
         },
     ])("$test", ({ input, errorMessage }) => {
-        const objects: DrawnEntity[] = input;
+        const objects: DrawnEntity[] = input as DrawnEntity[];
 
         expect(() =>
             draw(objects, true, {
