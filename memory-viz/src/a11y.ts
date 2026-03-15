@@ -66,7 +66,10 @@ function getGroupTitle(object: DrawnEntity): string {
 
     const sequence_set_types = ["list", "tuple", "set", "frozenset"];
     if (sequence_set_types.includes(object.type!)) {
-        const count = Array.isArray(object.value) ? object.value.length : 0;
+        const count =
+            "value" in object && Array.isArray(object.value)
+                ? object.value.length
+                : 0;
         const object_type =
             object.type!.charAt(0).toUpperCase() + object.type!.slice(1);
         return i18n.t("groupTitles.sequence", { object_type, id_label, count });
@@ -83,7 +86,11 @@ function getGroupTitle(object: DrawnEntity): string {
     const object_type =
         object.type!.charAt(0).toUpperCase() + object.type!.slice(1);
     let value: string;
-    if (object.value === null || object.value === undefined) {
+    if (
+        !("value" in object) ||
+        object.value === null ||
+        object.value === undefined
+    ) {
         value = i18n.t("blanks.blankValue");
     } else if (object.type === "str") {
         value = `"${object.value}"`;
@@ -106,22 +113,23 @@ function getGroupTitle(object: DrawnEntity): string {
 function getGroupDescription(object: DrawnEntity): string | null {
     const sequence_set_types = ["list", "tuple", "set", "frozenset"];
     if (object.type === ".class") {
-        const attributes = Object.keys(object.value)
+        const attributes = Object.keys(object.value ?? {})
             .map((k) => (k.trim() === "" ? i18n.t("blanks.blankAttribute") : k))
             .join(", ");
         return attributes
             ? i18n.t("groupDescriptions.class", { attributes })
             : null;
     } else if (sequence_set_types.includes(object.type!)) {
-        const elements = Array.isArray(object.value)
-            ? object.value
-                  .map((v) =>
-                      v !== undefined && v !== null
-                          ? `id${v}`
-                          : i18n.t("blanks.blankValue")
-                  )
-                  .join(", ")
-            : "";
+        const elements =
+            "value" in object && Array.isArray(object.value)
+                ? object.value
+                      .map((v) =>
+                          v !== undefined && v !== null
+                              ? `id${v}`
+                              : i18n.t("blanks.blankValue")
+                      )
+                      .join(", ")
+                : "";
         return elements
             ? i18n.t("groupDescriptions.sequence", { elements })
             : null;

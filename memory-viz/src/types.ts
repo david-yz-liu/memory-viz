@@ -154,9 +154,13 @@ export const DrawnEntitySchema = z.discriminatedUnion("type", [
 ]);
 
 export type DrawnEntity = z.infer<typeof DrawnEntitySchema> &
-    z.infer<typeof BaseDrawnEntitySchema> & { value?: any };
+    z.infer<typeof BaseDrawnEntitySchema>;
 
-export type DrawnEntityWithDimensions = Omit<
+type Omit_NewAndImproved<T, K> = {
+    [P in keyof T as Exclude<P, K & keyof any>]: T[P];
+};
+
+export type DrawnEntityWithDimensions = Omit_NewAndImproved<
     DrawnEntity,
     "width" | "height"
 > & {
@@ -164,7 +168,7 @@ export type DrawnEntityWithDimensions = Omit<
     height: number;
 };
 
-export type DrawnEntityStrict = Omit<
+export type DrawnEntityStrict = Omit_NewAndImproved<
     DrawnEntity,
     "width" | "height" | "x" | "y"
 > & {
