@@ -986,7 +986,9 @@ export class MemoryModel {
                     style.text_value,
                     stack_frame ? "variable" : "attribute",
                     false,
-                    TEXT_DESCRIPTION["attribute_name"]
+                    TEXT_DESCRIPTION[
+                        stack_frame ? "parameter_name" : "attribute_name"
+                    ]
                 );
             }
 
@@ -1012,7 +1014,9 @@ export class MemoryModel {
                 style.text_id,
                 "id",
                 false,
-                TEXT_DESCRIPTION["attribute_value"]
+                TEXT_DESCRIPTION[
+                    stack_frame ? "parameter_value" : "attribute_value"
+                ]
             );
             curr_y += this.item_min_height * 1.5;
         }

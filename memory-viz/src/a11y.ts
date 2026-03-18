@@ -8,6 +8,8 @@ const TEXT_DESCRIPTION = {
     function_name: "Function name",
     attribute_name: "Attribute name",
     attribute_value: "Attribute value",
+    parameter_name: "Parameter name",
+    parameter_value: "Parameter value",
     index: "Index",
     element: "Element",
     dict_key: "Dictionary key",
