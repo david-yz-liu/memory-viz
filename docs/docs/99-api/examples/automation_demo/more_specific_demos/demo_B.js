@@ -13,13 +13,11 @@ const listOfStackFrames = [
     {
         type: ".frame",
         name: "__main__",
-        id: null,
         value: { lst1: 82, lst2: 84, p: 99, d: 10, t: 11 },
     },
     {
         type: ".frame",
         name: "Animal",
-        id: null,
         value: { age: 2, name: 94 },
     },
 ];

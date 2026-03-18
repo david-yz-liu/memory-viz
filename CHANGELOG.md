@@ -31,6 +31,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Switched demo website from default `i18next` instance to a separate instance
 - Added the MemoryViz logo as a favicon to the documentation and demo webpages
 - Replaced the Docusaurus logo with the MemoryViz logo in the header of the docs website
+- Removed unneeded `id: null` for `.frame` objects in demo JSON inputs
 
 ### 🔧 Internal changes
 
@@ -44,6 +45,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Updated `.gitignore` to ignore vscode config files
 - Refactored `DrawnEntitySchema` to use discriminated union of schemas for each type, throwing error for invalid fields
 - Wrapped each `<text>` element under the `<g>` tag that draws its border
+- Corrected prop type annotation and the isDarkMode default value in `demo/src/SvgDisplay.tsx` to eliminate related Typescript Errors
 
 ## [0.8.0] - 2025-12-04
 
