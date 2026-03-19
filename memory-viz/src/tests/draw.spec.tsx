@@ -1752,6 +1752,8 @@ describe("draw function", () => {
                 "Function name",
                 "Attribute name",
                 "Attribute value",
+                "Parameter name",
+                "Parameter value",
                 "Object type",
                 "Object id",
                 "Value",
