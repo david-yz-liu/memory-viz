@@ -92,6 +92,10 @@ describe("draw function", () => {
             input: [{ type: "set", id: 32, value: [] }],
         },
         {
+            test: "renders a set without defining the value",
+            input: [{ type: "set", id: 32 }],
+        },
+        {
             test: "renders a set with null values",
             input: [{ type: "set", id: 32, value: [null, null, null] }],
         },
@@ -146,6 +150,10 @@ describe("draw function", () => {
         {
             test: "renders an empty list",
             input: [{ type: "list", id: 32, value: [] }],
+        },
+        {
+            test: "renders a list without defining the value",
+            input: [{ type: "list", id: 32 }],
         },
         {
             test: "renders a list with null values",
@@ -226,6 +234,10 @@ describe("draw function", () => {
         {
             test: "renders an empty dict",
             input: [{ type: "dict", id: 10, value: {} }],
+        },
+        {
+            test: "renders a dict without defining the value",
+            input: [{ type: "dict", id: 10 }],
         },
         {
             test: "renders dict with empty string key without 'id' prefix",
@@ -403,6 +415,10 @@ describe("draw function", () => {
                 { type: ".class", name: "my_class", id: 1, value: { "": 10 } },
                 { type: "int", id: 10 },
             ],
+        },
+        {
+            test: "renders a class without defining the value",
+            input: [{ type: ".class", name: "my_class", id: 1 }],
         },
         {
             test: "renders a class with null attribute name using whitespaces",
@@ -849,39 +865,61 @@ describe("draw function", () => {
     }>([
         {
             test: "throws error for int with invalid value",
-            input: [{ type: "int", id: 1, value: "x" }],
+            input: [
+                { type: "int", id: 1, value: "x" } as unknown as DrawnEntity,
+            ],
             errorMessage: '✖ "value" field must be an integer\n  → at value',
         },
         {
             test: "throws error for float with invalid value",
-            input: [{ type: "float", id: 1, value: "x" }],
+            input: [
+                { type: "float", id: 1, value: "x" } as unknown as DrawnEntity,
+            ],
             errorMessage: '✖ "value" field must be a number\n  → at value',
         },
         {
             test: "throws error for bool with invalid value",
-            input: [{ type: "bool", id: 1, value: 5 }],
+            input: [
+                { type: "bool", id: 1, value: 5 } as unknown as DrawnEntity,
+            ],
             errorMessage: '✖ "value" field must be a boolean\n  → at value',
         },
         {
             test: "throws error for string with invalid value",
-            input: [{ type: "str", id: 1, value: true }],
+            input: [
+                { type: "str", id: 1, value: true } as unknown as DrawnEntity,
+            ],
             errorMessage: '✖ "value" field must be a string\n  → at value',
         },
         {
             test: "throws error for list with invalid value",
-            input: [{ type: "list", id: 1, value: ["x"] }],
+            input: [
+                { type: "list", id: 1, value: ["x"] } as unknown as DrawnEntity,
+            ],
             errorMessage:
                 "✖ Invalid input: expected number, received string\n  → at value[0]",
         },
         {
             test: "throws error for dict with invalid value",
-            input: [{ type: "dict", id: 1, value: [["1", 2, 3]] }],
+            input: [
+                {
+                    type: "dict",
+                    id: 1,
+                    value: [["1", 2, 3]],
+                } as unknown as DrawnEntity,
+            ],
             errorMessage:
                 '✖ "value" field must be a dict of string keys and integer or null values, or an array with pairs of string and integer or null values\n  → at value',
         },
         {
             test: "throws error for class with invalid value",
-            input: [{ type: ".class", id: 1, value: { x: "y" } }],
+            input: [
+                {
+                    type: ".class",
+                    id: 1,
+                    value: { x: "y" },
+                } as unknown as DrawnEntity,
+            ],
             errorMessage:
                 "✖ Invalid input: expected number, received string\n  → at value.x",
         },
