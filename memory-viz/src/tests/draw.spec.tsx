@@ -858,42 +858,68 @@ describe("draw function", () => {
         }
     );
 
-    test.each([
+    test.each<{
+        test: string;
+        input: DrawnEntity[];
+        errorMessage: string;
+    }>([
         {
             test: "throws error for int with invalid value",
-            input: [{ type: "int", id: 1, value: "x" }],
+            input: [
+                { type: "int", id: 1, value: "x" } as unknown as DrawnEntity,
+            ],
             errorMessage: '✖ "value" field must be an integer\n  → at value',
         },
         {
             test: "throws error for float with invalid value",
-            input: [{ type: "float", id: 1, value: "x" }],
+            input: [
+                { type: "float", id: 1, value: "x" } as unknown as DrawnEntity,
+            ],
             errorMessage: '✖ "value" field must be a number\n  → at value',
         },
         {
             test: "throws error for bool with invalid value",
-            input: [{ type: "bool", id: 1, value: 5 }],
+            input: [
+                { type: "bool", id: 1, value: 5 } as unknown as DrawnEntity,
+            ],
             errorMessage: '✖ "value" field must be a boolean\n  → at value',
         },
         {
             test: "throws error for string with invalid value",
-            input: [{ type: "str", id: 1, value: true }],
+            input: [
+                { type: "str", id: 1, value: true } as unknown as DrawnEntity,
+            ],
             errorMessage: '✖ "value" field must be a string\n  → at value',
         },
         {
             test: "throws error for list with invalid value",
-            input: [{ type: "list", id: 1, value: ["x"] }],
+            input: [
+                { type: "list", id: 1, value: ["x"] } as unknown as DrawnEntity,
+            ],
             errorMessage:
                 "✖ Invalid input: expected number, received string\n  → at value[0]",
         },
         {
             test: "throws error for dict with invalid value",
-            input: [{ type: "dict", id: 1, value: [["1", 2, 3]] }],
+            input: [
+                {
+                    type: "dict",
+                    id: 1,
+                    value: [["1", 2, 3]],
+                } as unknown as DrawnEntity,
+            ],
             errorMessage:
                 '✖ "value" field must be a dict of string keys and integer or null values, or an array with pairs of string and integer or null values\n  → at value',
         },
         {
             test: "throws error for class with invalid value",
-            input: [{ type: ".class", id: 1, value: { x: "y" } }],
+            input: [
+                {
+                    type: ".class",
+                    id: 1,
+                    value: { x: "y" },
+                } as unknown as DrawnEntity,
+            ],
             errorMessage:
                 "✖ Invalid input: expected number, received string\n  → at value.x",
         },
@@ -904,7 +930,7 @@ describe("draw function", () => {
                     type: "invalid collection",
                     id: 0,
                     value: [1, 2],
-                },
+                } as unknown as DrawnEntity,
                 { type: "int", id: 1 },
                 { type: "int", id: 2 },
             ],
@@ -916,7 +942,7 @@ describe("draw function", () => {
             errorMessage: '✖ Unrecognized key: "id"',
         },
     ])("$test", ({ input, errorMessage }) => {
-        const objects: DrawnEntity[] = input as DrawnEntity[];
+        const objects: DrawnEntity[] = input;
 
         expect(() =>
             draw(objects, true, {
