@@ -23,6 +23,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 🐛 Bug fixes
 
 - Added trailing zeroes to values for objects of type `float`
+- Changed labels for `<text>` elements in stack frames from "attribute name" and "attribute value" to "parameter name" and "parameter value"
 
 ### 📚 Documentation and demo website changes
 
@@ -44,6 +45,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Updated `.gitignore` to ignore vscode config files
 - Refactored `DrawnEntitySchema` to use discriminated union of schemas for each type, throwing error for invalid fields
 - Wrapped each `<text>` element under the `<g>` tag that draws its border
+- Corrected prop type annotation and the isDarkMode default value in `demo/src/SvgDisplay.tsx` to eliminate related Typescript Errors
+- Removed use of `& { value?: any }` intersection type for `DrawnEntity`
 
 ## [0.8.0] - 2025-12-04
 
