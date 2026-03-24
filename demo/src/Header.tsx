@@ -76,6 +76,7 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                         onClick={handleLanguageClick}
                         color="inherit"
                         aria-label="Change language"
+                        data-testid="change-language-button"
                     >
                         <LanguageIcon
                             style={{ width: "30px", height: "30px" }}
