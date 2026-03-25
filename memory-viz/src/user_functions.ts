@@ -1,15 +1,16 @@
 import fs from "fs";
 import { MemoryModel } from "./memory_model.js";
-import { DrawnEntity, DisplaySettings } from "./types.js";
+import { DrawnEntity, DrawnEntitySchema, DisplaySettings } from "./types.js";
+import { prettifyError } from "zod";
 export * from "./types.js";
 
 function draw(
-    objects: string | DrawnEntity[][],
+    objects: string | object[][],
     automation: boolean,
     configuration: Partial<DisplaySettings>
 ): MemoryModel[];
 function draw(
-    objects: string | DrawnEntity[],
+    objects: string | object[],
     automation: boolean,
     configuration: Partial<DisplaySettings>
 ): MemoryModel;
@@ -34,11 +35,11 @@ function draw(
  * @returns the produced canvas, either a single canvas or a list of canvas, depending on the objects input.
  */
 function draw(
-    objects: string | DrawnEntity[] | DrawnEntity[][],
+    objects: string | object[] | object[][],
     automation: boolean,
     configuration: Partial<DisplaySettings>
 ): MemoryModel | MemoryModel[] {
-    let objs: DrawnEntity[] | DrawnEntity[][];
+    let objs: object[] | object[][];
 
     if (typeof objects === "string") {
         if (!fs) {
@@ -56,7 +57,23 @@ function draw(
 
     const isArrayOfArrays = Array.isArray(objs) && Array.isArray(objs[0]);
 
-    const processSnapshot = (snapshotObjects: DrawnEntity[]) => {
+    const parseObjects = (objects: object[]): DrawnEntity[] => {
+        const parsed_objects: DrawnEntity[] = [];
+        for (const raw_obj of objects) {
+            const result = DrawnEntitySchema.safeParse(raw_obj);
+            if (!result.success) {
+                const pretty = prettifyError(result.error);
+                throw new Error(pretty);
+            }
+
+            const obj = result.data;
+            parsed_objects.push(obj);
+        }
+
+        return parsed_objects;
+    };
+
+    const processSnapshot = (snapshotObjects: object[]) => {
         const model = new MemoryModel({
             width: configuration.width,
             height: configuration.height,
@@ -71,16 +88,16 @@ function draw(
             bottom_margin: configuration.bottom_margin,
             right_margin: configuration.right_margin,
         });
-        model.drawAll(snapshotObjects);
+        model.drawAll(parseObjects(snapshotObjects));
         return model;
     };
 
     if (isArrayOfArrays) {
-        const snapshots = objs as DrawnEntity[][];
+        const snapshots = objs as object[][];
         return snapshots.map(processSnapshot);
     }
 
-    const snapshotObjects = objs as DrawnEntity[];
+    const snapshotObjects = objs as object[];
     return processSnapshot(snapshotObjects);
 }
 
