@@ -47,6 +47,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Wrapped each `<text>` element under the `<g>` tag that draws its border
 - Corrected prop type annotation and the isDarkMode default value in `demo/src/SvgDisplay.tsx` to eliminate related Typescript Errors
 - Removed use of `& { value?: any }` intersection type for `DrawnEntity`
+- Allow arbitrary inputs to `draw()` by moving `DrawnEntitySchema.safeParse()` validation from `drawAll()` to `draw()`
 
 ## [0.8.0] - 2025-12-04
 
