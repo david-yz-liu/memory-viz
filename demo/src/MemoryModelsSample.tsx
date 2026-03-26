@@ -40,6 +40,7 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
             menuItems={SAMPLES.map((sample, index) => (
                 <MenuItem
                     key={index}
+                    tabIndex={0}
                     onClick={() => handleButtonClick(index, sample)}
                 >
                     {t(sample["nameKey"])}

@@ -32,6 +32,9 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added the MemoryViz logo as a favicon to the documentation and demo webpages
 - Replaced the Docusaurus logo with the MemoryViz logo in the header of the docs website
 - Removed unneeded `id: null` for `.frame` objects in demo JSON inputs
+- Added `lang` attribute to root `<html>` element of demo website
+- Changed demo website subheading component to `<h2>` to ensure all heading elements are in sequentially decreasing order
+- Added `tabindex` to `MenuItem` and converted `Menu` to `Popover` in `MemoryModelsMenu` to ensure all interactive elements in the demo website are keyboard focusable
 
 ### 🔧 Internal changes
 
