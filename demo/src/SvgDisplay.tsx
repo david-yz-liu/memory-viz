@@ -11,10 +11,12 @@ type SvgDisplayPropTypes = {
     configData: configDataPropTypes;
     setSvgResult: React.Dispatch<React.SetStateAction<string>>;
     isDarkMode?: boolean;
+    isAutomated?: boolean;
 };
 
 export default function SvgDisplay({
     isDarkMode = false,
+    isAutomated = true,
     ...props
 }: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
@@ -22,7 +24,6 @@ export default function SvgDisplay({
     const canvasHeight = 1000;
 
     const rawTheme = props.configData.overallDrawConfig?.theme;
-
     const draw = () => {
         if (props.jsonResult !== null) {
             try {
@@ -58,7 +59,7 @@ export default function SvgDisplay({
 
     useEffect(() => {
         draw();
-    }, [props.jsonResult, props.configData.useAutomation]);
+    }, [props.jsonResult, isAutomated]);
 
     useEffect(() => {
         if (rawTheme === "match") {

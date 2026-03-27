@@ -75,6 +75,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Rewrote the `Style API` page of documentation to include JSON inputs and SVG outputs
 - Updated the demo website main container height to full height of viewport
 - Enabled demo website's checkmark in input text box to dynamically match light/dark theme
+- Updated the useEffect listening to the `use automatic layout` button in the demo website to only update when the button is toggled rather than updating whenever the props are updated
 
 ### 🔧 Internal changes
 

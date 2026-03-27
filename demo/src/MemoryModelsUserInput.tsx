@@ -31,6 +31,8 @@ interface configDataPropTypes {
 type MemoryModelsConfigInputPropTypes = {
     configData: configDataPropTypes;
     setConfigData: React.Dispatch<React.SetStateAction<object>>;
+    isAutomated: boolean;
+    toggleAutomation: () => void;
 };
 
 type MemoryModelsFileInputPropTypes = {
@@ -173,6 +175,7 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
             ...props.configData,
             useAutomation: event.target.checked,
         });
+        props.toggleAutomation();
     };
 
     const handleThemeChange = (event) => {
@@ -212,7 +215,7 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                         <FormControlLabel
                             control={
                                 <Checkbox
-                                    checked={props.configData.useAutomation}
+                                    checked={props.isAutomated}
                                     onChange={handleAutomationChange}
                                 />
                             }
@@ -268,6 +271,8 @@ export default function MemoryModelsUserInput(
                     <MemoryModelsConfigInput
                         configData={props.configData}
                         setConfigData={props.setConfigData}
+                        isAutomated={props.isAutomated}
+                        toggleAutomation={props.toggleAutomation}
                     />
                 </Box>
                 <MemoryModelsTextInput
