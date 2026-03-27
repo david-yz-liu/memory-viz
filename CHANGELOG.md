@@ -32,6 +32,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added the MemoryViz logo as a favicon to the documentation and demo webpages
 - Replaced the Docusaurus logo with the MemoryViz logo in the header of the docs website
 - Removed unneeded `id: null` for `.frame` objects in demo JSON inputs
+- Updated the `MemoryModelSample` to not reset the draw theme after each render and set the default theme of renders to match the website's theme
 
 ### 🔧 Internal changes
 

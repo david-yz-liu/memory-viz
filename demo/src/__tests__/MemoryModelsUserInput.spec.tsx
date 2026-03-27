@@ -354,7 +354,7 @@ describe("MemoryModelsUserInput", () => {
             });
         });
 
-        it("handles match website theme change", async () => {
+        it("handles light theme change", async () => {
             await act(async () => {
                 fireEvent.click(screen.getByText("Rendering Options"));
             });
@@ -365,17 +365,15 @@ describe("MemoryModelsUserInput", () => {
             });
 
             await act(async () => {
-                const dark = screen.getByRole("option", {
-                    name: "Match website",
-                });
-                fireEvent.click(dark);
+                const light = screen.getByRole("option", { name: "Light" });
+                fireEvent.click(light);
             });
 
             expect(setConfigDataMock).toHaveBeenNthCalledWith(1, {
                 ...configDataMock,
                 overallDrawConfig: {
                     ...configDataMock.overallDrawConfig,
-                    theme: "match",
+                    theme: "light",
                 },
             });
         });
