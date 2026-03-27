@@ -9,7 +9,6 @@ import { config } from "./config.js";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
 import {
     DrawnEntity,
-    DrawnEntitySchema,
     DrawnEntityStrict,
     DrawnEntityWithDimensions,
     Primitive,
@@ -28,7 +27,6 @@ import {
 import { RoughSVG } from "roughjs/bin/svg.js";
 import { Config, Options } from "roughjs/bin/core.js";
 import type * as CSS from "csstype";
-import { prettifyError } from "zod";
 
 /** The class representing the memory model diagram of the given block of code. */
 export class MemoryModel {
@@ -1229,15 +1227,7 @@ export class MemoryModel {
         );
         this.svg.insertBefore(root_title, this.svg.firstChild);
 
-        for (const rawObj of objects) {
-            const result = DrawnEntitySchema.safeParse(rawObj);
-            if (!result.success) {
-                const pretty = prettifyError(result.error);
-                throw new Error(pretty);
-            }
-
-            const obj = result.data as DrawnEntity;
-
+        for (const obj of objects) {
             if (Array.isArray(obj.style)) {
                 // Parsing the 'objects' array is essential, potentially converting preset keywords into the
                 // current item's 'style' object.

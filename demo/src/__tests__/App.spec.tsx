@@ -114,4 +114,23 @@ describe("App", () => {
         expect(screen.getByText("Output")).toBeDefined();
         expect(screen.getByText("Input")).toBeDefined();
     });
+
+    it("updates html lang attribute when language is changed", async () => {
+        const setAttributeSpy = jest.spyOn(
+            document.documentElement,
+            "setAttribute"
+        );
+
+        const button = screen.getByTestId("change-language-button");
+        fireEvent.click(button);
+
+        const menuItem = await screen.findByText("English");
+        fireEvent.click(menuItem);
+
+        await waitFor(() => {
+            expect(setAttributeSpy).toHaveBeenCalledWith("lang", "en");
+            expect(document.documentElement.lang).toBe("en");
+        });
+        setAttributeSpy.mockRestore();
+    });
 });

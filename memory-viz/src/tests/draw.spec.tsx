@@ -1,12 +1,11 @@
 import { jest } from "@jest/globals";
 import exports from "../index.js";
-import { DrawnEntity } from "../types.js";
 const { draw } = exports;
 
 describe("draw function", () => {
     test.each<{
         test: string;
-        input: DrawnEntity[];
+        input: object[];
         config?: object;
     }>([
         {
@@ -847,7 +846,7 @@ describe("draw function", () => {
                 roughjs_config: { options: { seed: 12345 } },
             },
         }) => {
-            const objects: DrawnEntity[] = input;
+            const objects: object[] = input;
             const m: InstanceType<typeof exports.MemoryModel> = draw(
                 objects,
                 true,
@@ -860,42 +859,32 @@ describe("draw function", () => {
 
     test.each<{
         test: string;
-        input: DrawnEntity[];
+        input: object[];
         errorMessage: string;
     }>([
         {
             test: "throws error for int with invalid value",
-            input: [
-                { type: "int", id: 1, value: "x" } as unknown as DrawnEntity,
-            ],
+            input: [{ type: "int", id: 1, value: "x" }],
             errorMessage: '✖ "value" field must be an integer\n  → at value',
         },
         {
             test: "throws error for float with invalid value",
-            input: [
-                { type: "float", id: 1, value: "x" } as unknown as DrawnEntity,
-            ],
+            input: [{ type: "float", id: 1, value: "x" }],
             errorMessage: '✖ "value" field must be a number\n  → at value',
         },
         {
             test: "throws error for bool with invalid value",
-            input: [
-                { type: "bool", id: 1, value: 5 } as unknown as DrawnEntity,
-            ],
+            input: [{ type: "bool", id: 1, value: 5 }],
             errorMessage: '✖ "value" field must be a boolean\n  → at value',
         },
         {
             test: "throws error for string with invalid value",
-            input: [
-                { type: "str", id: 1, value: true } as unknown as DrawnEntity,
-            ],
+            input: [{ type: "str", id: 1, value: true }],
             errorMessage: '✖ "value" field must be a string\n  → at value',
         },
         {
             test: "throws error for list with invalid value",
-            input: [
-                { type: "list", id: 1, value: ["x"] } as unknown as DrawnEntity,
-            ],
+            input: [{ type: "list", id: 1, value: ["x"] }],
             errorMessage:
                 "✖ Invalid input: expected number, received string\n  → at value[0]",
         },
@@ -906,7 +895,7 @@ describe("draw function", () => {
                     type: "dict",
                     id: 1,
                     value: [["1", 2, 3]],
-                } as unknown as DrawnEntity,
+                },
             ],
             errorMessage:
                 '✖ "value" field must be a dict of string keys and integer or null values, or an array with pairs of string and integer or null values\n  → at value',
@@ -918,7 +907,7 @@ describe("draw function", () => {
                     type: ".class",
                     id: 1,
                     value: { x: "y" },
-                } as unknown as DrawnEntity,
+                },
             ],
             errorMessage:
                 "✖ Invalid input: expected number, received string\n  → at value.x",
@@ -930,7 +919,7 @@ describe("draw function", () => {
                     type: "invalid collection",
                     id: 0,
                     value: [1, 2],
-                } as unknown as DrawnEntity,
+                },
                 { type: "int", id: 1 },
                 { type: "int", id: 2 },
             ],
@@ -942,7 +931,7 @@ describe("draw function", () => {
             errorMessage: '✖ Unrecognized key: "id"',
         },
     ])("$test", ({ input, errorMessage }) => {
-        const objects: DrawnEntity[] = input;
+        const objects: object[] = input;
 
         expect(() =>
             draw(objects, true, {
@@ -962,7 +951,7 @@ describe("draw function", () => {
             style: ["nonsense"],
         },
     ])("$test", ({ style }) => {
-        const objects: DrawnEntity[] = [
+        const objects: object[] = [
             { type: "str", id: 42, value: "test", style },
         ];
 
@@ -1002,7 +991,7 @@ describe("draw function", () => {
                 "in the generated diagram.$",
         },
     ])("$test", ({ drawn_entity_config = {}, draw_config = {}, warning }) => {
-        const objects: DrawnEntity[] = [
+        const objects: object[] = [
             {
                 type: "str",
                 id: 19,
@@ -1027,7 +1016,7 @@ describe("draw function", () => {
 
     test.each<{
         test: string;
-        input: DrawnEntity[];
+        input: object[];
         warnings: string[];
     }>([
         {
@@ -1146,7 +1135,7 @@ describe("draw function", () => {
             warnings: [],
         },
     ])("$test", ({ input, warnings }) => {
-        const objects: DrawnEntity[] = input;
+        const objects: object[] = input;
         const spy = jest
             .spyOn(global.console, "warn")
             .mockImplementation(() => {});
@@ -1160,7 +1149,7 @@ describe("draw function", () => {
     });
 
     it("adds unique IDs to object boxes in SVG output", () => {
-        const objects: DrawnEntity[] = [
+        const objects: object[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -1235,7 +1224,7 @@ describe("draw function", () => {
 
     test.each<{
         test: string;
-        input: DrawnEntity[];
+        input: object[];
     }>([
         {
             test: "renders a diagram with 'small' width value and no stack frames",
@@ -1290,7 +1279,7 @@ describe("draw function", () => {
             ],
         },
     ])("$test", ({ input }) => {
-        const objects: DrawnEntity[] = input;
+        const objects: object[] = input;
 
         const spy = jest
             .spyOn(global.console, "warn")
@@ -1309,7 +1298,7 @@ describe("draw function", () => {
     });
 
     it("renders a diagram with large left margins", () => {
-        const objects: DrawnEntity[] = [
+        const objects: object[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -1358,7 +1347,7 @@ describe("draw function", () => {
     });
 
     it("renders an empty svg given an empty array", () => {
-        const objects: DrawnEntity[] = [];
+        const objects: object[] = [];
         const output: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
             true,
@@ -1376,7 +1365,7 @@ describe("draw function", () => {
     });
 
     it("trims width when not provided width value", () => {
-        const objects: DrawnEntity[] = [
+        const objects: object[] = [
             {
                 type: ".frame",
                 name: "__main__",
@@ -1403,7 +1392,7 @@ describe("draw function", () => {
     });
 
     it("renders a list of snapshots", () => {
-        const snapshots: DrawnEntity[][] = [
+        const snapshots: object[][] = [
             [
                 {
                     type: ".frame",
@@ -1444,7 +1433,7 @@ describe("draw function", () => {
     });
 
     it("includes script element and css when interactive option is enabled", () => {
-        const objects: DrawnEntity[] = [
+        const objects: object[] = [
             {
                 type: "str",
                 id: 19,
@@ -1490,7 +1479,7 @@ describe("draw function", () => {
 
     test.each<{
         test: string;
-        input: DrawnEntity[];
+        input: object[];
         expected_substrings?: string[];
         unexpected_substrings?: string[];
     }>([
@@ -1571,7 +1560,7 @@ describe("draw function", () => {
     ])(
         "$test",
         ({ input, expected_substrings = [], unexpected_substrings = [] }) => {
-            const objects: DrawnEntity[] = input;
+            const objects: object[] = input;
 
             const m: InstanceType<typeof exports.MemoryModel> = draw(
                 objects,
@@ -1595,7 +1584,7 @@ describe("draw function", () => {
     );
 
     it("works at highlighting interactively with different themes", () => {
-        const objects: DrawnEntity[] = [
+        const objects: object[] = [
             { type: "str", id: 42, value: "themed" },
             { type: "int", id: 99, value: 5 },
         ];
@@ -1633,7 +1622,7 @@ describe("draw function", () => {
 
     test.each<{
         test: string;
-        input: DrawnEntity[];
+        input: object[];
         expected_substrings?: string[];
     }>([
         {
@@ -1765,7 +1754,7 @@ describe("draw function", () => {
             ],
         },
     ])("$test", ({ input, expected_substrings = [] }) => {
-        const objects: DrawnEntity[] = input;
+        const objects: object[] = input;
 
         const m: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
