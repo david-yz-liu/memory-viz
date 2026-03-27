@@ -171,11 +171,11 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
         // Calling the common (among React event handlers) event.preventDefault() here
         // will cause the checkbox to require double instead of single clicks, as verified by both UI and tests.
         // Explained in https://grrr.tech/posts/2022/event-prevent-failure/#but-huh-why-does-this-work
+        props.toggleAutomation();
         props.setConfigData({
             ...props.configData,
             useAutomation: event.target.checked,
         });
-        props.toggleAutomation();
     };
 
     const handleThemeChange = (event) => {

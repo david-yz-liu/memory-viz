@@ -24,9 +24,12 @@ describe("MemoryModelsUserInput", () => {
     const setConfigDataMock = jest.fn();
     const jsonResult = "";
     let textDataMock: string;
+    let isAutomatedMock = true;
+    const toggleAutomationMock = jest.fn();
 
     beforeEach(() => {
         textDataMock = "";
+        isAutomatedMock = true;
     });
 
     it("renders Menu for MemoryModelsConfigInput", () => {
@@ -40,6 +43,8 @@ describe("MemoryModelsUserInput", () => {
                     jsonResult={jsonResult}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
+                    isAutomated={isAutomatedMock}
+                    toggleAutomation={toggleAutomationMock}
                 />
             )
         );
@@ -59,6 +64,8 @@ describe("MemoryModelsUserInput", () => {
                     jsonResult={jsonResult}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
+                    isAutomated={isAutomatedMock}
+                    toggleAutomation={toggleAutomationMock}
                 />
             )
         );
@@ -81,6 +88,8 @@ describe("MemoryModelsUserInput", () => {
                     jsonResult={jsonResult}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
+                    isAutomated={isAutomatedMock}
+                    toggleAutomation={toggleAutomationMock}
                 />
             )
         );
@@ -105,6 +114,8 @@ describe("MemoryModelsUserInput", () => {
                         jsonResult={jsonResult}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
+                        isAutomated={isAutomatedMock}
+                        toggleAutomation={toggleAutomationMock}
                     />
                 )
             );
@@ -135,6 +146,8 @@ describe("MemoryModelsUserInput", () => {
                         jsonResult={jsonResult}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
+                        isAutomated={isAutomatedMock}
+                        toggleAutomation={toggleAutomationMock}
                     />
                 )
             );
@@ -278,6 +291,8 @@ describe("MemoryModelsUserInput", () => {
                         jsonResult={jsonResult}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
+                        isAutomated={isAutomatedMock}
+                        toggleAutomation={toggleAutomationMock}
                     />
                 )
             );
