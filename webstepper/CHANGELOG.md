@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Added the MemoryViz logo as a favicon
 - Added dark mode syntax highlighting for the code display
+- Added `lang` attribute to root `<html>` element of webstepper website
+- Changed webstepper website subheading component to `<h2>` to ensure all heading elements are in sequentially decreasing order
 
 ### 🐛 Bug fixes
 

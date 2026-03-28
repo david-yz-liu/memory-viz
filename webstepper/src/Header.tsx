@@ -36,6 +36,7 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
 
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
+        document.documentElement.setAttribute("lang", lng);
         handleLanguageClose();
     };
 
@@ -46,7 +47,11 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                     <Typography variant="h1" color="textPrimary">
                         {t("header.title")}
                     </Typography>
-                    <Typography variant="subtitle1" color="textSecondary">
+                    <Typography
+                        variant="subtitle1"
+                        component="h2"
+                        color="textSecondary"
+                    >
                         {t("header.subtitle")}{" "}
                         <Link
                             href="https://github.com/david-yz-liu/memory-viz"
@@ -63,6 +68,7 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                         onClick={handleLanguageClick}
                         color="inherit"
                         aria-label="Change language"
+                        data-testid="change-language-button"
                     >
                         <LanguageIcon
                             style={{ width: "30px", height: "30px" }}
