@@ -201,7 +201,7 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                             label={t("rendering.theme")}
                             value={
                                 props.configData.overallDrawConfig.theme ??
-                                "light"
+                                "match"
                             }
                             onChange={handleThemeChange}
                             fullWidth

@@ -5,7 +5,7 @@ jest.unstable_mockModule("./sample/automated-layout/data", () => ({
 }));
 
 jest.unstable_mockModule("./sample/automated-layout/config", () => ({
-    default: { config: "config" },
+    default: { config: "config", overallDrawConfig: {} },
 }));
 
 import React from "react";
@@ -69,7 +69,10 @@ describe("MemoryModelsSample", () => {
             expect(setTextDataMock).toHaveBeenCalledWith(
                 JSON.stringify({ sample: "automation" }, null, 4)
             );
-            expect(nextState).toEqual({ config: "config" });
+            expect(nextState).toEqual({
+                config: "config",
+                overallDrawConfig: {},
+            });
             expect(onSubmitMock).toHaveBeenCalled();
         });
     });

@@ -20,6 +20,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const [configData, setConfigData] = useState<configDataPropTypes>({
         overallDrawConfig: {
             seed: 0,
+            theme: "match",
         },
     });
     const [jsonResult, setJsonResult] = useState(null);
