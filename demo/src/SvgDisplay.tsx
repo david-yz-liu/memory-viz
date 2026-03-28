@@ -22,6 +22,7 @@ export default function SvgDisplay({
     const canvasHeight = 1000;
 
     const rawTheme = props.configData.overallDrawConfig?.theme;
+
     const draw = () => {
         if (props.jsonResult !== null) {
             try {
