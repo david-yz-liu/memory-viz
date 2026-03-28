@@ -1,5 +1,5 @@
 {
-    "useAutomation": false,
+    "useAutomation": true,
     "overallDrawConfig": {
         "seed": 0
     }
