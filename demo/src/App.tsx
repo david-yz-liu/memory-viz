@@ -21,6 +21,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
         useAutomation: true,
         overallDrawConfig: {
             seed: 0,
+            theme: "match",
         },
     });
     const [jsonResult, setJsonResult] = useState(null);
