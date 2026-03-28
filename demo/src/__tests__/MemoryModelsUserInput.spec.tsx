@@ -24,12 +24,9 @@ describe("MemoryModelsUserInput", () => {
     const setConfigDataMock = jest.fn();
     const jsonResult = "";
     let textDataMock: string;
-    let isAutomatedMock = true;
-    const toggleAutomationMock = jest.fn();
 
     beforeEach(() => {
         textDataMock = "";
-        isAutomatedMock = true;
     });
 
     it("renders Menu for MemoryModelsConfigInput", () => {
@@ -43,8 +40,6 @@ describe("MemoryModelsUserInput", () => {
                     jsonResult={jsonResult}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
-                    isAutomated={isAutomatedMock}
-                    toggleAutomation={toggleAutomationMock}
                 />
             )
         );
@@ -64,8 +59,6 @@ describe("MemoryModelsUserInput", () => {
                     jsonResult={jsonResult}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
-                    isAutomated={isAutomatedMock}
-                    toggleAutomation={toggleAutomationMock}
                 />
             )
         );
@@ -88,8 +81,6 @@ describe("MemoryModelsUserInput", () => {
                     jsonResult={jsonResult}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
-                    isAutomated={isAutomatedMock}
-                    toggleAutomation={toggleAutomationMock}
                 />
             )
         );
@@ -114,8 +105,6 @@ describe("MemoryModelsUserInput", () => {
                         jsonResult={jsonResult}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
-                        isAutomated={isAutomatedMock}
-                        toggleAutomation={toggleAutomationMock}
                     />
                 )
             );
@@ -146,8 +135,6 @@ describe("MemoryModelsUserInput", () => {
                         jsonResult={jsonResult}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
-                        isAutomated={isAutomatedMock}
-                        toggleAutomation={toggleAutomationMock}
                     />
                 )
             );
@@ -291,8 +278,6 @@ describe("MemoryModelsUserInput", () => {
                         jsonResult={jsonResult}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
-                        isAutomated={isAutomatedMock}
-                        toggleAutomation={toggleAutomationMock}
                     />
                 )
             );
@@ -309,13 +294,6 @@ describe("MemoryModelsUserInput", () => {
             ].forEach(([property, value]) => {
                 expect(seedInput).toHaveProperty(property, value);
             });
-
-            // According to https://mui.com/material-ui/react-checkbox/#accessibility, checkboxes should always
-            // have labels, so testing with label text rather than data-testid here.
-            const automationCheckbox: HTMLInputElement = screen.getByLabelText(
-                "Use automatic layout"
-            );
-            expect(automationCheckbox.checked).toBe(true);
         });
 
         it("handles seed change", () => {
@@ -330,18 +308,6 @@ describe("MemoryModelsUserInput", () => {
                     ...configDataMock.overallDrawConfig,
                     seed: Number("123"),
                 },
-            });
-        });
-
-        it("handles automation change", () => {
-            fireEvent.click(screen.getByText("Rendering Options"));
-            const automationCheckbox: HTMLInputElement = screen.getByLabelText(
-                "Use automatic layout"
-            );
-            fireEvent.click(automationCheckbox);
-            expect(setConfigDataMock).toHaveBeenNthCalledWith(1, {
-                ...configDataMock,
-                useAutomation: false,
             });
         });
 

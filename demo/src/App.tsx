@@ -12,16 +12,9 @@ import Header from "./Header.js";
 interface AppProps {
     isDarkMode: boolean;
     toggleTheme: () => void;
-    isAutomated: boolean;
-    toggleAutomation: () => void;
 }
 
-export default function App({
-    isDarkMode,
-    toggleTheme,
-    toggleAutomation,
-    isAutomated,
-}: AppProps) {
+export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const { t } = useTranslation();
     const [textData, setTextData] = useState("");
     const [configData, setConfigData] = useState<configDataPropTypes>({
@@ -81,8 +74,6 @@ export default function App({
                         onTextDataSubmit={onTextDataSubmit}
                         setFailureBanner={setFailureBanner}
                         isValidJson={isValidJson}
-                        toggleAutomation={toggleAutomation}
-                        isAutomated={isAutomated}
                     />
                 </Box>
                 <Box sx={{ width: "60%" }}>
@@ -105,8 +96,6 @@ export default function App({
                             jsonResult={jsonResult}
                             configData={configData}
                             setSvgResult={setSvgResult}
-                            isDarkMode={isDarkMode}
-                            isAutomated={isAutomated}
                         />
                     </ErrorBoundary>
                     <DownloadSVGButton svgResult={svgResult} />

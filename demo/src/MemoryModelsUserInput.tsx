@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import {
     Box,
     Button,
-    Checkbox,
-    FormControlLabel,
     Input,
     TextField,
     Tooltip,
@@ -31,8 +29,6 @@ interface configDataPropTypes {
 type MemoryModelsConfigInputPropTypes = {
     configData: configDataPropTypes;
     setConfigData: React.Dispatch<React.SetStateAction<object>>;
-    isAutomated: boolean;
-    toggleAutomation: () => void;
 };
 
 type MemoryModelsFileInputPropTypes = {
@@ -167,17 +163,6 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
         });
     };
 
-    const handleAutomationChange = (event) => {
-        // Calling the common (among React event handlers) event.preventDefault() here
-        // will cause the checkbox to require double instead of single clicks, as verified by both UI and tests.
-        // Explained in https://grrr.tech/posts/2022/event-prevent-failure/#but-huh-why-does-this-work
-        props.toggleAutomation();
-        props.setConfigData({
-            ...props.configData,
-            useAutomation: event.target.checked,
-        });
-    };
-
     const handleThemeChange = (event) => {
         props.setConfigData({
             ...props.configData,
@@ -209,17 +194,6 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                                     "data-testid": "config-seed",
                                 },
                             }}
-                        />
-                    </MenuItem>
-                    <MenuItem>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={props.isAutomated}
-                                    onChange={handleAutomationChange}
-                                />
-                            }
-                            label={t("rendering.useAutomaticLayout")}
                         />
                     </MenuItem>
                     <MenuItem>
@@ -271,8 +245,6 @@ export default function MemoryModelsUserInput(
                     <MemoryModelsConfigInput
                         configData={props.configData}
                         setConfigData={props.setConfigData}
-                        isAutomated={props.isAutomated}
-                        toggleAutomation={props.toggleAutomation}
                     />
                 </Box>
                 <MemoryModelsTextInput

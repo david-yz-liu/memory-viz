@@ -121,10 +121,8 @@ const darkTheme = createTheme({
 function Root() {
     const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
     const [isDarkMode, setIsDarkMode] = useState(prefersDark);
-    const [useAutomation, setUseAutomation] = useState(true);
 
     const toggleTheme = () => setIsDarkMode((prev) => !prev);
-    const toggleAutomation = () => setUseAutomation((prev) => !prev);
 
     const theme = isDarkMode ? darkTheme : lightTheme;
 
@@ -139,12 +137,7 @@ function Root() {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <I18nextProvider i18n={i18n}>
-                <App
-                    isDarkMode={isDarkMode}
-                    toggleTheme={toggleTheme}
-                    isAutomated={useAutomation}
-                    toggleAutomation={toggleAutomation}
-                />
+                <App isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
             </I18nextProvider>
         </ThemeProvider>
     );

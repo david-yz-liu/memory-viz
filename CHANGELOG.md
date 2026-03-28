@@ -35,7 +35,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added `lang` attribute to root `<html>` element of demo website
 - Changed demo website subheading component to `<h2>` to ensure all heading elements are in sequentially decreasing order
 - Added `tabindex` to `MenuItem` and converted `Menu` to `Popover` in `MemoryModelsMenu` to ensure all interactive elements in the demo website are keyboard focusable
-- Updated the useEffect listening to the `use automatic layout` button in the demo website to only update when the button is toggled rather than updating whenever the props are updated
+- Changed demo website to only `useAutomation` and removed the checkbox to toggle that render setting to remove non-`useAutomation` MemoryModels from being drawn twice on top of one another
 
 ### 🔧 Internal changes
 

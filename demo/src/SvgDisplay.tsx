@@ -11,12 +11,10 @@ type SvgDisplayPropTypes = {
     configData: configDataPropTypes;
     setSvgResult: React.Dispatch<React.SetStateAction<string>>;
     isDarkMode?: boolean;
-    isAutomated?: boolean;
 };
 
 export default function SvgDisplay({
     isDarkMode = false,
-    isAutomated = true,
     ...props
 }: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
@@ -36,15 +34,11 @@ export default function SvgDisplay({
                 } else {
                     resolvedTheme = rawTheme;
                 }
-                const m = drawMemoryModel(
-                    jsonResultCopy,
-                    props.configData.useAutomation,
-                    {
-                        ...props.configData.overallDrawConfig,
-                        width: canvasWidth,
-                        ...(resolvedTheme ? { theme: resolvedTheme } : {}),
-                    }
-                );
+                const m = drawMemoryModel(jsonResultCopy, true, {
+                    ...props.configData.overallDrawConfig,
+                    width: canvasWidth,
+                    ...(resolvedTheme ? { theme: resolvedTheme } : {}),
+                });
                 props.setSvgResult(m.serializeSVG());
                 m.clear(canvasRef.current);
                 m.render(canvasRef.current);
@@ -59,7 +53,7 @@ export default function SvgDisplay({
 
     useEffect(() => {
         draw();
-    }, [props.jsonResult, isAutomated]);
+    }, [props.jsonResult]);
 
     useEffect(() => {
         if (rawTheme === "match") {
