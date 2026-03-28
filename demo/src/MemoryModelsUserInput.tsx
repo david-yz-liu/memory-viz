@@ -20,7 +20,6 @@ import MemoryModelsMenu from "./MemoryModelsMenu.js";
 import MemoryModelsSample from "./MemoryModelsSample.js";
 
 interface configDataPropTypes {
-    useAutomation: boolean;
     overallDrawConfig: {
         [key: string]: any;
     };

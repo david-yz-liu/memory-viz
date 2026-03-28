@@ -16,7 +16,6 @@ describe("MemoryModelsUserInput", () => {
     const setTextDataMock = jest.fn();
     const setFailureBannerMock = jest.fn();
     const configDataMock = {
-        useAutomation: true,
         overallDrawConfig: {
             roughjs_config: { options: { seed: 0 } },
         },
@@ -283,7 +282,7 @@ describe("MemoryModelsUserInput", () => {
             );
         });
 
-        it("renders a number input with correct props and checkbox that is checked by default", () => {
+        it("renders a number input with correct props by default", () => {
             fireEvent.click(screen.getByText("Rendering Options"));
             const seedInput: HTMLInputElement =
                 screen.getByTestId("config-seed");
