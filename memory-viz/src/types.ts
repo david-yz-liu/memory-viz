@@ -42,7 +42,7 @@ export const BaseDrawnEntitySchema = z
                     val !== null
                 );
             }, '"style" field must be a Style object, a bare string, or an array of strings or Style')
-            .optional(),
+            .default([]),
         height: z.number('"height" field must be a number').optional(),
         width: z.number('"width" field must be a number').optional(),
     })
@@ -144,7 +144,7 @@ export const BlankDrawnEntitySchema = z
         width: z.number('"width" field must be a number').default(0),
     })
     .strict()
-    .transform((data) => ({ ...data, value: null, id: null }));
+    .transform((data) => ({ ...data, id: null, value: null, style: [] }));
 
 export const BlankFrameDrawnEntitySchema = z
     .object({
@@ -153,7 +153,13 @@ export const BlankFrameDrawnEntitySchema = z
         width: z.number('"width" field must be a number').default(0),
     })
     .strict()
-    .transform((data) => ({ ...data, value: {}, id: null, name: "" }));
+    .transform((data) => ({
+        ...data,
+        id: null,
+        value: {},
+        name: "",
+        style: [],
+    }));
 
 export const DrawnEntitySchema = z.discriminatedUnion("type", [
     IntDrawnEntitySchema,

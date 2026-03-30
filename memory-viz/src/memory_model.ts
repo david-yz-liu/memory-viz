@@ -1973,6 +1973,7 @@ export class MemoryModel {
             type: "None",
             id: null,
             value: null,
+            style: [],
             x: 0,
             y: 0,
             width: 0,
