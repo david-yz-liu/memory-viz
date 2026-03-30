@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { MenuItem } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import MemoryModelsMenu from "./MemoryModelsMenu.js";
+import { configDataPropTypes } from "./MemoryModelsUserInput.jsx";
 
 import { SAMPLES } from "./sample/index.js";
 
 type MemoryModelsSamplePropTypes = {
     setTextData: React.Dispatch<React.SetStateAction<string>>;
-    setConfigData: React.Dispatch<React.SetStateAction<object>>;
+    setConfigData: React.Dispatch<React.SetStateAction<configDataPropTypes>>;
     onTextDataSubmit: () => void;
 };
 
@@ -29,6 +30,10 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
         props.setConfigData((prevConfigData) => ({
             ...prevConfigData,
             ...sample["config"],
+            overallDrawConfig: {
+                ...prevConfigData?.overallDrawConfig,
+                ...sample["config"]?.overallDrawConfig,
+            },
         }));
         setClickedBtnIndex(index);
     };

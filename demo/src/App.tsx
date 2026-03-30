@@ -18,9 +18,9 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const { t } = useTranslation();
     const [textData, setTextData] = useState("");
     const [configData, setConfigData] = useState<configDataPropTypes>({
-        useAutomation: true,
         overallDrawConfig: {
             seed: 0,
+            theme: "match",
         },
     });
     const [jsonResult, setJsonResult] = useState(null);

@@ -23,7 +23,6 @@ describe("SvgDisplay", () => {
     const setSvgResultMock = jest.fn();
     const seedMock = 1234;
     const configDataMock = {
-        useAutomation: true,
         overallDrawConfig: {
             seed: seedMock,
         },
