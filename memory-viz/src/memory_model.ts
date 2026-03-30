@@ -220,7 +220,7 @@ export class MemoryModel {
         x: number,
         y: number,
         type: string,
-        id: number | undefined | null,
+        id: number | null,
         value: object | number[] | string | boolean | number | null,
         show_indexes: boolean = false,
         style: Style,
@@ -228,9 +228,6 @@ export class MemoryModel {
         height: number,
         svg_group: SVGGElement
     ): Rect {
-        if (id === undefined) {
-            id = null;
-        }
         if (collections.includes(type)) {
             if (type === "dict" && typeof value === "object") {
                 return this.drawDict(
