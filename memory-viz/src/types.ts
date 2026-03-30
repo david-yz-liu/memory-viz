@@ -21,7 +21,7 @@ export interface Style {
 
 export type Styles = Style | (string | Style)[] | string;
 
-export const ObjectId = z.int().nullable().optional();
+export const ObjectId = z.int().nullable().default(null);
 
 export const BaseDrawnEntitySchema = z
     .object({
@@ -50,17 +50,20 @@ export const BaseDrawnEntitySchema = z
 
 export const IntDrawnEntitySchema = BaseDrawnEntitySchema.extend({
     type: z.literal("int"),
-    value: z.int('"value" field must be an integer').nullable().optional(),
+    value: z.int('"value" field must be an integer').nullable().default(null),
 });
 
 export const FloatDrawnEntitySchema = BaseDrawnEntitySchema.extend({
     type: z.literal("float"),
-    value: z.number('"value" field must be a number').nullable().optional(),
+    value: z.number('"value" field must be a number').nullable().default(null),
 });
 
 export const BooleanDrawnEntitySchema = BaseDrawnEntitySchema.extend({
     type: z.literal("bool"),
-    value: z.boolean('"value" field must be a boolean').nullable().optional(),
+    value: z
+        .boolean('"value" field must be a boolean')
+        .nullable()
+        .default(null),
 });
 
 export const StringDrawnEntitySchema = BaseDrawnEntitySchema.extend({
@@ -73,24 +76,24 @@ export const StringDrawnEntitySchema = BaseDrawnEntitySchema.extend({
         z.literal("None"),
         z.literal("NoneType"),
     ]),
-    value: z.string('"value" field must be a string').nullable().optional(),
+    value: z.string('"value" field must be a string').nullable().default(null),
 });
 
 export const SequenceDrawnEntitySchema = BaseDrawnEntitySchema.extend({
     type: z.union([z.literal("list"), z.literal("tuple")]),
     value: z
         .array(ObjectId, '"value" field must be an array of integers or null')
-        .optional(),
+        .default([]),
     show_indexes: z
         .boolean('"show_indexes" field must be a boolean')
-        .optional(),
+        .default(false),
 });
 
 export const SetDrawnEntitySchema = BaseDrawnEntitySchema.extend({
     type: z.union([z.literal("set"), z.literal("frozenset")]),
     value: z
         .array(ObjectId, '"value" field must be an array of integers or null')
-        .optional(),
+        .default([]),
 });
 
 export const DictDrawnEntitySchema = BaseDrawnEntitySchema.extend({
@@ -103,7 +106,7 @@ export const DictDrawnEntitySchema = BaseDrawnEntitySchema.extend({
             ],
             '"value" field must be a dict of string keys and integer or null values, or an array with pairs of string and integer or null values'
         )
-        .optional(),
+        .default({}),
 });
 
 export const ClassDrawnEntitySchema = BaseDrawnEntitySchema.extend({
@@ -115,7 +118,7 @@ export const ClassDrawnEntitySchema = BaseDrawnEntitySchema.extend({
             ObjectId,
             '"value" field must be a dict with integer or null values'
         )
-        .optional(),
+        .default({}),
 });
 
 export const FrameDrawnEntitySchema = BaseDrawnEntitySchema.omit({
@@ -129,16 +132,26 @@ export const FrameDrawnEntitySchema = BaseDrawnEntitySchema.omit({
             ObjectId,
             '"value" field must be a dict with integer or null values'
         )
-        .optional(),
+        .default({}),
 });
 
 export const BlankDrawnEntitySchema = z
     .object({
-        type: z.union([z.literal(".blank"), z.literal(".blank-frame")]),
-        height: z.number('"height" field must be a number').optional(),
-        width: z.number('"width" field must be a number').optional(),
+        type: z.literal(".blank"),
+        height: z.number('"height" field must be a number').default(0),
+        width: z.number('"width" field must be a number').default(0),
     })
-    .strict();
+    .strict()
+    .transform((data) => ({ ...data, value: null }));
+
+export const BlankFrameDrawnEntitySchema = z
+    .object({
+        type: z.literal(".blank-frame"),
+        height: z.number('"height" field must be a number').default(0),
+        width: z.number('"width" field must be a number').default(0),
+    })
+    .strict()
+    .transform((data) => ({ ...data, value: {} }));
 
 export const DrawnEntitySchema = z.discriminatedUnion("type", [
     IntDrawnEntitySchema,
@@ -151,6 +164,7 @@ export const DrawnEntitySchema = z.discriminatedUnion("type", [
     ClassDrawnEntitySchema,
     FrameDrawnEntitySchema,
     BlankDrawnEntitySchema,
+    BlankFrameDrawnEntitySchema,
 ]);
 
 export type DrawnEntity = z.infer<typeof DrawnEntitySchema> &
