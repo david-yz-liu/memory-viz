@@ -123,17 +123,19 @@ export const ClassDrawnEntitySchema = BaseDrawnEntitySchema.extend({
 
 export const FrameDrawnEntitySchema = BaseDrawnEntitySchema.omit({
     id: true,
-}).extend({
-    type: z.literal(".frame"),
-    name: z.string('"name" field must be a string').optional(),
-    value: z
-        .record(
-            z.string(),
-            ObjectId,
-            '"value" field must be a dict with integer or null values'
-        )
-        .default({}),
-});
+})
+    .extend({
+        type: z.literal(".frame"),
+        name: z.string('"name" field must be a string').optional(),
+        value: z
+            .record(
+                z.string(),
+                ObjectId,
+                '"value" field must be a dict with integer or null values'
+            )
+            .default({}),
+    })
+    .transform((data) => ({ ...data, id: null }));
 
 export const BlankDrawnEntitySchema = z
     .object({
@@ -142,7 +144,7 @@ export const BlankDrawnEntitySchema = z
         width: z.number('"width" field must be a number').default(0),
     })
     .strict()
-    .transform((data) => ({ ...data, value: null }));
+    .transform((data) => ({ ...data, value: null, id: null }));
 
 export const BlankFrameDrawnEntitySchema = z
     .object({
@@ -151,7 +153,7 @@ export const BlankFrameDrawnEntitySchema = z
         width: z.number('"width" field must be a number').default(0),
     })
     .strict()
-    .transform((data) => ({ ...data, value: {} }));
+    .transform((data) => ({ ...data, value: {}, id: null }));
 
 export const DrawnEntitySchema = z.discriminatedUnion("type", [
     IntDrawnEntitySchema,
