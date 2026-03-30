@@ -2202,7 +2202,12 @@ function compareByID(
     a: DrawnEntityWithDimensions,
     b: DrawnEntityWithDimensions
 ): number {
-    if (a.id === null || b.id === null) {
+    if (
+        a.id === undefined ||
+        b.id === undefined ||
+        a.id === null ||
+        b.id === null
+    ) {
         throw new Error("Both objects must have 'id' property.");
     }
     return a.id - b.id;
