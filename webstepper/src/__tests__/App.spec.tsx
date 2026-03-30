@@ -40,7 +40,7 @@ jest.unstable_mockModule("react-syntax-highlighter", async () => {
 });
 
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { renderWithI18n } from "../setup-jest";
 
@@ -159,5 +159,24 @@ describe("App", () => {
         fireEvent.keyDown(document, { key: "ArrowLeft" });
 
         expect(screen.getByText(`Step 1/${maxStep}`)).toBeInTheDocument();
+    });
+
+    it("updates html lang attribute when language is changed", async () => {
+        const setAttributeSpy = jest.spyOn(
+            document.documentElement,
+            "setAttribute"
+        );
+
+        const button = screen.getByTestId("change-language-button");
+        fireEvent.click(button);
+
+        const menuItem = await screen.findByText("English");
+        fireEvent.click(menuItem);
+
+        await waitFor(() => {
+            expect(setAttributeSpy).toHaveBeenCalledWith("lang", "en");
+            expect(document.documentElement.lang).toBe("en");
+        });
+        setAttributeSpy.mockRestore();
     });
 });
