@@ -111,7 +111,7 @@ export const DictDrawnEntitySchema = BaseDrawnEntitySchema.extend({
 
 export const ClassDrawnEntitySchema = BaseDrawnEntitySchema.extend({
     type: z.literal(".class"),
-    name: z.string('"name" field must be a string').optional(),
+    name: z.string('"name" field must be a string').default(""),
     value: z
         .record(
             z.string(),
@@ -126,7 +126,7 @@ export const FrameDrawnEntitySchema = BaseDrawnEntitySchema.omit({
 })
     .extend({
         type: z.literal(".frame"),
-        name: z.string('"name" field must be a string').optional(),
+        name: z.string('"name" field must be a string').default(""),
         value: z
             .record(
                 z.string(),
