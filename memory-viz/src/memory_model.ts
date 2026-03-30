@@ -1310,9 +1310,9 @@ export class MemoryModel {
                 const size = this.drawClass(
                     obj.x!,
                     obj.y!,
-                    "name" in obj ? String(obj.name) : null,
+                    "name" in obj ? obj.name : null,
                     obj.id,
-                    "value" in obj && obj.value !== undefined ? obj.value : {},
+                    obj.value,
                     is_frame,
                     obj.style,
                     obj.width,
@@ -1326,18 +1326,8 @@ export class MemoryModel {
                     obj.y!,
                     obj.type!,
                     obj.id,
-                    "value" in obj && obj.value !== undefined
-                        ? obj.value
-                        : obj.type === "list" ||
-                            obj.type === "tuple" ||
-                            obj.type === "set" ||
-                            obj.type === "frozenset" ||
-                            obj.type === "dict"
-                          ? []
-                          : null,
-                    "show_indexes" in obj
-                        ? Boolean(obj.show_indexes)
-                        : undefined,
+                    obj.value,
+                    "show_indexes" in obj ? obj.show_indexes : undefined,
                     obj.style,
                     obj.width,
                     obj.height,
@@ -1445,35 +1435,28 @@ export class MemoryModel {
 
         if (object.type === ".blank" || object.type === ".blank-frame") {
             return { default_width: 0, default_height: 0 };
+        } else if (object.value === null || typeof object.value !== "object") {
+            return this.getDefaultPrimitiveDimensions(
+                object.value,
+                object.style
+            );
         } else if (object.type === ".frame" || object.type === ".class") {
             return this.getDefaultClassDimensions(
                 object.name,
-                object.value ?? {},
+                object.value,
                 object.style
             );
         } else if (object.type === "dict") {
-            return this.getDefaultDictDimensions(
-                object.value ?? {},
-                object.style
-            );
+            return this.getDefaultDictDimensions(object.value, object.style);
         } else if (object.type === "list" || object.type === "tuple") {
             return this.getDefaultSequenceDimensions(
-                object.value ?? [],
+                object.value,
                 object.style,
-                object.show_indexes ?? false
-            );
-        } else if (object.type === "set" || object.type === "frozenset") {
-            return this.getDefaultSetDimensions(
-                object.value ?? [],
-                object.style
+                object.show_indexes
             );
         } else {
-            return this.getDefaultPrimitiveDimensions(
-                "value" in object && typeof object.value !== "object"
-                    ? object.value
-                    : null,
-                object.style
-            );
+            // object.type === "set" or "frozenset"
+            return this.getDefaultSetDimensions(object.value, object.style);
         }
     }
 
@@ -1516,7 +1499,7 @@ export class MemoryModel {
      * @returns An object with default_width and default_height properties.
      */
     private getDefaultSequenceDimensions(
-        element_ids: (number | null | undefined)[],
+        element_ids: (number | null)[],
         style: Style,
         show_indexes: boolean
     ): {
@@ -1527,10 +1510,8 @@ export class MemoryModel {
         element_ids.forEach((v) => {
             default_width += Math.max(
                 this.item_min_width,
-                this.getTextLength(
-                    v === null || v === undefined ? "" : `id${v}`,
-                    style.text_id
-                ) + 10
+                this.getTextLength(v === null ? "" : `id${v}`, style.text_id) +
+                    10
             );
         });
         default_width = Math.max(this.obj_min_width, default_width);
@@ -1551,7 +1532,7 @@ export class MemoryModel {
      * @returns An object with default_width and default_height properties.
      */
     private getDefaultSetDimensions(
-        element_ids: (number | null | undefined)[],
+        element_ids: (number | null)[],
         style: Style
     ): {
         default_width: number;
@@ -1561,10 +1542,8 @@ export class MemoryModel {
         element_ids.forEach((v) => {
             default_width += Math.max(
                 this.item_min_width,
-                this.getTextLength(
-                    v === null || v === undefined ? "" : `id${v}`,
-                    style.text_id
-                ) + 10
+                this.getTextLength(v === null ? "" : `id${v}`, style.text_id) +
+                    10
             );
         });
         default_width = Math.max(this.obj_min_width, default_width);
@@ -1712,7 +1691,6 @@ export class MemoryModel {
                 object.type === "str" ||
                 object.type === "bool" ||
                 object.type === "None" ||
-                !("value" in object) ||
                 typeof object.value !== "object" ||
                 object.value === null) &&
             object.type !== ".blank-frame" &&
@@ -1871,7 +1849,6 @@ export class MemoryModel {
                     item.type === "str" ||
                     item.type === "bool" ||
                     item.type === "None" ||
-                    !("value" in item) ||
                     typeof item.value !== "object" ||
                     item.value === null) &&
                 item.type !== ".blank-frame"
@@ -1927,7 +1904,6 @@ export class MemoryModel {
                     item.type === "str" ||
                     item.type === "bool" ||
                     item.type === "None" ||
-                    !("value" in item) ||
                     typeof item.value !== "object" ||
                     item.value === null) &&
                 item.type !== "range"
@@ -2017,6 +1993,8 @@ export class MemoryModel {
 
         const defaultObject: DrawnEntityStrict = {
             type: "None",
+            id: null,
+            value: null,
             x: 0,
             y: 0,
             width: 0,
@@ -2046,7 +2024,6 @@ export class MemoryModel {
                     strict_obj.type === "str" ||
                     strict_obj.type === "bool" ||
                     strict_obj.type === "None" ||
-                    !("value" in strict_obj) ||
                     typeof strict_obj.value !== "object" ||
                     strict_obj.value === null) &&
                 strict_obj.type !== "range"
@@ -2182,8 +2159,12 @@ export class MemoryModel {
 
         // Checks if all ids referenced in composite objects have corresponding object with that id
         for (const obj of objs) {
-            if ("value" in obj && obj.value && typeof obj.value === "object") {
-                let referenced_ids: (number | string | null | undefined)[];
+            if (
+                obj.value &&
+                typeof obj.value === "object" &&
+                obj.type !== ".blank-frame"
+            ) {
+                let referenced_ids: (number | string | null)[];
                 if (obj.type === ".class" || obj.type === ".frame") {
                     referenced_ids = Object.values(obj.value);
                 } else if (obj.type === "dict") {
@@ -2194,7 +2175,6 @@ export class MemoryModel {
                             | number
                             | string
                             | null
-                            | undefined
                         )[];
                     }
                 } else {

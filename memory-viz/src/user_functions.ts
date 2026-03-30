@@ -66,7 +66,7 @@ function draw(
                 throw new Error(pretty);
             }
 
-            const obj = result.data;
+            const obj = result.data as DrawnEntity;
             parsed_objects.push(obj);
         }
 
