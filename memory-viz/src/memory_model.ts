@@ -2135,7 +2135,7 @@ export class MemoryModel {
         // Checks if all ids referenced in composite objects have corresponding object with that id
         for (const obj of objs) {
             if (
-                obj.value &&
+                obj.value !== null &&
                 typeof obj.value === "object" &&
                 obj.type !== ".blank-frame"
             ) {
