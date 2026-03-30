@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import {
     Box,
     Button,
-    Checkbox,
-    FormControlLabel,
     Input,
     TextField,
     Tooltip,
@@ -22,7 +20,6 @@ import MemoryModelsMenu from "./MemoryModelsMenu.js";
 import MemoryModelsSample from "./MemoryModelsSample.js";
 
 interface configDataPropTypes {
-    useAutomation: boolean;
     overallDrawConfig: {
         [key: string]: any;
     };
@@ -165,16 +162,6 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
         });
     };
 
-    const handleAutomationChange = (event) => {
-        // Calling the common (among React event handlers) event.preventDefault() here
-        // will cause the checkbox to require double instead of single clicks, as verified by both UI and tests.
-        // Explained in https://grrr.tech/posts/2022/event-prevent-failure/#but-huh-why-does-this-work
-        props.setConfigData({
-            ...props.configData,
-            useAutomation: event.target.checked,
-        });
-    };
-
     const handleThemeChange = (event) => {
         props.setConfigData({
             ...props.configData,
@@ -206,17 +193,6 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                                     "data-testid": "config-seed",
                                 },
                             }}
-                        />
-                    </MenuItem>
-                    <MenuItem>
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    checked={props.configData.useAutomation}
-                                    onChange={handleAutomationChange}
-                                />
-                            }
-                            label={t("rendering.useAutomaticLayout")}
                         />
                     </MenuItem>
                     <MenuItem>

@@ -16,7 +16,6 @@ describe("MemoryModelsUserInput", () => {
     const setTextDataMock = jest.fn();
     const setFailureBannerMock = jest.fn();
     const configDataMock = {
-        useAutomation: true,
         overallDrawConfig: {
             roughjs_config: { options: { seed: 0 } },
         },
@@ -283,7 +282,7 @@ describe("MemoryModelsUserInput", () => {
             );
         });
 
-        it("renders a number input with correct props and checkbox that is checked by default", () => {
+        it("renders a number input with correct props by default", () => {
             fireEvent.click(screen.getByText("Rendering Options"));
             const seedInput: HTMLInputElement =
                 screen.getByTestId("config-seed");
@@ -294,13 +293,6 @@ describe("MemoryModelsUserInput", () => {
             ].forEach(([property, value]) => {
                 expect(seedInput).toHaveProperty(property, value);
             });
-
-            // According to https://mui.com/material-ui/react-checkbox/#accessibility, checkboxes should always
-            // have labels, so testing with label text rather than data-testid here.
-            const automationCheckbox: HTMLInputElement = screen.getByLabelText(
-                "Use automatic layout"
-            );
-            expect(automationCheckbox.checked).toBe(true);
         });
 
         it("handles seed change", () => {
@@ -315,18 +307,6 @@ describe("MemoryModelsUserInput", () => {
                     ...configDataMock.overallDrawConfig,
                     seed: Number("123"),
                 },
-            });
-        });
-
-        it("handles automation change", () => {
-            fireEvent.click(screen.getByText("Rendering Options"));
-            const automationCheckbox: HTMLInputElement = screen.getByLabelText(
-                "Use automatic layout"
-            );
-            fireEvent.click(automationCheckbox);
-            expect(setConfigDataMock).toHaveBeenNthCalledWith(1, {
-                ...configDataMock,
-                useAutomation: false,
             });
         });
 

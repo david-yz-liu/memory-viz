@@ -35,15 +35,11 @@ export default function SvgDisplay({
                 } else {
                     resolvedTheme = rawTheme;
                 }
-                const m = drawMemoryModel(
-                    jsonResultCopy,
-                    props.configData.useAutomation,
-                    {
-                        ...props.configData.overallDrawConfig,
-                        width: canvasWidth,
-                        ...(resolvedTheme ? { theme: resolvedTheme } : {}),
-                    }
-                );
+                const m = drawMemoryModel(jsonResultCopy, true, {
+                    ...props.configData.overallDrawConfig,
+                    width: canvasWidth,
+                    ...(resolvedTheme ? { theme: resolvedTheme } : {}),
+                });
                 props.setSvgResult(m.serializeSVG());
                 m.clear(canvasRef.current);
                 m.render(canvasRef.current);
@@ -58,7 +54,7 @@ export default function SvgDisplay({
 
     useEffect(() => {
         draw();
-    }, [props.jsonResult, props.configData.useAutomation]);
+    }, [props.jsonResult]);
 
     useEffect(() => {
         if (rawTheme === "match") {
