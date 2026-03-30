@@ -369,7 +369,7 @@ export class MemoryModel {
             display_text = String(value);
         }
 
-        if (value !== null && value !== undefined) {
+        if (value !== null) {
             this.drawText(
                 display_text,
                 x + width / 2,
@@ -916,8 +916,8 @@ export class MemoryModel {
     drawClass(
         x: number,
         y: number,
-        name: string | undefined | null,
-        id: number | undefined | null,
+        name: string,
+        id: number | null,
         attributes: { [key: string]: any },
         stack_frame: boolean,
         style: Style,
@@ -925,13 +925,6 @@ export class MemoryModel {
         height: number,
         svg_group: SVGGElement
     ): Rect {
-        if (id === undefined) {
-            id = null;
-        }
-        if (name === undefined || name === null) {
-            name = "";
-        }
-
         this.drawRect(
             x,
             y,
@@ -1065,7 +1058,7 @@ export class MemoryModel {
             rectElement.setAttribute("id", `object-${this.objectCounter}`);
 
             // Map object id value to the object counter id
-            if (objectId !== null && objectId !== undefined) {
+            if (objectId !== null) {
                 const idKey = `id${objectId}`;
                 if (!this.idToObjectMap.has(idKey)) {
                     this.idToObjectMap.set(idKey, []);
@@ -1307,7 +1300,7 @@ export class MemoryModel {
                 const size = this.drawClass(
                     obj.x!,
                     obj.y!,
-                    "name" in obj ? obj.name : null,
+                    "name" in obj ? obj.name : "",
                     obj.id,
                     obj.value,
                     is_frame,
@@ -1418,12 +1411,6 @@ export class MemoryModel {
         default_width: number;
         default_height: number;
     } {
-        if (object.type === undefined) {
-            throw new Error(
-                "The 'type' property of this DrawnEntity is undefined."
-            );
-        }
-
         if (!isStyle(object.style)) {
             throw new Error(
                 "The 'style' property of this DrawnEntity must be of type Style."
@@ -1628,16 +1615,13 @@ export class MemoryModel {
      * @returns An object with default_width and default_height properties.
      */
     private getDefaultClassDimensions(
-        name: string | undefined | null,
+        name: string,
         attributes: { [key: string]: any },
         style: Style
     ): {
         default_width: number;
         default_height: number;
     } {
-        if (name === undefined || name === null) {
-            name = "";
-        }
         let default_width = this.obj_min_width;
         let longest = 0;
         for (const attribute in attributes) {
@@ -1751,10 +1735,7 @@ export class MemoryModel {
                         "(either the width or the height is missing). This object will be omitted in the memory model" +
                         " diagram."
                 );
-            } else if (
-                item.type !== undefined &&
-                frame_types.includes(item.type)
-            ) {
+            } else if (frame_types.includes(item.type)) {
                 stackFrames.push(item);
             } else {
                 otherItems.push(item);
@@ -2139,11 +2120,7 @@ export class MemoryModel {
         // Counts the number of objects given each id
         const id_count: Map<number, number> = new Map();
         for (const obj of objs) {
-            if (
-                obj.id !== null &&
-                obj.id !== undefined &&
-                !(obj.type === ".frame" || obj.type === ".blank-frame")
-            ) {
+            if (obj.id !== null) {
                 id_count.set(obj.id, (id_count.get(obj.id) ?? 0) + 1);
             }
         }
@@ -2181,7 +2158,6 @@ export class MemoryModel {
                 for (const id of referenced_ids) {
                     if (
                         id !== null &&
-                        id !== undefined &&
                         !(typeof id === "string" && id.trim() === "") &&
                         !id_count.has(Number(id))
                     ) {
@@ -2226,12 +2202,7 @@ function compareByID(
     a: DrawnEntityWithDimensions,
     b: DrawnEntityWithDimensions
 ): number {
-    if (
-        a.id === undefined ||
-        b.id === undefined ||
-        a.id === null ||
-        b.id === null
-    ) {
+    if (a.id === null || b.id === null) {
         throw new Error("Both objects must have 'id' property.");
     }
     return a.id - b.id;
