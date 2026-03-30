@@ -153,7 +153,7 @@ export const BlankFrameDrawnEntitySchema = z
         width: z.number('"width" field must be a number').default(0),
     })
     .strict()
-    .transform((data) => ({ ...data, value: {}, id: null }));
+    .transform((data) => ({ ...data, value: {}, id: null, name: "" }));
 
 export const DrawnEntitySchema = z.discriminatedUnion("type", [
     IntDrawnEntitySchema,
