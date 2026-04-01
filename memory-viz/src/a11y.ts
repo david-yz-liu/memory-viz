@@ -56,22 +56,19 @@ function getGroupTitle(object: DrawnEntity): string {
         const name = object.name
             ? object.name
             : i18n.t("unnamedObjects.unnamedClass");
-        const count =
-            object.value && typeof object.value === "object"
-                ? Object.keys(object.value).length
-                : 0;
+        const count = Object.keys(object.value).length;
         return i18n.t("groupTitles.class", { name, count });
     }
 
-    const id_label =
-        object.id === undefined || object.id === null ? "" : `id${object.id}`;
+    const id_label = object.id === null ? "" : `id${object.id}`;
 
-    const sequence_set_types = ["list", "tuple", "set", "frozenset"];
-    if (sequence_set_types.includes(object.type!)) {
-        const count =
-            "value" in object && Array.isArray(object.value)
-                ? object.value.length
-                : 0;
+    if (
+        object.type === "list" ||
+        object.type === "tuple" ||
+        object.type === "set" ||
+        object.type === "frozenset"
+    ) {
+        const count = object.value.length;
         const object_type =
             object.type!.charAt(0).toUpperCase() + object.type!.slice(1);
         return i18n.t("groupTitles.sequence", { object_type, id_label, count });
@@ -79,7 +76,7 @@ function getGroupTitle(object: DrawnEntity): string {
         let count = 0;
         if (Array.isArray(object.value)) {
             count = object.value.length;
-        } else if (object.value && typeof object.value === "object") {
+        } else {
             count = Object.keys(object.value).length;
         }
         return i18n.t("groupTitles.dict", { id_label, count });
@@ -88,11 +85,7 @@ function getGroupTitle(object: DrawnEntity): string {
     const object_type =
         object.type!.charAt(0).toUpperCase() + object.type!.slice(1);
     let value: string;
-    if (
-        !("value" in object) ||
-        object.value === null ||
-        object.value === undefined
-    ) {
+    if (object.value === null) {
         value = i18n.t("blanks.blankValue");
     } else if (object.type === "str") {
         value = `"${object.value}"`;
@@ -113,25 +106,22 @@ function getGroupTitle(object: DrawnEntity): string {
  * @param object - the DrawnEntity object to be drawn.
  */
 function getGroupDescription(object: DrawnEntity): string | null {
-    const sequence_set_types = ["list", "tuple", "set", "frozenset"];
     if (object.type === ".class") {
-        const attributes = Object.keys(object.value ?? {})
+        const attributes = Object.keys(object.value)
             .map((k) => (k.trim() === "" ? i18n.t("blanks.blankAttribute") : k))
             .join(", ");
         return attributes
             ? i18n.t("groupDescriptions.class", { attributes })
             : null;
-    } else if (sequence_set_types.includes(object.type!)) {
-        const elements =
-            "value" in object && Array.isArray(object.value)
-                ? object.value
-                      .map((v) =>
-                          v !== undefined && v !== null
-                              ? `id${v}`
-                              : i18n.t("blanks.blankValue")
-                      )
-                      .join(", ")
-                : "";
+    } else if (
+        object.type === "list" ||
+        object.type === "tuple" ||
+        object.type === "set" ||
+        object.type === "frozenset"
+    ) {
+        const elements = object.value
+            .map((v) => (v !== null ? `id${v}` : i18n.t("blanks.blankValue")))
+            .join(", ");
         return elements
             ? i18n.t("groupDescriptions.sequence", { elements })
             : null;
@@ -141,30 +131,25 @@ function getGroupDescription(object: DrawnEntity): string | null {
             entries = object.value
                 .map((e) => {
                     const key =
-                        e &&
-                        e[0] !== undefined &&
-                        e[0] !== null &&
-                        String(e[0]).trim() !== ""
+                        e[0] !== null && String(e[0]).trim() !== ""
                             ? `id${e[0]}`
                             : i18n.t("blanks.blankKey");
                     const string =
-                        e && e[1] !== undefined && e[1] !== null
+                        e[1] !== null
                             ? `id${e[1]}`
                             : i18n.t("blanks.blankValue");
                     return `${key}: ${string}`;
                 })
                 .join(", ");
-        } else if (object.value && typeof object.value === "object") {
+        } else {
             entries = Object.entries(object.value)
                 .map(([k, v]) => {
                     const key =
-                        k !== undefined && k !== null && String(k).trim() !== ""
+                        String(k).trim() !== ""
                             ? `id${k}`
                             : i18n.t("blanks.blankKey");
                     const string =
-                        v !== undefined && v !== null
-                            ? `id${v}`
-                            : i18n.t("blanks.blankValue");
+                        v !== null ? `id${v}` : i18n.t("blanks.blankValue");
                     return `${key}: ${string}`;
                 })
                 .join(", ");
