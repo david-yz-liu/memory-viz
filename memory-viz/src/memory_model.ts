@@ -22,7 +22,8 @@ import {
     TEXT_DESCRIPTION,
     getMemoryModelTitle,
     getGroupTitle,
-    getGroupDescription,
+    getObjectTitle,
+    getObjectDescription,
 } from "./a11y.js";
 import { RoughSVG } from "roughjs/bin/svg.js";
 import { Config, Options } from "roughjs/bin/core.js";
@@ -1263,7 +1264,31 @@ export class MemoryModel {
         }
 
         this.validateIds(parsed_objects);
-        const strict_objects = this.setDimensionsAll(parsed_objects);
+        const { stack_frames, other_items } =
+            this.setDimensionsAll(parsed_objects);
+        const strict_objects = [...stack_frames, ...other_items];
+
+        let stack_frames_group;
+        const stack_frames_title = getGroupTitle(stack_frames, "frame");
+        if (stack_frames_title != null) {
+            stack_frames_group = this.document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "g"
+            );
+            this.addTitleElement(stack_frames_title, stack_frames_group);
+            this.svg.appendChild(stack_frames_group);
+        }
+
+        let other_items_group;
+        const other_items_title = getGroupTitle(other_items, "object");
+        if (other_items_title !== null) {
+            other_items_group = this.document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "g"
+            );
+            this.addTitleElement(other_items_title, other_items_group);
+            this.svg.appendChild(other_items_group);
+        }
 
         for (const obj of strict_objects) {
             if (!isStyle(obj.style)) {
@@ -1272,22 +1297,21 @@ export class MemoryModel {
                 );
             }
 
+            const frame_types = [".frame", ".blank-frame"];
+            const is_frame = frame_types.includes(obj.type!);
+
             const svg_group = this.document.createElementNS(
                 "http://www.w3.org/2000/svg",
                 "g"
             );
-            this.svg.appendChild(svg_group);
+            const parent_group = is_frame
+                ? stack_frames_group!
+                : other_items_group!;
+            parent_group.appendChild(svg_group);
             svg_group.setAttribute("role", "graphics-object");
 
-            const object_title = this.document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "title"
-            );
-            svg_group.appendChild(object_title);
-            object_title.appendChild(
-                this.document.createTextNode(getGroupTitle(obj))
-            );
-            const object_description_str = getGroupDescription(obj);
+            this.addTitleElement(getObjectTitle(obj), svg_group);
+            const object_description_str = getObjectDescription(obj);
             if (object_description_str !== null) {
                 const object_description = this.document.createElementNS(
                     "http://www.w3.org/2000/svg",
@@ -1299,14 +1323,11 @@ export class MemoryModel {
                 );
             }
 
-            const frame_types = [".frame", ".blank-frame"];
             if (
                 obj.type === ".frame" ||
                 obj.type === ".blank-frame" ||
                 obj.type === ".class"
             ) {
-                const is_frame = frame_types.includes(obj.type!);
-
                 const size = this.drawClass(
                     obj.x!,
                     obj.y!,
@@ -1358,6 +1379,25 @@ export class MemoryModel {
     }
 
     /**
+     * Creates a title element and appends it to the specified parent group.
+     *
+     * @param title_string - The title string contained in the title element
+     * @param svg_group - The parent <g> tag that the title element will be appended to
+     */
+    private addTitleElement(
+        title_string: string,
+        svg_group: SVGGElement
+    ): SVGTitleElement {
+        const title_element = this.document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "title"
+        );
+        svg_group.appendChild(title_element);
+        title_element.appendChild(this.document.createTextNode(title_string));
+        return title_element;
+    }
+
+    /**
      * Updates the SVG canvas dimensions by dynamically updating its width and height
      * to fit the given object. Only applies when dimensions are not fixed by the user.
      *
@@ -1378,11 +1418,15 @@ export class MemoryModel {
     }
 
     /**
-     * Returns a copy of the input objects with width, height, x and y coordinates set properly.
+     * Returns a copy of the input objects (split into stack frames and other items)
+     * with width, height, x and y coordinates set properly.
      *
      * @param objects - the list of objects (including stack frames) to be drawn.
      */
-    private setDimensionsAll(objects: DrawnEntity[]): DrawnEntityStrict[] {
+    private setDimensionsAll(objects: DrawnEntity[]): {
+        stack_frames: DrawnEntityStrict[];
+        other_items: DrawnEntityStrict[];
+    } {
         const objects_with_dimensions: DrawnEntityWithDimensions[] = [];
 
         // Set width and height for all objects
@@ -1415,7 +1459,10 @@ export class MemoryModel {
             stackEndpoint
         );
 
-        return [...StackFrames, ...objs];
+        return {
+            stack_frames: StackFrames,
+            other_items: objs,
+        };
     }
 
     /**

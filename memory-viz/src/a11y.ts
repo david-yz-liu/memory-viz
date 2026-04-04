@@ -42,16 +42,39 @@ function getMemoryModelTitle(strict_objects: DrawnEntityStrict[]): string {
 }
 
 /**
+ * Returns a descriptive title for a group of stack frames or objects.
+ * If the object contains no objects or contains only blanks, return null.
+ *
+ * @param strict_objects - a list of DrawnEntityStrict objects to be drawn.
+ * @param type - the type of entities contained within the group (frame or object)
+ */
+function getGroupTitle(
+    strict_objects: DrawnEntityStrict[],
+    type: string
+): string | null {
+    const count = strict_objects.filter(
+        (o) => o.type !== ".blank" && o.type !== ".blank-frame"
+    ).length;
+    if (count === 0) {
+        return null;
+    } else if (type === "frame") {
+        return i18n.t("groupTitles.stackFrameGroup", { count });
+    } else {
+        return i18n.t("groupTitles.objectGroup", { count });
+    }
+}
+
+/**
  * Returns a descriptive title for a DrawnEntity object.
  *
  * @param object - the DrawnEntity object to be drawn.
  */
-function getGroupTitle(object: DrawnEntity): string {
+function getObjectTitle(object: DrawnEntity): string {
     if (object.type === ".frame") {
         const name = object.name
             ? object.name
             : i18n.t("unnamedObjects.unnamedFunction");
-        return i18n.t("groupTitles.stackFrame", { name });
+        return i18n.t("objectTitles.stackFrame", { name });
     } else if (object.type === ".class") {
         const name = object.name
             ? object.name
@@ -60,7 +83,7 @@ function getGroupTitle(object: DrawnEntity): string {
             object.value && typeof object.value === "object"
                 ? Object.keys(object.value).length
                 : 0;
-        return i18n.t("groupTitles.class", { name, count });
+        return i18n.t("objectTitles.class", { name, count });
     }
 
     const id_label =
@@ -74,7 +97,11 @@ function getGroupTitle(object: DrawnEntity): string {
                 : 0;
         const object_type =
             object.type!.charAt(0).toUpperCase() + object.type!.slice(1);
-        return i18n.t("groupTitles.sequence", { object_type, id_label, count });
+        return i18n.t("objectTitles.sequence", {
+            object_type,
+            id_label,
+            count,
+        });
     } else if (object.type === "dict") {
         let count = 0;
         if (Array.isArray(object.value)) {
@@ -82,7 +109,7 @@ function getGroupTitle(object: DrawnEntity): string {
         } else if (object.value && typeof object.value === "object") {
             count = Object.keys(object.value).length;
         }
-        return i18n.t("groupTitles.dict", { id_label, count });
+        return i18n.t("objectTitles.dict", { id_label, count });
     }
 
     const object_type =
@@ -99,7 +126,7 @@ function getGroupTitle(object: DrawnEntity): string {
     } else {
         value = String(object.value);
     }
-    return i18n.t("groupTitles.primitive", {
+    return i18n.t("objectTitles.primitive", {
         object_type,
         id_label,
         value,
@@ -112,14 +139,14 @@ function getGroupTitle(object: DrawnEntity): string {
  *
  * @param object - the DrawnEntity object to be drawn.
  */
-function getGroupDescription(object: DrawnEntity): string | null {
+function getObjectDescription(object: DrawnEntity): string | null {
     const sequence_set_types = ["list", "tuple", "set", "frozenset"];
     if (object.type === ".class") {
         const attributes = Object.keys(object.value ?? {})
             .map((k) => (k.trim() === "" ? i18n.t("blanks.blankAttribute") : k))
             .join(", ");
         return attributes
-            ? i18n.t("groupDescriptions.class", { attributes })
+            ? i18n.t("objectDescriptions.class", { attributes })
             : null;
     } else if (sequence_set_types.includes(object.type!)) {
         const elements =
@@ -133,7 +160,7 @@ function getGroupDescription(object: DrawnEntity): string | null {
                       .join(", ")
                 : "";
         return elements
-            ? i18n.t("groupDescriptions.sequence", { elements })
+            ? i18n.t("objectDescriptions.sequence", { elements })
             : null;
     } else if (object.type === "dict") {
         let entries = "";
@@ -169,7 +196,7 @@ function getGroupDescription(object: DrawnEntity): string | null {
                 })
                 .join(", ");
         }
-        return entries ? i18n.t("groupDescriptions.dict", { entries }) : null;
+        return entries ? i18n.t("objectDescriptions.dict", { entries }) : null;
     }
     return null;
 }
@@ -178,5 +205,6 @@ export {
     TEXT_DESCRIPTION,
     getMemoryModelTitle,
     getGroupTitle,
-    getGroupDescription,
+    getObjectTitle,
+    getObjectDescription,
 };
