@@ -1258,24 +1258,22 @@ export class MemoryModel {
             this.setDimensionsAll(parsed_objects);
         const strict_objects = [...stack_frames, ...other_items];
 
-        let stack_frames_group;
+        const stack_frames_group = this.document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "g"
+        );
         const stack_frames_title = getGroupTitle(stack_frames, "frame");
         if (stack_frames_title != null) {
-            stack_frames_group = this.document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "g"
-            );
             this.addTitleElement(stack_frames_title, stack_frames_group);
             this.svg.appendChild(stack_frames_group);
         }
 
-        let other_items_group;
+        const other_items_group = this.document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "g"
+        );
         const other_items_title = getGroupTitle(other_items, "object");
         if (other_items_title !== null) {
-            other_items_group = this.document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "g"
-            );
             this.addTitleElement(other_items_title, other_items_group);
             this.svg.appendChild(other_items_group);
         }
@@ -1295,8 +1293,8 @@ export class MemoryModel {
                 "g"
             );
             const parent_group = is_frame
-                ? stack_frames_group!
-                : other_items_group!;
+                ? stack_frames_group
+                : other_items_group;
             parent_group.appendChild(svg_group);
             svg_group.setAttribute("role", "graphics-object");
 
