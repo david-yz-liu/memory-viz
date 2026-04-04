@@ -58,7 +58,7 @@
         "memory-viz": "dist/cli.js"
     },
     "dependencies": {
-        "@xmldom/xmldom": "^0.8.11",
+        "@xmldom/xmldom": "^0.8.12",
         "commander": "^14.0.0",
         "deepmerge": "^4.3.1",
         "i18next": "^23.15.0",
@@ -67,7 +67,7 @@
     },
     "devDependencies": {
         "@babel/core": "^7.29.0",
-        "@babel/preset-env": "^7.29.0",
+        "@babel/preset-env": "^7.29.2",
         "@babel/preset-typescript": "^7.28.5",
         "@types/jest": "^29.5.12",
         "@types/node": "^22.10.3",

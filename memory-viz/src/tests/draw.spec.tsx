@@ -416,6 +416,10 @@ describe("draw function", () => {
             ],
         },
         {
+            test: "renders a class without defining the name",
+            input: [{ type: ".class", id: 1, value: {} }],
+        },
+        {
             test: "renders a class without defining the value",
             input: [{ type: ".class", name: "my_class", id: 1 }],
         },
