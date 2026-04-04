@@ -1639,6 +1639,8 @@ describe("draw function", () => {
             expected_substrings: [
                 "<title>",
                 "Python memory model diagram showing stack frames and objects",
+                "Group of 1 stack frames",
+                "Group of 2 objects",
                 "Stack frame for __main__",
                 'Str id19 with value "Title test"',
                 "Int id13 with value 7",
@@ -1673,6 +1675,7 @@ describe("draw function", () => {
                 "<title>",
                 "<desc>",
                 "Python memory model diagram showing objects",
+                "Group of 8 objects",
                 "Int id10 with value 42",
                 'Str id20 with value "test"',
                 "List id30 with 2 elements",
@@ -1704,6 +1707,7 @@ describe("draw function", () => {
             expected_substrings: [
                 "<title>",
                 "Python memory model diagram showing stack frames",
+                "Group of 2 stack frames",
                 "Stack frame for __main__",
                 "Stack frame for foo",
             ],
