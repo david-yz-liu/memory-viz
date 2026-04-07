@@ -183,9 +183,11 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                             label={t("rendering.seed")}
                             id="config-seed"
                             variant="outlined"
-                            value={props.configData.overallDrawConfig.seed}
+                            defaultValue={
+                                props.configData.overallDrawConfig.seed
+                            }
                             type="number"
-                            onChange={handleSeedChange}
+                            onBlur={handleSeedChange}
                             InputProps={{
                                 inputProps: {
                                     min: 0,

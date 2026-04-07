@@ -54,7 +54,11 @@ export default function SvgDisplay({
 
     useEffect(() => {
         draw();
-    }, [props.jsonResult]);
+    }, [
+        props.jsonResult,
+        props.configData.overallDrawConfig.seed,
+        props.configData.overallDrawConfig.theme,
+    ]);
 
     useEffect(() => {
         if (rawTheme === "match") {
