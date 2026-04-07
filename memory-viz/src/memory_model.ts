@@ -1175,7 +1175,6 @@ export class MemoryModel {
         return s.length * 12;
     }
 
-    // TODO: rename objects in docstring
     /**
      * Create a MemoryModel given a list of JS objects.
      *
@@ -1269,14 +1268,14 @@ export class MemoryModel {
             this.svg.appendChild(stack_frames_group);
         }
 
-        const other_items_group = this.document.createElementNS(
+        const objects_group = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
             "g"
         );
-        const other_items_title = getGroupTitle(objects, "object");
-        if (other_items_title !== null) {
-            this.addTitleElement(other_items_title, other_items_group);
-            this.svg.appendChild(other_items_group);
+        const objects_title = getGroupTitle(objects, "object");
+        if (objects_title !== null) {
+            this.addTitleElement(objects_title, objects_group);
+            this.svg.appendChild(objects_group);
         }
 
         for (const entity of strict_entities) {
@@ -1293,9 +1292,7 @@ export class MemoryModel {
                 "http://www.w3.org/2000/svg",
                 "g"
             );
-            const parent_group = is_frame
-                ? stack_frames_group
-                : other_items_group;
+            const parent_group = is_frame ? stack_frames_group : objects_group;
             parent_group.appendChild(svg_group);
             svg_group.setAttribute("role", "graphics-object");
 
@@ -1423,7 +1420,7 @@ export class MemoryModel {
             entities_with_dimensions.push(entity_with_dimensions);
         }
 
-        const { stack_frames, other_items } = this.separateEntities(
+        const { stack_frames, objects } = this.separateEntities(
             entities_with_dimensions
         );
 
@@ -1433,7 +1430,7 @@ export class MemoryModel {
 
         // Set x and y coordinates for all other objects
         const objs = this.setOtherItemsCoordinates(
-            other_items,
+            objects,
             this.sort_by ?? null,
             stackEndpoint
         );
@@ -1734,7 +1731,7 @@ export class MemoryModel {
         if (entity.width === undefined || entity.width < default_width) {
             if (entity.width !== undefined && entity.width < default_width) {
                 console.warn(
-                    `WARNING: provided width of object (${entity.width}) is smaller than the required width` +
+                    `WARNING: provided width of entity (${entity.width}) is smaller than the required width` +
                         ` (${default_width}). The provided width has been overwritten in the generated diagram.`
                 );
             }
@@ -1743,7 +1740,7 @@ export class MemoryModel {
         if (entity.height === undefined || entity.height < default_height) {
             if (entity.height !== undefined && entity.height < default_height) {
                 console.warn(
-                    `WARNING: provided height of object (${entity.height}) is smaller than the required height` +
+                    `WARNING: provided height of entity (${entity.height}) is smaller than the required height` +
                         ` (${default_height}). The provided height has been overwritten in the generated diagram.`
                 );
             }
@@ -1755,7 +1752,7 @@ export class MemoryModel {
 
     /**
      * Separates the items that were given into two categories as stack frames and objects.
-     * The returned object has two attributes as 'stack_frames' and 'other_items'.
+     * The returned object has two attributes as 'stack_frames' and 'objects'.
      * Each of these attributes are a list of objects that were originally given by the user.
      *
      * @param entities - The list of entities, including stack frames (if any) and other items, that
@@ -1764,7 +1761,7 @@ export class MemoryModel {
      */
     private separateEntities(entities: DrawnEntityWithDimensions[]): {
         stack_frames: DrawnEntityWithDimensions[];
-        other_items: DrawnEntityWithDimensions[];
+        objects: DrawnEntityWithDimensions[];
     } {
         const stackFrames: DrawnEntityWithDimensions[] = [];
         const otherItems: DrawnEntityWithDimensions[] = [];
@@ -1788,7 +1785,7 @@ export class MemoryModel {
             }
         }
 
-        return { stack_frames: stackFrames, other_items: otherItems };
+        return { stack_frames: stackFrames, objects: otherItems };
     }
 
     /**

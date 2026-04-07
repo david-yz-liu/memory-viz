@@ -55,6 +55,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Removed use of `& { value?: any }` intersection type for `DrawnEntity`
 - Allow arbitrary inputs to `draw()` by moving `DrawnEntitySchema.safeParse()` validation from `drawAll()` to `draw()`
 - Add default values for `id`, `value`, `show_indexes`, `name`, and blank objects' `width`/`height` fields in `DrawnEntitySchema`
+- Renamed `object` to `entity` in `MemoryModel` methods, where an entity can either be a stack frame or an object
 
 ## [0.8.0] - 2025-12-04
 
