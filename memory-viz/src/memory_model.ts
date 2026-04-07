@@ -1188,8 +1188,8 @@ export class MemoryModel {
      * @param entities[*].name - The name of the class or stack frame to be drawn. Note that this attribute is only
      *                                  applicable if the object's type is `.class` or `.frame`. If no classes or stack frames
      *                                   are being drawn, this attribute can be excluded from the input.
-     * @param entities[*].id - The id value of this object. If we are to draw a StackFrame, then this MUST be 'null'.
-     * @param entities[*].value - The value of the object. This could be anything, from an empty string to a JS object,
+     * @param entities[*].id - The id value of this entity. If we are to draw a StackFrame, then this MUST be 'null'.
+     * @param entities[*].value - The value of the entity. This could be anything, from an empty string to a JS object,
      *                          which would be passed for the purpose of drawing a user-defined class object, a
      *                          stackframe, or a dictionary. Note that in such cases where we want to do draw a 'container'
      *                          object (an object that contains other objects), we pass a JS object where the keys are the
@@ -1202,7 +1202,7 @@ export class MemoryModel {
      *                                                     has a default value of false, and it shall be manually set
      *                                                     only if the object corresponds to a sequence (list or
      *                                                     tuple).
-     * @param entities[*].style - The style object with which the object will be rendered. Check the
+     * @param entities[*].style - The style object with which the entity will be rendered. Check the
      * `style.md` and `presets.md` documentation files in the `explanations` directory.
      *
      * Preconditions:
@@ -1220,7 +1220,7 @@ export class MemoryModel {
 
         for (const entity of entities) {
             if (Array.isArray(entity.style)) {
-                // Parsing the 'objects' array is essential, potentially converting preset keywords into the
+                // Parsing the 'entities' array is essential, potentially converting preset keywords into the
                 // current item's 'style' object.
                 let styleSoFar = {};
 
