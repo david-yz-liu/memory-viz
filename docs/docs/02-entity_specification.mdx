@@ -65,14 +65,10 @@ All supported entities include the following core attributes, unless explicitly 
 
 ## Primitives
 
-| Attribute         | Type                | Default                  | Description                                                                                                               |
-| :---------------- | :------------------ | :----------------------- | :------------------------------------------------------------------------------------------------------------------------ |
-| `type`            | `string`            | --                       | Must be set to one of `int`, `str`, `bool`, `float`, or `None` to indicate a primitive object.                            |
-| `id`              | `number`            | `null`                   | Unique identifier for the primitive object (duplicate IDs will emit a warning).                                           |
-| `value`           | Matches `type`      | `null`                   | The actual value represented by the primitive object. To render an empty box, set the value as `null` or don't define it. |
-| `x`, `y`          | `number`            | Automatically calculated | Optional manual coordinates. Required only if `automation` is disabled.                                                   |
-| `style`           | `object` or `array` | `[]`                     | Custom visual styling.                                                                                                    |
-| `width`, `height` | `number`            | Automatically calculated | The height and width for the primitive object.                                                                            |
+| Attribute | Type      | Default | Description                                                                                                               |
+| :-------- | :-------- | :------ | :------------------------------------------------------------------------------------------------------------------------ |
+| `type`    | `string`  | --      | Must be set to one of `int`, `str`, `bool`, `float`, or `None` to indicate a primitive object.                            |
+| `value`   | See below | `null`  | The actual value represented by the primitive object. To render an empty box, set the value as `null` or don't define it. |
 
 #### Examples
 
@@ -219,15 +215,11 @@ All supported entities include the following core attributes, unless explicitly 
 
 ## Sequences
 
-| Attribute         | Type                | Default                  | Description                                                                                                   |
-| :---------------- | :------------------ | :----------------------- | :------------------------------------------------------------------------------------------------------------ |
-| `type`            | `string`            | --                       | Must be set to `list` to indicate a list object, or `tuple` to indicate a tuple object.                       |
-| `id`              | `number`            | `null`                   | Unique identifier for the sequence (duplicate IDs will emit a warning).                                       |
-| `value`           | `array`             | `[]`                     | List of `int` object ids (unresolved IDs will emit a warning). Values can be made `null` to draw blank boxes. |
-| `show_indexes`    | `boolean`           | `false`                  | Indicates whether to show indices in the memory box.                                                          |
-| `x`, `y`          | `number`            | Automatically calculated | Optional manual coordinates. Required only if `automation` is disabled.                                       |
-| `style`           | `object` or `array` | `[]`                     | Custom visual styling.                                                                                        |
-| `width`, `height` | `number`            | Automatically calculated | The height and width for the sequence.                                                                        |
+| Attribute      | Type                          | Default | Description                                                                                             |
+| :------------- | :---------------------------- | :------ | :------------------------------------------------------------------------------------------------------ |
+| `type`         | `string`                      | --      | Must be set to `list` to indicate a list object, or `tuple` to indicate a tuple object.                 |
+| `value`        | `array` of `number` or `null` | `[]`    | List of object ids (unresolved IDs will emit a warning). Values can be made `null` to draw blank boxes. |
+| `show_indexes` | `boolean`                     | `false` | Indicates whether to show indices in the memory box.                                                    |
 
 #### Examples
 
@@ -292,14 +284,10 @@ All supported entities include the following core attributes, unless explicitly 
 
 ## Sets
 
-| Attribute         | Type                | Default                  | Description                                                                                                   |
-| :---------------- | :------------------ | :----------------------- | :------------------------------------------------------------------------------------------------------------ |
-| `type`            | `string`            | --                       | Must be set to `set` to indicate a set object.                                                                |
-| `id`              | `number`            | `null`                   | Unique identifier for the set (duplicate IDs will emit a warning).                                            |
-| `value`           | `array`             | `[]`                     | List of `int` object ids (unresolved IDs will emit a warning). Values can be made `null` to draw blank boxes. |
-| `x`, `y`          | `number`            | Automatically calculated | Optional manual coordinates. Required only if `automation` is disabled.                                       |
-| `style`           | `object` or `array` | `[]`                     | Custom visual styling.                                                                                        |
-| `width`, `height` | `number`            | Automatically calculated | The height and width for the set.                                                                             |
+| Attribute | Type                          | Default | Description                                                                                             |
+| :-------- | :---------------------------- | :------ | :------------------------------------------------------------------------------------------------------ |
+| `type`    | `string`                      | --      | Must be set to `set` to indicate a set object.                                                          |
+| `value`   | `array` of `number` or `null` | `[]`    | List of object ids (unresolved IDs will emit a warning). Values can be made `null` to draw blank boxes. |
 
 #### Examples
 
@@ -358,14 +346,10 @@ All supported entities include the following core attributes, unless explicitly 
 
 ## Dictionaries
 
-| Attribute         | Type                | Default                  | Description                                                                                                                                                                                                                                                                                              |
-| :---------------- | :------------------ | :----------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`            | `string`            | --                       | Must be set to `dict` to indicate a dictionary object.                                                                                                                                                                                                                                                   |
-| `id`              | `number`            | `null`                   | Unique identifier for the dictionary (duplicate IDs will emit a warning).                                                                                                                                                                                                                                |
-| `value`           | `dict` or `array`   | `{}`                     | Dictionary of `string` object id keys to `int` object id value pairs or a list of two-element lists, where each inner list is in the form `[key id, value id]` (unresolved IDs will emit a warning). Keys can be made empty or all-whitespace strings and values can be made `null` to draw blank boxes. |
-| `x`, `y`          | `number`            | Automatically calculated | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                                                                                                                                                  |
-| `style`           | `object` or `array` | `[]`                     | Custom visual styling.                                                                                                                                                                                                                                                                                   |
-| `width`, `height` | `number`            | Automatically calculated | The height and width for the dictionary.                                                                                                                                                                                                                                                                 |
+| Attribute | Type                                    | Default | Description                                                                                                                                                                                                                                                                                              |
+| :-------- | :-------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`    | `string`                                | --      | Must be set to `dict` to indicate a dictionary object.                                                                                                                                                                                                                                                   |
+| `value`   | `dict` or `array` of `number` or `null` | `{}`    | Dictionary of `string` object id keys to `int` object id value pairs or a list of two-element lists, where each inner list is in the form `[key id, value id]` (unresolved IDs will emit a warning). Keys can be made empty or all-whitespace strings and values can be made `null` to draw blank boxes. |
 
 #### Examples
 
@@ -413,15 +397,11 @@ All supported entities include the following core attributes, unless explicitly 
 
 ## Classes
 
-| Attribute         | Type                | Default                  | Description                                                                                                                                                                                                                                         |
-| :---------------- | :------------------ | :----------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`            | `string`            | --                       | Must be set to `.class` to indicate a class object.                                                                                                                                                                                                 |
-| `id`              | `number`            | `null`                   | Unique identifier for the class object (duplicate IDs will emit a warning).                                                                                                                                                                         |
-| `name`            | `string`            | `""`                     | The name of the class being drawn.                                                                                                                                                                                                                  |
-| `value`           | `object`            | `{}`                     | A mapping of `string` attribute names (as keys) to `int` object IDs (as values). Unresolved IDs will emit a warning. Attribute names may be empty or all-whitespace strings and attribute values may be `null` to render blank boxes, respectively. |
-| `x`, `y`          | `number`            | Automatically calculated | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                                                                                             |
-| `style`           | `object` or `array` | `[]`                     | Custom visual styling.                                                                                                                                                                                                                              |
-| `width`, `height` | `number`            | Automatically calculated | The height and width for the class.                                                                                                                                                                                                                 |
+| Attribute | Type                                     | Default | Description                                                                                                                                                                                                                          |
+| :-------- | :--------------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`    | `string`                                 | --      | Must be set to `.class` to indicate a class object.                                                                                                                                                                                  |
+| `name`    | `string`                                 | `""`    | The name of the class being drawn.                                                                                                                                                                                                   |
+| `value`   | `dict` of `string` to `number` or `null` | `{}`    | A mapping of attribute names (as keys) to object IDs (as values). Unresolved IDs will emit a warning. Attribute names may be empty or all-whitespace strings and attribute values may be `null` to render blank boxes, respectively. |
 
 #### Examples
 
@@ -443,14 +423,13 @@ All supported entities include the following core attributes, unless explicitly 
 
 ## Stack Frames
 
-| Attribute         | Type                | Default                  | Description                                                                                                                                                                                                                                                                                                      |
-| :---------------- | :------------------ | :----------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`            | `string`            | --                       | Must be `.frame` to indicate a stack frame.                                                                                                                                                                                                                                                                      |
-| `name`            | `string`            | `""`                     | The name of the stack frame (e.g., `__main__`, `foo`)                                                                                                                                                                                                                                                            |
-| `value`           | `object`            | `{}`                     | A mapping of `string` variable names (as keys) to `int` object IDs (as values). Unresolved IDs will emit a warning. These represent the local variables in the scope of the frame. Variable names may be empty or all-whitespace strings and attribute values may be `null` to render blank boxes, respectively. |
-| `x`, `y`          | `number`            | Automatically calculated | Optional manual coordinates. Required only if `automation` is disabled.                                                                                                                                                                                                                                          |
-| `style`           | `object` or `array` | `[]`                     | Custom visual styling.                                                                                                                                                                                                                                                                                           |
-| `width`, `height` | `number`            | Automatically calculated | The height and width for the stack frame.                                                                                                                                                                                                                                                                        |
+| Attribute | Type                                     | Default | Description                                                                                                                                                                                                                                                                                       |
+| :-------- | :--------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`    | `string`                                 | --      | Must be `.frame` to indicate a stack frame.                                                                                                                                                                                                                                                       |
+| `name`    | `string`                                 | `""`    | The name of the stack frame (e.g., `__main__`, `foo`)                                                                                                                                                                                                                                             |
+| `value`   | `dict` of `string` to `number` or `null` | `{}`    | A mapping of variable names (as keys) to object IDs (as values). Unresolved IDs will emit a warning. These represent the local variables in the scope of the frame. Variable names may be empty or all-whitespace strings and attribute values may be `null` to render blank boxes, respectively. |
+
+Note: Stack frames do not have an `id` field.
 
 #### Examples
 
