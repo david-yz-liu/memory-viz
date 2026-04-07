@@ -70,6 +70,13 @@ All supported entities include the following core attributes, unless explicitly 
 | `type`    | `string`  | --      | Must be set to one of `int`, `str`, `bool`, `float`, or `None` to indicate a primitive object.                            |
 | `value`   | See below | `null`  | The actual value represented by the primitive object. To render an empty box, set the value as `null` or don't define it. |
 
+| `type`                                               | type of `value` |
+| :--------------------------------------------------- | :-------------- |
+| `int`, `float`                                       | `number`        |
+| `str`                                                | `string`        |
+| `bool`                                               | `boolean`       |
+| `None`, `complex`, `bytes`, `range`, `datetime.date` | `string`        |
+
 #### Examples
 
 <details>
