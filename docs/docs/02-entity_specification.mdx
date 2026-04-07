@@ -42,14 +42,14 @@ This page documents the attributes of the `DrawnEntity` object type and provides
 
 All supported entities include the following core attributes, unless explicitly stated otherwise:
 
-| Attribute         | Type                | Description                                                                                                                                                                                   |
-| :---------------- | :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`            | `string`            | Specifies the type of object to be drawn. (e.g., `.class`, `.frame`, `int`, `str`). See [Entity Type](#entity-type) for more details.                                                         |
-| `id`              | `number` or `null`  | A unique identifier for the object (duplicate IDs will emit a warning). May be `null` anywhere to render a blank ID box.                                                                      |
-| `value`           | Varies              | The content of the object to be drawn. Format and type depends on the [entity type](#entity-type).                                                                                            |
-| `x`, `y`          | `number`            | The x and y coordinates for the object on the canvas. Will be automatically calculated if not provided. Required only if the `automation` parameter of `draw` is `false`.                     |
-| `style`           | `object` or `array` | Custom visual styling. See [Style API](04-style.mdx) for more details.                                                                                                                        |
-| `width`, `height` | `number`            | The height and width for the object. Will be automatically calculated if not provided. If defined height and width is smaller than the automatically calculated, then it will be overwritten. |
+| Attribute         | Type                | Description                                                                                                                                                                                               |
+| :---------------- | :------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`            | `string`            | Specifies the type of object to be drawn. (e.g., `.class`, `.frame`, `int`, `str`). See [Entity Type](#entity-type) for more details.                                                                     |
+| `id`              | `number` or `null`  | A unique identifier for the object (duplicate IDs will emit a warning). May be `null` anywhere to render a blank ID box.                                                                                  |
+| `value`           | Varies              | The content of the object to be drawn. Format and type depends on the [entity type](#entity-type).                                                                                                        |
+| `x`, `y`          | `number`            | The x and y coordinates for the object on the canvas. Will be automatically calculated if not provided.                                                                                                   |
+| `width`, `height` | `number`            | The height and width for the object. Will be automatically calculated if not provided. If defined height and/or width is smaller than the minimum required for the object, then they will be overwritten. |
+| `style`           | `object` or `array` | Custom visual styling. See [Style API](04-style.mdx) for more details.                                                                                                                                    |
 
 ### Entity Type
 
