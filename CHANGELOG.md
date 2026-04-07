@@ -38,6 +38,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Updated the `MemoryModelSample` to not reset the draw theme after each render and set the default theme of renders to match the website's theme
 - Changed demo website to only `useAutomation` and removed the checkbox to toggle that render setting to remove non-`useAutomation` MemoryModels from being drawn twice on top of one another
 - Replaced `required` column with `default` on 'Entity Specification' page and updated documentation to reflect new DrawnEntitySchema
+- Updated the SvgDisplay to re-render whenever the configuration data is changed
 
 ### 🔧 Internal changes
 
