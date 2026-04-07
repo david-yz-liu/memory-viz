@@ -22,8 +22,8 @@ import {
     TEXT_DESCRIPTION,
     getMemoryModelTitle,
     getGroupTitle,
-    getObjectTitle,
-    getObjectDescription,
+    getEntityTitle,
+    getEntityDescription,
 } from "./a11y.js";
 import { RoughSVG } from "roughjs/bin/svg.js";
 import { Config, Options } from "roughjs/bin/core.js";
@@ -1175,42 +1175,43 @@ export class MemoryModel {
         return s.length * 12;
     }
 
+    // TODO: rename objects in docstring
     /**
      * Create a MemoryModel given a list of JS objects.
      *
-     * @param objects - the list of objects (including stack-frames) to be drawn.
-     * Each object in 'objects' must include  the following structure:
-     * @param objects[*].x - Value for x coordinate of top left corner
-     * @param objects[*].y - Value for y coordinate of top left corner
-     * @param objects[*].type - Specifies whether a class, stack frame, or object is being drawn.
+     * @param entities - the list of entities (including stack-frames) to be drawn.
+     * Each entity in 'entities' must include  the following structure:
+     * @param entities[*].x - Value for x coordinate of top left corner
+     * @param entities[*].y - Value for y coordinate of top left corner
+     * @param entities[*].type - Specifies whether a class, stack frame, or object is being drawn.
      *                                      To draw a class, input `.class` and to draw a stack frame, input `.frame`. If an
      *                                       object is being drawn, input the type of the object.
-     * @param objects[*].name - The name of the class or stack frame to be drawn. Note that this attribute is only
+     * @param entities[*].name - The name of the class or stack frame to be drawn. Note that this attribute is only
      *                                  applicable if the object's type is `.class` or `.frame`. If no classes or stack frames
      *                                   are being drawn, this attribute can be excluded from the input.
-     * @param objects[*].id - The id value of this object. If we are to draw a StackFrame, then this MUST be 'null'.
-     * @param objects[*].value - The value of the object. This could be anything, from an empty string to a JS object,
+     * @param entities[*].id - The id value of this object. If we are to draw a StackFrame, then this MUST be 'null'.
+     * @param entities[*].value - The value of the object. This could be anything, from an empty string to a JS object,
      *                          which would be passed for the purpose of drawing a user-defined class object, a
      *                          stackframe, or a dictionary. Note that in such cases where we want to do draw a 'container'
      *                          object (an object that contains other objects), we pass a JS object where the keys are the
      *                          attributes/variables and the values are the id's of the corresponding objects (not the
      *                          objects themselves).
-     * @param objects[*].show_indexes = false - Applicable only for drawing tuples or lists (when drawSequence
+     * @param entities[*].show_indexes = false - Applicable only for drawing tuples or lists (when drawSequence
      *                                                     method will be used).
      *                                                     Whether the memory box of the underlying
      *                                                     sequence will include indices (for sequences) or not. This
      *                                                     has a default value of false, and it shall be manually set
      *                                                     only if the object corresponds to a sequence (list or
      *                                                     tuple).
-     * @param objects[*].style - The style object with which the object will be rendered. Check the
+     * @param entities[*].style - The style object with which the object will be rendered. Check the
      * `style.md` and `presets.md` documentation files in the `explanations` directory.
      *
      * Preconditions:
-     *      - 'objects' is a valid object with the correct properties, as outlined above.
+     *      - 'entities' is a valid object with the correct properties, as outlined above.
      */
-    drawAll(objects: DrawnEntity[]): Rect[] {
+    drawAll(entities: DrawnEntity[]): Rect[] {
         const sizes_arr: Rect[] = [];
-        const parsed_objects: DrawnEntity[] = [];
+        const parsed_entities: DrawnEntity[] = [];
 
         const root_title = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
@@ -1218,17 +1219,17 @@ export class MemoryModel {
         );
         this.svg.insertBefore(root_title, this.svg.firstChild);
 
-        for (const obj of objects) {
-            if (Array.isArray(obj.style)) {
+        for (const entity of entities) {
+            if (Array.isArray(entity.style)) {
                 // Parsing the 'objects' array is essential, potentially converting preset keywords into the
                 // current item's 'style' object.
                 let styleSoFar = {};
 
-                for (let el of obj.style) {
+                for (let el of entity.style) {
                     if (typeof el === "string") {
                         if (!(el in presets)) {
                             throw new Error(
-                                `Style preset "${obj.style}" not found. Please refer to the documentation for available presets.`
+                                `Style preset "${entity.style}" not found. Please refer to the documentation for available presets.`
                             );
                         }
                         el = presets[el];
@@ -1238,25 +1239,25 @@ export class MemoryModel {
                     styleSoFar = merge(styleSoFar, el);
                 }
 
-                obj.style = styleSoFar;
-            } else if (typeof obj.style === "string") {
-                if (!(obj.style in presets)) {
+                entity.style = styleSoFar;
+            } else if (typeof entity.style === "string") {
+                if (!(entity.style in presets)) {
                     throw new Error(
-                        `Style preset "${obj.style}" not found. Please refer to the documentation for available presets.`
+                        `Style preset "${entity.style}" not found. Please refer to the documentation for available presets.`
                     );
                 }
 
-                obj.style = presets[obj.style];
+                entity.style = presets[entity.style];
             }
 
-            obj.style = { ...obj.style, ...this.roughjs_config?.options };
-            parsed_objects.push(obj);
+            entity.style = { ...entity.style, ...this.roughjs_config?.options };
+            parsed_entities.push(entity);
         }
 
-        this.validateIds(parsed_objects);
-        const { stack_frames, other_items } =
-            this.setDimensionsAll(parsed_objects);
-        const strict_objects = [...stack_frames, ...other_items];
+        this.validateIds(parsed_entities);
+        const { stack_frames, objects } =
+            this.setDimensionsAll(parsed_entities);
+        const strict_entities = [...stack_frames, ...objects];
 
         const stack_frames_group = this.document.createElementNS(
             "http://www.w3.org/2000/svg",
@@ -1272,21 +1273,21 @@ export class MemoryModel {
             "http://www.w3.org/2000/svg",
             "g"
         );
-        const other_items_title = getGroupTitle(other_items, "object");
+        const other_items_title = getGroupTitle(objects, "object");
         if (other_items_title !== null) {
             this.addTitleElement(other_items_title, other_items_group);
             this.svg.appendChild(other_items_group);
         }
 
-        for (const obj of strict_objects) {
-            if (!isStyle(obj.style)) {
+        for (const entity of strict_entities) {
+            if (!isStyle(entity.style)) {
                 throw new Error(
                     "The 'style' property of this DrawnEntity must be of type Style."
                 );
             }
 
             const frame_types = [".frame", ".blank-frame"];
-            const is_frame = frame_types.includes(obj.type!);
+            const is_frame = frame_types.includes(entity.type!);
 
             const svg_group = this.document.createElementNS(
                 "http://www.w3.org/2000/svg",
@@ -1298,48 +1299,48 @@ export class MemoryModel {
             parent_group.appendChild(svg_group);
             svg_group.setAttribute("role", "graphics-object");
 
-            this.addTitleElement(getObjectTitle(obj), svg_group);
-            const object_description_str = getObjectDescription(obj);
-            if (object_description_str !== null) {
-                const object_description = this.document.createElementNS(
+            this.addTitleElement(getEntityTitle(entity), svg_group);
+            const entity_description_str = getEntityDescription(entity);
+            if (entity_description_str !== null) {
+                const entity_description = this.document.createElementNS(
                     "http://www.w3.org/2000/svg",
                     "desc"
                 );
-                svg_group.appendChild(object_description);
-                object_description.appendChild(
-                    this.document.createTextNode(object_description_str)
+                svg_group.appendChild(entity_description);
+                entity_description.appendChild(
+                    this.document.createTextNode(entity_description_str)
                 );
             }
 
             if (
-                obj.type === ".frame" ||
-                obj.type === ".blank-frame" ||
-                obj.type === ".class"
+                entity.type === ".frame" ||
+                entity.type === ".blank-frame" ||
+                entity.type === ".class"
             ) {
                 const size = this.drawClass(
-                    obj.x!,
-                    obj.y!,
-                    obj.name,
-                    obj.id,
-                    obj.value,
+                    entity.x!,
+                    entity.y!,
+                    entity.name,
+                    entity.id,
+                    entity.value,
                     is_frame,
-                    obj.style,
-                    obj.width,
-                    obj.height,
+                    entity.style,
+                    entity.width,
+                    entity.height,
                     svg_group
                 );
                 sizes_arr.push(size);
             } else {
                 const size = this.drawObject(
-                    obj.x!,
-                    obj.y!,
-                    obj.type!,
-                    obj.id,
-                    obj.value,
-                    "show_indexes" in obj ? obj.show_indexes : undefined,
-                    obj.style,
-                    obj.width,
-                    obj.height,
+                    entity.x!,
+                    entity.y!,
+                    entity.type!,
+                    entity.id,
+                    entity.value,
+                    "show_indexes" in entity ? entity.show_indexes : undefined,
+                    entity.style,
+                    entity.width,
+                    entity.height,
                     svg_group
                 );
                 sizes_arr.push(size);
@@ -1350,7 +1351,7 @@ export class MemoryModel {
         }
 
         root_title.appendChild(
-            this.document.createTextNode(getMemoryModelTitle(strict_objects))
+            this.document.createTextNode(getMemoryModelTitle(strict_entities))
         );
 
         return sizes_arr;
@@ -1396,34 +1397,34 @@ export class MemoryModel {
     }
 
     /**
-     * Returns a copy of the input objects (split into stack frames and other items)
+     * Returns a copy of the input entities (split into stack frames and objects)
      * with width, height, x and y coordinates set properly.
      *
-     * @param objects - the list of objects (including stack frames) to be drawn.
+     * @param entities - the list of entities (including stack frames) to be drawn.
      */
-    private setDimensionsAll(objects: DrawnEntity[]): {
+    private setDimensionsAll(entities: DrawnEntity[]): {
         stack_frames: DrawnEntityStrict[];
-        other_items: DrawnEntityStrict[];
+        objects: DrawnEntityStrict[];
     } {
-        const objects_with_dimensions: DrawnEntityWithDimensions[] = [];
+        const entities_with_dimensions: DrawnEntityWithDimensions[] = [];
 
-        // Set width and height for all objects
-        for (const object of objects) {
+        // Set width and height for all entities
+        for (const entity of entities) {
             // Get default width and height
-            const default_dims = this.getDefaultDimensions(object);
+            const default_dims = this.getDefaultDimensions(entity);
 
             // Overwrite width and height if necessary
-            const object_with_dimensions = this.setDimensions(
-                object,
+            const entity_with_dimensions = this.setDimensions(
+                entity,
                 default_dims.default_width,
                 default_dims.default_height
             );
 
-            objects_with_dimensions.push(object_with_dimensions);
+            entities_with_dimensions.push(entity_with_dimensions);
         }
 
-        const { stack_frames, other_items } = this.separateObjects(
-            objects_with_dimensions
+        const { stack_frames, other_items } = this.separateEntities(
+            entities_with_dimensions
         );
 
         // Set x and y coordinates for all stack frames
@@ -1439,7 +1440,7 @@ export class MemoryModel {
 
         return {
             stack_frames: StackFrames,
-            other_items: objs,
+            objects: objs,
         };
     }
 
@@ -1448,44 +1449,44 @@ export class MemoryModel {
      * based on its type and value. Delegates to the appropriate helper method
      * depending on whether the object is a class, collection, or primitive.
      *
-     * @param object - The DrawnEntity to compute default dimensions for.
+     * @param entity - The DrawnEntity to compute default dimensions for.
      * @returns An object with default_width and default_height properties.
      * @throws Error if the type or value is invalid.
      */
-    private getDefaultDimensions(object: DrawnEntity): {
+    private getDefaultDimensions(entity: DrawnEntity): {
         default_width: number;
         default_height: number;
     } {
-        if (!isStyle(object.style)) {
+        if (!isStyle(entity.style)) {
             throw new Error(
                 "The 'style' property of this DrawnEntity must be of type Style."
             );
         }
 
-        if (object.type === ".blank" || object.type === ".blank-frame") {
+        if (entity.type === ".blank" || entity.type === ".blank-frame") {
             return { default_width: 0, default_height: 0 };
-        } else if (object.value === null || typeof object.value !== "object") {
+        } else if (entity.value === null || typeof entity.value !== "object") {
             return this.getDefaultPrimitiveDimensions(
-                object.value,
-                object.style
+                entity.value,
+                entity.style
             );
-        } else if (object.type === ".frame" || object.type === ".class") {
+        } else if (entity.type === ".frame" || entity.type === ".class") {
             return this.getDefaultClassDimensions(
-                object.name,
-                object.value,
-                object.style
+                entity.name,
+                entity.value,
+                entity.style
             );
-        } else if (object.type === "dict") {
-            return this.getDefaultDictDimensions(object.value, object.style);
-        } else if (object.type === "list" || object.type === "tuple") {
+        } else if (entity.type === "dict") {
+            return this.getDefaultDictDimensions(entity.value, entity.style);
+        } else if (entity.type === "list" || entity.type === "tuple") {
             return this.getDefaultSequenceDimensions(
-                object.value,
-                object.style,
-                object.show_indexes
+                entity.value,
+                entity.style,
+                entity.show_indexes
             );
         } else {
-            // object.type === "set" or "frozenset"
-            return this.getDefaultSetDimensions(object.value, object.style);
+            // entity.type === "set" or "frozenset"
+            return this.getDefaultSetDimensions(entity.value, entity.style);
         }
     }
 
@@ -1697,59 +1698,59 @@ export class MemoryModel {
     }
 
     /**
-     * Validate and set the width and height of the given object.
+     * Validate and set the width and height of the given entity.
      * If width and/or height are not provided, set them to default values.
      * If provided width and/or height are smaller than the default values, log a warning message
      * and set them to the default values.
-     * @param object
+     * @param entity
      * @param default_width
      * @param default_height
      */
     private setDimensions(
-        object: DrawnEntity,
+        entity: DrawnEntity,
         default_width: number,
         default_height: number
     ): DrawnEntityWithDimensions {
         // For primitive objects, object width and height accounts for the double rectangle separation
         if (
-            (object.type === "int" ||
-                object.type === "float" ||
-                object.type === "str" ||
-                object.type === "bool" ||
-                object.type === "None" ||
-                typeof object.value !== "object" ||
-                object.value === null) &&
-            object.type !== ".blank-frame" &&
-            object.type !== "range"
+            (entity.type === "int" ||
+                entity.type === "float" ||
+                entity.type === "str" ||
+                entity.type === "bool" ||
+                entity.type === "None" ||
+                typeof entity.value !== "object" ||
+                entity.value === null) &&
+            entity.type !== ".blank-frame" &&
+            entity.type !== "range"
         ) {
-            if (object.width !== undefined) {
-                object.width -= 2 * this.double_rect_sep;
+            if (entity.width !== undefined) {
+                entity.width -= 2 * this.double_rect_sep;
             }
-            if (object.height !== undefined) {
-                object.height -= 2 * this.double_rect_sep;
+            if (entity.height !== undefined) {
+                entity.height -= 2 * this.double_rect_sep;
             }
         }
 
-        if (object.width === undefined || object.width < default_width) {
-            if (object.width !== undefined && object.width < default_width) {
+        if (entity.width === undefined || entity.width < default_width) {
+            if (entity.width !== undefined && entity.width < default_width) {
                 console.warn(
-                    `WARNING: provided width of object (${object.width}) is smaller than the required width` +
+                    `WARNING: provided width of object (${entity.width}) is smaller than the required width` +
                         ` (${default_width}). The provided width has been overwritten in the generated diagram.`
                 );
             }
-            object.width = default_width;
+            entity.width = default_width;
         }
-        if (object.height === undefined || object.height < default_height) {
-            if (object.height !== undefined && object.height < default_height) {
+        if (entity.height === undefined || entity.height < default_height) {
+            if (entity.height !== undefined && entity.height < default_height) {
                 console.warn(
-                    `WARNING: provided height of object (${object.height}) is smaller than the required height` +
+                    `WARNING: provided height of object (${entity.height}) is smaller than the required height` +
                         ` (${default_height}). The provided height has been overwritten in the generated diagram.`
                 );
             }
-            object.height = default_height;
+            entity.height = default_height;
         }
 
-        return object as DrawnEntityWithDimensions;
+        return entity as DrawnEntityWithDimensions;
     }
 
     /**
@@ -1757,11 +1758,11 @@ export class MemoryModel {
      * The returned object has two attributes as 'stack_frames' and 'other_items'.
      * Each of these attributes are a list of objects that were originally given by the user.
      *
-     * @param objects - The list of objects, including stack frames (if any) and other items, that
+     * @param entities - The list of entities, including stack frames (if any) and other items, that
      * will be drawn
      * @returns an object separating between stack frames and the rest of the items.
      */
-    private separateObjects(objects: DrawnEntityWithDimensions[]): {
+    private separateEntities(entities: DrawnEntityWithDimensions[]): {
         stack_frames: DrawnEntityWithDimensions[];
         other_items: DrawnEntityWithDimensions[];
     } {
@@ -1770,7 +1771,7 @@ export class MemoryModel {
 
         const frame_types = [".frame", ".blank-frame"];
 
-        for (const item of objects) {
+        for (const item of entities) {
             if (
                 item.type === ".blank" &&
                 (item.width === undefined || item.height === undefined)
