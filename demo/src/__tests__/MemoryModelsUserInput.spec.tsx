@@ -300,7 +300,7 @@ describe("MemoryModelsUserInput", () => {
             const seedInput: HTMLInputElement =
                 screen.getByTestId("config-seed");
             const mockSeed = "123";
-            fireEvent.change(seedInput, { target: { value: mockSeed } });
+            fireEvent.blur(seedInput, { target: { value: mockSeed } });
             expect(setConfigDataMock).toHaveBeenNthCalledWith(1, {
                 ...configDataMock,
                 overallDrawConfig: {
