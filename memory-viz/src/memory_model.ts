@@ -1764,7 +1764,7 @@ export class MemoryModel {
         objects: DrawnEntityWithDimensions[];
     } {
         const stackFrames: DrawnEntityWithDimensions[] = [];
-        const otherItems: DrawnEntityWithDimensions[] = [];
+        const objects: DrawnEntityWithDimensions[] = [];
 
         const frame_types = [".frame", ".blank-frame"];
 
@@ -1781,11 +1781,11 @@ export class MemoryModel {
             } else if (frame_types.includes(item.type)) {
                 stackFrames.push(item);
             } else {
-                otherItems.push(item);
+                objects.push(item);
             }
         }
 
-        return { stack_frames: stackFrames, objects: otherItems };
+        return { stack_frames: stackFrames, objects: objects };
     }
 
     /**
