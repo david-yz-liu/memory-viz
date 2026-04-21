@@ -982,7 +982,7 @@ describe("draw function", () => {
             test: "logs a warning when DrawnEntity is provided with a 'small' width value",
             drawn_entity_config: { width: 50 },
             warning:
-                "^WARNING: provided width of object \\(\\d+\\) is smaller than " +
+                "^WARNING: provided width of entity \\(\\d+\\) is smaller than " +
                 "the required width \\(\\d+(\\.\\d+)?\\). The provided width has been overwritten " +
                 "in the generated diagram.$",
         },
@@ -990,7 +990,7 @@ describe("draw function", () => {
             test: "logs a warning when DrawnEntity is provided with a 'small' height value",
             drawn_entity_config: { height: 50 },
             warning:
-                "^WARNING: provided height of object \\(\\d+\\) is smaller than " +
+                "^WARNING: provided height of entity \\(\\d+\\) is smaller than " +
                 "the required height \\(\\d+\\). The provided height has been overwritten " +
                 "in the generated diagram.$",
         },
@@ -1643,6 +1643,8 @@ describe("draw function", () => {
             expected_substrings: [
                 "<title>",
                 "Python memory model diagram showing stack frames and objects",
+                "Group of 1 stack frames",
+                "Group of 2 objects",
                 "Stack frame for __main__",
                 'Str id19 with value "Title test"',
                 "Int id13 with value 7",
@@ -1677,6 +1679,7 @@ describe("draw function", () => {
                 "<title>",
                 "<desc>",
                 "Python memory model diagram showing objects",
+                "Group of 8 objects",
                 "Int id10 with value 42",
                 'Str id20 with value "test"',
                 "List id30 with 2 elements",
@@ -1708,6 +1711,7 @@ describe("draw function", () => {
             expected_substrings: [
                 "<title>",
                 "Python memory model diagram showing stack frames",
+                "Group of 2 stack frames",
                 "Stack frame for __main__",
                 "Stack frame for foo",
             ],

@@ -19,6 +19,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added `<title>` and `<desc>` attributes to describe the root `<svg>` element and each `DrawnEntity` within generated SVG diagrams, and added `role="graphics-object"` attribute to `<g>` tags
 - Added category descriptions to `<text>` elements using `aria-describedby` and added `aria-hidden="true"` attribute to decorative text in memory model diagrams
 - Changed the order in which `DrawnEntity` components are drawn to improve screen reader navigation
+- Grouped stack frames and objects into separate `<g>` tags with a `<title>` description for each group
 
 ### 🐛 Bug fixes
 
@@ -56,6 +57,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Removed use of `& { value?: any }` intersection type for `DrawnEntity`
 - Allow arbitrary inputs to `draw()` by moving `DrawnEntitySchema.safeParse()` validation from `drawAll()` to `draw()`
 - Add default values for `id`, `value`, `show_indexes`, `name`, and blank objects' `width`/`height` fields in `DrawnEntitySchema`
+- Renamed `object` to `entity` in `MemoryModel` methods, where an entity can either be a stack frame or an object
 
 ## [0.8.0] - 2025-12-04
 

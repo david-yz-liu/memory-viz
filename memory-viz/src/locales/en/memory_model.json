@@ -6,18 +6,22 @@
         "blank": "Blank Python memory model diagram"
     },
     "groupTitles": {
+        "stackFrameGroup": "Group of {{count}} stack frames",
+        "objectGroup": "Group of {{count}} objects"
+    },
+    "entityTitles": {
         "stackFrame": "Stack frame for {{name}}",
         "class": "Class {{name}} with {{count}} attributes",
         "sequence": "{{object_type}} {{id_label}} with {{count}} elements",
         "dict": "Dict {{id_label}} with {{count}} entries",
         "primitive": "{{object_type}} {{id_label}} with value {{value}}"
     },
-    "groupDescriptions": {
+    "entityDescriptions": {
         "class": "Attributes: {{attributes}}",
         "sequence": "Elements: {{elements}}",
         "dict": "Entries: {{entries}}"
     },
-    "unnamedObjects": {
+    "unnamedEntities": {
         "unnamedFunction": "unnamed function",
         "unnamedClass": "unnamed class"
     },

@@ -19,11 +19,11 @@ const TEXT_DESCRIPTION = {
 /**
  * Returns a descriptive title for a MemoryModel diagram.
  *
- * @param strict_objects - a list of DrawnEntityStrict objects to be drawn.
+ * @param strict_entities - a list of DrawnEntityStrict objects to be drawn.
  */
-function getMemoryModelTitle(strict_objects: DrawnEntityStrict[]): string {
-    const has_stack_frames = strict_objects.some((o) => o.type === ".frame");
-    const has_objects = strict_objects.some(
+function getMemoryModelTitle(strict_entities: DrawnEntityStrict[]): string {
+    const has_stack_frames = strict_entities.some((o) => o.type === ".frame");
+    const has_objects = strict_entities.some(
         (o) =>
             o.type !== ".frame" &&
             o.type !== ".blank" &&
@@ -42,57 +42,84 @@ function getMemoryModelTitle(strict_objects: DrawnEntityStrict[]): string {
 }
 
 /**
- * Returns a descriptive title for a DrawnEntity object.
+ * Returns a descriptive title for a group of stack frames or objects.
+ * If the group contains no objects or contains only blanks, return null.
  *
- * @param object - the DrawnEntity object to be drawn.
+ * @param strict_entities - a list of DrawnEntityStrict objects to be drawn.
+ * @param type - the type of entities contained within the group (frame or object)
  */
-function getGroupTitle(object: DrawnEntity): string {
-    if (object.type === ".frame") {
-        const name = object.name
-            ? object.name
-            : i18n.t("unnamedObjects.unnamedFunction");
-        return i18n.t("groupTitles.stackFrame", { name });
-    } else if (object.type === ".class") {
-        const name = object.name
-            ? object.name
-            : i18n.t("unnamedObjects.unnamedClass");
-        const count = Object.keys(object.value).length;
-        return i18n.t("groupTitles.class", { name, count });
+function getGroupTitle(
+    strict_entities: DrawnEntityStrict[],
+    type: "frame" | "object"
+): string | null {
+    const count = strict_entities.filter(
+        (o) => o.type !== ".blank" && o.type !== ".blank-frame"
+    ).length;
+    if (count === 0) {
+        return null;
+    } else if (type === "frame") {
+        return i18n.t("groupTitles.stackFrameGroup", { count });
+    } else {
+        return i18n.t("groupTitles.objectGroup", { count });
+    }
+}
+
+/**
+ * Returns a descriptive title for a DrawnEntity.
+ *
+ * @param entity - the DrawnEntity object to be drawn.
+ */
+function getEntityTitle(entity: DrawnEntity): string {
+    if (entity.type === ".frame") {
+        const name = entity.name
+            ? entity.name
+            : i18n.t("unnamedEntities.unnamedFunction");
+        return i18n.t("entityTitles.stackFrame", { name });
+    } else if (entity.type === ".class") {
+        const name = entity.name
+            ? entity.name
+            : i18n.t("unnamedEntities.unnamedClass");
+        const count = Object.keys(entity.value).length;
+        return i18n.t("entityTitles.class", { name, count });
     }
 
-    const id_label = object.id === null ? "" : `id${object.id}`;
+    const id_label = entity.id === null ? "" : `id${entity.id}`;
 
     if (
-        object.type === "list" ||
-        object.type === "tuple" ||
-        object.type === "set" ||
-        object.type === "frozenset"
+        entity.type === "list" ||
+        entity.type === "tuple" ||
+        entity.type === "set" ||
+        entity.type === "frozenset"
     ) {
-        const count = object.value.length;
+        const count = entity.value.length;
         const object_type =
-            object.type!.charAt(0).toUpperCase() + object.type!.slice(1);
-        return i18n.t("groupTitles.sequence", { object_type, id_label, count });
-    } else if (object.type === "dict") {
+            entity.type!.charAt(0).toUpperCase() + entity.type!.slice(1);
+        return i18n.t("entityTitles.sequence", {
+            object_type,
+            id_label,
+            count,
+        });
+    } else if (entity.type === "dict") {
         let count = 0;
-        if (Array.isArray(object.value)) {
-            count = object.value.length;
+        if (Array.isArray(entity.value)) {
+            count = entity.value.length;
         } else {
-            count = Object.keys(object.value).length;
+            count = Object.keys(entity.value).length;
         }
-        return i18n.t("groupTitles.dict", { id_label, count });
+        return i18n.t("entityTitles.dict", { id_label, count });
     }
 
     const object_type =
-        object.type!.charAt(0).toUpperCase() + object.type!.slice(1);
+        entity.type!.charAt(0).toUpperCase() + entity.type!.slice(1);
     let value: string;
-    if (object.value === null) {
+    if (entity.value === null) {
         value = i18n.t("blanks.blankValue");
-    } else if (object.type === "str") {
-        value = `"${object.value}"`;
+    } else if (entity.type === "str") {
+        value = `"${entity.value}"`;
     } else {
-        value = String(object.value);
+        value = String(entity.value);
     }
-    return i18n.t("groupTitles.primitive", {
+    return i18n.t("entityTitles.primitive", {
         object_type,
         id_label,
         value,
@@ -100,35 +127,35 @@ function getGroupTitle(object: DrawnEntity): string {
 }
 
 /**
- * Returns a description for a container DrawnEntity object.
- * If the object does not need a description, return null.
+ * Returns a description for a container DrawnEntity.
+ * If the entity does not need a description, return null.
  *
- * @param object - the DrawnEntity object to be drawn.
+ * @param entity - the DrawnEntity object to be drawn.
  */
-function getGroupDescription(object: DrawnEntity): string | null {
-    if (object.type === ".class") {
-        const attributes = Object.keys(object.value)
+function getEntityDescription(entity: DrawnEntity): string | null {
+    if (entity.type === ".class") {
+        const attributes = Object.keys(entity.value)
             .map((k) => (k.trim() === "" ? i18n.t("blanks.blankAttribute") : k))
             .join(", ");
         return attributes
-            ? i18n.t("groupDescriptions.class", { attributes })
+            ? i18n.t("entityDescriptions.class", { attributes })
             : null;
     } else if (
-        object.type === "list" ||
-        object.type === "tuple" ||
-        object.type === "set" ||
-        object.type === "frozenset"
+        entity.type === "list" ||
+        entity.type === "tuple" ||
+        entity.type === "set" ||
+        entity.type === "frozenset"
     ) {
-        const elements = object.value
+        const elements = entity.value
             .map((v) => (v !== null ? `id${v}` : i18n.t("blanks.blankValue")))
             .join(", ");
         return elements
-            ? i18n.t("groupDescriptions.sequence", { elements })
+            ? i18n.t("entityDescriptions.sequence", { elements })
             : null;
-    } else if (object.type === "dict") {
+    } else if (entity.type === "dict") {
         let entries = "";
-        if (Array.isArray(object.value)) {
-            entries = object.value
+        if (Array.isArray(entity.value)) {
+            entries = entity.value
                 .map((e) => {
                     const key =
                         e[0] !== null && String(e[0]).trim() !== ""
@@ -142,7 +169,7 @@ function getGroupDescription(object: DrawnEntity): string | null {
                 })
                 .join(", ");
         } else {
-            entries = Object.entries(object.value)
+            entries = Object.entries(entity.value)
                 .map(([k, v]) => {
                     const key =
                         String(k).trim() !== ""
@@ -154,7 +181,7 @@ function getGroupDescription(object: DrawnEntity): string | null {
                 })
                 .join(", ");
         }
-        return entries ? i18n.t("groupDescriptions.dict", { entries }) : null;
+        return entries ? i18n.t("entityDescriptions.dict", { entries }) : null;
     }
     return null;
 }
@@ -163,5 +190,6 @@ export {
     TEXT_DESCRIPTION,
     getMemoryModelTitle,
     getGroupTitle,
-    getGroupDescription,
+    getEntityTitle,
+    getEntityDescription,
 };
