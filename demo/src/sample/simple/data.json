@@ -2,11 +2,11 @@
     {
         "type": ".frame",
         "name": "__main__",
-        "value": { "lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11 }
+        "value": { "david": 1, "n": 13, "hungry": 20 }
     },
     {
         "type": "str",
-        "id": 19,
+        "id": 1,
         "value": "David is cool!",
         "style": ["highlight"]
     },
@@ -14,5 +14,10 @@
         "type": "int",
         "id": 13,
         "value": 7
+    },
+    {
+        "type": "bool",
+        "id": 20,
+        "value": true
     }
 ]
