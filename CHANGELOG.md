@@ -59,7 +59,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Allow arbitrary inputs to `draw()` by moving `DrawnEntitySchema.safeParse()` validation from `drawAll()` to `draw()`
 - Add default values for `id`, `value`, `show_indexes`, `name`, and blank objects' `width`/`height` fields in `DrawnEntitySchema`
 - Renamed `object` to `entity` in `MemoryModel` methods, where an entity can either be a stack frame or an object
-- Modified demo JSON example to resolve all warnings in the examples directory. Also updated the demo.json code snippet in README.md for consistency. 
+- Modified demo JSON example to resolve all warnings in the examples directory. Also updated the demo.json code snippet in README.md for consistency.
 
 ## [0.8.0] - 2025-12-04
 
