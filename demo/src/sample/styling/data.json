@@ -4,40 +4,68 @@
         "x": 25,
         "y": 200,
         "name": "__main__",
-        "value": { "lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11 },
+        "value": { "lst": 54, "s": 90, "d": 10, "n": 13 },
         "style": ["highlight"]
     },
     {
         "x": 350,
-        "y": 350,
+        "y": 150,
         "type": "list",
         "id": 54,
-        "value": [19, 43, 28, 49],
+        "value": [43, 44, 45],
         "style": {
-            "text_id": { "font-style": "italic", "font-size": "x-large" }
+            "text_id": { "font-style": "italic", "font-size": "x-large" },
+            "box_compound": {
+                "2": { "fill": "indigo" }
+            }
+        }
+    },
+    {
+        "x": 250,
+        "y": 500,
+        "type": "str",
+        "id": 43,
+        "value": "David is cool",
+        "style": {
+            "box_container": { "fill": "green", "fillStyle": "solid" }
+        }
+    },
+    {
+        "x": 500,
+        "y": 500,
+        "type": "str",
+        "id": 44,
+        "value": "David is cool",
+        "style": {
+            "box_container": { "fill": "purple", "fillStyle": "solid" }
         }
     },
     {
         "x": 750,
         "y": 500,
         "type": "str",
-        "id": 43,
+        "id": 45,
         "value": "David is cool",
-        "style": "highlight"
+        "style": {
+            "box_container": {
+                "fill": "rgba(0,0,200,0.2)",
+                "fillStyle": "solid"
+            }
+        }
     },
     {
         "x": 1050,
         "y": 260,
         "type": "set",
         "id": 90,
-        "value": [36, 49, 64]
+        "value": [43, 44, 45]
     },
     {
         "x": 1050,
         "y": 500,
         "type": "dict",
         "id": 10,
-        "value": { "x": 81, "y": 100, "z": 121 },
+        "value": { "43": 13, "44": 13, "45": 13 },
         "style": { "text_id": { "font-style": "italic" } }
     },
     {

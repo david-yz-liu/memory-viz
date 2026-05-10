@@ -2,33 +2,17 @@
     {
         "type": ".frame",
         "name": "__main__",
-        "value": { "lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11 }
-    },
-    {
-        "type": ".blank-frame",
-        "width": 100,
-        "height": 200
+        "value": { "profs": 82, "p": 11, "d": 13, "t": 14 }
     },
     {
         "type": ".frame",
         "name": "func",
-        "value": { "age": 12, "name": 17 }
+        "value": { "name": 12, "cool": 32 }
     },
     {
         "type": "list",
         "id": 82,
-        "value": [19, 43, 28, 49]
-    },
-    {
-        "type": "list",
-        "id": 84,
-        "value": [32, 10, 90, 57],
-        "show_indexes": true
-    },
-    {
-        "type": "int",
-        "id": 19,
-        "value": 1969
+        "value": [12, 13, 14]
     },
     {
         "type": ".blank",
@@ -41,18 +25,33 @@
         "value": true
     },
     {
+        "type": ".blank",
+        "width": 200,
+        "height": 200
+    },
+    {
         "type": "str",
-        "id": 43,
-        "value": "David is cool"
+        "id": 12,
+        "value": "David"
+    },
+    {
+        "type": "str",
+        "id": 13,
+        "value": "Karen"
+    },
+    {
+        "type": "str",
+        "id": 14,
+        "value": "Mario"
     },
     {
         "type": ".blank",
-        "width": 200,
+        "width": 300,
         "height": 150
     },
     {
         "type": "tuple",
         "id": 11,
-        "value": [82, 76]
+        "value": [12, 32]
     }
 ]

@@ -4,27 +4,48 @@
         "x": 25,
         "y": 200,
         "name": "__main__",
-        "value": { "lst1": 82, "lst2": 84, "p": 99, "d": 10, "t": 11 }
+        "value": { "pair": 82, "menu": 84, "p": 2, "d": 10 }
     },
     {
         "x": 1050,
         "y": 500,
         "type": "dict",
-        "id": 10,
-        "value": { "x": 81, "y": 100, "z": 121 }
+        "id": 84,
+        "value": { "1": 10, "2": 20 }
     },
     {
         "x": 1050,
         "y": 40,
         "type": "tuple",
-        "id": 11,
-        "value": [82, 76]
+        "id": 82,
+        "value": [1, 2]
+    },
+    {
+        "x": 500,
+        "y": 250,
+        "type": "str",
+        "id": 1,
+        "value": "burger"
     },
     {
         "x": 750,
         "y": 250,
-        "type": "bool",
-        "id": 32,
-        "value": true
+        "type": "str",
+        "id": 2,
+        "value": "fries"
+    },
+    {
+        "x": 300,
+        "y": 550,
+        "type": "float",
+        "id": 10,
+        "value": 8.0
+    },
+    {
+        "x": 300,
+        "y": 700,
+        "type": "float",
+        "id": 20,
+        "value": 3.5
     }
 ]
