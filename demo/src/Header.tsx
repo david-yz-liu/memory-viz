@@ -42,7 +42,7 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
 
     return (
         <header className="container">
-            <Stack direction={"row"} justifyContent={"space-between"}>
+            <Stack direction="row" sx={{ justifyContent: "space-between" }}>
                 <Box>
                     <Typography variant="h1" color="textPrimary">
                         {t("header.title")}
@@ -71,7 +71,11 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
                         {t("header.forDocs")}
                     </Typography>
                 </Box>
-                <Stack direction="row" alignItems="center" spacing={1}>
+                <Stack
+                    direction="row"
+                    spacing={1}
+                    sx={{ alignItems: "center" }}
+                >
                     <IconButton
                         onClick={handleLanguageClick}
                         color="inherit"

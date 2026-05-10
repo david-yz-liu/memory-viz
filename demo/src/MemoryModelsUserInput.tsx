@@ -188,8 +188,8 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
                             }
                             type="number"
                             onBlur={handleSeedChange}
-                            InputProps={{
-                                inputProps: {
+                            slotProps={{
+                                htmlInput: {
                                     min: 0,
                                     max: 2 ** 31,
                                     "data-testid": "config-seed",

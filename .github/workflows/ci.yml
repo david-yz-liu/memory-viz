@@ -13,17 +13,19 @@ jobs:
         steps:
             - name: Checkout repo
               uses: actions/checkout@v6
+            - name: Set up pnpm
+              uses: pnpm/action-setup@v4
             - name: Set up node and cache packages
               uses: actions/setup-node@v6
               with:
                   node-version: 24
-                  cache: npm
-            - name: Install npm packages
-              run: npm ci
+                  cache: pnpm
+            - name: Install packages
+              run: pnpm install --frozen-lockfile
             - name: Compile JavaScript assets
-              run: npm run build --workspace=memory-viz
+              run: pnpm --filter memory-viz run build
             - name: Run jest tests
-              run: npm run test-cov
+              run: pnpm run test-cov
             - name: Coveralls (jest)
               uses: coverallsapp/github-action@v2
               with:
@@ -35,19 +37,21 @@ jobs:
         if: github.event.pull_request.draft == false
         steps:
             - uses: actions/checkout@v6
+            - name: Set up pnpm
+              uses: pnpm/action-setup@v4
             - name: Set up node and cache packages
               uses: actions/setup-node@v6
               with:
                   node-version: 24
-                  cache: npm
-            - name: Install npm packages
-              run: npm ci
+                  cache: pnpm
+            - name: Install packages
+              run: pnpm install --frozen-lockfile
             - name: Build docs, demo, and webstepper website
               run: |
-                  npm run build --workspace=memory-viz
-                  npm run build --workspace=demo
-                  npm run build --workspace=docs
-                  npm run build --workspace=webstepper
+                  pnpm --filter memory-viz run build
+                  pnpm --filter memory-viz-demo run build
+                  pnpm --filter memory-viz-docs run build
+                  pnpm --filter memory-viz-webstepper run build
                   mkdir docs/build/demo
                   cp -r demo/dist/* docs/build/demo
             - name: Archive documentation website artifact

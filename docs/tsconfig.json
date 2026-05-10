@@ -1,0 +1,9 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "noEmit": false,
+        "rootDir": "..",
+        "types": []
+    },
+    "include": ["../memory-viz/src/user_functions.ts"]
+}

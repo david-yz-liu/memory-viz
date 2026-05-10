@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from "react";
-import { Box, Button, Popover } from "@mui/material";
+import { Box, Button, Menu } from "@mui/material";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -48,7 +48,7 @@ export default function MemoryModelsMenu(props: MemoryModelsMenuPropTypes) {
                 {props.menuName}
                 <ExpandMoreRoundedIcon />
             </Button>
-            <Popover
+            <Menu
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
@@ -56,7 +56,7 @@ export default function MemoryModelsMenu(props: MemoryModelsMenuPropTypes) {
                 transformOrigin={{ vertical: "top", horizontal: "left" }}
             >
                 <Box sx={{ pt: 1, pb: 1 }}>{props.menuItems}</Box>
-            </Popover>
+            </Menu>
         </>
     );
 }

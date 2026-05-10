@@ -64,6 +64,9 @@ yarn-error.log*
 node_modules/
 jspm_packages/
 
+# Prevent accidental re-creation of npm lock file (after switching to pnpm)
+package-lock.json
+
 # Optional npm cache directory
 .npm
 

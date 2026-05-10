@@ -51,7 +51,7 @@ This producs an SVG file, `demo_output.svg`, that visualizes the state of memory
 
 ## About this repository
 
-This repository contains multiple [npm workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) that contains the MemoryViz-related projects.
+This repository contains multiple [pnpm workspaces](https://pnpm.io/workspaces) that contains the MemoryViz-related projects.
 
 - [memory-viz/](memory-viz/) is the source code for the main `memory-viz` Javascript package
 - [demo/](demo/) contains the source code for the [demo website](https://www.cs.toronto.edu/~david/memory-viz/demo/)
@@ -62,7 +62,7 @@ This repository contains multiple [npm workspaces](https://docs.npmjs.com/cli/v7
 
 ### Installation
 
-1. Install [Node.js](https://nodejs.org/en/).
+1. Install [Node.js](https://nodejs.org/en/) and [pnpm](https://pnpm.io/installation).
 2. Clone the MemoryViz repository and `cd` into it:
 
     ```bash
@@ -73,26 +73,34 @@ This repository contains multiple [npm workspaces](https://docs.npmjs.com/cli/v7
 3. Install the dependencies:
 
     ```bash
-    $ npm install
+    $ pnpm install
     ```
 
-4. Install the pre-commit hooks to automatically format your code when you make commits:
+4. Compile the MemoryViz library:
 
     ```bash
-    $ npx husky init
+    $ pnpm --filter memory-viz run build-dev
     ```
 
-5. Compile the MemoryViz library:
+5. Run the test suite to check that all tests pass:
 
     ```bash
-    $ npm run build-dev --workspace=memory-viz
+    $ pnpm test
     ```
 
-6. Run the test suite to check that all tests pass:
+### Developer tips
 
-    ```bash
-    $ npm test
-    ```
+**Automatic Javascript compilation**. Rather than running `pnpm --filter memory-viz run build-dev` to recompile your Javascript bundle every time you make a change, you can instead run the following command:
+
+```bash
+$ pnpm --filter memory-viz run watch
+```
+
+This will use `webpack` to watch for changes to the Javascript source files and recompile them automatically.
+
+_Note_: this command will keep running until you manually terminate it (Ctrl + C), and so you'll need to open a new terminal window to enter new terminal commands like running the demo below.
+
+**Viewing Jest SVG snapshots.** To easily view the Jest SVG snapshots, open the file `memory-viz/src/tests/__snapshots__/snapshot.html` and select the snapshot outputs with the `*.snap` extension.
 
 ### Building and running the documentation website
 
@@ -101,3 +109,7 @@ See [`docs/README.md`](docs/README.md).
 ### Building and running the demo website
 
 See [`demo/README.md`](demo/README.md).
+
+### Building and running the webstepper website
+
+See [`webstepper/README.md`](webstepper/README.md).

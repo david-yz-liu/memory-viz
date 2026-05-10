@@ -1,0 +1,9 @@
+packages:
+    - "memory-viz"
+    - "demo"
+    - "docs"
+    - "webstepper"
+
+allowBuilds:
+    "@parcel/watcher": true
+    core-js: true

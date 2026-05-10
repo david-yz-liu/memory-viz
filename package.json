@@ -1,4 +1,5 @@
 {
+    "//": "memory-viz is listed here to hoist it to root node_modules, so scripts in examples/ can require() it without being workspace packages themselves.",
     "scripts": {
         "lint": "eslint",
         "lint:fix": "eslint --fix",
@@ -13,6 +14,7 @@
         "webstepper"
     ],
     "devDependencies": {
+        "memory-viz": "workspace:*",
         "@eslint/js": "^9.33.0",
         "@eslint/json": "^1.0.0",
         "baseline-browser-mapping": "^2.9.19",
@@ -23,7 +25,9 @@
         "eslint-plugin-react": "^7.37.5",
         "globals": "^17.4.0",
         "husky": "^9.1.7",
+        "jest": "^29.7.0",
         "jiti": "^2.5.1",
+        "ts-node": "^10.9.2",
         "lint-staged": "^16.1.2",
         "prettier": "3.4.1",
         "typescript-eslint": "^8.39.0",
@@ -34,5 +38,6 @@
             "eslint --fix"
         ],
         "**/*": "prettier --write --ignore-unknown"
-    }
+    },
+    "packageManager": "pnpm@11.0.9+sha512.34ce82e6780233cf9cad8685029a8f81d2e06196c5a9bad98879f7424940c6817c4e4524fb7d38b8553ceed48b9758b8ebaf1abd3600c232c4c8cf7366086f38"
 }

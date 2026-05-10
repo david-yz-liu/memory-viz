@@ -927,7 +927,8 @@ describe("draw function", () => {
                 { type: "int", id: 1 },
                 { type: "int", id: 2 },
             ],
-            errorMessage: "✖ Invalid input\n  → at type",
+            errorMessage:
+                "✖ Invalid discriminator value. Expected 'int' | 'float' | 'bool' | 'str' | 'complex' | 'bytes' | 'range' | 'date' | 'None' | 'NoneType' | 'list' | 'tuple' | 'set' | 'frozenset' | 'dict' | '.class' | '.frame' | '.blank' | '.blank-frame'\n  → at type",
         },
         {
             test: "throws error for blank space with id field",

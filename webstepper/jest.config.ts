@@ -91,8 +91,8 @@ const config: Config = {
 
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
     moduleNameMapper: {
-        "^roughjs$": "<rootDir>/../node_modules/roughjs/bundled/rough.cjs.js",
-        "^memory-viz$": "<rootDir>/../memory-viz/src",
+        "^roughjs$":
+            "<rootDir>/../memory-viz/node_modules/roughjs/bundled/rough.cjs.js",
         "^(\\.{1,2}/.*)\\.js$": "$1",
         // Mocks the website logo each time the logo image is imported
         "\\/logo_square(.*).png": "<rootDir>/src/mocks/logoMock.js",
@@ -189,7 +189,10 @@ const config: Config = {
     },
 
     // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-    transformIgnorePatterns: ["/node_modules/(?!(react-syntax-highlighter)/)"],
+    // Anchored to .pnpm/ (which appears only once per path) to avoid matching both /node_modules/ segments in pnpm paths.
+    transformIgnorePatterns: [
+        "/node_modules/\\.pnpm/(?!react-syntax-highlighter@)",
+    ],
 
     // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
     // unmockedModulePathPatterns: undefined,
