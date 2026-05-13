@@ -29,9 +29,7 @@ const config: Config = {
     coverageDirectory: "coverage",
 
     // An array of regexp pattern strings used to skip coverage collection
-    // coveragePathIgnorePatterns: [
-    //   "/node_modules/"
-    // ],
+    coveragePathIgnorePatterns: ["/node_modules/", "/memory-viz/dist/"],
 
     // Indicates which provider should be used to instrument code for coverage
     // coverageProvider: "babel",
@@ -92,7 +90,8 @@ const config: Config = {
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
     moduleNameMapper: {
         // Force module roughjs to resolve with the CJS entry point, because Jest does not support package.json.exports. Elaborated in PR#15.
-        "^roughjs$": "<rootDir>/../node_modules/roughjs/bundled/rough.cjs.js",
+        "^roughjs$":
+            "<rootDir>/../memory-viz/node_modules/roughjs/bundled/rough.cjs.js",
         "^memory-viz$": "<rootDir>/../memory-viz/src",
         "^(\\.{1,2}/.*)\\.js$": "$1",
         // Mocks the website logo each time the logo image is imported

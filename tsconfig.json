@@ -2,21 +2,20 @@
     "compilerOptions": {
         "allowJs": true,
         "allowSyntheticDefaultImports": true,
-        "baseUrl": ".",
         "declaration": true,
         "declarationMap": true,
         "emitDeclarationOnly": true,
         "esModuleInterop": true,
         "isolatedModules": true,
-        "module": "es2015",
+        "jsx": "preserve",
+        "lib": ["ES2022", "DOM"],
+        "module": "es2020",
         "moduleResolution": "bundler",
-        "noEmit": false, // Overrides noEmit from @docusaurus/tsconfig
-        "outDir": "./dist",
+        "skipLibCheck": true,
         "sourceMap": true,
         "strict": true,
         "target": "es2020",
         "types": ["node", "@types/jest"]
     },
-    "extends": "@docusaurus/tsconfig",
     "include": ["memory-viz/src/**/*"]
 }

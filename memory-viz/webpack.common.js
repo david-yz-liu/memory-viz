@@ -128,7 +128,7 @@ export const cliConfig = {
     },
     module: shared.module,
     externalsPresets: { node: true },
-    externals: [nodeExternals()],
+    externals: [nodeExternals({ importType: "module" })],
     resolve: shared.resolve,
     plugins: [
         new webpack.BannerPlugin({

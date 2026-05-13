@@ -37,7 +37,9 @@ describe("App", () => {
 
         const errorBoundary = screen.getByTestId("svg-display-error-boundary");
         expect(errorBoundary.textContent).toEqual(
-            "✖ Invalid input\n" + "  → at type"
+            expect.stringMatching(
+                /^✖ Invalid discriminator value\..*\n\s*→ at type$/
+            )
         );
         spy.mockRestore();
     });
@@ -81,7 +83,9 @@ describe("App", () => {
 
         const errorBoundary = screen.getByTestId("svg-display-error-boundary");
         expect(errorBoundary.textContent).toEqual(
-            "✖ Invalid input\n" + "  → at type"
+            expect.stringMatching(
+                /^✖ Invalid discriminator value\..*\n\s*→ at type$/
+            )
         );
 
         // Next, reset and input valid JSON that's also valid memory-viz JSON

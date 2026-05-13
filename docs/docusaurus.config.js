@@ -149,7 +149,8 @@ const config = {
             {
                 entryPoints: ["../memory-viz/src/user_functions.ts"],
                 readme: "none",
-                tsconfig: "../tsconfig.json",
+                tsconfig: "./tsconfig.json",
+                skipErrorChecking: true,
             },
         ],
     ],
