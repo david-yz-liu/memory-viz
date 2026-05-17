@@ -1828,7 +1828,9 @@ export class MemoryModel {
 
             min_required_height = height + min_required_height;
         }
-        stack_endpoint += this.left_margin;
+        if (stack_frames.length > 0) {
+            stack_endpoint += this.left_margin;
+        }
         if (
             this.height === undefined ||
             this.height < min_required_height + this.canvas_padding_bottom
