@@ -7,7 +7,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { draw } from "memory-viz";
+import memoryViz from "memory-viz";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -53,7 +53,7 @@ fs.readdirSync(jsonDirectory).forEach((directory) => {
                 `${baseName}_light.svg`
             );
             if (needsRebuild(jsonPath, svgPathLight)) {
-                const svgLight = draw(jsonPath, true, {});
+                const svgLight = memoryViz.draw(jsonPath, true, {});
                 svgLight.save(svgPathLight);
                 console.log(`Created: ${svgPathLight}`);
             }
@@ -63,7 +63,9 @@ fs.readdirSync(jsonDirectory).forEach((directory) => {
                 `${baseName}_dark.svg`
             );
             if (needsRebuild(jsonPath, svgPathDark)) {
-                const svgDark = draw(jsonPath, true, { theme: "dark" });
+                const svgDark = memoryViz.draw(jsonPath, true, {
+                    theme: "dark",
+                });
                 svgDark.save(svgPathDark);
                 console.log(`Created: ${svgPathDark}`);
             }
