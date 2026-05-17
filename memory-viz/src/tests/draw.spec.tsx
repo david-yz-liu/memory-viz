@@ -806,7 +806,7 @@ describe("draw function", () => {
                 roughjs_config: {
                     options: {
                         fill: "green",
-                        fillStyle: "dashed",
+                        fillStyle: "hachure",
                         seed: 12345,
                     },
                 },
