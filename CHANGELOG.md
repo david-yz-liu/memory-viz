@@ -63,6 +63,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Modified demo JSON example to resolve all warnings in the examples directory. Also updated the demo.json code snippet in README.md for consistency.
 - Switched to `pnpm` for project build management
 - Changed `generate-svgs` to import the default `memory-viz` export to align with the package's ESM export shape
+- Changed `draw.spec` test to remove floating point errors
 
 ## [0.8.0] - 2025-12-04
 
