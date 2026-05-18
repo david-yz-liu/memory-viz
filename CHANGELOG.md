@@ -26,6 +26,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added trailing zeroes to values for objects of type `float`
 - Changed labels for `<text>` elements in stack frames from "attribute name" and "attribute value" to "parameter name" and "parameter value"
 - Removed unwanted padding in `draw()` when memory model is generated without any stack frames
+- Fixed stack frames to all share a uniform width equal to the maximum computed/specified width among all frames
 
 ### 📚 Documentation and demo website changes
 
