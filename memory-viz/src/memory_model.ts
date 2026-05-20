@@ -1430,15 +1430,13 @@ export class MemoryModel {
             0
         );
 
-        const normalized_stack_frames = stack_frames.map((frame) => ({
-            ...frame,
-            width: max_frame_width,
-        }));
+        for (const frame of stack_frames) {
+            frame.width = max_frame_width;
+        }
 
         // Set x and y coordinates for all stack frames
-        const { StackFrames, stackEndpoint } = this.setStackFrameCoordinates(
-            normalized_stack_frames
-        );
+        const { StackFrames, stackEndpoint } =
+            this.setStackFrameCoordinates(stack_frames);
 
         // Set x and y coordinates for all other objects
         const objs = this.setOtherItemsCoordinates(
