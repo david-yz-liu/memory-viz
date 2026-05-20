@@ -43,6 +43,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Replaced `required` column with `default` on 'Entity Specification' page and updated documentation to reflect new DrawnEntitySchema
 - Updated the SvgDisplay to re-render whenever the configuration data is changed
 - Changed demo website sample inputs to ensure no warnings are emitted
+- Added an example of multiple stack frames to the documentation website
 
 ### 🔧 Internal changes
 
