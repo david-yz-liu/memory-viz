@@ -1,0 +1,38 @@
+[
+    {
+        "type": ".frame",
+        "name": "__main__",
+        "value": {
+            "lst1": 82
+        }
+    },
+    {
+        "type": ".frame",
+        "name": "super_long_function_name",
+        "value": {
+            "x": 1,
+            "y": 2,
+            "z": 3
+        }
+    },
+    {
+        "type": "list",
+        "id": 82,
+        "value": [1, 2, 3]
+    },
+    {
+        "type": "int",
+        "id": 1,
+        "value": 100
+    },
+    {
+        "type": "int",
+        "id": 2,
+        "value": 200
+    },
+    {
+        "type": "int",
+        "id": 3,
+        "value": 300
+    }
+]

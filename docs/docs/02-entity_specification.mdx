@@ -20,6 +20,7 @@ import ExampleIntBlank from "!!raw-loader!./examples/entity_specification/int_bl
 import ExampleListBlank from "!!raw-loader!./examples/entity_specification/list_blank.json";
 import ExampleListIndices from "!!raw-loader!./examples/entity_specification/list_indices.json";
 import ExampleMainStack from "!!raw-loader!./examples/entity_specification/main_stack.json";
+import ExampleMultipleStack from "!!raw-loader!./examples/entity_specification/multiple_stack.json";
 import ExampleNone from "!!raw-loader!./examples/entity_specification/none.json";
 import ExampleSetBlank from "!!raw-loader!./examples/entity_specification/set_blank.json";
 import ExampleSetWide from "!!raw-loader!./examples/entity_specification/set_wide.json";
@@ -464,6 +465,21 @@ Note: Stack frames do not have an `id` field.
             ),
             dark: useBaseUrl(
                 "images/entity_specification/function_stack_dark.svg"
+            ),
+        }}
+    />
+</details>
+<details>
+    <summary>**Multiple stack frames**</summary>
+    <CodeBlock language="json">{ExampleMultipleStack}</CodeBlock>
+    <ThemedImage
+        alt="Example Function Stack Frame"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/multiple_stack_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/multiple_stack_dark.svg"
             ),
         }}
     />
