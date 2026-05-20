@@ -3,15 +3,12 @@
         "type": ".frame",
         "name": "__main__",
         "value": {
-            "lst1": 82,
-            "p": 99,
-            "d": 10,
-            "t": 11
+            "lst1": 82
         }
     },
     {
         "type": ".frame",
-        "name": "function_one",
+        "name": "super_long_function_name",
         "value": {
             "x": 1,
             "y": 2,
@@ -19,32 +16,9 @@
         }
     },
     {
-        "type": ".frame",
-        "name": "other_function",
-        "value": {
-            "a": 10,
-            "b": 20
-        }
-    },
-    {
         "type": "list",
         "id": 82,
         "value": [1, 2, 3]
-    },
-    {
-        "type": "str",
-        "id": 99,
-        "value": "hello"
-    },
-    {
-        "type": "int",
-        "id": 10,
-        "value": 42
-    },
-    {
-        "type": "int",
-        "id": 11,
-        "value": 7
     },
     {
         "type": "int",
@@ -60,15 +34,5 @@
         "type": "int",
         "id": 3,
         "value": 300
-    },
-    {
-        "type": "int",
-        "id": 20,
-        "value": 400
-    },
-    {
-        "type": ".blank",
-        "width": 200,
-        "height": 100
     }
 ]
