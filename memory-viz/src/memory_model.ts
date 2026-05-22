@@ -1424,6 +1424,16 @@ export class MemoryModel {
             entities_with_dimensions
         );
 
+        // Set the width of stack frames to the maximum width
+        const max_frame_width = stack_frames.reduce(
+            (max, frame) => Math.max(max, frame.width),
+            0
+        );
+
+        for (const frame of stack_frames) {
+            frame.width = max_frame_width;
+        }
+
         // Set x and y coordinates for all stack frames
         const { StackFrames, stackEndpoint } =
             this.setStackFrameCoordinates(stack_frames);
