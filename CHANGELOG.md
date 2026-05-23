@@ -11,6 +11,16 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+### 🐛 Bug fixes
+
+### 📚 Documentation and demo website changes
+
+### 🔧 Internal changes
+
+## [0.9.0] - 2026-05-23
+
+### ✨ Enhancements
+
 - Added the built in immutable Python types (complex, bytes, range) to the memory-viz immutable types
 - Added documentation and tests for the pre-existingly supported immutable Python type `datetime.date`
 - Added the built in immutable Python type `frozenset` to the memory-viz immutable, and sequence types
