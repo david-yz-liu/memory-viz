@@ -9,12 +9,12 @@ on:
 jobs:
     jest:
         if: github.event.pull_request.draft == false
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
         steps:
             - name: Checkout repo
               uses: actions/checkout@v6
             - name: Set up pnpm
-              uses: pnpm/action-setup@v4
+              uses: pnpm/action-setup@v6
             - name: Set up node and cache packages
               uses: actions/setup-node@v6
               with:
@@ -38,7 +38,7 @@ jobs:
         steps:
             - uses: actions/checkout@v6
             - name: Set up pnpm
-              uses: pnpm/action-setup@v4
+              uses: pnpm/action-setup@v6
             - name: Set up node and cache packages
               uses: actions/setup-node@v6
               with:
