@@ -7,6 +7,18 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### 🚨 Breaking changes
+
+### ✨ Enhancements
+
+### 🐛 Bug fixes
+
+### 📚 Documentation changes
+
+### 🔧 Internal changes
+
+## [0.9.0] - 2026-05-23
+
 ### ✨ Enhancements
 
 - Added the MemoryViz logo as a favicon
@@ -14,13 +26,9 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added `lang` attribute to root `<html>` element of webstepper website
 - Changed webstepper website subheading component to `<h2>` to ensure all heading elements are in sequentially decreasing order
 
-### 🐛 Bug fixes
-
 ### 🚨 Breaking changes
 
 - The webstepper now requires a list of JSONS containing line numbers, a MemoryViz input and (optionally) a configuration to be provided by a global variable. MemoryViz is then invoked directly to render these MemoryViz inputs into SVGs for display.
-
-### 📚 Documentation changes
 
 ### 🔧 Internal changes
 
