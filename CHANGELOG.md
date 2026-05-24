@@ -79,6 +79,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Switched to `pnpm` for project build management
 - Changed `generate-svgs` to import the default `memory-viz` export to align with the package's ESM export shape
 - Changed `draw.spec` test to remove floating point errors
+- Added `generate-svgs-plugin` to run `generate-svgs` script when the documentation site starts, and removed all svg files and added them to `.gitignore`
 
 ## [0.8.0] - 2025-12-04
 
