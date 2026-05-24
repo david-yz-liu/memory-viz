@@ -19,6 +19,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Updated CI config to use Ubuntu v24.04, `pnpm/action-setup@v6`, and pass `--no-git-checks` to `pnpm publish`
 - Removed old access token from the GitHub Action for package publishing
+- Added `generate-svgs-plugin` to run `generate-svgs` script when the documentation site starts, and removed all svg files and added them to `.gitignore`
 
 ## [0.9.0] - 2026-05-23
 
@@ -79,7 +80,6 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Switched to `pnpm` for project build management
 - Changed `generate-svgs` to import the default `memory-viz` export to align with the package's ESM export shape
 - Changed `draw.spec` test to remove floating point errors
-- Added `generate-svgs-plugin` to run `generate-svgs` script when the documentation site starts, and removed all svg files and added them to `.gitignore`
 
 ## [0.8.0] - 2025-12-04
 
