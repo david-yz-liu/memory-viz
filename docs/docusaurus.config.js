@@ -142,6 +142,8 @@ const config = {
             },
         }),
     plugins: [
+        "./plugins/generate-svgs-plugin.js",
+
         [
             "docusaurus-plugin-typedoc",
 
