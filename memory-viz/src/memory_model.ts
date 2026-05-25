@@ -318,6 +318,10 @@ export class MemoryModel {
         height: number,
         svg_group: SVGGElement
     ): Rect {
+        // Offset inner box to account for double border
+        x += this.double_rect_sep;
+        y += this.double_rect_sep;
+
         this.drawRect(
             x,
             y,
@@ -2044,12 +2048,6 @@ export class MemoryModel {
             defaultObject
         );
 
-        // compareByRightness and compareByBottomness didn't throw error, so right_most_obj and down_most_obj has attributes x, y, width, height
-        let canvas_width =
-            right_most_obj.x + right_most_obj.width + this.right_margin;
-        let canvas_height =
-            down_most_obj.y + down_most_obj.height + this.bottom_margin;
-
         // Set dimensions of primitive objects back to original values
         for (const strict_obj of strict_objects) {
             if (
@@ -2066,6 +2064,12 @@ export class MemoryModel {
                 strict_obj.height -= 2 * this.double_rect_sep;
             }
         }
+
+        // compareByRightness and compareByBottomness didn't throw error, so right_most_obj and down_most_obj has attributes x, y, width, height
+        let canvas_width =
+            right_most_obj.x + right_most_obj.width + this.right_margin;
+        let canvas_height =
+            down_most_obj.y + down_most_obj.height + this.bottom_margin;
 
         // Additional -- to extend the program for the .blank option.
         strict_objects = strict_objects.filter((item) => {
