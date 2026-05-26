@@ -12,8 +12,8 @@ export default function generateSvgsPlugin() {
         async loadContent() {
             console.log("[generate-svgs-plugin] Generating SVGs...");
             execSync("pnpm run generate-svgs", {
-                cwd: path.resolve(__dirname, "../"),
-                stdio: "inherit",
+                cwd: path.resolve(__dirname, "../"), // run command in docs/ directory
+                stdio: "inherit", // print output of command to terminal
             });
             console.log("[generate-svgs-plugin] Done.");
         },
