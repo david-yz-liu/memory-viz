@@ -1,20 +1,14 @@
-import { execSync } from "child_process";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import generateSvgs from "./generate_svgs.js";
 
 export default function generateSvgsPlugin() {
     return {
         name: "generate-svgs-plugin",
 
         async loadContent() {
-            console.log("[generate-svgs-plugin] Generating SVGs...");
-            execSync("pnpm run generate-svgs", {
-                cwd: path.resolve(__dirname, "../"), // run command in docs/ directory
-                stdio: "inherit", // print output of command to terminal
-            });
+            console.log(
+                "[generate-svgs-plugin] Generating MemoryViz Diagrams..."
+            );
+            generateSvgs();
             console.log("[generate-svgs-plugin] Done.");
         },
     };
