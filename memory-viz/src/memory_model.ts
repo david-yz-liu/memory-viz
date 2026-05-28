@@ -319,8 +319,10 @@ export class MemoryModel {
         svg_group: SVGGElement
     ): Rect {
         // Offset inner box to account for double border
-        x += this.double_rect_sep;
-        y += this.double_rect_sep;
+        if (immutable.includes(type)) {
+            x += this.double_rect_sep;
+            y += this.double_rect_sep;
+        }
 
         this.drawRect(
             x,
