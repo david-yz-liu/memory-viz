@@ -21,6 +21,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Updated CI config to use Ubuntu v24.04, `pnpm/action-setup@v6`, and pass `--no-git-checks` to `pnpm publish`
 - Removed old access token from the GitHub Action for package publishing
+- Added `generate-svgs-plugin` to run old `generate-svgs` script functionality when the documentation site starts, and deleted script. Also removed all svg files and added them to `.gitignore`
 
 ## [0.9.0] - 2026-05-23
 
