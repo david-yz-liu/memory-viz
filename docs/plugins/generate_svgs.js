@@ -1,0 +1,78 @@
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import memoryViz from "memory-viz";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const jsonDirectory = path.resolve(__dirname, "../docs/examples");
+const svgDirectory = path.resolve(__dirname, "../static/images");
+
+/**
+ * Determines whether svg should be redrawn based on timestamps.
+ *
+ * @param json - Path to the json file
+ * @param svg - Path to the svg file
+ * @returns True if the svg does not exist or is older than the source.
+ */
+function needsRebuild(json, svg) {
+    if (!fs.existsSync(svg)) {
+        return true;
+    }
+    const jsonTime = fs.statSync(json).mtime;
+    const svgTime = fs.statSync(svg).mtime;
+    return jsonTime > svgTime;
+}
+
+/**
+ * Scans JSON files in docs/examples and generates light and dark mode SVGs into static/images.
+ * Only generates SVGs if the JSON file is newer than the existing SVG file.
+ *
+ * @returns void
+ */
+export default function generateSvgs() {
+    fs.readdirSync(jsonDirectory).forEach((directory) => {
+        const jsonSubDirectory = path.join(jsonDirectory, directory);
+        if (!fs.statSync(jsonSubDirectory).isDirectory()) {
+            return;
+        }
+
+        const svgSubDirectory = path.join(svgDirectory, directory);
+        fs.mkdirSync(svgSubDirectory, { recursive: true });
+
+        fs.readdirSync(jsonSubDirectory).forEach((file) => {
+            if (path.extname(file) !== ".json") {
+                return;
+            }
+            const jsonPath = path.join(jsonSubDirectory, file);
+            const baseName = path.basename(file, ".json");
+
+            try {
+                const svgPathLight = path.join(
+                    svgSubDirectory,
+                    `${baseName}_light.svg`
+                );
+                if (needsRebuild(jsonPath, svgPathLight)) {
+                    const svgLight = memoryViz.draw(jsonPath, true, {});
+                    svgLight.save(svgPathLight);
+                    console.log(`Created: ${svgPathLight}`);
+                }
+
+                const svgPathDark = path.join(
+                    svgSubDirectory,
+                    `${baseName}_dark.svg`
+                );
+                if (needsRebuild(jsonPath, svgPathDark)) {
+                    const svgDark = memoryViz.draw(jsonPath, true, {
+                        theme: "dark",
+                    });
+                    svgDark.save(svgPathDark);
+                    console.log(`Created: ${svgPathDark}`);
+                }
+            } catch (error) {
+                console.error(`Error processing ${jsonPath}:`, error.message);
+            }
+        });
+    });
+}
