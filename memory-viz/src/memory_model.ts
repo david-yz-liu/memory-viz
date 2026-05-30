@@ -318,42 +318,45 @@ export class MemoryModel {
         height: number,
         svg_group: SVGGElement
     ): Rect {
+        let inner_x: number = x;
+        let inner_y: number = y;
+        let inner_width: number = width;
+        let inner_height: number = height;
+
+        // Modify dimensions for main content box
+        if (immutable.includes(type)) {
+            inner_x = x + this.double_rect_sep;
+            inner_y = y + this.double_rect_sep;
+            inner_width = width - 2 * this.double_rect_sep;
+            inner_height = height - 2 * this.double_rect_sep;
+        }
+
+        // Draw inner rectangle
         this.drawRect(
-            x,
-            y,
-            width,
-            height,
+            inner_x,
+            inner_y,
+            inner_width,
+            inner_height,
             svg_group,
             style.box_container,
             true,
             id
         );
 
-        let size: Rect = {
-            width: width,
-            height: height,
-            x: x,
-            y: y,
-        };
-
+        // Draw outer rectangle
         if (immutable.includes(type)) {
-            this.drawRect(
-                // While no style argument is provided, the drawRect method manages this scenario automatically.
-                x - this.double_rect_sep,
-                y - this.double_rect_sep,
-                width + 2 * this.double_rect_sep,
-                height + 2 * this.double_rect_sep,
-                svg_group
-            );
-            size = {
-                width: width + 2 * this.double_rect_sep,
-                height: height + 2 * this.double_rect_sep,
-                x: x - this.double_rect_sep,
-                y: y - this.double_rect_sep,
-            };
+            this.drawRect(x, y, width, height, svg_group);
         }
 
-        this.drawProperties(id, type, x, y, width, style, svg_group);
+        this.drawProperties(
+            id,
+            type,
+            inner_x,
+            inner_y,
+            inner_width,
+            style,
+            svg_group
+        );
 
         let display_text: string;
         if (type === "bool") {
@@ -373,8 +376,8 @@ export class MemoryModel {
         if (value !== null) {
             this.drawText(
                 display_text,
-                x + width / 2,
-                y + (height + this.prop_min_height) / 2,
+                inner_x + inner_width / 2,
+                inner_y + (inner_height + this.prop_min_height) / 2,
                 svg_group,
                 style.text_value,
                 "value",
@@ -382,6 +385,13 @@ export class MemoryModel {
                 TEXT_DESCRIPTION["value"]
             );
         }
+
+        const size: Rect = {
+            width: width,
+            height: height,
+            x: x,
+            y: y,
+        };
 
         this.updateDimensions(size);
 
@@ -1718,26 +1728,6 @@ export class MemoryModel {
         default_width: number,
         default_height: number
     ): DrawnEntityWithDimensions {
-        // For primitive objects, object width and height accounts for the double rectangle separation
-        if (
-            (entity.type === "int" ||
-                entity.type === "float" ||
-                entity.type === "str" ||
-                entity.type === "bool" ||
-                entity.type === "None" ||
-                typeof entity.value !== "object" ||
-                entity.value === null) &&
-            entity.type !== ".blank-frame" &&
-            entity.type !== "range"
-        ) {
-            if (entity.width !== undefined) {
-                entity.width -= 2 * this.double_rect_sep;
-            }
-            if (entity.height !== undefined) {
-                entity.height -= 2 * this.double_rect_sep;
-            }
-        }
-
         if (entity.width === undefined || entity.width < default_width) {
             if (entity.width !== undefined && entity.width < default_width) {
                 console.warn(
@@ -1874,24 +1864,9 @@ export class MemoryModel {
     ): DrawnEntityStrict[] {
         // Determining the minimum width of the canvas.
         let min_width = 0;
-        let item_width: number;
         for (const item of objs) {
-            if (
-                (item.type === "int" ||
-                    item.type === "float" ||
-                    item.type === "str" ||
-                    item.type === "bool" ||
-                    item.type === "None" ||
-                    typeof item.value !== "object" ||
-                    item.value === null) &&
-                item.type !== ".blank-frame"
-            ) {
-                item_width = item.width + 2 * this.double_rect_sep;
-            } else {
-                item_width = item.width;
-            }
-            if (item_width > min_width) {
-                min_width = item_width;
+            if (item.width > min_width) {
+                min_width = item.width;
             }
         }
 
@@ -1928,21 +1903,6 @@ export class MemoryModel {
                         "(either the width or the height is missing). This object will be omitted in the memory model" +
                         " diagram."
                 );
-            }
-
-            // Dimensions of primitive objects are updated in the calculation of coordinates
-            if (
-                (item.type === "int" ||
-                    item.type === "float" ||
-                    item.type === "str" ||
-                    item.type === "bool" ||
-                    item.type === "None" ||
-                    typeof item.value !== "object" ||
-                    item.value === null) &&
-                item.type !== "range"
-            ) {
-                item.width += 2 * this.double_rect_sep;
-                item.height += 2 * this.double_rect_sep;
             }
         }
 
@@ -2049,23 +2009,6 @@ export class MemoryModel {
             right_most_obj.x + right_most_obj.width + this.right_margin;
         let canvas_height =
             down_most_obj.y + down_most_obj.height + this.bottom_margin;
-
-        // Set dimensions of primitive objects back to original values
-        for (const strict_obj of strict_objects) {
-            if (
-                (strict_obj.type === "int" ||
-                    strict_obj.type === "float" ||
-                    strict_obj.type === "str" ||
-                    strict_obj.type === "bool" ||
-                    strict_obj.type === "None" ||
-                    typeof strict_obj.value !== "object" ||
-                    strict_obj.value === null) &&
-                strict_obj.type !== "range"
-            ) {
-                strict_obj.width -= 2 * this.double_rect_sep;
-                strict_obj.height -= 2 * this.double_rect_sep;
-            }
-        }
 
         // Additional -- to extend the program for the .blank option.
         strict_objects = strict_objects.filter((item) => {
