@@ -386,16 +386,11 @@ export class MemoryModel {
             );
         }
 
-        const size: Rect = {
-            width: width,
-            height: height,
-            x: x,
-            y: y,
-        };
+        const SIZE: Rect = { width: width, height: height, x: x, y: y };
 
-        this.updateDimensions(size);
+        this.updateDimensions(SIZE);
 
-        return size;
+        return SIZE;
     }
 
     /**
@@ -514,30 +509,45 @@ export class MemoryModel {
         height: number,
         svg_group: SVGGElement
     ): Rect {
+        let inner_x: number = x;
+        let inner_y: number = y;
+        let inner_width: number = width;
+        let inner_height: number = height;
+
+        // Modify dimensions for main content box
+        if (immutable.includes(type)) {
+            inner_x = x + this.double_rect_sep;
+            inner_y = y + this.double_rect_sep;
+            inner_width = width - 2 * this.double_rect_sep;
+            inner_height = height - 2 * this.double_rect_sep;
+        }
+
+        // Draw inner rectangle
         this.drawRect(
-            x,
-            y,
-            width,
-            height,
+            inner_x,
+            inner_y,
+            inner_width,
+            inner_height,
             svg_group,
             style.box_container,
             true,
             id
         );
 
-        this.drawProperties(id, type, x, y, width, style, svg_group);
-
-        const size: Rect = { width: width, height: height, x: x, y: y };
-
+        // Draw outer rectangle
         if (immutable.includes(type)) {
-            this.drawRect(
-                x - this.double_rect_sep,
-                y - this.double_rect_sep,
-                width + 2 * this.double_rect_sep,
-                height + 2 * this.double_rect_sep,
-                svg_group
-            );
+            this.drawRect(x, y, width, height, svg_group);
         }
+
+        this.drawProperties(
+            id,
+            type,
+            inner_x,
+            inner_y,
+            inner_width,
+            style,
+            svg_group
+        );
 
         let curr_x = x + this.item_min_width / 2;
         let item_y =
@@ -596,9 +606,11 @@ export class MemoryModel {
             curr_x += item_length;
         });
 
-        this.updateDimensions(size);
+        const SIZE: Rect = { width: width, height: height, x: x, y: y };
 
-        return size;
+        this.updateDimensions(SIZE);
+
+        return SIZE;
     }
 
     /**
@@ -636,35 +648,45 @@ export class MemoryModel {
         height: number,
         svg_group: SVGGElement
     ): Rect {
+        let inner_x: number = x;
+        let inner_y: number = y;
+        let inner_width: number = width;
+        let inner_height: number = height;
+
+        // Modify dimensions for main content box
+        if (immutable.includes(type)) {
+            inner_x = x + this.double_rect_sep;
+            inner_y = y + this.double_rect_sep;
+            inner_width = width - 2 * this.double_rect_sep;
+            inner_height = height - 2 * this.double_rect_sep;
+        }
+
+        // Draw inner rectangle
         this.drawRect(
-            x,
-            y,
-            width,
-            height,
+            inner_x,
+            inner_y,
+            inner_width,
+            inner_height,
             svg_group,
             style.box_container,
             true,
             id
         );
 
-        this.drawProperties(id, type, x, y, width, style, svg_group);
-
-        const SIZE: Rect = {
-            x,
-            y,
-            width: width,
-            height: height,
-        };
-
+        // Draw outer rectangle
         if (immutable.includes(type)) {
-            this.drawRect(
-                x - this.double_rect_sep,
-                y - this.double_rect_sep,
-                width + 2 * this.double_rect_sep,
-                height + 2 * this.double_rect_sep,
-                svg_group
-            );
+            this.drawRect(x, y, width, height, svg_group);
         }
+
+        this.drawProperties(
+            id,
+            type,
+            inner_x,
+            inner_y,
+            inner_width,
+            style,
+            svg_group
+        );
 
         let curr_x = x + this.item_min_width / 2;
         const item_y =
@@ -720,7 +742,7 @@ export class MemoryModel {
 
         this.drawText(
             "{",
-            x + this.item_min_width / 4,
+            inner_x + this.item_min_width / 4,
             item_text_y,
             svg_group,
             {},
@@ -729,13 +751,15 @@ export class MemoryModel {
         );
         this.drawText(
             "}",
-            x + width - this.item_min_width / 4,
+            inner_x + inner_width - this.item_min_width / 4,
             item_text_y,
             svg_group,
             {},
             "default",
             true
         );
+
+        const SIZE: Rect = { x, y, width: width, height: height };
 
         this.updateDimensions(SIZE);
 
