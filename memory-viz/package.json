@@ -72,7 +72,7 @@
         "@babel/preset-env": "^7.29.3",
         "@babel/preset-typescript": "^7.28.5",
         "@types/jest": "^29.5.12",
-        "@types/node": "^22.10.3",
+        "@types/node": "^25.9.1",
         "@types/pretty": "^2.0.3",
         "@types/tmp": "^0.2.6",
         "babel-loader": "^10.0.0",
