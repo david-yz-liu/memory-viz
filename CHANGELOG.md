@@ -13,7 +13,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
-- Changed `x`, `y`, `width`, and `height` to refer to the top left of the outer box, and draw inner
+- Removed instance variable mutations and changed `x`, `y`, `width`, and `height` to refer to the outermost rectangle
 
 ### 📚 Documentation and demo website changes
 
