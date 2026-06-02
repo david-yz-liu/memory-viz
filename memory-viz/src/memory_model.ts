@@ -919,7 +919,7 @@ export class MemoryModel {
         y: number,
         name: string,
         id: number | null,
-        attributes: { [key: string]: any },
+        attributes: { [key: string]: any } | string,
         stack_frame: boolean,
         style: Style,
         width: number,
@@ -963,51 +963,65 @@ export class MemoryModel {
             this.drawProperties(id, name, x, y, width, style, svg_group);
         }
 
-        // Draw element boxes.
-        let curr_y = y + this.prop_min_height + this.item_min_height / 2;
-        for (const attribute in attributes) {
-            if (attribute.trim() !== "") {
+        if (typeof attributes === "string") {
+            // render the string as plain text in the value area
+            this.drawText(
+                attributes,
+                x + width / 2,
+                y + (height + this.prop_min_height) / 2,
+                svg_group,
+                style.text_value,
+                "value",
+                false,
+                TEXT_DESCRIPTION["value"]
+            );
+        } else {
+            // Draw element boxes.
+            let curr_y = y + this.prop_min_height + this.item_min_height / 2;
+            for (const attribute in attributes) {
+                if (attribute.trim() !== "") {
+                    this.drawText(
+                        attribute,
+                        x + this.item_min_width / 2,
+                        curr_y + this.item_min_height / 2 + this.font_size / 4,
+                        svg_group,
+                        style.text_value,
+                        stack_frame ? "variable" : "attribute",
+                        false,
+                        TEXT_DESCRIPTION[
+                            stack_frame ? "parameter_name" : "attribute_name"
+                        ]
+                    );
+                }
+
+                const val = attributes[attribute];
+                const idv = val === null ? "" : `id${val}`;
+                const attr_box = Math.max(
+                    this.item_min_width,
+                    this.getTextLength(idv) + 10
+                );
+                const value_rect = this.drawRect(
+                    x + width - this.item_min_width * 1.5,
+                    curr_y,
+                    attr_box,
+                    this.item_min_height,
+                    svg_group
+                );
+
                 this.drawText(
-                    attribute,
-                    x + this.item_min_width / 2,
+                    idv,
+                    x + width - this.item_min_width * 1.5 + attr_box / 2,
                     curr_y + this.item_min_height / 2 + this.font_size / 4,
-                    svg_group,
-                    style.text_value,
-                    stack_frame ? "variable" : "attribute",
+                    value_rect,
+                    style.text_id,
+                    "id",
                     false,
                     TEXT_DESCRIPTION[
-                        stack_frame ? "parameter_name" : "attribute_name"
+                        stack_frame ? "parameter_value" : "attribute_value"
                     ]
                 );
+                curr_y += this.item_min_height * 1.5;
             }
-
-            const val = attributes[attribute];
-            const idv = val === null ? "" : `id${val}`;
-            const attr_box = Math.max(
-                this.item_min_width,
-                this.getTextLength(idv) + 10
-            );
-            const value_rect = this.drawRect(
-                x + width - this.item_min_width * 1.5,
-                curr_y,
-                attr_box,
-                this.item_min_height,
-                svg_group
-            );
-
-            this.drawText(
-                idv,
-                x + width - this.item_min_width * 1.5 + attr_box / 2,
-                curr_y + this.item_min_height / 2 + this.font_size / 4,
-                value_rect,
-                style.text_id,
-                "id",
-                false,
-                TEXT_DESCRIPTION[
-                    stack_frame ? "parameter_value" : "attribute_value"
-                ]
-            );
-            curr_y += this.item_min_height * 1.5;
         }
 
         this.updateDimensions(SIZE);
