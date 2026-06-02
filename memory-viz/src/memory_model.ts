@@ -2002,6 +2002,23 @@ export class MemoryModel {
             strict_objects.push(item as DrawnEntityStrict);
         }
 
+        // Set dimensions of primitive objects back to original values
+        for (const strict_obj of strict_objects) {
+            if (
+                (strict_obj.type === "int" ||
+                    strict_obj.type === "float" ||
+                    strict_obj.type === "str" ||
+                    strict_obj.type === "bool" ||
+                    strict_obj.type === "None" ||
+                    typeof strict_obj.value !== "object" ||
+                    strict_obj.value === null) &&
+                strict_obj.type !== "range"
+            ) {
+                strict_obj.width -= 2 * this.double_rect_sep;
+                strict_obj.height -= 2 * this.double_rect_sep;
+            }
+        }
+
         const defaultObject: DrawnEntityStrict = {
             type: "None",
             id: null,
