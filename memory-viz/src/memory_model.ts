@@ -329,9 +329,12 @@ export class MemoryModel {
             inner_y = y + this.double_rect_sep;
             inner_width = width - 2 * this.double_rect_sep;
             inner_height = height - 2 * this.double_rect_sep;
+
+            // Draw outer border
+            this.drawRect(x, y, width, height, svg_group);
         }
 
-        // Draw inner rectangle
+        // Draw main content box
         this.drawRect(
             inner_x,
             inner_y,
@@ -342,11 +345,6 @@ export class MemoryModel {
             true,
             id
         );
-
-        // Draw outer rectangle
-        if (immutable.includes(type)) {
-            this.drawRect(x, y, width, height, svg_group);
-        }
 
         this.drawProperties(
             id,
@@ -520,9 +518,12 @@ export class MemoryModel {
             inner_y = y + this.double_rect_sep;
             inner_width = width - 2 * this.double_rect_sep;
             inner_height = height - 2 * this.double_rect_sep;
+
+            // Draw outer border
+            this.drawRect(x, y, width, height, svg_group);
         }
 
-        // Draw inner rectangle
+        // Draw main content box
         this.drawRect(
             inner_x,
             inner_y,
@@ -533,11 +534,6 @@ export class MemoryModel {
             true,
             id
         );
-
-        // Draw outer rectangle
-        if (immutable.includes(type)) {
-            this.drawRect(x, y, width, height, svg_group);
-        }
 
         this.drawProperties(
             id,
@@ -659,9 +655,12 @@ export class MemoryModel {
             inner_y = y + this.double_rect_sep;
             inner_width = width - 2 * this.double_rect_sep;
             inner_height = height - 2 * this.double_rect_sep;
+
+            // Draw outer border
+            this.drawRect(x, y, width, height, svg_group);
         }
 
-        // Draw inner rectangle
+        // Draw main content box
         this.drawRect(
             inner_x,
             inner_y,
@@ -672,11 +671,6 @@ export class MemoryModel {
             true,
             id
         );
-
-        // Draw outer rectangle
-        if (immutable.includes(type)) {
-            this.drawRect(x, y, width, height, svg_group);
-        }
 
         this.drawProperties(
             id,
