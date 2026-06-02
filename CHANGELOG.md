@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- Updated ClassDrawnEntitySchema to allow value to be either a dictionary or a string, enabling .class objects to display a string representation instead of attribute rows
+
 ### 🐛 Bug fixes
 
 - Removed unwanted right padding in `draw()` with primitive objects
