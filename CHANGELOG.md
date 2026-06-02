@@ -13,6 +13,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
+- Removed unwanted right padding in `draw()` with primitive objects
 - Removed instance variable mutations and changed `x`, `y`, `width`, and `height` to refer to the outermost rectangle
 
 ### 📚 Documentation and demo website changes
