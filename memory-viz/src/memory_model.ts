@@ -494,6 +494,8 @@ export class MemoryModel {
      * @param width - The width of the object
      * @param height - The height of the object
      * @param svg_group - The parent <g> tag that rect and text elements will be appended to
+     *
+     * @returns the top-left coordinates, width, and height of the outermost box
      */
     drawSequence(
         x: number,
