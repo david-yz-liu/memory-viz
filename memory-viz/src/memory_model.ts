@@ -910,7 +910,7 @@ export class MemoryModel {
      * @param y - value for y coordinate of top left corner
      * @param name - the name of the class
      * @param id - the hypothetical memory address number
-     * @param attributes - the attributes of the given class
+     * @param value - the value field of the class object; either a dictionary mapping attribute names to object ids, or a string representation of the object
      * @param stack_frame - set to true if you are drawing a stack frame
      * @param style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
@@ -925,7 +925,7 @@ export class MemoryModel {
         y: number,
         name: string,
         id: number | null,
-        attributes: { [key: string]: any } | string,
+        value: { [key: string]: any } | string,
         stack_frame: boolean,
         style: Style,
         width: number,
@@ -969,10 +969,10 @@ export class MemoryModel {
             this.drawProperties(id, name, x, y, width, style, svg_group);
         }
 
-        if (typeof attributes === "string") {
+        if (typeof value === "string") {
             // render the string as plain text in the value area
             this.drawText(
-                attributes,
+                value,
                 x + width / 2,
                 y + (height + this.prop_min_height) / 2,
                 svg_group,
@@ -984,7 +984,7 @@ export class MemoryModel {
         } else {
             // Draw element boxes.
             let curr_y = y + this.prop_min_height + this.item_min_height / 2;
-            for (const attribute in attributes) {
+            for (const attribute in value) {
                 if (attribute.trim() !== "") {
                     this.drawText(
                         attribute,
@@ -1000,7 +1000,7 @@ export class MemoryModel {
                     );
                 }
 
-                const val = attributes[attribute];
+                const val = value[attribute];
                 const idv = val === null ? "" : `id${val}`;
                 const attr_box = Math.max(
                     this.item_min_width,
