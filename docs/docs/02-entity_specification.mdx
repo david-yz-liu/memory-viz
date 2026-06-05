@@ -8,6 +8,8 @@ import CodeBlock from "@theme/CodeBlock";
 
 import ExampleBool from "!!raw-loader!./examples/entity_specification/bool.json";
 import ExampleClassBlank from "!!raw-loader!./examples/entity_specification/class_blank.json";
+import ExampleClassString from "!!raw-loader!./examples/entity_specification/class_string.json";
+import ExampleClassOpaque from "!!raw-loader!./examples/entity_specification/class_opaque.json";
 import ExampleDictBlank from "!!raw-loader!./examples/entity_specification/dict_blank.json";
 import ExampleDictListValue from "!!raw-loader!./examples/entity_specification/dict_list_value.json";
 import ExampleDictTall from "!!raw-loader!./examples/entity_specification/dict_tall.json";
@@ -405,11 +407,11 @@ All supported entities include the following core attributes, unless explicitly 
 
 ## Classes
 
-| Attribute | Type                                     | Default | Description                                                                                                                                                                                                                          |
-| :-------- | :--------------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`    | `string`                                 | --      | Must be set to `.class` to indicate a class object.                                                                                                                                                                                  |
-| `name`    | `string`                                 | `""`    | The name of the class being drawn.                                                                                                                                                                                                   |
-| `value`   | `dict` of `string` to `number` or `null` | `{}`    | A mapping of attribute names (as keys) to object IDs (as values). Unresolved IDs will emit a warning. Attribute names may be empty or all-whitespace strings and attribute values may be `null` to render blank boxes, respectively. |
+| Attribute | Type                                                  | Default | Description                                                                                                                                                                                                                                                                                |
+| :-------- | :---------------------------------------------------- | :------ | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `type`    | `string`                                              | --      | Must be set to `.class` to indicate a class object.                                                                                                                                                                                                                                        |
+| `name`    | `string`                                              | `""`    | The name of the class being drawn.                                                                                                                                                                                                                                                         |
+| `value`   | `dict` of `string` to `number` or `null`, or `string` | `{}`    | A mapping of attribute names (as keys) to object IDs (as values), or a string representation of the object. Unresolved IDs will emit a warning when a dict. Attribute names may be empty or all-whitespace strings and attribute values may be `null` to render blank boxes, respectively. |
 
 #### Examples
 
@@ -424,6 +426,36 @@ All supported entities include the following core attributes, unless explicitly 
             ),
             dark: useBaseUrl(
                 "images/entity_specification/class_blank_dark.svg"
+            ),
+        }}
+    />
+</details>
+<details>
+    <summary>**Class representing a type alias**</summary>
+    <CodeBlock language="json">{ExampleClassString}</CodeBlock>
+    <ThemedImage
+        alt="Example Class"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/class_string_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/class_string_dark.svg"
+            ),
+        }}
+    />
+</details>
+<details>
+    <summary>**Class with opaque internal state**</summary>
+    <CodeBlock language="json">{ExampleClassOpaque}</CodeBlock>
+    <ThemedImage
+        alt="Example Class"
+        sources={{
+            light: useBaseUrl(
+                "images/entity_specification/class_opaque_light.svg"
+            ),
+            dark: useBaseUrl(
+                "images/entity_specification/class_opaque_dark.svg"
             ),
         }}
     />

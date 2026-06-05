@@ -1,0 +1,15 @@
+[
+    {
+        "type": ".frame",
+        "name": "__main__",
+        "value": {
+            "x": 2
+        }
+    },
+    {
+        "type": ".class",
+        "id": 2,
+        "name": "type",
+        "value": "int"
+    }
+]
