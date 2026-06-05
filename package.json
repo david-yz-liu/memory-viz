@@ -13,8 +13,10 @@
         "docs",
         "webstepper"
     ],
+    "dependencies": {
+        "memory-viz": "workspace:*"
+    },
     "devDependencies": {
-        "memory-viz": "workspace:*",
         "@eslint/js": "^9.33.0",
         "@eslint/json": "^1.0.0",
         "baseline-browser-mapping": "^2.9.19",
@@ -27,9 +29,9 @@
         "husky": "^9.1.7",
         "jest": "^29.7.0",
         "jiti": "^2.5.1",
-        "ts-node": "^10.9.2",
         "lint-staged": "^16.1.2",
         "prettier": "3.4.1",
+        "ts-node": "^10.9.2",
         "typescript-eslint": "^8.39.0",
         "webpack-node-externals": "^3.0.0"
     },

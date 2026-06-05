@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      memory-viz:
+        specifier: workspace:*
+        version: link:memory-viz
     devDependencies:
       '@eslint/js':
         specifier: ^9.33.0
@@ -47,9 +51,6 @@ importers:
       lint-staged:
         specifier: ^16.1.2
         version: 16.4.0
-      memory-viz:
-        specifier: workspace:*
-        version: link:memory-viz
       prettier:
         specifier: 3.4.1
         version: 3.4.1
@@ -202,6 +203,9 @@ importers:
       docusaurus-plugin-typedoc:
         specifier: ^1.4.2
         version: 1.4.2(typedoc-plugin-markdown@4.11.0(typedoc@0.28.19(typescript@5.9.3)))
+      memory-viz:
+        specifier: workspace:*
+        version: link:../memory-viz
       raw-loader:
         specifier: ^4.0.2
         version: 4.0.2(webpack@5.106.2(postcss@8.5.14))
@@ -9859,7 +9863,7 @@ snapshots:
 
   '@docusaurus/react-loadable@6.0.0(react@19.2.7)':
     dependencies:
-      '@types/react': 19.2.15
+      '@types/react': 19.2.16
       react: 19.2.7
 
   '@docusaurus/theme-classic@3.10.1(@types/react@19.2.16)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@5.9.3)':
@@ -10854,7 +10858,7 @@ snapshots:
 
   '@mui/private-theming@9.0.1(@types/react@19.2.16)(react@19.2.7)':
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
       '@mui/utils': 9.0.1(@types/react@19.2.16)(react@19.2.7)
       prop-types: 15.8.1
       react: 19.2.7
@@ -10863,7 +10867,7 @@ snapshots:
 
   '@mui/styled-engine@9.0.0(@emotion/react@11.14.0(@types/react@19.2.16)(react@19.2.7))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.16)(react@19.2.7))(@types/react@19.2.16)(react@19.2.7))(react@19.2.7)':
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
       '@emotion/cache': 11.14.0
       '@emotion/serialize': 1.3.3
       '@emotion/sheet': 1.4.0
@@ -11466,7 +11470,7 @@ snapshots:
   '@types/react-router@5.1.20':
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 19.2.15
+      '@types/react': 19.2.16
 
   '@types/react-transition-group@4.4.12(@types/react@19.2.16)':
     dependencies:
@@ -12759,7 +12763,7 @@ snapshots:
 
   dom-helpers@5.2.1:
     dependencies:
-      '@babel/runtime': 7.29.2
+      '@babel/runtime': 7.29.7
       csstype: 3.2.3
 
   dom-serializer@1.4.1:
