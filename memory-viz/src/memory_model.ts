@@ -228,24 +228,15 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ): Rect {
+    ) {
         if (collections.includes(type)) {
             if (type === "dict" && typeof value === "object") {
-                return this.drawDict(
-                    x,
-                    y,
-                    id,
-                    value,
-                    style,
-                    width,
-                    height,
-                    svg_group
-                );
+                this.drawDict(x, y, id, value, style, width, height, svg_group);
             } else if (
                 (type === "set" || type === "frozenset") &&
                 isArrayOfNullableType<number>(value, "number")
             ) {
-                return this.drawSet(
+                this.drawSet(
                     x,
                     y,
                     type,
@@ -260,7 +251,7 @@ export class MemoryModel {
                 (type === "list" || type === "tuple") &&
                 isArrayOfNullableType<number>(value, "number")
             ) {
-                return this.drawSequence(
+                this.drawSequence(
                     x,
                     y,
                     type,
@@ -273,24 +264,23 @@ export class MemoryModel {
                     svg_group
                 );
             }
+        } else if (typeof value !== "object" || value === null) {
+            this.drawPrimitive(
+                x,
+                y,
+                type,
+                id,
+                value,
+                style,
+                width,
+                height,
+                svg_group
+            );
         } else {
-            if (typeof value !== "object" || value === null) {
-                return this.drawPrimitive(
-                    x,
-                    y,
-                    type,
-                    id,
-                    value,
-                    style,
-                    width,
-                    height,
-                    svg_group
-                );
-            }
+            throw new Error(
+                `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${type}" with value "${value}".`
+            );
         }
-        throw new Error(
-            `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${type}" with value "${value}".`
-        );
     }
 
     /**
@@ -317,7 +307,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ): Rect {
+    ) {
         let inner_x: number = x;
         let inner_y: number = y;
         let inner_width: number = width;
@@ -385,10 +375,7 @@ export class MemoryModel {
         }
 
         const SIZE: Rect = { width: width, height: height, x: x, y: y };
-
         this.updateDimensions(SIZE);
-
-        return SIZE;
     }
 
     /**
@@ -494,8 +481,6 @@ export class MemoryModel {
      * @param width - The width of the object
      * @param height - The height of the object
      * @param svg_group - The parent <g> tag that rect and text elements will be appended to
-     *
-     * @returns the top-left coordinates, width, and height of the outermost box
      */
     drawSequence(
         x: number,
@@ -508,7 +493,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ): Rect {
+    ) {
         if (type === "list") {
             this._drawSequence(
                 x,
@@ -543,10 +528,7 @@ export class MemoryModel {
         }
 
         const SIZE: Rect = { width: width, height: height, x: x, y: y };
-
         this.updateDimensions(SIZE);
-
-        return SIZE;
     }
 
     /**
@@ -670,8 +652,6 @@ export class MemoryModel {
      *
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
-     *
-     * @returns the top-left coordinates, width, and height of the outermost box
      */
     drawSet(
         x: number,
@@ -683,7 +663,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ): Rect {
+    ) {
         if (type === "set") {
             this._drawSet(
                 x,
@@ -716,10 +696,7 @@ export class MemoryModel {
         }
 
         const SIZE: Rect = { x, y, width: width, height: height };
-
         this.updateDimensions(SIZE);
-
-        return SIZE;
     }
 
     /**
@@ -845,8 +822,6 @@ export class MemoryModel {
      * @param width - The width of the object
      * @param height - The height of the object
      * @param svg_group - The parent <g> tag that rect and text elements will be appended to
-     *
-     * @returns the top-left coordinates, width, and height of the outermost box
      */
     drawDict(
         x: number,
@@ -857,7 +832,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ): Rect {
+    ) {
         this.drawRect(
             x,
             y,
@@ -868,8 +843,6 @@ export class MemoryModel {
             true,
             id
         );
-        const SIZE: Rect = { x, y, width: width, height: height };
-
         const entries: [any, any][] = [];
         if (Array.isArray(obj)) {
             for (const item of obj) {
@@ -995,9 +968,8 @@ export class MemoryModel {
             index++;
         }
 
+        const SIZE: Rect = { x, y, width: width, height: height };
         this.updateDimensions(SIZE);
-
-        return SIZE;
     }
 
     /**
@@ -1013,8 +985,6 @@ export class MemoryModel {
      * @param width - The width of the object
      * @param height - The height of the object
      * @param svg_group - The parent <g> tag that rect and text elements will be appended to
-     *
-     * @returns the top-left coordinates, width, and height of the outermost box
      */
     drawClass(
         x: number,
@@ -1027,7 +997,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ): Rect {
+    ) {
         this.drawRect(
             x,
             y,
@@ -1038,8 +1008,6 @@ export class MemoryModel {
             true,
             id
         );
-
-        const SIZE: Rect = { x, y, width: width, height: height };
 
         if (stack_frame) {
             const text_length = this.getTextLength(name, style.text_type);
@@ -1112,9 +1080,8 @@ export class MemoryModel {
             curr_y += this.item_min_height * 1.5;
         }
 
+        const SIZE: Rect = { x, y, width: width, height: height };
         this.updateDimensions(SIZE);
-
-        return SIZE;
     }
 
     /**
@@ -1310,8 +1277,7 @@ export class MemoryModel {
      * Preconditions:
      *      - 'entities' is a valid object with the correct properties, as outlined above.
      */
-    drawAll(entities: DrawnEntity[]): Rect[] {
-        const sizes_arr: Rect[] = [];
+    drawAll(entities: DrawnEntity[]) {
         const parsed_entities: DrawnEntity[] = [];
 
         const root_title = this.document.createElementNS(
@@ -1416,7 +1382,7 @@ export class MemoryModel {
                 entity.type === ".blank-frame" ||
                 entity.type === ".class"
             ) {
-                const size = this.drawClass(
+                this.drawClass(
                     entity.x!,
                     entity.y!,
                     entity.name,
@@ -1428,9 +1394,8 @@ export class MemoryModel {
                     entity.height,
                     svg_group
                 );
-                sizes_arr.push(size);
             } else {
-                const size = this.drawObject(
+                this.drawObject(
                     entity.x!,
                     entity.y!,
                     entity.type!,
@@ -1442,7 +1407,6 @@ export class MemoryModel {
                     entity.height,
                     svg_group
                 );
-                sizes_arr.push(size);
             }
         }
         if (this.interactive) {
@@ -1452,8 +1416,6 @@ export class MemoryModel {
         root_title.appendChild(
             this.document.createTextNode(getMemoryModelTitle(strict_entities))
         );
-
-        return sizes_arr;
     }
 
     /**

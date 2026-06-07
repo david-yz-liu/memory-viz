@@ -11,10 +11,11 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- Removed instance variable mutations and established `x`, `y`, `width`, and `height` to refer to the outermost rectangle
+
 ### 🐛 Bug fixes
 
 - Removed unwanted right padding in `draw()` with primitive objects
-- Removed instance variable mutations and established `x`, `y`, `width`, and `height` to refer to the outermost rectangle
 
 ### 📚 Documentation and demo website changes
 
