@@ -228,7 +228,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ) {
+    ): void {
         if (collections.includes(type)) {
             if (type === "dict" && typeof value === "object") {
                 this.drawDict(x, y, id, value, style, width, height, svg_group);
@@ -307,7 +307,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ) {
+    ): void {
         let inner_x: number = x;
         let inner_y: number = y;
         let inner_width: number = width;
@@ -373,9 +373,6 @@ export class MemoryModel {
                 TEXT_DESCRIPTION["value"]
             );
         }
-
-        const SIZE: Rect = { width: width, height: height, x: x, y: y };
-        this.updateDimensions(SIZE);
     }
 
     /**
@@ -399,7 +396,7 @@ export class MemoryModel {
         width: number,
         style: Style,
         svg_group: SVGGElement
-    ) {
+    ): void {
         const id_box = Math.max(
             this.prop_min_width,
             this.getTextLength(`id${id}`, style.text_id) + 10
@@ -493,7 +490,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ) {
+    ): void {
         if (type === "list") {
             this._drawSequence(
                 x,
@@ -526,9 +523,6 @@ export class MemoryModel {
                 svg_group
             );
         }
-
-        const SIZE: Rect = { width: width, height: height, x: x, y: y };
-        this.updateDimensions(SIZE);
     }
 
     /**
@@ -555,7 +549,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ) {
+    ): void {
         // Draw main content box
         this.drawRect(
             x,
@@ -660,7 +654,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ) {
+    ): void {
         if (type === "set") {
             this._drawSet(
                 x,
@@ -691,9 +685,6 @@ export class MemoryModel {
                 svg_group
             );
         }
-
-        const SIZE: Rect = { x, y, width: width, height: height };
-        this.updateDimensions(SIZE);
     }
 
     /**
@@ -718,7 +709,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ) {
+    ): void {
         // Draw main content box
         this.drawRect(
             x,
@@ -826,7 +817,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ) {
+    ): void {
         this.drawRect(
             x,
             y,
@@ -961,9 +952,6 @@ export class MemoryModel {
             curr_y += this.item_min_height * 1.5;
             index++;
         }
-
-        const SIZE: Rect = { x, y, width: width, height: height };
-        this.updateDimensions(SIZE);
     }
 
     /**
@@ -991,7 +979,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ) {
+    ): void {
         this.drawRect(
             x,
             y,
@@ -1073,9 +1061,6 @@ export class MemoryModel {
             );
             curr_y += this.item_min_height * 1.5;
         }
-
-        const SIZE: Rect = { x, y, width: width, height: height };
-        this.updateDimensions(SIZE);
     }
 
     /**
@@ -1271,7 +1256,7 @@ export class MemoryModel {
      * Preconditions:
      *      - 'entities' is a valid object with the correct properties, as outlined above.
      */
-    drawAll(entities: DrawnEntity[]) {
+    drawAll(entities: DrawnEntity[]): void {
         const parsed_entities: DrawnEntity[] = [];
 
         const root_title = this.document.createElementNS(
@@ -1402,6 +1387,13 @@ export class MemoryModel {
                     svg_group
                 );
             }
+            const SIZE: Rect = {
+                x: entity.x,
+                y: entity.y,
+                width: entity.width,
+                height: entity.height,
+            };
+            this.updateDimensions(SIZE);
         }
         if (this.interactive) {
             this.setInteractivityScript();
