@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- Updated and established a new standard for immutable objects where `x`, `y`, `width`, and `height` to refer to the outermost rectangle
+
 ### 🐛 Bug fixes
 
 - Removed unwanted right padding in `draw()` with primitive objects
