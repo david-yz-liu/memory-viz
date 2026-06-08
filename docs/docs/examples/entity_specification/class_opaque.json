@@ -3,13 +3,13 @@
         "type": ".frame",
         "name": "__main__",
         "value": {
-            "f": 2
+            "t": 2
         }
     },
     {
         "type": ".class",
         "id": 2,
-        "name": "TextIOWrapper",
-        "value": "<_io.TextIOWrapper name='data.csv' mode='r' encoding='UTF-8'>"
+        "name": "Thread",
+        "value": "<Thread(Thread-1, started 1234)>"
     }
 ]

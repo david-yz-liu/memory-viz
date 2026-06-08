@@ -1683,13 +1683,13 @@ export class MemoryModel {
      * is based on the number of attributes.
      *
      * @param name - the name of the class
-     * @param attributes - the attributes of the given class
+     * @param value - the value field of the class object; either a dictionary mapping attribute names to object ids, or a string representation of the object
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * @returns An object with default_width and default_height properties.
      */
     private getDefaultClassDimensions(
         name: string,
-        attributes: { [key: string]: any },
+        value: { [key: string]: any } | string,
         style: Style
     ): {
         default_width: number;
@@ -1697,11 +1697,15 @@ export class MemoryModel {
     } {
         let default_width = this.obj_min_width;
         let longest = 0;
-        for (const attribute in attributes) {
-            longest = Math.max(
-                longest,
-                this.getTextLength(attribute, style.text_value)
-            );
+        if (typeof value === "string") {
+            longest = this.getTextLength(value, style.text_value);
+        } else {
+            for (const attribute in value) {
+                longest = Math.max(
+                    longest,
+                    this.getTextLength(attribute, style.text_value)
+                );
+            }
         }
         if (longest > 0) {
             default_width = longest + this.item_min_width * 3;
@@ -1711,15 +1715,15 @@ export class MemoryModel {
             this.prop_min_width + this.getTextLength(name, style.text_type) + 10
         );
 
-        let default_height = 0;
-        if (Object.keys(attributes).length > 0) {
-            default_height =
-                ((this.item_min_width * 3) / 2) *
-                    Object.keys(attributes).length +
-                this.item_min_width / 2 +
-                this.prop_min_height;
-        } else {
-            default_height = this.obj_min_height;
+        let default_height = this.obj_min_height;
+        if (typeof value !== "string") {
+            const attrCount = Object.keys(value).length;
+            if (attrCount > 0) {
+                default_height =
+                    ((this.item_min_width * 3) / 2) * attrCount +
+                    this.item_min_width / 2 +
+                    this.prop_min_height;
+            }
         }
         return { default_width, default_height };
     }
