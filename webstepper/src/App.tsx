@@ -92,6 +92,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         </Typography>
                         <SvgDisplay
                             memoryVizData={window.memoryVizData[step]}
+                            isDarkMode={isDarkMode}
                         />
                     </Stack>
                 </Stack>
