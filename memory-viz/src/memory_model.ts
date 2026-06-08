@@ -1699,6 +1699,13 @@ export class MemoryModel {
         let longest = 0;
         if (typeof value === "string") {
             longest = this.getTextLength(value, style.text_value);
+            // only add padding if there is text to display
+            if (longest > 0) {
+                default_width = Math.max(
+                    this.obj_min_width,
+                    longest + this.obj_x_padding
+                );
+            }
         } else {
             for (const attribute in value) {
                 longest = Math.max(
@@ -1706,9 +1713,9 @@ export class MemoryModel {
                     this.getTextLength(attribute, style.text_value)
                 );
             }
-        }
-        if (longest > 0) {
-            default_width = longest + this.item_min_width * 3;
+            if (longest > 0) {
+                default_width = longest + this.item_min_width * 3;
+            }
         }
         default_width = Math.max(
             default_width,
