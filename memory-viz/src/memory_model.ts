@@ -228,24 +228,15 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ): Rect {
+    ): void {
         if (collections.includes(type)) {
             if (type === "dict" && typeof value === "object") {
-                return this.drawDict(
-                    x,
-                    y,
-                    id,
-                    value,
-                    style,
-                    width,
-                    height,
-                    svg_group
-                );
+                this.drawDict(x, y, id, value, style, width, height, svg_group);
             } else if (
                 (type === "set" || type === "frozenset") &&
                 isArrayOfNullableType<number>(value, "number")
             ) {
-                return this.drawSet(
+                this.drawSet(
                     x,
                     y,
                     type,
@@ -260,7 +251,7 @@ export class MemoryModel {
                 (type === "list" || type === "tuple") &&
                 isArrayOfNullableType<number>(value, "number")
             ) {
-                return this.drawSequence(
+                this.drawSequence(
                     x,
                     y,
                     type,
@@ -273,24 +264,23 @@ export class MemoryModel {
                     svg_group
                 );
             }
+        } else if (typeof value !== "object" || value === null) {
+            this.drawPrimitive(
+                x,
+                y,
+                type,
+                id,
+                value,
+                style,
+                width,
+                height,
+                svg_group
+            );
         } else {
-            if (typeof value !== "object" || value === null) {
-                return this.drawPrimitive(
-                    x,
-                    y,
-                    type,
-                    id,
-                    value,
-                    style,
-                    width,
-                    height,
-                    svg_group
-                );
-            }
+            throw new Error(
+                `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${type}" with value "${value}".`
+            );
         }
-        throw new Error(
-            `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${type}" with value "${value}".`
-        );
     }
 
     /**
@@ -317,49 +307,44 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ): Rect {
-        // Offset inner box to account for double border
+    ): void {
+        let inner_x: number = x;
+        let inner_y: number = y;
+        let inner_width: number = width;
+        let inner_height: number = height;
+
+        // Modify dimensions for main content box
         if (immutable.includes(type)) {
-            x += this.double_rect_sep;
-            y += this.double_rect_sep;
+            inner_x = x + this.double_rect_sep;
+            inner_y = y + this.double_rect_sep;
+            inner_width = width - 2 * this.double_rect_sep;
+            inner_height = height - 2 * this.double_rect_sep;
+
+            // Draw outer border
+            this.drawRect(x, y, width, height, svg_group);
         }
 
+        // Draw main content box
         this.drawRect(
-            x,
-            y,
-            width,
-            height,
+            inner_x,
+            inner_y,
+            inner_width,
+            inner_height,
             svg_group,
             style.box_container,
             true,
             id
         );
 
-        let size: Rect = {
-            width: width,
-            height: height,
-            x: x,
-            y: y,
-        };
-
-        if (immutable.includes(type)) {
-            this.drawRect(
-                // While no style argument is provided, the drawRect method manages this scenario automatically.
-                x - this.double_rect_sep,
-                y - this.double_rect_sep,
-                width + 2 * this.double_rect_sep,
-                height + 2 * this.double_rect_sep,
-                svg_group
-            );
-            size = {
-                width: width + 2 * this.double_rect_sep,
-                height: height + 2 * this.double_rect_sep,
-                x: x - this.double_rect_sep,
-                y: y - this.double_rect_sep,
-            };
-        }
-
-        this.drawProperties(id, type, x, y, width, style, svg_group);
+        this.drawProperties(
+            id,
+            type,
+            inner_x,
+            inner_y,
+            inner_width,
+            style,
+            svg_group
+        );
 
         let display_text: string;
         if (type === "bool") {
@@ -379,8 +364,8 @@ export class MemoryModel {
         if (value !== null) {
             this.drawText(
                 display_text,
-                x + width / 2,
-                y + (height + this.prop_min_height) / 2,
+                inner_x + inner_width / 2,
+                inner_y + (inner_height + this.prop_min_height) / 2,
                 svg_group,
                 style.text_value,
                 "value",
@@ -388,10 +373,6 @@ export class MemoryModel {
                 TEXT_DESCRIPTION["value"]
             );
         }
-
-        this.updateDimensions(size);
-
-        return size;
     }
 
     /**
@@ -415,7 +396,7 @@ export class MemoryModel {
         width: number,
         style: Style,
         svg_group: SVGGElement
-    ) {
+    ): void {
         const id_box = Math.max(
             this.prop_min_width,
             this.getTextLength(`id${id}`, style.text_id) + 10
@@ -472,7 +453,7 @@ export class MemoryModel {
      * @param y - value for y coordinate of top left corner
      * @param type - the data type of the given object (tuple or list)
      * @param id - the hypothetical memory address number
-     * @param element_ids - the list of id's corresponding to the values stored in this set.
+     * @param element_ids - the list of id's corresponding to the values stored in this sequence.
      *      NOTE:
      *          1. This argument MUST be an array, since the built-in 'forEach' method works only for
      *             (finite) ordered collections (i.e. with indexing). Sets are a type of unordered collection.
@@ -509,7 +490,67 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ): Rect {
+    ): void {
+        if (type === "list") {
+            this._drawSequence(
+                x,
+                y,
+                type,
+                id,
+                element_ids,
+                show_idx,
+                style,
+                width,
+                height,
+                svg_group
+            );
+        } else {
+            // type === "tuple"
+            // Draw outer border
+            this.drawRect(x, y, width, height, svg_group);
+
+            // Draw main content box
+            this._drawSequence(
+                x + this.double_rect_sep,
+                y + this.double_rect_sep,
+                type,
+                id,
+                element_ids,
+                show_idx,
+                style,
+                width - 2 * this.double_rect_sep,
+                height - 2 * this.double_rect_sep,
+                svg_group
+            );
+        }
+    }
+
+    /**
+     * Helper function for drawing the main content box of a sequence object.
+     * @param x - value for x coordinate of top left corner of main content box
+     * @param y - value for y coordinate of top left corner of main content box
+     * @param type - the data type of the given object (list or tuple)
+     * @param id - the hypothetical memory address number
+     * @param element_ids - the list of id's corresponding to the values stored in this sequence.
+     * @param show_idx - whether to show the indexes of each list element
+     * @param style - object defining the desired style of the sequence. Must abide by the structure defined in 'drawAll'.
+     * @param width - The width of the main content box
+     * @param height - The height of the main content box
+     * @param svg_group - The parent <g> tag that rect and text elements will be appended to
+     */
+    _drawSequence(
+        x: number,
+        y: number,
+        type: "list" | "tuple",
+        id: number | null,
+        element_ids: (number | null)[],
+        show_idx: boolean,
+        style: Style,
+        width: number,
+        height: number,
+        svg_group: SVGGElement
+    ): void {
+        // Draw main content box
         this.drawRect(
             x,
             y,
@@ -522,18 +563,6 @@ export class MemoryModel {
         );
 
         this.drawProperties(id, type, x, y, width, style, svg_group);
-
-        const size: Rect = { width: width, height: height, x: x, y: y };
-
-        if (immutable.includes(type)) {
-            this.drawRect(
-                x - this.double_rect_sep,
-                y - this.double_rect_sep,
-                width + 2 * this.double_rect_sep,
-                height + 2 * this.double_rect_sep,
-                svg_group
-            );
-        }
 
         let curr_x = x + this.item_min_width / 2;
         let item_y =
@@ -591,16 +620,12 @@ export class MemoryModel {
 
             curr_x += item_length;
         });
-
-        this.updateDimensions(size);
-
-        return size;
     }
 
     /**
      * Draw a set object (must be either a set or a frozenset).
-     * @param x - value for x coordinate of top left corner
-     * @param y - value for y coordinate of top left corner
+     * @param x - value for x coordinate of top left outermost corner
+     * @param y - value for y coordinate of top left outermost corner
      * @param type - the data type of the given object (set or frozenset)
      * @param id - the hypothetical memory address number
      * @param element_ids - the list of id's corresponding to the values stored in this set.
@@ -618,8 +643,6 @@ export class MemoryModel {
      *
      * Moreover, note that this program does not force that for every id in the element_ids argument there is
      * a corresponding object (and its memory box) in our canvas.
-     *
-     * @returns the top-left coordinates, width, and height of the outermost box
      */
     drawSet(
         x: number,
@@ -631,7 +654,63 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ): Rect {
+    ): void {
+        if (type === "set") {
+            this._drawSet(
+                x,
+                y,
+                type,
+                id,
+                element_ids,
+                style,
+                width,
+                height,
+                svg_group
+            );
+        } else {
+            // type === "frozenset"
+            // Draw outer border
+            this.drawRect(x, y, width, height, svg_group);
+
+            // Draw main content box
+            this._drawSet(
+                x + this.double_rect_sep,
+                y + this.double_rect_sep,
+                type,
+                id,
+                element_ids,
+                style,
+                width - 2 * this.double_rect_sep,
+                height - 2 * this.double_rect_sep,
+                svg_group
+            );
+        }
+    }
+
+    /**
+     * Helper function for drawing the main content box of a set object.
+     * @param x - value for x coordinate of top left corner of main content box
+     * @param y - value for y coordinate of top left corner of main content box
+     * @param type - the data type of the given object (set or frozenset)
+     * @param id - the hypothetical memory address number
+     * @param element_ids - the list of id's corresponding to the values stored in this set.
+     * @param style - object defining the desired style of the sequence. Must abide by the structure defined in 'drawAll'.
+     * @param width - The width of the main content box
+     * @param height - The height of the main content box
+     * @param svg_group - The parent <g> tag that rect and text elements will be appended to
+     */
+    _drawSet(
+        x: number,
+        y: number,
+        type: "set" | "frozenset",
+        id: number | null,
+        element_ids: (number | null)[],
+        style: Style,
+        width: number,
+        height: number,
+        svg_group: SVGGElement
+    ): void {
+        // Draw main content box
         this.drawRect(
             x,
             y,
@@ -644,23 +723,6 @@ export class MemoryModel {
         );
 
         this.drawProperties(id, type, x, y, width, style, svg_group);
-
-        const SIZE: Rect = {
-            x,
-            y,
-            width: width,
-            height: height,
-        };
-
-        if (immutable.includes(type)) {
-            this.drawRect(
-                x - this.double_rect_sep,
-                y - this.double_rect_sep,
-                width + 2 * this.double_rect_sep,
-                height + 2 * this.double_rect_sep,
-                svg_group
-            );
-        }
 
         let curr_x = x + this.item_min_width / 2;
         const item_y =
@@ -732,10 +794,6 @@ export class MemoryModel {
             "default",
             true
         );
-
-        this.updateDimensions(SIZE);
-
-        return SIZE;
     }
 
     /**
@@ -749,8 +807,6 @@ export class MemoryModel {
      * @param width - The width of the object
      * @param height - The height of the object
      * @param svg_group - The parent <g> tag that rect and text elements will be appended to
-     *
-     * @returns the top-left coordinates, width, and height of the outermost box
      */
     drawDict(
         x: number,
@@ -761,7 +817,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ): Rect {
+    ): void {
         this.drawRect(
             x,
             y,
@@ -772,8 +828,6 @@ export class MemoryModel {
             true,
             id
         );
-        const SIZE: Rect = { x, y, width: width, height: height };
-
         const entries: [any, any][] = [];
         if (Array.isArray(obj)) {
             for (const item of obj) {
@@ -898,10 +952,6 @@ export class MemoryModel {
             curr_y += this.item_min_height * 1.5;
             index++;
         }
-
-        this.updateDimensions(SIZE);
-
-        return SIZE;
     }
 
     /**
@@ -917,8 +967,6 @@ export class MemoryModel {
      * @param width - The width of the object
      * @param height - The height of the object
      * @param svg_group - The parent <g> tag that rect and text elements will be appended to
-     *
-     * @returns the top-left coordinates, width, and height of the outermost box
      */
     drawClass(
         x: number,
@@ -931,7 +979,7 @@ export class MemoryModel {
         width: number,
         height: number,
         svg_group: SVGGElement
-    ): Rect {
+    ): void {
         this.drawRect(
             x,
             y,
@@ -942,8 +990,6 @@ export class MemoryModel {
             true,
             id
         );
-
-        const SIZE: Rect = { x, y, width: width, height: height };
 
         if (stack_frame) {
             const text_length = this.getTextLength(name, style.text_type);
@@ -1029,10 +1075,6 @@ export class MemoryModel {
                 curr_y += this.item_min_height * 1.5;
             }
         }
-
-        this.updateDimensions(SIZE);
-
-        return SIZE;
     }
 
     /**
@@ -1228,8 +1270,7 @@ export class MemoryModel {
      * Preconditions:
      *      - 'entities' is a valid object with the correct properties, as outlined above.
      */
-    drawAll(entities: DrawnEntity[]): Rect[] {
-        const sizes_arr: Rect[] = [];
+    drawAll(entities: DrawnEntity[]): void {
         const parsed_entities: DrawnEntity[] = [];
 
         const root_title = this.document.createElementNS(
@@ -1334,7 +1375,7 @@ export class MemoryModel {
                 entity.type === ".blank-frame" ||
                 entity.type === ".class"
             ) {
-                const size = this.drawClass(
+                this.drawClass(
                     entity.x!,
                     entity.y!,
                     entity.name,
@@ -1346,9 +1387,8 @@ export class MemoryModel {
                     entity.height,
                     svg_group
                 );
-                sizes_arr.push(size);
             } else {
-                const size = this.drawObject(
+                this.drawObject(
                     entity.x!,
                     entity.y!,
                     entity.type!,
@@ -1360,8 +1400,14 @@ export class MemoryModel {
                     entity.height,
                     svg_group
                 );
-                sizes_arr.push(size);
             }
+            const SIZE: Rect = {
+                x: entity.x,
+                y: entity.y,
+                width: entity.width,
+                height: entity.height,
+            };
+            this.updateDimensions(SIZE);
         }
         if (this.interactive) {
             this.setInteractivityScript();
@@ -1370,8 +1416,6 @@ export class MemoryModel {
         root_title.appendChild(
             this.document.createTextNode(getMemoryModelTitle(strict_entities))
         );
-
-        return sizes_arr;
     }
 
     /**
@@ -1508,12 +1552,20 @@ export class MemoryModel {
         } else if (entity.type === "list" || entity.type === "tuple") {
             return this.getDefaultSequenceDimensions(
                 entity.value,
+                entity.type,
                 entity.style,
                 entity.show_indexes
             );
+        } else if (entity.type === "set" || entity.type === "frozenset") {
+            return this.getDefaultSetDimensions(
+                entity.value,
+                entity.type,
+                entity.style
+            );
         } else {
-            // entity.type === "set" or "frozenset"
-            return this.getDefaultSetDimensions(entity.value, entity.style);
+            throw new Error(
+                `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${entity.type}" with value "${entity.value}".`
+            );
         }
     }
 
@@ -1551,12 +1603,14 @@ export class MemoryModel {
      * extra space if indexes are shown.
      *
      * @param element_ids - the list of id's corresponding to the values stored in this sequence.
+     * @param type - the data type of the given object (tuple or list)
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * @param show_indexes - whether to show the indexes of each list element
      * @returns An object with default_width and default_height properties.
      */
     private getDefaultSequenceDimensions(
         element_ids: (number | null)[],
+        type: "list" | "tuple",
         style: Style,
         show_indexes: boolean
     ): {
@@ -1576,6 +1630,12 @@ export class MemoryModel {
         if (show_indexes) {
             default_height += this.list_index_sep;
         }
+
+        if (immutable.includes(type)) {
+            default_width += this.double_rect_sep * 2;
+            default_height += this.double_rect_sep * 2;
+        }
+
         return { default_width, default_height };
     }
 
@@ -1585,11 +1645,13 @@ export class MemoryModel {
      * and the height is set to the minimum object height.
      *
      * @param element_ids - the list of id's corresponding to the values stored in this set.
+     * @param type - the data type of the given object (set for frozenset)
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * @returns An object with default_width and default_height properties.
      */
     private getDefaultSetDimensions(
         element_ids: (number | null)[],
+        type: "set" | "frozenset",
         style: Style
     ): {
         default_width: number;
@@ -1605,7 +1667,13 @@ export class MemoryModel {
         });
         default_width = Math.max(this.obj_min_width, default_width);
         default_width += ((element_ids.length - 1) * this.item_min_width) / 4; // Space for separators
-        const default_height = this.obj_min_height;
+        let default_height = this.obj_min_height;
+
+        if (immutable.includes(type)) {
+            default_width += this.double_rect_sep * 2;
+            default_height += this.double_rect_sep * 2;
+        }
+
         return { default_width, default_height };
     }
 
@@ -1749,26 +1817,6 @@ export class MemoryModel {
         default_width: number,
         default_height: number
     ): DrawnEntityWithDimensions {
-        // For primitive objects, object width and height accounts for the double rectangle separation
-        if (
-            (entity.type === "int" ||
-                entity.type === "float" ||
-                entity.type === "str" ||
-                entity.type === "bool" ||
-                entity.type === "None" ||
-                typeof entity.value !== "object" ||
-                entity.value === null) &&
-            entity.type !== ".blank-frame" &&
-            entity.type !== "range"
-        ) {
-            if (entity.width !== undefined) {
-                entity.width -= 2 * this.double_rect_sep;
-            }
-            if (entity.height !== undefined) {
-                entity.height -= 2 * this.double_rect_sep;
-            }
-        }
-
         if (entity.width === undefined || entity.width < default_width) {
             if (entity.width !== undefined && entity.width < default_width) {
                 console.warn(
@@ -1905,24 +1953,9 @@ export class MemoryModel {
     ): DrawnEntityStrict[] {
         // Determining the minimum width of the canvas.
         let min_width = 0;
-        let item_width: number;
         for (const item of objs) {
-            if (
-                (item.type === "int" ||
-                    item.type === "float" ||
-                    item.type === "str" ||
-                    item.type === "bool" ||
-                    item.type === "None" ||
-                    typeof item.value !== "object" ||
-                    item.value === null) &&
-                item.type !== ".blank-frame"
-            ) {
-                item_width = item.width + 2 * this.double_rect_sep;
-            } else {
-                item_width = item.width;
-            }
-            if (item_width > min_width) {
-                min_width = item_width;
+            if (item.width > min_width) {
+                min_width = item.width;
             }
         }
 
@@ -1959,21 +1992,6 @@ export class MemoryModel {
                         "(either the width or the height is missing). This object will be omitted in the memory model" +
                         " diagram."
                 );
-            }
-
-            // Dimensions of primitive objects are updated in the calculation of coordinates
-            if (
-                (item.type === "int" ||
-                    item.type === "float" ||
-                    item.type === "str" ||
-                    item.type === "bool" ||
-                    item.type === "None" ||
-                    typeof item.value !== "object" ||
-                    item.value === null) &&
-                item.type !== "range"
-            ) {
-                item.width += 2 * this.double_rect_sep;
-                item.height += 2 * this.double_rect_sep;
             }
         }
 
@@ -2053,23 +2071,6 @@ export class MemoryModel {
 
             x_coord = hor_reach;
             strict_objects.push(item as DrawnEntityStrict);
-        }
-
-        // Set dimensions of primitive objects back to original values
-        for (const strict_obj of strict_objects) {
-            if (
-                (strict_obj.type === "int" ||
-                    strict_obj.type === "float" ||
-                    strict_obj.type === "str" ||
-                    strict_obj.type === "bool" ||
-                    strict_obj.type === "None" ||
-                    typeof strict_obj.value !== "object" ||
-                    strict_obj.value === null) &&
-                strict_obj.type !== "range"
-            ) {
-                strict_obj.width -= 2 * this.double_rect_sep;
-                strict_obj.height -= 2 * this.double_rect_sep;
-            }
         }
 
         const defaultObject: DrawnEntityStrict = {
