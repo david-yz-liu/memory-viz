@@ -570,10 +570,7 @@ export class MemoryModel {
 
         this.drawProperties(id, type, x, y, width, style, svg_group);
 
-        let curr_x =
-            x +
-            this.item_min_width / 2 -
-            (type == "tuple" ? this.double_rect_sep : 0);
+        let curr_x = x + this.item_min_width / 2;
         let item_y =
             y +
             this.prop_min_height +
@@ -736,10 +733,7 @@ export class MemoryModel {
 
         this.drawProperties(id, type, x, y, width, style, svg_group);
 
-        let curr_x =
-            x +
-            this.item_min_width / 2 -
-            (type == "frozenset" ? this.double_rect_sep : 0);
+        let curr_x = x + this.item_min_width / 2;
         const item_y =
             y +
             this.prop_min_height +
@@ -1552,12 +1546,20 @@ export class MemoryModel {
         } else if (entity.type === "list" || entity.type === "tuple") {
             return this.getDefaultSequenceDimensions(
                 entity.value,
+                entity.type,
                 entity.style,
                 entity.show_indexes
             );
+        } else if (entity.type === "set" || entity.type === "frozenset") {
+            return this.getDefaultSetDimensions(
+                entity.value,
+                entity.type,
+                entity.style
+            );
         } else {
-            // entity.type === "set" or "frozenset"
-            return this.getDefaultSetDimensions(entity.value, entity.style);
+            throw new Error(
+                `Invalid type or value: Expected a collection type (dict, set, list, tuple, frozenset) or a primitive value, but received type "${entity.type}" with value "${entity.value}".`
+            );
         }
     }
 
@@ -1595,12 +1597,14 @@ export class MemoryModel {
      * extra space if indexes are shown.
      *
      * @param element_ids - the list of id's corresponding to the values stored in this sequence.
+     * @param type - the data type of the given object (tuple or list)
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * @param show_indexes - whether to show the indexes of each list element
      * @returns An object with default_width and default_height properties.
      */
     private getDefaultSequenceDimensions(
         element_ids: (number | null)[],
+        type: "list" | "tuple",
         style: Style,
         show_indexes: boolean
     ): {
@@ -1620,6 +1624,12 @@ export class MemoryModel {
         if (show_indexes) {
             default_height += this.list_index_sep;
         }
+
+        if (immutable.includes(type)) {
+            default_width += this.double_rect_sep * 2;
+            default_height += this.double_rect_sep * 2;
+        }
+
         return { default_width, default_height };
     }
 
@@ -1629,11 +1639,13 @@ export class MemoryModel {
      * and the height is set to the minimum object height.
      *
      * @param element_ids - the list of id's corresponding to the values stored in this set.
+     * @param type - the data type of the given object (set for frozenset)
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * @returns An object with default_width and default_height properties.
      */
     private getDefaultSetDimensions(
         element_ids: (number | null)[],
+        type: "set" | "frozenset",
         style: Style
     ): {
         default_width: number;
@@ -1649,7 +1661,13 @@ export class MemoryModel {
         });
         default_width = Math.max(this.obj_min_width, default_width);
         default_width += ((element_ids.length - 1) * this.item_min_width) / 4; // Space for separators
-        const default_height = this.obj_min_height;
+        let default_height = this.obj_min_height;
+
+        if (immutable.includes(type)) {
+            default_width += this.double_rect_sep * 2;
+            default_height += this.double_rect_sep * 2;
+        }
+
         return { default_width, default_height };
     }
 
