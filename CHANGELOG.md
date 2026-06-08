@@ -11,6 +11,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- Updated and established a new standard for immutable objects where `x`, `y`, `width`, and `height` to refer to the outermost rectangle
 - Changed the MemoryViz images to match the current theme (light or dark) of the webstepper website
 
 ### 🐛 Bug fixes
