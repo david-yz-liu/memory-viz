@@ -19,7 +19,6 @@ type SvgDisplayPropTypes = {
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const canvasRef = useRef(null);
     const canvasWidth = props.memoryVizData.configuration?.width ?? 1300;
-
     useEffect(() => {
         if (props.memoryVizData.memoryVizInput && canvasRef.current) {
             try {
