@@ -13,6 +13,7 @@ type SvgDisplayPropTypes = {
             [key: string]: any;
         };
     };
+    isDarkMode?: boolean;
 };
 
 export default function SvgDisplay(props: SvgDisplayPropTypes) {
@@ -21,10 +22,15 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     useEffect(() => {
         if (props.memoryVizData.memoryVizInput && canvasRef.current) {
             try {
+                const resolvedTheme = props.isDarkMode ? "dark" : undefined;
                 const m = memoryViz.draw(
                     structuredClone(props.memoryVizData.memoryVizInput),
                     true,
-                    { width: canvasWidth, ...props.memoryVizData.configuration }
+                    {
+                        width: canvasWidth,
+                        ...props.memoryVizData.configuration,
+                        ...(resolvedTheme ? { theme: resolvedTheme } : {}),
+                    }
                 );
                 canvasRef.current.height =
                     props.memoryVizData.configuration?.height ?? m.height;
@@ -34,7 +40,7 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                 console.error(error);
             }
         }
-    }, [props.memoryVizData]);
+    }, [props.memoryVizData, props.isDarkMode]);
 
     return (
         <Paper

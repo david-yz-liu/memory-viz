@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- Modified the MemoryViz images to match the current theme (light or dark) of the webstepper website
+
 ### 🐛 Bug fixes
 
 ### 📚 Documentation changes
