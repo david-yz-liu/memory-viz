@@ -914,7 +914,7 @@ describe("draw function", () => {
                 },
             ],
             errorMessage:
-                "✖ Invalid input: expected number, received string\n  → at value.x",
+                '✖ "value" field must be a dict with integer or null values, or a string\n  → at value',
         },
         {
             test: "throws an error when object type is not a collection and value is not a primitive",

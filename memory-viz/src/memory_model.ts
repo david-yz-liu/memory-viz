@@ -960,7 +960,7 @@ export class MemoryModel {
      * @param y - value for y coordinate of top left corner
      * @param name - the name of the class
      * @param id - the hypothetical memory address number
-     * @param attributes - the attributes of the given class
+     * @param value - the value field of the class object; either a dictionary mapping attribute names to object ids, or a string representation of the object
      * @param stack_frame - set to true if you are drawing a stack frame
      * @param style - object defining the desired style of the sequence. Must abide by the structure defined
      *            in 'drawAll'.
@@ -973,7 +973,7 @@ export class MemoryModel {
         y: number,
         name: string,
         id: number | null,
-        attributes: { [key: string]: any },
+        value: { [key: string]: any } | string,
         stack_frame: boolean,
         style: Style,
         width: number,
@@ -1015,51 +1015,65 @@ export class MemoryModel {
             this.drawProperties(id, name, x, y, width, style, svg_group);
         }
 
-        // Draw element boxes.
-        let curr_y = y + this.prop_min_height + this.item_min_height / 2;
-        for (const attribute in attributes) {
-            if (attribute.trim() !== "") {
+        if (typeof value === "string") {
+            // render the string as plain text in the value area
+            this.drawText(
+                value,
+                x + width / 2,
+                y + (height + this.prop_min_height) / 2,
+                svg_group,
+                style.text_value,
+                "value",
+                false,
+                TEXT_DESCRIPTION["value"]
+            );
+        } else {
+            // Draw element boxes.
+            let curr_y = y + this.prop_min_height + this.item_min_height / 2;
+            for (const attribute in value) {
+                if (attribute.trim() !== "") {
+                    this.drawText(
+                        attribute,
+                        x + this.item_min_width / 2,
+                        curr_y + this.item_min_height / 2 + this.font_size / 4,
+                        svg_group,
+                        style.text_value,
+                        stack_frame ? "variable" : "attribute",
+                        false,
+                        TEXT_DESCRIPTION[
+                            stack_frame ? "parameter_name" : "attribute_name"
+                        ]
+                    );
+                }
+
+                const val = value[attribute];
+                const idv = val === null ? "" : `id${val}`;
+                const attr_box = Math.max(
+                    this.item_min_width,
+                    this.getTextLength(idv) + 10
+                );
+                const value_rect = this.drawRect(
+                    x + width - this.item_min_width * 1.5,
+                    curr_y,
+                    attr_box,
+                    this.item_min_height,
+                    svg_group
+                );
+
                 this.drawText(
-                    attribute,
-                    x + this.item_min_width / 2,
+                    idv,
+                    x + width - this.item_min_width * 1.5 + attr_box / 2,
                     curr_y + this.item_min_height / 2 + this.font_size / 4,
-                    svg_group,
-                    style.text_value,
-                    stack_frame ? "variable" : "attribute",
+                    value_rect,
+                    style.text_id,
+                    "id",
                     false,
                     TEXT_DESCRIPTION[
-                        stack_frame ? "parameter_name" : "attribute_name"
+                        stack_frame ? "parameter_value" : "attribute_value"
                     ]
                 );
+                curr_y += this.item_min_height * 1.5;
             }
-
-            const val = attributes[attribute];
-            const idv = val === null ? "" : `id${val}`;
-            const attr_box = Math.max(
-                this.item_min_width,
-                this.getTextLength(idv) + 10
-            );
-            const value_rect = this.drawRect(
-                x + width - this.item_min_width * 1.5,
-                curr_y,
-                attr_box,
-                this.item_min_height,
-                svg_group
-            );
-
-            this.drawText(
-                idv,
-                x + width - this.item_min_width * 1.5 + attr_box / 2,
-                curr_y + this.item_min_height / 2 + this.font_size / 4,
-                value_rect,
-                style.text_id,
-                "id",
-                false,
-                TEXT_DESCRIPTION[
-                    stack_frame ? "parameter_value" : "attribute_value"
-                ]
-            );
-            curr_y += this.item_min_height * 1.5;
         }
     }
 
@@ -1737,13 +1751,13 @@ export class MemoryModel {
      * is based on the number of attributes.
      *
      * @param name - the name of the class
-     * @param attributes - the attributes of the given class
+     * @param value - the value field of the class object; either a dictionary mapping attribute names to object ids, or a string representation of the object
      * @param style - The style configuration for the drawings on the canvas (e.g. highlighting, bold texts)
      * @returns An object with default_width and default_height properties.
      */
     private getDefaultClassDimensions(
         name: string,
-        attributes: { [key: string]: any },
+        value: { [key: string]: any } | string,
         style: Style
     ): {
         default_width: number;
@@ -1751,29 +1765,40 @@ export class MemoryModel {
     } {
         let default_width = this.obj_min_width;
         let longest = 0;
-        for (const attribute in attributes) {
-            longest = Math.max(
-                longest,
-                this.getTextLength(attribute, style.text_value)
-            );
-        }
-        if (longest > 0) {
-            default_width = longest + this.item_min_width * 3;
+        if (typeof value === "string") {
+            longest = this.getTextLength(value, style.text_value);
+            // only add padding if there is text to display
+            if (longest > 0) {
+                default_width = Math.max(
+                    this.obj_min_width,
+                    longest + this.obj_x_padding
+                );
+            }
+        } else {
+            for (const attribute in value) {
+                longest = Math.max(
+                    longest,
+                    this.getTextLength(attribute, style.text_value)
+                );
+            }
+            if (longest > 0) {
+                default_width = longest + this.item_min_width * 3;
+            }
         }
         default_width = Math.max(
             default_width,
             this.prop_min_width + this.getTextLength(name, style.text_type) + 10
         );
 
-        let default_height = 0;
-        if (Object.keys(attributes).length > 0) {
-            default_height =
-                ((this.item_min_width * 3) / 2) *
-                    Object.keys(attributes).length +
-                this.item_min_width / 2 +
-                this.prop_min_height;
-        } else {
-            default_height = this.obj_min_height;
+        let default_height = this.obj_min_height;
+        if (typeof value !== "string") {
+            const attrCount = Object.keys(value).length;
+            if (attrCount > 0) {
+                default_height =
+                    ((this.item_min_width * 3) / 2) * attrCount +
+                    this.item_min_width / 2 +
+                    this.prop_min_height;
+            }
         }
         return { default_width, default_height };
     }

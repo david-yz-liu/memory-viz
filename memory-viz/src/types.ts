@@ -113,10 +113,9 @@ export const ClassDrawnEntitySchema = BaseDrawnEntitySchema.extend({
     type: z.literal(".class"),
     name: z.string('"name" field must be a string').default(""),
     value: z
-        .record(
-            z.string(),
-            ObjectId,
-            '"value" field must be a dict with integer or null values'
+        .union(
+            [z.record(z.string(), ObjectId), z.string()],
+            '"value" field must be a dict with integer or null values, or a string'
         )
         .default({}),
 });
