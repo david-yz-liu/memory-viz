@@ -1,6 +1,6 @@
 {
     "name": "memory-viz",
-    "version": "0.9.0",
+    "version": "0.9.1",
     "description": "Library for creating beginner-friendly memory model diagrams.",
     "type": "module",
     "exports": {
