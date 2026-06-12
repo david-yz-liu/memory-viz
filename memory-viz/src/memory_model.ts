@@ -891,7 +891,7 @@ export class MemoryModel {
 
             this.drawText(
                 idk,
-                x + this.item_min_width + 2,
+                x + this.obj_x_padding + key_box / 2,
                 curr_y + this.item_min_height / 2 + +this.font_size / 4,
                 key_rect,
                 key_text_style,

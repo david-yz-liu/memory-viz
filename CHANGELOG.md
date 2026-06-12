@@ -13,6 +13,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
+- Updated `dict` key positioning so each label is centered in its box
+
 ### 📚 Documentation and demo website changes
 
 ### 🔧 Internal changes
