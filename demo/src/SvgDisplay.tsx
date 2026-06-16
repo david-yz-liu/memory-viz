@@ -10,6 +10,8 @@ type SvgDisplayPropTypes = {
     jsonResult: object[] | null;
     configData: configDataPropTypes;
     setSvgResult: React.Dispatch<React.SetStateAction<string>>;
+    setFailureBanner: React.Dispatch<React.SetStateAction<string>>;
+    setIsValidJson: React.Dispatch<React.SetStateAction<boolean>>;
     isDarkMode?: boolean;
 };
 
@@ -41,11 +43,14 @@ export default function SvgDisplay({
                     ...(resolvedTheme ? { theme: resolvedTheme } : {}),
                 });
                 props.setSvgResult(m.serializeSVG());
+                props.setFailureBanner("");
+                props.setIsValidJson(true);
                 m.clear(canvasRef.current);
                 m.render(canvasRef.current);
             } catch (error) {
                 props.setSvgResult(null);
-                throw error;
+                props.setFailureBanner(error.message);
+                props.setIsValidJson(false);
             }
         } else {
             props.setSvgResult(null);
