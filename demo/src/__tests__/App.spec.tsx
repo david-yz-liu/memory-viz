@@ -35,7 +35,7 @@ describe("App", () => {
         const button = screen.getByTestId("input-submit-button");
         fireEvent.click(button);
 
-        const errorBoundary = screen.getByTestId("svg-display-error-boundary");
+        const errorBoundary = screen.getByTestId("failure-banner");
         expect(errorBoundary.textContent).toEqual(
             expect.stringMatching(
                 /^✖ Invalid discriminator value\..*\n\s*→ at type$/
@@ -57,7 +57,7 @@ describe("App", () => {
         expect(consoleErrorSpy).toHaveBeenCalledWith(
             expect.stringMatching(/^Error parsing inputted JSON: /)
         );
-        const alertBanner = screen.getByTestId("json-parse-alert");
+        const alertBanner = screen.getByTestId("failure-banner");
         expect(alertBanner.textContent).toEqual(
             expect.stringMatching(/^Error parsing inputted JSON/)
         );
@@ -81,7 +81,7 @@ describe("App", () => {
         const button = screen.getByTestId("input-submit-button");
         fireEvent.click(button);
 
-        const errorBoundary = screen.getByTestId("svg-display-error-boundary");
+        const errorBoundary = screen.getByTestId("failure-banner");
         expect(errorBoundary.textContent).toEqual(
             expect.stringMatching(
                 /^✖ Invalid discriminator value\..*\n\s*→ at type$/
@@ -106,9 +106,7 @@ describe("App", () => {
 
         // Finally, test that the ErrorBoundary message doesn't appear, and that the canvas is reappearing after resetting
         await waitFor(() => {
-            expect(
-                screen.queryByTestId("svg-display-error-boundary")
-            ).toBeNull();
+            expect(screen.queryByTestId("failure-banner")).toBeNull();
         });
         expect(screen.getByTestId("memory-models-canvas")).toBeTruthy();
         spy.mockRestore();
