@@ -20,6 +20,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🔧 Internal changes
 
+- Removed the unused `automation` parameter from the draw function and all its usages
+
 ## [0.9.1] - 2026-06-11
 
 ### ✨ Enhancements
