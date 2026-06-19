@@ -1951,28 +1951,23 @@ export class MemoryModel {
         sort_by: SortOptions | null,
         sf_endpoint: number
     ): DrawnEntityStrict[] {
-        // Determining the minimum width of the canvas.
-        let min_width = 0;
-        for (const item of objs) {
-            if (item.width > min_width) {
-                min_width = item.width;
-            }
-        }
+        // Determine the minimum width needed to place the widest object and any surrounding padding.
+        const max_object_width = Math.max(0, ...objs.map((item) => item.width));
+        const required_width =
+            max_object_width + sf_endpoint + 2 * this.canvas_padding + 1;
 
-        min_width += sf_endpoint + 2 * this.canvas_padding + 1;
-
-        if (this.width !== undefined && this.width < min_width) {
+        if (this.width !== undefined && this.width < required_width) {
             console.warn(
                 `WARNING: provided width (${this.width}) is smaller than the required width` +
-                    ` (${min_width}). The provided width has been overwritten` +
+                    ` (${required_width}). The provided width has been overwritten` +
                     ` in the generated diagram.`
             );
-            this.width = min_width;
+            this.width = required_width;
         }
 
-        // determining default width: should be 800 by default, but set to min_width if necessary
-        const default_width = Math.min(min_width, 800);
-        const max_width = this.width || default_width;
+        // Determine the canvas width used for layout. Prefer the provided width.
+        // Otherwise use exactly the required width for the objects and padding.
+        const max_width = this.width ?? required_width;
 
         const PADDING = this.canvas_padding;
 
