@@ -20,6 +20,6 @@ const configuration = {
     sort_by: "id",
 };
 
-const m = draw("./automation_demo.json", true, configuration);
+const m = draw("./automation_demo.json", configuration);
 
 m.save("automation_demo.svg");
