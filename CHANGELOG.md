@@ -14,6 +14,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 🐛 Bug fixes
 
 - Updated `dict` key positioning so each label is centered in its box
+- Resolved the error when generating very wide objects, setting the canvas width to a computed required width when width not explicitly set
 
 ### 📚 Documentation and demo website changes
 

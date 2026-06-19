@@ -436,6 +436,22 @@ describe("draw function", () => {
             ],
         },
         {
+            test: "renders a frame with a class containing a long string value",
+            input: [
+                {
+                    type: ".frame",
+                    name: "__main__",
+                    value: { f: 2 },
+                },
+                {
+                    type: ".class",
+                    id: 2,
+                    name: "TextIOWrapper",
+                    value: "<_io.TextIOWrapper name='data.csv' mode='r' encoding='UTF-8'>",
+                },
+            ],
+        },
+        {
             test: "renders a blank stack frame",
             input: [
                 { type: ".blank-frame", width: 100, height: 200 },
