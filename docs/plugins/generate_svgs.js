@@ -54,7 +54,7 @@ export default function generateSvgs() {
                     `${baseName}_light.svg`
                 );
                 if (needsRebuild(jsonPath, svgPathLight)) {
-                    const svgLight = memoryViz.draw(jsonPath, true, {});
+                    const svgLight = memoryViz.draw(jsonPath, {});
                     svgLight.save(svgPathLight);
                     console.log(`Created: ${svgPathLight}`);
                 }
@@ -64,7 +64,7 @@ export default function generateSvgs() {
                     `${baseName}_dark.svg`
                 );
                 if (needsRebuild(jsonPath, svgPathDark)) {
-                    const svgDark = memoryViz.draw(jsonPath, true, {
+                    const svgDark = memoryViz.draw(jsonPath, {
                         theme: "dark",
                     });
                     svgDark.save(svgPathDark);

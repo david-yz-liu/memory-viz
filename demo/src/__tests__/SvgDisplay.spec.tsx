@@ -68,7 +68,7 @@ describe("SvgDisplay", () => {
         });
 
         it("calls functions with correct parameters", () => {
-            expect(draw).toHaveBeenNthCalledWith(1, jsonResult, true, {
+            expect(draw).toHaveBeenNthCalledWith(1, jsonResult, {
                 seed: seedMock,
                 width: 1300,
             });

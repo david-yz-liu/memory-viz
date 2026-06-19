@@ -35,7 +35,7 @@ export default function SvgDisplay({
                 } else {
                     resolvedTheme = rawTheme;
                 }
-                const m = drawMemoryModel(jsonResultCopy, true, {
+                const m = drawMemoryModel(jsonResultCopy, {
                     ...props.configData.overallDrawConfig,
                     width: canvasWidth,
                     ...(resolvedTheme ? { theme: resolvedTheme } : {}),
