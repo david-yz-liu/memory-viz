@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+    Alert,
     Box,
     Button,
     Input,
@@ -46,6 +47,7 @@ type MemoryModelsUserInputPropTypes = MemoryModelsFileInputPropTypes &
     MemoryModelsTextInputPropTypes &
     MemoryModelsConfigInputPropTypes & {
         onTextDataSubmit: (event?: React.MouseEvent<HTMLFormElement>) => void;
+        failureBanner: string;
     };
 
 function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
@@ -253,6 +255,15 @@ export default function MemoryModelsUserInput(
                     setTextData={props.setTextData}
                     isValidJson={props.isValidJson}
                 />
+                {props.failureBanner && (
+                    <Alert
+                        severity="error"
+                        data-testid="failure-banner"
+                        sx={{ whiteSpace: "pre-wrap" }}
+                    >
+                        {props.failureBanner}
+                    </Alert>
+                )}
                 <Stack
                     direction="row"
                     spacing={2}

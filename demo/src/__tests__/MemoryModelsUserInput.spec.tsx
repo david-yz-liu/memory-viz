@@ -21,7 +21,7 @@ describe("MemoryModelsUserInput", () => {
         },
     };
     const setConfigDataMock = jest.fn();
-    const jsonResult = "";
+    const failureBannerMock = "";
     let textDataMock: string;
 
     beforeEach(() => {
@@ -36,7 +36,7 @@ describe("MemoryModelsUserInput", () => {
                     setTextData={setTextDataMock}
                     textData={textDataMock}
                     setFailureBanner={setFailureBannerMock}
-                    jsonResult={jsonResult}
+                    failureBanner={failureBannerMock}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
                 />
@@ -55,7 +55,7 @@ describe("MemoryModelsUserInput", () => {
                     setTextData={setTextDataMock}
                     textData={textDataMock}
                     setFailureBanner={setFailureBannerMock}
-                    jsonResult={jsonResult}
+                    failureBanner={failureBannerMock}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
                 />
@@ -77,7 +77,7 @@ describe("MemoryModelsUserInput", () => {
                     setTextData={setTextDataMock}
                     textData={textDataMock}
                     setFailureBanner={setFailureBannerMock}
-                    jsonResult={jsonResult}
+                    failureBanner={failureBannerMock}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
                 />
@@ -101,7 +101,7 @@ describe("MemoryModelsUserInput", () => {
                         setTextData={setTextDataMock}
                         textData={textDataMock}
                         setFailureBanner={setFailureBannerMock}
-                        jsonResult={jsonResult}
+                        failureBanner={failureBannerMock}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
                     />
@@ -131,7 +131,7 @@ describe("MemoryModelsUserInput", () => {
                         setTextData={setTextDataMock}
                         textData={textDataMock}
                         setFailureBanner={setFailureBannerMock}
-                        jsonResult={jsonResult}
+                        failureBanner={failureBannerMock}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
                     />
@@ -274,7 +274,7 @@ describe("MemoryModelsUserInput", () => {
                         setTextData={setTextDataMock}
                         textData={textDataMock}
                         setFailureBanner={setFailureBannerMock}
-                        jsonResult={jsonResult}
+                        failureBanner={failureBannerMock}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
                     />

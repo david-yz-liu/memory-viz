@@ -3,9 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import SvgDisplay from "./SvgDisplay.js";
 import MemoryModelsUserInput from "./MemoryModelsUserInput.js";
-import { ErrorBoundary } from "react-error-boundary";
 import DownloadSVGButton from "./DownloadSVGButton.js";
-import { Alert } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput.js";
 import Header from "./Header.js";
 
@@ -56,11 +54,6 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
     return (
         <main className="container">
             <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-            {failureBanner && (
-                <Alert severity="error" data-testid="json-parse-alert">
-                    {failureBanner}
-                </Alert>
-            )}
             <Stack direction="row" spacing={2}>
                 <Box sx={{ width: "40%" }}>
                     <Typography variant="h2" color="textPrimary">
@@ -72,6 +65,7 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         configData={configData}
                         setConfigData={setConfigData}
                         onTextDataSubmit={onTextDataSubmit}
+                        failureBanner={failureBanner}
                         setFailureBanner={setFailureBanner}
                         isValidJson={isValidJson}
                     />
@@ -80,25 +74,14 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                     <Typography variant="h2" color="textPrimary">
                         {t("output.title")}
                     </Typography>
-                    <ErrorBoundary
-                        fallbackRender={({ error }) => (
-                            <Alert
-                                severity="error"
-                                data-testid="svg-display-error-boundary"
-                                style={{ whiteSpace: "pre-wrap" }} // ensures newlines show
-                            >
-                                {error.message}
-                            </Alert>
-                        )}
-                        resetKeys={[jsonResult]}
-                    >
-                        <SvgDisplay
-                            jsonResult={jsonResult}
-                            configData={configData}
-                            setSvgResult={setSvgResult}
-                            isDarkMode={isDarkMode}
-                        />
-                    </ErrorBoundary>
+                    <SvgDisplay
+                        jsonResult={jsonResult}
+                        configData={configData}
+                        setSvgResult={setSvgResult}
+                        setFailureBanner={setFailureBanner}
+                        setIsValidJson={setIsValidJson}
+                        isDarkMode={isDarkMode}
+                    />
                     <DownloadSVGButton svgResult={svgResult} />
                 </Box>
             </Stack>
