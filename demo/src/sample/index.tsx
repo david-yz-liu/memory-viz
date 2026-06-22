@@ -1,5 +1,5 @@
-import automated_layout_config from "./automated-layout/config";
-import automated_layout_data from "./automated-layout/data";
+import default_layout_config from "./default-layout/config";
+import default_layout_data from "./default-layout/data";
 import blanks_config from "./blanks/config";
 import blanks_data from "./blanks/data";
 import manual_layout_config from "./manual-layout/config";
@@ -23,10 +23,10 @@ export const SAMPLES = [
         config: manual_layout_config,
     },
     {
-        name: "Automated Layout",
-        nameKey: "samples.automatedLayout",
-        data: automated_layout_data,
-        config: automated_layout_config,
+        name: "Default Layout",
+        nameKey: "samples.defaultLayout",
+        data: default_layout_data,
+        config: default_layout_config,
     },
     {
         name: "Blank spaces",

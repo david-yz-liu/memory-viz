@@ -2,50 +2,58 @@
     {
         "type": ".frame",
         "x": 25,
-        "y": 200,
+        "y": 150,
         "name": "__main__",
-        "value": { "pair": 82, "menu": 84, "p": 2, "d": 10 }
+        "value": { "menu": 84, "p": 3, "d": 13 }
     },
     {
-        "x": 1050,
-        "y": 500,
-        "type": "dict",
+        "type": "list",
         "id": 84,
-        "value": { "1": 10, "2": 20 }
+        "x": 1000,
+        "y": 30,
+        "value": [1, 3, 2],
+        "show_indexes": true
     },
     {
-        "x": 1050,
-        "y": 40,
-        "type": "tuple",
-        "id": 82,
-        "value": [1, 2]
+        "type": ".frame",
+        "x": 225,
+        "y": 175,
+        "name": "func",
+        "value": { "item": 2, "cost": 20 }
     },
     {
-        "x": 500,
-        "y": 250,
         "type": "str",
         "id": 1,
+        "x": 650,
+        "y": 200,
         "value": "burger"
     },
     {
-        "x": 750,
-        "y": 250,
         "type": "str",
         "id": 2,
+        "x": 100,
+        "y": 800,
         "value": "fries"
     },
     {
-        "x": 300,
-        "y": 550,
-        "type": "float",
-        "id": 10,
-        "value": 8.0
+        "type": "str",
+        "id": 3,
+        "x": 250,
+        "y": 450,
+        "value": "salad"
     },
     {
-        "x": 300,
-        "y": 700,
         "type": "float",
         "id": 20,
+        "x": 800,
+        "y": 550,
         "value": 3.5
+    },
+    {
+        "type": "None",
+        "id": 13,
+        "x": 550,
+        "y": 700,
+        "value": "None"
     }
 ]
