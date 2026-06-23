@@ -5,7 +5,6 @@ import {
     Button,
     Input,
     TextField,
-    Tooltip,
     MenuItem,
     Stack,
     Dialog,
@@ -15,7 +14,6 @@ import {
 import { useTranslation } from "react-i18next";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
-import DrawIcon from "@mui/icons-material/Draw";
 import DownloadJSONButton from "./DownloadJSONButton.js";
 import MemoryModelsMenu from "./MemoryModelsMenu.js";
 import MemoryModelsSample from "./MemoryModelsSample.js";
@@ -230,9 +228,8 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
 export default function MemoryModelsUserInput(
     props: MemoryModelsUserInputPropTypes
 ) {
-    const { t } = useTranslation();
     return (
-        <form data-testid="input-form" onSubmit={props.onTextDataSubmit}>
+        <form data-testid="input-form">
             <Stack spacing={2}>
                 <MemoryModelsFileInput
                     textData={props.textData}
@@ -270,21 +267,6 @@ export default function MemoryModelsUserInput(
                     sx={{ justifyContent: "space-between" }}
                 >
                     <DownloadJSONButton textData={props.textData} />
-                    <Tooltip title={t("input.drawTooltip")}>
-                        <span>
-                            <Button
-                                type="submit"
-                                data-testid="input-submit-button"
-                                variant="contained"
-                                color="primary"
-                                disabled={!props.textData}
-                                style={{ textTransform: "none" }}
-                                startIcon={<DrawIcon />}
-                            >
-                                {t("input.drawDiagram")}
-                            </Button>
-                        </span>
-                    </Tooltip>
                 </Stack>
             </Stack>
         </form>

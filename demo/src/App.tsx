@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { useDebounce } from "use-debounce";
 import SvgDisplay from "./SvgDisplay.js";
 import MemoryModelsUserInput from "./MemoryModelsUserInput.js";
 import DownloadSVGButton from "./DownloadSVGButton.js";
@@ -15,6 +16,7 @@ interface AppProps {
 export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const { t } = useTranslation();
     const [textData, setTextData] = useState("");
+    const [debouncedTextData] = useDebounce(textData, 1000);
     const [configData, setConfigData] = useState<configDataPropTypes>({
         overallDrawConfig: {
             seed: 0,
@@ -36,6 +38,26 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
         }
     }, [isValidJson]);
 
+    React.useEffect(() => {
+        if (debouncedTextData == "") {
+            setJsonResult(null);
+            setFailureBanner("");
+            setIsValidJson(null);
+        } else {
+            try {
+                setJsonResult(JSON.parse(debouncedTextData));
+                setFailureBanner("");
+                setIsValidJson(true);
+            } catch (error) {
+                const errorMessage = `Error parsing inputted JSON: ${error.message}`;
+                console.error(errorMessage);
+                setJsonResult(null);
+                setFailureBanner(errorMessage);
+                setIsValidJson(false);
+            }
+        }
+    }, [debouncedTextData]);
+
     const onTextDataSubmit = (event?) => {
         event?.preventDefault();
         try {
@@ -45,8 +67,8 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
         } catch (error) {
             const errorMessage = `Error parsing inputted JSON: ${error.message}`;
             console.error(errorMessage);
-            setFailureBanner(errorMessage);
             setJsonResult(null);
+            setFailureBanner(errorMessage);
             setIsValidJson(false);
         }
     };
