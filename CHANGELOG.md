@@ -18,6 +18,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 📚 Documentation and demo website changes
 
+- Updated demo website to combine error messages into one banner located under the user input box
+
 ### 🔧 Internal changes
 
 - Removed the unused `automation` parameter from the draw function and all its usages

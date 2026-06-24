@@ -21,6 +21,8 @@ const { draw } = mem.default;
 
 describe("SvgDisplay", () => {
     const setSvgResultMock = jest.fn();
+    const setFailureBannerMock = jest.fn();
+    const setIsValidJsonMock = jest.fn();
     const seedMock = 1234;
     const configDataMock = {
         overallDrawConfig: {
@@ -56,6 +58,8 @@ describe("SvgDisplay", () => {
                 <SvgDisplay
                     jsonResult={jsonResult}
                     setSvgResult={setSvgResultMock}
+                    setFailureBanner={setFailureBannerMock}
+                    setIsValidJson={setIsValidJsonMock}
                     configData={configDataMock}
                 />
             );
@@ -86,6 +90,8 @@ describe("SvgDisplay", () => {
             <SvgDisplay
                 jsonResult={null}
                 setSvgResult={setSvgResultMock}
+                setFailureBanner={setFailureBannerMock}
+                setIsValidJson={setIsValidJsonMock}
                 configData={configDataMock}
             />
         );
