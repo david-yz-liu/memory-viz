@@ -44,7 +44,6 @@ type MemoryModelsTextInputPropTypes = {
 type MemoryModelsUserInputPropTypes = MemoryModelsFileInputPropTypes &
     MemoryModelsTextInputPropTypes &
     MemoryModelsConfigInputPropTypes & {
-        onTextDataSubmit: (event?: React.MouseEvent<HTMLFormElement>) => void;
         failureBanner: string;
     };
 
@@ -240,7 +239,6 @@ export default function MemoryModelsUserInput(
                     <MemoryModelsSample
                         setTextData={props.setTextData}
                         setConfigData={props.setConfigData}
-                        onTextDataSubmit={props.onTextDataSubmit}
                     />
                     <MemoryModelsConfigInput
                         configData={props.configData}
