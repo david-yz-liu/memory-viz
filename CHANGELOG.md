@@ -19,6 +19,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 📚 Documentation and demo website changes
 
 - Updated demo website to combine error messages into one banner located under the user input box
+- Removed "Draw Diagram" button from demo website and added automatic memory model rendering
 
 ### 🔧 Internal changes
 
