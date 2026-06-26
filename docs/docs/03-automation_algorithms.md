@@ -10,7 +10,7 @@ When an entity does not have x or y coordinates provided, an algorithm is used t
 automatically compute coordinates instead. The algorithm is outlined below.
 
 Users may specify the desired width of the canvas. If no width is provided, a width will
-be computed based on width of the widest object and the endpoint of the stack frames.
+be computed based on width of the widest object and the widest stack frame.
 
 Given a list of objects in the format described in `MemoryModel.drawAll`, we separate
 these given objects into to collections as _stack frames_ and _other items_ by using the
