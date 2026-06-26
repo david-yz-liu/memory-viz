@@ -58,21 +58,6 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
         }
     }, [debouncedTextData]);
 
-    const onTextDataSubmit = (event?) => {
-        event?.preventDefault();
-        try {
-            setJsonResult(JSON.parse(textData));
-            setFailureBanner("");
-            setIsValidJson(true);
-        } catch (error) {
-            const errorMessage = `Error parsing inputted JSON: ${error.message}`;
-            console.error(errorMessage);
-            setJsonResult(null);
-            setFailureBanner(errorMessage);
-            setIsValidJson(false);
-        }
-    };
-
     return (
         <main className="container">
             <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
@@ -86,7 +71,6 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         setTextData={setTextData}
                         configData={configData}
                         setConfigData={setConfigData}
-                        onTextDataSubmit={onTextDataSubmit}
                         failureBanner={failureBanner}
                         setFailureBanner={setFailureBanner}
                         isValidJson={isValidJson}

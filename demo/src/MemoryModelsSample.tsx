@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { MenuItem } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import MemoryModelsMenu from "./MemoryModelsMenu.js";
@@ -9,18 +9,10 @@ import { SAMPLES } from "./sample/index.js";
 type MemoryModelsSamplePropTypes = {
     setTextData: React.Dispatch<React.SetStateAction<string>>;
     setConfigData: React.Dispatch<React.SetStateAction<configDataPropTypes>>;
-    onTextDataSubmit: () => void;
 };
 
 export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
     const { t } = useTranslation();
-    const [clickedBtnIndex, setClickedBtnIndex] = useState<number>(null);
-
-    useEffect(() => {
-        if (clickedBtnIndex !== null) {
-            props.onTextDataSubmit();
-        }
-    }, [clickedBtnIndex]);
 
     const handleButtonClick = (index: number, sample: object) => {
         // Note: the following conversion to a string is inefficient, as the data is later parsed
@@ -35,7 +27,6 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
                 ...sample["config"]?.overallDrawConfig,
             },
         }));
-        setClickedBtnIndex(index);
     };
 
     return (
