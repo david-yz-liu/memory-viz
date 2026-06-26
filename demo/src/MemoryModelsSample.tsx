@@ -14,7 +14,7 @@ type MemoryModelsSamplePropTypes = {
 export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
     const { t } = useTranslation();
 
-    const handleButtonClick = (index: number, sample: object) => {
+    const handleButtonClick = (sample: object) => {
         // Note: the following conversion to a string is inefficient, as the data is later parsed
         // back into JSON for rendering.
         // TODO: fix this.
@@ -37,7 +37,7 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
                 <MenuItem
                     key={index}
                     tabIndex={0}
-                    onClick={() => handleButtonClick(index, sample)}
+                    onClick={() => handleButtonClick(sample)}
                 >
                     {t(sample["nameKey"])}
                 </MenuItem>
