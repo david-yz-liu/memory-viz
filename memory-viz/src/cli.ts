@@ -114,15 +114,15 @@ function runMemoryViz(
         };
 
         if (typeof jsonContent === "string") {
-            m = draw(jsonContent, true, config);
+            m = draw(jsonContent, config);
         } else if (
             Array.isArray(jsonContent) &&
             jsonContent.length > 0 &&
             Array.isArray(jsonContent[0])
         ) {
-            m = draw(jsonContent as DrawnEntity[], true, config);
+            m = draw(jsonContent as DrawnEntity[], config);
         } else {
-            m = draw(jsonContent as DrawnEntity[][], true, config);
+            m = draw(jsonContent as DrawnEntity[][], config);
         }
     } catch (err: any) {
         if (err instanceof SyntaxError) {

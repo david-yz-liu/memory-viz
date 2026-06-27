@@ -1,10 +1,10 @@
 import { jest } from "@jest/globals";
 
-jest.unstable_mockModule("./sample/automated-layout/data", () => ({
-    default: { sample: "automation" },
+jest.unstable_mockModule("./sample/manual-layout/data", () => ({
+    default: { sample: "manualLayout" },
 }));
 
-jest.unstable_mockModule("./sample/automated-layout/config", () => ({
+jest.unstable_mockModule("./sample/manual-layout/config", () => ({
     default: { config: "config", overallDrawConfig: {} },
 }));
 
@@ -61,13 +61,13 @@ describe("MemoryModelsSample", () => {
 
     it("handles sample button click", async () => {
         fireEvent.click(screen.getByText("Sample Inputs"));
-        const button = screen.getByText("Automated Layout");
+        const button = screen.getByText("Manual Layout");
         fireEvent.click(button);
 
         // Wait for state updates and side effects to complete
         await waitFor(() => {
             expect(setTextDataMock).toHaveBeenCalledWith(
-                JSON.stringify({ sample: "automation" }, null, 4)
+                JSON.stringify({ sample: "manualLayout" }, null, 4)
             );
             expect(nextState).toEqual({
                 config: "config",

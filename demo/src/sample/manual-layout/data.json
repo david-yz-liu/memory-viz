@@ -1,51 +1,31 @@
 [
     {
         "type": ".frame",
-        "x": 25,
-        "y": 200,
         "name": "__main__",
-        "value": { "pair": 82, "menu": 84, "p": 2, "d": 10 }
+        "value": { "david": 1, "n": 13, "hungry": 20 },
+        "x": 50,
+        "y": 500
     },
     {
-        "x": 1050,
-        "y": 500,
-        "type": "dict",
-        "id": 84,
-        "value": { "1": 10, "2": 20 }
-    },
-    {
-        "x": 1050,
-        "y": 40,
-        "type": "tuple",
-        "id": 82,
-        "value": [1, 2]
-    },
-    {
-        "x": 500,
-        "y": 250,
         "type": "str",
         "id": 1,
-        "value": "burger"
+        "value": "David is cool!",
+        "style": ["highlight"],
+        "x": 800,
+        "y": 800
     },
     {
-        "x": 750,
-        "y": 250,
-        "type": "str",
-        "id": 2,
-        "value": "fries"
+        "type": "int",
+        "id": 13,
+        "value": 7,
+        "x": 400,
+        "y": 550
     },
     {
-        "x": 300,
-        "y": 550,
-        "type": "float",
-        "id": 10,
-        "value": 8.0
-    },
-    {
-        "x": 300,
-        "y": 700,
-        "type": "float",
+        "type": "bool",
         "id": 20,
-        "value": 3.5
+        "value": true,
+        "x": 1000,
+        "y": 300
     }
 ]

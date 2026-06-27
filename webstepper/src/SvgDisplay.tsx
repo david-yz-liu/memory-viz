@@ -25,7 +25,6 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                 const resolvedTheme = props.isDarkMode ? "dark" : undefined;
                 const m = memoryViz.draw(
                     structuredClone(props.memoryVizData.memoryVizInput),
-                    true,
                     {
                         width: canvasWidth,
                         ...props.memoryVizData.configuration,
