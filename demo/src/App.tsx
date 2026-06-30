@@ -8,6 +8,8 @@ import DownloadSVGButton from "./DownloadSVGButton.js";
 import { configDataPropTypes } from "./MemoryModelsUserInput.js";
 import Header from "./Header.js";
 
+const TEXT_INPUT_DEBOUNCE_DELAY = 1000;
+
 interface AppProps {
     isDarkMode: boolean;
     toggleTheme: () => void;
@@ -16,7 +18,10 @@ interface AppProps {
 export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const { t } = useTranslation();
     const [textData, setTextData] = useState("");
-    const [debouncedTextData] = useDebounce(textData, 1000);
+    const [debouncedTextData, debouncedControls] = useDebounce(
+        textData,
+        TEXT_INPUT_DEBOUNCE_DELAY
+    );
     const [configData, setConfigData] = useState<configDataPropTypes>({
         overallDrawConfig: {
             seed: 0,
@@ -74,6 +79,8 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         failureBanner={failureBanner}
                         setFailureBanner={setFailureBanner}
                         isValidJson={isValidJson}
+                        queueDebouncedTextData={debouncedControls}
+                        flushDebouncedTextData={debouncedControls.flush}
                     />
                 </Box>
                 <Box sx={{ width: "60%" }}>

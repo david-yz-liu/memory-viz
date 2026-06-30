@@ -33,6 +33,8 @@ type MemoryModelsFileInputPropTypes = {
     setTextData: React.Dispatch<React.SetStateAction<string>>;
     textData: string;
     setFailureBanner: React.Dispatch<React.SetStateAction<string>>;
+    queueDebouncedTextData: (textData: string) => void;
+    flushDebouncedTextData: () => void;
 };
 
 type MemoryModelsTextInputPropTypes = {
@@ -78,6 +80,8 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
     const onLoadButtonClick = () => {
         props.setTextData(uploadedFileString);
         setOpen(false);
+        props.queueDebouncedTextData(uploadedFileString);
+        props.flushDebouncedTextData();
     };
 
     return (
@@ -234,11 +238,15 @@ export default function MemoryModelsUserInput(
                     textData={props.textData}
                     setTextData={props.setTextData}
                     setFailureBanner={props.setFailureBanner}
+                    queueDebouncedTextData={props.queueDebouncedTextData}
+                    flushDebouncedTextData={props.flushDebouncedTextData}
                 />
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                     <MemoryModelsSample
                         setTextData={props.setTextData}
                         setConfigData={props.setConfigData}
+                        queueDebouncedTextData={props.queueDebouncedTextData}
+                        flushDebouncedTextData={props.flushDebouncedTextData}
                     />
                     <MemoryModelsConfigInput
                         configData={props.configData}
