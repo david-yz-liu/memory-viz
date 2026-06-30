@@ -19,6 +19,8 @@ describe("MemoryModelsUserInput", () => {
         },
     };
     const setConfigDataMock = jest.fn();
+    const queueDebouncedTextDataMock = jest.fn();
+    const flushDebouncedTextDataMock = jest.fn();
     const failureBannerMock = "";
     let textDataMock: string;
 
@@ -36,6 +38,8 @@ describe("MemoryModelsUserInput", () => {
                     failureBanner={failureBannerMock}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
+                    queueDebouncedTextData={queueDebouncedTextDataMock}
+                    flushDebouncedTextData={flushDebouncedTextDataMock}
                 />
             )
         );
@@ -54,6 +58,8 @@ describe("MemoryModelsUserInput", () => {
                     failureBanner={failureBannerMock}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
+                    queueDebouncedTextData={queueDebouncedTextDataMock}
+                    flushDebouncedTextData={flushDebouncedTextDataMock}
                 />
             )
         );
@@ -72,6 +78,8 @@ describe("MemoryModelsUserInput", () => {
                     failureBanner={failureBannerMock}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
+                    queueDebouncedTextData={queueDebouncedTextDataMock}
+                    flushDebouncedTextData={flushDebouncedTextDataMock}
                 />
             )
         );
@@ -95,6 +103,8 @@ describe("MemoryModelsUserInput", () => {
                         failureBanner={failureBannerMock}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
+                        queueDebouncedTextData={queueDebouncedTextDataMock}
+                        flushDebouncedTextData={flushDebouncedTextDataMock}
                     />
                 )
             );
@@ -117,6 +127,8 @@ describe("MemoryModelsUserInput", () => {
                         failureBanner={failureBannerMock}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
+                        queueDebouncedTextData={queueDebouncedTextDataMock}
+                        flushDebouncedTextData={flushDebouncedTextDataMock}
                     />
                 )
             );
@@ -211,6 +223,10 @@ describe("MemoryModelsUserInput", () => {
                     // if put within the same waitFor block as fireEvent.click(reapplyBtn), this test always passes
                     // even with the wrong expect
                     expect(setTextDataMock).toHaveBeenCalledWith(fileString);
+                    expect(queueDebouncedTextDataMock).toHaveBeenCalledWith(
+                        fileString
+                    );
+                    expect(flushDebouncedTextDataMock).toHaveBeenCalledTimes(1);
                 });
             });
 
@@ -259,6 +275,8 @@ describe("MemoryModelsUserInput", () => {
                         failureBanner={failureBannerMock}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
+                        queueDebouncedTextData={queueDebouncedTextDataMock}
+                        flushDebouncedTextData={flushDebouncedTextDataMock}
                     />
                 )
             );

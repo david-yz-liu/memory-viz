@@ -19,6 +19,8 @@ import { renderWithI18n } from "../setup-jest";
 
 describe("MemoryModelsSample", () => {
     const setTextDataMock = jest.fn();
+    const queueDebouncedTextDataMock = jest.fn();
+    const flushDebouncedTextDataMock = jest.fn();
     let nextState;
     let setConfigDataMock;
 
@@ -32,6 +34,8 @@ describe("MemoryModelsSample", () => {
                 <MemoryModelsSample
                     setTextData={setTextDataMock}
                     setConfigData={setConfigDataMock}
+                    queueDebouncedTextData={queueDebouncedTextDataMock}
+                    flushDebouncedTextData={flushDebouncedTextDataMock}
                 />
             )
         );
@@ -66,6 +70,10 @@ describe("MemoryModelsSample", () => {
             expect(setTextDataMock).toHaveBeenCalledWith(
                 JSON.stringify({ sample: "automation" }, null, 4)
             );
+            expect(queueDebouncedTextDataMock).toHaveBeenCalledWith(
+                JSON.stringify({ sample: "automation" }, null, 4)
+            );
+            expect(flushDebouncedTextDataMock).toHaveBeenCalledTimes(1);
             expect(nextState).toEqual({
                 config: "config",
                 overallDrawConfig: {},
