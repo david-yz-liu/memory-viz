@@ -6,12 +6,10 @@ export * from "./types.js";
 
 function draw(
     objects: string | object[][],
-    automation: boolean,
     configuration: Partial<DisplaySettings>
 ): MemoryModel[];
 function draw(
     objects: string | object[],
-    automation: boolean,
     configuration: Partial<DisplaySettings>
 ): MemoryModel;
 /**
@@ -23,20 +21,13 @@ function draw(
  * array of objects (a single snapshot), or as a JSON file containing the object array. This array of objects may also include the
  * user-defined style configuration. It can also be a list of snapshots, where each snapshot is an array of objects.
  * See the demo files and style.md file for details.
- * @param automation - Whether the coordinates (of the objects on the canvas) should be automatically
- * generated or manually inputted.
  * @param configuration - The configuration (display settings) defined by the user.
  *                          This is also the place to define `sort_by` ("height" or "id") for the object space.
- *                          NOTE: In the case that automation == true, then the user must define configuration.width,
- *                          as this will be used as the "max canvas width" for the automation process.
- *                          If automation == false, then all configuration properties are optional, and the function
- *                          will still operate even without defining them.
  *
  * @returns the produced canvas, either a single canvas or a list of canvas, depending on the objects input.
  */
 function draw(
     objects: string | object[] | object[][],
-    automation: boolean,
     configuration: Partial<DisplaySettings>
 ): MemoryModel | MemoryModel[] {
     let objs: object[] | object[][];

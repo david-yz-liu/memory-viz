@@ -20,8 +20,12 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Updated demo website to combine error messages into one banner located under the user input box
 - Removed "Draw Diagram" button from demo website and added automatic memory model rendering
+- Updated `memory-viz/docs/docs/03-automation_algorithms.md` to reflect current algorithm used by Memory Viz
+- For sample inputs in the demo website, removed the automatic layout example and modified the manual layout example to use the same objects as the simple example
 
 ### 🔧 Internal changes
+
+- Removed the unused `automation` parameter from the draw function and all its usages
 
 ## [0.9.1] - 2026-06-11
 

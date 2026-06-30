@@ -869,7 +869,6 @@ describe("draw function", () => {
             const objects: object[] = input;
             const m: InstanceType<typeof exports.MemoryModel> = draw(
                 objects,
-                true,
                 config
             );
             const svg: string = m.serializeSVG();
@@ -955,7 +954,7 @@ describe("draw function", () => {
         const objects: object[] = input;
 
         expect(() =>
-            draw(objects, true, {
+            draw(objects, {
                 width: 1300,
                 roughjs_config: { options: { seed: 12345 } },
             })
@@ -977,7 +976,7 @@ describe("draw function", () => {
         ];
 
         expect(() =>
-            draw(objects, true, {
+            draw(objects, {
                 width: 1300,
                 roughjs_config: { options: { seed: 12345 } },
             })
@@ -1024,7 +1023,7 @@ describe("draw function", () => {
         const spy = jest
             .spyOn(global.console, "warn")
             .mockImplementation(() => {});
-        draw(objects, true, {
+        draw(objects, {
             ...draw_config,
             roughjs_config: { options: { seed: 12345 } },
         });
@@ -1160,7 +1159,7 @@ describe("draw function", () => {
         const spy = jest
             .spyOn(global.console, "warn")
             .mockImplementation(() => {});
-        draw(objects, true, {
+        draw(objects, {
             roughjs_config: { options: { seed: 12345 } },
         });
 
@@ -1183,14 +1182,10 @@ describe("draw function", () => {
             },
             { type: "int", id: 84, value: 7 },
         ];
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1300,
-                roughjs_config: { options: { seed: 12345 } },
-            }
-        );
+        const m: InstanceType<typeof exports.MemoryModel> = draw(objects, {
+            width: 1300,
+            roughjs_config: { options: { seed: 12345 } },
+        });
         const svg: string = m.serializeSVG();
 
         // IDSs are present?
@@ -1305,14 +1300,10 @@ describe("draw function", () => {
         const spy = jest
             .spyOn(global.console, "warn")
             .mockImplementation(() => {});
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 13,
-                roughjs_config: { options: { seed: 12345 } },
-            }
-        );
+        const m: InstanceType<typeof exports.MemoryModel> = draw(objects, {
+            width: 13,
+            roughjs_config: { options: { seed: 12345 } },
+        });
         const svg: string = m.serializeSVG();
         expect(svg).toMatchSnapshot();
         spy.mockRestore();
@@ -1353,15 +1344,11 @@ describe("draw function", () => {
         const spy = jest
             .spyOn(global.console, "warn")
             .mockImplementation(() => {});
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 13,
-                left_margin: 150,
-                roughjs_config: { options: { seed: 12345 } },
-            }
-        );
+        const m: InstanceType<typeof exports.MemoryModel> = draw(objects, {
+            width: 13,
+            left_margin: 150,
+            roughjs_config: { options: { seed: 12345 } },
+        });
         const svg: string = m.serializeSVG();
         expect(svg).toMatchSnapshot();
         spy.mockRestore();
@@ -1369,18 +1356,14 @@ describe("draw function", () => {
 
     it("renders an empty svg given an empty array", () => {
         const objects: object[] = [];
-        const output: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 100,
-                roughjs_config: {
-                    options: {
-                        seed: 12345,
-                    },
+        const output: InstanceType<typeof exports.MemoryModel> = draw(objects, {
+            width: 100,
+            roughjs_config: {
+                options: {
+                    seed: 12345,
                 },
-            }
-        );
+            },
+        });
         const svg = output.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
@@ -1401,13 +1384,9 @@ describe("draw function", () => {
                 style: ["hide_id"],
             },
         ];
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                roughjs_config: { options: { seed: 12345 } },
-            }
-        );
+        const m: InstanceType<typeof exports.MemoryModel> = draw(objects, {
+            roughjs_config: { options: { seed: 12345 } },
+        });
         const svg: string = m.serializeSVG();
         expect(svg).toMatchSnapshot();
     });
@@ -1443,7 +1422,7 @@ describe("draw function", () => {
                 },
             ],
         ];
-        const models = draw(snapshots, true, {
+        const models = draw(snapshots, {
             roughjs_config: { options: { seed: 12345 } },
         });
 
@@ -1465,7 +1444,6 @@ describe("draw function", () => {
 
         const interactiveModel: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
-            true,
             {
                 width: 1300,
                 interactive: true,
@@ -1483,7 +1461,7 @@ describe("draw function", () => {
         expect(interactiveSvg).toContain("cursor: pointer;");
 
         const nonInteractiveModel: InstanceType<typeof exports.MemoryModel> =
-            draw(objects, true, {
+            draw(objects, {
                 width: 1300,
                 interactive: false,
                 roughjs_config: { options: { seed: 12345 } },
@@ -1583,15 +1561,11 @@ describe("draw function", () => {
         ({ input, expected_substrings = [], unexpected_substrings = [] }) => {
             const objects: object[] = input;
 
-            const m: InstanceType<typeof exports.MemoryModel> = draw(
-                objects,
-                true,
-                {
-                    width: 1300,
-                    interactive: true,
-                    roughjs_config: { options: { seed: 12345 } },
-                }
-            );
+            const m: InstanceType<typeof exports.MemoryModel> = draw(objects, {
+                width: 1300,
+                interactive: true,
+                roughjs_config: { options: { seed: 12345 } },
+            });
             const svg: string = m.serializeSVG();
 
             for (const substring of expected_substrings) {
@@ -1612,7 +1586,6 @@ describe("draw function", () => {
 
         const darkModel: InstanceType<typeof exports.MemoryModel> = draw(
             objects,
-            true,
             {
                 width: 1300,
                 interactive: true,
@@ -1627,7 +1600,7 @@ describe("draw function", () => {
         expect(darkSvg).toContain("enableInteractivity");
 
         const highContrastModel: InstanceType<typeof exports.MemoryModel> =
-            draw(objects, true, {
+            draw(objects, {
                 width: 1300,
                 interactive: true,
                 theme: "high-contrast",
@@ -1781,15 +1754,11 @@ describe("draw function", () => {
     ])("$test", ({ input, expected_substrings = [] }) => {
         const objects: object[] = input;
 
-        const m: InstanceType<typeof exports.MemoryModel> = draw(
-            objects,
-            true,
-            {
-                width: 1300,
-                interactive: true,
-                roughjs_config: { options: { seed: 12345 } },
-            }
-        );
+        const m: InstanceType<typeof exports.MemoryModel> = draw(objects, {
+            width: 1300,
+            interactive: true,
+            roughjs_config: { options: { seed: 12345 } },
+        });
         const svg: string = m.serializeSVG();
 
         for (const substring of expected_substrings) {
