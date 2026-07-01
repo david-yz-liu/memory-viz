@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { MenuItem } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import MemoryModelsMenu from "./MemoryModelsMenu.js";
@@ -9,24 +9,19 @@ import { SAMPLES } from "./sample/index.js";
 type MemoryModelsSamplePropTypes = {
     setTextData: React.Dispatch<React.SetStateAction<string>>;
     setConfigData: React.Dispatch<React.SetStateAction<configDataPropTypes>>;
-    onTextDataSubmit: () => void;
+    queueDebouncedTextData: (textData: string) => void;
+    flushDebouncedTextData: () => void;
 };
 
 export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
     const { t } = useTranslation();
-    const [clickedBtnIndex, setClickedBtnIndex] = useState<number>(null);
 
-    useEffect(() => {
-        if (clickedBtnIndex !== null) {
-            props.onTextDataSubmit();
-        }
-    }, [clickedBtnIndex]);
-
-    const handleButtonClick = (index: number, sample: object) => {
+    const handleButtonClick = (sample: object) => {
         // Note: the following conversion to a string is inefficient, as the data is later parsed
         // back into JSON for rendering.
         // TODO: fix this.
-        props.setTextData(JSON.stringify(sample["data"], null, 4));
+        const sampleTextData = JSON.stringify(sample["data"], null, 4);
+        props.setTextData(sampleTextData);
         props.setConfigData((prevConfigData) => ({
             ...prevConfigData,
             ...sample["config"],
@@ -35,7 +30,8 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
                 ...sample["config"]?.overallDrawConfig,
             },
         }));
-        setClickedBtnIndex(index);
+        props.queueDebouncedTextData(sampleTextData);
+        props.flushDebouncedTextData();
     };
 
     return (
@@ -46,7 +42,7 @@ export default function MemoryModelsSample(props: MemoryModelsSamplePropTypes) {
                 <MenuItem
                     key={index}
                     tabIndex={0}
-                    onClick={() => handleButtonClick(index, sample)}
+                    onClick={() => handleButtonClick(sample)}
                 >
                     {t(sample["nameKey"])}
                 </MenuItem>

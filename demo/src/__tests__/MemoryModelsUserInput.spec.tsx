@@ -11,8 +11,6 @@ import MemoryModelsUserInput from "../MemoryModelsUserInput.js";
 import { renderWithI18n } from "../setup-jest";
 
 describe("MemoryModelsUserInput", () => {
-    // submit button by default resets the form https://stackoverflow.com/a/62404526
-    const onSubmitMock = jest.fn((e) => e.preventDefault());
     const setTextDataMock = jest.fn();
     const setFailureBannerMock = jest.fn();
     const configDataMock = {
@@ -21,6 +19,8 @@ describe("MemoryModelsUserInput", () => {
         },
     };
     const setConfigDataMock = jest.fn();
+    const queueDebouncedTextDataMock = jest.fn();
+    const flushDebouncedTextDataMock = jest.fn();
     const failureBannerMock = "";
     let textDataMock: string;
 
@@ -32,13 +32,14 @@ describe("MemoryModelsUserInput", () => {
         render(
             renderWithI18n(
                 <MemoryModelsUserInput
-                    onTextDataSubmit={onSubmitMock}
                     setTextData={setTextDataMock}
                     textData={textDataMock}
                     setFailureBanner={setFailureBannerMock}
                     failureBanner={failureBannerMock}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
+                    queueDebouncedTextData={queueDebouncedTextDataMock}
+                    flushDebouncedTextData={flushDebouncedTextDataMock}
                 />
             )
         );
@@ -47,39 +48,38 @@ describe("MemoryModelsUserInput", () => {
         ).toEqual("Rendering Options");
     });
 
-    it("does not submit the form or enable the submit button with empty textData", () => {
+    it("renders a disabled download button with empty textData", () => {
         render(
             renderWithI18n(
                 <MemoryModelsUserInput
-                    onTextDataSubmit={onSubmitMock}
                     setTextData={setTextDataMock}
                     textData={textDataMock}
                     setFailureBanner={setFailureBannerMock}
                     failureBanner={failureBannerMock}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
+                    queueDebouncedTextData={queueDebouncedTextDataMock}
+                    flushDebouncedTextData={flushDebouncedTextDataMock}
                 />
             )
         );
 
-        const button = screen.getByTestId("input-submit-button");
+        const button = screen.getByTestId("download-json-btn");
         expect(button).toHaveProperty("disabled", true);
-
-        fireEvent.click(button);
-        expect(onSubmitMock).not.toHaveBeenCalled();
     });
 
     it("accepts changes to formData", () => {
         render(
             renderWithI18n(
                 <MemoryModelsUserInput
-                    onTextDataSubmit={onSubmitMock}
                     setTextData={setTextDataMock}
                     textData={textDataMock}
                     setFailureBanner={setFailureBannerMock}
                     failureBanner={failureBannerMock}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
+                    queueDebouncedTextData={queueDebouncedTextDataMock}
+                    flushDebouncedTextData={flushDebouncedTextDataMock}
                 />
             )
         );
@@ -97,28 +97,22 @@ describe("MemoryModelsUserInput", () => {
             render(
                 renderWithI18n(
                     <MemoryModelsUserInput
-                        onTextDataSubmit={onSubmitMock}
                         setTextData={setTextDataMock}
                         textData={textDataMock}
                         setFailureBanner={setFailureBannerMock}
                         failureBanner={failureBannerMock}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
+                        queueDebouncedTextData={queueDebouncedTextDataMock}
+                        flushDebouncedTextData={flushDebouncedTextDataMock}
                     />
                 )
             );
         });
 
-        it("renders an enabled submit button with correct text", async () => {
-            const button = screen.getByTestId("input-submit-button");
+        it("renders an enabled download button", async () => {
+            const button = screen.getByTestId("download-json-btn");
             expect(button).toHaveProperty("disabled", false);
-            expect(button.textContent).toEqual("Draw Diagram");
-        });
-
-        it("can submit the form", () => {
-            const form = screen.getByTestId("input-form");
-            fireEvent.submit(form);
-            expect(onSubmitMock).toHaveBeenCalled();
         });
     });
 
@@ -127,13 +121,14 @@ describe("MemoryModelsUserInput", () => {
             render(
                 renderWithI18n(
                     <MemoryModelsUserInput
-                        onTextDataSubmit={onSubmitMock}
                         setTextData={setTextDataMock}
                         textData={textDataMock}
                         setFailureBanner={setFailureBannerMock}
                         failureBanner={failureBannerMock}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
+                        queueDebouncedTextData={queueDebouncedTextDataMock}
+                        flushDebouncedTextData={flushDebouncedTextDataMock}
                     />
                 )
             );
@@ -228,6 +223,10 @@ describe("MemoryModelsUserInput", () => {
                     // if put within the same waitFor block as fireEvent.click(reapplyBtn), this test always passes
                     // even with the wrong expect
                     expect(setTextDataMock).toHaveBeenCalledWith(fileString);
+                    expect(queueDebouncedTextDataMock).toHaveBeenCalledWith(
+                        fileString
+                    );
+                    expect(flushDebouncedTextDataMock).toHaveBeenCalledTimes(1);
                 });
             });
 
@@ -270,13 +269,14 @@ describe("MemoryModelsUserInput", () => {
             render(
                 renderWithI18n(
                     <MemoryModelsUserInput
-                        onTextDataSubmit={onSubmitMock}
                         setTextData={setTextDataMock}
                         textData={textDataMock}
                         setFailureBanner={setFailureBannerMock}
                         failureBanner={failureBannerMock}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
+                        queueDebouncedTextData={queueDebouncedTextDataMock}
+                        flushDebouncedTextData={flushDebouncedTextDataMock}
                     />
                 )
             );

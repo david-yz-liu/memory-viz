@@ -22,7 +22,7 @@ describe("App", () => {
         expect(console.error).not.toHaveBeenCalled();
     });
 
-    it("renders ErrorBoundary fallback element when draw function throws error", () => {
+    it("renders ErrorBoundary fallback element when draw function throws error", async () => {
         const spy = jest
             .spyOn(global.console, "error")
             .mockImplementation(() => {});
@@ -32,30 +32,35 @@ describe("App", () => {
         const invalidJSON = JSON.stringify([{ type: 123 }]);
         fireEvent.change(input, { target: { value: invalidJSON } });
 
-        const button = screen.getByTestId("input-submit-button");
-        fireEvent.click(button);
-
-        const errorBoundary = screen.getByTestId("failure-banner");
-        expect(errorBoundary.textContent).toEqual(
-            expect.stringMatching(
-                /^✖ Invalid discriminator value\..*\n\s*→ at type$/
-            )
+        await waitFor(
+            () => {
+                const errorBoundary = screen.getByTestId("failure-banner");
+                expect(errorBoundary.textContent).toEqual(
+                    expect.stringMatching(
+                        /^✖ Invalid discriminator value\..*\n\s*→ at type$/
+                    )
+                );
+            },
+            { timeout: 2000 }
         );
         spy.mockRestore();
     });
 
-    it("calls console error, renders Alert banner, and renders disabled download button when the input is not valid JSON", () => {
+    it("calls console error, renders Alert banner, and renders disabled download button when the input is not valid JSON", async () => {
         const consoleErrorSpy = jest
             .spyOn(console, "error")
             .mockImplementation();
 
         const input = screen.getByLabelText("Enter memory model JSON here");
         fireEvent.change(input, { target: { value: "*&#*#(@(!(" } });
-        const button = screen.getByTestId("input-submit-button");
-        fireEvent.click(button);
 
-        expect(consoleErrorSpy).toHaveBeenCalledWith(
-            expect.stringMatching(/^Error parsing inputted JSON: /)
+        await waitFor(
+            () => {
+                expect(consoleErrorSpy).toHaveBeenCalledWith(
+                    expect.stringMatching(/^Error parsing inputted JSON: /)
+                );
+            },
+            { timeout: 2000 }
         );
         const alertBanner = screen.getByTestId("failure-banner");
         expect(alertBanner.textContent).toEqual(
@@ -78,14 +83,16 @@ describe("App", () => {
         const invalidJSON = JSON.stringify([{ type: 123 }]);
         fireEvent.change(input, { target: { value: invalidJSON } });
 
-        const button = screen.getByTestId("input-submit-button");
-        fireEvent.click(button);
-
-        const errorBoundary = screen.getByTestId("failure-banner");
-        expect(errorBoundary.textContent).toEqual(
-            expect.stringMatching(
-                /^✖ Invalid discriminator value\..*\n\s*→ at type$/
-            )
+        await waitFor(
+            () => {
+                const errorBoundary = screen.getByTestId("failure-banner");
+                expect(errorBoundary.textContent).toEqual(
+                    expect.stringMatching(
+                        /^✖ Invalid discriminator value\..*\n\s*→ at type$/
+                    )
+                );
+            },
+            { timeout: 2000 }
         );
 
         // Next, reset and input valid JSON that's also valid memory-viz JSON
@@ -102,12 +109,14 @@ describe("App", () => {
             { type: "int", id: 11 },
         ]);
         fireEvent.change(input, { target: { value: validJSON } });
-        fireEvent.click(button);
 
         // Finally, test that the ErrorBoundary message doesn't appear, and that the canvas is reappearing after resetting
-        await waitFor(() => {
-            expect(screen.queryByTestId("failure-banner")).toBeNull();
-        });
+        await waitFor(
+            () => {
+                expect(screen.queryByTestId("failure-banner")).toBeNull();
+            },
+            { timeout: 2000 }
+        );
         expect(screen.getByTestId("memory-models-canvas")).toBeTruthy();
         spy.mockRestore();
     });
