@@ -1476,6 +1476,38 @@ describe("draw function", () => {
         expect(nonInteractiveSvg).toMatchSnapshot();
     });
 
+    it("defaults interactive to true when not specified in configuration", () => {
+        const model: InstanceType<typeof exports.MemoryModel> = draw(
+            [{ type: "int", id: 13, value: 7 }],
+            { width: 1300 }
+        );
+
+        expect(model.interactive).toBe(true);
+    });
+
+    it("script correctly extracts id key from text element's textContent", () => {
+        const model: InstanceType<typeof exports.MemoryModel> = draw(
+            [{ type: "int", id: 13, value: 7 }],
+            {
+                width: 1300,
+                interactive: true,
+            }
+        );
+
+        const textElements = Array.from(model.svg.getElementsByTagName("text"));
+        const idTextElement = textElements.find(
+            (el) => el.getAttribute("class") === "id"
+        );
+        expect(idTextElement).toBeDefined();
+
+        const realTextContent = idTextElement!.textContent!;
+        const idValue = (realTextContent
+            .trim()
+            .match(exports.OBJECT_ID_REGEX) ?? [""])[0];
+
+        expect(idValue).toBe("id13");
+    });
+
     test.each<{
         test: string;
         input: object[];
