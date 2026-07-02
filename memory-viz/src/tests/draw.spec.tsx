@@ -1476,7 +1476,7 @@ describe("draw function", () => {
         expect(nonInteractiveSvg).toMatchSnapshot();
     });
 
-    it("script correctly extracts id key from text element's textContent", () => {
+    it("script correctly extracts id key from text element's first TEXT_NODE child", () => {
         const model: InstanceType<typeof exports.MemoryModel> = draw(
             [{ type: "int", id: 13, value: 7 }],
             {
@@ -1491,12 +1491,11 @@ describe("draw function", () => {
         );
         expect(idTextElement).toBeDefined();
 
-        const realTextContent = idTextElement!.textContent!;
-        const idValue = (realTextContent
-            .trim()
-            .match(exports.OBJECT_ID_REGEX) ?? [""])[0];
-
-        expect(idValue).toBe("id13");
+        const textNode = Array.from(idTextElement!.childNodes).find(
+            (node) => node.nodeType === idTextElement!.ownerDocument!.TEXT_NODE
+        );
+        expect(textNode).toBeDefined();
+        expect(textNode!.nodeValue?.trim()).toBe("id13");
     });
 
     test.each<{

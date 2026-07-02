@@ -165,8 +165,10 @@ exports[`draw function assigns sequential object ids to bounding boxes 1`] = `
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -759,8 +761,10 @@ exports[`draw function generates correct interactive script with proper event ma
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -892,8 +896,10 @@ exports[`draw function generates interactive script for empty objects array 1`] 
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -1107,8 +1113,10 @@ exports[`draw function handles objects with null ids in interactive mode 1`] = `
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -1284,8 +1292,10 @@ exports[`draw function includes script element and css when interactive option i
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -1584,8 +1594,10 @@ exports[`draw function maps multiple references to same object id 1`] = `
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -11636,8 +11648,10 @@ exports[`draw function renders custom styles correctly in interactive mode 1`] =
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -13704,8 +13718,10 @@ exports[`draw function works at highlighting interactively with different themes
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -13918,8 +13934,10 @@ exports[`draw function works at highlighting interactively with different themes
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }

@@ -29,8 +29,6 @@ import { RoughSVG } from "roughjs/bin/svg.js";
 import { Config, Options } from "roughjs/bin/core.js";
 import type * as CSS from "csstype";
 
-export const OBJECT_ID_REGEX = /id\d+/;
-
 /** The class representing the memory model diagram of the given block of code. */
 export class MemoryModel {
     /**
@@ -2152,8 +2150,10 @@ export class MemoryModel {
 
                 function addEventListeners() {
                     document.querySelectorAll('text.id').forEach(idText => {
-                        // Match only the leading "id<digits>" prefix
-                        const idValue = (idText.textContent.trim().match(${OBJECT_ID_REGEX}) ?? [''])[0];
+                        const textNode = Array.from(idText.childNodes).find(
+                            node => node.nodeType === Node.TEXT_NODE
+                        );
+                        const idValue = textNode?.nodeValue?.trim() ?? '';
                         if (!idValue) {
                            return;
                         }

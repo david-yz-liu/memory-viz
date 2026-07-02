@@ -120,8 +120,10 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -277,8 +279,10 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -434,8 +438,10 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -591,8 +597,10 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -748,8 +756,10 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -915,8 +925,10 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -1109,8 +1121,10 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -1266,8 +1280,10 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -1433,8 +1449,10 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -1590,8 +1608,10 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -1784,8 +1804,10 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -1941,8 +1963,10 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -2106,8 +2130,10 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -2263,8 +2289,10 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -2420,8 +2448,10 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
@@ -2577,8 +2607,10 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
       function addEventListeners() {
         document.querySelectorAll('text.id').forEach(idText = & gt;
         {
-          // Match only the leading "id&lt;digits&gt;" prefix
-          const idValue = (idText.textContent.trim().match(/id\\d+/) ?? [''])[0];
+          const textNode = Array.from(idText.childNodes).find(
+            node = & gt; node.nodeType === Node.TEXT_NODE
+          );
+          const idValue = textNode?.nodeValue?.trim() ?? '';
           if (!idValue) {
             return;
           }
