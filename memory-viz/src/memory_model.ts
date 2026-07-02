@@ -110,10 +110,9 @@ export class MemoryModel {
 
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
-            const optionValue = options[key as keyof VisualizationConfig];
             (this as { [key: string]: any })[key] =
-                optionValue !== undefined
-                    ? optionValue
+                Object.prototype.hasOwnProperty.call(options, key)
+                    ? options[key as keyof VisualizationConfig]
                     : config[key as keyof typeof config];
         }
 

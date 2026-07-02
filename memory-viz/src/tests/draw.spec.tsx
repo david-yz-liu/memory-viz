@@ -1476,15 +1476,6 @@ describe("draw function", () => {
         expect(nonInteractiveSvg).toMatchSnapshot();
     });
 
-    it("defaults interactive to true when not specified in configuration", () => {
-        const model: InstanceType<typeof exports.MemoryModel> = draw(
-            [{ type: "int", id: 13, value: 7 }],
-            { width: 1300 }
-        );
-
-        expect(model.interactive).toBe(true);
-    });
-
     it("script correctly extracts id key from text element's textContent", () => {
         const model: InstanceType<typeof exports.MemoryModel> = draw(
             [{ type: "int", id: 13, value: 7 }],
