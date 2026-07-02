@@ -68,9 +68,9 @@
         "zod": "^4.0.5"
     },
     "devDependencies": {
-        "@babel/core": "^7.29.7",
-        "@babel/preset-env": "^7.29.7",
-        "@babel/preset-typescript": "^7.29.7",
+        "@babel/core": "^8.0.1",
+        "@babel/preset-env": "^8.0.2",
+        "@babel/preset-typescript": "^8.0.1",
         "@types/jest": "^29.5.12",
         "@types/node": "^25.9.1",
         "@types/pretty": "^2.0.3",
