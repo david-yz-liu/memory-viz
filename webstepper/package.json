@@ -56,8 +56,8 @@
     "dependencies": {
         "@emotion/styled": "^11.11.0",
         "@heroicons/react": "^2.2.0",
-        "@mui/icons-material": "^9.0.1",
-        "@mui/material": "^9.0.1",
+        "@mui/icons-material": "^9.1.1",
+        "@mui/material": "^9.1.2",
         "@picocss/pico": "^1.5.10",
         "i18next": "^23.15.0",
         "memory-viz": "workspace:*",
