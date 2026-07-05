@@ -108,9 +108,10 @@ export class MemoryModel {
 
         // The user must not directly use this constructor; their only interaction should be with 'user_functions.draw'.
         for (const key in config) {
+            const optionValue = options[key as keyof VisualizationConfig];
             (this as { [key: string]: any })[key] =
-                Object.prototype.hasOwnProperty.call(options, key)
-                    ? options[key as keyof VisualizationConfig]
+                optionValue !== undefined
+                    ? optionValue
                     : config[key as keyof typeof config];
         }
 
@@ -1411,6 +1412,7 @@ export class MemoryModel {
         }
         if (this.interactive) {
             this.setInteractivityScript();
+            console.log("Interactivity script added to the SVG.");
         }
 
         root_title.appendChild(
