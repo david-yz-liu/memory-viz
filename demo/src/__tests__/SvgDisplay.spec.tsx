@@ -1,10 +1,13 @@
 import { jest } from "@jest/globals";
 import React from "react";
 
+const SERIALIZED_SVG =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="900"><rect id="object-0" /></svg>';
+
 const mockMemoryModels = {
-    serializeSVG: jest.fn(),
-    clear: jest.fn(),
-    render: jest.fn(),
+    serializeSVG: jest.fn(() => SERIALIZED_SVG),
+    attachInteractivity: jest.fn(),
+    height: 1000,
 };
 
 jest.unstable_mockModule("memory-viz", () => ({
@@ -65,10 +68,13 @@ describe("SvgDisplay", () => {
             );
         });
 
-        it("renders canvas element with specified dimensions", () => {
-            const canvasElement = screen.getByTestId("memory-models-canvas");
-            expect(canvasElement.getAttribute("width")).toEqual("1300");
-            expect(canvasElement.getAttribute("height")).toEqual("1000");
+        it("renders the drawn SVG element with specified dimensions", () => {
+            const container = screen.getByTestId("memory-models-svg");
+            const svgElement = container.shadowRoot.querySelector("svg");
+            expect(svgElement).not.toBeNull();
+            expect(svgElement.querySelector("#object-0")).not.toBeNull();
+            expect(svgElement.getAttribute("height")).toEqual("1000");
+            expect(svgElement.getAttribute("viewBox")).toEqual("0 0 1300 900");
         });
 
         it("calls functions with correct parameters", () => {
@@ -76,12 +82,7 @@ describe("SvgDisplay", () => {
                 seed: seedMock,
                 width: 1300,
             });
-            expect(setSvgResultMock).toHaveBeenNthCalledWith(
-                1,
-                mockMemoryModels.serializeSVG()
-            );
-            expect(mockMemoryModels.clear).toHaveBeenCalledTimes(1);
-            expect(mockMemoryModels.render).toHaveBeenCalledTimes(1);
+            expect(setSvgResultMock).toHaveBeenNthCalledWith(1, SERIALIZED_SVG);
         });
     });
 
@@ -95,7 +96,7 @@ describe("SvgDisplay", () => {
                 configData={configDataMock}
             />
         );
-        const canvasElement = screen.getByTestId("memory-models-canvas");
-        expect(canvasElement.getAttribute("ref")).toBeNull();
+        const container = screen.getByTestId("memory-models-svg");
+        expect(container.shadowRoot).toBeNull();
     });
 });

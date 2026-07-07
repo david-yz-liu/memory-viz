@@ -108,7 +108,7 @@ describe("App", () => {
         await waitFor(() => {
             expect(screen.queryByTestId("failure-banner")).toBeNull();
         });
-        expect(screen.getByTestId("memory-models-canvas")).toBeTruthy();
+        expect(screen.getByTestId("memory-models-svg")).toBeTruthy();
         spy.mockRestore();
     });
 
