@@ -6,7 +6,17 @@ const SERIALIZED_SVG =
 
 const mockMemoryModels = {
     serializeSVG: jest.fn(() => SERIALIZED_SVG),
-    attachInteractivity: jest.fn(),
+    createInteractiveSVGElement: jest.fn(() => {
+        const svgElement = new DOMParser().parseFromString(
+            SERIALIZED_SVG,
+            "image/svg+xml"
+        ).documentElement as unknown as SVGSVGElement;
+        svgElement.setAttribute("viewBox", "0 0 1300 900");
+        svgElement.setAttribute("preserveAspectRatio", "xMinYMin meet");
+        svgElement.style.width = "100%";
+        svgElement.style.height = "100%";
+        return svgElement;
+    }),
     height: 1000,
 };
 
@@ -73,7 +83,7 @@ describe("SvgDisplay", () => {
             const svgElement = container.shadowRoot.querySelector("svg");
             expect(svgElement).not.toBeNull();
             expect(svgElement.querySelector("#object-0")).not.toBeNull();
-            expect(svgElement.getAttribute("height")).toEqual("1000");
+            expect(svgElement.getAttribute("height")).toEqual("900");
             expect(svgElement.getAttribute("viewBox")).toEqual("0 0 1300 900");
         });
 
