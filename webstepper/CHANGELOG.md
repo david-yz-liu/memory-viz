@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- Replaced canvas rendering with live SVG in `SvgDisplay.tsx`, adding box highlighting when the user hovers over object IDs
+
 ### 🐛 Bug fixes
 
 ### 📚 Documentation changes
