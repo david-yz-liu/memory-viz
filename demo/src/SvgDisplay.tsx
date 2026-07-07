@@ -26,7 +26,6 @@ export default function SvgDisplay({
     const containerRef = useRef<HTMLDivElement>(null);
     const transformRef = useRef<ReactZoomPanPinchContentRef>(null);
     const canvasWidth = 1300;
-    const canvasHeight = 1000;
 
     const rawTheme = props.configData.overallDrawConfig?.theme;
 
@@ -53,36 +52,7 @@ export default function SvgDisplay({
                 props.setFailureBanner("");
                 props.setIsValidJson(true);
 
-                const svgElement = new DOMParser().parseFromString(
-                    svgString,
-                    "image/svg+xml"
-                ).documentElement as unknown as SVGSVGElement;
-
-                // get color variables to resolve inside the shadow DOM by rewriting :root to :host
-                const styleElement = svgElement.querySelector("style");
-                if (styleElement) {
-                    styleElement.textContent = styleElement.textContent.replace(
-                        ":root",
-                        ":host"
-                    );
-                }
-
-                const nativeWidth = svgElement.getAttribute("width");
-                const nativeHeight = svgElement.getAttribute("height");
-
-                // memory-viz doesn't set a viewBox, so without one, forcing
-                // a CSS size below crops the content instead of scaling it.
-                svgElement.setAttribute(
-                    "viewBox",
-                    `0 0 ${nativeWidth} ${nativeHeight}`
-                );
-
-                // preserve aspect ratio and anchor to top-left
-                svgElement.setAttribute("preserveAspectRatio", "xMinYMin meet");
-                svgElement.setAttribute("height", canvasHeight.toString());
-                svgElement.style.width = "100%";
-                svgElement.style.height = "100%";
-                m.attachInteractivity(svgElement);
+                const svgElement = m.createInteractiveSVGElement();
 
                 // prevent svg styles from leaking into the rest of the page by rendering it in a shadow tree
                 const shadowRoot =
@@ -133,7 +103,10 @@ export default function SvgDisplay({
                 minScale={0.2}
                 wheel={{ step: 0.2, smoothStep: 0.01 }}
             >
-                <TransformComponent>
+                <TransformComponent
+                    wrapperStyle={{ width: "100%", height: "100%" }}
+                    //contentStyle={{ width: "100%", height: "100%" }}
+                >
                     <div
                         data-testid="memory-models-svg"
                         ref={containerRef}

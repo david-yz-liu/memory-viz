@@ -2154,6 +2154,49 @@ export class MemoryModel {
     }
 
     /**
+     * Parse the serialized SVG into a live, interactive SVGSVGElement ready
+     * to be mounted into a shadow tree or other live document
+     * If interactivity is set to false, the interactivity feature will not be applied
+     *
+     * @returns a live SVGSVGElement, ready to be sized and mounted by the caller
+     */
+    createInteractiveSVGElement(): SVGSVGElement {
+        const svgElement = new DOMParser().parseFromString(
+            this.serializeSVG(),
+            "image/svg+xml"
+        ).documentElement as unknown as SVGSVGElement;
+
+        // since svg will be mounted into a shadow tree, rewrite the ':root' selector to ':host'
+        // allows the CSS custom properties defining the theme to resolve correctly
+        const styleElement = svgElement.querySelector("style");
+        if (styleElement) {
+            styleElement.textContent = styleElement.textContent.replace(
+                ":root",
+                ":host"
+            );
+        }
+
+        // prevents the SVG from being cropped when a CSS width/height is applied
+        const nativeWidth = svgElement.getAttribute("width");
+        const nativeHeight = svgElement.getAttribute("height");
+        svgElement.setAttribute(
+            "viewBox",
+            `0 0 ${nativeWidth} ${nativeHeight}`
+        );
+
+        // ensures the SVG scales to fit its container
+        svgElement.setAttribute("preserveAspectRatio", "xMinYMin meet");
+        svgElement.style.width = "100%";
+        svgElement.style.height = "100%";
+
+        if (this.interactive) {
+            this.attachInteractivity(svgElement);
+        }
+
+        return svgElement;
+    }
+
+    /**
      * Add hover interactivity to the SVG on object IDs
      */
     setInteractivityScript(): void {
