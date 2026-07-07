@@ -11,8 +11,6 @@ import MemoryModelsUserInput from "../MemoryModelsUserInput.js";
 import { renderWithI18n } from "../setup-jest";
 
 describe("MemoryModelsUserInput", () => {
-    // submit button by default resets the form https://stackoverflow.com/a/62404526
-    const onSubmitMock = jest.fn((e) => e.preventDefault());
     const setTextDataMock = jest.fn();
     const setFailureBannerMock = jest.fn();
     const configDataMock = {
@@ -21,6 +19,7 @@ describe("MemoryModelsUserInput", () => {
         },
     };
     const setConfigDataMock = jest.fn();
+    const onSubmitMock = jest.fn();
     const failureBannerMock = "";
     let textDataMock: string;
 
@@ -32,13 +31,13 @@ describe("MemoryModelsUserInput", () => {
         render(
             renderWithI18n(
                 <MemoryModelsUserInput
-                    onTextDataSubmit={onSubmitMock}
                     setTextData={setTextDataMock}
                     textData={textDataMock}
                     setFailureBanner={setFailureBannerMock}
                     failureBanner={failureBannerMock}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
+                    onInputChange={onSubmitMock}
                 />
             )
         );
@@ -47,39 +46,36 @@ describe("MemoryModelsUserInput", () => {
         ).toEqual("Rendering Options");
     });
 
-    it("does not submit the form or enable the submit button with empty textData", () => {
+    it("renders a disabled download button with empty textData", () => {
         render(
             renderWithI18n(
                 <MemoryModelsUserInput
-                    onTextDataSubmit={onSubmitMock}
                     setTextData={setTextDataMock}
                     textData={textDataMock}
                     setFailureBanner={setFailureBannerMock}
                     failureBanner={failureBannerMock}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
+                    onInputChange={onSubmitMock}
                 />
             )
         );
 
-        const button = screen.getByTestId("input-submit-button");
+        const button = screen.getByTestId("download-json-btn");
         expect(button).toHaveProperty("disabled", true);
-
-        fireEvent.click(button);
-        expect(onSubmitMock).not.toHaveBeenCalled();
     });
 
     it("accepts changes to formData", () => {
         render(
             renderWithI18n(
                 <MemoryModelsUserInput
-                    onTextDataSubmit={onSubmitMock}
                     setTextData={setTextDataMock}
                     textData={textDataMock}
                     setFailureBanner={setFailureBannerMock}
                     failureBanner={failureBannerMock}
                     configData={configDataMock}
                     setConfigData={setConfigDataMock}
+                    onInputChange={onSubmitMock}
                 />
             )
         );
@@ -97,28 +93,21 @@ describe("MemoryModelsUserInput", () => {
             render(
                 renderWithI18n(
                     <MemoryModelsUserInput
-                        onTextDataSubmit={onSubmitMock}
                         setTextData={setTextDataMock}
                         textData={textDataMock}
                         setFailureBanner={setFailureBannerMock}
                         failureBanner={failureBannerMock}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
+                        onInputChange={onSubmitMock}
                     />
                 )
             );
         });
 
-        it("renders an enabled submit button with correct text", async () => {
-            const button = screen.getByTestId("input-submit-button");
+        it("renders an enabled download button", async () => {
+            const button = screen.getByTestId("download-json-btn");
             expect(button).toHaveProperty("disabled", false);
-            expect(button.textContent).toEqual("Draw Diagram");
-        });
-
-        it("can submit the form", () => {
-            const form = screen.getByTestId("input-form");
-            fireEvent.submit(form);
-            expect(onSubmitMock).toHaveBeenCalled();
         });
     });
 
@@ -127,13 +116,13 @@ describe("MemoryModelsUserInput", () => {
             render(
                 renderWithI18n(
                     <MemoryModelsUserInput
-                        onTextDataSubmit={onSubmitMock}
                         setTextData={setTextDataMock}
                         textData={textDataMock}
                         setFailureBanner={setFailureBannerMock}
                         failureBanner={failureBannerMock}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
+                        onInputChange={onSubmitMock}
                     />
                 )
             );
@@ -161,7 +150,7 @@ describe("MemoryModelsUserInput", () => {
             expect(reapplyBtn).toHaveProperty("disabled", true);
         });
 
-        it("calls console error and setTextData when file upload fails", async () => {
+        it("calls console error when file upload fails", async () => {
             const mockErrorMessage = "Mock error message";
             jest.spyOn(global, "FileReader").mockImplementationOnce(() => {
                 throw new Error(mockErrorMessage);
@@ -188,7 +177,7 @@ describe("MemoryModelsUserInput", () => {
                 1,
                 `Error reading uploaded file as text. Please ensure it's in UTF-8 encoding: ${mockErrorMessage}`
             );
-            expect(setTextDataMock).toHaveBeenNthCalledWith(1, null);
+            expect(onSubmitMock).not.toHaveBeenCalled();
         });
 
         describe("when a file is uploaded", () => {
@@ -213,7 +202,7 @@ describe("MemoryModelsUserInput", () => {
                 });
             });
 
-            it("clicking reapply button calls setTextData", async () => {
+            it("clicking reapply button calls onSubmit", async () => {
                 const reapplyBtn = screen.getByTestId(
                     "file-input-reapply-button"
                 );
@@ -227,7 +216,7 @@ describe("MemoryModelsUserInput", () => {
                 await waitFor(() => {
                     // if put within the same waitFor block as fireEvent.click(reapplyBtn), this test always passes
                     // even with the wrong expect
-                    expect(setTextDataMock).toHaveBeenCalledWith(fileString);
+                    expect(onSubmitMock).toHaveBeenCalledWith(fileString);
                 });
             });
 
@@ -270,13 +259,13 @@ describe("MemoryModelsUserInput", () => {
             render(
                 renderWithI18n(
                     <MemoryModelsUserInput
-                        onTextDataSubmit={onSubmitMock}
                         setTextData={setTextDataMock}
                         textData={textDataMock}
                         setFailureBanner={setFailureBannerMock}
                         failureBanner={failureBannerMock}
                         configData={configDataMock}
                         setConfigData={setConfigDataMock}
+                        onInputChange={onSubmitMock}
                     />
                 )
             );

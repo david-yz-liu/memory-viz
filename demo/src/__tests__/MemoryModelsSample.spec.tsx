@@ -18,24 +18,12 @@ const { SAMPLES } = await import("../sample/index.js");
 import { renderWithI18n } from "../setup-jest";
 
 describe("MemoryModelsSample", () => {
-    // submit button by default resets the form https://stackoverflow.com/a/62404526
-    const onSubmitMock = jest.fn(() => {});
-    const setTextDataMock = jest.fn();
-    let nextState;
-    let setConfigDataMock;
+    const onInputChangeMock = jest.fn();
 
     beforeEach(() => {
-        setConfigDataMock = jest.fn().mockImplementation((callback) => {
-            nextState = callback({ config: "config" });
-        });
-
         render(
             renderWithI18n(
-                <MemoryModelsSample
-                    onTextDataSubmit={onSubmitMock}
-                    setTextData={setTextDataMock}
-                    setConfigData={setConfigDataMock}
-                />
+                <MemoryModelsSample onInputChange={onInputChangeMock} />
             )
         );
     });
@@ -66,14 +54,10 @@ describe("MemoryModelsSample", () => {
 
         // Wait for state updates and side effects to complete
         await waitFor(() => {
-            expect(setTextDataMock).toHaveBeenCalledWith(
-                JSON.stringify({ sample: "manualLayout" }, null, 4)
+            expect(onInputChangeMock).toHaveBeenCalledWith(
+                JSON.stringify({ sample: "manualLayout" }, null, 4),
+                { config: "config", overallDrawConfig: {} }
             );
-            expect(nextState).toEqual({
-                config: "config",
-                overallDrawConfig: {},
-            });
-            expect(onSubmitMock).toHaveBeenCalled();
         });
     });
 });

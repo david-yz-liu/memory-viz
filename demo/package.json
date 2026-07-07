@@ -56,6 +56,7 @@
         "react-dom": "^19.2.7",
         "react-error-boundary": "^5.0.0",
         "react-i18next": "^15.2.0",
-        "react-zoom-pan-pinch": "^4.0.3"
+        "react-zoom-pan-pinch": "^4.0.3",
+        "use-debounce": "^10.1.1"
     }
 }

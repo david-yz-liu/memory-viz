@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { useDebounce } from "use-debounce";
 import SvgDisplay from "./SvgDisplay.js";
 import MemoryModelsUserInput from "./MemoryModelsUserInput.js";
 import DownloadSVGButton from "./DownloadSVGButton.js";
 import { configDataPropTypes } from "./MemoryModelsUserInput.js";
 import Header from "./Header.js";
+
+const TEXT_INPUT_DEBOUNCE_DELAY = 1000;
 
 interface AppProps {
     isDarkMode: boolean;
@@ -15,6 +18,10 @@ interface AppProps {
 export default function App({ isDarkMode, toggleTheme }: AppProps) {
     const { t } = useTranslation();
     const [textData, setTextData] = useState("");
+    const [debouncedTextData, debouncedControls] = useDebounce(
+        textData,
+        TEXT_INPUT_DEBOUNCE_DELAY
+    );
     const [configData, setConfigData] = useState<configDataPropTypes>({
         overallDrawConfig: {
             seed: 0,
@@ -36,19 +43,40 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
         }
     }, [isValidJson]);
 
-    const onTextDataSubmit = (event?) => {
-        event?.preventDefault();
-        try {
-            setJsonResult(JSON.parse(textData));
-            setFailureBanner("");
-            setIsValidJson(true);
-        } catch (error) {
-            const errorMessage = `Error parsing inputted JSON: ${error.message}`;
-            console.error(errorMessage);
-            setFailureBanner(errorMessage);
+    React.useEffect(() => {
+        if (debouncedTextData == "") {
             setJsonResult(null);
-            setIsValidJson(false);
+            setFailureBanner("");
+            setIsValidJson(null);
+        } else {
+            try {
+                setJsonResult(JSON.parse(debouncedTextData));
+                setFailureBanner("");
+                setIsValidJson(true);
+            } catch (error) {
+                const errorMessage = `Error parsing inputted JSON: ${error.message}`;
+                console.error(errorMessage);
+                setJsonResult(null);
+                setFailureBanner(errorMessage);
+                setIsValidJson(false);
+            }
         }
+    }, [debouncedTextData]);
+
+    const onInputChange = (textData: string, config?: configDataPropTypes) => {
+        if (config) {
+            setConfigData((prevConfigData) => ({
+                ...prevConfigData,
+                ...config,
+                overallDrawConfig: {
+                    ...prevConfigData?.overallDrawConfig,
+                    ...config?.overallDrawConfig,
+                },
+            }));
+        }
+        setTextData(textData);
+        debouncedControls(textData);
+        debouncedControls.flush();
     };
 
     return (
@@ -64,10 +92,10 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         setTextData={setTextData}
                         configData={configData}
                         setConfigData={setConfigData}
-                        onTextDataSubmit={onTextDataSubmit}
                         failureBanner={failureBanner}
                         setFailureBanner={setFailureBanner}
                         isValidJson={isValidJson}
+                        onInputChange={onInputChange}
                     />
                 </Box>
                 <Box sx={{ width: "60%" }}>

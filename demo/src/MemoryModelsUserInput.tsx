@@ -5,7 +5,6 @@ import {
     Button,
     Input,
     TextField,
-    Tooltip,
     MenuItem,
     Stack,
     Dialog,
@@ -15,7 +14,6 @@ import {
 import { useTranslation } from "react-i18next";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import FolderOpenIcon from "@mui/icons-material/FolderOpen";
-import DrawIcon from "@mui/icons-material/Draw";
 import DownloadJSONButton from "./DownloadJSONButton.js";
 import MemoryModelsMenu from "./MemoryModelsMenu.js";
 import MemoryModelsSample from "./MemoryModelsSample.js";
@@ -32,7 +30,7 @@ type MemoryModelsConfigInputPropTypes = {
 };
 
 type MemoryModelsFileInputPropTypes = {
-    setTextData: React.Dispatch<React.SetStateAction<string>>;
+    onInputChange: (textData: string, config?: configDataPropTypes) => void;
     textData: string;
     setFailureBanner: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -46,7 +44,6 @@ type MemoryModelsTextInputPropTypes = {
 type MemoryModelsUserInputPropTypes = MemoryModelsFileInputPropTypes &
     MemoryModelsTextInputPropTypes &
     MemoryModelsConfigInputPropTypes & {
-        onTextDataSubmit: (event?: React.MouseEvent<HTMLFormElement>) => void;
         failureBanner: string;
     };
 
@@ -73,14 +70,12 @@ function MemoryModelsFileInput(props: MemoryModelsFileInputPropTypes) {
         } catch (error) {
             const errorMessage = `${t("errors.fileReading")} ${error.message}`;
             console.error(errorMessage);
-            props.setTextData(null);
-            props.setFailureBanner(errorMessage);
         }
     };
 
     const onLoadButtonClick = () => {
-        props.setTextData(uploadedFileString);
         setOpen(false);
+        props.onInputChange(uploadedFileString);
     };
 
     return (
@@ -230,21 +225,16 @@ function MemoryModelsConfigInput(props: MemoryModelsConfigInputPropTypes) {
 export default function MemoryModelsUserInput(
     props: MemoryModelsUserInputPropTypes
 ) {
-    const { t } = useTranslation();
     return (
-        <form data-testid="input-form" onSubmit={props.onTextDataSubmit}>
+        <form data-testid="input-form">
             <Stack spacing={2}>
                 <MemoryModelsFileInput
                     textData={props.textData}
-                    setTextData={props.setTextData}
                     setFailureBanner={props.setFailureBanner}
+                    onInputChange={props.onInputChange}
                 />
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <MemoryModelsSample
-                        setTextData={props.setTextData}
-                        setConfigData={props.setConfigData}
-                        onTextDataSubmit={props.onTextDataSubmit}
-                    />
+                    <MemoryModelsSample onInputChange={props.onInputChange} />
                     <MemoryModelsConfigInput
                         configData={props.configData}
                         setConfigData={props.setConfigData}
@@ -270,21 +260,6 @@ export default function MemoryModelsUserInput(
                     sx={{ justifyContent: "space-between" }}
                 >
                     <DownloadJSONButton textData={props.textData} />
-                    <Tooltip title={t("input.drawTooltip")}>
-                        <span>
-                            <Button
-                                type="submit"
-                                data-testid="input-submit-button"
-                                variant="contained"
-                                color="primary"
-                                disabled={!props.textData}
-                                style={{ textTransform: "none" }}
-                                startIcon={<DrawIcon />}
-                            >
-                                {t("input.drawDiagram")}
-                            </Button>
-                        </span>
-                    </Tooltip>
                 </Stack>
             </Stack>
         </form>
