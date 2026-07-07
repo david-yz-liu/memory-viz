@@ -67,7 +67,6 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
             >
                 <TransformComponent
                     wrapperStyle={{ width: "100%", height: "100%" }}
-                    //contentStyle={{ width: "100%", height: "100%" }}
                 >
                     <div
                         data-testid="memory-models-svg"
