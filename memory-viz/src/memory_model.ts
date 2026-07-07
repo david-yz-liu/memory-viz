@@ -1412,7 +1412,6 @@ export class MemoryModel {
         }
         if (this.interactive) {
             this.setInteractivityScript();
-            console.log("Interactivity script added to the SVG.");
         }
 
         root_title.appendChild(
