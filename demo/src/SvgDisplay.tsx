@@ -2,7 +2,11 @@ import React, { useRef, useEffect } from "react";
 import memoryViz from "../../memory-viz/src"; // Load local version of memory-viz
 import { Paper } from "@mui/material";
 import { configDataPropTypes } from "./MemoryModelsUserInput.js";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import {
+    TransformWrapper,
+    TransformComponent,
+    ReactZoomPanPinchContentRef,
+} from "react-zoom-pan-pinch";
 
 const { draw: drawMemoryModel } = memoryViz;
 
@@ -19,7 +23,8 @@ export default function SvgDisplay({
     isDarkMode = false,
     ...props
 }: SvgDisplayPropTypes) {
-    const canvasRef = useRef(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const transformRef = useRef<ReactZoomPanPinchContentRef>(null);
     const canvasWidth = 1300;
     const canvasHeight = 1000;
 
@@ -42,11 +47,51 @@ export default function SvgDisplay({
                     width: canvasWidth,
                     ...(resolvedTheme ? { theme: resolvedTheme } : {}),
                 });
-                props.setSvgResult(m.serializeSVG());
+                const svgString = m.serializeSVG();
+
+                props.setSvgResult(svgString);
                 props.setFailureBanner("");
                 props.setIsValidJson(true);
-                m.clear(canvasRef.current);
-                m.render(canvasRef.current);
+
+                const svgElement = new DOMParser().parseFromString(
+                    svgString,
+                    "image/svg+xml"
+                ).documentElement as unknown as SVGSVGElement;
+
+                // get color variables to resolve inside the shadow DOM by rewriting :root to :host
+                const styleElement = svgElement.querySelector("style");
+                if (styleElement) {
+                    styleElement.textContent = styleElement.textContent.replace(
+                        ":root",
+                        ":host"
+                    );
+                }
+
+                const nativeWidth = svgElement.getAttribute("width");
+                const nativeHeight = svgElement.getAttribute("height");
+
+                // memory-viz doesn't set a viewBox, so without one, forcing
+                // a CSS size below crops the content instead of scaling it.
+                svgElement.setAttribute(
+                    "viewBox",
+                    `0 0 ${nativeWidth} ${nativeHeight}`
+                );
+
+                // preserve aspect ratio and anchor to top-left
+                svgElement.setAttribute("preserveAspectRatio", "xMinYMin meet");
+                svgElement.setAttribute("height", canvasHeight.toString());
+                svgElement.style.width = "100%";
+                svgElement.style.height = "100%";
+                m.attachInteractivity(svgElement);
+
+                // prevent svg styles from leaking into the rest of the page by rendering it in a shadow tree
+                const shadowRoot =
+                    containerRef.current.shadowRoot ??
+                    containerRef.current.attachShadow({ mode: "open" });
+                shadowRoot.replaceChildren(svgElement);
+
+                // reset zoom and pan to default when redrawing
+                transformRef.current?.setTransform(0, 0, 1, 0);
             } catch (error) {
                 props.setSvgResult(null);
                 props.setFailureBanner(error.message);
@@ -84,19 +129,18 @@ export default function SvgDisplay({
             variant="outlined"
         >
             <TransformWrapper
+                ref={transformRef}
                 minScale={0.2}
                 wheel={{ step: 0.2, smoothStep: 0.01 }}
             >
                 <TransformComponent>
-                    <canvas
+                    <div
+                        data-testid="memory-models-svg"
+                        ref={containerRef}
                         style={{
-                            height: "100%",
                             width: "100%",
+                            height: "100%",
                         }}
-                        data-testid="memory-models-canvas"
-                        ref={canvasRef}
-                        width={canvasWidth}
-                        height={canvasHeight}
                     />
                 </TransformComponent>
             </TransformWrapper>

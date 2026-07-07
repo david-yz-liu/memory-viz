@@ -2122,6 +2122,39 @@ export class MemoryModel {
     }
 
     /**
+     * Attach real hover-highlight listeners to a live SVG element
+     * Necessary because <script> tags embedded via setInteractivityScript()
+     * never execute once parsed/inserted this way.
+     * @param svgElement - the live SVG element to attach listeners to
+     */
+    attachInteractivity(svgElement: SVGSVGElement): void {
+        svgElement.querySelectorAll("text.id").forEach((idText) => {
+            const textNode = Array.from(idText.childNodes).find(
+                (node) => node.nodeType === Node.TEXT_NODE
+            );
+            const idValue = textNode?.nodeValue?.trim() ?? "";
+            const objectIds = this.idToObjectMap.get(idValue);
+            if (!objectIds) {
+                return;
+            }
+            idText.addEventListener("mouseover", () => {
+                objectIds.forEach((objectId) => {
+                    svgElement
+                        .querySelector(`#${objectId}`)
+                        ?.classList.add("highlighted");
+                });
+            });
+            idText.addEventListener("mouseout", () => {
+                objectIds.forEach((objectId) => {
+                    svgElement
+                        .querySelector(`#${objectId}`)
+                        ?.classList.remove("highlighted");
+                });
+            });
+        });
+    }
+
+    /**
      * Add hover interactivity to the SVG on object IDs
      */
     setInteractivityScript(): void {
