@@ -34,7 +34,6 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                         width: canvasWidth,
                         ...props.memoryVizData.configuration,
                         ...(resolvedTheme ? { theme: resolvedTheme } : {}),
-                        interactive: false,
                     }
                 );
                 const svgElement = m.createInteractiveSVGElement();
