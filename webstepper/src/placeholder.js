@@ -364,4 +364,6 @@ for i in range(len(nums)):
         nums[i] = nums[i] * 2
 `;
 
-export default { jsonArray, codeText };
+const startLineNumber = 1;
+
+export default { jsonArray, codeText, startLineNumber };
