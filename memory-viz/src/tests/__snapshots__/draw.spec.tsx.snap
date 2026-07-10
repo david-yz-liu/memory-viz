@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`draw function assigns sequential object ids to bounding boxes 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -26,47 +26,47 @@ exports[`draw function assigns sequential object ids to bounding boxes 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -205,10 +205,10 @@ exports[`draw function assigns sequential object ids to bounding boxes 1`] = `
 `;
 
 exports[`draw function formats a mix of stack frame/non-stack frame objects in automatic layout 1`] = `
-<svg width="1300" height="425" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="425" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -230,47 +230,47 @@ exports[`draw function formats a mix of stack frame/non-stack frame objects in a
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -466,10 +466,10 @@ exports[`draw function formats a mix of stack frame/non-stack frame objects in a
 `;
 
 exports[`draw function formats non-stack frame objects in automatic layout 1`] = `
-<svg width="1300" height="380" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="380" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -491,47 +491,47 @@ exports[`draw function formats non-stack frame objects in automatic layout 1`] =
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -759,10 +759,10 @@ exports[`draw function formats non-stack frame objects in automatic layout 1`] =
 `;
 
 exports[`draw function generates correct interactive script with proper event mappings 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -784,47 +784,47 @@ exports[`draw function generates correct interactive script with proper event ma
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -938,10 +938,10 @@ exports[`draw function generates correct interactive script with proper event ma
 `;
 
 exports[`draw function generates interactive script for empty objects array 1`] = `
-<svg width="1300" height="50" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="50" xmlns="http://www.w3.org/2000/svg">
   <title>Blank Python memory model diagram</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -963,47 +963,47 @@ exports[`draw function generates interactive script for empty objects array 1`] 
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -1073,10 +1073,10 @@ exports[`draw function generates interactive script for empty objects array 1`] 
 `;
 
 exports[`draw function handles objects with null ids in interactive mode 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -1098,47 +1098,47 @@ exports[`draw function handles objects with null ids in interactive mode 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -1290,10 +1290,10 @@ exports[`draw function handles objects with null ids in interactive mode 1`] = `
 `;
 
 exports[`draw function includes script element and css when interactive option is enabled 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -1315,47 +1315,47 @@ exports[`draw function includes script element and css when interactive option i
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -1469,10 +1469,10 @@ exports[`draw function includes script element and css when interactive option i
 `;
 
 exports[`draw function includes script element and css when interactive option is enabled 2`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -1494,47 +1494,47 @@ exports[`draw function includes script element and css when interactive option i
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: auto;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -1583,10 +1583,10 @@ exports[`draw function includes script element and css when interactive option i
 `;
 
 exports[`draw function maps multiple references to same object id 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -1608,47 +1608,47 @@ exports[`draw function maps multiple references to same object id 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -1771,10 +1771,10 @@ exports[`draw function maps multiple references to same object id 1`] = `
 `;
 
 exports[`draw function renders 'fade' style preset 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -1796,47 +1796,47 @@ exports[`draw function renders 'fade' style preset 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -1948,10 +1948,10 @@ exports[`draw function renders 'fade' style preset 1`] = `
 `;
 
 exports[`draw function renders 'fade_id' style preset 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -1973,47 +1973,47 @@ exports[`draw function renders 'fade_id' style preset 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -2125,10 +2125,10 @@ exports[`draw function renders 'fade_id' style preset 1`] = `
 `;
 
 exports[`draw function renders 'fade_type' style preset 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -2150,47 +2150,47 @@ exports[`draw function renders 'fade_type' style preset 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -2302,10 +2302,10 @@ exports[`draw function renders 'fade_type' style preset 1`] = `
 `;
 
 exports[`draw function renders 'hide' style preset 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -2327,47 +2327,47 @@ exports[`draw function renders 'hide' style preset 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -2479,10 +2479,10 @@ exports[`draw function renders 'hide' style preset 1`] = `
 `;
 
 exports[`draw function renders 'hide_container' style preset 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -2504,47 +2504,47 @@ exports[`draw function renders 'hide_container' style preset 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -2656,10 +2656,10 @@ exports[`draw function renders 'hide_container' style preset 1`] = `
 `;
 
 exports[`draw function renders 'hide_id' style preset 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -2681,47 +2681,47 @@ exports[`draw function renders 'hide_id' style preset 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -2833,10 +2833,10 @@ exports[`draw function renders 'hide_id' style preset 1`] = `
 `;
 
 exports[`draw function renders 'highlight' style preset 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -2858,47 +2858,47 @@ exports[`draw function renders 'highlight' style preset 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -3010,10 +3010,10 @@ exports[`draw function renders 'highlight' style preset 1`] = `
 `;
 
 exports[`draw function renders 'highlight_id' style preset 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -3035,47 +3035,47 @@ exports[`draw function renders 'highlight_id' style preset 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -3187,10 +3187,10 @@ exports[`draw function renders 'highlight_id' style preset 1`] = `
 `;
 
 exports[`draw function renders 'highlight_type' style preset 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -3212,47 +3212,47 @@ exports[`draw function renders 'highlight_type' style preset 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -3364,10 +3364,10 @@ exports[`draw function renders 'highlight_type' style preset 1`] = `
 `;
 
 exports[`draw function renders a blank space 1`] = `
-<svg width="1300" height="275" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="275" xmlns="http://www.w3.org/2000/svg">
   <title>Blank Python memory model diagram</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -3389,47 +3389,47 @@ exports[`draw function renders a blank space 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -3499,10 +3499,10 @@ exports[`draw function renders a blank space 1`] = `
 `;
 
 exports[`draw function renders a blank stack frame 1`] = `
-<svg width="1300" height="360" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="360" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -3524,47 +3524,47 @@ exports[`draw function renders a blank stack frame 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -3751,10 +3751,10 @@ exports[`draw function renders a blank stack frame 1`] = `
 `;
 
 exports[`draw function renders a bool 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -3776,47 +3776,47 @@ exports[`draw function renders a bool 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -3910,10 +3910,10 @@ exports[`draw function renders a bool 1`] = `
 `;
 
 exports[`draw function renders a bool using manual layout 1`] = `
-<svg width="975" height="405" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" width="975" height="405" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -3935,47 +3935,47 @@ exports[`draw function renders a bool using manual layout 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -4069,10 +4069,10 @@ exports[`draw function renders a bool using manual layout 1`] = `
 `;
 
 exports[`draw function renders a bool with null value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -4094,47 +4094,47 @@ exports[`draw function renders a bool with null value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -4228,10 +4228,10 @@ exports[`draw function renders a bool with null value 1`] = `
 `;
 
 exports[`draw function renders a bool without defining the value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -4253,47 +4253,47 @@ exports[`draw function renders a bool without defining the value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -4387,10 +4387,10 @@ exports[`draw function renders a bool without defining the value 1`] = `
 `;
 
 exports[`draw function renders a bytes object 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -4412,47 +4412,47 @@ exports[`draw function renders a bytes object 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -4546,10 +4546,10 @@ exports[`draw function renders a bytes object 1`] = `
 `;
 
 exports[`draw function renders a bytes object, when given a null value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -4571,47 +4571,47 @@ exports[`draw function renders a bytes object, when given a null value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -4705,10 +4705,10 @@ exports[`draw function renders a bytes object, when given a null value 1`] = `
 `;
 
 exports[`draw function renders a class 1`] = `
-<svg width="1300" height="225" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="225" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -4730,47 +4730,47 @@ exports[`draw function renders a class 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -4885,10 +4885,10 @@ exports[`draw function renders a class 1`] = `
 `;
 
 exports[`draw function renders a class with null attribute name using empty string 1`] = `
-<svg width="1300" height="225" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="225" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -4910,47 +4910,47 @@ exports[`draw function renders a class with null attribute name using empty stri
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -5065,10 +5065,10 @@ exports[`draw function renders a class with null attribute name using empty stri
 `;
 
 exports[`draw function renders a class with null attribute name using whitespaces 1`] = `
-<svg width="1300" height="225" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="225" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -5090,47 +5090,47 @@ exports[`draw function renders a class with null attribute name using whitespace
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -5245,10 +5245,10 @@ exports[`draw function renders a class with null attribute name using whitespace
 `;
 
 exports[`draw function renders a class without defining the name 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -5270,47 +5270,47 @@ exports[`draw function renders a class without defining the name 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -5402,10 +5402,10 @@ exports[`draw function renders a class without defining the name 1`] = `
 `;
 
 exports[`draw function renders a class without defining the value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -5427,47 +5427,47 @@ exports[`draw function renders a class without defining the value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -5557,10 +5557,10 @@ exports[`draw function renders a class without defining the value 1`] = `
 `;
 
 exports[`draw function renders a complex object 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -5582,47 +5582,47 @@ exports[`draw function renders a complex object 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -5716,10 +5716,10 @@ exports[`draw function renders a complex object 1`] = `
 `;
 
 exports[`draw function renders a complex object, given a null input value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -5741,47 +5741,47 @@ exports[`draw function renders a complex object, given a null input value 1`] = 
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -5875,10 +5875,10 @@ exports[`draw function renders a complex object, given a null input value 1`] = 
 `;
 
 exports[`draw function renders a date object 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -5900,47 +5900,47 @@ exports[`draw function renders a date object 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -6034,10 +6034,10 @@ exports[`draw function renders a date object 1`] = `
 `;
 
 exports[`draw function renders a date object, when given a null value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -6059,47 +6059,47 @@ exports[`draw function renders a date object, when given a null value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -6193,10 +6193,10 @@ exports[`draw function renders a date object, when given a null value 1`] = `
 `;
 
 exports[`draw function renders a diagram with 'small' width value and a mix stack frame/non-stack frame objects 1`] = `
-<svg width="478.2" height="690" xmlns="http://www.w3.org/2000/svg">
+<svg width="478.2" class="memory-viz-diagram" height="690" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -6218,47 +6218,47 @@ exports[`draw function renders a diagram with 'small' width value and a mix stac
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -6454,10 +6454,10 @@ exports[`draw function renders a diagram with 'small' width value and a mix stac
 `;
 
 exports[`draw function renders a diagram with 'small' width value and no stack frames 1`] = `
-<svg width="287.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="287.2" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -6479,47 +6479,47 @@ exports[`draw function renders a diagram with 'small' width value and no stack f
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -6613,10 +6613,10 @@ exports[`draw function renders a diagram with 'small' width value and no stack f
 `;
 
 exports[`draw function renders a diagram with large left margins 1`] = `
-<svg width="603.2" height="690" xmlns="http://www.w3.org/2000/svg">
+<svg width="603.2" class="memory-viz-diagram" height="690" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -6638,47 +6638,47 @@ exports[`draw function renders a diagram with large left margins 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -6874,10 +6874,10 @@ exports[`draw function renders a diagram with large left margins 1`] = `
 `;
 
 exports[`draw function renders a dict 1`] = `
-<svg width="1300" height="375" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="375" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -6899,47 +6899,47 @@ exports[`draw function renders a dict 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -7114,10 +7114,10 @@ exports[`draw function renders a dict 1`] = `
 `;
 
 exports[`draw function renders a dict with large height 1`] = `
-<svg width="1300" height="675" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="675" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -7139,47 +7139,47 @@ exports[`draw function renders a dict with large height 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -7354,10 +7354,10 @@ exports[`draw function renders a dict with large height 1`] = `
 `;
 
 exports[`draw function renders a dict with styling specific keys and values 1`] = `
-<svg width="1300" height="530" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="530" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -7379,47 +7379,47 @@ exports[`draw function renders a dict with styling specific keys and values 1`] 
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -7654,10 +7654,10 @@ exports[`draw function renders a dict with styling specific keys and values 1`] 
 `;
 
 exports[`draw function renders a dict without defining the value 1`] = `
-<svg width="1300" height="150" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="150" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -7679,47 +7679,47 @@ exports[`draw function renders a dict without defining the value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -7809,10 +7809,10 @@ exports[`draw function renders a dict without defining the value 1`] = `
 `;
 
 exports[`draw function renders a float 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -7834,47 +7834,47 @@ exports[`draw function renders a float 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -7968,10 +7968,10 @@ exports[`draw function renders a float 1`] = `
 `;
 
 exports[`draw function renders a float preserving all decimals 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -7993,47 +7993,47 @@ exports[`draw function renders a float preserving all decimals 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -8127,10 +8127,10 @@ exports[`draw function renders a float preserving all decimals 1`] = `
 `;
 
 exports[`draw function renders a float with null value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -8152,47 +8152,47 @@ exports[`draw function renders a float with null value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -8286,10 +8286,10 @@ exports[`draw function renders a float with null value 1`] = `
 `;
 
 exports[`draw function renders a float without defining the value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -8311,47 +8311,47 @@ exports[`draw function renders a float without defining the value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -8445,10 +8445,10 @@ exports[`draw function renders a float without defining the value 1`] = `
 `;
 
 exports[`draw function renders a frame with a class containing a long string value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -8470,47 +8470,47 @@ exports[`draw function renders a frame with a class containing a long string val
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -8619,10 +8619,10 @@ exports[`draw function renders a frame with a class containing a long string val
 `;
 
 exports[`draw function renders a frozenset 1`] = `
-<svg width="1300" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -8644,47 +8644,47 @@ exports[`draw function renders a frozenset 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -8851,10 +8851,10 @@ exports[`draw function renders a frozenset 1`] = `
 `;
 
 exports[`draw function renders a frozenset with null and valid values 1`] = `
-<svg width="1300" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -8876,47 +8876,47 @@ exports[`draw function renders a frozenset with null and valid values 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -9065,10 +9065,10 @@ exports[`draw function renders a frozenset with null and valid values 1`] = `
 `;
 
 exports[`draw function renders a frozenset with null values 1`] = `
-<svg width="1300" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -9090,47 +9090,47 @@ exports[`draw function renders a frozenset with null values 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -9243,10 +9243,10 @@ exports[`draw function renders a frozenset with null values 1`] = `
 `;
 
 exports[`draw function renders a frozenset with styling specific indices 1`] = `
-<svg width="1300" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -9268,47 +9268,47 @@ exports[`draw function renders a frozenset with styling specific indices 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -9475,10 +9475,10 @@ exports[`draw function renders a frozenset with styling specific indices 1`] = `
 `;
 
 exports[`draw function renders a list of snapshots 1`] = `
-<svg width="473" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" width="473" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -9500,47 +9500,47 @@ exports[`draw function renders a list of snapshots 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -9652,10 +9652,10 @@ exports[`draw function renders a list of snapshots 1`] = `
 `;
 
 exports[`draw function renders a list of snapshots 2`] = `
-<svg width="473" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" width="473" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -9677,47 +9677,47 @@ exports[`draw function renders a list of snapshots 2`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -9829,10 +9829,10 @@ exports[`draw function renders a list of snapshots 2`] = `
 `;
 
 exports[`draw function renders a list with indexes showing 1`] = `
-<svg width="1300" height="225" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="225" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -9854,47 +9854,47 @@ exports[`draw function renders a list with indexes showing 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -10057,10 +10057,10 @@ exports[`draw function renders a list with indexes showing 1`] = `
 `;
 
 exports[`draw function renders a list with null and valid values 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -10082,47 +10082,47 @@ exports[`draw function renders a list with null and valid values 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -10267,10 +10267,10 @@ exports[`draw function renders a list with null and valid values 1`] = `
 `;
 
 exports[`draw function renders a list with null values 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -10292,47 +10292,47 @@ exports[`draw function renders a list with null values 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -10441,10 +10441,10 @@ exports[`draw function renders a list with null values 1`] = `
 `;
 
 exports[`draw function renders a list with styling specific indices 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -10466,47 +10466,47 @@ exports[`draw function renders a list with styling specific indices 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -10651,10 +10651,10 @@ exports[`draw function renders a list with styling specific indices 1`] = `
 `;
 
 exports[`draw function renders a list without defining the value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -10676,47 +10676,47 @@ exports[`draw function renders a list without defining the value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -10806,10 +10806,10 @@ exports[`draw function renders a list without defining the value 1`] = `
 `;
 
 exports[`draw function renders a list without indexes showing 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -10831,47 +10831,47 @@ exports[`draw function renders a list without indexes showing 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -11034,10 +11034,10 @@ exports[`draw function renders a list without indexes showing 1`] = `
 `;
 
 exports[`draw function renders a range object, given a null input value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -11059,47 +11059,47 @@ exports[`draw function renders a range object, given a null input value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -11193,10 +11193,10 @@ exports[`draw function renders a range object, given a null input value 1`] = `
 `;
 
 exports[`draw function renders a set 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -11218,47 +11218,47 @@ exports[`draw function renders a set 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -11421,10 +11421,10 @@ exports[`draw function renders a set 1`] = `
 `;
 
 exports[`draw function renders a set with large width 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -11446,47 +11446,47 @@ exports[`draw function renders a set with large width 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -11649,10 +11649,10 @@ exports[`draw function renders a set with large width 1`] = `
 `;
 
 exports[`draw function renders a set with null and valid values 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -11674,47 +11674,47 @@ exports[`draw function renders a set with null and valid values 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -11859,10 +11859,10 @@ exports[`draw function renders a set with null and valid values 1`] = `
 `;
 
 exports[`draw function renders a set with null values 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -11884,47 +11884,47 @@ exports[`draw function renders a set with null values 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -12033,10 +12033,10 @@ exports[`draw function renders a set with null values 1`] = `
 `;
 
 exports[`draw function renders a set with styling specific indices 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -12058,47 +12058,47 @@ exports[`draw function renders a set with styling specific indices 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -12261,10 +12261,10 @@ exports[`draw function renders a set with styling specific indices 1`] = `
 `;
 
 exports[`draw function renders a set without defining the value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -12286,47 +12286,47 @@ exports[`draw function renders a set without defining the value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -12416,10 +12416,10 @@ exports[`draw function renders a set without defining the value 1`] = `
 `;
 
 exports[`draw function renders a stack frame and an int 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -12441,47 +12441,47 @@ exports[`draw function renders a stack frame and an int 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -12593,10 +12593,10 @@ exports[`draw function renders a stack frame and an int 1`] = `
 `;
 
 exports[`draw function renders a stack frame using manual layout 1`] = `
-<svg width="473" height="450" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" width="473" height="450" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -12618,47 +12618,47 @@ exports[`draw function renders a stack frame using manual layout 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -12794,10 +12794,10 @@ exports[`draw function renders a stack frame using manual layout 1`] = `
 `;
 
 exports[`draw function renders a str 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -12819,47 +12819,47 @@ exports[`draw function renders a str 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -12953,10 +12953,10 @@ exports[`draw function renders a str 1`] = `
 `;
 
 exports[`draw function renders a str with null value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -12978,47 +12978,47 @@ exports[`draw function renders a str with null value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -13112,10 +13112,10 @@ exports[`draw function renders a str with null value 1`] = `
 `;
 
 exports[`draw function renders a str without defining the value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -13137,47 +13137,47 @@ exports[`draw function renders a str without defining the value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -13271,10 +13271,10 @@ exports[`draw function renders a str without defining the value 1`] = `
 `;
 
 exports[`draw function renders a tuple with indexes showing 1`] = `
-<svg width="1300" height="237" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="237" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -13296,47 +13296,47 @@ exports[`draw function renders a tuple with indexes showing 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -13503,10 +13503,10 @@ exports[`draw function renders a tuple with indexes showing 1`] = `
 `;
 
 exports[`draw function renders a tuple with null and valid values 1`] = `
-<svg width="1300" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -13528,47 +13528,47 @@ exports[`draw function renders a tuple with null and valid values 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -13717,10 +13717,10 @@ exports[`draw function renders a tuple with null and valid values 1`] = `
 `;
 
 exports[`draw function renders a tuple with null values 1`] = `
-<svg width="1300" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -13742,47 +13742,47 @@ exports[`draw function renders a tuple with null values 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -13895,10 +13895,10 @@ exports[`draw function renders a tuple with null values 1`] = `
 `;
 
 exports[`draw function renders a tuple without indexes showing 1`] = `
-<svg width="1300" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -13920,47 +13920,47 @@ exports[`draw function renders a tuple without indexes showing 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -14127,10 +14127,10 @@ exports[`draw function renders a tuple without indexes showing 1`] = `
 `;
 
 exports[`draw function renders an appropriately sized box for a string with the highlight style 1`] = `
-<svg width="2122" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="2122" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -14152,47 +14152,47 @@ exports[`draw function renders an appropriately sized box for a string with the 
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -14286,10 +14286,10 @@ exports[`draw function renders an appropriately sized box for a string with the 
 `;
 
 exports[`draw function renders an appropriately sized box for a very long string 1`] = `
-<svg width="1936" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1936" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -14311,47 +14311,47 @@ exports[`draw function renders an appropriately sized box for a very long string
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -14445,10 +14445,10 @@ exports[`draw function renders an appropriately sized box for a very long string
 `;
 
 exports[`draw function renders an empty dict 1`] = `
-<svg width="1300" height="150" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="150" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -14470,47 +14470,47 @@ exports[`draw function renders an empty dict 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -14600,10 +14600,10 @@ exports[`draw function renders an empty dict 1`] = `
 `;
 
 exports[`draw function renders an empty frozenset 1`] = `
-<svg width="1300" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -14625,47 +14625,47 @@ exports[`draw function renders an empty frozenset 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -14759,10 +14759,10 @@ exports[`draw function renders an empty frozenset 1`] = `
 `;
 
 exports[`draw function renders an empty list 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -14784,47 +14784,47 @@ exports[`draw function renders an empty list 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -14914,10 +14914,10 @@ exports[`draw function renders an empty list 1`] = `
 `;
 
 exports[`draw function renders an empty set 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -14939,47 +14939,47 @@ exports[`draw function renders an empty set 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -15069,10 +15069,10 @@ exports[`draw function renders an empty set 1`] = `
 `;
 
 exports[`draw function renders an empty svg given an empty array 1`] = `
-<svg width="100" height="50" xmlns="http://www.w3.org/2000/svg">
+<svg width="100" class="memory-viz-diagram" height="50" xmlns="http://www.w3.org/2000/svg">
   <title>Blank Python memory model diagram</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -15094,47 +15094,47 @@ exports[`draw function renders an empty svg given an empty array 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -15204,10 +15204,10 @@ exports[`draw function renders an empty svg given an empty array 1`] = `
 `;
 
 exports[`draw function renders an empty tuple 1`] = `
-<svg width="1300" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -15229,47 +15229,47 @@ exports[`draw function renders an empty tuple 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -15363,10 +15363,10 @@ exports[`draw function renders an empty tuple 1`] = `
 `;
 
 exports[`draw function renders an int 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -15388,47 +15388,47 @@ exports[`draw function renders an int 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -15522,10 +15522,10 @@ exports[`draw function renders an int 1`] = `
 `;
 
 exports[`draw function renders an int with null value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -15547,47 +15547,47 @@ exports[`draw function renders an int with null value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -15681,10 +15681,10 @@ exports[`draw function renders an int with null value 1`] = `
 `;
 
 exports[`draw function renders an int without defining the value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -15706,47 +15706,47 @@ exports[`draw function renders an int without defining the value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -15840,10 +15840,10 @@ exports[`draw function renders an int without defining the value 1`] = `
 `;
 
 exports[`draw function renders an object with defined size 1`] = `
-<svg width="1300" height="575" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="575" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -15865,47 +15865,47 @@ exports[`draw function renders an object with defined size 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -15999,10 +15999,10 @@ exports[`draw function renders an object with defined size 1`] = `
 `;
 
 exports[`draw function renders an object with no type and no value 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -16024,47 +16024,47 @@ exports[`draw function renders an object with no type and no value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -16158,10 +16158,10 @@ exports[`draw function renders an object with no type and no value 1`] = `
 `;
 
 exports[`draw function renders blank spaces in automatic layout 1`] = `
-<svg width="1300" height="275" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="275" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -16183,47 +16183,47 @@ exports[`draw function renders blank spaces in automatic layout 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -16337,10 +16337,10 @@ exports[`draw function renders blank spaces in automatic layout 1`] = `
 `;
 
 exports[`draw function renders combinations of style presets 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -16362,47 +16362,47 @@ exports[`draw function renders combinations of style presets 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -16514,10 +16514,10 @@ exports[`draw function renders combinations of style presets 1`] = `
 `;
 
 exports[`draw function renders custom style (without presets) 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -16539,47 +16539,47 @@ exports[`draw function renders custom style (without presets) 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -16673,10 +16673,10 @@ exports[`draw function renders custom style (without presets) 1`] = `
 `;
 
 exports[`draw function renders custom style with CSS keyword font-sizes without crashing 1`] = `
-<svg width="1300" height="360" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="360" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -16698,47 +16698,47 @@ exports[`draw function renders custom style with CSS keyword font-sizes without 
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -16925,10 +16925,10 @@ exports[`draw function renders custom style with CSS keyword font-sizes without 
 `;
 
 exports[`draw function renders custom style with bare string preset 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -16950,47 +16950,47 @@ exports[`draw function renders custom style with bare string preset 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -17084,10 +17084,10 @@ exports[`draw function renders custom style with bare string preset 1`] = `
 `;
 
 exports[`draw function renders custom styles correctly in interactive mode 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -17109,47 +17109,47 @@ exports[`draw function renders custom styles correctly in interactive mode 1`] =
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -17263,10 +17263,10 @@ exports[`draw function renders custom styles correctly in interactive mode 1`] =
 `;
 
 exports[`draw function renders diagrams with provided mix of roughjs_config options 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -17288,47 +17288,47 @@ exports[`draw function renders diagrams with provided mix of roughjs_config opti
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -17422,10 +17422,10 @@ exports[`draw function renders diagrams with provided mix of roughjs_config opti
 `;
 
 exports[`draw function renders diagrams with provided roughjs_config 'fill' and 'fillStyle' options 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -17447,47 +17447,47 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' and 
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -17581,10 +17581,10 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' and 
 `;
 
 exports[`draw function renders diagrams with provided roughjs_config 'fill' option 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -17606,47 +17606,47 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' opti
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -17740,10 +17740,10 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' opti
 `;
 
 exports[`draw function renders diagrams with provided roughjs_config 'roughness' option 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -17765,47 +17765,47 @@ exports[`draw function renders diagrams with provided roughjs_config 'roughness'
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -17899,10 +17899,10 @@ exports[`draw function renders diagrams with provided roughjs_config 'roughness'
 `;
 
 exports[`draw function renders dict with custom styling 1`] = `
-<svg width="1300" height="375" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="375" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -17924,47 +17924,47 @@ exports[`draw function renders dict with custom styling 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -18139,10 +18139,10 @@ exports[`draw function renders dict with custom styling 1`] = `
 `;
 
 exports[`draw function renders dict with empty string key without 'id' prefix 1`] = `
-<svg width="1300" height="300" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="300" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -18164,47 +18164,47 @@ exports[`draw function renders dict with empty string key without 'id' prefix 1`
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -18353,10 +18353,10 @@ exports[`draw function renders dict with empty string key without 'id' prefix 1`
 `;
 
 exports[`draw function renders dict with empty/space keys and null values 1`] = `
-<svg width="1300" height="375" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="375" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -18378,47 +18378,47 @@ exports[`draw function renders dict with empty/space keys and null values 1`] = 
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -18563,10 +18563,10 @@ exports[`draw function renders dict with empty/space keys and null values 1`] = 
 `;
 
 exports[`draw function renders dict with id and box having different colours 1`] = `
-<svg width="1300" height="375" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="375" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -18588,47 +18588,47 @@ exports[`draw function renders dict with id and box having different colours 1`]
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -18803,10 +18803,10 @@ exports[`draw function renders dict with id and box having different colours 1`]
 `;
 
 exports[`draw function renders dict with list value 1`] = `
-<svg width="1300" height="830" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="830" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -18828,47 +18828,47 @@ exports[`draw function renders dict with list value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -19147,10 +19147,10 @@ exports[`draw function renders dict with list value 1`] = `
 `;
 
 exports[`draw function renders dict with space key without 'id' prefix 1`] = `
-<svg width="1300" height="300" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="300" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -19172,47 +19172,47 @@ exports[`draw function renders dict with space key without 'id' prefix 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -19361,10 +19361,10 @@ exports[`draw function renders dict with space key without 'id' prefix 1`] = `
 `;
 
 exports[`draw function renders range object 1`] = `
-<svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -19386,47 +19386,47 @@ exports[`draw function renders range object 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -19520,10 +19520,10 @@ exports[`draw function renders range object 1`] = `
 `;
 
 exports[`draw function should produce consistent svg when provided seed 1`] = `
-<svg width="1300" height="500" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" height="500" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -19545,47 +19545,47 @@ exports[`draw function should produce consistent svg when provided seed 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -19793,10 +19793,10 @@ exports[`draw function should produce consistent svg when provided seed 1`] = `
 `;
 
 exports[`draw function trims width when not provided width value 1`] = `
-<svg width="473" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" width="473" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -19818,47 +19818,47 @@ exports[`draw function trims width when not provided width value 1`] = `
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
   </style>
@@ -19970,10 +19970,10 @@ exports[`draw function trims width when not provided width value 1`] = `
 `;
 
 exports[`draw function works at highlighting interactively with different themes 1`] = `
-<svg width="1300" data-theme="dark" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" data-theme="dark" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -19995,51 +19995,51 @@ exports[`draw function works at highlighting interactively with different themes
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
 
-    [data-theme="dark"] {
+    .memory-viz-diagram[data-theme="dark"] {
       --highlight-value-text-color: #110875;
       --highlight-id-text-color: #6e4409;
 
@@ -20057,22 +20057,22 @@ exports[`draw function works at highlighting interactively with different themes
       --highlight-object-fill: rgba(72, 207, 173, 0.3);
     }
 
-    [data-theme="dark"] text.default,
-    [data-theme="dark"] text.variable {
+    .memory-viz-diagram[data-theme="dark"] text.default,
+    .memory-viz-diagram[data-theme="dark"] text.variable {
       fill: rgb(224, 224, 224);
     }
 
-    [data-theme="dark"] text.attribute,
-    [data-theme="dark"] text.type,
-    [data-theme="dark"] text.value {
+    .memory-viz-diagram[data-theme="dark"] text.attribute,
+    .memory-viz-diagram[data-theme="dark"] text.type,
+    .memory-viz-diagram[data-theme="dark"] text.value {
       fill: rgb(144, 164, 237);
     }
 
-    [data-theme="dark"] text.id {
+    .memory-viz-diagram[data-theme="dark"] text.id {
       fill: rgb(255, 183, 77);
     }
 
-    [data-theme="dark"] path {
+    .memory-viz-diagram[data-theme="dark"] path {
       stroke: rgb(204, 204, 204);
     }
   </style>
@@ -20186,10 +20186,10 @@ exports[`draw function works at highlighting interactively with different themes
 `;
 
 exports[`draw function works at highlighting interactively with different themes 2`] = `
-<svg width="1300" data-theme="high-contrast" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" data-theme="high-contrast" height="205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
-    :root {
+    .memory-viz-diagram {
       --fade-text-color: rgb(0, 0, 0);
       --hide-text-color: white;
 
@@ -20211,51 +20211,51 @@ exports[`draw function works at highlighting interactively with different themes
       --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-    text {
+    .memory-viz-diagram text {
       font-family: Consolas, Courier;
       font-size: 20px;
     }
 
-    text.default {
+    .memory-viz-diagram text.default {
       fill: rgb(0, 0, 0);
       text-anchor: middle;
     }
 
-    text.attribute {
+    .memory-viz-diagram text.attribute {
       fill: rgb(27, 14, 139);
       text-anchor: start;
     }
 
-    text.variable {
+    .memory-viz-diagram text.variable {
       fill: rgb(0, 0, 0);
       text-anchor: start;
     }
 
-    text.id {
+    .memory-viz-diagram text.id {
       cursor: pointer;
       fill: rgb(150, 100, 28);
       text-anchor: middle;
     }
 
-    text.type {
+    .memory-viz-diagram text.type {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    text.value {
+    .memory-viz-diagram text.value {
       fill: rgb(27, 14, 139);
       text-anchor: middle;
     }
 
-    path {
+    .memory-viz-diagram path {
       stroke: rgb(0, 0, 0);
     }
 
-    .highlighted path {
+    .memory-viz-diagram .highlighted path {
       fill: var(--highlight-object-fill) !important;
     }
 
-    [data-theme="high-contrast"] {
+    .memory-viz-diagram[data-theme="high-contrast"] {
       --highlight-value-text-color: #FFFFFF;
       --highlight-id-text-color: #FFFF00;
 
@@ -20273,22 +20273,22 @@ exports[`draw function works at highlighting interactively with different themes
       --highlight-object-fill: rgba(0, 0, 255, 0.5);
     }
 
-    [data-theme="high-contrast"] text.default,
-    [data-theme="high-contrast"] text.variable {
+    .memory-viz-diagram[data-theme="high-contrast"] text.default,
+    .memory-viz-diagram[data-theme="high-contrast"] text.variable {
       fill: rgb(255, 255, 255);
     }
 
-    [data-theme="high-contrast"] text.attribute,
-    [data-theme="high-contrast"] text.type,
-    [data-theme="high-contrast"] text.value {
+    .memory-viz-diagram[data-theme="high-contrast"] text.attribute,
+    .memory-viz-diagram[data-theme="high-contrast"] text.type,
+    .memory-viz-diagram[data-theme="high-contrast"] text.value {
       fill: rgb(0, 255, 255);
     }
 
-    [data-theme="high-contrast"] text.id {
+    .memory-viz-diagram[data-theme="high-contrast"] text.id {
       fill: rgb(255, 255, 0);
     }
 
-    [data-theme="high-contrast"] path {
+    .memory-viz-diagram[data-theme="high-contrast"] path {
       stroke: rgb(255, 255, 255);
     }
   </style>
