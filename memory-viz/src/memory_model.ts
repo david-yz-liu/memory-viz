@@ -2166,16 +2166,6 @@ export class MemoryModel {
             "image/svg+xml"
         ).documentElement as unknown as SVGSVGElement;
 
-        // since svg will be mounted into a shadow tree, rewrite the ':root' selector to ':host'
-        // allows the CSS custom properties defining the theme to resolve correctly
-        const styleElement = svgElement.querySelector("style");
-        if (styleElement) {
-            styleElement.textContent = styleElement.textContent.replace(
-                ":root",
-                ":host"
-            );
-        }
-
         // prevents the SVG from being cropped when a CSS width/height is applied
         const nativeWidth = svgElement.getAttribute("width");
         const nativeHeight = svgElement.getAttribute("height");
