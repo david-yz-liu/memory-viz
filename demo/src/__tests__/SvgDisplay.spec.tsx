@@ -80,7 +80,7 @@ describe("SvgDisplay", () => {
 
         it("renders the drawn SVG element with specified dimensions", () => {
             const container = screen.getByTestId("memory-models-svg");
-            const svgElement = container.shadowRoot.querySelector("svg");
+            const svgElement = container.querySelector("svg");
             expect(svgElement).not.toBeNull();
             expect(svgElement.querySelector("#object-0")).not.toBeNull();
             expect(svgElement.getAttribute("height")).toEqual("900");
@@ -107,6 +107,6 @@ describe("SvgDisplay", () => {
             />
         );
         const container = screen.getByTestId("memory-models-svg");
-        expect(container.shadowRoot).toBeNull();
+        expect(container.querySelector("svg")).toBeNull();
     });
 });

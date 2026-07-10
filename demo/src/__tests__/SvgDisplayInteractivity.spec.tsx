@@ -4,7 +4,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 
 import SvgDisplay from "../SvgDisplay.js";
 
-function getIdTextElement(root: ShadowRoot, idValue: string): Element {
+function getIdTextElement(root: Element, idValue: string): Element {
     const idTextElements = Array.from(root.querySelectorAll("text.id"));
     const match = idTextElements.find((el) => {
         const textNode = Array.from(el.childNodes).find(
@@ -18,7 +18,7 @@ function getIdTextElement(root: ShadowRoot, idValue: string): Element {
     return match;
 }
 
-describe("SvgDisplay hover interactivity (real memory-viz, mounted in shadow DOM)", () => {
+describe("SvgDisplay hover interactivity (real memory-viz)", () => {
     const jsonResult = [
         { type: ".frame", name: "__main__", value: { x: 13 } },
         { type: "int", id: 13, value: 7 },
@@ -39,11 +39,11 @@ describe("SvgDisplay hover interactivity (real memory-viz, mounted in shadow DOM
         );
 
         const container = screen.getByTestId("memory-models-svg");
-        const shadowRoot = container.shadowRoot;
-        expect(shadowRoot).not.toBeNull();
+        const svgElement = container.querySelector("svg");
+        expect(svgElement).not.toBeNull();
 
-        const idText = getIdTextElement(shadowRoot, "id13");
-        const objectBox = shadowRoot.querySelector("#object-1");
+        const idText = getIdTextElement(svgElement, "id13");
+        const objectBox = svgElement.querySelector("#object-1");
         expect(objectBox).not.toBeNull();
         expect(objectBox.classList.contains("highlighted")).toBe(false);
 
