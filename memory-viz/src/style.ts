@@ -21,6 +21,11 @@ const collections: string[] = ["list", "set", "tuple", "dict", "frozenset"];
 
 const primitives: string[] = ["int", "str", "None", "bool", "float", "date"];
 
+// Class applied to the root <svg> element so that all generated styles are
+// scoped to a MemoryViz diagram and never leak onto (or get overridden by)
+// surrounding page content when embedded directly in a host page.
+const DIAGRAM_CLASS = "memory-viz-diagram";
+
 // Constants employed to establish presets for styles.
 const HIGHLIGHT_TEXT: CSS.PropertiesHyphen = {
     "font-weight": "bolder",
@@ -136,7 +141,7 @@ const presets: Record<string, Style> = {
 };
 
 const DARK_THEME_CSS = `
-        [data-theme="dark"] {
+        .${DIAGRAM_CLASS}[data-theme="dark"] {
             --highlight-value-text-color: #110875;
             --highlight-id-text-color: #6e4409;
 
@@ -153,25 +158,25 @@ const DARK_THEME_CSS = `
 
             --highlight-object-fill: rgba(72, 207, 173, 0.3);
         }
-        [data-theme="dark"] text.default,
-        [data-theme="dark"] text.variable {
+        .${DIAGRAM_CLASS}[data-theme="dark"] text.default,
+        .${DIAGRAM_CLASS}[data-theme="dark"] text.variable {
             fill: rgb(224, 224, 224);
         }
-        [data-theme="dark"] text.attribute,
-        [data-theme="dark"] text.type,
-        [data-theme="dark"] text.value {
+        .${DIAGRAM_CLASS}[data-theme="dark"] text.attribute,
+        .${DIAGRAM_CLASS}[data-theme="dark"] text.type,
+        .${DIAGRAM_CLASS}[data-theme="dark"] text.value {
             fill: rgb(144, 164, 237);
         }
-        [data-theme="dark"] text.id {
+        .${DIAGRAM_CLASS}[data-theme="dark"] text.id {
             fill: rgb(255, 183, 77);
         }
-        [data-theme="dark"] path {
+        .${DIAGRAM_CLASS}[data-theme="dark"] path {
             stroke: rgb(204, 204, 204);
         }
 `;
 
 const HIGH_CONTRAST_THEME_CSS = `
-        [data-theme="high-contrast"] {
+        .${DIAGRAM_CLASS}[data-theme="high-contrast"] {
             --highlight-value-text-color: #FFFFFF;
             --highlight-id-text-color: #FFFF00;
 
@@ -188,23 +193,28 @@ const HIGH_CONTRAST_THEME_CSS = `
 
             --highlight-object-fill: rgba(0, 0, 255, 0.5);
         }
-        [data-theme="high-contrast"] text.default,
-        [data-theme="high-contrast"] text.variable {
+        .${DIAGRAM_CLASS}[data-theme="high-contrast"] text.default,
+        .${DIAGRAM_CLASS}[data-theme="high-contrast"] text.variable {
             fill: rgb(255, 255, 255);
         }
-        [data-theme="high-contrast"] text.attribute,
-        [data-theme="high-contrast"] text.type,
-        [data-theme="high-contrast"] text.value {
+        .${DIAGRAM_CLASS}[data-theme="high-contrast"] text.attribute,
+        .${DIAGRAM_CLASS}[data-theme="high-contrast"] text.type,
+        .${DIAGRAM_CLASS}[data-theme="high-contrast"] text.value {
             fill: rgb(0, 255, 255);
         }
-        [data-theme="high-contrast"] text.id {
+        .${DIAGRAM_CLASS}[data-theme="high-contrast"] text.id {
             fill: rgb(255, 255, 0);
         }
-        [data-theme="high-contrast"] path {
+        .${DIAGRAM_CLASS}[data-theme="high-contrast"] path {
             stroke: rgb(255, 255, 255);
         }`;
 /**
  * Add CSS to the svg element of a MemoryModel object via style tags.
+ *
+ * All generated selectors are scoped under the `.memory-viz-diagram` class,
+ * which is applied to the svg element itself, so the stylesheet only ever
+ * affects elements nested within this diagram - it will not leak onto (or be
+ * overridden by) unrelated content when the svg is embedded in a host page.
  * @param {MemoryModel} memory_model - The MemoryModel object that will have CSS set for its associated svg.
  * @param {string} global_style - An optional string containing global CSS styles to be applied to the svg.
  * @param {string} theme - An optional string that overrides the default light theme for the svg.
@@ -217,7 +227,7 @@ function setStyleSheet(
     const interactiveCursor = memory_model.interactive ? "pointer" : "auto";
 
     const styles = `
-        :root {
+        .${DIAGRAM_CLASS} {
         --fade-text-color: ${config.text_color};
         --hide-text-color: white;
 
@@ -239,39 +249,39 @@ function setStyleSheet(
         --highlight-object-fill: rgba(255, 255, 0, 0.6);
     }
 
-        text {
+        .${DIAGRAM_CLASS} text {
             font-family: Consolas, Courier;
             font-size: ${config.font_size}px;
         }
-        text.default {
+        .${DIAGRAM_CLASS} text.default {
             fill: ${config.text_color};
             text-anchor: middle;
         }
-        text.attribute {
+        .${DIAGRAM_CLASS} text.attribute {
             fill: ${config.value_color};
             text-anchor: start;
         }
-        text.variable {
+        .${DIAGRAM_CLASS} text.variable {
             fill: ${config.text_color};
             text-anchor: start;
         }
-        text.id {
+        .${DIAGRAM_CLASS} text.id {
             cursor: ${interactiveCursor};
             fill: ${config.id_color};
             text-anchor: middle;
         }
-        text.type {
+        .${DIAGRAM_CLASS} text.type {
             fill: ${config.value_color};
             text-anchor: middle;
         }
-        text.value {
+        .${DIAGRAM_CLASS} text.value {
             fill: ${config.value_color};
             text-anchor: middle;
         }
-        path {
+        .${DIAGRAM_CLASS} path {
             stroke: ${config.rect_style?.stroke ?? "rgb(0,0,0)"};
         }
-        .highlighted path {
+        .${DIAGRAM_CLASS} .highlighted path {
             fill: var(--highlight-object-fill) !important;
         }
     `;
@@ -281,6 +291,8 @@ function setStyleSheet(
         "high-contrast": HIGH_CONTRAST_THEME_CSS,
     };
     const THEME_CSS = (theme && PREDEFINED_STYLES[theme]) ?? "";
+
+    memory_model.svg.setAttribute("class", DIAGRAM_CLASS);
 
     const styleSheet = memory_model.document.createElement("style");
     styleSheet.textContent =
@@ -294,4 +306,11 @@ function setStyleSheet(
     }
 }
 
-export { immutable, collections, primitives, presets, setStyleSheet };
+export {
+    immutable,
+    collections,
+    primitives,
+    presets,
+    setStyleSheet,
+    DIAGRAM_CLASS,
+};

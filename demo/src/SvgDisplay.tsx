@@ -53,12 +53,7 @@ export default function SvgDisplay({
                 props.setIsValidJson(true);
 
                 const svgElement = m.createInteractiveSVGElement();
-
-                // prevent svg styles from leaking into the rest of the page by rendering it in a shadow tree
-                const shadowRoot =
-                    containerRef.current.shadowRoot ??
-                    containerRef.current.attachShadow({ mode: "open" });
-                shadowRoot.replaceChildren(svgElement);
+                containerRef.current.replaceChildren(svgElement);
 
                 // reset zoom and pan to default when redrawing
                 transformRef.current?.setTransform(0, 0, 1, 0);
