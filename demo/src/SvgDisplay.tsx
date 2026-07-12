@@ -46,14 +46,19 @@ export default function SvgDisplay({
                     width: canvasWidth,
                     ...(resolvedTheme ? { theme: resolvedTheme } : {}),
                 });
-                const svgString = m.serializeSVG();
 
+                const svgString = m.serializeSVG();
                 props.setSvgResult(svgString);
                 props.setFailureBanner("");
                 props.setIsValidJson(true);
 
-                const svgElement = m.createInteractiveSVGElement();
+                const svgElement = new DOMParser().parseFromString(
+                    svgString,
+                    "image/svg+xml"
+                ).documentElement as unknown as SVGSVGElement;
                 containerRef.current.replaceChildren(svgElement);
+
+                m.attachInteractivity(svgElement);
 
                 // reset zoom and pan to default when redrawing
                 transformRef.current?.setTransform(0, 0, 1, 0);

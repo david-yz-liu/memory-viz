@@ -37,8 +37,13 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                     }
                 );
 
-                const svgElement = m.createInteractiveSVGElement();
+                const svgElement = new DOMParser().parseFromString(
+                    m.serializeSVG(),
+                    "image/svg+xml"
+                ).documentElement as unknown as SVGSVGElement;
                 containerRef.current.replaceChildren(svgElement);
+
+                m.attachInteractivity(svgElement);
 
                 // reset zoom and pan to default when redrawing
                 transformRef.current?.setTransform(0, 0, 1, 0);
