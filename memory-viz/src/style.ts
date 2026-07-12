@@ -22,8 +22,8 @@ const collections: string[] = ["list", "set", "tuple", "dict", "frozenset"];
 const primitives: string[] = ["int", "str", "None", "bool", "float", "date"];
 
 // Class applied to the root <svg> element so that all generated styles are
-// scoped to a MemoryViz diagram and never leak onto (or get overridden by)
-// surrounding page content when embedded directly in a host page.
+// scoped to a MemoryViz diagram and never leak onto surrounding
+// page content when embedded directly in a host page.
 const DIAGRAM_CLASS = "memory-viz-diagram";
 
 // Constants employed to establish presets for styles.
@@ -213,8 +213,8 @@ const HIGH_CONTRAST_THEME_CSS = `
  *
  * All generated selectors are scoped under the `.memory-viz-diagram` class,
  * which is applied to the svg element itself, so the stylesheet only ever
- * affects elements nested within this diagram - it will not leak onto (or be
- * overridden by) unrelated content when the svg is embedded in a host page.
+ * affects elements nested within this diagram - it will not leak onto
+ * unrelated content when the svg is embedded in a host page.
  * @param {MemoryModel} memory_model - The MemoryModel object that will have CSS set for its associated svg.
  * @param {string} global_style - An optional string containing global CSS styles to be applied to the svg.
  * @param {string} theme - An optional string that overrides the default light theme for the svg.
@@ -291,8 +291,6 @@ function setStyleSheet(
         "high-contrast": HIGH_CONTRAST_THEME_CSS,
     };
     const THEME_CSS = (theme && PREDEFINED_STYLES[theme]) ?? "";
-
-    memory_model.svg.setAttribute("class", DIAGRAM_CLASS);
 
     const styleSheet = memory_model.document.createElement("style");
     styleSheet.textContent =
