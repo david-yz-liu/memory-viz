@@ -2140,6 +2140,8 @@ export class MemoryModel {
      * Attach real hover-highlight listeners to a live SVG element
      * Necessary because <script> tags embedded via setInteractivityScript()
      * never execute once parsed/inserted this way.
+     * NOTE: duplicates the highlighting logic in setInteractivityScript()'s
+     * embedded script; keep the two in sync.
      * @param svgElement - the live SVG element to attach listeners to
      */
     attachInteractivity(svgElement: SVGSVGElement): void {
@@ -2171,6 +2173,8 @@ export class MemoryModel {
 
     /**
      * Add hover interactivity to the SVG on object IDs
+     * NOTE: duplicates the highlighting logic in attachInteractivity(); keep
+     * the two in sync.
      */
     setInteractivityScript(): void {
         const idToObjectMapping = Object.fromEntries(this.idToObjectMap);

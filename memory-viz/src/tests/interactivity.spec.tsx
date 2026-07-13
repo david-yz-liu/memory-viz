@@ -1,6 +1,10 @@
-import memoryViz from "memory-viz";
+/**
+ * @jest-environment jsdom
+ */
+import exports from "../index.js";
+import { MemoryModel } from "../memory_model.js";
 
-const { draw } = memoryViz;
+const { draw } = exports;
 
 const fireEvent = {
     mouseOver: (el: Element) =>
@@ -8,6 +12,24 @@ const fireEvent = {
     mouseOut: (el: Element) =>
         el.dispatchEvent(new Event("mouseout", { bubbles: true })),
 };
+
+// Mirrors what a live-DOM consumer (e.g. the demo's SvgDisplay component)
+// does with the two public APIs: parse the serialized SVG into a live
+// element, then attach real hover listeners to it. Interactivity is only
+// attached when the model was drawn with `interactive: true`, matching the
+// behaviour of the removed `createInteractiveSVGElement` convenience method.
+function renderInteractiveSVG(model: MemoryModel): SVGSVGElement {
+    const svg = new DOMParser().parseFromString(
+        model.serializeSVG(),
+        "image/svg+xml"
+    ).documentElement as unknown as SVGSVGElement;
+
+    if (model.interactive) {
+        model.attachInteractivity(svg);
+    }
+
+    return svg;
+}
 
 function getIdTextElement(svg: SVGSVGElement, idValue: string): SVGTextElement {
     const idTextElements = Array.from(svg.querySelectorAll("text.id"));
@@ -29,7 +51,7 @@ describe("hover interactivity", () => {
             width: 1300,
             interactive: true,
         });
-        const svg = model.createInteractiveSVGElement();
+        const svg = renderInteractiveSVG(model);
 
         const idText = getIdTextElement(svg, "id13");
         const objectBox = svg.querySelector("#object-0");
@@ -55,7 +77,7 @@ describe("hover interactivity", () => {
                 interactive: true,
             }
         );
-        const svg = model.createInteractiveSVGElement();
+        const svg = renderInteractiveSVG(model);
 
         const idText = getIdTextElement(svg, "id19");
         const objectBoxes = Array.from(svg.querySelectorAll('[id^="object-"]'));
@@ -83,7 +105,7 @@ describe("hover interactivity", () => {
                 interactive: true,
             }
         );
-        const svg = model.createInteractiveSVGElement();
+        const svg = renderInteractiveSVG(model);
 
         const idText10 = getIdTextElement(svg, "id10");
         const objectBox0 = svg.querySelector("#object-0");
@@ -99,7 +121,7 @@ describe("hover interactivity", () => {
             width: 1300,
             interactive: false,
         });
-        const svg = model.createInteractiveSVGElement();
+        const svg = renderInteractiveSVG(model);
 
         const idText = getIdTextElement(svg, "id13");
         const objectBox = svg.querySelector("#object-0");
@@ -115,7 +137,7 @@ describe("hover interactivity", () => {
             width: 1300,
             interactive: true,
         });
-        const svg = model.createInteractiveSVGElement();
+        const svg = renderInteractiveSVG(model);
         const idText = getIdTextElement(svg, "id999");
 
         expect(() => fireEvent.mouseOver(idText)).not.toThrow();
