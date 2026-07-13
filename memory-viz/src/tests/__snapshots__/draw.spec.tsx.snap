@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`draw function assigns sequential object ids to bounding boxes 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -205,7 +205,7 @@ exports[`draw function assigns sequential object ids to bounding boxes 1`] = `
 `;
 
 exports[`draw function formats a mix of stack frame/non-stack frame objects in automatic layout 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="425" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="425" viewBox="0 0 1300 425" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -466,7 +466,7 @@ exports[`draw function formats a mix of stack frame/non-stack frame objects in a
 `;
 
 exports[`draw function formats non-stack frame objects in automatic layout 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="380" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="380" viewBox="0 0 1300 380" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -759,7 +759,7 @@ exports[`draw function formats non-stack frame objects in automatic layout 1`] =
 `;
 
 exports[`draw function generates correct interactive script with proper event mappings 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -938,7 +938,7 @@ exports[`draw function generates correct interactive script with proper event ma
 `;
 
 exports[`draw function generates interactive script for empty objects array 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="50" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="50" xmlns="http://www.w3.org/2000/svg">
   <title>Blank Python memory model diagram</title>
   <style>
     .memory-viz-diagram {
@@ -1073,7 +1073,7 @@ exports[`draw function generates interactive script for empty objects array 1`] 
 `;
 
 exports[`draw function handles objects with null ids in interactive mode 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -1290,7 +1290,7 @@ exports[`draw function handles objects with null ids in interactive mode 1`] = `
 `;
 
 exports[`draw function includes script element and css when interactive option is enabled 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -1469,7 +1469,7 @@ exports[`draw function includes script element and css when interactive option i
 `;
 
 exports[`draw function includes script element and css when interactive option is enabled 2`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -1583,7 +1583,7 @@ exports[`draw function includes script element and css when interactive option i
 `;
 
 exports[`draw function maps multiple references to same object id 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -1771,7 +1771,7 @@ exports[`draw function maps multiple references to same object id 1`] = `
 `;
 
 exports[`draw function renders 'fade' style preset 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -1948,7 +1948,7 @@ exports[`draw function renders 'fade' style preset 1`] = `
 `;
 
 exports[`draw function renders 'fade_id' style preset 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -2125,7 +2125,7 @@ exports[`draw function renders 'fade_id' style preset 1`] = `
 `;
 
 exports[`draw function renders 'fade_type' style preset 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -2302,7 +2302,7 @@ exports[`draw function renders 'fade_type' style preset 1`] = `
 `;
 
 exports[`draw function renders 'hide' style preset 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -2479,7 +2479,7 @@ exports[`draw function renders 'hide' style preset 1`] = `
 `;
 
 exports[`draw function renders 'hide_container' style preset 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -2656,7 +2656,7 @@ exports[`draw function renders 'hide_container' style preset 1`] = `
 `;
 
 exports[`draw function renders 'hide_id' style preset 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -2833,7 +2833,7 @@ exports[`draw function renders 'hide_id' style preset 1`] = `
 `;
 
 exports[`draw function renders 'highlight' style preset 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -3010,7 +3010,7 @@ exports[`draw function renders 'highlight' style preset 1`] = `
 `;
 
 exports[`draw function renders 'highlight_id' style preset 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -3187,7 +3187,7 @@ exports[`draw function renders 'highlight_id' style preset 1`] = `
 `;
 
 exports[`draw function renders 'highlight_type' style preset 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -3364,7 +3364,7 @@ exports[`draw function renders 'highlight_type' style preset 1`] = `
 `;
 
 exports[`draw function renders a blank space 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="275" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="275" xmlns="http://www.w3.org/2000/svg">
   <title>Blank Python memory model diagram</title>
   <style>
     .memory-viz-diagram {
@@ -3499,7 +3499,7 @@ exports[`draw function renders a blank space 1`] = `
 `;
 
 exports[`draw function renders a blank stack frame 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="360" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="360" viewBox="0 0 1300 360" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -3751,7 +3751,7 @@ exports[`draw function renders a blank stack frame 1`] = `
 `;
 
 exports[`draw function renders a bool 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -3910,7 +3910,7 @@ exports[`draw function renders a bool 1`] = `
 `;
 
 exports[`draw function renders a bool using manual layout 1`] = `
-<svg class="memory-viz-diagram" width="975" height="405" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="975" height="405" viewBox="0 0 975 405" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -4069,7 +4069,7 @@ exports[`draw function renders a bool using manual layout 1`] = `
 `;
 
 exports[`draw function renders a bool with null value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -4228,7 +4228,7 @@ exports[`draw function renders a bool with null value 1`] = `
 `;
 
 exports[`draw function renders a bool without defining the value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -4387,7 +4387,7 @@ exports[`draw function renders a bool without defining the value 1`] = `
 `;
 
 exports[`draw function renders a bytes object 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -4546,7 +4546,7 @@ exports[`draw function renders a bytes object 1`] = `
 `;
 
 exports[`draw function renders a bytes object, when given a null value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -4705,7 +4705,7 @@ exports[`draw function renders a bytes object, when given a null value 1`] = `
 `;
 
 exports[`draw function renders a class 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="225" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="225" viewBox="0 0 1300 225" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -4885,7 +4885,7 @@ exports[`draw function renders a class 1`] = `
 `;
 
 exports[`draw function renders a class with null attribute name using empty string 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="225" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="225" viewBox="0 0 1300 225" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -5065,7 +5065,7 @@ exports[`draw function renders a class with null attribute name using empty stri
 `;
 
 exports[`draw function renders a class with null attribute name using whitespaces 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="225" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="225" viewBox="0 0 1300 225" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -5245,7 +5245,7 @@ exports[`draw function renders a class with null attribute name using whitespace
 `;
 
 exports[`draw function renders a class without defining the name 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -5402,7 +5402,7 @@ exports[`draw function renders a class without defining the name 1`] = `
 `;
 
 exports[`draw function renders a class without defining the value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -5557,7 +5557,7 @@ exports[`draw function renders a class without defining the value 1`] = `
 `;
 
 exports[`draw function renders a complex object 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -5716,7 +5716,7 @@ exports[`draw function renders a complex object 1`] = `
 `;
 
 exports[`draw function renders a complex object, given a null input value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -5875,7 +5875,7 @@ exports[`draw function renders a complex object, given a null input value 1`] = 
 `;
 
 exports[`draw function renders a date object 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -6034,7 +6034,7 @@ exports[`draw function renders a date object 1`] = `
 `;
 
 exports[`draw function renders a date object, when given a null value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -6193,7 +6193,7 @@ exports[`draw function renders a date object, when given a null value 1`] = `
 `;
 
 exports[`draw function renders a diagram with 'small' width value and a mix stack frame/non-stack frame objects 1`] = `
-<svg width="478.2" class="memory-viz-diagram" height="690" xmlns="http://www.w3.org/2000/svg">
+<svg width="478.2" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="690" viewBox="0 0 478.2 690" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -6454,7 +6454,7 @@ exports[`draw function renders a diagram with 'small' width value and a mix stac
 `;
 
 exports[`draw function renders a diagram with 'small' width value and no stack frames 1`] = `
-<svg width="287.2" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="287.2" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 287.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -6613,7 +6613,7 @@ exports[`draw function renders a diagram with 'small' width value and no stack f
 `;
 
 exports[`draw function renders a diagram with large left margins 1`] = `
-<svg width="603.2" class="memory-viz-diagram" height="690" xmlns="http://www.w3.org/2000/svg">
+<svg width="603.2" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="690" viewBox="0 0 603.2 690" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -6874,7 +6874,7 @@ exports[`draw function renders a diagram with large left margins 1`] = `
 `;
 
 exports[`draw function renders a dict 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="375" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="375" viewBox="0 0 1300 375" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -7114,7 +7114,7 @@ exports[`draw function renders a dict 1`] = `
 `;
 
 exports[`draw function renders a dict with large height 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="675" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="675" viewBox="0 0 1300 675" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -7354,7 +7354,7 @@ exports[`draw function renders a dict with large height 1`] = `
 `;
 
 exports[`draw function renders a dict with styling specific keys and values 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="530" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="530" viewBox="0 0 1300 530" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -7654,7 +7654,7 @@ exports[`draw function renders a dict with styling specific keys and values 1`] 
 `;
 
 exports[`draw function renders a dict without defining the value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="150" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="150" viewBox="0 0 1300 150" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -7809,7 +7809,7 @@ exports[`draw function renders a dict without defining the value 1`] = `
 `;
 
 exports[`draw function renders a float 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -7968,7 +7968,7 @@ exports[`draw function renders a float 1`] = `
 `;
 
 exports[`draw function renders a float preserving all decimals 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -8127,7 +8127,7 @@ exports[`draw function renders a float preserving all decimals 1`] = `
 `;
 
 exports[`draw function renders a float with null value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -8286,7 +8286,7 @@ exports[`draw function renders a float with null value 1`] = `
 `;
 
 exports[`draw function renders a float without defining the value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -8445,7 +8445,7 @@ exports[`draw function renders a float without defining the value 1`] = `
 `;
 
 exports[`draw function renders a frame with a class containing a long string value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -8619,7 +8619,7 @@ exports[`draw function renders a frame with a class containing a long string val
 `;
 
 exports[`draw function renders a frozenset 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="217" viewBox="0 0 1300 217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -8851,7 +8851,7 @@ exports[`draw function renders a frozenset 1`] = `
 `;
 
 exports[`draw function renders a frozenset with null and valid values 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="217" viewBox="0 0 1300 217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -9065,7 +9065,7 @@ exports[`draw function renders a frozenset with null and valid values 1`] = `
 `;
 
 exports[`draw function renders a frozenset with null values 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="217" viewBox="0 0 1300 217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -9243,7 +9243,7 @@ exports[`draw function renders a frozenset with null values 1`] = `
 `;
 
 exports[`draw function renders a frozenset with styling specific indices 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="217" viewBox="0 0 1300 217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -9475,7 +9475,7 @@ exports[`draw function renders a frozenset with styling specific indices 1`] = `
 `;
 
 exports[`draw function renders a list of snapshots 1`] = `
-<svg class="memory-viz-diagram" width="473" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="473" height="205" viewBox="0 0 473 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -9652,7 +9652,7 @@ exports[`draw function renders a list of snapshots 1`] = `
 `;
 
 exports[`draw function renders a list of snapshots 2`] = `
-<svg class="memory-viz-diagram" width="473" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="473" height="205" viewBox="0 0 473 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -9829,7 +9829,7 @@ exports[`draw function renders a list of snapshots 2`] = `
 `;
 
 exports[`draw function renders a list with indexes showing 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="225" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="225" viewBox="0 0 1300 225" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -10057,7 +10057,7 @@ exports[`draw function renders a list with indexes showing 1`] = `
 `;
 
 exports[`draw function renders a list with null and valid values 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -10267,7 +10267,7 @@ exports[`draw function renders a list with null and valid values 1`] = `
 `;
 
 exports[`draw function renders a list with null values 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -10441,7 +10441,7 @@ exports[`draw function renders a list with null values 1`] = `
 `;
 
 exports[`draw function renders a list with styling specific indices 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -10651,7 +10651,7 @@ exports[`draw function renders a list with styling specific indices 1`] = `
 `;
 
 exports[`draw function renders a list without defining the value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -10806,7 +10806,7 @@ exports[`draw function renders a list without defining the value 1`] = `
 `;
 
 exports[`draw function renders a list without indexes showing 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -11034,7 +11034,7 @@ exports[`draw function renders a list without indexes showing 1`] = `
 `;
 
 exports[`draw function renders a range object, given a null input value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -11193,7 +11193,7 @@ exports[`draw function renders a range object, given a null input value 1`] = `
 `;
 
 exports[`draw function renders a set 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -11421,7 +11421,7 @@ exports[`draw function renders a set 1`] = `
 `;
 
 exports[`draw function renders a set with large width 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -11649,7 +11649,7 @@ exports[`draw function renders a set with large width 1`] = `
 `;
 
 exports[`draw function renders a set with null and valid values 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -11859,7 +11859,7 @@ exports[`draw function renders a set with null and valid values 1`] = `
 `;
 
 exports[`draw function renders a set with null values 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -12033,7 +12033,7 @@ exports[`draw function renders a set with null values 1`] = `
 `;
 
 exports[`draw function renders a set with styling specific indices 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -12261,7 +12261,7 @@ exports[`draw function renders a set with styling specific indices 1`] = `
 `;
 
 exports[`draw function renders a set without defining the value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -12416,7 +12416,7 @@ exports[`draw function renders a set without defining the value 1`] = `
 `;
 
 exports[`draw function renders a stack frame and an int 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -12593,7 +12593,7 @@ exports[`draw function renders a stack frame and an int 1`] = `
 `;
 
 exports[`draw function renders a stack frame using manual layout 1`] = `
-<svg class="memory-viz-diagram" width="473" height="450" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="473" height="450" viewBox="0 0 473 450" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -12794,7 +12794,7 @@ exports[`draw function renders a stack frame using manual layout 1`] = `
 `;
 
 exports[`draw function renders a str 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -12953,7 +12953,7 @@ exports[`draw function renders a str 1`] = `
 `;
 
 exports[`draw function renders a str with null value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -13112,7 +13112,7 @@ exports[`draw function renders a str with null value 1`] = `
 `;
 
 exports[`draw function renders a str without defining the value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -13271,7 +13271,7 @@ exports[`draw function renders a str without defining the value 1`] = `
 `;
 
 exports[`draw function renders a tuple with indexes showing 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="237" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="237" viewBox="0 0 1300 237" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -13503,7 +13503,7 @@ exports[`draw function renders a tuple with indexes showing 1`] = `
 `;
 
 exports[`draw function renders a tuple with null and valid values 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="217" viewBox="0 0 1300 217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -13717,7 +13717,7 @@ exports[`draw function renders a tuple with null and valid values 1`] = `
 `;
 
 exports[`draw function renders a tuple with null values 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="217" viewBox="0 0 1300 217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -13895,7 +13895,7 @@ exports[`draw function renders a tuple with null values 1`] = `
 `;
 
 exports[`draw function renders a tuple without indexes showing 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="217" viewBox="0 0 1300 217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -14127,7 +14127,7 @@ exports[`draw function renders a tuple without indexes showing 1`] = `
 `;
 
 exports[`draw function renders an appropriately sized box for a string with the highlight style 1`] = `
-<svg width="2122" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="2122" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 2122 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -14286,7 +14286,7 @@ exports[`draw function renders an appropriately sized box for a string with the 
 `;
 
 exports[`draw function renders an appropriately sized box for a very long string 1`] = `
-<svg width="1936" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1936" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1936 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -14445,7 +14445,7 @@ exports[`draw function renders an appropriately sized box for a very long string
 `;
 
 exports[`draw function renders an empty dict 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="150" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="150" viewBox="0 0 1300 150" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -14600,7 +14600,7 @@ exports[`draw function renders an empty dict 1`] = `
 `;
 
 exports[`draw function renders an empty frozenset 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="217" viewBox="0 0 1300 217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -14759,7 +14759,7 @@ exports[`draw function renders an empty frozenset 1`] = `
 `;
 
 exports[`draw function renders an empty list 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -14914,7 +14914,7 @@ exports[`draw function renders an empty list 1`] = `
 `;
 
 exports[`draw function renders an empty set 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -15069,7 +15069,7 @@ exports[`draw function renders an empty set 1`] = `
 `;
 
 exports[`draw function renders an empty svg given an empty array 1`] = `
-<svg width="100" class="memory-viz-diagram" height="50" xmlns="http://www.w3.org/2000/svg">
+<svg width="100" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="50" xmlns="http://www.w3.org/2000/svg">
   <title>Blank Python memory model diagram</title>
   <style>
     .memory-viz-diagram {
@@ -15204,7 +15204,7 @@ exports[`draw function renders an empty svg given an empty array 1`] = `
 `;
 
 exports[`draw function renders an empty tuple 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="217" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="217" viewBox="0 0 1300 217" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -15363,7 +15363,7 @@ exports[`draw function renders an empty tuple 1`] = `
 `;
 
 exports[`draw function renders an int 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -15522,7 +15522,7 @@ exports[`draw function renders an int 1`] = `
 `;
 
 exports[`draw function renders an int with null value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -15681,7 +15681,7 @@ exports[`draw function renders an int with null value 1`] = `
 `;
 
 exports[`draw function renders an int without defining the value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -15840,7 +15840,7 @@ exports[`draw function renders an int without defining the value 1`] = `
 `;
 
 exports[`draw function renders an object with defined size 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="575" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="575" viewBox="0 0 1300 575" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -15999,7 +15999,7 @@ exports[`draw function renders an object with defined size 1`] = `
 `;
 
 exports[`draw function renders an object with no type and no value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -16158,7 +16158,7 @@ exports[`draw function renders an object with no type and no value 1`] = `
 `;
 
 exports[`draw function renders blank spaces in automatic layout 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="275" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="275" viewBox="0 0 1300 275" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -16337,7 +16337,7 @@ exports[`draw function renders blank spaces in automatic layout 1`] = `
 `;
 
 exports[`draw function renders combinations of style presets 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -16514,7 +16514,7 @@ exports[`draw function renders combinations of style presets 1`] = `
 `;
 
 exports[`draw function renders custom style (without presets) 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -16673,7 +16673,7 @@ exports[`draw function renders custom style (without presets) 1`] = `
 `;
 
 exports[`draw function renders custom style with CSS keyword font-sizes without crashing 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="360" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="360" viewBox="0 0 1300 360" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -16925,7 +16925,7 @@ exports[`draw function renders custom style with CSS keyword font-sizes without 
 `;
 
 exports[`draw function renders custom style with bare string preset 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -17084,7 +17084,7 @@ exports[`draw function renders custom style with bare string preset 1`] = `
 `;
 
 exports[`draw function renders custom styles correctly in interactive mode 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -17263,7 +17263,7 @@ exports[`draw function renders custom styles correctly in interactive mode 1`] =
 `;
 
 exports[`draw function renders diagrams with provided mix of roughjs_config options 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -17422,7 +17422,7 @@ exports[`draw function renders diagrams with provided mix of roughjs_config opti
 `;
 
 exports[`draw function renders diagrams with provided roughjs_config 'fill' and 'fillStyle' options 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -17581,7 +17581,7 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' and 
 `;
 
 exports[`draw function renders diagrams with provided roughjs_config 'fill' option 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -17740,7 +17740,7 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' opti
 `;
 
 exports[`draw function renders diagrams with provided roughjs_config 'roughness' option 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -17899,7 +17899,7 @@ exports[`draw function renders diagrams with provided roughjs_config 'roughness'
 `;
 
 exports[`draw function renders dict with custom styling 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="375" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="375" viewBox="0 0 1300 375" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -18139,7 +18139,7 @@ exports[`draw function renders dict with custom styling 1`] = `
 `;
 
 exports[`draw function renders dict with empty string key without 'id' prefix 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="300" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="300" viewBox="0 0 1300 300" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -18353,7 +18353,7 @@ exports[`draw function renders dict with empty string key without 'id' prefix 1`
 `;
 
 exports[`draw function renders dict with empty/space keys and null values 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="375" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="375" viewBox="0 0 1300 375" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -18563,7 +18563,7 @@ exports[`draw function renders dict with empty/space keys and null values 1`] = 
 `;
 
 exports[`draw function renders dict with id and box having different colours 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="375" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="375" viewBox="0 0 1300 375" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -18803,7 +18803,7 @@ exports[`draw function renders dict with id and box having different colours 1`]
 `;
 
 exports[`draw function renders dict with list value 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="830" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="830" viewBox="0 0 1300 830" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -19147,7 +19147,7 @@ exports[`draw function renders dict with list value 1`] = `
 `;
 
 exports[`draw function renders dict with space key without 'id' prefix 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="300" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="300" viewBox="0 0 1300 300" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -19361,7 +19361,7 @@ exports[`draw function renders dict with space key without 'id' prefix 1`] = `
 `;
 
 exports[`draw function renders range object 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -19520,7 +19520,7 @@ exports[`draw function renders range object 1`] = `
 `;
 
 exports[`draw function should produce consistent svg when provided seed 1`] = `
-<svg width="1300" class="memory-viz-diagram" height="500" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="500" viewBox="0 0 1300 500" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -19793,7 +19793,7 @@ exports[`draw function should produce consistent svg when provided seed 1`] = `
 `;
 
 exports[`draw function trims width when not provided width value 1`] = `
-<svg class="memory-viz-diagram" width="473" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="473" height="205" viewBox="0 0 473 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing stack frames and objects</title>
   <style>
     .memory-viz-diagram {
@@ -19970,7 +19970,7 @@ exports[`draw function trims width when not provided width value 1`] = `
 `;
 
 exports[`draw function works at highlighting interactively with different themes 1`] = `
-<svg width="1300" class="memory-viz-diagram" data-theme="dark" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" data-theme="dark" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -20186,7 +20186,7 @@ exports[`draw function works at highlighting interactively with different themes
 `;
 
 exports[`draw function works at highlighting interactively with different themes 2`] = `
-<svg width="1300" class="memory-viz-diagram" data-theme="high-contrast" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="1300" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" data-theme="high-contrast" height="205" viewBox="0 0 1300 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {

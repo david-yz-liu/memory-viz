@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`memory-viz CLI output path should overwrite existing svg when the output path is a file that exists 1`] = `
-<svg class="memory-viz-diagram" width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="286.2" height="205" viewBox="0 0 286.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -160,7 +160,7 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
 `;
 
 exports[`memory-viz CLI output path should produce consistent svg when the output path is a file 1`] = `
-<svg class="memory-viz-diagram" width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="286.2" height="205" viewBox="0 0 286.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -319,7 +319,7 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
 `;
 
 exports[`memory-viz CLI output path should produce consistent svg when the output path is a file in a directory 1`] = `
-<svg class="memory-viz-diagram" width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="286.2" height="205" viewBox="0 0 286.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -478,7 +478,7 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath and output option(s) 1`] = `
-<svg class="memory-viz-diagram" width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="286.2" height="205" viewBox="0 0 286.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -637,7 +637,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath and stdout 1`] = `
-<svg class="memory-viz-diagram" width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="286.2" height="205" viewBox="0 0 286.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -796,7 +796,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath, output, and (shorthand) global style option(s) 1`] = `
-<svg class="memory-viz-diagram" width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="286.2" height="205" viewBox="0 0 286.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -965,7 +965,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath, output, and (shorthand) theme option(s) 1`] = `
-<svg class="memory-viz-diagram" data-theme="high-contrast" width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" data-theme="high-contrast" width="286.2" height="205" viewBox="0 0 286.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -1161,7 +1161,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath, output, and a variety of rough-config option(s) 1`] = `
-<svg class="memory-viz-diagram" width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="286.2" height="205" viewBox="0 0 286.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -1320,7 +1320,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath, output, and global style option(s) 1`] = `
-<svg class="memory-viz-diagram" width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="286.2" height="205" viewBox="0 0 286.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -1489,7 +1489,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath, output, and height option(s) 1`] = `
-<svg height="700" class="memory-viz-diagram" width="286.2" xmlns="http://www.w3.org/2000/svg">
+<svg height="700" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="286.2" viewBox="0 0 286.2 700" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -1648,7 +1648,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath, output, and theme option(s) 1`] = `
-<svg class="memory-viz-diagram" data-theme="dark" width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" data-theme="dark" width="286.2" height="205" viewBox="0 0 286.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -1844,7 +1844,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath, output, and width option(s) 1`] = `
-<svg width="700" class="memory-viz-diagram" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg width="700" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" height="205" viewBox="0 0 700 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -2003,7 +2003,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath, output, custom theme, and global style option(s) 1`] = `
-<svg class="memory-viz-diagram" data-theme="oceanic-light" width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" data-theme="oceanic-light" width="286.2" height="205" viewBox="0 0 286.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -2170,7 +2170,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 `;
 
 exports[`memory-viz cli produces consistent svg when provided filepath, output, height, and width option(s) 1`] = `
-<svg width="1200" height="700" class="memory-viz-diagram" xmlns="http://www.w3.org/2000/svg">
+<svg width="1200" height="700" class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" viewBox="0 0 1200 700" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -2329,7 +2329,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 `;
 
 exports[`memory-viz cli produces consistent svg when provided stdin and output 1`] = `
-<svg class="memory-viz-diagram" width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="286.2" height="205" viewBox="0 0 286.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {
@@ -2488,7 +2488,7 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
 `;
 
 exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1`] = `
-<svg class="memory-viz-diagram" width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">
+<svg class="memory-viz-diagram" preserveAspectRatio="xMinYMin meet" style="width:100%;height:100%" width="286.2" height="205" viewBox="0 0 286.2 205" xmlns="http://www.w3.org/2000/svg">
   <title>Python memory model diagram showing objects</title>
   <style>
     .memory-viz-diagram {

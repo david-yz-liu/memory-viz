@@ -48,7 +48,7 @@ describe("hover interactivity", () => {
         const svg = renderInteractiveSVG(model);
 
         const idText = getIdTextElement(svg, "id13");
-        const objectBox = svg.querySelector("#object-0");
+        const objectBox = svg.querySelector("#object-0")!;
         expect(objectBox.classList.contains("highlighted")).toBe(false);
 
         fireEvent.mouseOver(idText);
@@ -102,8 +102,8 @@ describe("hover interactivity", () => {
         const svg = renderInteractiveSVG(model);
 
         const idText10 = getIdTextElement(svg, "id10");
-        const objectBox0 = svg.querySelector("#object-0");
-        const objectBox1 = svg.querySelector("#object-1");
+        const objectBox0 = svg.querySelector("#object-0")!;
+        const objectBox1 = svg.querySelector("#object-1")!;
 
         fireEvent.mouseOver(idText10);
         expect(objectBox0.classList.contains("highlighted")).toBe(true);
