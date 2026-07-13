@@ -23,7 +23,6 @@ export default function CodeDisplay(props: CodeDisplayPropTypes) {
                 showLineNumbers={true}
                 startingLineNumber={props.startingLineNumber}
                 wrapLines={true}
-                wrapLongLines={true}
                 style={a11yTheme}
                 lineProps={(lineNumber: number) => {
                     if (lineNumber == props.highlightLine) {
