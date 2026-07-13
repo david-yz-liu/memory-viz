@@ -110,8 +110,8 @@ export default function SvgDisplay({
                         data-testid="memory-models-svg"
                         ref={containerRef}
                         style={{
-                            width: "100%",
                             height: "100%",
+                            width: "100%",
                         }}
                     />
                 </TransformComponent>
