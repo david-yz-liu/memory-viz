@@ -42,6 +42,11 @@ main {
     background-color: transparent;
 }
 
+.code-display__code-box > pre > code {
+    padding-right: 1em;
+    display: inline-block;
+}
+
 .code-box__line--highlighted {
     background-color: yellow;
 }

@@ -23,7 +23,11 @@ jest.unstable_mockModule("react-syntax-highlighter", async () => {
 
                 return React.default.createElement(
                     "span",
-                    { key: index, ...lineProps },
+                    {
+                        key: index,
+                        "data-line-number": lineNumber,
+                        ...lineProps,
+                    },
                     line,
                     "\n"
                 );
@@ -45,13 +49,7 @@ import "@testing-library/jest-dom";
 import { renderWithI18n } from "../setup-jest";
 
 const { default: App } = await import("../App.js");
-
-global.fetch = jest.fn(() =>
-    Promise.resolve({
-        ok: true,
-        blob: () => Promise.resolve(new Blob()),
-    } as Response)
-) as unknown as typeof fetch;
+const { default: placeholder } = await import("../placeholder.js");
 
 URL.createObjectURL = jest.fn(() => "mock-url");
 
@@ -63,6 +61,17 @@ const getMaxStep = (): number => {
     return Number(getStepString().split("/")[1]);
 };
 
+const resetWindowData = () => {
+    window.codeText = placeholder.codeText;
+    window.memoryVizData = placeholder.jsonArray;
+
+    if (placeholder.startLineNumber === undefined) {
+        delete window.startLineNumber;
+    } else {
+        window.startLineNumber = placeholder.startLineNumber;
+    }
+};
+
 describe("App", () => {
     beforeEach(() => {
         global.fetch = jest.fn(() =>
@@ -71,6 +80,7 @@ describe("App", () => {
                 blob: () => Promise.resolve(new Blob()),
             } as Response)
         ) as unknown as typeof fetch;
+        resetWindowData();
         render(
             renderWithI18n(<App isDarkMode={false} toggleTheme={() => {}} />)
         );
@@ -147,6 +157,46 @@ describe("App", () => {
 
         expect(firstLineElement).not.toHaveClass("code-box__line--highlighted");
         expect(secondLineElement).toHaveClass("code-box__line--highlighted");
+    });
+
+    it("uses the given start line number when highlighting code", () => {
+        window.codeText = "first line\nsecond line";
+        window.memoryVizData = [
+            {
+                ...placeholder.jsonArray[0],
+                lineNumber: 11,
+            },
+        ];
+        window.startLineNumber = 10;
+        const { container } = render(
+            renderWithI18n(<App isDarkMode={false} toggleTheme={() => {}} />)
+        );
+
+        const highlightedLine = container.querySelector(
+            ".code-box__line--highlighted"
+        );
+
+        expect(highlightedLine).toHaveAttribute("data-line-number", "11");
+    });
+
+    it("uses the first step line number when start line number is undefined", () => {
+        window.codeText = "first line\nsecond line";
+        window.memoryVizData = [
+            {
+                ...placeholder.jsonArray[0],
+                lineNumber: 11,
+            },
+        ];
+        delete window.startLineNumber;
+        const { container } = render(
+            renderWithI18n(<App isDarkMode={false} toggleTheme={() => {}} />)
+        );
+
+        const highlightedLine = container.querySelector(
+            ".code-box__line--highlighted"
+        );
+
+        expect(highlightedLine).toHaveAttribute("data-line-number", "11");
     });
 
     it("updates step when arrow keys are pressed", () => {
