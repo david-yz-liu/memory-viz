@@ -1,6 +1,10 @@
 import fs from "fs";
 import { MemoryModel } from "./memory_model.js";
-import { DrawnEntity, DrawnEntitySchema, DisplaySettings } from "./types.js";
+import {
+    type DrawnEntity,
+    DrawnEntitySchema,
+    type DisplaySettings,
+} from "./types.js";
 import { prettifyError } from "zod";
 export * from "./types.js";
 

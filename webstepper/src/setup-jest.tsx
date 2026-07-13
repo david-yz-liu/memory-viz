@@ -1,11 +1,11 @@
 import { jest } from "@jest/globals";
 import "@testing-library/jest-dom";
 import ResizeObserver from "resize-observer-polyfill";
-import React, { ReactElement } from "react";
+import React, { type ReactElement } from "react";
 import { I18nextProvider } from "react-i18next";
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import enTranslations from "./locales/en/translation.json";
+import enTranslations from "./locales/en/translation.json" with { type: "json" };
 
 // Mock canvas methods
 if (typeof window.URL.createObjectURL === "undefined") {
