@@ -48,11 +48,11 @@ The argument is a comma-separated list of key-value pairs in the form `<key1=val
 
 ### `--global-style=<path>` (`-s <path>`)
 
-Specifies a path to a CSS file that contains global styles for the SVG. The SVG source code contains various CSS selectors within the `<style>` tag, which can be used to style the SVG elements.
+Specifies a path to a CSS file that contains global styles for the SVG. The SVG source code contains various CSS selectors within the `<style>` tag, which can be used to style the SVG elements. All generated CSS, including these global styles, is scoped under the `memory-viz-diagram` class applied to the root `<svg>` element, so selectors in the CSS file specified here should be scoped under `.memory-viz-diagram` as well (see the [Style API](04-style.mdx#defining-a-custom-theme) documentation for details).
 
 ### `--theme=<name>` (`-t <name>`)
 
-Applies a theme to the SVG, overriding the default light theme. Included themes are `dark` and `high-contrast`. Custom themes can be defined using a `[data-theme]` attribute selector in the CSS file specified by the `--global-style` option.
+Applies a theme to the SVG, overriding the default light theme. Included themes are `dark` and `high-contrast`. Custom themes can be defined using a `.memory-viz-diagram[data-theme]` attribute selector in the CSS file specified by the `--global-style` option.
 
 ### `--no-interactive`
 
@@ -99,7 +99,7 @@ $ npx memory-viz <path-to-file> --output=<path> --global-style=<path-to-css> --t
 Here is an example of a CSS file that defines a custom theme, and its usage:
 
 ```css
-[data-theme="oceanic-light"] {
+.memory-viz-diagram[data-theme="oceanic-light"] {
     /* theme goes here */
 }
 ```
