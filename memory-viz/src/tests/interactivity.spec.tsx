@@ -13,24 +13,18 @@ const fireEvent = {
         el.dispatchEvent(new Event("mouseout", { bubbles: true })),
 };
 
-// Mirrors what a live-DOM consumer (e.g. the demo's SvgDisplay component)
-// does with the two public APIs: parse the serialized SVG into a live
-// element, then attach real hover listeners to it. Interactivity is only
-// attached when the model was drawn with `interactive: true`, matching the
-// behaviour of the removed `createInteractiveSVGElement` convenience method.
 function renderInteractiveSVG(model: MemoryModel): SVGSVGElement {
     const svg = new DOMParser().parseFromString(
         model.serializeSVG(),
         "image/svg+xml"
     ).documentElement as unknown as SVGSVGElement;
 
-    if (model.interactive) {
-        model.attachInteractivity(svg);
-    }
+    model.attachInteractivity(svg);
 
     return svg;
 }
 
+// Helper function to find the text.id element corresponding to a given id value
 function getIdTextElement(svg: SVGSVGElement, idValue: string): SVGTextElement {
     const idTextElements = Array.from(svg.querySelectorAll("text.id"));
     const match = idTextElements.find((el) => {
@@ -116,18 +110,23 @@ describe("hover interactivity", () => {
         expect(objectBox1.classList.contains("highlighted")).toBe(false);
     });
 
-    it("does not attach hover listeners when interactive is disabled", () => {
-        const model = draw([{ type: "int", id: 13, value: 7 }], {
+    it("omits the embedded interactivity script from the serialized SVG when interactive is disabled", () => {
+        const interactiveModel = draw([{ type: "int", id: 13, value: 7 }], {
+            width: 1300,
+            interactive: true,
+        });
+        const staticModel = draw([{ type: "int", id: 13, value: 7 }], {
             width: 1300,
             interactive: false,
         });
-        const svg = renderInteractiveSVG(model);
+        // interactive defaults to true when left unset.
+        const defaultModel = draw([{ type: "int", id: 13, value: 7 }], {
+            width: 1300,
+        });
 
-        const idText = getIdTextElement(svg, "id13");
-        const objectBox = svg.querySelector("#object-0");
-
-        fireEvent.mouseOver(idText);
-        expect(objectBox.classList.contains("highlighted")).toBe(false);
+        expect(interactiveModel.serializeSVG()).toContain("<script");
+        expect(staticModel.serializeSVG()).not.toContain("<script");
+        expect(defaultModel.serializeSVG()).toContain("<script");
     });
 
     it("does not throw or highlight anything when hovering a dangling id reference", () => {
