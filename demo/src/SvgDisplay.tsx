@@ -5,7 +5,7 @@ import type { configDataPropTypes } from "./MemoryModelsUserInput.js";
 import {
     TransformWrapper,
     TransformComponent,
-    ReactZoomPanPinchContentRef,
+    type ReactZoomPanPinchContentRef,
 } from "react-zoom-pan-pinch";
 
 const { draw: drawMemoryModel } = memoryViz;

@@ -3,7 +3,7 @@ import { Paper } from "@mui/material";
 import {
     TransformWrapper,
     TransformComponent,
-    ReactZoomPanPinchContentRef,
+    type ReactZoomPanPinchContentRef,
 } from "react-zoom-pan-pinch";
 import memoryViz from "memory-viz";
 
