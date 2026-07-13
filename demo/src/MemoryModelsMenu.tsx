@@ -1,9 +1,9 @@
-import React, { ReactNode, useState } from "react";
+import React, { type ReactNode, useState } from "react";
 import { Box, Button, Menu } from "@mui/material";
 import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
 import SettingsIcon from "@mui/icons-material/Settings";
-import "./css/styles.css" with { type: "css" };
+import "./css/styles.css";
 
 type MemoryModelsMenuPropTypes = {
     menuName: string;

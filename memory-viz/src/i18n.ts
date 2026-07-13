@@ -1,7 +1,7 @@
 import i18next from "i18next";
 import type { i18n } from "i18next";
-import memoryModelEn from "./locales/en/memory_model.json";
-import cliEn from "./locales/en/cli.json";
+import memoryModelEn from "./locales/en/memory_model.json" with { type: "json" };
+import cliEn from "./locales/en/cli.json" with { type: "json" };
 
 const getSystemLanguage = () => {
     const language = navigator.language.split("-")[0] || "en";

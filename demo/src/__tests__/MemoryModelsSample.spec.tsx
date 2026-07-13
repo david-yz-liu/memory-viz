@@ -1,10 +1,10 @@
 import { jest } from "@jest/globals";
 
-jest.unstable_mockModule("./sample/manual-layout/data", () => ({
+jest.unstable_mockModule("../sample/manual-layout/data", () => ({
     default: { sample: "manualLayout" },
 }));
 
-jest.unstable_mockModule("./sample/manual-layout/config", () => ({
+jest.unstable_mockModule("../sample/manual-layout/config", () => ({
     default: { config: "config", overallDrawConfig: {} },
 }));
 

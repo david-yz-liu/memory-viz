@@ -1,4 +1,4 @@
-import { DrawnEntity, DrawnEntityStrict } from "./types.js";
+import type { DrawnEntity, DrawnEntityStrict } from "./types.js";
 import i18n from "./i18n.js";
 
 const TEXT_DESCRIPTION = {

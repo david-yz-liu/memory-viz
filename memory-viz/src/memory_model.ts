@@ -8,14 +8,14 @@ import { collections, immutable, presets, setStyleSheet } from "./style.js";
 import { config } from "./config.js";
 import { DOMImplementation, XMLSerializer } from "@xmldom/xmldom";
 import {
-    DrawnEntity,
-    DrawnEntityStrict,
-    DrawnEntityWithDimensions,
-    Primitive,
-    Rect,
+    type DrawnEntity,
+    type DrawnEntityStrict,
+    type DrawnEntityWithDimensions,
+    type Primitive,
+    type Rect,
     SortOptions,
-    Style,
-    VisualizationConfig,
+    type Style,
+    type VisualizationConfig,
 } from "./types.js";
 import { isArrayOfNullableType, isStyle } from "./typeguards.js";
 import {
@@ -25,8 +25,8 @@ import {
     getEntityTitle,
     getEntityDescription,
 } from "./a11y.js";
-import { RoughSVG } from "roughjs/bin/svg.js";
-import { Config, Options } from "roughjs/bin/core.js";
+import type { RoughSVG } from "roughjs/bin/svg.js";
+import type { Config, Options } from "roughjs/bin/core.js";
 import type * as CSS from "csstype";
 
 /** The class representing the memory model diagram of the given block of code. */

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`memory-viz CLI output path should overwrite existing svg when the output path is a file that exists 1`] = `
 <svg width="286.2" height="205" xmlns="http://www.w3.org/2000/svg">

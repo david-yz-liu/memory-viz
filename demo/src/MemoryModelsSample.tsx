@@ -2,7 +2,7 @@ import React from "react";
 import { MenuItem } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import MemoryModelsMenu from "./MemoryModelsMenu.js";
-import { configDataPropTypes } from "./MemoryModelsUserInput.jsx";
+import type { configDataPropTypes } from "./MemoryModelsUserInput.jsx";
 
 import { SAMPLES } from "./sample/index.js";
 

@@ -7,3 +7,14 @@ packages:
 allowBuilds:
     "@parcel/watcher": true
     core-js: true
+    # eslint's native path-resolution helper, safe to allow
+    unrs-resolver: true
+
+# babel-jest and jest-config both have their own (independent of our workspaces')
+# resolution of @babel/core. Without these, pnpm can pair them with the @babel/core@7.x
+# that docs/ pulls in transitively via Docusaurus's own (still-babel-7) toolchain,
+# which silently breaks babel-jest's TypeScript transform under Babel 8.
+# Scoped to these two edges only - Docusaurus itself must keep using @babel/core@7.
+overrides:
+    "babel-jest>@babel/core": "^8.0.1"
+    "jest-config>@babel/core": "^8.0.1"

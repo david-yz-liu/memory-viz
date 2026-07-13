@@ -1,11 +1,11 @@
-import blanks_config from "./blanks/config";
-import blanks_data from "./blanks/data";
-import manual_layout_config from "./manual-layout/config";
-import manual_layout_data from "./manual-layout/data";
-import simple_config from "./simple/config";
-import simple_data from "./simple/data";
-import styling_config from "./styling/config";
-import styling_data from "./styling/data";
+import blanks_config from "./blanks/config.json" with { type: "json" };
+import blanks_data from "./blanks/data.json" with { type: "json" };
+import manual_layout_config from "./manual-layout/config.json" with { type: "json" };
+import manual_layout_data from "./manual-layout/data.json" with { type: "json" };
+import simple_config from "./simple/config.json" with { type: "json" };
+import simple_data from "./simple/data.json" with { type: "json" };
+import styling_config from "./styling/config.json" with { type: "json" };
+import styling_data from "./styling/data.json" with { type: "json" };
 
 export const SAMPLES = [
     {

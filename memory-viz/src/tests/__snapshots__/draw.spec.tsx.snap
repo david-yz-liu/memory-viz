@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`draw function assigns sequential object ids to bounding boxes 1`] = `
 <svg width="1300" height="205" xmlns="http://www.w3.org/2000/svg">

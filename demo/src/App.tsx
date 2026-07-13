@@ -5,7 +5,7 @@ import { useDebounce } from "use-debounce";
 import SvgDisplay from "./SvgDisplay.js";
 import MemoryModelsUserInput from "./MemoryModelsUserInput.js";
 import DownloadSVGButton from "./DownloadSVGButton.js";
-import { configDataPropTypes } from "./MemoryModelsUserInput.js";
+import type { configDataPropTypes } from "./MemoryModelsUserInput.js";
 import Header from "./Header.js";
 
 const TEXT_INPUT_DEBOUNCE_DELAY = 1000;
