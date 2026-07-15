@@ -11,6 +11,20 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+### 🐛 Bug fixes
+
+### 📚 Documentation and demo website changes
+
+### 🔧 Internal changes
+
+## [0.10.0] - 2026-07-15
+
+### 🚨 Breaking changes
+
+- Removed the unused `automation` parameter from the draw function and all its usages
+
+### ✨ Enhancements
+
 - Scoped CSS styles to the `memory-viz-diagram` class applied to the `<svg>` element, so styles do not leak onto surrounding page content when a diagram is embedded in a host page
 
 ### 🐛 Bug fixes
@@ -26,10 +40,6 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Updated `memory-viz/docs/docs/03-automation_algorithms.md` to reflect current algorithm used by Memory Viz
 - For sample inputs in the demo website, removed the automatic layout example and modified the manual layout example to use the same objects as the simple example
 - Replaced canvas rendering with live SVG in the demo website's `SvgDisplay.tsx`, adding box highlighting when the user hovers over object IDs
-
-### 🔧 Internal changes
-
-- Removed the unused `automation` parameter from the draw function and all its usages
 
 ## [0.9.1] - 2026-06-11
 
