@@ -1135,7 +1135,12 @@ export class MemoryModel {
             rectElement.setAttribute("id", `object-${this.objectCounter}`);
 
             // Map object id value to the object counter id
-            if (objectId !== null) {
+            if (objectId !== null && objectId !== undefined) {
+                rectElement.setAttribute(
+                    "data-memory-viz-object-id",
+                    objectId.toString()
+                );
+
                 const idKey = `id${objectId}`;
                 if (!this.idToObjectMap.has(idKey)) {
                     this.idToObjectMap.set(idKey, []);
