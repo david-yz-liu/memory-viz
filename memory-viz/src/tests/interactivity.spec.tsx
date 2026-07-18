@@ -49,6 +49,7 @@ describe("hover interactivity", () => {
 
         const idText = getIdTextElement(svg, "id13");
         const objectBox = svg.querySelector("#object-0")!;
+        expect(objectBox.getAttribute("data-memory-viz-object-id")).toBe("13");
         expect(objectBox.classList.contains("highlighted")).toBe(false);
 
         fireEvent.mouseOver(idText);
@@ -131,7 +132,7 @@ describe("hover interactivity", () => {
 
     it("does not throw or highlight anything when hovering a dangling id reference", () => {
         // The list references id 999, which has no corresponding drawn object,
-        // so its "text.id" element has no entry in idToObjectMap.
+        // so its "text.id" element has no matching data-memory-viz-object-id.
         const model = draw([{ type: "list", id: 1, value: [999] }], {
             width: 1300,
             interactive: true,

@@ -1512,12 +1512,9 @@ describe("draw function", () => {
                 { type: "list", id: 30, value: [10, 20] },
             ],
             expected_substrings: [
-                'id="object-0"',
-                'id="object-1"',
-                'id="object-2"',
-                '"id10":["object-0"]',
-                '"id20":["object-1"]',
-                '"id30":["object-2"]',
+                'id="object-0" data-memory-viz-object-id="10"',
+                'id="object-1" data-memory-viz-object-id="20"',
+                'id="object-2" data-memory-viz-object-id="30"',
             ],
         },
         {
@@ -1545,8 +1542,11 @@ describe("draw function", () => {
                 { type: "str", id: 99, value: "test" },
                 { type: "int", id: 1 },
             ],
-            expected_substrings: ['"id42"', '"id99"'],
-            unexpected_substrings: ['"idnull"', 'null":'],
+            expected_substrings: [
+                'data-memory-viz-object-id="42"',
+                'data-memory-viz-object-id="99"',
+            ],
+            unexpected_substrings: ['data-memory-viz-object-id="null"'],
         },
         {
             test: "generates interactive script for empty objects array",
@@ -1554,7 +1554,8 @@ describe("draw function", () => {
             expected_substrings: [
                 "<script>",
                 "enableInteractivity",
-                "const idToObjectMap = {};",
+                "function buildIdToObjectMap(root)",
+                "const idToObjectMap = buildIdToObjectMap(document);",
             ],
         },
         {
@@ -1568,7 +1569,11 @@ describe("draw function", () => {
                 },
                 { type: "int", id: 99, value: 999, style: ["fade"] },
             ],
-            expected_substrings: ['"id42"', '"id99"', "enableInteractivity"],
+            expected_substrings: [
+                'data-memory-viz-object-id="42"',
+                'data-memory-viz-object-id="99"',
+                "enableInteractivity",
+            ],
         },
         {
             test: "maps multiple references to same object id",
@@ -1576,7 +1581,12 @@ describe("draw function", () => {
                 { type: "list", id: 1, value: [42, 42, 42] },
                 { type: "int", id: 42, value: 5 },
             ],
-            expected_substrings: ['"id42"', '"id1"', "object-0", "object-1"],
+            expected_substrings: [
+                'data-memory-viz-object-id="1"',
+                'data-memory-viz-object-id="42"',
+                "object-0",
+                "object-1",
+            ],
         },
     ])(
         "$test",
