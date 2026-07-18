@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Header from "./Header.js";
 import { Button, Box, Typography, Stack } from "@mui/material";
+import { Group, Panel, Separator } from "react-resizable-panels";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SvgDisplay from "./SvgDisplay.js";
@@ -53,54 +54,59 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
         <>
             <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
             <main className="container-fluid">
-                <Stack direction="row" spacing={2} sx={{ height: "100%" }}>
-                    <Stack direction="column" sx={{ width: "45%" }}>
-                        <Typography variant="h2" color="textPrimary">
-                            {t("code.title")}
-                        </Typography>
-                        <Stack direction="row" className="code-controls">
-                            <Typography color="textSecondary">
-                                {t("code.step")} {step + 1}/{limit}
+                <Group orientation="horizontal">
+                    <Panel className="code-pane" defaultSize="45%">
+                        <Stack direction="column" sx={{ height: "100%" }}>
+                            <Typography variant="h2" color="textPrimary">
+                                {t("code.title")}
                             </Typography>
-                            <Button
-                                disabled={step === 0}
-                                onClick={() => handleStep(-1)}
-                                startIcon={<ArrowBackIcon />}
-                            >
-                                {t("code.back")}
-                            </Button>
-                            <Button
-                                disabled={step === limit - 1}
-                                onClick={() => handleStep(1)}
-                                endIcon={<ArrowForwardIcon />}
-                            >
-                                {t("code.next")}
-                            </Button>
+                            <Stack direction="row" className="code-controls">
+                                <Typography color="textSecondary">
+                                    {t("code.step")} {step + 1}/{limit}
+                                </Typography>
+                                <Button
+                                    disabled={step === 0}
+                                    onClick={() => handleStep(-1)}
+                                    startIcon={<ArrowBackIcon />}
+                                >
+                                    {t("code.back")}
+                                </Button>
+                                <Button
+                                    disabled={step === limit - 1}
+                                    onClick={() => handleStep(1)}
+                                    endIcon={<ArrowForwardIcon />}
+                                >
+                                    {t("code.next")}
+                                </Button>
+                            </Stack>
+                            <Box className="code-display">
+                                <CodeDisplay
+                                    text={codeText}
+                                    startingLineNumber={
+                                        window.startLineNumber ??
+                                        window.memoryVizData[0].lineNumber
+                                    }
+                                    highlightLine={
+                                        window.memoryVizData[step].lineNumber
+                                    }
+                                    isDarkMode={isDarkMode}
+                                />
+                            </Box>
                         </Stack>
-                        <Box className="code-display">
-                            <CodeDisplay
-                                text={codeText}
-                                startingLineNumber={
-                                    window.startLineNumber ??
-                                    window.memoryVizData[0].lineNumber
-                                }
-                                highlightLine={
-                                    window.memoryVizData[step].lineNumber
-                                }
+                    </Panel>
+                    <Separator className="separator" disableDoubleClick />
+                    <Panel className="svg-pane" defaultSize="55%">
+                        <Stack direction="column" sx={{ height: "100%" }}>
+                            <Typography variant="h2" color="textPrimary">
+                                {t("memory.title")}
+                            </Typography>
+                            <SvgDisplay
+                                memoryVizData={window.memoryVizData[step]}
                                 isDarkMode={isDarkMode}
                             />
-                        </Box>
-                    </Stack>
-                    <Stack direction="column" sx={{ width: "55%" }}>
-                        <Typography variant="h2" color="textPrimary">
-                            {t("memory.title")}
-                        </Typography>
-                        <SvgDisplay
-                            memoryVizData={window.memoryVizData[step]}
-                            isDarkMode={isDarkMode}
-                        />
-                    </Stack>
-                </Stack>
+                        </Stack>
+                    </Panel>
+                </Group>
             </main>
         </>
     );

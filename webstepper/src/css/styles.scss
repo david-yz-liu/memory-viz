@@ -29,6 +29,28 @@ main {
     flex: 1;
 }
 
+.separator {
+    background-color: var(--separator-color);
+    cursor: col-resize;
+    margin-left: 1em;
+    margin-right: 1em;
+    width: 4px;
+}
+
+.separator:hover {
+    background-color: var(--separator-hover-color);
+}
+
+:root {
+    --separator-color: #f5f5f5;
+    --separator-hover-color: #e0e0e0;
+}
+
+html[data-theme="dark"] {
+    --separator-color: #151515;
+    --separator-hover-color: #2a2a2a;
+}
+
 .code-controls {
     align-items: center;
     gap: 10px;

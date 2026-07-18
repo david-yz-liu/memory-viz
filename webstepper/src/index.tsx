@@ -119,9 +119,17 @@ const darkTheme = createTheme({
 
 function Root() {
     const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
-    const [isDarkMode, setIsDarkMode] = useState(prefersDark);
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
+        return prefersDark;
+    });
 
-    const toggleTheme = () => setIsDarkMode((prev) => !prev);
+    const toggleTheme = () =>
+        setIsDarkMode((prev) => {
+            const next = !prev;
+            document.documentElement.dataset.theme = next ? "dark" : "light";
+            return next;
+        });
 
     const theme = isDarkMode ? darkTheme : lightTheme;
     return (

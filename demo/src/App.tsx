@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
+import { Group, Panel, Separator } from "react-resizable-panels";
 import { useTranslation } from "react-i18next";
 import { useDebounce } from "use-debounce";
 import SvgDisplay from "./SvgDisplay.js";
@@ -82,8 +83,8 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
     return (
         <main className="container">
             <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-            <Stack direction="row" spacing={2}>
-                <Box sx={{ width: "40%" }}>
+            <Group orientation="horizontal">
+                <Panel className="input-pane" defaultSize="40%">
                     <Typography variant="h2" color="textPrimary">
                         {t("input.title")}
                     </Typography>
@@ -97,8 +98,9 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         isValidJson={isValidJson}
                         onInputChange={onInputChange}
                     />
-                </Box>
-                <Box sx={{ width: "60%" }}>
+                </Panel>
+                <Separator className="separator" disableDoubleClick />
+                <Panel className="result-pane" defaultSize="60%">
                     <Typography variant="h2" color="textPrimary">
                         {t("output.title")}
                     </Typography>
@@ -111,8 +113,8 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
                         isDarkMode={isDarkMode}
                     />
                     <DownloadSVGButton svgResult={svgResult} />
-                </Box>
-            </Stack>
+                </Panel>
+            </Group>
         </main>
     );
 }

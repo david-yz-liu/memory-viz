@@ -103,6 +103,9 @@ importers:
       react-i18next:
         specifier: ^15.2.0
         version: 15.7.4(i18next@23.16.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react-resizable-panels:
+        specifier: ^4.12.2
+        version: 4.12.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react-zoom-pan-pinch:
         specifier: ^4.0.3
         version: 4.0.3(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
@@ -361,6 +364,9 @@ importers:
       react-i18next:
         specifier: ^15.2.0
         version: 15.7.4(i18next@23.16.8)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@5.9.3)
+      react-resizable-panels:
+        specifier: ^4.12.2
+        version: 4.12.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       react-syntax-highlighter:
         specifier: ^16.1.0
         version: 16.1.1(react@19.2.7)
@@ -7231,6 +7237,12 @@ packages:
     peerDependencies:
       react-loadable: '*'
       webpack: '>=4.41.1 || 5.x'
+
+  react-resizable-panels@4.12.2:
+    resolution: {integrity: sha512-NwY5LCo4WrxVvDh0xoMML6EMLPONP/8ckKcIdpnojxexoatZdjLiRqLJQjQK5CPkd4SYiB/2M5BVrjZBQtOO7Q==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
 
   react-router-config@5.1.1:
     resolution: {integrity: sha512-DuanZjaD8mQp1ppHjgnnUnyOlqYXZVjnov/JzFhjLEwd3Z4dYjMSnqrEzzGThH47vpCOqPPwJM2FtthLeJ8Pbg==}
@@ -17548,6 +17560,11 @@ snapshots:
       '@babel/runtime': 7.29.7
       react-loadable: '@docusaurus/react-loadable@6.0.0(react@19.2.7)'
       webpack: 5.106.2(clean-css@5.3.3)(cssnano@6.1.2(postcss@8.5.14))(html-minifier-terser@7.2.0)(postcss@8.5.14)
+
+  react-resizable-panels@4.12.2(react-dom@19.2.7(react@19.2.7))(react@19.2.7):
+    dependencies:
+      react: 19.2.7
+      react-dom: 19.2.7(react@19.2.7)
 
   react-router-config@5.1.1(react-router@5.3.4(react@19.2.7))(react@19.2.7):
     dependencies:

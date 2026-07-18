@@ -35,11 +35,27 @@ input[type="number"]::-webkit-outer-spin-button {
     transform: rotate(0deg);
 }
 
+.separator {
+    background-color: var(--separator-color);
+    cursor: col-resize;
+    margin-left: 1em;
+    margin-right: 1em;
+    width: 4px;
+}
+
+.separator:hover {
+    background-color: var(--separator-hover-color);
+}
+
 /* Overrides Pico’s default checkmark icon so its color matches the light and dark theme palettes. */
 :root {
     --icon-valid: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27rgb%2846, 133, 85%29%27 stroke-width=%273%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpolyline points=%2720 6 9 17 4 12%27%3E%3C/polyline%3E%3C/svg%3E") !important;
+    --separator-color: #f5f5f5;
+    --separator-hover-color: #e0e0e0;
 }
 
 [data-theme="dark"] {
     --icon-valid: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27rgb%2837, 194, 160%29%27 stroke-width=%273%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpolyline points=%2720 6 9 17 4 12%27%3E%3C/polyline%3E%3C/svg%3E") !important;
+    --separator-color: #1e1e1e;
+    --separator-hover-color: #2a2a2a;
 }
