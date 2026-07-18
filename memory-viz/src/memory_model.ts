@@ -83,7 +83,6 @@ export class MemoryModel {
     left_margin: number = 25;
     bottom_margin: number = 25;
     right_margin: number = 25;
-    idToObjectMap: Map<string, string[]>; // Track object ids to their corresponding SVG element ids
 
     constructor(options: Partial<VisualizationConfig> = {}) {
         if (options.browser) {
@@ -130,7 +129,6 @@ export class MemoryModel {
 
         this.objectCounter = 0;
         this.textCounter = 0;
-        this.idToObjectMap = new Map();
 
         if (options.sort_by) {
             this.sort_by = options.sort_by;
@@ -1134,20 +1132,11 @@ export class MemoryModel {
         if (isBoundingBox) {
             rectElement.setAttribute("id", `object-${this.objectCounter}`);
 
-            // Map object id value to the object counter id
             if (objectId !== null && objectId !== undefined) {
                 rectElement.setAttribute(
                     "data-memory-viz-object-id",
                     objectId.toString()
                 );
-
-                const idKey = `id${objectId}`;
-                if (!this.idToObjectMap.has(idKey)) {
-                    this.idToObjectMap.set(idKey, []);
-                }
-                this.idToObjectMap
-                    .get(idKey)!
-                    .push(`object-${this.objectCounter}`);
             }
 
             this.objectCounter++;
@@ -2150,12 +2139,14 @@ export class MemoryModel {
      * @param svgElement - the live SVG element to attach listeners to
      */
     attachInteractivity(svgElement: SVGSVGElement): void {
+        const idToObjectMap = buildIdToObjectMap(svgElement);
+
         svgElement.querySelectorAll("text.id").forEach((idText) => {
             const textNode = Array.from(idText.childNodes).find(
                 (node) => node.nodeType === Node.TEXT_NODE
             );
             const idValue = textNode?.nodeValue?.trim() ?? "";
-            const objectIds = this.idToObjectMap.get(idValue);
+            const objectIds = idToObjectMap.get(idValue);
             if (!objectIds) {
                 return;
             }
@@ -2182,12 +2173,22 @@ export class MemoryModel {
      * the two in sync.
      */
     setInteractivityScript(): void {
-        const idToObjectMapping = Object.fromEntries(this.idToObjectMap);
-
         const script = `
             function enableInteractivity() {
-                // Inject the id value to object id mapping into script
-                const idToObjectMap = ${JSON.stringify(idToObjectMapping)};
+
+                function buildIdToObjectMap(root) {
+                    const map = {};
+                    root.querySelectorAll('[data-memory-viz-object-id]').forEach(el => {
+                        const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
+                        if (!map[idKey]) {
+                            map[idKey] = [];
+                        }
+                        map[idKey].push(el.id);
+                    });
+                    return map;
+                }
+
+                const idToObjectMap = buildIdToObjectMap(document);
 
                 function highlightObject(objectId) {
                     const objectBox = document.getElementById(objectId);
@@ -2314,6 +2315,26 @@ export class MemoryModel {
             }
         }
     }
+}
+
+/**
+ * Builds a mapping from id value (e.g. "id13") to the SVG element ids of the
+ * object(s) representing it, by reading the data-memory-viz-object-id
+ * attribute off each object's <g> tag within root.
+ * NOTE: duplicates the map-building logic embedded as a JS string in
+ * MemoryModel.setInteractivityScript(); keep the two in sync.
+ * @param root - the element (or document) to search for tagged object <g>s
+ */
+function buildIdToObjectMap(root: ParentNode): Map<string, string[]> {
+    const map = new Map<string, string[]>();
+    root.querySelectorAll("[data-memory-viz-object-id]").forEach((el) => {
+        const idKey = `id${el.getAttribute("data-memory-viz-object-id")}`;
+        if (!map.has(idKey)) {
+            map.set(idKey, []);
+        }
+        map.get(idKey)!.push(el.id);
+    });
+    return map;
 }
 
 /**
