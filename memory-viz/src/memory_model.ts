@@ -2180,7 +2180,7 @@ export class MemoryModel {
 
                 function buildIdToObjectMap(root) {
                     const map = {};
-                    root.querySelectorAll('[${MEMORY_VIZ_OBJECT_ID_ATTR}]').forEach(el => {
+                    root.querySelectorAll('g[${MEMORY_VIZ_OBJECT_ID_ATTR}]').forEach(el => {
                         const idKey = 'id' + el.getAttribute('${MEMORY_VIZ_OBJECT_ID_ATTR}');
                         if (!map[idKey]) {
                             map[idKey] = [];
@@ -2325,11 +2325,11 @@ export class MemoryModel {
  * attribute off each object's <g> tag within root.
  * NOTE: duplicates the map-building logic embedded as a JS string in
  * MemoryModel.setInteractivityScript(); keep the two in sync.
- * @param root - the element (or document) to search for tagged object <g>s
+ * @param root - the SVG element to search for tagged object <g>s
  */
-function buildIdToObjectMap(root: ParentNode): Map<string, string[]> {
+function buildIdToObjectMap(root: SVGSVGElement): Map<string, string[]> {
     const map = new Map<string, string[]>();
-    root.querySelectorAll(`[${MEMORY_VIZ_OBJECT_ID_ATTR}]`).forEach((el) => {
+    root.querySelectorAll(`g[${MEMORY_VIZ_OBJECT_ID_ATTR}]`).forEach((el) => {
         const idKey = `id${el.getAttribute(MEMORY_VIZ_OBJECT_ID_ATTR)}`;
         if (!map.has(idKey)) {
             map.set(idKey, []);
