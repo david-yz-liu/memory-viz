@@ -35,6 +35,11 @@ input[type="number"]::-webkit-outer-spin-button {
     transform: rotate(0deg);
 }
 
+.input-pane {
+    overflow-x: hidden;
+    min-width: 0;
+}
+
 .separator {
     background-color: var(--separator-color);
     cursor: col-resize;

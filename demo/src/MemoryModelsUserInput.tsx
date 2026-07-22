@@ -140,7 +140,14 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
             value={props.textData}
             onChange={handleTextFieldChange}
             error={props.isValidJson === false}
-            slotProps={{ input: { style: { fontFamily: "monospace" } } }}
+            slotProps={{
+                input: {
+                    style: { fontFamily: "monospace" },
+                },
+                htmlInput: {
+                    wrap: "off",
+                },
+            }}
         />
     );
 }
@@ -233,7 +240,15 @@ export default function MemoryModelsUserInput(
                     setFailureBanner={props.setFailureBanner}
                     onInputChange={props.onInputChange}
                 />
-                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: 1,
+                        overflow: "hidden",
+                        minWidth: 0,
+                    }}
+                >
                     <MemoryModelsSample onInputChange={props.onInputChange} />
                     <MemoryModelsConfigInput
                         configData={props.configData}
