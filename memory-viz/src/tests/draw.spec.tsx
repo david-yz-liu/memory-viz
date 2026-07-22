@@ -1,5 +1,6 @@
 import { jest } from "@jest/globals";
 import exports from "../index.js";
+import { MEMORY_VIZ_OBJECT_ID_ATTR } from "../memory_model.js";
 const { draw } = exports;
 
 describe("draw function", () => {
@@ -1512,9 +1513,9 @@ describe("draw function", () => {
                 { type: "list", id: 30, value: [10, 20] },
             ],
             expected_substrings: [
-                'id="object-0" data-memory-viz-object-id="10"',
-                'id="object-1" data-memory-viz-object-id="20"',
-                'id="object-2" data-memory-viz-object-id="30"',
+                `id="object-0" ${MEMORY_VIZ_OBJECT_ID_ATTR}="10"`,
+                `id="object-1" ${MEMORY_VIZ_OBJECT_ID_ATTR}="20"`,
+                `id="object-2" ${MEMORY_VIZ_OBJECT_ID_ATTR}="30"`,
             ],
         },
         {
@@ -1543,10 +1544,10 @@ describe("draw function", () => {
                 { type: "int", id: 1 },
             ],
             expected_substrings: [
-                'data-memory-viz-object-id="42"',
-                'data-memory-viz-object-id="99"',
+                `${MEMORY_VIZ_OBJECT_ID_ATTR}="42"`,
+                `${MEMORY_VIZ_OBJECT_ID_ATTR}="99"`,
             ],
-            unexpected_substrings: ['data-memory-viz-object-id="null"'],
+            unexpected_substrings: [`${MEMORY_VIZ_OBJECT_ID_ATTR}="null"`],
         },
         {
             test: "generates interactive script for empty objects array",
@@ -1570,8 +1571,8 @@ describe("draw function", () => {
                 { type: "int", id: 99, value: 999, style: ["fade"] },
             ],
             expected_substrings: [
-                'data-memory-viz-object-id="42"',
-                'data-memory-viz-object-id="99"',
+                `${MEMORY_VIZ_OBJECT_ID_ATTR}="42"`,
+                `${MEMORY_VIZ_OBJECT_ID_ATTR}="99"`,
                 "enableInteractivity",
             ],
         },
@@ -1582,8 +1583,8 @@ describe("draw function", () => {
                 { type: "int", id: 42, value: 5 },
             ],
             expected_substrings: [
-                'data-memory-viz-object-id="1"',
-                'data-memory-viz-object-id="42"',
+                `${MEMORY_VIZ_OBJECT_ID_ATTR}="1"`,
+                `${MEMORY_VIZ_OBJECT_ID_ATTR}="42"`,
                 "object-0",
                 "object-1",
             ],

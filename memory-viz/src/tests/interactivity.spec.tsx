@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import exports from "../index.js";
-import { MemoryModel } from "../memory_model.js";
+import { MemoryModel, MEMORY_VIZ_OBJECT_ID_ATTR } from "../memory_model.js";
 
 const { draw } = exports;
 
@@ -49,7 +49,7 @@ describe("hover interactivity", () => {
 
         const idText = getIdTextElement(svg, "id13");
         const objectBox = svg.querySelector("#object-0")!;
-        expect(objectBox.getAttribute("data-memory-viz-object-id")).toBe("13");
+        expect(objectBox.getAttribute(MEMORY_VIZ_OBJECT_ID_ATTR)).toBe("13");
         expect(objectBox.classList.contains("highlighted")).toBe(false);
 
         fireEvent.mouseOver(idText);

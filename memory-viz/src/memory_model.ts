@@ -35,6 +35,8 @@ import type { RoughSVG } from "roughjs/bin/svg.js";
 import type { Config, Options } from "roughjs/bin/core.js";
 import type * as CSS from "csstype";
 
+export const MEMORY_VIZ_OBJECT_ID_ATTR = "data-memory-viz-object-id";
+
 /** The class representing the memory model diagram of the given block of code. */
 export class MemoryModel {
     /**
@@ -1134,7 +1136,7 @@ export class MemoryModel {
 
             if (objectId !== null && objectId !== undefined) {
                 rectElement.setAttribute(
-                    "data-memory-viz-object-id",
+                    MEMORY_VIZ_OBJECT_ID_ATTR,
                     objectId.toString()
                 );
             }
@@ -2178,8 +2180,8 @@ export class MemoryModel {
 
                 function buildIdToObjectMap(root) {
                     const map = {};
-                    root.querySelectorAll('[data-memory-viz-object-id]').forEach(el => {
-                        const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
+                    root.querySelectorAll('[${MEMORY_VIZ_OBJECT_ID_ATTR}]').forEach(el => {
+                        const idKey = 'id' + el.getAttribute('${MEMORY_VIZ_OBJECT_ID_ATTR}');
                         if (!map[idKey]) {
                             map[idKey] = [];
                         }
@@ -2327,8 +2329,8 @@ export class MemoryModel {
  */
 function buildIdToObjectMap(root: ParentNode): Map<string, string[]> {
     const map = new Map<string, string[]>();
-    root.querySelectorAll("[data-memory-viz-object-id]").forEach((el) => {
-        const idKey = `id${el.getAttribute("data-memory-viz-object-id")}`;
+    root.querySelectorAll(`[${MEMORY_VIZ_OBJECT_ID_ATTR}]`).forEach((el) => {
+        const idKey = `id${el.getAttribute(MEMORY_VIZ_OBJECT_ID_ATTR)}`;
         if (!map.has(idKey)) {
             map.set(idKey, []);
         }
