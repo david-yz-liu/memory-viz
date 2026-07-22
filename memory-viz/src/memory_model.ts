@@ -1109,7 +1109,7 @@ export class MemoryModel {
         svg_group: SVGGElement,
         style?: Options,
         isBoundingBox: boolean = false,
-        objectId?: number | null
+        objectId: number | null = null
     ): SVGGElement {
         if (style === undefined) {
             style = this.rect_style;
@@ -1134,7 +1134,7 @@ export class MemoryModel {
         if (isBoundingBox) {
             rectElement.setAttribute("id", `object-${this.objectCounter}`);
 
-            if (objectId !== null && objectId !== undefined) {
+            if (objectId !== null) {
                 rectElement.setAttribute(
                     MEMORY_VIZ_OBJECT_ID_ATTR,
                     objectId.toString()
