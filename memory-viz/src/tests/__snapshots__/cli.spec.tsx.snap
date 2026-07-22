@@ -97,7 +97,7 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -267,7 +267,7 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -437,7 +437,7 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -607,7 +607,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -777,7 +777,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -957,7 +957,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -1164,7 +1164,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -1334,7 +1334,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -1514,7 +1514,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -1684,7 +1684,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -1891,7 +1891,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -2061,7 +2061,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -2239,7 +2239,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -2409,7 +2409,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -2579,7 +2579,7 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
@@ -2749,7 +2749,7 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
 
       function buildIdToObjectMap(root) {
         const map = {};
-        root.querySelectorAll('[data-memory-viz-object-id]').forEach(el = & gt;
+        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
         {
           const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
           if (!map[idKey]) {
