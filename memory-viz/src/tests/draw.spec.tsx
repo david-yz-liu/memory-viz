@@ -1530,9 +1530,9 @@ describe("draw function", () => {
                 "mouseout",
                 "highlightObject",
                 "removeHighlight",
-                "document.querySelectorAll('text.id')",
-                "classList.add('highlighted')",
-                "classList.remove('highlighted')",
+                'querySelectorAll("text.id")',
+                'classList.add("highlighted")',
+                'classList.remove("highlighted")',
             ],
         },
         {
@@ -1555,8 +1555,8 @@ describe("draw function", () => {
             expected_substrings: [
                 "<script>",
                 "enableInteractivity",
-                "function buildIdToObjectMap(root)",
-                "const idToObjectMap = buildIdToObjectMap(document);",
+                "function buildIdToObjectMap(root, attr)",
+                `const idToObjectMap = buildIdToObjectMap(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}');`,
             ],
         },
         {
