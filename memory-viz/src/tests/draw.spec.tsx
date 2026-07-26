@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 import exports from "../index.js";
-import { MEMORY_VIZ_OBJECT_ID_ATTR } from "../memory_model.js";
+import { MEMORY_VIZ_OBJECT_ID_ATTR, extractIdValue } from "../memory_model.js";
 const { draw } = exports;
 
 describe("draw function", () => {
@@ -1492,11 +1492,7 @@ describe("draw function", () => {
         );
         expect(idTextElement).toBeDefined();
 
-        const textNode = Array.from(idTextElement!.childNodes).find(
-            (node) => node.nodeType === idTextElement!.ownerDocument!.TEXT_NODE
-        );
-        expect(textNode).toBeDefined();
-        expect(textNode!.nodeValue?.trim()).toBe("id13");
+        expect(extractIdValue(idTextElement!)).toBe("id13");
     });
 
     test.each<{

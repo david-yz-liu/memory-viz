@@ -2159,6 +2159,8 @@ export class MemoryModel {
 
                 ${removeHighlight.toString()}
 
+                ${extractIdValue.toString()}
+
                 ${attachIdHoverListeners.toString()}
 
                 const idToObjectMap = buildIdToObjectMap(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}');
@@ -2303,6 +2305,20 @@ function removeHighlight(
 }
 
 /**
+ * Extracts the trimmed id value (e.g. "id13") from a "text.id" element's
+ * first direct TEXT_NODE child.
+ * NOTE: this function's source is also injected into the script generated
+ * by setInteractivityScript()
+ * @param idText - a "text.id" element
+ */
+export function extractIdValue(idText: Element): string {
+    const textNode = Array.from(idText.childNodes).find(
+        (node) => node.nodeType === idText.ownerDocument?.TEXT_NODE
+    );
+    return textNode?.nodeValue?.trim() ?? "";
+}
+
+/**
  * Attaches mouseover/mouseout listeners to every "text.id" element within
  * root, highlighting/unhighlighting the corresponding object(s) looked up
  * via idToObjectMap.
@@ -2317,10 +2333,7 @@ function attachIdHoverListeners(
     idToObjectMap: Map<string, string[]>
 ): void {
     root.querySelectorAll("text.id").forEach((idText) => {
-        const textNode = Array.from(idText.childNodes).find(
-            (node) => node.nodeType === Node.TEXT_NODE
-        );
-        const idValue = textNode?.nodeValue?.trim() ?? "";
+        const idValue = extractIdValue(idText);
         const objectIds = idToObjectMap.get(idValue);
         if (!objectIds) {
             return;

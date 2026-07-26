@@ -1,5 +1,6 @@
 import { jest } from "@jest/globals";
 import React from "react";
+import { extractIdValue } from "../../../memory-viz/src/memory_model.js";
 // Paired with RealSvgDisplay so render() shares its react instance
 // otherwise, hooks throw "Invalid hook call" errors
 import {
@@ -39,12 +40,7 @@ const setIsValidJsonMock = jest.fn();
 // Helper function to find the text.id element corresponding to a given id value
 function getIdTextElement(root: Element, idValue: string): Element {
     const idTextElements = Array.from(root.querySelectorAll("text.id"));
-    const match = idTextElements.find((el) => {
-        const textNode = Array.from(el.childNodes).find(
-            (node) => node.nodeType === Node.TEXT_NODE
-        );
-        return textNode?.nodeValue?.trim() === idValue;
-    });
+    const match = idTextElements.find((el) => extractIdValue(el) === idValue);
     if (!match) {
         throw new Error(`Could not find text.id element for ${idValue}`);
     }

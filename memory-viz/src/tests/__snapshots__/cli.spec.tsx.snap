@@ -116,11 +116,15 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -267,11 +271,15 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -418,11 +426,15 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -569,11 +581,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -720,11 +736,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -881,11 +901,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -1069,11 +1093,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -1220,11 +1248,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -1381,11 +1413,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -1532,11 +1568,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -1720,11 +1760,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -1871,11 +1915,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -2030,11 +2078,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -2181,11 +2233,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -2332,11 +2388,15 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
@@ -2483,11 +2543,15 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
         root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
       }
 
+      function extractIdValue(idText) {
+        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+        return textNode?.nodeValue?.trim() ?? "";
+      }
+
       function attachIdHoverListeners(root, idToObjectMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === Node.TEXT_NODE);
-          const idValue = textNode?.nodeValue?.trim() ?? "";
+          const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
             return;
