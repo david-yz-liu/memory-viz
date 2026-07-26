@@ -2143,31 +2143,7 @@ export class MemoryModel {
             svgElement,
             MEMORY_VIZ_OBJECT_ID_ATTR
         );
-
-        svgElement.querySelectorAll("text.id").forEach((idText) => {
-            const textNode = Array.from(idText.childNodes).find(
-                (node) => node.nodeType === Node.TEXT_NODE
-            );
-            const idValue = textNode?.nodeValue?.trim() ?? "";
-            const objectIds = idToObjectMap.get(idValue);
-            if (!objectIds) {
-                return;
-            }
-            idText.addEventListener("mouseover", () => {
-                objectIds.forEach((objectId) => {
-                    svgElement
-                        .querySelector(`#${objectId}`)
-                        ?.classList.add("highlighted");
-                });
-            });
-            idText.addEventListener("mouseout", () => {
-                objectIds.forEach((objectId) => {
-                    svgElement
-                        .querySelector(`#${objectId}`)
-                        ?.classList.remove("highlighted");
-                });
-            });
-        });
+        attachIdHoverListeners(svgElement, idToObjectMap);
     }
 
     /**
@@ -2179,53 +2155,15 @@ export class MemoryModel {
 
                 ${buildIdToObjectMap.toString()}
 
+                ${highlightObject.toString()}
+
+                ${removeHighlight.toString()}
+
+                ${attachIdHoverListeners.toString()}
+
                 const idToObjectMap = buildIdToObjectMap(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}');
 
-                function highlightObject(objectId) {
-                    const objectBox = document.getElementById(objectId);
-                    if (!objectBox) {
-                        return;
-                    }
-
-                    objectBox.classList.add('highlighted');
-                }
-
-                function removeHighlight(objectId) {
-                    const objectBox = document.getElementById(objectId);
-                    if (!objectBox) {
-                        return;
-                    }
-
-                    objectBox.classList.remove('highlighted');
-                }
-
-                function addEventListeners() {
-                    document.querySelectorAll('text.id').forEach(idText => {
-                        const textNode = Array.from(idText.childNodes).find(
-                            node => node.nodeType === Node.TEXT_NODE
-                        );
-                        const idValue = textNode?.nodeValue?.trim() ?? '';
-                        if (!idValue) {
-                           return;
-                        }
-
-                        idText.addEventListener('mouseover', () => {
-                            const objectIds = idToObjectMap.get(idValue);
-                            if (objectIds) {
-                                objectIds.forEach(highlightObject);
-                            }
-                        });
-
-                        idText.addEventListener('mouseout', () => {
-                            const objectIds = idToObjectMap.get(idValue);
-                            if (objectIds) {
-                                objectIds.forEach(removeHighlight);
-                            }
-                        });
-                    });
-                }
-
-                addEventListeners();
+                attachIdHoverListeners(document, idToObjectMap);
             }
 
             // Wait for DOM to be ready
@@ -2331,6 +2269,69 @@ function buildIdToObjectMap(
         map.get(idKey)!.push(el.id);
     });
     return map;
+}
+
+/**
+ * Adds the "highlighted" class to the element with id objectId within root.
+ * NOTE: this function's source is also injected into the script generated
+ * by setInteractivityScript()
+ *
+ * @param root - the SVG element or Document containing the object
+ * @param objectId - the SVG element id of the object to highlight
+ */
+function highlightObject(
+    root: SVGSVGElement | Document,
+    objectId: string
+): void {
+    root.querySelector(`#${objectId}`)?.classList.add("highlighted");
+}
+
+/**
+ * Removes the "highlighted" class from the element with id objectId within
+ * root.
+ * NOTE: this function's source is also injected into the script generated
+ * by setInteractivityScript()
+ *
+ * @param root - the SVG element or Document containing the object
+ * @param objectId - the SVG element id of the object to unhighlight
+ */
+function removeHighlight(
+    root: SVGSVGElement | Document,
+    objectId: string
+): void {
+    root.querySelector(`#${objectId}`)?.classList.remove("highlighted");
+}
+
+/**
+ * Attaches mouseover/mouseout listeners to every "text.id" element within
+ * root, highlighting/unhighlighting the corresponding object(s) looked up
+ * via idToObjectMap.
+ * NOTE: this function's source is also injected into the script generated
+ * by setInteractivityScript()
+ *
+ * @param root - the SVG element or Document to search for "text.id" elements
+ * @param idToObjectMap - map from id value to SVG element ids
+ */
+function attachIdHoverListeners(
+    root: SVGSVGElement | Document,
+    idToObjectMap: Map<string, string[]>
+): void {
+    root.querySelectorAll("text.id").forEach((idText) => {
+        const textNode = Array.from(idText.childNodes).find(
+            (node) => node.nodeType === Node.TEXT_NODE
+        );
+        const idValue = textNode?.nodeValue?.trim() ?? "";
+        const objectIds = idToObjectMap.get(idValue);
+        if (!objectIds) {
+            return;
+        }
+        idText.addEventListener("mouseover", () => {
+            objectIds.forEach((objectId) => highlightObject(root, objectId));
+        });
+        idText.addEventListener("mouseout", () => {
+            objectIds.forEach((objectId) => removeHighlight(root, objectId));
+        });
+    });
 }
 
 /**
