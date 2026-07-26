@@ -22,6 +22,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### 🔧 Internal changes
 
 - Added `data-memory-viz-object-id` as a data attribute to each object's `<g>` tag and refactored `memory_model.ts` to remove the use of `idToObjectMap` attribute, replacing it with with separate Javascript code within the interactivity logic that dynamically builds the object ID map
+- Used the `toString()` method to convert the source code of the interactivity functions to strings for use in the embedded interactivity script, preventing code duplication
 
 ## [0.10.0] - 2026-07-15
 
