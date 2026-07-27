@@ -2285,7 +2285,7 @@ function highlightObject(
     root: SVGSVGElement | Document,
     objectId: string
 ): void {
-    root.querySelector(`#${objectId}`)?.classList.add("highlighted");
+    root.getElementById(objectId)?.classList.add("highlighted");
 }
 
 /**
@@ -2301,7 +2301,7 @@ function removeHighlight(
     root: SVGSVGElement | Document,
     objectId: string
 ): void {
-    root.querySelector(`#${objectId}`)?.classList.remove("highlighted");
+    root.getElementById(objectId)?.classList.remove("highlighted");
 }
 
 /**
