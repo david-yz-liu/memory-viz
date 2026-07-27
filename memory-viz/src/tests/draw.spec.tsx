@@ -1454,7 +1454,7 @@ describe("draw function", () => {
         const interactiveSvg: string = interactiveModel.serializeSVG();
 
         expect(interactiveSvg).toContain("<script>");
-        expect(interactiveSvg).toContain("enableInteractivity");
+        expect(interactiveSvg).toContain("attachInteractivity");
         expect(interactiveSvg).toContain("idToObjectMap");
         expect(interactiveSvg).toContain(".highlighted path {");
         expect(interactiveSvg).toContain("var(--highlight-object-fill)");
@@ -1470,7 +1470,7 @@ describe("draw function", () => {
         const nonInteractiveSvg: string = nonInteractiveModel.serializeSVG();
 
         expect(nonInteractiveSvg).not.toContain("<script>");
-        expect(nonInteractiveSvg).not.toContain("enableInteractivity");
+        expect(nonInteractiveSvg).not.toContain("attachInteractivity");
         expect(nonInteractiveSvg).not.toContain("cursor: pointer");
 
         expect(interactiveSvg).toMatchSnapshot();
@@ -1550,9 +1550,9 @@ describe("draw function", () => {
             input: [],
             expected_substrings: [
                 "<script>",
-                "enableInteractivity",
-                "function buildIdToObjectMap(root, attr)",
-                `const idToObjectMap = buildIdToObjectMap(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}');`,
+                "function attachInteractivity(",
+                "function buildIdToObjectMap(",
+                `attachInteractivity(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}');`,
             ],
         },
         {
@@ -1569,7 +1569,7 @@ describe("draw function", () => {
             expected_substrings: [
                 `${MEMORY_VIZ_OBJECT_ID_ATTR}="42"`,
                 `${MEMORY_VIZ_OBJECT_ID_ATTR}="99"`,
-                "enableInteractivity",
+                "attachInteractivity",
             ],
         },
         {
@@ -1626,7 +1626,7 @@ describe("draw function", () => {
 
         expect(darkSvg).toContain('data-theme="dark"');
         expect(darkSvg).toContain("--highlight-object-fill");
-        expect(darkSvg).toContain("enableInteractivity");
+        expect(darkSvg).toContain("attachInteractivity");
 
         const highContrastModel: InstanceType<typeof exports.MemoryModel> =
             draw(objects, {

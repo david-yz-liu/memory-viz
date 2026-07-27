@@ -93,8 +93,12 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -109,16 +113,11 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -139,17 +138,15 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -248,8 +245,12 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -264,16 +265,11 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -294,17 +290,15 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -403,8 +397,12 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -419,16 +417,11 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -449,17 +442,15 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -558,8 +549,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -574,16 +569,11 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -604,17 +594,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -713,8 +701,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -729,16 +721,11 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -759,17 +746,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -878,8 +863,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -894,16 +883,11 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -924,17 +908,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -1070,8 +1052,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -1086,16 +1072,11 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -1116,17 +1097,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -1225,8 +1204,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -1241,16 +1224,11 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -1271,17 +1249,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -1390,8 +1366,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -1406,16 +1386,11 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -1436,17 +1411,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -1545,8 +1518,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -1561,16 +1538,11 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -1591,17 +1563,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -1737,8 +1707,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -1753,16 +1727,11 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -1783,17 +1752,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -1892,8 +1859,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -1908,16 +1879,11 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -1938,17 +1904,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -2055,8 +2019,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -2071,16 +2039,11 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -2101,17 +2064,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -2210,8 +2171,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -2226,16 +2191,11 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -2256,17 +2216,15 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -2365,8 +2323,12 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -2381,16 +2343,11 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -2411,17 +2368,15 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -2520,8 +2475,12 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
         const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
@@ -2536,16 +2495,11 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
       }
 
       function highlightObject(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.add("highlighted");
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.querySelector(\`#\${objectId}\`)?.classList.remove("highlighted");
-      }
-
-      function extractIdValue(idText) {
-        const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-        return textNode?.nodeValue?.trim() ?? "";
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -2566,17 +2520,15 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
           });
         });
       }
-
-      const idToObjectMap = buildIdToObjectMap(document, 'data-memory-viz-object-id');
-
-      attachIdHoverListeners(document, idToObjectMap);
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
