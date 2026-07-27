@@ -307,6 +307,9 @@ importers:
       pretty-format:
         specifier: ^30.4.1
         version: 30.4.1
+      terser-webpack-plugin:
+        specifier: ^5.6.0
+        version: 5.6.0(webpack@5.106.2)
       tmp:
         specifier: ^0.2.7
         version: 0.2.7
@@ -13290,7 +13293,7 @@ snapshots:
       '@babel/core': 8.0.1
       find-up: 5.0.0
     optionalDependencies:
-      webpack: 5.106.2(postcss@8.5.14)(webpack-cli@7.1.0)
+      webpack: 5.106.2(webpack-cli@7.1.0)
 
   babel-loader@9.2.1(@babel/core@7.29.7)(webpack@5.106.2(postcss@8.5.14)):
     dependencies:
@@ -18844,7 +18847,7 @@ snapshots:
       import-local: 3.2.0
       interpret: 3.1.1
       rechoir: 0.8.0
-      webpack: 5.106.2(postcss@8.5.14)(webpack-cli@7.1.0)
+      webpack: 5.106.2(webpack-cli@7.1.0)
       webpack-merge: 6.0.1
     optionalDependencies:
       js-yaml: 4.1.1
@@ -18874,7 +18877,7 @@ snapshots:
       range-parser: 1.2.1
       schema-utils: 4.3.3
     optionalDependencies:
-      webpack: 5.106.2(postcss@8.5.14)(webpack-cli@7.1.0)
+      webpack: 5.106.2(webpack-cli@7.1.0)
     transitivePeerDependencies:
       - tslib
     optional: true
@@ -18949,7 +18952,7 @@ snapshots:
       webpack-dev-middleware: 7.4.5(webpack@5.106.2)
       ws: 8.20.1
     optionalDependencies:
-      webpack: 5.106.2(postcss@8.5.14)(webpack-cli@7.1.0)
+      webpack: 5.106.2(webpack-cli@7.1.0)
       webpack-cli: 7.1.0(js-yaml@4.1.1)(json5@2.2.3)(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@5.2.4)(webpack@5.106.2)
     transitivePeerDependencies:
       - bufferutil
