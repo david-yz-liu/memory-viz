@@ -95,29 +95,29 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -126,20 +126,20 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -247,29 +247,29 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -278,20 +278,20 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -399,29 +399,29 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -430,20 +430,20 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -551,29 +551,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -582,20 +582,20 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -703,29 +703,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -734,20 +734,20 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -865,29 +865,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -896,20 +896,20 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -1054,29 +1054,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -1085,20 +1085,20 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -1206,29 +1206,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -1237,20 +1237,20 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -1368,29 +1368,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -1399,20 +1399,20 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -1520,29 +1520,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -1551,20 +1551,20 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -1709,29 +1709,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -1740,20 +1740,20 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -1861,29 +1861,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -1892,20 +1892,20 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -2021,29 +2021,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -2052,20 +2052,20 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -2173,29 +2173,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -2204,20 +2204,20 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -2325,29 +2325,29 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -2356,20 +2356,20 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
@@ -2477,29 +2477,29 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
   <script>
     function extractIdValue(idText) {
       const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
-      return textNode?.nodeValue?.trim() ?? ""
+      return textNode?.nodeValue?.trim() ?? "";
     }
 
     function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
       function buildIdToObjectMap(root, attr) {
-        const map = new Map;
+        const map = new Map();
         root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
           const idKey = \`id\${el.getAttribute(attr)}\`;
           if (!map.has(idKey)) {
-            map.set(idKey, [])
+            map.set(idKey, []);
           }
-          map.get(idKey).push(el.id)
+          map.get(idKey).push(el.id);
         });
-        return map
+        return map;
       }
 
       function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted")
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
       function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted")
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
       function attachIdHoverListeners(root, idToObjectMap) {
@@ -2508,20 +2508,20 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
           const idValue = extractIdValue(idText);
           const objectIds = idToObjectMap.get(idValue);
           if (!objectIds) {
-            return
+            return;
           }
           idText.addEventListener("mouseover", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId))
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
           idText.addEventListener("mouseout", () = & gt;
           {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId))
-          })
-        })
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
+          });
+        });
       }
       const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap)
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
