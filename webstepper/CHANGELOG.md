@@ -21,6 +21,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🔧 Internal changes
 
+- Eagerly load English translation file to build a single bundled file. Will need to modify in the future to support multiple locales.
+
 ## [0.10.0] - 2026-07-15
 
 ### ✨ Enhancements
