@@ -23,7 +23,7 @@ jobs:
             - name: Install packages
               run: pnpm install --frozen-lockfile
             - name: Compile JavaScript assets
-              run: pnpm --filter memory-viz run build
+              run: pnpm --filter memory-viz run build-dev
             - name: Run jest tests
               run: pnpm run test-cov
             - name: Coveralls (jest)

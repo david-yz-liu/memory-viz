@@ -24,7 +24,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added `data-memory-viz-object-id` as a data attribute to each object's `<g>` tag and refactored `memory_model.ts` to remove the use of `idToObjectMap` attribute, replacing it with with separate Javascript code within the interactivity logic that dynamically builds the object ID map
 - Used the `toString()` method to convert the source code of the interactivity functions to strings for use in the embedded interactivity script, preventing code duplication
 - Switched Jest's `coverageProvider` from `babel` to `v8`, since Babel's coverage instrumentation was inserting tracking code into the interactivity functions' source, corrupting the embedded `toString()` output
-- Disabled Terser's `mangle` and `compress` options for the CLI's production webpack build, since minification was rewriting the interactivity functions' source
+- Changed CI to build `memory-viz` with `build-dev` instead of `build` before running jest tests, since production minification corrupted the embedded `toString()` output
 
 ## [0.10.0] - 2026-07-15
 
