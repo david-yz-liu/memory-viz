@@ -24,7 +24,6 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const containerRef = useRef<HTMLDivElement>(null);
     const transformRef = useRef<ReactZoomPanPinchContentRef>(null);
     const canvasWidth = props.memoryVizData.configuration?.width ?? 1300;
-
     useEffect(() => {
         if (props.memoryVizData.memoryVizInput && containerRef.current) {
             try {
