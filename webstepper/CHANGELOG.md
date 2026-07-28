@@ -11,7 +11,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
-- Added saved transformation state in `SvgDisplay`, so moving between steps doesn't reset its camera position
+- Removed resetting transformation state in `SvgDisplay`, so moving between steps doesn't move the camera's position
 - Added resizable panels using the new `react-resizable-panels` dependency
 
 ### 🐛 Bug fixes
