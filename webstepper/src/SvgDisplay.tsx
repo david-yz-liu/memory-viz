@@ -24,13 +24,6 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
     const containerRef = useRef<HTMLDivElement>(null);
     const transformRef = useRef<ReactZoomPanPinchContentRef>(null);
     const canvasWidth = props.memoryVizData.configuration?.width ?? 1300;
-    const savedTransform = transformRef.current
-        ? {
-              positionX: transformRef.current.state.positionX,
-              positionY: transformRef.current.state.positionY,
-              scale: transformRef.current.state.scale,
-          }
-        : { positionX: 0, positionY: 0, scale: 1 };
 
     useEffect(() => {
         if (props.memoryVizData.memoryVizInput && containerRef.current) {
@@ -52,14 +45,6 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                 containerRef.current.replaceChildren(svgElement);
 
                 m.attachInteractivity(svgElement);
-
-                // reset zoom and pan to default when redrawing
-                transformRef.current?.setTransform(
-                    savedTransform.positionX,
-                    savedTransform.positionY,
-                    savedTransform.scale,
-                    0
-                );
             } catch (error) {
                 console.error(error);
             }
