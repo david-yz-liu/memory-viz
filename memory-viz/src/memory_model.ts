@@ -2133,117 +2133,88 @@ export class MemoryModel {
     }
 
     /**
-     * Attach real hover-highlight listeners to a live SVG element
+     * Attach hover-highlight listeners to a live SVG element or Document.
      * Necessary because <script> tags embedded via setInteractivityScript()
      * never execute once parsed/inserted this way.
-     * NOTE: duplicates the highlighting logic in setInteractivityScript()'s
-     * embedded script; keep the two in sync.
-     * @param svgElement - the live SVG element to attach listeners to
+     * NOTE: this method's source is also injected into the script generated
+     * by setInteractivityScript()
+     * @param root - the SVG element or Document to attach listeners to
+     * @param attr - the attribute name identifying an object's id
      */
-    attachInteractivity(svgElement: SVGSVGElement): void {
-        const idToObjectMap = buildIdToObjectMap(svgElement);
+    attachInteractivity(
+        root: SVGSVGElement | Document,
+        attr: string = MEMORY_VIZ_OBJECT_ID_ATTR
+    ): void {
+        function buildIdToObjectMap(
+            root: SVGSVGElement | Document,
+            attr: string
+        ): Map<string, string[]> {
+            const map = new Map<string, string[]>();
+            root.querySelectorAll(`g[${attr}]`).forEach((el) => {
+                const idKey = `id${el.getAttribute(attr)}`;
+                if (!map.has(idKey)) {
+                    map.set(idKey, []);
+                }
+                map.get(idKey)!.push(el.id);
+            });
+            return map;
+        }
 
-        svgElement.querySelectorAll("text.id").forEach((idText) => {
-            const textNode = Array.from(idText.childNodes).find(
-                (node) => node.nodeType === Node.TEXT_NODE
-            );
-            const idValue = textNode?.nodeValue?.trim() ?? "";
-            const objectIds = idToObjectMap.get(idValue);
-            if (!objectIds) {
-                return;
-            }
-            idText.addEventListener("mouseover", () => {
-                objectIds.forEach((objectId) => {
-                    svgElement
-                        .querySelector(`#${objectId}`)
-                        ?.classList.add("highlighted");
+        function highlightObject(
+            root: SVGSVGElement | Document,
+            objectId: string
+        ): void {
+            root.getElementById(objectId)?.classList.add("highlighted");
+        }
+
+        function removeHighlight(
+            root: SVGSVGElement | Document,
+            objectId: string
+        ): void {
+            root.getElementById(objectId)?.classList.remove("highlighted");
+        }
+
+        function attachIdHoverListeners(
+            root: SVGSVGElement | Document,
+            idToObjectMap: Map<string, string[]>
+        ): void {
+            root.querySelectorAll("text.id").forEach((idText) => {
+                const idValue = extractIdValue(idText);
+                const objectIds = idToObjectMap.get(idValue);
+                if (!objectIds) {
+                    return;
+                }
+                idText.addEventListener("mouseover", () => {
+                    objectIds.forEach((objectId) =>
+                        highlightObject(root, objectId)
+                    );
+                });
+                idText.addEventListener("mouseout", () => {
+                    objectIds.forEach((objectId) =>
+                        removeHighlight(root, objectId)
+                    );
                 });
             });
-            idText.addEventListener("mouseout", () => {
-                objectIds.forEach((objectId) => {
-                    svgElement
-                        .querySelector(`#${objectId}`)
-                        ?.classList.remove("highlighted");
-                });
-            });
-        });
+        }
+
+        const idToObjectMap = buildIdToObjectMap(root, attr);
+        attachIdHoverListeners(root, idToObjectMap);
     }
 
     /**
      * Add hover interactivity to the SVG on object IDs
-     * NOTE: duplicates the highlighting logic in attachInteractivity(); keep
-     * the two in sync.
      */
     setInteractivityScript(): void {
         const script = `
-            function enableInteractivity() {
+            ${extractIdValue.toString()}
 
-                function buildIdToObjectMap(root) {
-                    const map = {};
-                    root.querySelectorAll('g[${MEMORY_VIZ_OBJECT_ID_ATTR}]').forEach(el => {
-                        const idKey = 'id' + el.getAttribute('${MEMORY_VIZ_OBJECT_ID_ATTR}');
-                        if (!map[idKey]) {
-                            map[idKey] = [];
-                        }
-                        map[idKey].push(el.id);
-                    });
-                    return map;
-                }
-
-                const idToObjectMap = buildIdToObjectMap(document);
-
-                function highlightObject(objectId) {
-                    const objectBox = document.getElementById(objectId);
-                    if (!objectBox) {
-                        return;
-                    }
-
-                    objectBox.classList.add('highlighted');
-                }
-
-                function removeHighlight(objectId) {
-                    const objectBox = document.getElementById(objectId);
-                    if (!objectBox) {
-                        return;
-                    }
-
-                    objectBox.classList.remove('highlighted');
-                }
-
-                function addEventListeners() {
-                    document.querySelectorAll('text.id').forEach(idText => {
-                        const textNode = Array.from(idText.childNodes).find(
-                            node => node.nodeType === Node.TEXT_NODE
-                        );
-                        const idValue = textNode?.nodeValue?.trim() ?? '';
-                        if (!idValue) {
-                           return;
-                        }
-
-                        idText.addEventListener('mouseover', () => {
-                            const objectIds = idToObjectMap[idValue];
-                            if (objectIds) {
-                                objectIds.forEach(highlightObject);
-                            }
-                        });
-
-                        idText.addEventListener('mouseout', () => {
-                            const objectIds = idToObjectMap[idValue];
-                            if (objectIds) {
-                                objectIds.forEach(removeHighlight);
-                            }
-                        });
-                    });
-                }
-
-                addEventListeners();
-            }
+            function ${this.attachInteractivity.toString()}
 
             // Wait for DOM to be ready
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', enableInteractivity);
+                document.addEventListener('DOMContentLoaded', () => attachInteractivity(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}'));
             } else {
-                enableInteractivity();
+                attachInteractivity(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}');
             }
         `;
 
@@ -2320,23 +2291,17 @@ export class MemoryModel {
 }
 
 /**
- * Builds a mapping from id value (e.g. "id13") to the SVG element ids of the
- * object(s) representing it, by reading the data-memory-viz-object-id
- * attribute off each object's <g> tag within root.
- * NOTE: duplicates the map-building logic embedded as a JS string in
- * MemoryModel.setInteractivityScript(); keep the two in sync.
- * @param root - the SVG element to search for tagged object <g>s
+ * Extracts the trimmed id value (e.g. "id13") from a "text.id" element's
+ * first direct TEXT_NODE child.
+ * NOTE: this function's source is also injected into the script generated
+ * by setInteractivityScript()
+ * @param idText - a "text.id" element
  */
-function buildIdToObjectMap(root: SVGSVGElement): Map<string, string[]> {
-    const map = new Map<string, string[]>();
-    root.querySelectorAll(`g[${MEMORY_VIZ_OBJECT_ID_ATTR}]`).forEach((el) => {
-        const idKey = `id${el.getAttribute(MEMORY_VIZ_OBJECT_ID_ATTR)}`;
-        if (!map.has(idKey)) {
-            map.set(idKey, []);
-        }
-        map.get(idKey)!.push(el.id);
-    });
-    return map;
+export function extractIdValue(idText: Element): string {
+    const textNode = Array.from(idText.childNodes).find(
+        (node) => node.nodeType === idText.ownerDocument?.TEXT_NODE
+    );
+    return textNode?.nodeValue?.trim() ?? "";
 }
 
 /**
