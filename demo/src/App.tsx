@@ -81,40 +81,42 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
     };
 
     return (
-        <main className="container">
+        <>
             <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-            <Group orientation="horizontal">
-                <Panel className="input-pane" defaultSize="40%">
-                    <Typography variant="h2" color="textPrimary">
-                        {t("input.title")}
-                    </Typography>
-                    <MemoryModelsUserInput
-                        textData={textData}
-                        setTextData={setTextData}
-                        configData={configData}
-                        setConfigData={setConfigData}
-                        failureBanner={failureBanner}
-                        setFailureBanner={setFailureBanner}
-                        isValidJson={isValidJson}
-                        onInputChange={onInputChange}
-                    />
-                </Panel>
-                <Separator className="separator" disableDoubleClick />
-                <Panel className="result-pane" defaultSize="60%">
-                    <Typography variant="h2" color="textPrimary">
-                        {t("output.title")}
-                    </Typography>
-                    <SvgDisplay
-                        jsonResult={jsonResult}
-                        configData={configData}
-                        setSvgResult={setSvgResult}
-                        setFailureBanner={setFailureBanner}
-                        setIsValidJson={setIsValidJson}
-                        isDarkMode={isDarkMode}
-                    />
-                    <DownloadSVGButton svgResult={svgResult} />
-                </Panel>
-            </Group>
-        </main>
+            <main className="container-fluid">
+                <Group orientation="horizontal">
+                    <Panel className="input-pane" defaultSize="40%">
+                        <Typography variant="h2" color="textPrimary">
+                            {t("input.title")}
+                        </Typography>
+                        <MemoryModelsUserInput
+                            textData={textData}
+                            setTextData={setTextData}
+                            configData={configData}
+                            setConfigData={setConfigData}
+                            failureBanner={failureBanner}
+                            setFailureBanner={setFailureBanner}
+                            isValidJson={isValidJson}
+                            onInputChange={onInputChange}
+                        />
+                    </Panel>
+                    <Separator className="separator" disableDoubleClick />
+                    <Panel className="result-pane" defaultSize="60%">
+                        <Typography variant="h2" color="textPrimary">
+                            {t("output.title")}
+                        </Typography>
+                        <SvgDisplay
+                            jsonResult={jsonResult}
+                            configData={configData}
+                            setSvgResult={setSvgResult}
+                            setFailureBanner={setFailureBanner}
+                            setIsValidJson={setIsValidJson}
+                            isDarkMode={isDarkMode}
+                        />
+                        <DownloadSVGButton svgResult={svgResult} />
+                    </Panel>
+                </Group>
+            </main>
+        </>
     );
 }
