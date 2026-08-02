@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { Group, Panel, Separator } from "react-resizable-panels";
 import { useTranslation } from "react-i18next";
 import { useDebounce } from "use-debounce";
@@ -85,35 +85,39 @@ export default function App({ isDarkMode, toggleTheme }: AppProps) {
             <Header isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
             <main className="container-fluid">
                 <Group orientation="horizontal">
-                    <Panel className="input-pane" defaultSize="40%">
-                        <Typography variant="h2" color="textPrimary">
-                            {t("input.title")}
-                        </Typography>
-                        <MemoryModelsUserInput
-                            textData={textData}
-                            setTextData={setTextData}
-                            configData={configData}
-                            setConfigData={setConfigData}
-                            failureBanner={failureBanner}
-                            setFailureBanner={setFailureBanner}
-                            isValidJson={isValidJson}
-                            onInputChange={onInputChange}
-                        />
+                    <Panel defaultSize="40%">
+                        <Stack direction="column" sx={{ height: "100%" }}>
+                            <Typography variant="h2" color="textPrimary">
+                                {t("input.title")}
+                            </Typography>
+                            <MemoryModelsUserInput
+                                textData={textData}
+                                setTextData={setTextData}
+                                configData={configData}
+                                setConfigData={setConfigData}
+                                failureBanner={failureBanner}
+                                setFailureBanner={setFailureBanner}
+                                isValidJson={isValidJson}
+                                onInputChange={onInputChange}
+                            />
+                        </Stack>
                     </Panel>
                     <Separator className="separator" disableDoubleClick />
-                    <Panel className="result-pane" defaultSize="60%">
-                        <Typography variant="h2" color="textPrimary">
-                            {t("output.title")}
-                        </Typography>
-                        <SvgDisplay
-                            jsonResult={jsonResult}
-                            configData={configData}
-                            setSvgResult={setSvgResult}
-                            setFailureBanner={setFailureBanner}
-                            setIsValidJson={setIsValidJson}
-                            isDarkMode={isDarkMode}
-                        />
-                        <DownloadSVGButton svgResult={svgResult} />
+                    <Panel defaultSize="60%">
+                        <Stack direction="column" sx={{ height: "100%" }}>
+                            <Typography variant="h2" color="textPrimary">
+                                {t("output.title")}
+                            </Typography>
+                            <SvgDisplay
+                                jsonResult={jsonResult}
+                                configData={configData}
+                                setSvgResult={setSvgResult}
+                                setFailureBanner={setFailureBanner}
+                                setIsValidJson={setIsValidJson}
+                                isDarkMode={isDarkMode}
+                            />
+                            <DownloadSVGButton svgResult={svgResult} />
+                        </Stack>
                     </Panel>
                 </Group>
             </main>

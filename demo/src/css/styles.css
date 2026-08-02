@@ -46,6 +46,16 @@ input[type="number"]::-webkit-outer-spin-button {
     min-width: 0;
 }
 
+.svg-display {
+    flex: 1;
+    margin-bottom: 1rem;
+}
+
+.react-transform-wrapper {
+    height: 100%;
+    width: 100%;
+}
+
 .separator {
     background-color: var(--separator-color);
     cursor: col-resize;
