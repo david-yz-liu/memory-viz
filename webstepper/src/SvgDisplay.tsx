@@ -44,9 +44,6 @@ export default function SvgDisplay(props: SvgDisplayPropTypes) {
                 containerRef.current.replaceChildren(svgElement);
 
                 m.attachInteractivity(svgElement);
-
-                // reset zoom and pan to default when redrawing
-                transformRef.current?.setTransform(0, 0, 1, 0);
             } catch (error) {
                 console.error(error);
             }
