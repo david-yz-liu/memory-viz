@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 import exports from "../index.js";
-import { MEMORY_VIZ_OBJECT_ID_ATTR } from "../memory_model.js";
+import { MEMORY_VIZ_OBJECT_ID_ATTR, extractIdValue } from "../memory_model.js";
 const { draw } = exports;
 
 describe("draw function", () => {
@@ -1454,7 +1454,7 @@ describe("draw function", () => {
         const interactiveSvg: string = interactiveModel.serializeSVG();
 
         expect(interactiveSvg).toContain("<script>");
-        expect(interactiveSvg).toContain("enableInteractivity");
+        expect(interactiveSvg).toContain("attachInteractivity");
         expect(interactiveSvg).toContain("idToObjectMap");
         expect(interactiveSvg).toContain(".highlighted path {");
         expect(interactiveSvg).toContain("var(--highlight-object-fill)");
@@ -1470,7 +1470,7 @@ describe("draw function", () => {
         const nonInteractiveSvg: string = nonInteractiveModel.serializeSVG();
 
         expect(nonInteractiveSvg).not.toContain("<script>");
-        expect(nonInteractiveSvg).not.toContain("enableInteractivity");
+        expect(nonInteractiveSvg).not.toContain("attachInteractivity");
         expect(nonInteractiveSvg).not.toContain("cursor: pointer");
 
         expect(interactiveSvg).toMatchSnapshot();
@@ -1492,11 +1492,7 @@ describe("draw function", () => {
         );
         expect(idTextElement).toBeDefined();
 
-        const textNode = Array.from(idTextElement!.childNodes).find(
-            (node) => node.nodeType === idTextElement!.ownerDocument!.TEXT_NODE
-        );
-        expect(textNode).toBeDefined();
-        expect(textNode!.nodeValue?.trim()).toBe("id13");
+        expect(extractIdValue(idTextElement!)).toBe("id13");
     });
 
     test.each<{
@@ -1530,9 +1526,9 @@ describe("draw function", () => {
                 "mouseout",
                 "highlightObject",
                 "removeHighlight",
-                "document.querySelectorAll('text.id')",
-                "classList.add('highlighted')",
-                "classList.remove('highlighted')",
+                'querySelectorAll("text.id")',
+                'classList.add("highlighted")',
+                'classList.remove("highlighted")',
             ],
         },
         {
@@ -1554,9 +1550,9 @@ describe("draw function", () => {
             input: [],
             expected_substrings: [
                 "<script>",
-                "enableInteractivity",
-                "function buildIdToObjectMap(root)",
-                "const idToObjectMap = buildIdToObjectMap(document);",
+                "function attachInteractivity(",
+                "function buildIdToObjectMap(",
+                `attachInteractivity(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}');`,
             ],
         },
         {
@@ -1573,7 +1569,7 @@ describe("draw function", () => {
             expected_substrings: [
                 `${MEMORY_VIZ_OBJECT_ID_ATTR}="42"`,
                 `${MEMORY_VIZ_OBJECT_ID_ATTR}="99"`,
-                "enableInteractivity",
+                "attachInteractivity",
             ],
         },
         {
@@ -1630,7 +1626,7 @@ describe("draw function", () => {
 
         expect(darkSvg).toContain('data-theme="dark"');
         expect(darkSvg).toContain("--highlight-object-fill");
-        expect(darkSvg).toContain("enableInteractivity");
+        expect(darkSvg).toContain("attachInteractivity");
 
         const highContrastModel: InstanceType<typeof exports.MemoryModel> =
             draw(objects, {

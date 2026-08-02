@@ -93,78 +93,60 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -263,78 +245,60 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -433,78 +397,60 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -603,78 +549,60 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -773,78 +701,60 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -953,78 +863,60 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -1160,78 +1052,60 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -1330,78 +1204,60 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -1510,78 +1366,60 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -1680,78 +1518,60 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -1887,78 +1707,60 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -2057,78 +1859,60 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -2235,78 +2019,60 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -2405,78 +2171,60 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -2575,78 +2323,60 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>
@@ -2745,78 +2475,60 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
     </g>
   </g>
   <script>
-    function enableInteractivity() {
+    function extractIdValue(idText) {
+      const textNode = Array.from(idText.childNodes).find(node = & gt; node.nodeType === idText.ownerDocument?.TEXT_NODE);
+      return textNode?.nodeValue?.trim() ?? "";
+    }
 
-      function buildIdToObjectMap(root) {
-        const map = {};
-        root.querySelectorAll('g[data-memory-viz-object-id]').forEach(el = & gt;
+    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
+      function buildIdToObjectMap(root, attr) {
+        const map = new Map();
+        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
         {
-          const idKey = 'id' + el.getAttribute('data-memory-viz-object-id');
-          if (!map[idKey]) {
-            map[idKey] = [];
+          const idKey = \`id\${el.getAttribute(attr)}\`;
+          if (!map.has(idKey)) {
+            map.set(idKey, []);
           }
-          map[idKey].push(el.id);
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      const idToObjectMap = buildIdToObjectMap(document);
-
-      function highlightObject(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.add('highlighted');
+      function highlightObject(root, objectId) {
+        root.getElementById(objectId)?.classList.add("highlighted");
       }
 
-      function removeHighlight(objectId) {
-        const objectBox = document.getElementById(objectId);
-        if (!objectBox) {
-          return;
-        }
-
-        objectBox.classList.remove('highlighted');
+      function removeHighlight(root, objectId) {
+        root.getElementById(objectId)?.classList.remove("highlighted");
       }
 
-      function addEventListeners() {
-        document.querySelectorAll('text.id').forEach(idText = & gt;
+      function attachIdHoverListeners(root, idToObjectMap) {
+        root.querySelectorAll("text.id").forEach(idText = & gt;
         {
-          const textNode = Array.from(idText.childNodes).find(
-            node = & gt; node.nodeType === Node.TEXT_NODE
-          );
-          const idValue = textNode?.nodeValue?.trim() ?? '';
-          if (!idValue) {
+          const idValue = extractIdValue(idText);
+          const objectIds = idToObjectMap.get(idValue);
+          if (!objectIds) {
             return;
           }
-
-          idText.addEventListener('mouseover', () = & gt;
+          idText.addEventListener("mouseover", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(highlightObject);
-            }
+            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
           });
-
-          idText.addEventListener('mouseout', () = & gt;
+          idText.addEventListener("mouseout", () = & gt;
           {
-            const objectIds = idToObjectMap[idValue];
-            if (objectIds) {
-              objectIds.forEach(removeHighlight);
-            }
+            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
           });
         });
       }
-
-      addEventListeners();
+      const idToObjectMap = buildIdToObjectMap(root, attr);
+      attachIdHoverListeners(root, idToObjectMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', enableInteractivity);
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
     } else {
-      enableInteractivity();
+      attachInteractivity(document, 'data-memory-viz-object-id');
     }
   </script>
 </svg>

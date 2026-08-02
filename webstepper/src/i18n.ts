@@ -16,7 +16,9 @@ const webpackBackend = {
         namespace: string,
         callback: (error: unknown, translations: unknown) => void
     ) => {
-        import(`./locales/${language}/${namespace}.json`)
+        import(
+            /* webpackMode: "eager" */ `./locales/${language}/${namespace}.json`
+        )
             .then((resources) => {
                 callback(null, resources.default || resources);
             })
