@@ -2,7 +2,11 @@
  * @jest-environment jsdom
  */
 import exports from "../index.js";
-import { MemoryModel, MEMORY_VIZ_OBJECT_ID_ATTR } from "../memory_model.js";
+import {
+    MemoryModel,
+    MEMORY_VIZ_OBJECT_ID_ATTR,
+    extractIdValue,
+} from "../memory_model.js";
 
 const { draw } = exports;
 
@@ -27,12 +31,7 @@ function renderInteractiveSVG(model: MemoryModel): SVGSVGElement {
 // Helper function to find the text.id element corresponding to a given id value
 function getIdTextElement(svg: SVGSVGElement, idValue: string): SVGTextElement {
     const idTextElements = Array.from(svg.querySelectorAll("text.id"));
-    const match = idTextElements.find((el) => {
-        const textNode = Array.from(el.childNodes).find(
-            (node) => node.nodeType === Node.TEXT_NODE
-        );
-        return textNode?.nodeValue?.trim() === idValue;
-    });
+    const match = idTextElements.find((el) => extractIdValue(el) === idValue);
     if (!match) {
         throw new Error(`Could not find text.id element for ${idValue}`);
     }

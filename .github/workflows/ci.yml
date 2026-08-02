@@ -16,14 +16,14 @@ jobs:
             - name: Set up pnpm
               uses: pnpm/action-setup@v6
             - name: Set up node and cache packages
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: 24
                   cache: pnpm
             - name: Install packages
               run: pnpm install --frozen-lockfile
             - name: Compile JavaScript assets
-              run: pnpm --filter memory-viz run build
+              run: pnpm --filter memory-viz run build-dev
             - name: Run jest tests
               run: pnpm run test-cov
             - name: Coveralls (jest)
@@ -40,7 +40,7 @@ jobs:
             - name: Set up pnpm
               uses: pnpm/action-setup@v6
             - name: Set up node and cache packages
-              uses: actions/setup-node@v6
+              uses: actions/setup-node@v7
               with:
                   node-version: 24
                   cache: pnpm
