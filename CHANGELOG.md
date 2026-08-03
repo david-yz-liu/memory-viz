@@ -11,6 +11,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+- Added highlighting all occurances of an id with the same value as the id hovered over to the hover interactivity feature
+
 ### 🐛 Bug fixes
 
 ### 📚 Documentation and demo website changes
