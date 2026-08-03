@@ -36,6 +36,7 @@ import type { Config, Options } from "roughjs/bin/core.js";
 import type * as CSS from "csstype";
 
 export const MEMORY_VIZ_OBJECT_ID_ATTR = "data-memory-viz-object-id";
+export const MEMORY_VIZ_ID_VALUE_ATTR = "data-memory-viz-id-value";
 
 /** The class representing the memory model diagram of the given block of code. */
 export class MemoryModel {
@@ -621,6 +622,9 @@ export class MemoryModel {
                 svg_group,
                 element_box_style
             );
+            if (idv !== "") {
+                item_rect.setAttribute(MEMORY_VIZ_ID_VALUE_ATTR, idv);
+            }
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
@@ -766,6 +770,9 @@ export class MemoryModel {
                 svg_group,
                 element_box_style
             );
+            if (idv !== "") {
+                item_rect.setAttribute(MEMORY_VIZ_ID_VALUE_ATTR, idv);
+            }
             this.drawText(
                 idv,
                 curr_x + item_length / 2,
@@ -902,6 +909,9 @@ export class MemoryModel {
                 svg_group,
                 key_box_style
             );
+            if (idk !== "") {
+                key_rect.setAttribute(MEMORY_VIZ_ID_VALUE_ATTR, idk);
+            }
 
             this.drawText(
                 idk,
@@ -941,6 +951,9 @@ export class MemoryModel {
                 svg_group,
                 value_box_style
             );
+            if (idv !== "") {
+                value_rect.setAttribute(MEMORY_VIZ_ID_VALUE_ATTR, idv);
+            }
 
             this.drawText(
                 ":",
@@ -1073,6 +1086,9 @@ export class MemoryModel {
                     this.item_min_height,
                     svg_group
                 );
+                if (idv !== "") {
+                    value_rect.setAttribute(MEMORY_VIZ_ID_VALUE_ATTR, idv);
+                }
 
                 this.drawText(
                     idv,
@@ -2139,66 +2155,59 @@ export class MemoryModel {
      * NOTE: this method's source is also injected into the script generated
      * by setInteractivityScript()
      * @param root - the SVG element or Document to attach listeners to
-     * @param attr - the attribute name identifying an object's id
+     * @param objectIdAttr - the attribute name identifying an object's bounding box by id
+     * @param idValueAttr - the attribute name identifying the id value displayed by an id box
      */
     attachInteractivity(
         root: SVGSVGElement | Document,
-        attr: string = MEMORY_VIZ_OBJECT_ID_ATTR
+        objectIdAttr: string = MEMORY_VIZ_OBJECT_ID_ATTR,
+        idValueAttr: string = MEMORY_VIZ_ID_VALUE_ATTR
     ): void {
-        function buildIdToObjectMap(
-            root: SVGSVGElement | Document,
-            attr: string
-        ): Map<string, string[]> {
-            const map = new Map<string, string[]>();
-            root.querySelectorAll(`g[${attr}]`).forEach((el) => {
-                const idKey = `id${el.getAttribute(attr)}`;
+        function buildIdToElementsMap(): Map<string, Element[]> {
+            const map = new Map<string, Element[]>();
+            const addToMap = (idKey: string, el: Element): void => {
                 if (!map.has(idKey)) {
                     map.set(idKey, []);
                 }
-                map.get(idKey)!.push(el.id);
+                map.get(idKey)!.push(el);
+            };
+            root.querySelectorAll(`g[${objectIdAttr}]`).forEach((el) => {
+                addToMap(`id${el.getAttribute(objectIdAttr)}`, el);
+            });
+            root.querySelectorAll(`g[${idValueAttr}]`).forEach((el) => {
+                addToMap(el.getAttribute(idValueAttr)!, el);
             });
             return map;
         }
 
-        function highlightObject(
-            root: SVGSVGElement | Document,
-            objectId: string
-        ): void {
-            root.getElementById(objectId)?.classList.add("highlighted");
+        function highlightObject(elements: Element[]): void {
+            elements.forEach((el) => el.classList.add("highlighted"));
         }
 
-        function removeHighlight(
-            root: SVGSVGElement | Document,
-            objectId: string
-        ): void {
-            root.getElementById(objectId)?.classList.remove("highlighted");
+        function removeHighlight(elements: Element[]): void {
+            elements.forEach((el) => el.classList.remove("highlighted"));
         }
 
         function attachIdHoverListeners(
-            root: SVGSVGElement | Document,
-            idToObjectMap: Map<string, string[]>
+            idToElementsMap: Map<string, Element[]>
         ): void {
             root.querySelectorAll("text.id").forEach((idText) => {
                 const idValue = extractIdValue(idText);
-                const objectIds = idToObjectMap.get(idValue);
-                if (!objectIds) {
+                const elements = idToElementsMap.get(idValue);
+                if (!elements) {
                     return;
                 }
-                idText.addEventListener("mouseover", () => {
-                    objectIds.forEach((objectId) =>
-                        highlightObject(root, objectId)
-                    );
-                });
-                idText.addEventListener("mouseout", () => {
-                    objectIds.forEach((objectId) =>
-                        removeHighlight(root, objectId)
-                    );
-                });
+                idText.addEventListener("mouseover", () =>
+                    highlightObject(elements)
+                );
+                idText.addEventListener("mouseout", () =>
+                    removeHighlight(elements)
+                );
             });
         }
 
-        const idToObjectMap = buildIdToObjectMap(root, attr);
-        attachIdHoverListeners(root, idToObjectMap);
+        const idToElementsMap = buildIdToElementsMap();
+        attachIdHoverListeners(idToElementsMap);
     }
 
     /**
@@ -2212,9 +2221,9 @@ export class MemoryModel {
 
             // Wait for DOM to be ready
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => attachInteractivity(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}'));
+                document.addEventListener('DOMContentLoaded', () => attachInteractivity(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}', '${MEMORY_VIZ_ID_VALUE_ATTR}'));
             } else {
-                attachInteractivity(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}');
+                attachInteractivity(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}', '${MEMORY_VIZ_ID_VALUE_ATTR}');
             }
         `;
 
