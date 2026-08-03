@@ -35,8 +35,7 @@ import type { RoughSVG } from "roughjs/bin/svg.js";
 import type { Config, Options } from "roughjs/bin/core.js";
 import type * as CSS from "csstype";
 
-export const MEMORY_VIZ_OBJECT_ID_ATTR = "data-memory-viz-object-id";
-export const MEMORY_VIZ_ID_VALUE_ATTR = "data-memory-viz-id-value";
+export const MEMORY_VIZ_ID_ATTR = "data-memory-viz-id";
 
 /** The class representing the memory model diagram of the given block of code. */
 export class MemoryModel {
@@ -623,7 +622,7 @@ export class MemoryModel {
                 element_box_style
             );
             if (idv !== "") {
-                item_rect.setAttribute(MEMORY_VIZ_ID_VALUE_ATTR, idv);
+                item_rect.setAttribute(MEMORY_VIZ_ID_ATTR, idv);
             }
             this.drawText(
                 idv,
@@ -771,7 +770,7 @@ export class MemoryModel {
                 element_box_style
             );
             if (idv !== "") {
-                item_rect.setAttribute(MEMORY_VIZ_ID_VALUE_ATTR, idv);
+                item_rect.setAttribute(MEMORY_VIZ_ID_ATTR, idv);
             }
             this.drawText(
                 idv,
@@ -910,7 +909,7 @@ export class MemoryModel {
                 key_box_style
             );
             if (idk !== "") {
-                key_rect.setAttribute(MEMORY_VIZ_ID_VALUE_ATTR, idk);
+                key_rect.setAttribute(MEMORY_VIZ_ID_ATTR, idk);
             }
 
             this.drawText(
@@ -952,7 +951,7 @@ export class MemoryModel {
                 value_box_style
             );
             if (idv !== "") {
-                value_rect.setAttribute(MEMORY_VIZ_ID_VALUE_ATTR, idv);
+                value_rect.setAttribute(MEMORY_VIZ_ID_ATTR, idv);
             }
 
             this.drawText(
@@ -1087,7 +1086,7 @@ export class MemoryModel {
                     svg_group
                 );
                 if (idv !== "") {
-                    value_rect.setAttribute(MEMORY_VIZ_ID_VALUE_ATTR, idv);
+                    value_rect.setAttribute(MEMORY_VIZ_ID_ATTR, idv);
                 }
 
                 this.drawText(
@@ -1151,10 +1150,7 @@ export class MemoryModel {
             rectElement.setAttribute("id", `object-${this.objectCounter}`);
 
             if (objectId !== null) {
-                rectElement.setAttribute(
-                    MEMORY_VIZ_OBJECT_ID_ATTR,
-                    objectId.toString()
-                );
+                rectElement.setAttribute(MEMORY_VIZ_ID_ATTR, `id${objectId}`);
             }
 
             this.objectCounter++;
@@ -2155,27 +2151,20 @@ export class MemoryModel {
      * NOTE: this method's source is also injected into the script generated
      * by setInteractivityScript()
      * @param root - the SVG element or Document to attach listeners to
-     * @param objectIdAttr - the attribute name identifying an object's bounding box by id
-     * @param idValueAttr - the attribute name identifying the id value displayed by an id box
+     * @param idAttr - the attribute name identifying the id an element represents or references
      */
     attachInteractivity(
         root: SVGSVGElement | Document,
-        objectIdAttr: string = MEMORY_VIZ_OBJECT_ID_ATTR,
-        idValueAttr: string = MEMORY_VIZ_ID_VALUE_ATTR
+        idAttr: string = MEMORY_VIZ_ID_ATTR
     ): void {
         function buildIdToElementsMap(): Map<string, Element[]> {
             const map = new Map<string, Element[]>();
-            const addToMap = (idKey: string, el: Element): void => {
+            root.querySelectorAll(`g[${idAttr}]`).forEach((el) => {
+                const idKey = el.getAttribute(idAttr)!;
                 if (!map.has(idKey)) {
                     map.set(idKey, []);
                 }
                 map.get(idKey)!.push(el);
-            };
-            root.querySelectorAll(`g[${objectIdAttr}]`).forEach((el) => {
-                addToMap(`id${el.getAttribute(objectIdAttr)}`, el);
-            });
-            root.querySelectorAll(`g[${idValueAttr}]`).forEach((el) => {
-                addToMap(el.getAttribute(idValueAttr)!, el);
             });
             return map;
         }
@@ -2221,9 +2210,9 @@ export class MemoryModel {
 
             // Wait for DOM to be ready
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => attachInteractivity(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}', '${MEMORY_VIZ_ID_VALUE_ATTR}'));
+                document.addEventListener('DOMContentLoaded', () => attachInteractivity(document, '${MEMORY_VIZ_ID_ATTR}'));
             } else {
-                attachInteractivity(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}', '${MEMORY_VIZ_ID_VALUE_ATTR}');
+                attachInteractivity(document, '${MEMORY_VIZ_ID_ATTR}');
             }
         `;
 
