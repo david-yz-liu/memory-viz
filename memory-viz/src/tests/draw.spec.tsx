@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals";
 import exports from "../index.js";
-import { MEMORY_VIZ_OBJECT_ID_ATTR, extractIdValue } from "../memory_model.js";
+import { MEMORY_VIZ_ID_ATTR, extractIdValue } from "../memory_model.js";
 const { draw } = exports;
 
 describe("draw function", () => {
@@ -1455,7 +1455,7 @@ describe("draw function", () => {
 
         expect(interactiveSvg).toContain("<script>");
         expect(interactiveSvg).toContain("attachInteractivity");
-        expect(interactiveSvg).toContain("idToObjectMap");
+        expect(interactiveSvg).toContain("idToElementsMap");
         expect(interactiveSvg).toContain(".highlighted path {");
         expect(interactiveSvg).toContain("var(--highlight-object-fill)");
         expect(interactiveSvg).toContain("text.id {");
@@ -1509,9 +1509,9 @@ describe("draw function", () => {
                 { type: "list", id: 30, value: [10, 20] },
             ],
             expected_substrings: [
-                `id="object-0" ${MEMORY_VIZ_OBJECT_ID_ATTR}="10"`,
-                `id="object-1" ${MEMORY_VIZ_OBJECT_ID_ATTR}="20"`,
-                `id="object-2" ${MEMORY_VIZ_OBJECT_ID_ATTR}="30"`,
+                `id="object-0" ${MEMORY_VIZ_ID_ATTR}="id10"`,
+                `id="object-1" ${MEMORY_VIZ_ID_ATTR}="id20"`,
+                `id="object-2" ${MEMORY_VIZ_ID_ATTR}="id30"`,
             ],
         },
         {
@@ -1540,10 +1540,10 @@ describe("draw function", () => {
                 { type: "int", id: 1 },
             ],
             expected_substrings: [
-                `${MEMORY_VIZ_OBJECT_ID_ATTR}="42"`,
-                `${MEMORY_VIZ_OBJECT_ID_ATTR}="99"`,
+                `${MEMORY_VIZ_ID_ATTR}="id42"`,
+                `${MEMORY_VIZ_ID_ATTR}="id99"`,
             ],
-            unexpected_substrings: [`${MEMORY_VIZ_OBJECT_ID_ATTR}="null"`],
+            unexpected_substrings: [`${MEMORY_VIZ_ID_ATTR}="idnull"`],
         },
         {
             test: "generates interactive script for empty objects array",
@@ -1551,8 +1551,8 @@ describe("draw function", () => {
             expected_substrings: [
                 "<script>",
                 "function attachInteractivity(",
-                "function buildIdToObjectMap(",
-                `attachInteractivity(document, '${MEMORY_VIZ_OBJECT_ID_ATTR}');`,
+                "function buildIdToElementsMap(",
+                `attachInteractivity(document, '${MEMORY_VIZ_ID_ATTR}');`,
             ],
         },
         {
@@ -1567,8 +1567,8 @@ describe("draw function", () => {
                 { type: "int", id: 99, value: 999, style: ["fade"] },
             ],
             expected_substrings: [
-                `${MEMORY_VIZ_OBJECT_ID_ATTR}="42"`,
-                `${MEMORY_VIZ_OBJECT_ID_ATTR}="99"`,
+                `${MEMORY_VIZ_ID_ATTR}="id42"`,
+                `${MEMORY_VIZ_ID_ATTR}="id99"`,
                 "attachInteractivity",
             ],
         },
@@ -1579,8 +1579,8 @@ describe("draw function", () => {
                 { type: "int", id: 42, value: 5 },
             ],
             expected_substrings: [
-                `${MEMORY_VIZ_OBJECT_ID_ATTR}="1"`,
-                `${MEMORY_VIZ_OBJECT_ID_ATTR}="42"`,
+                `${MEMORY_VIZ_ID_ATTR}="id1"`,
+                `${MEMORY_VIZ_ID_ATTR}="id42"`,
                 "object-0",
                 "object-1",
             ],
