@@ -16,6 +16,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 🐛 Bug fixes
 
+- Fixed a bug in `SvgDisplay` where overflowing objects would extend off the window
 - Removed an auto-centering bug within `SvgDisplay`
 - Changed `SvgDisplay` zooming to match the props of `react-zoom-pan-pinch` v4.0.0
 

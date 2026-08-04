@@ -15,6 +15,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 📚 Documentation and demo website changes
 
+- Fixed a bug in `SvgDisplay` where overflowing objects would extend off the window
 - Changed `SvgDisplay` zooming to match the props of `react-zoom-pan-pinch` v4.0.0
 - Removed line wrap and added a horizontal scrollbar for overflowing text to `MemoryModelsTextInput`
 - Added resizable panels to the demo website using the new `react-resizable-panels` dependency
