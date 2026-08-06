@@ -2157,28 +2157,34 @@ export class MemoryModel {
         root: SVGSVGElement | Document,
         idAttr: string = MEMORY_VIZ_ID_ATTR
     ): void {
-        function buildIdToElementsMap(): Map<string, Element[]> {
-            const map = new Map<string, Element[]>();
+        function buildIdToElementsMap(): Map<string, WeakRef<Element>[]> {
+            const map = new Map<string, WeakRef<Element>[]>();
             root.querySelectorAll(`g[${idAttr}]`).forEach((el) => {
                 const idKey = el.getAttribute(idAttr)!;
                 if (!map.has(idKey)) {
                     map.set(idKey, []);
                 }
-                map.get(idKey)!.push(el);
+                // use weak references to avoid memory leaks when the SVG is removed
+                // from the DOM during rerendering on demo/webstepper
+                map.get(idKey)!.push(new WeakRef(el));
             });
             return map;
         }
 
-        function highlightObject(elements: Element[]): void {
-            elements.forEach((el) => el.classList.add("highlighted"));
+        function highlightObject(elements: WeakRef<Element>[]): void {
+            elements.forEach((ref) =>
+                ref.deref()?.classList.add("highlighted")
+            );
         }
 
-        function removeHighlight(elements: Element[]): void {
-            elements.forEach((el) => el.classList.remove("highlighted"));
+        function removeHighlight(elements: WeakRef<Element>[]): void {
+            elements.forEach((ref) =>
+                ref.deref()?.classList.remove("highlighted")
+            );
         }
 
         function attachIdHoverListeners(
-            idToElementsMap: Map<string, Element[]>
+            idToElementsMap: Map<string, WeakRef<Element>[]>
         ): void {
             root.querySelectorAll("text.id").forEach((idText) => {
                 const idValue = extractIdValue(idText);

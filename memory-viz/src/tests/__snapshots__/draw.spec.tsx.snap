@@ -150,17 +150,19 @@ exports[`draw function assigns sequential object ids to bounding boxes 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -395,17 +397,19 @@ exports[`draw function formats a mix of stack frame/non-stack frame objects in a
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -669,17 +673,19 @@ exports[`draw function formats non-stack frame objects in automatic layout 1`] =
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -834,17 +840,19 @@ exports[`draw function generates correct interactive script with proper event ma
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -958,17 +966,19 @@ exports[`draw function generates interactive script for empty objects array 1`] 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -1160,17 +1170,19 @@ exports[`draw function handles objects with null ids in interactive mode 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -1325,17 +1337,19 @@ exports[`draw function includes script element and css when interactive option i
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -1613,17 +1627,19 @@ exports[`draw function maps multiple references to same object id 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -1777,17 +1793,19 @@ exports[`draw function renders 'fade' style preset 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -1941,17 +1959,19 @@ exports[`draw function renders 'fade_id' style preset 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -2105,17 +2125,19 @@ exports[`draw function renders 'fade_type' style preset 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -2269,17 +2291,19 @@ exports[`draw function renders 'hide' style preset 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -2433,17 +2457,19 @@ exports[`draw function renders 'hide_container' style preset 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -2597,17 +2623,19 @@ exports[`draw function renders 'hide_id' style preset 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -2761,17 +2789,19 @@ exports[`draw function renders 'highlight' style preset 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -2925,17 +2955,19 @@ exports[`draw function renders 'highlight_id' style preset 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -3089,17 +3121,19 @@ exports[`draw function renders 'highlight_type' style preset 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -3213,17 +3247,19 @@ exports[`draw function renders a blank space 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -3448,17 +3484,19 @@ exports[`draw function renders a blank stack frame 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -3594,17 +3632,19 @@ exports[`draw function renders a bool 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -3740,17 +3780,19 @@ exports[`draw function renders a bool using manual layout 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -3886,17 +3928,19 @@ exports[`draw function renders a bool with null value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -4032,17 +4076,19 @@ exports[`draw function renders a bool without defining the value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -4178,17 +4224,19 @@ exports[`draw function renders a bytes object 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -4324,17 +4372,19 @@ exports[`draw function renders a bytes object, when given a null value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -4490,17 +4540,19 @@ exports[`draw function renders a class 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -4656,17 +4708,19 @@ exports[`draw function renders a class with null attribute name using empty stri
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -4822,17 +4876,19 @@ exports[`draw function renders a class with null attribute name using whitespace
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -4966,17 +5022,19 @@ exports[`draw function renders a class without defining the name 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -5108,17 +5166,19 @@ exports[`draw function renders a class without defining the value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -5254,17 +5314,19 @@ exports[`draw function renders a complex object 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -5400,17 +5462,19 @@ exports[`draw function renders a complex object, given a null input value 1`] = 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -5546,17 +5610,19 @@ exports[`draw function renders a date object 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -5692,17 +5758,19 @@ exports[`draw function renders a date object, when given a null value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -5937,17 +6005,19 @@ exports[`draw function renders a diagram with 'small' width value and a mix stac
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -6083,17 +6153,19 @@ exports[`draw function renders a diagram with 'small' width value and no stack f
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -6328,17 +6400,19 @@ exports[`draw function renders a diagram with large left margins 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -6552,17 +6626,19 @@ exports[`draw function renders a dict 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -6776,17 +6852,19 @@ exports[`draw function renders a dict with large height 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -7057,17 +7135,19 @@ exports[`draw function renders a dict with styling specific keys and values 1`] 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -7199,17 +7279,19 @@ exports[`draw function renders a dict without defining the value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -7345,17 +7427,19 @@ exports[`draw function renders a float 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -7491,17 +7575,19 @@ exports[`draw function renders a float preserving all decimals 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -7637,17 +7723,19 @@ exports[`draw function renders a float with null value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -7783,17 +7871,19 @@ exports[`draw function renders a float without defining the value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -7944,17 +8034,19 @@ exports[`draw function renders a frame with a class containing a long string val
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -8160,17 +8252,19 @@ exports[`draw function renders a frozenset 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -8359,17 +8453,19 @@ exports[`draw function renders a frozenset with null and valid values 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -8524,17 +8620,19 @@ exports[`draw function renders a frozenset with null values 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -8740,17 +8838,19 @@ exports[`draw function renders a frozenset with styling specific indices 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -8904,17 +9004,19 @@ exports[`draw function renders a list of snapshots 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -9068,17 +9170,19 @@ exports[`draw function renders a list of snapshots 2`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -9280,17 +9384,19 @@ exports[`draw function renders a list with indexes showing 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -9475,17 +9581,19 @@ exports[`draw function renders a list with null and valid values 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -9636,17 +9744,19 @@ exports[`draw function renders a list with null values 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -9831,17 +9941,19 @@ exports[`draw function renders a list with styling specific indices 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -9973,17 +10085,19 @@ exports[`draw function renders a list without defining the value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -10185,17 +10299,19 @@ exports[`draw function renders a list without indexes showing 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -10331,17 +10447,19 @@ exports[`draw function renders a range object, given a null input value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -10543,17 +10661,19 @@ exports[`draw function renders a set 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -10755,17 +10875,19 @@ exports[`draw function renders a set with large width 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -10950,17 +11072,19 @@ exports[`draw function renders a set with null and valid values 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -11111,17 +11235,19 @@ exports[`draw function renders a set with null values 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -11323,17 +11449,19 @@ exports[`draw function renders a set with styling specific indices 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -11465,17 +11593,19 @@ exports[`draw function renders a set without defining the value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -11629,17 +11759,19 @@ exports[`draw function renders a stack frame and an int 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -11816,17 +11948,19 @@ exports[`draw function renders a stack frame using manual layout 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -11962,17 +12096,19 @@ exports[`draw function renders a str 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -12108,17 +12244,19 @@ exports[`draw function renders a str with null value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -12254,17 +12392,19 @@ exports[`draw function renders a str without defining the value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -12470,17 +12610,19 @@ exports[`draw function renders a tuple with indexes showing 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -12669,17 +12811,19 @@ exports[`draw function renders a tuple with null and valid values 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -12834,17 +12978,19 @@ exports[`draw function renders a tuple with null values 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -13050,17 +13196,19 @@ exports[`draw function renders a tuple without indexes showing 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -13196,17 +13344,19 @@ exports[`draw function renders an appropriately sized box for a string with the 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -13342,17 +13492,19 @@ exports[`draw function renders an appropriately sized box for a very long string
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -13484,17 +13636,19 @@ exports[`draw function renders an empty dict 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -13630,17 +13784,19 @@ exports[`draw function renders an empty frozenset 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -13772,17 +13928,19 @@ exports[`draw function renders an empty list 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -13914,17 +14072,19 @@ exports[`draw function renders an empty set 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -14038,17 +14198,19 @@ exports[`draw function renders an empty svg given an empty array 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -14184,17 +14346,19 @@ exports[`draw function renders an empty tuple 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -14330,17 +14494,19 @@ exports[`draw function renders an int 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -14476,17 +14642,19 @@ exports[`draw function renders an int with null value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -14622,17 +14790,19 @@ exports[`draw function renders an int without defining the value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -14770,17 +14940,19 @@ exports[`draw function renders an object with defined size 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -14916,17 +15088,19 @@ exports[`draw function renders an object with no type and no value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -15081,17 +15255,19 @@ exports[`draw function renders blank spaces in automatic layout 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -15245,17 +15421,19 @@ exports[`draw function renders combinations of style presets 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -15391,17 +15569,19 @@ exports[`draw function renders custom style (without presets) 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -15626,17 +15806,19 @@ exports[`draw function renders custom style with CSS keyword font-sizes without 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -15772,17 +15954,19 @@ exports[`draw function renders custom style with bare string preset 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -15937,17 +16121,19 @@ exports[`draw function renders custom styles correctly in interactive mode 1`] =
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -16083,17 +16269,19 @@ exports[`draw function renders diagrams with provided mix of roughjs_config opti
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -16229,17 +16417,19 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' and 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -16375,17 +16565,19 @@ exports[`draw function renders diagrams with provided roughjs_config 'fill' opti
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -16521,17 +16713,19 @@ exports[`draw function renders diagrams with provided roughjs_config 'roughness'
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -16745,17 +16939,19 @@ exports[`draw function renders dict with custom styling 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -16944,17 +17140,19 @@ exports[`draw function renders dict with empty string key without 'id' prefix 1`
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -17140,17 +17338,19 @@ exports[`draw function renders dict with empty/space keys and null values 1`] = 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -17364,17 +17564,19 @@ exports[`draw function renders dict with id and box having different colours 1`]
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -17689,17 +17891,19 @@ exports[`draw function renders dict with list value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -17888,17 +18092,19 @@ exports[`draw function renders dict with space key without 'id' prefix 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -18034,17 +18240,19 @@ exports[`draw function renders range object 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -18290,17 +18498,19 @@ exports[`draw function should produce consistent svg when provided seed 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -18454,17 +18664,19 @@ exports[`draw function trims width when not provided width value 1`] = `
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -18656,17 +18868,19 @@ exports[`draw function works at highlighting interactively with different themes
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
@@ -18858,17 +19072,19 @@ exports[`draw function works at highlighting interactively with different themes
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          map.get(idKey).push(el);
+          // use weak references to avoid memory leaks when the SVG is removed
+          // from the DOM during rerendering on demo/webstepper
+          map.get(idKey).push(new WeakRef(el));
         });
         return map;
       }
 
       function highlightObject(elements) {
-        elements.forEach(el = & gt; el.classList.add("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
       }
 
       function removeHighlight(elements) {
-        elements.forEach(el = & gt; el.classList.remove("highlighted"));
+        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
