@@ -26,6 +26,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Used the `toString()` method to convert the source code of the interactivity functions to strings for use in the embedded interactivity script, preventing code duplication
 - Switched Jest's `coverageProvider` from `babel` to `v8`, since Babel's coverage instrumentation was inserting tracking code into the interactivity functions' source, corrupting the embedded `toString()` output
 - Changed CI to build `memory-viz` with `build-dev` instead of `build` before running jest tests, since production minification corrupted the embedded `toString()` output
+- Updated `pnpm` version to 11.20.0, fixed spurious babel v8 peer depedency warnings and refreshed `pnpm-lock.yaml`
 
 ## [0.10.0] - 2026-07-15
 
