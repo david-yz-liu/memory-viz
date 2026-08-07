@@ -27,6 +27,7 @@ body {
 
 main {
     flex: 1;
+    min-height: 0;
 }
 
 .separator {
@@ -80,6 +81,8 @@ html[data-theme="dark"] {
 .svg-display {
     flex: 1;
     margin-bottom: 1rem;
+    min-height: 0;
+    overflow: hidden;
 }
 
 .react-transform-wrapper {
