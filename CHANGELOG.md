@@ -18,6 +18,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Changed `SvgDisplay` zooming to match the props of `react-zoom-pan-pinch` v4.0.0
 - Removed line wrap and added a horizontal scrollbar for overflowing text to `MemoryModelsTextInput`
 - Added resizable panels to the demo website using the new `react-resizable-panels` dependency
+- Fixed a production build error on the demo website by explicitly setting `NODE_ENV=production` when running webpack
 
 ### 🔧 Internal changes
 
