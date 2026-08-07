@@ -18,3 +18,11 @@ allowBuilds:
 overrides:
     "babel-jest>@babel/core": "^8.0.1"
     "jest-config>@babel/core": "^8.0.1"
+
+# The @babel/plugin-syntax-* family (pulled in via babel-preset-current-node-syntax,
+# used by babel-preset-jest) still declares peerDependencies "@babel/core": "^7.0.0-0" -
+# the ecosystem hasn't republished peer ranges for Babel 8 yet. Verified our full Jest
+# suite passes against @babel/core@8.0.1 with these plugins, so the warning is cosmetic.
+peerDependencyRules:
+    allowedVersions:
+        "@babel/core": "8"
