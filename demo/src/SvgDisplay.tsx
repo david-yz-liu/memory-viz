@@ -88,13 +88,10 @@ export default function SvgDisplay({
 
     return (
         <Paper
+            className="svg-display"
             sx={{
                 bgcolor: `primary.paper`,
-                height: 500,
                 overflow: "hidden",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
             }}
             variant="outlined"
         >
