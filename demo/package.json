@@ -7,7 +7,7 @@
         "test": "cross-env NODE_OPTIONS='--experimental-vm-modules' jest --no-cache",
         "test-cov": "cross-env NODE_OPTIONS='--experimental-vm-modules' jest --no-cache --coverage",
         "build-dev": "webpack --config webpack.dev.js",
-        "build": "webpack --config webpack.prod.js",
+        "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js",
         "start": "webpack serve --config webpack.dev.js"
     },
     "repository": {
