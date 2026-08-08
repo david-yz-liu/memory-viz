@@ -11,8 +11,21 @@ body {
     height: 100%;
 }
 
-main {
+main,
+.memory-model-input,
+.memory-model-text-field,
+.memory-model-text-field > * {
     flex: 1;
+    min-height: 0;
+}
+
+.memory-model-input {
+    display: grid;
+}
+
+.memory-model-text-field textarea:not([aria-hidden]) {
+    height: 100% !important;
+    overflow: auto !important;
 }
 
 /* Hides the arrows that come by default with MUI Textfield of type 'number'*/
