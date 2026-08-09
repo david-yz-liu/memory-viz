@@ -79,6 +79,7 @@ export class MemoryModel {
     height?: number; // Height of the canvas, dynamically updated if not provided in options
     objectCounter: number; // Counter for tracking ids of objects drawn
     textCounter: number; // Counter for tracking ids of text elements drawn
+    idBoxCounter: number; // Counter for tracking ids of id boxes drawn
     interactive: boolean = true; // Whether the visualization is interactive
     sort_by?: SortOptions;
     top_margin: number = 25;
@@ -131,6 +132,7 @@ export class MemoryModel {
 
         this.objectCounter = 0;
         this.textCounter = 0;
+        this.idBoxCounter = 0;
 
         if (options.sort_by) {
             this.sort_by = options.sort_by;
@@ -623,6 +625,7 @@ export class MemoryModel {
             );
             if (idv !== "") {
                 item_rect.setAttribute(MEMORY_VIZ_ID_ATTR, idv);
+                item_rect.setAttribute("id", `idbox-${this.idBoxCounter++}`);
             }
             this.drawText(
                 idv,
@@ -771,6 +774,7 @@ export class MemoryModel {
             );
             if (idv !== "") {
                 item_rect.setAttribute(MEMORY_VIZ_ID_ATTR, idv);
+                item_rect.setAttribute("id", `idbox-${this.idBoxCounter++}`);
             }
             this.drawText(
                 idv,
@@ -910,6 +914,7 @@ export class MemoryModel {
             );
             if (idk !== "") {
                 key_rect.setAttribute(MEMORY_VIZ_ID_ATTR, idk);
+                key_rect.setAttribute("id", `idbox-${this.idBoxCounter++}`);
             }
 
             this.drawText(
@@ -952,6 +957,7 @@ export class MemoryModel {
             );
             if (idv !== "") {
                 value_rect.setAttribute(MEMORY_VIZ_ID_ATTR, idv);
+                value_rect.setAttribute("id", `idbox-${this.idBoxCounter++}`);
             }
 
             this.drawText(
@@ -1087,6 +1093,10 @@ export class MemoryModel {
                 );
                 if (idv !== "") {
                     value_rect.setAttribute(MEMORY_VIZ_ID_ATTR, idv);
+                    value_rect.setAttribute(
+                        "id",
+                        `idbox-${this.idBoxCounter++}`
+                    );
                 }
 
                 this.drawText(
@@ -2157,51 +2167,49 @@ export class MemoryModel {
         root: SVGSVGElement | Document,
         idAttr: string = MEMORY_VIZ_ID_ATTR
     ): void {
-        function buildIdToElementsMap(): Map<string, WeakRef<Element>[]> {
-            const map = new Map<string, WeakRef<Element>[]>();
+        function buildIdToElementIdMap(): Map<string, string[]> {
+            const map = new Map<string, string[]>();
             root.querySelectorAll(`g[${idAttr}]`).forEach((el) => {
                 const idKey = el.getAttribute(idAttr)!;
                 if (!map.has(idKey)) {
                     map.set(idKey, []);
                 }
-                // use weak references to avoid memory leaks when the SVG is removed
-                // from the DOM during rerendering on demo/webstepper
-                map.get(idKey)!.push(new WeakRef(el));
+                map.get(idKey)!.push(el.id);
             });
             return map;
         }
 
-        function highlightObject(elements: WeakRef<Element>[]): void {
-            elements.forEach((ref) =>
-                ref.deref()?.classList.add("highlighted")
+        function highlightObject(elementIds: string[]): void {
+            elementIds.forEach((id) =>
+                root.getElementById(id)?.classList.add("highlighted")
             );
         }
 
-        function removeHighlight(elements: WeakRef<Element>[]): void {
-            elements.forEach((ref) =>
-                ref.deref()?.classList.remove("highlighted")
+        function removeHighlight(elementIds: string[]): void {
+            elementIds.forEach((id) =>
+                root.getElementById(id)?.classList.remove("highlighted")
             );
         }
 
         function attachIdHoverListeners(
-            idToElementsMap: Map<string, WeakRef<Element>[]>
+            idToElementsMap: Map<string, string[]>
         ): void {
             root.querySelectorAll("text.id").forEach((idText) => {
                 const idValue = extractIdValue(idText);
-                const elements = idToElementsMap.get(idValue);
-                if (!elements) {
+                const elementIds = idToElementsMap.get(idValue);
+                if (!elementIds) {
                     return;
                 }
                 idText.addEventListener("mouseover", () =>
-                    highlightObject(elements)
+                    highlightObject(elementIds)
                 );
                 idText.addEventListener("mouseout", () =>
-                    removeHighlight(elements)
+                    removeHighlight(elementIds)
                 );
             });
         }
 
-        const idToElementsMap = buildIdToElementsMap();
+        const idToElementsMap = buildIdToElementIdMap();
         attachIdHoverListeners(idToElementsMap);
     }
 

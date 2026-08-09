@@ -1551,7 +1551,7 @@ describe("draw function", () => {
             expected_substrings: [
                 "<script>",
                 "function attachInteractivity(",
-                "function buildIdToElementsMap(",
+                "function buildIdToElementIdMap(",
                 `attachInteractivity(document, '${MEMORY_VIZ_ID_ATTR}');`,
             ],
         },
