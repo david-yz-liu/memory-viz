@@ -2209,8 +2209,8 @@ export class MemoryModel {
             });
         }
 
-        const idToElementsMap = buildIdToElementIdMap();
-        attachIdHoverListeners(idToElementsMap);
+        const idToElementIdMap = buildIdToElementIdMap();
+        attachIdHoverListeners(idToElementIdMap);
     }
 
     /**
