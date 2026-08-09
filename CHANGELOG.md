@@ -17,9 +17,11 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 📚 Documentation and demo website changes
 
+- Updated demo website to match Webstepper's full window layout
 - Changed `SvgDisplay` zooming to match the props of `react-zoom-pan-pinch` v4.0.0
 - Removed line wrap and added a horizontal scrollbar for overflowing text to `MemoryModelsTextInput`
 - Added resizable panels to the demo website using the new `react-resizable-panels` dependency
+- Fixed a production build error on the demo website by explicitly setting `NODE_ENV=production` when running webpack
 
 ### 🔧 Internal changes
 
@@ -27,6 +29,8 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Used the `toString()` method to convert the source code of the interactivity functions to strings for use in the embedded interactivity script, preventing code duplication
 - Switched Jest's `coverageProvider` from `babel` to `v8`, since Babel's coverage instrumentation was inserting tracking code into the interactivity functions' source, corrupting the embedded `toString()` output
 - Changed CI to build `memory-viz` with `build-dev` instead of `build` before running jest tests, since production minification corrupted the embedded `toString()` output
+- Updated `pnpm` version to 11.20.0, fixed spurious babel v8 peer depedency warnings and refreshed `pnpm-lock.yaml`
+- Updated `webpack-dev-server` to v5.2.6, `js-yaml` to v3.15.1 and v4.3.1, `ws` to v8.21.2, `postcss` to v8.5.26
 
 ## [0.10.0] - 2026-07-15
 

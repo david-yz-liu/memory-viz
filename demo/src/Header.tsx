@@ -41,7 +41,7 @@ export default function Header({ isDarkMode, toggleTheme }: HeaderProps) {
     };
 
     return (
-        <header className="container">
+        <header className="container-fluid">
             <Stack direction="row" sx={{ justifyContent: "space-between" }}>
                 <Box>
                     <Typography variant="h1" color="textPrimary">
