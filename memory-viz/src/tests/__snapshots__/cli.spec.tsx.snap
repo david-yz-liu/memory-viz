@@ -107,31 +107,29 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -255,31 +253,29 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -403,31 +399,29 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -551,31 +545,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -699,31 +691,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -857,31 +847,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -1042,31 +1030,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -1190,31 +1176,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -1348,31 +1332,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -1496,31 +1478,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -1681,31 +1661,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -1829,31 +1807,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -1985,31 +1961,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -2133,31 +2107,29 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -2281,31 +2253,29 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
@@ -2429,31 +2399,29 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
-          // use weak references to avoid memory leaks when the SVG is removed
-          // from the DOM during rerendering on demo/webstepper
-          map.get(idKey).push(new WeakRef(el));
+          map.get(idKey).push(el.id);
         });
         return map;
       }
 
-      function highlightObject(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.add("highlighted"));
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(elements) {
-        elements.forEach(ref = & gt; ref.deref()?.classList.remove("highlighted"));
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
       function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const elements = idToElementsMap.get(idValue);
-          if (!elements) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt; highlightObject(elements));
-          idText.addEventListener("mouseout", () = & gt; removeHighlight(elements));
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
       const idToElementsMap = buildIdToElementsMap();
