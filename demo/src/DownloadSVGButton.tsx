@@ -21,7 +21,11 @@ export default function DownloadSVGButton(props: DownloadSVGButtonPropTypes) {
             rel="noreferrer"
             download="output.svg"
             startIcon={<DownloadIcon />}
-            sx={{ textTransform: "none" }}
+            sx={{
+                alignSelf: "flex-start",
+                marginBottom: "1rem",
+                textTransform: "none",
+            }}
         >
             {t("output.downloadSVG")}
         </Button>

@@ -4,7 +4,7 @@
 import exports from "../index.js";
 import {
     MemoryModel,
-    MEMORY_VIZ_OBJECT_ID_ATTR,
+    MEMORY_VIZ_ID_ATTR,
     extractIdValue,
 } from "../memory_model.js";
 
@@ -48,7 +48,7 @@ describe("hover interactivity", () => {
 
         const idText = getIdTextElement(svg, "id13");
         const objectBox = svg.querySelector("#object-0")!;
-        expect(objectBox.getAttribute(MEMORY_VIZ_OBJECT_ID_ATTR)).toBe("13");
+        expect(objectBox.getAttribute(MEMORY_VIZ_ID_ATTR)).toBe("id13");
         expect(objectBox.classList.contains("highlighted")).toBe(false);
 
         fireEvent.mouseOver(idText);
@@ -127,6 +127,43 @@ describe("hover interactivity", () => {
         expect(interactiveModel.serializeSVG()).toContain("<script");
         expect(staticModel.serializeSVG()).not.toContain("<script");
         expect(defaultModel.serializeSVG()).toContain("<script");
+    });
+
+    it("highlights every reference-box sharing an id, including the hovered one, alongside the object box", () => {
+        // The list references object id 5 twice (an alias).
+        // Hovering any "id5" occurrence should highlight both reference
+        // boxes plus object 5's bounding box.
+        const model = draw(
+            [
+                { type: "int", id: 5, value: 42 },
+                { type: "list", id: 1, value: [5, 5] },
+            ],
+            {
+                width: 1300,
+                interactive: true,
+            }
+        );
+        const svg = renderInteractiveSVG(model);
+
+        const objectBox = svg.querySelector("#object-0")!;
+
+        const idBoxes = Array.from(
+            svg.querySelectorAll(`[${MEMORY_VIZ_ID_ATTR}="id5"]`)
+        ).filter((box) => box !== objectBox);
+        expect(idBoxes.length).toBe(2);
+
+        const hoveredIdText = getIdTextElement(svg, "id5");
+        fireEvent.mouseOver(hoveredIdText);
+        expect(objectBox.classList.contains("highlighted")).toBe(true);
+        idBoxes.forEach((box) => {
+            expect(box.classList.contains("highlighted")).toBe(true);
+        });
+
+        fireEvent.mouseOut(hoveredIdText);
+        expect(objectBox.classList.contains("highlighted")).toBe(false);
+        idBoxes.forEach((box) => {
+            expect(box.classList.contains("highlighted")).toBe(false);
+        });
     });
 
     it("does not throw or highlight anything when hovering a dangling id reference", () => {

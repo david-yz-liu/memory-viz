@@ -19,6 +19,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Fixed a bug in `SvgDisplay` where overflowing objects would extend off the window
 - Removed an auto-centering bug within `SvgDisplay`
 - Changed `SvgDisplay` zooming to match the props of `react-zoom-pan-pinch` v4.0.0
+- Fixed a production build error on the webstepper website by explicitly setting `NODE_ENV=production` when running webpack
 
 ### 📚 Documentation changes
 

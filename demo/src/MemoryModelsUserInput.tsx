@@ -131,11 +131,11 @@ function MemoryModelsTextInput(props: MemoryModelsTextInputPropTypes) {
     return (
         <TextField
             id="multiline-memory-models-textfield"
+            className="memory-model-text-field"
             data-testid="textfield-input"
             label={t("input.textFieldLabel")}
             multiline
             fullWidth
-            rows={10}
             variant="outlined"
             value={props.textData}
             onChange={handleTextFieldChange}
@@ -233,7 +233,7 @@ export default function MemoryModelsUserInput(
     props: MemoryModelsUserInputPropTypes
 ) {
     return (
-        <form data-testid="input-form">
+        <form data-testid="input-form" className="memory-model-input">
             <Stack spacing={2}>
                 <MemoryModelsFileInput
                     textData={props.textData}

@@ -5,9 +5,27 @@ body {
     margin: 0;
 }
 
-main {
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+main,
+.memory-model-input,
+.memory-model-text-field,
+.memory-model-text-field > * {
     flex: 1;
     min-height: 0;
+}
+
+.memory-model-input {
+    display: grid;
+}
+
+.memory-model-text-field textarea:not([aria-hidden]) {
+    height: 100% !important;
+    overflow: auto !important;
 }
 
 /* Hides the arrows that come by default with MUI Textfield of type 'number'*/
@@ -46,6 +64,11 @@ input[type="number"]::-webkit-outer-spin-button {
     margin-bottom: 1rem;
     min-height: 0;
     overflow: hidden;
+}
+
+.react-transform-wrapper {
+    height: 100%;
+    width: 100%;
 }
 
 .separator {

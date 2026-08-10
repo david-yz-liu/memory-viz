@@ -78,7 +78,7 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
         <path d="M24.217092659324408 25.279758248478174 L261.41041228994726 25.811648044735193 L260.2627674125135 153.8457694388926 L25.136584784835577 156.0841487981379" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.885049220872773 24.52457146956466 C73.06651863331564 27.96476312756656, 121.09929719416427 25.969019422735247, 260.1119947265374 23.439965005305094 M25.459024721435735 24.592510824317536 C106.6521872686275 24.7697341600861, 189.17697099116717 25.62951614632561, 261.8869316447588 24.978830873543878 M259.4930372096598 24.19914748892188 C258.25436310935766 76.85851676948369, 259.60965149570256 129.70419204980135, 263.13592873588203 156.21600976213813 M261.53429379574953 25.695814626291394 C260.1599590005353 50.6619217954576, 261.197788936086 77.7977238651365, 260.28602823130785 154.66875346191227 M262.1716163949986 153.83698057721375 C182.23098601445975 154.33009031349323, 101.03574794717036 155.41367543498518, 25.15738370380284 155.0436859469239 M261.881463947709 154.69328034131698 C196.45247068818819 155.94484265520038, 130.05952683784344 155.11608680816107, 24.71784221043884 155.5339365732069 M25.774516139179468 153.6685543321073 C26.062636381201447 113.02729854546487, 24.23984706979245 71.21370618045329, 25.28161207213998 26.696334268897772 M24.958832575008273 155.807228224352 C24.47626833524555 117.65506849437952, 24.947436436079443 80.02575307898223, 25.8738627564162 25.229114966467023" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M30.84341853186488 31.055951649695636 L255.24208245798945 31.16232960894704 L255.01255348250268 148.76915388777851 L31.027316956967116 149.2168297596276" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.976462178295073 30.90264918543582 C76.98469393083647 31.588056507500557, 122.96247909762565 31.179399342671264, 254.97721530610556 30.680560446502632 M31.093991899257595 30.91656074333097 C108.9511595113202 30.947428784975756, 187.0809956693624 31.123481485539145, 255.3406591125399 30.99566531755629 M254.85860744193195 30.839829497784375 C254.6292247690484 77.97353395633401, 254.90028244631736 125.1444996148348, 255.5871857471764 149.24320195242763 M255.2668587591499 31.13916292525828 C255.00506010862438 54.565633939206606, 255.21262609573452 78.42604393325747, 255.01720564626157 148.93375069238246 M255.39895240071186 148.76185508249046 C179.27501406006056 148.86807210746014, 102.8941767904539 149.08995171180416, 31.032226571994542 149.0089453245773 M255.33953952310105 148.93719474809748 C193.38924980348406 149.18846568090905, 131.2415773665732 149.01876602760842, 30.94222414329183 149.10933117598074 M31.154903227835895 148.73371086642146 C31.225884730465708 110.9172427598387, 30.86132686818391 72.8663073375821, 31.056322414427996 31.339266853779556 M30.991766515001654 149.1614456448704 C30.899635501392186 115.0741414628923, 30.993869121558962 81.09140614382923, 31.17477255128324 31.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -98,12 +98,12 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -112,41 +112,35 @@ exports[`memory-viz CLI output path should overwrite existing svg when the outpu
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -230,7 +224,7 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
         <path d="M24.217092659324408 25.279758248478174 L261.41041228994726 25.811648044735193 L260.2627674125135 153.8457694388926 L25.136584784835577 156.0841487981379" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.885049220872773 24.52457146956466 C73.06651863331564 27.96476312756656, 121.09929719416427 25.969019422735247, 260.1119947265374 23.439965005305094 M25.459024721435735 24.592510824317536 C106.6521872686275 24.7697341600861, 189.17697099116717 25.62951614632561, 261.8869316447588 24.978830873543878 M259.4930372096598 24.19914748892188 C258.25436310935766 76.85851676948369, 259.60965149570256 129.70419204980135, 263.13592873588203 156.21600976213813 M261.53429379574953 25.695814626291394 C260.1599590005353 50.6619217954576, 261.197788936086 77.7977238651365, 260.28602823130785 154.66875346191227 M262.1716163949986 153.83698057721375 C182.23098601445975 154.33009031349323, 101.03574794717036 155.41367543498518, 25.15738370380284 155.0436859469239 M261.881463947709 154.69328034131698 C196.45247068818819 155.94484265520038, 130.05952683784344 155.11608680816107, 24.71784221043884 155.5339365732069 M25.774516139179468 153.6685543321073 C26.062636381201447 113.02729854546487, 24.23984706979245 71.21370618045329, 25.28161207213998 26.696334268897772 M24.958832575008273 155.807228224352 C24.47626833524555 117.65506849437952, 24.947436436079443 80.02575307898223, 25.8738627564162 25.229114966467023" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M30.84341853186488 31.055951649695636 L255.24208245798945 31.16232960894704 L255.01255348250268 148.76915388777851 L31.027316956967116 149.2168297596276" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.976462178295073 30.90264918543582 C76.98469393083647 31.588056507500557, 122.96247909762565 31.179399342671264, 254.97721530610556 30.680560446502632 M31.093991899257595 30.91656074333097 C108.9511595113202 30.947428784975756, 187.0809956693624 31.123481485539145, 255.3406591125399 30.99566531755629 M254.85860744193195 30.839829497784375 C254.6292247690484 77.97353395633401, 254.90028244631736 125.1444996148348, 255.5871857471764 149.24320195242763 M255.2668587591499 31.13916292525828 C255.00506010862438 54.565633939206606, 255.21262609573452 78.42604393325747, 255.01720564626157 148.93375069238246 M255.39895240071186 148.76185508249046 C179.27501406006056 148.86807210746014, 102.8941767904539 149.08995171180416, 31.032226571994542 149.0089453245773 M255.33953952310105 148.93719474809748 C193.38924980348406 149.18846568090905, 131.2415773665732 149.01876602760842, 30.94222414329183 149.10933117598074 M31.154903227835895 148.73371086642146 C31.225884730465708 110.9172427598387, 30.86132686818391 72.8663073375821, 31.056322414427996 31.339266853779556 M30.991766515001654 149.1614456448704 C30.899635501392186 115.0741414628923, 30.993869121558962 81.09140614382923, 31.17477255128324 31.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -250,12 +244,12 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -264,41 +258,35 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -382,7 +370,7 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
         <path d="M24.217092659324408 25.279758248478174 L261.41041228994726 25.811648044735193 L260.2627674125135 153.8457694388926 L25.136584784835577 156.0841487981379" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.885049220872773 24.52457146956466 C73.06651863331564 27.96476312756656, 121.09929719416427 25.969019422735247, 260.1119947265374 23.439965005305094 M25.459024721435735 24.592510824317536 C106.6521872686275 24.7697341600861, 189.17697099116717 25.62951614632561, 261.8869316447588 24.978830873543878 M259.4930372096598 24.19914748892188 C258.25436310935766 76.85851676948369, 259.60965149570256 129.70419204980135, 263.13592873588203 156.21600976213813 M261.53429379574953 25.695814626291394 C260.1599590005353 50.6619217954576, 261.197788936086 77.7977238651365, 260.28602823130785 154.66875346191227 M262.1716163949986 153.83698057721375 C182.23098601445975 154.33009031349323, 101.03574794717036 155.41367543498518, 25.15738370380284 155.0436859469239 M261.881463947709 154.69328034131698 C196.45247068818819 155.94484265520038, 130.05952683784344 155.11608680816107, 24.71784221043884 155.5339365732069 M25.774516139179468 153.6685543321073 C26.062636381201447 113.02729854546487, 24.23984706979245 71.21370618045329, 25.28161207213998 26.696334268897772 M24.958832575008273 155.807228224352 C24.47626833524555 117.65506849437952, 24.947436436079443 80.02575307898223, 25.8738627564162 25.229114966467023" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M30.84341853186488 31.055951649695636 L255.24208245798945 31.16232960894704 L255.01255348250268 148.76915388777851 L31.027316956967116 149.2168297596276" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.976462178295073 30.90264918543582 C76.98469393083647 31.588056507500557, 122.96247909762565 31.179399342671264, 254.97721530610556 30.680560446502632 M31.093991899257595 30.91656074333097 C108.9511595113202 30.947428784975756, 187.0809956693624 31.123481485539145, 255.3406591125399 30.99566531755629 M254.85860744193195 30.839829497784375 C254.6292247690484 77.97353395633401, 254.90028244631736 125.1444996148348, 255.5871857471764 149.24320195242763 M255.2668587591499 31.13916292525828 C255.00506010862438 54.565633939206606, 255.21262609573452 78.42604393325747, 255.01720564626157 148.93375069238246 M255.39895240071186 148.76185508249046 C179.27501406006056 148.86807210746014, 102.8941767904539 149.08995171180416, 31.032226571994542 149.0089453245773 M255.33953952310105 148.93719474809748 C193.38924980348406 149.18846568090905, 131.2415773665732 149.01876602760842, 30.94222414329183 149.10933117598074 M31.154903227835895 148.73371086642146 C31.225884730465708 110.9172427598387, 30.86132686818391 72.8663073375821, 31.056322414427996 31.339266853779556 M30.991766515001654 149.1614456448704 C30.899635501392186 115.0741414628923, 30.993869121558962 81.09140614382923, 31.17477255128324 31.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -402,12 +390,12 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -416,41 +404,35 @@ exports[`memory-viz CLI output path should produce consistent svg when the outpu
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -534,7 +516,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
         <path d="M25.16937510482967 24.905685232952237 L260.53187983743845 26.171632992103696 L261.0961618375033 154.62805812247097 L26.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.09089442385281 24.292275558975465 C85.88519848943396 24.862795733436798, 146.76626437513596 26.34404827854006, 260.4224681251733 24.480918238777445 M25.187761259160563 25.394483979611 C116.10190084525648 25.191004779075925, 209.2441122905986 26.359421881155946, 260.59498614974694 24.590221316417466 M259.81389331705867 24.244307739660144 C263.236963196937 59.11295747105032, 260.247526510898 94.5909650363028, 259.5120261300355 154.8133229445666 M262.0313265061006 25.96177598182112 C261.2559107468463 69.77587079815567, 260.75186743596566 114.02828291337937, 262.0946665441617 155.44875323120505 M261.901840334601 155.9079192060483 C196.3738714759362 156.69222964830053, 130.50960659356411 155.17063676637008, 24.207980852452245 153.7427956022492 M260.69542233405804 154.6879340367893 C203.64522313899798 157.68671836008562, 147.14971756322313 156.65586218593637, 24.441029600929877 155.47722072615804 M25.142140792682767 156.27820358984172 C26.212922306265682 121.20502475183457, 27.322862298693508 85.18492933362721, 26.775122391059995 23.932938857004046 M25.678110322915018 154.0633974308148 C23.08495348347351 115.83291779831052, 24.326906647812574 77.85893173422663, 25.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M31.033875020965933 30.981137046590447 L255.0663759674877 31.23432659842074 L255.17923236750065 148.9256116244942 L31.398725959286093 148.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.813847586551596 30.85508326402366 C88.39252640709246 30.967648265632242, 145.78420660426306 31.270955981955083, 255.04078919013403 30.89371055995703 M31.038446812407617 31.080776256133568 C118.07254568714406 31.0294354559302, 205.562874250508 31.268685625738172, 255.07611473150166 30.916091933731305 M254.92277866341172 30.848861547932028 C255.60632072439415 62.29195842053741, 255.00843338718636 93.85692685991526, 254.8624052260071 148.96266458891333 M255.3662653012201 31.192355196364225 C255.20808998457716 71.74971716329455, 255.107281322401 112.39474259000272, 255.37893330883233 149.08975064624101 M255.3437118807423 149.18590948714484 C193.26853947845004 149.33817970067125, 131.124505639061 149.02661172145184, 30.837822713135033 148.74256935720152 M255.09668048161652 148.93610001551968 C201.06738834837822 149.529555413239, 147.15167769419318 149.31847281758567, 30.88554278890896 149.0977177923585 M31.028428158536553 149.25564071796833 C31.22324716174975 118.22654932755975, 31.445235160235317 87.00807462111115, 31.355024478212 30.78658777140081 M31.135622064583004 148.81267948616295 C30.638635546747594 114.06537792496383, 30.887026179615408 79.36937507744878, 31.188466082327068 30.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -554,12 +536,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -568,41 +550,35 @@ exports[`memory-viz cli produces consistent svg when provided filepath and outpu
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -686,7 +662,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
         <path d="M24.217092659324408 25.279758248478174 L261.41041228994726 25.811648044735193 L260.2627674125135 153.8457694388926 L25.136584784835577 156.0841487981379" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.885049220872773 24.52457146956466 C73.06651863331564 27.96476312756656, 121.09929719416427 25.969019422735247, 260.1119947265374 23.439965005305094 M25.459024721435735 24.592510824317536 C106.6521872686275 24.7697341600861, 189.17697099116717 25.62951614632561, 261.8869316447588 24.978830873543878 M259.4930372096598 24.19914748892188 C258.25436310935766 76.85851676948369, 259.60965149570256 129.70419204980135, 263.13592873588203 156.21600976213813 M261.53429379574953 25.695814626291394 C260.1599590005353 50.6619217954576, 261.197788936086 77.7977238651365, 260.28602823130785 154.66875346191227 M262.1716163949986 153.83698057721375 C182.23098601445975 154.33009031349323, 101.03574794717036 155.41367543498518, 25.15738370380284 155.0436859469239 M261.881463947709 154.69328034131698 C196.45247068818819 155.94484265520038, 130.05952683784344 155.11608680816107, 24.71784221043884 155.5339365732069 M25.774516139179468 153.6685543321073 C26.062636381201447 113.02729854546487, 24.23984706979245 71.21370618045329, 25.28161207213998 26.696334268897772 M24.958832575008273 155.807228224352 C24.47626833524555 117.65506849437952, 24.947436436079443 80.02575307898223, 25.8738627564162 25.229114966467023" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M30.84341853186488 31.055951649695636 L255.24208245798945 31.16232960894704 L255.01255348250268 148.76915388777851 L31.027316956967116 149.2168297596276" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.976462178295073 30.90264918543582 C76.98469393083647 31.588056507500557, 122.96247909762565 31.179399342671264, 254.97721530610556 30.680560446502632 M31.093991899257595 30.91656074333097 C108.9511595113202 30.947428784975756, 187.0809956693624 31.123481485539145, 255.3406591125399 30.99566531755629 M254.85860744193195 30.839829497784375 C254.6292247690484 77.97353395633401, 254.90028244631736 125.1444996148348, 255.5871857471764 149.24320195242763 M255.2668587591499 31.13916292525828 C255.00506010862438 54.565633939206606, 255.21262609573452 78.42604393325747, 255.01720564626157 148.93375069238246 M255.39895240071186 148.76185508249046 C179.27501406006056 148.86807210746014, 102.8941767904539 149.08995171180416, 31.032226571994542 149.0089453245773 M255.33953952310105 148.93719474809748 C193.38924980348406 149.18846568090905, 131.2415773665732 149.01876602760842, 30.94222414329183 149.10933117598074 M31.154903227835895 148.73371086642146 C31.225884730465708 110.9172427598387, 30.86132686818391 72.8663073375821, 31.056322414427996 31.339266853779556 M30.991766515001654 149.1614456448704 C30.899635501392186 115.0741414628923, 30.993869121558962 81.09140614382923, 31.17477255128324 31.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -706,12 +682,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -720,41 +696,35 @@ exports[`memory-viz cli produces consistent svg when provided filepath and stdou
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -848,7 +818,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         <path d="M25.16937510482967 24.905685232952237 L260.53187983743845 26.171632992103696 L261.0961618375033 154.62805812247097 L26.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.09089442385281 24.292275558975465 C85.88519848943396 24.862795733436798, 146.76626437513596 26.34404827854006, 260.4224681251733 24.480918238777445 M25.187761259160563 25.394483979611 C116.10190084525648 25.191004779075925, 209.2441122905986 26.359421881155946, 260.59498614974694 24.590221316417466 M259.81389331705867 24.244307739660144 C263.236963196937 59.11295747105032, 260.247526510898 94.5909650363028, 259.5120261300355 154.8133229445666 M262.0313265061006 25.96177598182112 C261.2559107468463 69.77587079815567, 260.75186743596566 114.02828291337937, 262.0946665441617 155.44875323120505 M261.901840334601 155.9079192060483 C196.3738714759362 156.69222964830053, 130.50960659356411 155.17063676637008, 24.207980852452245 153.7427956022492 M260.69542233405804 154.6879340367893 C203.64522313899798 157.68671836008562, 147.14971756322313 156.65586218593637, 24.441029600929877 155.47722072615804 M25.142140792682767 156.27820358984172 C26.212922306265682 121.20502475183457, 27.322862298693508 85.18492933362721, 26.775122391059995 23.932938857004046 M25.678110322915018 154.0633974308148 C23.08495348347351 115.83291779831052, 24.326906647812574 77.85893173422663, 25.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M31.033875020965933 30.981137046590447 L255.0663759674877 31.23432659842074 L255.17923236750065 148.9256116244942 L31.398725959286093 148.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.813847586551596 30.85508326402366 C88.39252640709246 30.967648265632242, 145.78420660426306 31.270955981955083, 255.04078919013403 30.89371055995703 M31.038446812407617 31.080776256133568 C118.07254568714406 31.0294354559302, 205.562874250508 31.268685625738172, 255.07611473150166 30.916091933731305 M254.92277866341172 30.848861547932028 C255.60632072439415 62.29195842053741, 255.00843338718636 93.85692685991526, 254.8624052260071 148.96266458891333 M255.3662653012201 31.192355196364225 C255.20808998457716 71.74971716329455, 255.107281322401 112.39474259000272, 255.37893330883233 149.08975064624101 M255.3437118807423 149.18590948714484 C193.26853947845004 149.33817970067125, 131.124505639061 149.02661172145184, 30.837822713135033 148.74256935720152 M255.09668048161652 148.93610001551968 C201.06738834837822 149.529555413239, 147.15167769419318 149.31847281758567, 30.88554278890896 149.0977177923585 M31.028428158536553 149.25564071796833 C31.22324716174975 118.22654932755975, 31.445235160235317 87.00807462111115, 31.355024478212 30.78658777140081 M31.135622064583004 148.81267948616295 C30.638635546747594 114.06537792496383, 30.887026179615408 79.36937507744878, 31.188466082327068 30.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -868,12 +838,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -882,41 +852,35 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -1037,7 +1001,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         <path d="M25.16937510482967 24.905685232952237 L260.53187983743845 26.171632992103696 L261.0961618375033 154.62805812247097 L26.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.09089442385281 24.292275558975465 C85.88519848943396 24.862795733436798, 146.76626437513596 26.34404827854006, 260.4224681251733 24.480918238777445 M25.187761259160563 25.394483979611 C116.10190084525648 25.191004779075925, 209.2441122905986 26.359421881155946, 260.59498614974694 24.590221316417466 M259.81389331705867 24.244307739660144 C263.236963196937 59.11295747105032, 260.247526510898 94.5909650363028, 259.5120261300355 154.8133229445666 M262.0313265061006 25.96177598182112 C261.2559107468463 69.77587079815567, 260.75186743596566 114.02828291337937, 262.0946665441617 155.44875323120505 M261.901840334601 155.9079192060483 C196.3738714759362 156.69222964830053, 130.50960659356411 155.17063676637008, 24.207980852452245 153.7427956022492 M260.69542233405804 154.6879340367893 C203.64522313899798 157.68671836008562, 147.14971756322313 156.65586218593637, 24.441029600929877 155.47722072615804 M25.142140792682767 156.27820358984172 C26.212922306265682 121.20502475183457, 27.322862298693508 85.18492933362721, 26.775122391059995 23.932938857004046 M25.678110322915018 154.0633974308148 C23.08495348347351 115.83291779831052, 24.326906647812574 77.85893173422663, 25.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M31.033875020965933 30.981137046590447 L255.0663759674877 31.23432659842074 L255.17923236750065 148.9256116244942 L31.398725959286093 148.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.813847586551596 30.85508326402366 C88.39252640709246 30.967648265632242, 145.78420660426306 31.270955981955083, 255.04078919013403 30.89371055995703 M31.038446812407617 31.080776256133568 C118.07254568714406 31.0294354559302, 205.562874250508 31.268685625738172, 255.07611473150166 30.916091933731305 M254.92277866341172 30.848861547932028 C255.60632072439415 62.29195842053741, 255.00843338718636 93.85692685991526, 254.8624052260071 148.96266458891333 M255.3662653012201 31.192355196364225 C255.20808998457716 71.74971716329455, 255.107281322401 112.39474259000272, 255.37893330883233 149.08975064624101 M255.3437118807423 149.18590948714484 C193.26853947845004 149.33817970067125, 131.124505639061 149.02661172145184, 30.837822713135033 148.74256935720152 M255.09668048161652 148.93610001551968 C201.06738834837822 149.529555413239, 147.15167769419318 149.31847281758567, 30.88554278890896 149.0977177923585 M31.028428158536553 149.25564071796833 C31.22324716174975 118.22654932755975, 31.445235160235317 87.00807462111115, 31.355024478212 30.78658777140081 M31.135622064583004 148.81267948616295 C30.638635546747594 114.06537792496383, 30.887026179615408 79.36937507744878, 31.188466082327068 30.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -1057,12 +1021,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -1071,41 +1035,35 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -1189,7 +1147,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         <path d="M25.16937510482967 24.905685232952237 L260.53187983743845 26.171632992103696 L261.0961618375033 154.62805812247097 L26.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="red" />
         <path d="M24.09089442385281 24.292275558975465 C85.88519848943396 24.862795733436798, 146.76626437513596 26.34404827854006, 260.4224681251733 24.480918238777445 M25.187761259160563 25.394483979611 C116.10190084525648 25.191004779075925, 209.2441122905986 26.359421881155946, 260.59498614974694 24.590221316417466 M259.81389331705867 24.244307739660144 C263.236963196937 59.11295747105032, 260.247526510898 94.5909650363028, 259.5120261300355 154.8133229445666 M262.0313265061006 25.96177598182112 C261.2559107468463 69.77587079815567, 260.75186743596566 114.02828291337937, 262.0946665441617 155.44875323120505 M261.901840334601 155.9079192060483 C196.3738714759362 156.69222964830053, 130.50960659356411 155.17063676637008, 24.207980852452245 153.7427956022492 M260.69542233405804 154.6879340367893 C203.64522313899798 157.68671836008562, 147.14971756322313 156.65586218593637, 24.441029600929877 155.47722072615804 M25.142140792682767 156.27820358984172 C26.212922306265682 121.20502475183457, 27.322862298693508 85.18492933362721, 26.775122391059995 23.932938857004046 M25.678110322915018 154.0633974308148 C23.08495348347351 115.83291779831052, 24.326906647812574 77.85893173422663, 25.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M31.033875020965933 30.981137046590447 L255.0663759674877 31.23432659842074 L255.17923236750065 148.9256116244942 L31.398725959286093 148.70078069902956" stroke="none" stroke-width="0" fill="red" />
         <path d="M30.813847586551596 30.85508326402366 C88.39252640709246 30.967648265632242, 145.78420660426306 31.270955981955083, 255.04078919013403 30.89371055995703 M31.038446812407617 31.080776256133568 C118.07254568714406 31.0294354559302, 205.562874250508 31.268685625738172, 255.07611473150166 30.916091933731305 M254.92277866341172 30.848861547932028 C255.60632072439415 62.29195842053741, 255.00843338718636 93.85692685991526, 254.8624052260071 148.96266458891333 M255.3662653012201 31.192355196364225 C255.20808998457716 71.74971716329455, 255.107281322401 112.39474259000272, 255.37893330883233 149.08975064624101 M255.3437118807423 149.18590948714484 C193.26853947845004 149.33817970067125, 131.124505639061 149.02661172145184, 30.837822713135033 148.74256935720152 M255.09668048161652 148.93610001551968 C201.06738834837822 149.529555413239, 147.15167769419318 149.31847281758567, 30.88554278890896 149.0977177923585 M31.028428158536553 149.25564071796833 C31.22324716174975 118.22654932755975, 31.445235160235317 87.00807462111115, 31.355024478212 30.78658777140081 M31.135622064583004 148.81267948616295 C30.638635546747594 114.06537792496383, 30.887026179615408 79.36937507744878, 31.188466082327068 30.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -1209,12 +1167,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -1223,41 +1181,35 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -1351,7 +1303,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         <path d="M25.16937510482967 24.905685232952237 L260.53187983743845 26.171632992103696 L261.0961618375033 154.62805812247097 L26.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.09089442385281 24.292275558975465 C85.88519848943396 24.862795733436798, 146.76626437513596 26.34404827854006, 260.4224681251733 24.480918238777445 M25.187761259160563 25.394483979611 C116.10190084525648 25.191004779075925, 209.2441122905986 26.359421881155946, 260.59498614974694 24.590221316417466 M259.81389331705867 24.244307739660144 C263.236963196937 59.11295747105032, 260.247526510898 94.5909650363028, 259.5120261300355 154.8133229445666 M262.0313265061006 25.96177598182112 C261.2559107468463 69.77587079815567, 260.75186743596566 114.02828291337937, 262.0946665441617 155.44875323120505 M261.901840334601 155.9079192060483 C196.3738714759362 156.69222964830053, 130.50960659356411 155.17063676637008, 24.207980852452245 153.7427956022492 M260.69542233405804 154.6879340367893 C203.64522313899798 157.68671836008562, 147.14971756322313 156.65586218593637, 24.441029600929877 155.47722072615804 M25.142140792682767 156.27820358984172 C26.212922306265682 121.20502475183457, 27.322862298693508 85.18492933362721, 26.775122391059995 23.932938857004046 M25.678110322915018 154.0633974308148 C23.08495348347351 115.83291779831052, 24.326906647812574 77.85893173422663, 25.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M31.033875020965933 30.981137046590447 L255.0663759674877 31.23432659842074 L255.17923236750065 148.9256116244942 L31.398725959286093 148.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.813847586551596 30.85508326402366 C88.39252640709246 30.967648265632242, 145.78420660426306 31.270955981955083, 255.04078919013403 30.89371055995703 M31.038446812407617 31.080776256133568 C118.07254568714406 31.0294354559302, 205.562874250508 31.268685625738172, 255.07611473150166 30.916091933731305 M254.92277866341172 30.848861547932028 C255.60632072439415 62.29195842053741, 255.00843338718636 93.85692685991526, 254.8624052260071 148.96266458891333 M255.3662653012201 31.192355196364225 C255.20808998457716 71.74971716329455, 255.107281322401 112.39474259000272, 255.37893330883233 149.08975064624101 M255.3437118807423 149.18590948714484 C193.26853947845004 149.33817970067125, 131.124505639061 149.02661172145184, 30.837822713135033 148.74256935720152 M255.09668048161652 148.93610001551968 C201.06738834837822 149.529555413239, 147.15167769419318 149.31847281758567, 30.88554278890896 149.0977177923585 M31.028428158536553 149.25564071796833 C31.22324716174975 118.22654932755975, 31.445235160235317 87.00807462111115, 31.355024478212 30.78658777140081 M31.135622064583004 148.81267948616295 C30.638635546747594 114.06537792496383, 30.887026179615408 79.36937507744878, 31.188466082327068 30.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -1371,12 +1323,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -1385,41 +1337,35 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -1503,7 +1449,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         <path d="M25.16937510482967 24.905685232952237 L260.53187983743845 26.171632992103696 L261.0961618375033 154.62805812247097 L26.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.09089442385281 24.292275558975465 C85.88519848943396 24.862795733436798, 146.76626437513596 26.34404827854006, 260.4224681251733 24.480918238777445 M25.187761259160563 25.394483979611 C116.10190084525648 25.191004779075925, 209.2441122905986 26.359421881155946, 260.59498614974694 24.590221316417466 M259.81389331705867 24.244307739660144 C263.236963196937 59.11295747105032, 260.247526510898 94.5909650363028, 259.5120261300355 154.8133229445666 M262.0313265061006 25.96177598182112 C261.2559107468463 69.77587079815567, 260.75186743596566 114.02828291337937, 262.0946665441617 155.44875323120505 M261.901840334601 155.9079192060483 C196.3738714759362 156.69222964830053, 130.50960659356411 155.17063676637008, 24.207980852452245 153.7427956022492 M260.69542233405804 154.6879340367893 C203.64522313899798 157.68671836008562, 147.14971756322313 156.65586218593637, 24.441029600929877 155.47722072615804 M25.142140792682767 156.27820358984172 C26.212922306265682 121.20502475183457, 27.322862298693508 85.18492933362721, 26.775122391059995 23.932938857004046 M25.678110322915018 154.0633974308148 C23.08495348347351 115.83291779831052, 24.326906647812574 77.85893173422663, 25.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M31.033875020965933 30.981137046590447 L255.0663759674877 31.23432659842074 L255.17923236750065 148.9256116244942 L31.398725959286093 148.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.813847586551596 30.85508326402366 C88.39252640709246 30.967648265632242, 145.78420660426306 31.270955981955083, 255.04078919013403 30.89371055995703 M31.038446812407617 31.080776256133568 C118.07254568714406 31.0294354559302, 205.562874250508 31.268685625738172, 255.07611473150166 30.916091933731305 M254.92277866341172 30.848861547932028 C255.60632072439415 62.29195842053741, 255.00843338718636 93.85692685991526, 254.8624052260071 148.96266458891333 M255.3662653012201 31.192355196364225 C255.20808998457716 71.74971716329455, 255.107281322401 112.39474259000272, 255.37893330883233 149.08975064624101 M255.3437118807423 149.18590948714484 C193.26853947845004 149.33817970067125, 131.124505639061 149.02661172145184, 30.837822713135033 148.74256935720152 M255.09668048161652 148.93610001551968 C201.06738834837822 149.529555413239, 147.15167769419318 149.31847281758567, 30.88554278890896 149.0977177923585 M31.028428158536553 149.25564071796833 C31.22324716174975 118.22654932755975, 31.445235160235317 87.00807462111115, 31.355024478212 30.78658777140081 M31.135622064583004 148.81267948616295 C30.638635546747594 114.06537792496383, 30.887026179615408 79.36937507744878, 31.188466082327068 30.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -1523,12 +1469,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -1537,41 +1483,35 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -1692,7 +1632,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         <path d="M25.16937510482967 24.905685232952237 L260.53187983743845 26.171632992103696 L261.0961618375033 154.62805812247097 L26.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.09089442385281 24.292275558975465 C85.88519848943396 24.862795733436798, 146.76626437513596 26.34404827854006, 260.4224681251733 24.480918238777445 M25.187761259160563 25.394483979611 C116.10190084525648 25.191004779075925, 209.2441122905986 26.359421881155946, 260.59498614974694 24.590221316417466 M259.81389331705867 24.244307739660144 C263.236963196937 59.11295747105032, 260.247526510898 94.5909650363028, 259.5120261300355 154.8133229445666 M262.0313265061006 25.96177598182112 C261.2559107468463 69.77587079815567, 260.75186743596566 114.02828291337937, 262.0946665441617 155.44875323120505 M261.901840334601 155.9079192060483 C196.3738714759362 156.69222964830053, 130.50960659356411 155.17063676637008, 24.207980852452245 153.7427956022492 M260.69542233405804 154.6879340367893 C203.64522313899798 157.68671836008562, 147.14971756322313 156.65586218593637, 24.441029600929877 155.47722072615804 M25.142140792682767 156.27820358984172 C26.212922306265682 121.20502475183457, 27.322862298693508 85.18492933362721, 26.775122391059995 23.932938857004046 M25.678110322915018 154.0633974308148 C23.08495348347351 115.83291779831052, 24.326906647812574 77.85893173422663, 25.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M31.033875020965933 30.981137046590447 L255.0663759674877 31.23432659842074 L255.17923236750065 148.9256116244942 L31.398725959286093 148.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.813847586551596 30.85508326402366 C88.39252640709246 30.967648265632242, 145.78420660426306 31.270955981955083, 255.04078919013403 30.89371055995703 M31.038446812407617 31.080776256133568 C118.07254568714406 31.0294354559302, 205.562874250508 31.268685625738172, 255.07611473150166 30.916091933731305 M254.92277866341172 30.848861547932028 C255.60632072439415 62.29195842053741, 255.00843338718636 93.85692685991526, 254.8624052260071 148.96266458891333 M255.3662653012201 31.192355196364225 C255.20808998457716 71.74971716329455, 255.107281322401 112.39474259000272, 255.37893330883233 149.08975064624101 M255.3437118807423 149.18590948714484 C193.26853947845004 149.33817970067125, 131.124505639061 149.02661172145184, 30.837822713135033 148.74256935720152 M255.09668048161652 148.93610001551968 C201.06738834837822 149.529555413239, 147.15167769419318 149.31847281758567, 30.88554278890896 149.0977177923585 M31.028428158536553 149.25564071796833 C31.22324716174975 118.22654932755975, 31.445235160235317 87.00807462111115, 31.355024478212 30.78658777140081 M31.135622064583004 148.81267948616295 C30.638635546747594 114.06537792496383, 30.887026179615408 79.36937507744878, 31.188466082327068 30.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -1712,12 +1652,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -1726,41 +1666,35 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -1844,7 +1778,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         <path d="M25.16937510482967 24.905685232952237 L260.53187983743845 26.171632992103696 L261.0961618375033 154.62805812247097 L26.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.09089442385281 24.292275558975465 C85.88519848943396 24.862795733436798, 146.76626437513596 26.34404827854006, 260.4224681251733 24.480918238777445 M25.187761259160563 25.394483979611 C116.10190084525648 25.191004779075925, 209.2441122905986 26.359421881155946, 260.59498614974694 24.590221316417466 M259.81389331705867 24.244307739660144 C263.236963196937 59.11295747105032, 260.247526510898 94.5909650363028, 259.5120261300355 154.8133229445666 M262.0313265061006 25.96177598182112 C261.2559107468463 69.77587079815567, 260.75186743596566 114.02828291337937, 262.0946665441617 155.44875323120505 M261.901840334601 155.9079192060483 C196.3738714759362 156.69222964830053, 130.50960659356411 155.17063676637008, 24.207980852452245 153.7427956022492 M260.69542233405804 154.6879340367893 C203.64522313899798 157.68671836008562, 147.14971756322313 156.65586218593637, 24.441029600929877 155.47722072615804 M25.142140792682767 156.27820358984172 C26.212922306265682 121.20502475183457, 27.322862298693508 85.18492933362721, 26.775122391059995 23.932938857004046 M25.678110322915018 154.0633974308148 C23.08495348347351 115.83291779831052, 24.326906647812574 77.85893173422663, 25.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M31.033875020965933 30.981137046590447 L255.0663759674877 31.23432659842074 L255.17923236750065 148.9256116244942 L31.398725959286093 148.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.813847586551596 30.85508326402366 C88.39252640709246 30.967648265632242, 145.78420660426306 31.270955981955083, 255.04078919013403 30.89371055995703 M31.038446812407617 31.080776256133568 C118.07254568714406 31.0294354559302, 205.562874250508 31.268685625738172, 255.07611473150166 30.916091933731305 M254.92277866341172 30.848861547932028 C255.60632072439415 62.29195842053741, 255.00843338718636 93.85692685991526, 254.8624052260071 148.96266458891333 M255.3662653012201 31.192355196364225 C255.20808998457716 71.74971716329455, 255.107281322401 112.39474259000272, 255.37893330883233 149.08975064624101 M255.3437118807423 149.18590948714484 C193.26853947845004 149.33817970067125, 131.124505639061 149.02661172145184, 30.837822713135033 148.74256935720152 M255.09668048161652 148.93610001551968 C201.06738834837822 149.529555413239, 147.15167769419318 149.31847281758567, 30.88554278890896 149.0977177923585 M31.028428158536553 149.25564071796833 C31.22324716174975 118.22654932755975, 31.445235160235317 87.00807462111115, 31.355024478212 30.78658777140081 M31.135622064583004 148.81267948616295 C30.638635546747594 114.06537792496383, 30.887026179615408 79.36937507744878, 31.188466082327068 30.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -1864,12 +1798,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -1878,41 +1812,35 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -2004,7 +1932,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         <path d="M25.16937510482967 24.905685232952237 L260.53187983743845 26.171632992103696 L261.0961618375033 154.62805812247097 L26.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.09089442385281 24.292275558975465 C85.88519848943396 24.862795733436798, 146.76626437513596 26.34404827854006, 260.4224681251733 24.480918238777445 M25.187761259160563 25.394483979611 C116.10190084525648 25.191004779075925, 209.2441122905986 26.359421881155946, 260.59498614974694 24.590221316417466 M259.81389331705867 24.244307739660144 C263.236963196937 59.11295747105032, 260.247526510898 94.5909650363028, 259.5120261300355 154.8133229445666 M262.0313265061006 25.96177598182112 C261.2559107468463 69.77587079815567, 260.75186743596566 114.02828291337937, 262.0946665441617 155.44875323120505 M261.901840334601 155.9079192060483 C196.3738714759362 156.69222964830053, 130.50960659356411 155.17063676637008, 24.207980852452245 153.7427956022492 M260.69542233405804 154.6879340367893 C203.64522313899798 157.68671836008562, 147.14971756322313 156.65586218593637, 24.441029600929877 155.47722072615804 M25.142140792682767 156.27820358984172 C26.212922306265682 121.20502475183457, 27.322862298693508 85.18492933362721, 26.775122391059995 23.932938857004046 M25.678110322915018 154.0633974308148 C23.08495348347351 115.83291779831052, 24.326906647812574 77.85893173422663, 25.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M31.033875020965933 30.981137046590447 L255.0663759674877 31.23432659842074 L255.17923236750065 148.9256116244942 L31.398725959286093 148.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.813847586551596 30.85508326402366 C88.39252640709246 30.967648265632242, 145.78420660426306 31.270955981955083, 255.04078919013403 30.89371055995703 M31.038446812407617 31.080776256133568 C118.07254568714406 31.0294354559302, 205.562874250508 31.268685625738172, 255.07611473150166 30.916091933731305 M254.92277866341172 30.848861547932028 C255.60632072439415 62.29195842053741, 255.00843338718636 93.85692685991526, 254.8624052260071 148.96266458891333 M255.3662653012201 31.192355196364225 C255.20808998457716 71.74971716329455, 255.107281322401 112.39474259000272, 255.37893330883233 149.08975064624101 M255.3437118807423 149.18590948714484 C193.26853947845004 149.33817970067125, 131.124505639061 149.02661172145184, 30.837822713135033 148.74256935720152 M255.09668048161652 148.93610001551968 C201.06738834837822 149.529555413239, 147.15167769419318 149.31847281758567, 30.88554278890896 149.0977177923585 M31.028428158536553 149.25564071796833 C31.22324716174975 118.22654932755975, 31.445235160235317 87.00807462111115, 31.355024478212 30.78658777140081 M31.135622064583004 148.81267948616295 C30.638635546747594 114.06537792496383, 30.887026179615408 79.36937507744878, 31.188466082327068 30.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -2024,12 +1952,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -2038,41 +1966,35 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -2156,7 +2078,7 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         <path d="M25.16937510482967 24.905685232952237 L260.53187983743845 26.171632992103696 L261.0961618375033 154.62805812247097 L26.99362979643047 153.50390349514782" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.09089442385281 24.292275558975465 C85.88519848943396 24.862795733436798, 146.76626437513596 26.34404827854006, 260.4224681251733 24.480918238777445 M25.187761259160563 25.394483979611 C116.10190084525648 25.191004779075925, 209.2441122905986 26.359421881155946, 260.59498614974694 24.590221316417466 M259.81389331705867 24.244307739660144 C263.236963196937 59.11295747105032, 260.247526510898 94.5909650363028, 259.5120261300355 154.8133229445666 M262.0313265061006 25.96177598182112 C261.2559107468463 69.77587079815567, 260.75186743596566 114.02828291337937, 262.0946665441617 155.44875323120505 M261.901840334601 155.9079192060483 C196.3738714759362 156.69222964830053, 130.50960659356411 155.17063676637008, 24.207980852452245 153.7427956022492 M260.69542233405804 154.6879340367893 C203.64522313899798 157.68671836008562, 147.14971756322313 156.65586218593637, 24.441029600929877 155.47722072615804 M25.142140792682767 156.27820358984172 C26.212922306265682 121.20502475183457, 27.322862298693508 85.18492933362721, 26.775122391059995 23.932938857004046 M25.678110322915018 154.0633974308148 C23.08495348347351 115.83291779831052, 24.326906647812574 77.85893173422663, 25.94233041163534 24.231300049461424" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M31.033875020965933 30.981137046590447 L255.0663759674877 31.23432659842074 L255.17923236750065 148.9256116244942 L31.398725959286093 148.70078069902956" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.813847586551596 30.85508326402366 C88.39252640709246 30.967648265632242, 145.78420660426306 31.270955981955083, 255.04078919013403 30.89371055995703 M31.038446812407617 31.080776256133568 C118.07254568714406 31.0294354559302, 205.562874250508 31.268685625738172, 255.07611473150166 30.916091933731305 M254.92277866341172 30.848861547932028 C255.60632072439415 62.29195842053741, 255.00843338718636 93.85692685991526, 254.8624052260071 148.96266458891333 M255.3662653012201 31.192355196364225 C255.20808998457716 71.74971716329455, 255.107281322401 112.39474259000272, 255.37893330883233 149.08975064624101 M255.3437118807423 149.18590948714484 C193.26853947845004 149.33817970067125, 131.124505639061 149.02661172145184, 30.837822713135033 148.74256935720152 M255.09668048161652 148.93610001551968 C201.06738834837822 149.529555413239, 147.15167769419318 149.31847281758567, 30.88554278890896 149.0977177923585 M31.028428158536553 149.25564071796833 C31.22324716174975 118.22654932755975, 31.445235160235317 87.00807462111115, 31.355024478212 30.78658777140081 M31.135622064583004 148.81267948616295 C30.638635546747594 114.06537792496383, 30.887026179615408 79.36937507744878, 31.188466082327068 30.846260009892283" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -2176,12 +2098,12 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -2190,41 +2112,35 @@ exports[`memory-viz cli produces consistent svg when provided filepath, output, 
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -2308,7 +2224,7 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
         <path d="M24.217092659324408 25.279758248478174 L261.41041228994726 25.811648044735193 L260.2627674125135 153.8457694388926 L25.136584784835577 156.0841487981379" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.885049220872773 24.52457146956466 C73.06651863331564 27.96476312756656, 121.09929719416427 25.969019422735247, 260.1119947265374 23.439965005305094 M25.459024721435735 24.592510824317536 C106.6521872686275 24.7697341600861, 189.17697099116717 25.62951614632561, 261.8869316447588 24.978830873543878 M259.4930372096598 24.19914748892188 C258.25436310935766 76.85851676948369, 259.60965149570256 129.70419204980135, 263.13592873588203 156.21600976213813 M261.53429379574953 25.695814626291394 C260.1599590005353 50.6619217954576, 261.197788936086 77.7977238651365, 260.28602823130785 154.66875346191227 M262.1716163949986 153.83698057721375 C182.23098601445975 154.33009031349323, 101.03574794717036 155.41367543498518, 25.15738370380284 155.0436859469239 M261.881463947709 154.69328034131698 C196.45247068818819 155.94484265520038, 130.05952683784344 155.11608680816107, 24.71784221043884 155.5339365732069 M25.774516139179468 153.6685543321073 C26.062636381201447 113.02729854546487, 24.23984706979245 71.21370618045329, 25.28161207213998 26.696334268897772 M24.958832575008273 155.807228224352 C24.47626833524555 117.65506849437952, 24.947436436079443 80.02575307898223, 25.8738627564162 25.229114966467023" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M30.84341853186488 31.055951649695636 L255.24208245798945 31.16232960894704 L255.01255348250268 148.76915388777851 L31.027316956967116 149.2168297596276" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.976462178295073 30.90264918543582 C76.98469393083647 31.588056507500557, 122.96247909762565 31.179399342671264, 254.97721530610556 30.680560446502632 M31.093991899257595 30.91656074333097 C108.9511595113202 30.947428784975756, 187.0809956693624 31.123481485539145, 255.3406591125399 30.99566531755629 M254.85860744193195 30.839829497784375 C254.6292247690484 77.97353395633401, 254.90028244631736 125.1444996148348, 255.5871857471764 149.24320195242763 M255.2668587591499 31.13916292525828 C255.00506010862438 54.565633939206606, 255.21262609573452 78.42604393325747, 255.01720564626157 148.93375069238246 M255.39895240071186 148.76185508249046 C179.27501406006056 148.86807210746014, 102.8941767904539 149.08995171180416, 31.032226571994542 149.0089453245773 M255.33953952310105 148.93719474809748 C193.38924980348406 149.18846568090905, 131.2415773665732 149.01876602760842, 30.94222414329183 149.10933117598074 M31.154903227835895 148.73371086642146 C31.225884730465708 110.9172427598387, 30.86132686818391 72.8663073375821, 31.056322414427996 31.339266853779556 M30.991766515001654 149.1614456448704 C30.899635501392186 115.0741414628923, 30.993869121558962 81.09140614382923, 31.17477255128324 31.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -2328,12 +2244,12 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -2342,41 +2258,35 @@ exports[`memory-viz cli produces consistent svg when provided stdin and output 1
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
@@ -2460,7 +2370,7 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
         <path d="M24.217092659324408 25.279758248478174 L261.41041228994726 25.811648044735193 L260.2627674125135 153.8457694388926 L25.136584784835577 156.0841487981379" stroke="none" stroke-width="0" fill="none" />
         <path d="M24.885049220872773 24.52457146956466 C73.06651863331564 27.96476312756656, 121.09929719416427 25.969019422735247, 260.1119947265374 23.439965005305094 M25.459024721435735 24.592510824317536 C106.6521872686275 24.7697341600861, 189.17697099116717 25.62951614632561, 261.8869316447588 24.978830873543878 M259.4930372096598 24.19914748892188 C258.25436310935766 76.85851676948369, 259.60965149570256 129.70419204980135, 263.13592873588203 156.21600976213813 M261.53429379574953 25.695814626291394 C260.1599590005353 50.6619217954576, 261.197788936086 77.7977238651365, 260.28602823130785 154.66875346191227 M262.1716163949986 153.83698057721375 C182.23098601445975 154.33009031349323, 101.03574794717036 155.41367543498518, 25.15738370380284 155.0436859469239 M261.881463947709 154.69328034131698 C196.45247068818819 155.94484265520038, 130.05952683784344 155.11608680816107, 24.71784221043884 155.5339365732069 M25.774516139179468 153.6685543321073 C26.062636381201447 113.02729854546487, 24.23984706979245 71.21370618045329, 25.28161207213998 26.696334268897772 M24.958832575008273 155.807228224352 C24.47626833524555 117.65506849437952, 24.947436436079443 80.02575307898223, 25.8738627564162 25.229114966467023" stroke="rgb(0, 0, 0)" stroke-width="1" fill="none" />
       </g>
-      <g id="object-0" data-memory-viz-object-id="19">
+      <g id="object-0" data-memory-viz-id="id19">
         <path d="M30.84341853186488 31.055951649695636 L255.24208245798945 31.16232960894704 L255.01255348250268 148.76915388777851 L31.027316956967116 149.2168297596276" stroke="none" stroke-width="0" fill="var(--highlight-box-fill)" />
         <path d="M30.976462178295073 30.90264918543582 C76.98469393083647 31.588056507500557, 122.96247909762565 31.179399342671264, 254.97721530610556 30.680560446502632 M31.093991899257595 30.91656074333097 C108.9511595113202 30.947428784975756, 187.0809956693624 31.123481485539145, 255.3406591125399 30.99566531755629 M254.85860744193195 30.839829497784375 C254.6292247690484 77.97353395633401, 254.90028244631736 125.1444996148348, 255.5871857471764 149.24320195242763 M255.2668587591499 31.13916292525828 C255.00506010862438 54.565633939206606, 255.21262609573452 78.42604393325747, 255.01720564626157 148.93375069238246 M255.39895240071186 148.76185508249046 C179.27501406006056 148.86807210746014, 102.8941767904539 149.08995171180416, 31.032226571994542 149.0089453245773 M255.33953952310105 148.93719474809748 C193.38924980348406 149.18846568090905, 131.2415773665732 149.01876602760842, 30.94222414329183 149.10933117598074 M31.154903227835895 148.73371086642146 C31.225884730465708 110.9172427598387, 30.86132686818391 72.8663073375821, 31.056322414427996 31.339266853779556 M30.991766515001654 149.1614456448704 C30.899635501392186 115.0741414628923, 30.993869121558962 81.09140614382923, 31.17477255128324 31.045822993293406" stroke="var(--highlight-box-line-color)" stroke-width="4" fill="none" />
       </g>
@@ -2480,12 +2390,12 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
       return textNode?.nodeValue?.trim() ?? "";
     }
 
-    function attachInteractivity(root, attr = MEMORY_VIZ_OBJECT_ID_ATTR) {
-      function buildIdToObjectMap(root, attr) {
+    function attachInteractivity(root, idAttr = MEMORY_VIZ_ID_ATTR) {
+      function buildIdToElementIdMap() {
         const map = new Map();
-        root.querySelectorAll(\`g[\${attr}]\`).forEach(el = & gt;
+        root.querySelectorAll(\`g[\${idAttr}]\`).forEach(el = & gt;
         {
-          const idKey = \`id\${el.getAttribute(attr)}\`;
+          const idKey = el.getAttribute(idAttr);
           if (!map.has(idKey)) {
             map.set(idKey, []);
           }
@@ -2494,41 +2404,35 @@ exports[`memory-viz cli produces consistent svg when provided stdin and stdout 1
         return map;
       }
 
-      function highlightObject(root, objectId) {
-        root.getElementById(objectId)?.classList.add("highlighted");
+      function highlightObject(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.add("highlighted"));
       }
 
-      function removeHighlight(root, objectId) {
-        root.getElementById(objectId)?.classList.remove("highlighted");
+      function removeHighlight(elementIds) {
+        elementIds.forEach(id = & gt; root.getElementById(id)?.classList.remove("highlighted"));
       }
 
-      function attachIdHoverListeners(root, idToObjectMap) {
+      function attachIdHoverListeners(idToElementsMap) {
         root.querySelectorAll("text.id").forEach(idText = & gt;
         {
           const idValue = extractIdValue(idText);
-          const objectIds = idToObjectMap.get(idValue);
-          if (!objectIds) {
+          const elementIds = idToElementsMap.get(idValue);
+          if (!elementIds) {
             return;
           }
-          idText.addEventListener("mouseover", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; highlightObject(root, objectId));
-          });
-          idText.addEventListener("mouseout", () = & gt;
-          {
-            objectIds.forEach(objectId = & gt; removeHighlight(root, objectId));
-          });
+          idText.addEventListener("mouseover", () = & gt; highlightObject(elementIds));
+          idText.addEventListener("mouseout", () = & gt; removeHighlight(elementIds));
         });
       }
-      const idToObjectMap = buildIdToObjectMap(root, attr);
-      attachIdHoverListeners(root, idToObjectMap);
+      const idToElementIdMap = buildIdToElementIdMap();
+      attachIdHoverListeners(idToElementIdMap);
     }
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-object-id'));
+      document.addEventListener('DOMContentLoaded', () = & gt; attachInteractivity(document, 'data-memory-viz-id'));
     } else {
-      attachInteractivity(document, 'data-memory-viz-object-id');
+      attachInteractivity(document, 'data-memory-viz-id');
     }
   </script>
 </svg>
