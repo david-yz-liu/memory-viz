@@ -17,6 +17,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### 📚 Documentation and demo website changes
 
+- Fixed a bug in `SvgDisplay` where overflowing objects would extend off the window
 - Updated demo website to match Webstepper's full window layout
 - Changed `SvgDisplay` zooming to match the props of `react-zoom-pan-pinch` v4.0.0
 - Removed line wrap and added a horizontal scrollbar for overflowing text to `MemoryModelsTextInput`
