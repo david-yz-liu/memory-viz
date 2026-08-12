@@ -11,6 +11,16 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### ✨ Enhancements
 
+### 🐛 Bug fixes
+
+### 📚 Documentation changes
+
+### 🔧 Internal changes
+
+## [0.11.0] - 2026-08-12
+
+### ✨ Enhancements
+
 - Removed resetting transformation state in `SvgDisplay`, so moving between steps doesn't move the camera's position
 - Added resizable panels using the new `react-resizable-panels` dependency
 
@@ -20,8 +30,6 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Removed an auto-centering bug within `SvgDisplay`
 - Changed `SvgDisplay` zooming to match the props of `react-zoom-pan-pinch` v4.0.0
 - Fixed a production build error on the webstepper website by explicitly setting `NODE_ENV=production` when running webpack
-
-### 📚 Documentation changes
 
 ### 🔧 Internal changes
 
