@@ -65,7 +65,7 @@
         "deepmerge": "^4.3.1",
         "i18next": "^23.15.0",
         "roughjs": "^4.6.6",
-        "zod": "^4.0.5"
+        "zod": "^4.6.6"
     },
     "devDependencies": {
         "@babel/core": "^8.0.1",
