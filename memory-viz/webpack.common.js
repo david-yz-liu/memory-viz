@@ -121,6 +121,7 @@ export const cliConfig = {
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "cli.js",
+        module: true,
         clean: false,
     },
     experiments: {
