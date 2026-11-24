@@ -59,7 +59,7 @@
         "@mui/icons-material": "^9.5.0",
         "@mui/material": "^9.5.0",
         "@picocss/pico": "^1.5.10",
-        "i18next": "^23.15.0",
+        "i18next": "^26.3.4",
         "memory-viz": "workspace:*",
         "react": "^19.2.7",
         "react-dom": "^19.2.7",
